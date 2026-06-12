@@ -1,5 +1,3 @@
-//Teste outra coisa
-// Outro teste
 public inherited sharing class AreaParticipanteController {
     @TestVisible static Exception testException;
 
@@ -7,10 +5,6 @@ public inherited sharing class AreaParticipanteController {
         String lang = UserInfo.getLanguage();
         return !String.isBlank(lang) && lang.toLowerCase().startsWith('en');
     }
-// Teste Jean
-//Teste Madruga
-//teste Marllon
-//outro disco voador
     private static String msg(String pt, String en) {
         return isEnglish() ? en : pt;
     }
