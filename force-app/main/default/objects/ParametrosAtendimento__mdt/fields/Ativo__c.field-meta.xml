@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ativo__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Habilita ou desabilita o conjunto de parâmetros da unidade de negócio.</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Ativo</label>
+    <type>Checkbox</type>
+</CustomField>

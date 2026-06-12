@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrigemAtuacao__c</fullName>
+    <description>Automática, Manual, Reabertura ou Reclassificação.</description>
+    <label>Origem da Área Participante</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Automática</fullName>
+                <default>true</default>
+                <label>Automática</label>
+            </value>
+            <value>
+                <fullName>Manual</fullName>
+                <default>false</default>
+                <label>Manual</label>
+            </value>
+            <value>
+                <fullName>Reabertura</fullName>
+                <default>false</default>
+                <label>Reabertura</label>
+            </value>
+            <value>
+                <fullName>Reclassificação</fullName>
+                <default>false</default>
+                <label>Reclassificação</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

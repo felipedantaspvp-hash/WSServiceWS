@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ReclamacaoGerada__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Evita duplicidade de geração do registro no objeto de reclamações quando Case de Salvador/Reclamação for encerrado.</description>
+    <label>Reclamação Gerada</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

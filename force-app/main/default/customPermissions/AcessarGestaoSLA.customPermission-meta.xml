@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permite acessar a futura tela de Gestão de SLA.</description>
+    <isLicensed>false</isLicensed>
+    <label>Acessar Gestão de SLA</label>
+</CustomPermission>

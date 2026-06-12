@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PesquisaEnviada__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indica que o envio foi realizado.</description>
+    <label>Pesquisa de Satisfação Enviada</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

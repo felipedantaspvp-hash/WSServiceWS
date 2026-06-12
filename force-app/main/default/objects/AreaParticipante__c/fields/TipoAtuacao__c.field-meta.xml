@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TipoAtuacao__c</fullName>
+    <description>Define se a Área Participante é de categorização, tratamento primário, área interna ou retorno ao cliente.</description>
+    <label>Tipo de Área Participante</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Categorização Inicial</fullName>
+                <default>true</default>
+                <label>Categorização Inicial</label>
+            </value>
+            <value>
+                <fullName>Tratamento Primário</fullName>
+                <default>false</default>
+                <label>Tratamento Primário</label>
+            </value>
+            <value>
+                <fullName>Área Interna</fullName>
+                <default>false</default>
+                <label>Área Interna</label>
+            </value>
+            <value>
+                <fullName>Retorno ao Cliente</fullName>
+                <default>false</default>
+                <label>Retorno ao Cliente</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PermitePesquisaSatisfacao__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Controla elegibilidade do contato para comunica es de pesquisa.</description>
+    <label>Permite Pesquisa de Satisfação</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

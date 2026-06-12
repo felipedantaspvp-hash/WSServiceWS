@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TipoRecorrencia__c</fullName>
+    <label>Tipo de Recorrência</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>NaoRecorrente</fullName>
+                <default>true</default>
+                <label>NaoRecorrente</label>
+            </value>
+            <value>
+                <fullName>Independente</fullName>
+                <default>false</default>
+                <label>Independente</label>
+            </value>
+            <value>
+                <fullName>Sequencial</fullName>
+                <default>false</default>
+                <label>Sequencial</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

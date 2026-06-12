@@ -1,0 +1,1235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>GestaoSLA_AccessDeniedMessage</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Access denied message</shortDescription>
+        <value>You do not have permission to access SLA Management.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_AccessDeniedTitle</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Access denied card title</shortDescription>
+        <value>Access Denied</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ApplicationEmailNew</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Application scope label for Email / New milestone</shortDescription>
+        <value>Application: Email / New</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ApplicationWhatsappChatNew</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Application scope label for WhatsApp or Chat / New milestone</shortDescription>
+        <value>Application: WhatsApp or Chat / New</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_BannerAlt</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Alternative text for the SLA Management banner image.</shortDescription>
+        <value>SLA Management banner</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_BusinessHours</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Label for the Business Hours field in the SLA Management workspace.</shortDescription>
+        <value>Business Hours</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryActions</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category actions column label</shortDescription>
+        <value>Actions</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryActiveColumn</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category active column label</shortDescription>
+        <value>Active</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryBusinessUnit</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category business unit column</shortDescription>
+        <value>Business Unit</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryCaseType</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category case type label</shortDescription>
+        <value>Case Type</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryConfigureSla</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category configure SLA action</shortDescription>
+        <value>Configure SLA</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryDeactivate</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category deactivate action</shortDescription>
+        <value>Deactivate</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryEdit</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category edit action</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryEmptyState</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category empty state</shortDescription>
+        <value>No categories found for the provided filters.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryFilterButton</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category filter button</shortDescription>
+        <value>Filter</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryFilterCaseTypeAll</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category all case type option</shortDescription>
+        <value>Case Type: All</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryFilterCategoryAll</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category all category option</shortDescription>
+        <value>Category: All</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryFilterStatusAll</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category all status option</shortDescription>
+        <value>Status: All</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryLabel</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category field label</shortDescription>
+        <value>Category</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryModalCancel</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category modal cancel button</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryModalEditTitle</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Edit categorization modal title</shortDescription>
+        <value>Edit Categorization</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryModalNewTitle</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New categorization modal title</shortDescription>
+        <value>New Categorization</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryModalSave</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category modal save button</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryModalSavingAlt</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category modal saving spinner alt</shortDescription>
+        <value>Saving categorization</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryModalSelectCaseType</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category modal select case type placeholder</shortDescription>
+        <value>Select case type</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryModalSelectCategory</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category modal select category placeholder</shortDescription>
+        <value>Select category</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryModalSelectSubject</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category modal select subject placeholder</shortDescription>
+        <value>Select subject</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryNewButton</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New categorization button</shortDescription>
+        <value>New Categorization</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryNoPriority</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category no priority option</shortDescription>
+        <value>No priority</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryNoSubsubject</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category no subsubject option</shortDescription>
+        <value>No subsubject</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryPaginationFirst</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category pagination first</shortDescription>
+        <value>First</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryPaginationLast</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category pagination last</shortDescription>
+        <value>Last</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryPaginationNext</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category pagination next</shortDescription>
+        <value>Next</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryPaginationPrevious</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category pagination previous</shortDescription>
+        <value>Previous</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryReactivateButton</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reactivate categorization button</shortDescription>
+        <value>Reactivate Categorization</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryReactivateModalConfirm</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reactivate categorization confirm button</shortDescription>
+        <value>Reactivate</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryReactivateModalEmpty</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reactivate categorization empty state</shortDescription>
+        <value>No inactive categorizations found for this SLA Management.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryReactivateModalLoadingAlt</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reactivate categorization modal loading spinner alt</shortDescription>
+        <value>Loading inactive categorizations</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryReactivateModalSelect</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reactivate categorization select column</shortDescription>
+        <value>Select</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryReactivateModalTitle</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reactivate categorization modal title</shortDescription>
+        <value>Reactivate Categorization</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryRulesCountSuffix</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category rules count suffix</shortDescription>
+        <value>rules</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategorySearchPlaceholder</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category search placeholder</shortDescription>
+        <value>Search categorization</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategorySlaRules</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category SLA rules column label</shortDescription>
+        <value>SLA Rules</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryStatusField</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category status field label</shortDescription>
+        <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryStatusOptionActive</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category active status option</shortDescription>
+        <value>Active</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryStatusOptionInactive</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category inactive status option</shortDescription>
+        <value>Inactive</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategorySubject</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category subject label</shortDescription>
+        <value>Subject</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategorySubsubject</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category subsubject label</shortDescription>
+        <value>Subsubject</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategorySuggestedPriority</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category suggested priority label</shortDescription>
+        <value>Suggested Priority</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategorySummaryActive</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Summary active categorizations suffix</shortDescription>
+        <value>active categorizations</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryTabTitle</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Service categories tab title</shortDescription>
+        <value>Service Categories</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ChatResponseTime</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Label for the chat response time field in the SLA Management workspace.</shortDescription>
+        <value>Chat Response Time</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CommonError</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Common error title</shortDescription>
+        <value>Error</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CommonInfo</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Common information toast title</shortDescription>
+        <value>Information</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CommonOf</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Common of label</shortDescription>
+        <value>of</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CommonSuccess</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Common success title</shortDescription>
+        <value>Success</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ConfirmDeactivateCategory</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Confirm deactivate categorization dialog message</shortDescription>
+        <value>Are you sure you want to deactivate this categorization?</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ConfirmDeactivateRule</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Confirm deactivate SLA rule dialog message</shortDescription>
+        <value>Are you sure you want to deactivate this SLA rule?</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_EditButton</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Button label to edit the selected SLA Management record.</shortDescription>
+        <value>Edit SLA Management</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_EditSettingsButton</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Button label to edit technical settings of the SLA Management record.</shortDescription>
+        <value>Edit Settings</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_EntitlementProcess</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Label for the Entitlement Process field in the SLA Management workspace.</shortDescription>
+        <value>Entitlement Process</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorCreateManagement</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error creating SLA Management message</shortDescription>
+        <value>Error creating SLA Management.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorDeactivateCategory</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category deactivate error message</shortDescription>
+        <value>Error deactivating categorization.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorDeactivateRule</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error deactivating SLA rule message</shortDescription>
+        <value>Error deactivating SLA rule.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorLoadCategories</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category load error message</shortDescription>
+        <value>Error loading Service Categories.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorLoadInactiveCategories</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Inactive categorizations load error message</shortDescription>
+        <value>Error loading inactive categorizations.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorLoadInactiveManagements</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error loading inactive SLA Managements message</shortDescription>
+        <value>Error loading inactive SLA Managements.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorLoadManagement</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error loading SLA Management message</shortDescription>
+        <value>Error loading SLA Management.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorLoadRules</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error loading SLA Rules message</shortDescription>
+        <value>Error loading SLA Rules.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorReactivateCategory</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reactivate categorization error message</shortDescription>
+        <value>Error reactivating categorization.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorReactivateManagement</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error reactivating SLA Management message</shortDescription>
+        <value>Error reactivating SLA Management.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorRuleAtLeastOneTime</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Rule validation error: at least one SLA time required</shortDescription>
+        <value>Enter at least one SLA time greater than zero.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorRuleCategoryRequired</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Rule validation error: categorization required for scope</shortDescription>
+        <value>Categorization is required for this scope.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorRuleInternalAreaRequired</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Rule validation error: internal area required for internal area scope</shortDescription>
+        <value>Internal area is required for internal area scope.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorRuleMilestoneRequired</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Rule validation error: SLA Milestone required</shortDescription>
+        <value>SLA Milestone is required.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorRuleScopeRequired</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Rule validation error: scope required</shortDescription>
+        <value>Rule scope is required.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorRuleTimesMustBePositive</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Rule validation error: filled times must be positive</shortDescription>
+        <value>Filled times must be greater than zero.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorRuleValidityEndBeforeStart</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Rule validation error: validity end before start</shortDescription>
+        <value>Validity end cannot be before validity start.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorSaveCategory</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category save error message</shortDescription>
+        <value>Error saving categorization.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorSaveRule</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error saving SLA rule message</shortDescription>
+        <value>Error saving SLA rule.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorSelectInactiveCategory</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select inactive categorization error message</shortDescription>
+        <value>Select an inactive categorization to reactivate.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorSelectInactiveManagement</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error select inactive SLA Management message</shortDescription>
+        <value>Select an inactive SLA Management to reactivate.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorSwitchManagement</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error switching SLA Management message</shortDescription>
+        <value>Error switching SLA Management.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorUpdateManagement</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error updating SLA Management message</shortDescription>
+        <value>Error updating SLA Management.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_FieldChatResponseTimeMin</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Chat response time in minutes field label</shortDescription>
+        <value>Chat Response Time (minutes)</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_FieldDescription</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description field label</shortDescription>
+        <value>Description</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_FieldName</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SLA Management name field label</shortDescription>
+        <value>SLA Management Name</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_FieldTriageTimeMin</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Triage time in minutes field label</shortDescription>
+        <value>Triage Time (minutes)</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_GlobalTime</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Global time label for milestone cards</shortDescription>
+        <value>Global Time</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_Label</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Base label for the SLA Management workspace.</shortDescription>
+        <value>SLA Management</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneChatResponseLabel</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Chat Response milestone name label</shortDescription>
+        <value>Chat Response</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneTriageLabel</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Triage milestone name label</shortDescription>
+        <value>Triage</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_NewButton</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Button label to create a new SLA Management record.</shortDescription>
+        <value>New SLA Management</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_NoManagementFoundAdmin</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No active SLA Management found message for admins</shortDescription>
+        <value>No active SLA Management found.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_NoManagementFoundUser</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No active SLA Management found message for regular users</shortDescription>
+        <value>No active SLA Management found. Contact a technical administrator.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_PlaceholderFutureFeature</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Placeholder message for features not yet available</shortDescription>
+        <value>This feature will be available in a future release.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ReactivateButton</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Button label to reactivate an inactive SLA Management record.</shortDescription>
+        <value>Reactivate Management</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ReactivateModalEmpty</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Empty state for reactivate management modal</shortDescription>
+        <value>No inactive SLA Management found.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ReactivateModalTitle</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reactivate SLA Management modal title</shortDescription>
+        <value>Reactivate SLA Management</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleColCategorization</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Categorization column header in rules table</shortDescription>
+        <value>Categorization</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleColInternalArea</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Internal Area column header in rules table</shortDescription>
+        <value>Internal Area</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleColMilestone</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SLA Milestone column header in rules table</shortDescription>
+        <value>SLA Milestone</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleColOrigin</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Origin column header in rules table</shortDescription>
+        <value>Origin</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleColScope</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Scope column header in rules table</shortDescription>
+        <value>Scope</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleColTimeHigh</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>High Priority Time column header in rules table</shortDescription>
+        <value>High Priority Time</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleColTimeLow</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Low Priority Time column header in rules table</shortDescription>
+        <value>Low Priority Time</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleColTimeMedium</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Medium Priority Time column header in rules table</shortDescription>
+        <value>Medium Priority Time</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleColValidity</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Validity column header in rules table</shortDescription>
+        <value>Validity</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleFilterCategorizacaoAll</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Categorization all option in rules filter</shortDescription>
+        <value>Categorization: All</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleFilterMilestoneAll</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SLA Milestone all option in rules filter</shortDescription>
+        <value>SLA Milestone: All</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleFilterOriginAll</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Origin all option in rules filter</shortDescription>
+        <value>Origin: All</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleFilterScopeAll</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Scope all option in rules filter</shortDescription>
+        <value>Scope: All</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleInternalAreaPlaceholder</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Placeholder for internal area filter input in rules panel</shortDescription>
+        <value>Internal area</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleModalEditTitle</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Edit SLA Rule modal title</shortDescription>
+        <value>Edit SLA Rule</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleNewButton</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New SLA Rule button and modal title</shortDescription>
+        <value>New SLA Rule</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RulePriorityHighMin</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Rule SLA modal label for high priority time in minutes</shortDescription>
+        <value>Priority High (Min)</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RulePriorityLowMin</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Rule SLA modal label for low priority time in minutes</shortDescription>
+        <value>Priority Low (Min)</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RulePriorityMediumMin</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Rule SLA modal label for medium priority time in minutes</shortDescription>
+        <value>Priority Medium (Min)</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleScope</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Rule SLA modal label for rule scope</shortDescription>
+        <value>Rule Scope</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleScopeByCategory</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>By Categorization scope option label</shortDescription>
+        <value>By Categorization</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleScopeByInternalArea</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>By Internal Area scope option label</shortDescription>
+        <value>By Internal Area</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleScopeGlobal</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Global scope option label</shortDescription>
+        <value>Global</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleSelectCategorization</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select a categorization placeholder in rule modal</shortDescription>
+        <value>Select a categorization</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RuleSelectMilestone</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select a milestone placeholder in rule modal</shortDescription>
+        <value>Select a milestone</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RulesClearFilter</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Clear categorization filter button in rules panel</shortDescription>
+        <value>Clear filter</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RulesEmptyState</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Empty state message for rules panel</shortDescription>
+        <value>No SLA rules found for this management.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RulesFilteredFor</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Rules filtered for categorization context prefix</shortDescription>
+        <value>Rules filtered for:</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RulesSpinnerLoading</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Loading spinner alt text for SLA rules panel</shortDescription>
+        <value>Loading SLA Rules</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_RulesTabTitle</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SLA Rules tab title</shortDescription>
+        <value>SLA Rules</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_SourceManagementLabel</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Source label for global time cards pointing to SLA Management</shortDescription>
+        <value>Source: SLA Management</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_SpinnerLoading</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Generic loading spinner alternative text</shortDescription>
+        <value>Loading</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_SpinnerSaving</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Generic saving spinner alternative text</shortDescription>
+        <value>Saving</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_SummaryAvailableMilestones</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Summary suffix for available milestones count.</shortDescription>
+        <value>available milestones</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_SummaryInternalAreasN3</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Summary suffix for internal N3 areas count.</shortDescription>
+        <value>internal areas for N3</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_SummaryLastUpdated</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Label for the last updated summary row.</shortDescription>
+        <value>Last updated</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_SummaryTitle</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Title of the SLA Management summary card.</shortDescription>
+        <value>SLA Management Summary</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_TechnicalSettingsTabTitle</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Technical Settings tab title</shortDescription>
+        <value>Technical Settings</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ToastCategoryCreated</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category created success toast</shortDescription>
+        <value>Categorization created successfully.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ToastCategoryDeactivated</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category deactivated success toast</shortDescription>
+        <value>Categorization deactivated successfully.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ToastCategoryReactivated</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category reactivated success toast</shortDescription>
+        <value>Categorization reactivated successfully.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ToastCategoryUpdated</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category updated success toast</shortDescription>
+        <value>Categorization updated successfully.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ToastManagementCreated</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SLA Management created success toast</shortDescription>
+        <value>SLA Management created successfully.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ToastManagementReactivated</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SLA Management reactivated success toast</shortDescription>
+        <value>SLA Management reactivated successfully.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ToastManagementUpdated</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SLA Management updated success toast</shortDescription>
+        <value>SLA Management updated successfully.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ToastRuleCreated</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SLA rule created success toast</shortDescription>
+        <value>SLA rule created successfully.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ToastRuleDeactivated</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SLA rule deactivated success toast</shortDescription>
+        <value>SLA rule deactivated successfully.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ToastRuleUpdated</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SLA rule updated success toast</shortDescription>
+        <value>SLA rule updated successfully.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_Today</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Current-day summary marker.</shortDescription>
+        <value>today</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_TriageTime</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Label for the triage time field in the SLA Management workspace.</shortDescription>
+        <value>Triage Time</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ValidityNoEnd</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No end date label for validity display</shortDescription>
+        <value>No end</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ValidityNoStart</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No start date label for validity display</shortDescription>
+        <value>No start</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ValidityOpen</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Open validity label for rules with no start or end date</shortDescription>
+        <value>Open</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ValidityUntil</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Until connector word for validity date range display</shortDescription>
+        <value>until</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ViewReports</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Button label to view reports from the SLA Management summary card.</shortDescription>
+        <value>View reports</value>
+    </labels>
+</CustomLabels>

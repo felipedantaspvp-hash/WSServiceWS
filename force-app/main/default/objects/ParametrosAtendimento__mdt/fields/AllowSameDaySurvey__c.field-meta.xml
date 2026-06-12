@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AllowSameDaySurvey__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Permite enviar survey no mesmo dia do encerramento do atendimento.</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Permitir Survey no Mesmo Dia</label>
+    <type>Checkbox</type>
+</CustomField>

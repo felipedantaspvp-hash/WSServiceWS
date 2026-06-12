@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GestaoSLA__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Relaciona a categorização ao contexto de Gestão de SLA responsável por seus marcos, regras e configurações de atendimento.</description>
+    <inlineHelpText>Gestão de SLA à qual esta categorização pertence.</inlineHelpText>
+    <label>Gestão de SLA</label>
+    <referenceTo>GestaoSLA__c</referenceTo>
+    <relationshipLabel>Categorizações</relationshipLabel>
+    <relationshipName>Categorizacoes</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

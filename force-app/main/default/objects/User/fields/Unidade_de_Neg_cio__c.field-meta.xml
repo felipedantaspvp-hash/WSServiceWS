@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unidade_de_Neg_cio__c</fullName>
+    <label>Unidade de Negócio</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Tecon Rio Grande</fullName>
+                <default>false</default>
+                <label>Tecon Rio Grande</label>
+            </value>
+            <value>
+                <fullName>Tecon Salvador</fullName>
+                <default>false</default>
+                <label>Tecon Salvador</label>
+            </value>
+            <value>
+                <fullName>Wilsons Sons - Tecon RG</fullName>
+                <default>false</default>
+                <label>Wilsons Sons - Tecon RG</label>
+            </value>
+            <value>
+                <fullName>Wilsons Sons - Tecon SV</fullName>
+                <default>false</default>
+                <label>Wilsons Sons - Tecon SV</label>
+            </value>
+            <value>
+                <fullName>Rebocadores</fullName>
+                <default>false</default>
+                <label>Rebocadores</label>
+            </value>
+            <value>
+                <fullName>Logística</fullName>
+                <default>false</default>
+                <label>Logística</label>
+            </value>
+            <value>
+                <fullName>Rio Grande</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Rio Grande</label>
+            </value>
+            <value>
+                <fullName>Salvador</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Salvador</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ContaRepresentadaAtual__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Permite ajuste operacional da empresa representada no contexto do atendimento.</description>
+    <label>Conta Representada Atual</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Contatos Representados</relationshipLabel>
+    <relationshipName>ContatosRepresentados</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

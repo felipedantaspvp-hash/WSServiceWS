@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MarcoSLA__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Relaciona a regra ao marco de SLA configurado para a Gestão de SLA.</description>
+    <inlineHelpText>Marco de SLA ao qual esta regra se aplica.</inlineHelpText>
+    <label>Marco SLA</label>
+    <referenceTo>MarcoSLA__c</referenceTo>
+    <relationshipLabel>Regras de SLA</relationshipLabel>
+    <relationshipName>RegrasSLA</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

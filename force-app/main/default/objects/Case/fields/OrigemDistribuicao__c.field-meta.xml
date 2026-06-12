@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrigemDistribuicao__c</fullName>
+    <description>Valores sugeridos: Categorização, Seleção Manual, Rota de E-mail, Bot, Formulário, Agendamento.</description>
+    <label>Origem Distribuição</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Categorização</fullName>
+                <default>true</default>
+                <label>Categorização</label>
+            </value>
+            <value>
+                <fullName>Seleção Manual</fullName>
+                <default>false</default>
+                <label>Seleção Manual</label>
+            </value>
+            <value>
+                <fullName>Rota de E-mail</fullName>
+                <default>false</default>
+                <label>Rota de E-mail</label>
+            </value>
+            <value>
+                <fullName>Bot</fullName>
+                <default>false</default>
+                <label>Bot</label>
+            </value>
+            <value>
+                <fullName>Formulário</fullName>
+                <default>false</default>
+                <label>Formulário</label>
+            </value>
+            <value>
+                <fullName>Agendamento</fullName>
+                <default>false</default>
+                <label>Agendamento</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

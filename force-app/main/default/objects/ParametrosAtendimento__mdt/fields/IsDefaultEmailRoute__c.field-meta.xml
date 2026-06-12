@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsDefaultEmailRoute__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indica se a rota de e-mail é a rota padrão da unidade.</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Rota de E-mail Padrão</label>
+    <type>Checkbox</type>
+</CustomField>

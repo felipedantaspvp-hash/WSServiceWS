@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ShowDailySurveyIndicator__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Controla a exibição do indicador diário de survey.</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Exibir Indicador de Envio Diário</label>
+    <type>Checkbox</type>
+</CustomField>

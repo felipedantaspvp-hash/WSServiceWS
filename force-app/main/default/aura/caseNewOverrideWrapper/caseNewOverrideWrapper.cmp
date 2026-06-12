@@ -1,0 +1,6 @@
+<aura:component
+    implements="lightning:actionOverride,force:hasSObjectName,lightning:isUrlAddressable,flexipage:availableForAllPageTypes"
+    access="global"
+>
+    <c:caseNewCategorization />
+</aura:component>

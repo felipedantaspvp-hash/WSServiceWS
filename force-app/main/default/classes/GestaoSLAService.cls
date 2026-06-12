@@ -1,0 +1,1081 @@
+public inherited sharing class GestaoSLAService {
+    public class FunctionalException extends Exception {}
+    private static final String ORIGEM_QUALQUER = 'Qualquer';
+
+    public static GestaoSLADTO.BootstrapResponse getBootstrap() {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+
+        GestaoSLADTO.BootstrapResponse response = new GestaoSLADTO.BootstrapResponse();
+        response.permissions = perms;
+        response.gestoes = new List<GestaoSLADTO.GestaoResumo>();
+        response.unidadeNegocioOptions = getActivePicklistValues(GestaoSLA__c.UnidadeNegocio__c);
+        response.tipoCasoOptions = getActivePicklistValues(Categorizacao__c.TipoCaso__c);
+        response.categoriaPicklistOptions = getActivePicklistValues(Categorizacao__c.Categoria__c);
+        response.assuntoOptions = getActivePicklistValues(Categorizacao__c.Assunto__c);
+        response.subassuntoOptions = getActivePicklistValues(Categorizacao__c.Subassunto__c);
+
+        for (GestaoSLA__c row : [
+            SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
+                   TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, StaticResourceName__c,
+                   Ativo__c, Descricao__c
+            FROM GestaoSLA__c
+            WHERE Ativo__c = true
+            ORDER BY Name
+        ]) {
+            response.gestoes.add(toGestaoResumo(row, perms.canAdminTechnicalSettings));
+        }
+        return response;
+    }
+
+    public static GestaoSLADTO.GestaoDetailResponse getGestaoDetail(Id gestaoSLAId) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        if (gestaoSLAId == null) {
+            throw new FunctionalException('Gestão de SLA não informada.');
+        }
+
+        List<GestaoSLA__c> rows = [
+            SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
+                   TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, StaticResourceName__c,
+                   Ativo__c, Descricao__c
+            FROM GestaoSLA__c
+            WHERE Id = :gestaoSLAId
+            LIMIT 1
+        ];
+        if (rows.isEmpty()) {
+            throw new FunctionalException('Gestão de SLA não encontrada.');
+        }
+
+        Integer totalCategorias = [SELECT Count() FROM Categorizacao__c WHERE GestaoSLA__c = :gestaoSLAId];
+        Integer totalMarcosAtivos = [SELECT Count() FROM MarcoSLA__c WHERE GestaoSLA__c = :gestaoSLAId AND Ativo__c = true];
+        Integer totalRegrasAtivas = [SELECT Count() FROM RegrasSLACategorizacao__c WHERE GestaoSLA__c = :gestaoSLAId AND Ativo__c = true];
+
+        GestaoSLADTO.GestaoDetailResponse response = new GestaoSLADTO.GestaoDetailResponse();
+        response.permissions = perms;
+        response.gestao = toGestaoResumo(rows[0], perms.canAdminTechnicalSettings);
+        response.summary = new GestaoSLADTO.SummaryInfo();
+        response.summary.totalCategorias = totalCategorias;
+        response.summary.totalMarcosAtivos = totalMarcosAtivos;
+        response.summary.totalRegrasAtivas = totalRegrasAtivas;
+        return response;
+    }
+
+    public static GestaoSLADTO.CategoriasResponse getCategorias(
+        Id gestaoSLAId,
+        String searchTerm,
+        String tipoCaso,
+        String categoria,
+        Boolean ativo
+    ) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        if (gestaoSLAId == null) {
+            throw new FunctionalException('Gestão de SLA não informada.');
+        }
+
+        List<Categorizacao__c> categoriasRows = [
+            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c,
+                   Subassunto__c, Prioridade__c, Ativo__c
+            FROM Categorizacao__c
+            WHERE GestaoSLA__c = :gestaoSLAId
+            ORDER BY Name
+        ];
+
+        Map<Id, Integer> regrasAtivasByCateg = new Map<Id, Integer>();
+        for (AggregateResult ar : [
+            SELECT Categorizacao__c categId, Count(Id) total
+            FROM RegrasSLACategorizacao__c
+            WHERE GestaoSLA__c = :gestaoSLAId
+              AND Ativo__c = true
+              AND Categorizacao__c != null
+            GROUP BY Categorizacao__c
+        ]) {
+            regrasAtivasByCateg.put((Id) ar.get('categId'), (Integer) ar.get('total'));
+        }
+
+        String normalizedSearch = GestaoSLAHelper.normalizeText(searchTerm);
+        String normalizedTipoCaso = GestaoSLAHelper.normalizeText(tipoCaso);
+        String normalizedCategoria = GestaoSLAHelper.normalizeText(categoria);
+
+        GestaoSLADTO.CategoriasResponse response = new GestaoSLADTO.CategoriasResponse();
+        response.permissions = perms;
+        response.categorias = new List<GestaoSLADTO.CategoriaResumo>();
+
+        for (Categorizacao__c row : categoriasRows) {
+            if (!String.isBlank(normalizedSearch)) {
+                String haystack = GestaoSLAHelper.normalizeText(
+                    String.valueOf(row.Name) + ' ' + String.valueOf(row.Categoria__c) + ' ' +
+                    String.valueOf(row.Assunto__c) + ' ' + String.valueOf(row.Subassunto__c)
+                );
+                if (!haystack.contains(normalizedSearch)) continue;
+            }
+            if (!String.isBlank(normalizedTipoCaso) && GestaoSLAHelper.normalizeText(row.TipoCaso__c) != normalizedTipoCaso) continue;
+            if (!String.isBlank(normalizedCategoria) && GestaoSLAHelper.normalizeText(row.Categoria__c) != normalizedCategoria) continue;
+            if (ativo != null && row.Ativo__c != ativo) continue;
+
+            GestaoSLADTO.CategoriaResumo dto = new GestaoSLADTO.CategoriaResumo();
+            dto.id = row.Id;
+            dto.name = row.Name;
+            dto.unidadeNegocio = row.UnidadeNegocios__c;
+            dto.tipoCaso = row.TipoCaso__c;
+            dto.categoria = row.Categoria__c;
+            dto.assunto = row.Assunto__c;
+            dto.subassunto = row.Subassunto__c;
+            dto.prioridadeSugerida = row.Prioridade__c;
+            dto.ativo = row.Ativo__c;
+            dto.totalRegrasAtivas = regrasAtivasByCateg.containsKey(row.Id) ? regrasAtivasByCateg.get(row.Id) : 0;
+            response.categorias.add(dto);
+        }
+
+        return response;
+    }
+
+    public static GestaoSLADTO.MarcosResponse getMarcos(Id gestaoSLAId) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        if (gestaoSLAId == null) {
+            throw new FunctionalException('Gestão de SLA não informada.');
+        }
+
+        GestaoSLADTO.MarcosResponse response = new GestaoSLADTO.MarcosResponse();
+        response.permissions = perms;
+        response.marcos = new List<GestaoSLADTO.MarcoResumo>();
+
+        for (MarcoSLA__c row : [
+            SELECT Id, Name, GestaoSLA__c, NomeMarco__c, MilestoneTypeName__c, FonteTempo__c,
+                   Ordem__c, Recorrente__c, TipoRecorrencia__c, UsaCategorizacao__c,
+                   UsaAreaInterna__c, UsaOrigem__c, Ativo__c
+            FROM MarcoSLA__c
+            WHERE GestaoSLA__c = :gestaoSLAId
+            ORDER BY Ordem__c, Name
+        ]) {
+            GestaoSLADTO.MarcoResumo dto = new GestaoSLADTO.MarcoResumo();
+            dto.id = row.Id;
+            dto.name = row.Name;
+            dto.nomeMarco = row.NomeMarco__c;
+            dto.milestoneTypeName = perms.canAdminTechnicalSettings ? row.MilestoneTypeName__c : null;
+            dto.fonteTempo = row.FonteTempo__c;
+            dto.ordem = row.Ordem__c;
+            dto.recorrente = row.Recorrente__c;
+            dto.tipoRecorrencia = row.TipoRecorrencia__c;
+            dto.usaCategorizacao = row.UsaCategorizacao__c;
+            dto.usaAreaInterna = row.UsaAreaInterna__c;
+            dto.usaOrigem = row.UsaOrigem__c;
+            dto.ativo = row.Ativo__c;
+            response.marcos.add(dto);
+        }
+
+        return response;
+    }
+
+    public static GestaoSLADTO.RegrasSLAResponse getRegrasSLA(
+        Id gestaoSLAId,
+        Id categorizacaoId,
+        Id marcoSLAId,
+        String escopo,
+        String areaAtendimento,
+        String origem,
+        Boolean ativo
+    ) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        if (gestaoSLAId == null) {
+            throw new FunctionalException('Gestão de SLA não informada.');
+        }
+
+        String normalizedEscopo = normalizeOptionalFilter(escopo);
+        String normalizedArea = normalizeOptionalFilter(areaAtendimento);
+        String normalizedOrigem = normalizeOptionalFilter(origem);
+
+        GestaoSLADTO.RegrasSLAResponse response = new GestaoSLADTO.RegrasSLAResponse();
+        response.permissions = perms;
+        response.regras = new List<GestaoSLADTO.RegraSLAResumo>();
+
+        for (RegrasSLACategorizacao__c row : [
+            SELECT Id, GestaoSLA__c, Categorizacao__c, Categorizacao__r.Name,
+                   Categorizacao__r.Categoria__c, Categorizacao__r.Assunto__c, Categorizacao__r.Subassunto__c,
+                   MarcoSLA__c, MarcoSLA__r.Name, MarcoSLA__r.NomeMarco__c, MarcoSLA__r.Ordem__c,
+                   EscopoRegra__c, AreaAtendimento__c, Origem__c,
+                   TempoBaixa__c, TempoMedia__c, TempoAlta__c,
+                   VigenciaInicio__c, VigenciaFim__c, Ativo__c
+            FROM RegrasSLACategorizacao__c
+            WHERE GestaoSLA__c = :gestaoSLAId
+            ORDER BY MarcoSLA__r.Ordem__c, Categorizacao__r.Name, AreaAtendimento__c, Origem__c
+        ]) {
+            if (categorizacaoId != null && row.Categorizacao__c != categorizacaoId) continue;
+            if (marcoSLAId != null && row.MarcoSLA__c != marcoSLAId) continue;
+            if (ativo != null && row.Ativo__c != ativo) continue;
+            if (!String.isBlank(normalizedEscopo) && GestaoSLAHelper.normalizeText(row.EscopoRegra__c) != normalizedEscopo) continue;
+            if (!String.isBlank(normalizedArea) && GestaoSLAHelper.normalizeText(row.AreaAtendimento__c) != normalizedArea) continue;
+            if (!String.isBlank(normalizedOrigem) && GestaoSLAHelper.normalizeText(row.Origem__c) != normalizedOrigem) continue;
+
+            response.regras.add(toRegraSLAResumo(row));
+        }
+
+        return response;
+    }
+
+    public static GestaoSLADTO.RegraSLAResumo createRegraSLA(GestaoSLADTO.RegraSLARequest request) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        ensureCanManageRules(perms);
+        validateRegraSLARequest(request, false);
+
+        validateRegraReferences(request);
+        request.ativo = true;
+        validateRegraDuplicateActive(request, null);
+
+        RegrasSLACategorizacao__c row = new RegrasSLACategorizacao__c(
+            GestaoSLA__c = request.gestaoSLAId,
+            Categorizacao__c = request.categorizacaoId,
+            MarcoSLA__c = request.marcoSLAId,
+            EscopoRegra__c = request.escopoRegra,
+            AreaAtendimento__c = normalizeOptionalText(request.areaAtendimento),
+            Origem__c = normalizeOrigem(request.origem),
+            TempoBaixa__c = request.tempoBaixa,
+            TempoMedia__c = request.tempoMedia,
+            TempoAlta__c = request.tempoAlta,
+            VigenciaInicio__c = request.vigenciaInicio,
+            VigenciaFim__c = request.vigenciaFim,
+            Ativo__c = true
+        );
+        insert row;
+        return loadRegraResumoById(row.Id);
+    }
+
+    public static GestaoSLADTO.RegraSLAResumo updateRegraSLA(GestaoSLADTO.RegraSLARequest request) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        ensureCanManageRules(perms);
+        if (request == null || request.id == null) {
+            throw new FunctionalException('Regra de SLA não encontrada.');
+        }
+        validateRegraSLARequest(request, true);
+
+        List<RegrasSLACategorizacao__c> rows = [
+            SELECT Id, GestaoSLA__c, Ativo__c
+            FROM RegrasSLACategorizacao__c
+            WHERE Id = :request.id
+            LIMIT 1
+        ];
+        if (rows.isEmpty()) {
+            throw new FunctionalException('Regra de SLA não encontrada.');
+        }
+        if (request.gestaoSLAId == null || request.gestaoSLAId != rows[0].GestaoSLA__c) {
+            throw new FunctionalException('Gestão de SLA não informada.');
+        }
+
+        request.ativo = rows[0].Ativo__c;
+        validateRegraReferences(request);
+        validateRegraDuplicateActive(request, request.id);
+
+        RegrasSLACategorizacao__c row = new RegrasSLACategorizacao__c(
+            Id = request.id,
+            Categorizacao__c = request.categorizacaoId,
+            MarcoSLA__c = request.marcoSLAId,
+            EscopoRegra__c = request.escopoRegra,
+            AreaAtendimento__c = normalizeOptionalText(request.areaAtendimento),
+            Origem__c = normalizeOrigem(request.origem),
+            TempoBaixa__c = request.tempoBaixa,
+            TempoMedia__c = request.tempoMedia,
+            TempoAlta__c = request.tempoAlta,
+            VigenciaInicio__c = request.vigenciaInicio,
+            VigenciaFim__c = request.vigenciaFim,
+            Ativo__c = rows[0].Ativo__c
+        );
+        update row;
+        return loadRegraResumoById(row.Id);
+    }
+
+    public static GestaoSLADTO.RegraSLAResumo deactivateRegraSLA(Id regraSLAId) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        ensureCanManageRules(perms);
+        if (regraSLAId == null) {
+            throw new FunctionalException('Regra de SLA não encontrada.');
+        }
+
+        List<RegrasSLACategorizacao__c> rows = [
+            SELECT Id, Ativo__c
+            FROM RegrasSLACategorizacao__c
+            WHERE Id = :regraSLAId
+            LIMIT 1
+        ];
+        if (rows.isEmpty()) {
+            throw new FunctionalException('Regra de SLA não encontrada.');
+        }
+
+        RegrasSLACategorizacao__c row = rows[0];
+        row.Ativo__c = false;
+        update row;
+        return loadRegraResumoById(row.Id);
+    }
+
+    public static GestaoSLADTO.CategoriaResumo createCategoria(GestaoSLADTO.CategoriaRequest request) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        ensureCanManageCategories(perms);
+        validateCategoriaRequest(request, false);
+
+        GestaoSLA__c gestao = loadGestaoOrThrow(request.gestaoSLAId);
+        String prioridade = String.isBlank(request.prioridadeSugerida)
+            ? null
+            : normalizePrioridadeOrThrow(request.prioridadeSugerida);
+        String subassunto = String.isBlank(request.subassunto) ? null : request.subassunto.trim();
+        validateCategoriaDuplicateActive(
+            request.gestaoSLAId,
+            request.tipoCaso,
+            request.categoria,
+            request.assunto,
+            subassunto,
+            null
+        );
+
+        Categorizacao__c row = new Categorizacao__c(
+            GestaoSLA__c = request.gestaoSLAId,
+            UnidadeNegocios__c = normalizeUnidadeNegocioForCategorizacao(gestao.UnidadeNegocio__c),
+            TipoCaso__c = request.tipoCaso.trim(),
+            Categoria__c = request.categoria.trim(),
+            Assunto__c = request.assunto.trim(),
+            Subassunto__c = subassunto,
+            Prioridade__c = prioridade,
+            Ativo__c = request.ativo == null ? true : request.ativo
+        );
+        insert row;
+        return toCategoriaResumo(row, 0);
+    }
+
+    public static GestaoSLADTO.CategoriaResumo updateCategoria(GestaoSLADTO.CategoriaRequest request) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        ensureCanManageCategories(perms);
+        if (request == null || request.id == null) {
+            throw new FunctionalException('Categorização não encontrada.');
+        }
+        validateCategoriaRequest(request, true);
+
+        List<Categorizacao__c> rows = [
+            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c
+            FROM Categorizacao__c
+            WHERE Id = :request.id
+            LIMIT 1
+        ];
+        if (rows.isEmpty()) {
+            throw new FunctionalException('Categorização não encontrada.');
+        }
+
+        Categorizacao__c existing = rows[0];
+        if (request.gestaoSLAId == null || request.gestaoSLAId != existing.GestaoSLA__c) {
+            throw new FunctionalException('Gestão de SLA não informada.');
+        }
+        GestaoSLA__c gestao = loadGestaoOrThrow(existing.GestaoSLA__c);
+        String prioridade = String.isBlank(request.prioridadeSugerida)
+            ? null
+            : normalizePrioridadeOrThrow(request.prioridadeSugerida);
+        String subassunto = String.isBlank(request.subassunto) ? null : request.subassunto.trim();
+
+        validateCategoriaDuplicateActive(
+            existing.GestaoSLA__c,
+            request.tipoCaso,
+            request.categoria,
+            request.assunto,
+            subassunto,
+            existing.Id
+        );
+
+        // UnidadeNegocios__c is a mirrored classification attribute and is not editable in this flow.
+        // Preserve the stored value to avoid cross-object picklist mismatch in update operations.
+        existing.TipoCaso__c = request.tipoCaso.trim();
+        existing.Categoria__c = request.categoria.trim();
+        existing.Assunto__c = request.assunto.trim();
+        existing.Subassunto__c = subassunto;
+        existing.Prioridade__c = prioridade;
+        existing.Ativo__c = request.ativo == null ? existing.Ativo__c : request.ativo;
+        update existing;
+        return toCategoriaResumo(existing, 0);
+    }
+
+    public static GestaoSLADTO.CategoriaResumo deactivateCategoria(Id categoriaId) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        ensureCanManageCategories(perms);
+        if (categoriaId == null) {
+            throw new FunctionalException('Categorização não encontrada.');
+        }
+
+        List<Categorizacao__c> rows = [
+            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c
+            FROM Categorizacao__c
+            WHERE Id = :categoriaId
+            LIMIT 1
+        ];
+        if (rows.isEmpty()) {
+            throw new FunctionalException('Categorização não encontrada.');
+        }
+
+        Categorizacao__c row = rows[0];
+        row.Ativo__c = false;
+        row.MotivoInativacao__c = 'Inativação via Gestão de SLA';
+        update row;
+        return toCategoriaResumo(row, 0);
+    }
+
+    public static GestaoSLADTO.InactiveCategoriasResponse getInactiveCategorias(Id gestaoSLAId) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        ensureCanManageCategories(perms);
+        if (gestaoSLAId == null) {
+            throw new FunctionalException('Gestão de SLA não informada.');
+        }
+
+        GestaoSLADTO.InactiveCategoriasResponse response = new GestaoSLADTO.InactiveCategoriasResponse();
+        response.permissions = perms;
+        response.categoriasInativas = new List<GestaoSLADTO.CategoriaResumo>();
+
+        for (Categorizacao__c row : [
+            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c
+            FROM Categorizacao__c
+            WHERE GestaoSLA__c = :gestaoSLAId
+              AND Ativo__c = false
+            ORDER BY TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Name
+        ]) {
+            response.categoriasInativas.add(toCategoriaResumo(row, 0));
+        }
+
+        return response;
+    }
+
+    public static GestaoSLADTO.CategoriaResumo reactivateCategoria(Id categoriaId) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        ensureCanManageCategories(perms);
+        if (categoriaId == null) {
+            throw new FunctionalException('Categorização não encontrada.');
+        }
+
+        List<Categorizacao__c> rows = [
+            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c
+            FROM Categorizacao__c
+            WHERE Id = :categoriaId
+            LIMIT 1
+        ];
+        if (rows.isEmpty()) {
+            throw new FunctionalException('Categorização não encontrada.');
+        }
+
+        Categorizacao__c row = rows[0];
+        if (row.Ativo__c == true) {
+            return toCategoriaResumo(row, 0);
+        }
+        validateCategoriaDuplicateActive(
+            row.GestaoSLA__c,
+            row.TipoCaso__c,
+            row.Categoria__c,
+            row.Assunto__c,
+            row.Subassunto__c,
+            row.Id
+        );
+        row.Ativo__c = true;
+        row.MotivoInativacao__c = null;
+        update row;
+        return toCategoriaResumo(row, 0);
+    }
+
+    public static GestaoSLADTO.InactiveGestoesResponse getInactiveGestoes() {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        if (perms.canAdminTechnicalSettings != true) {
+            throw new FunctionalException('Você não possui permissão para consultar Gestões de SLA inativas.');
+        }
+
+        GestaoSLADTO.InactiveGestoesResponse response = new GestaoSLADTO.InactiveGestoesResponse();
+        response.permissions = perms;
+        response.gestoesInativas = new List<GestaoSLADTO.GestaoResumo>();
+
+        for (GestaoSLA__c row : [
+            SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
+                   TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, StaticResourceName__c,
+                   Ativo__c, Descricao__c
+            FROM GestaoSLA__c
+            WHERE Ativo__c = false
+            ORDER BY Name
+        ]) {
+            response.gestoesInativas.add(toGestaoResumo(row, true));
+        }
+
+        return response;
+    }
+
+    public static GestaoSLADTO.GestaoDetailResponse reactivateGestaoSLA(Id gestaoSLAId) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        if (perms.canAdminTechnicalSettings != true) {
+            throw new FunctionalException('Você não possui permissão para reativar Gestão de SLA.');
+        }
+        if (gestaoSLAId == null) {
+            throw new FunctionalException('Gestão de SLA não informada.');
+        }
+
+        List<GestaoSLA__c> rows = [
+            SELECT Id, Ativo__c, UnidadeNegocio__c, EntitlementProcessName__c
+            FROM GestaoSLA__c
+            WHERE Id = :gestaoSLAId
+            LIMIT 1
+        ];
+        if (rows.isEmpty()) {
+            throw new FunctionalException('Gestão de SLA não encontrada.');
+        }
+
+        GestaoSLA__c target = rows[0];
+        if (target.Ativo__c == true) {
+            return getGestaoDetail(target.Id);
+        }
+
+        Integer duplicidadeUnidade = [
+            SELECT Count()
+            FROM GestaoSLA__c
+            WHERE Ativo__c = true
+              AND UnidadeNegocio__c = :target.UnidadeNegocio__c
+              AND Id != :target.Id
+        ];
+        if (duplicidadeUnidade > 0) {
+            throw new FunctionalException('Já existe uma Gestão de SLA ativa para esta Unidade de Negócio.');
+        }
+
+        Integer duplicidadeEntitlement = [
+            SELECT Count()
+            FROM GestaoSLA__c
+            WHERE Ativo__c = true
+              AND EntitlementProcessName__c = :target.EntitlementProcessName__c
+              AND Id != :target.Id
+        ];
+        if (duplicidadeEntitlement > 0) {
+            throw new FunctionalException('Já existe uma Gestão de SLA ativa para este Entitlement Process.');
+        }
+
+        update new GestaoSLA__c(Id = target.Id, Ativo__c = true);
+        return getGestaoDetail(target.Id);
+    }
+
+    public static GestaoSLADTO.GestaoDetailResponse createGestaoSLA(GestaoSLADTO.CreateGestaoRequest request) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        if (perms.canAdminTechnicalSettings != true) {
+            throw new FunctionalException('Você não possui permissão para criar Gestão de SLA.');
+        }
+        if (request == null) {
+            throw new FunctionalException('Nome da Gestão de SLA é obrigatório.');
+        }
+        if (String.isBlank(request.name)) {
+            throw new FunctionalException('Nome da Gestão de SLA é obrigatório.');
+        }
+        if (String.isBlank(request.unidadeNegocio)) {
+            throw new FunctionalException('Unidade de Negócio é obrigatória.');
+        }
+        if (String.isBlank(request.entitlementProcessName)) {
+            throw new FunctionalException('Entitlement Process é obrigatório.');
+        }
+        if (String.isBlank(request.businessHoursName)) {
+            throw new FunctionalException('Business Hours é obrigatório.');
+        }
+        if (request.tempoTriagemMinutos != null && request.tempoTriagemMinutos <= 0) {
+            throw new FunctionalException('Tempo de Triagem deve ser maior que zero.');
+        }
+        if (request.tempoRespostaChatMinutos != null && request.tempoRespostaChatMinutos <= 0) {
+            throw new FunctionalException('Tempo de Resposta Chat deve ser maior que zero.');
+        }
+
+        String unidade = request.unidadeNegocio.trim();
+        String entitlementProcess = request.entitlementProcessName.trim();
+
+        Integer duplicidadeUnidade = [
+            SELECT Count()
+            FROM GestaoSLA__c
+            WHERE Ativo__c = true
+              AND UnidadeNegocio__c = :unidade
+        ];
+        if (duplicidadeUnidade > 0) {
+            throw new FunctionalException('Já existe uma Gestão de SLA ativa para esta Unidade de Negócio.');
+        }
+
+        Integer duplicidadeEntitlement = [
+            SELECT Count()
+            FROM GestaoSLA__c
+            WHERE Ativo__c = true
+              AND EntitlementProcessName__c = :entitlementProcess
+        ];
+        if (duplicidadeEntitlement > 0) {
+            throw new FunctionalException('Já existe uma Gestão de SLA ativa para este Entitlement Process.');
+        }
+
+        GestaoSLA__c novaGestao = new GestaoSLA__c(
+            Name = request.name.trim(),
+            UnidadeNegocio__c = unidade,
+            EntitlementProcessName__c = entitlementProcess,
+            BusinessHoursName__c = request.businessHoursName.trim(),
+            TempoTriagemMinutos__c = request.tempoTriagemMinutos,
+            TempoRespostaChatMinutos__c = request.tempoRespostaChatMinutos,
+            Descricao__c = String.isBlank(request.descricao) ? null : request.descricao.trim(),
+            StaticResourceName__c = String.isBlank(request.staticResourceName) ? null : request.staticResourceName.trim(),
+            Ativo__c = request.ativo == null ? true : request.ativo
+        );
+        insert novaGestao;
+        return getGestaoDetail(novaGestao.Id);
+    }
+
+    public static GestaoSLADTO.GestaoDetailResponse updateGestaoSLA(GestaoSLADTO.UpdateGestaoRequest request) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        if (perms.canAdminTechnicalSettings != true) {
+            throw new FunctionalException('Você não possui permissão para editar Gestão de SLA.');
+        }
+        if (request == null || request.id == null) {
+            throw new FunctionalException('Gestão de SLA não informada.');
+        }
+        if (String.isBlank(request.name)) {
+            throw new FunctionalException('Nome da Gestão de SLA é obrigatório.');
+        }
+        if (String.isBlank(request.unidadeNegocio)) {
+            throw new FunctionalException('Unidade de Negócio é obrigatória.');
+        }
+        if (String.isBlank(request.entitlementProcessName)) {
+            throw new FunctionalException('Entitlement Process é obrigatório.');
+        }
+        if (String.isBlank(request.businessHoursName)) {
+            throw new FunctionalException('Business Hours é obrigatório.');
+        }
+
+        Boolean isAdmin = perms.canAdminTechnicalSettings == true;
+        if (!isAdmin) {
+            if (request.tempoTriagemMinutos == null || request.tempoTriagemMinutos <= 0) {
+                throw new FunctionalException('Tempo de Triagem deve ser maior que zero.');
+            }
+            if (request.tempoRespostaChatMinutos == null || request.tempoRespostaChatMinutos <= 0) {
+                throw new FunctionalException('Tempo de Resposta Chat deve ser maior que zero.');
+            }
+        } else {
+            if (request.tempoTriagemMinutos != null && request.tempoTriagemMinutos <= 0) {
+                throw new FunctionalException('Tempo de Triagem deve ser maior que zero.');
+            }
+            if (request.tempoRespostaChatMinutos != null && request.tempoRespostaChatMinutos <= 0) {
+                throw new FunctionalException('Tempo de Resposta Chat deve ser maior que zero.');
+            }
+        }
+
+        List<GestaoSLA__c> rows = [SELECT Id, Ativo__c FROM GestaoSLA__c WHERE Id = :request.id LIMIT 1];
+        if (rows.isEmpty()) {
+            throw new FunctionalException('Gestão de SLA não encontrada.');
+        }
+        GestaoSLA__c currentGestao = rows[0];
+
+        String unidade = request.unidadeNegocio.trim();
+        String entitlementProcess = request.entitlementProcessName.trim();
+        Boolean ativoFinal = request.ativo == null ? currentGestao.Ativo__c : request.ativo;
+        if (!isAdmin && request.ativo != null && request.ativo != currentGestao.Ativo__c) {
+            throw new FunctionalException('Você não possui permissão para alterar o Status da Gestão de SLA.');
+        }
+
+        if (ativoFinal) {
+            Integer duplicidadeUnidade = [
+                SELECT Count()
+                FROM GestaoSLA__c
+                WHERE Ativo__c = true
+                  AND UnidadeNegocio__c = :unidade
+                  AND Id != :request.id
+            ];
+            if (duplicidadeUnidade > 0) {
+                throw new FunctionalException('Já existe uma Gestão de SLA ativa para esta Unidade de Negócio.');
+            }
+
+            Integer duplicidadeEntitlement = [
+                SELECT Count()
+                FROM GestaoSLA__c
+                WHERE Ativo__c = true
+                  AND EntitlementProcessName__c = :entitlementProcess
+                  AND Id != :request.id
+            ];
+            if (duplicidadeEntitlement > 0) {
+                throw new FunctionalException('Já existe uma Gestão de SLA ativa para este Entitlement Process.');
+            }
+        }
+
+        GestaoSLA__c toUpdate = new GestaoSLA__c(
+            Id = request.id,
+            Name = request.name.trim(),
+            UnidadeNegocio__c = unidade,
+            EntitlementProcessName__c = entitlementProcess,
+            BusinessHoursName__c = request.businessHoursName.trim(),
+            TempoTriagemMinutos__c = request.tempoTriagemMinutos,
+            TempoRespostaChatMinutos__c = request.tempoRespostaChatMinutos,
+            Descricao__c = String.isBlank(request.descricao) ? null : request.descricao.trim(),
+            StaticResourceName__c = String.isBlank(request.staticResourceName) ? null : request.staticResourceName.trim(),
+            Ativo__c = ativoFinal
+        );
+        update toUpdate;
+        return getGestaoDetail(request.id);
+    }
+
+    private static GestaoSLADTO.PermissionInfo buildPermissionInfo() {
+        GestaoSLADTO.PermissionInfo perms = new GestaoSLADTO.PermissionInfo();
+        perms.canAccessGestaoSLA = GestaoSLAHelper.canAccessGestaoSLA();
+        perms.canManageCategories = GestaoSLAHelper.canManageCategories();
+        perms.canManageRules = GestaoSLAHelper.canManageRules();
+        perms.canAdminTechnicalSettings = GestaoSLAHelper.canAdminTechnicalSettings();
+        return perms;
+    }
+
+    private static void ensureCanAccess(GestaoSLADTO.PermissionInfo perms) {
+        if (perms == null || perms.canAccessGestaoSLA != true) {
+            throw new FunctionalException('Você não possui permissão para acessar a Gestão de SLA.');
+        }
+    }
+
+    private static void ensureCanManageCategories(GestaoSLADTO.PermissionInfo perms) {
+        if (perms == null || perms.canManageCategories != true) {
+            throw new FunctionalException('Você não possui permissão para gerenciar categorias.');
+        }
+    }
+
+    private static void ensureCanManageRules(GestaoSLADTO.PermissionInfo perms) {
+        if (perms == null || perms.canManageRules != true) {
+            throw new FunctionalException('Você não possui permissão para gerenciar regras de SLA.');
+        }
+    }
+
+    private static GestaoSLA__c loadGestaoOrThrow(Id gestaoSLAId) {
+        if (gestaoSLAId == null) {
+            throw new FunctionalException('Gestão de SLA não informada.');
+        }
+        List<GestaoSLA__c> rows = [SELECT Id, UnidadeNegocio__c FROM GestaoSLA__c WHERE Id = :gestaoSLAId LIMIT 1];
+        if (rows.isEmpty()) {
+            throw new FunctionalException('Gestão de SLA não encontrada.');
+        }
+        return rows[0];
+    }
+
+    private static void validateRegraSLARequest(GestaoSLADTO.RegraSLARequest request, Boolean isUpdate) {
+        if (request == null) throw new FunctionalException('Gestão de SLA não informada.');
+        if (request.gestaoSLAId == null) throw new FunctionalException('Gestão de SLA não informada.');
+        if (request.marcoSLAId == null) throw new FunctionalException('Marco SLA é obrigatório.');
+        if (String.isBlank(request.escopoRegra)) throw new FunctionalException('Escopo da regra é obrigatório.');
+        request.escopoRegra = normalizeEscopoRegra(request.escopoRegra);
+
+        if (!hasPositiveTime(request)) {
+            throw new FunctionalException('Informe pelo menos um tempo de SLA maior que zero.');
+        }
+        validatePositiveTime(request.tempoBaixa, 'Tempo Baixa');
+        validatePositiveTime(request.tempoMedia, 'Tempo Média');
+        validatePositiveTime(request.tempoAlta, 'Tempo Alta');
+
+        if (request.vigenciaInicio != null && request.vigenciaFim != null && request.vigenciaFim < request.vigenciaInicio) {
+            throw new FunctionalException('Fim da vigência não pode ser menor que o início da vigência.');
+        }
+
+        if (request.escopoRegra == RegrasSLACompatibilidadeService.ESCOPO_POR_CATEGORIZACAO) {
+            if (request.categorizacaoId == null) {
+                throw new FunctionalException('Categorização é obrigatória para regra por categorização.');
+            }
+        } else if (request.escopoRegra == RegrasSLACompatibilidadeService.ESCOPO_POR_AREA_INTERNA) {
+            if (request.categorizacaoId == null) {
+                throw new FunctionalException('Categorização é obrigatória para regra por área interna.');
+            }
+            if (String.isBlank(request.areaAtendimento)) {
+                throw new FunctionalException('Área interna é obrigatória para regra por área interna.');
+            }
+        } else if (request.escopoRegra == RegrasSLACompatibilidadeService.ESCOPO_GLOBAL) {
+            if (request.categorizacaoId == null && !RegrasSLACategorizacao__c.Categorizacao__c.getDescribe().isNillable()) {
+                throw new FunctionalException('Categorização é obrigatória pela estrutura atual do objeto.');
+            }
+        }
+
+        request.areaAtendimento = normalizeOptionalText(request.areaAtendimento);
+        request.origem = normalizeOrigem(request.origem);
+        validatePicklistValue('Área interna', RegrasSLACategorizacao__c.AreaAtendimento__c, request.areaAtendimento);
+        validatePicklistValue('Origem', RegrasSLACategorizacao__c.Origem__c, request.origem);
+    }
+
+    private static void validateRegraReferences(GestaoSLADTO.RegraSLARequest request) {
+        loadGestaoOrThrow(request.gestaoSLAId);
+
+        List<MarcoSLA__c> marcos = [
+            SELECT Id
+            FROM MarcoSLA__c
+            WHERE Id = :request.marcoSLAId
+              AND GestaoSLA__c = :request.gestaoSLAId
+            LIMIT 1
+        ];
+        if (marcos.isEmpty()) {
+            throw new FunctionalException('Marco SLA não pertence à Gestão de SLA informada.');
+        }
+
+        if (request.categorizacaoId != null) {
+            List<Categorizacao__c> categoriasRows = [
+                SELECT Id
+                FROM Categorizacao__c
+                WHERE Id = :request.categorizacaoId
+                  AND GestaoSLA__c = :request.gestaoSLAId
+                LIMIT 1
+            ];
+            if (categoriasRows.isEmpty()) {
+                throw new FunctionalException('Categorização não pertence à Gestão de SLA informada.');
+            }
+        }
+    }
+
+    private static void validateRegraDuplicateActive(GestaoSLADTO.RegraSLARequest request, Id excludeId) {
+        if (request.ativo == false) {
+            return;
+        }
+
+        for (RegrasSLACategorizacao__c row : [
+            SELECT Id, GestaoSLA__c, MarcoSLA__c, EscopoRegra__c, Categorizacao__c, AreaAtendimento__c, Origem__c
+            FROM RegrasSLACategorizacao__c
+            WHERE GestaoSLA__c = :request.gestaoSLAId
+              AND MarcoSLA__c = :request.marcoSLAId
+              AND EscopoRegra__c = :request.escopoRegra
+              AND Ativo__c = true
+        ]) {
+            if (excludeId != null && row.Id == excludeId) {
+                continue;
+            }
+            if (isSameRegraLogicalKey(request, row)) {
+                throw new FunctionalException('Já existe uma regra de SLA ativa com esta combinação.');
+            }
+        }
+    }
+
+    private static Boolean isSameRegraLogicalKey(GestaoSLADTO.RegraSLARequest request, RegrasSLACategorizacao__c row) {
+        String requestOrigem = normalizeOrigem(request.origem);
+        String rowOrigem = normalizeOrigem(row.Origem__c);
+        if (requestOrigem != rowOrigem) {
+            return false;
+        }
+        if (request.escopoRegra == RegrasSLACompatibilidadeService.ESCOPO_POR_CATEGORIZACAO) {
+            return row.Categorizacao__c == request.categorizacaoId;
+        }
+        if (request.escopoRegra == RegrasSLACompatibilidadeService.ESCOPO_POR_AREA_INTERNA) {
+            return row.Categorizacao__c == request.categorizacaoId
+                && normalizeOptionalText(row.AreaAtendimento__c) == normalizeOptionalText(request.areaAtendimento);
+        }
+        return true;
+    }
+
+    private static GestaoSLADTO.RegraSLAResumo loadRegraResumoById(Id regraId) {
+        List<RegrasSLACategorizacao__c> rows = [
+            SELECT Id, GestaoSLA__c, Categorizacao__c, Categorizacao__r.Name,
+                   Categorizacao__r.Categoria__c, Categorizacao__r.Assunto__c, Categorizacao__r.Subassunto__c,
+                   MarcoSLA__c, MarcoSLA__r.Name, MarcoSLA__r.NomeMarco__c, MarcoSLA__r.Ordem__c,
+                   EscopoRegra__c, AreaAtendimento__c, Origem__c,
+                   TempoBaixa__c, TempoMedia__c, TempoAlta__c,
+                   VigenciaInicio__c, VigenciaFim__c, Ativo__c
+            FROM RegrasSLACategorizacao__c
+            WHERE Id = :regraId
+            LIMIT 1
+        ];
+        if (rows.isEmpty()) {
+            throw new FunctionalException('Regra de SLA não encontrada.');
+        }
+        return toRegraSLAResumo(rows[0]);
+    }
+
+    private static String normalizeEscopoRegra(String escopo) {
+        String normalized = GestaoSLAHelper.normalizeText(escopo);
+        if (normalized == GestaoSLAHelper.normalizeText(RegrasSLACompatibilidadeService.ESCOPO_GLOBAL)) {
+            return RegrasSLACompatibilidadeService.ESCOPO_GLOBAL;
+        }
+        if (normalized == GestaoSLAHelper.normalizeText(RegrasSLACompatibilidadeService.ESCOPO_POR_CATEGORIZACAO)) {
+            return RegrasSLACompatibilidadeService.ESCOPO_POR_CATEGORIZACAO;
+        }
+        if (normalized == GestaoSLAHelper.normalizeText(RegrasSLACompatibilidadeService.ESCOPO_POR_AREA_INTERNA)) {
+            return RegrasSLACompatibilidadeService.ESCOPO_POR_AREA_INTERNA;
+        }
+        throw new FunctionalException('Escopo da regra inválido.');
+    }
+
+    private static Boolean hasPositiveTime(GestaoSLADTO.RegraSLARequest request) {
+        return isPositive(request.tempoBaixa) || isPositive(request.tempoMedia) || isPositive(request.tempoAlta);
+    }
+
+    private static Boolean isPositive(Integer value) {
+        return value != null && value > 0;
+    }
+
+    private static void validatePositiveTime(Integer value, String label) {
+        if (value != null && value <= 0) {
+            throw new FunctionalException(label + ' deve ser maior que zero.');
+        }
+    }
+
+    private static String normalizeOrigem(String origem) {
+        return String.isBlank(origem) ? ORIGEM_QUALQUER : origem.trim();
+    }
+
+    private static String normalizeOptionalText(String value) {
+        return String.isBlank(value) ? null : value.trim();
+    }
+
+    private static void validatePicklistValue(String label, Schema.SObjectField fieldRef, String value) {
+        if (String.isBlank(value)) {
+            return;
+        }
+        Schema.DescribeFieldResult describeResult = fieldRef.getDescribe();
+        if (!describeResult.isRestrictedPicklist()) {
+            return;
+        }
+        Set<String> allowedValues = new Set<String>();
+        for (Schema.PicklistEntry entry : describeResult.getPicklistValues()) {
+            if (entry != null && entry.isActive()) {
+                allowedValues.add(entry.getValue());
+            }
+        }
+        if (!allowedValues.isEmpty() && !allowedValues.contains(value)) {
+            throw new FunctionalException(label + ' inválida.');
+        }
+    }
+
+    private static List<String> getActivePicklistValues(Schema.SObjectField fieldRef) {
+        List<String> values = new List<String>();
+        for (Schema.PicklistEntry entry : fieldRef.getDescribe().getPicklistValues()) {
+            if (entry != null && entry.isActive()) {
+                values.add(entry.getValue());
+            }
+        }
+        return values;
+    }
+
+    private static void validateCategoriaRequest(GestaoSLADTO.CategoriaRequest request, Boolean isUpdate) {
+        if (request == null) throw new FunctionalException('Gestão de SLA não informada.');
+        if (request.gestaoSLAId == null) throw new FunctionalException('Gestão de SLA não informada.');
+        if (String.isBlank(request.tipoCaso)) throw new FunctionalException('Tipo de Caso é obrigatório.');
+        if (String.isBlank(request.categoria)) throw new FunctionalException('Categoria é obrigatória.');
+        if (String.isBlank(request.assunto)) throw new FunctionalException('Assunto é obrigatório.');
+        validatePicklistValue('Tipo de Caso', Categorizacao__c.TipoCaso__c, request.tipoCaso);
+        validatePicklistValue('Categoria', Categorizacao__c.Categoria__c, request.categoria);
+        validatePicklistValue('Assunto', Categorizacao__c.Assunto__c, request.assunto);
+        validatePicklistValue('Subassunto', Categorizacao__c.Subassunto__c, request.subassunto);
+    }
+
+    private static String normalizePrioridadeOrThrow(String prioridadeInput) {
+        String normalized = GestaoSLAHelper.normalizeText(prioridadeInput).replace('é', 'e');
+        if (normalized == 'baixa' || normalized == 'low') return 'Low';
+        if (normalized == 'media' || normalized == 'medium') return 'Medium';
+        if (normalized == 'alta' || normalized == 'high') return 'High';
+        throw new FunctionalException('Prioridade sugerida inválida.');
+    }
+
+    private static String normalizeUnidadeNegocioForCategorizacao(String unidadeInput) {
+        if (String.isBlank(unidadeInput)) {
+            return unidadeInput;
+        }
+        String trimmed = unidadeInput.trim();
+        Set<String> allowed = new Set<String>();
+        for (Schema.PicklistEntry pe : Categorizacao__c.UnidadeNegocios__c.getDescribe().getPicklistValues()) {
+            if (pe != null && pe.isActive()) {
+                allowed.add(pe.getValue());
+            }
+        }
+        if (allowed.contains(trimmed)) {
+            return trimmed;
+        }
+        if (trimmed.startsWith('Atendimento ')) {
+            String semPrefixo = trimmed.replaceFirst('^Atendimento\\s+', '');
+            if (allowed.contains(semPrefixo)) {
+                return semPrefixo;
+            }
+        }
+        return trimmed;
+    }
+
+    private static void validateCategoriaDuplicateActive(Id gestaoSLAId, String tipoCaso, String categoria, String assunto, String subassunto, Id excludeId) {
+        List<Categorizacao__c> dupRows = [
+            SELECT Id
+            FROM Categorizacao__c
+            WHERE GestaoSLA__c = :gestaoSLAId
+              AND TipoCaso__c = :tipoCaso
+              AND Categoria__c = :categoria
+              AND Assunto__c = :assunto
+              AND Subassunto__c = :subassunto
+              AND Ativo__c = true
+              AND Id != :excludeId
+            LIMIT 1
+        ];
+        if (!dupRows.isEmpty()) {
+            throw new FunctionalException('Já existe uma categorização ativa com esta combinação.');
+        }
+    }
+
+    private static GestaoSLADTO.CategoriaResumo toCategoriaResumo(Categorizacao__c row, Integer totalRegrasAtivas) {
+        GestaoSLADTO.CategoriaResumo dto = new GestaoSLADTO.CategoriaResumo();
+        dto.id = row.Id;
+        dto.name = row.Name;
+        dto.unidadeNegocio = row.UnidadeNegocios__c;
+        dto.tipoCaso = row.TipoCaso__c;
+        dto.categoria = row.Categoria__c;
+        dto.assunto = row.Assunto__c;
+        dto.subassunto = row.Subassunto__c;
+        dto.prioridadeSugerida = row.Prioridade__c;
+        dto.ativo = row.Ativo__c;
+        dto.totalRegrasAtivas = totalRegrasAtivas;
+        return dto;
+    }
+
+    private static GestaoSLADTO.RegraSLAResumo toRegraSLAResumo(RegrasSLACategorizacao__c row) {
+        GestaoSLADTO.RegraSLAResumo dto = new GestaoSLADTO.RegraSLAResumo();
+        dto.id = row.Id;
+        dto.gestaoSLAId = row.GestaoSLA__c;
+        dto.categorizacaoId = row.Categorizacao__c;
+        dto.categorizacaoNome = buildCategorizacaoLabel(row.Categorizacao__r);
+        dto.marcoSLAId = row.MarcoSLA__c;
+        dto.marcoNome = row.MarcoSLA__r == null
+            ? null
+            : (String.isBlank(row.MarcoSLA__r.NomeMarco__c) ? row.MarcoSLA__r.Name : row.MarcoSLA__r.NomeMarco__c);
+        dto.escopoRegra = row.EscopoRegra__c;
+        dto.areaAtendimento = row.AreaAtendimento__c;
+        dto.origem = row.Origem__c;
+        dto.tempoBaixa = toInteger(row.TempoBaixa__c);
+        dto.tempoMedia = toInteger(row.TempoMedia__c);
+        dto.tempoAlta = toInteger(row.TempoAlta__c);
+        dto.vigenciaInicio = row.VigenciaInicio__c;
+        dto.vigenciaFim = row.VigenciaFim__c;
+        dto.ativo = row.Ativo__c;
+        return dto;
+    }
+
+    private static String buildCategorizacaoLabel(Categorizacao__c row) {
+        if (row == null) {
+            return null;
+        }
+        List<String> parts = new List<String>();
+        if (!String.isBlank(row.Categoria__c)) parts.add(row.Categoria__c);
+        if (!String.isBlank(row.Assunto__c)) parts.add(row.Assunto__c);
+        if (!String.isBlank(row.Subassunto__c)) parts.add(row.Subassunto__c);
+        return parts.isEmpty() ? row.Name : String.join(parts, ' / ');
+    }
+
+    private static Integer toInteger(Decimal value) {
+        return value == null ? null : value.intValue();
+    }
+
+    private static String normalizeOptionalFilter(String value) {
+        if (String.isBlank(value) || value == 'Todos' || value == 'Todas') {
+            return null;
+        }
+        return GestaoSLAHelper.normalizeText(value);
+    }
+
+    private static GestaoSLADTO.GestaoResumo toGestaoResumo(GestaoSLA__c row, Boolean canAdminTechnicalSettings) {
+        GestaoSLADTO.GestaoResumo dto = new GestaoSLADTO.GestaoResumo();
+        dto.id = row.Id;
+        dto.name = row.Name;
+        dto.unidadeNegocio = row.UnidadeNegocio__c;
+        dto.ativo = row.Ativo__c;
+        dto.descricao = row.Descricao__c;
+        dto.tempoTriagemMinutos = row.TempoTriagemMinutos__c;
+        dto.tempoRespostaChatMinutos = row.TempoRespostaChatMinutos__c;
+        dto.staticResourceName = canAdminTechnicalSettings ? row.StaticResourceName__c : null;
+        dto.entitlementProcessName = canAdminTechnicalSettings ? row.EntitlementProcessName__c : null;
+        dto.businessHoursName = canAdminTechnicalSettings ? row.BusinessHoursName__c : null;
+        return dto;
+    }
+}

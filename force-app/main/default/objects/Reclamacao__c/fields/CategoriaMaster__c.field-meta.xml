@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CategoriaMaster__c</fullName>
+    <description>Categoria Master</description>
+    <label>Categoria Master</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Operação</fullName>
+                <default>true</default>
+                <label>Operação</label>
+            </value>
+            <value>
+                <fullName>Processo</fullName>
+                <default>false</default>
+                <label>Processo</label>
+            </value>
+            <value>
+                <fullName>Atendimento</fullName>
+                <default>false</default>
+                <label>Atendimento</label>
+            </value>
+            <value>
+                <fullName>Sistema</fullName>
+                <default>false</default>
+                <label>Sistema</label>
+            </value>
+            <value>
+                <fullName>Outro</fullName>
+                <default>false</default>
+                <label>Outro</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

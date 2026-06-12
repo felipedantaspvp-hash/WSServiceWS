@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Atendimento ao Cliente</fullName>
+        <default>false</default>
+        <label>Atendimento ao Cliente</label>
+    </customValue>
+    <customValue>
+        <fullName>Elogio</fullName>
+        <default>false</default>
+        <label>Elogio</label>
+    </customValue>
+    <customValue>
+        <fullName>Incidente</fullName>
+        <default>false</default>
+        <label>Incidente</label>
+    </customValue>
+    <customValue>
+        <fullName>Informação</fullName>
+        <default>false</default>
+        <label>Informação</label>
+    </customValue>
+    <customValue>
+        <fullName>Notificação</fullName>
+        <default>false</default>
+        <label>Notificação</label>
+    </customValue>
+    <customValue>
+        <fullName>Reclamação</fullName>
+        <default>false</default>
+        <label>Reclamação</label>
+    </customValue>
+    <customValue>
+        <fullName>Solicitação</fullName>
+        <default>false</default>
+        <label>Solicitação</label>
+    </customValue>
+    <masterLabel>WS Tipo de Caso</masterLabel>
+    <sorted>true</sorted>
+</GlobalValueSet>

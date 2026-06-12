@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IdiomaAtendimento__c</fullName>
+    <description>Especialmente aplicável a cenários de atendimento internacional/Rebocadores, se confirmado.</description>
+    <label>Idioma de Atendimento</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Português</fullName>
+                <default>true</default>
+                <label>Português</label>
+            </value>
+            <value>
+                <fullName>Inglês</fullName>
+                <default>false</default>
+                <label>Inglês</label>
+            </value>
+            <value>
+                <fullName>Espanhol</fullName>
+                <default>false</default>
+                <label>Espanhol</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

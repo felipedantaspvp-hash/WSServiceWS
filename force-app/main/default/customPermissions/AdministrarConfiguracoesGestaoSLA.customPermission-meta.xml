@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permite acessar a futura área técnica da Gestão de SLA, incluindo configurações como Entitlement Process, Business Hours e marcos administrados.</description>
+    <isLicensed>false</isLicensed>
+    <label>Administrar Configurações Técnicas da Gestão de SLA</label>
+</CustomPermission>

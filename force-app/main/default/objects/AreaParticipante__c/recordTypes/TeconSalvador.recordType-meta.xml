@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TeconSalvador</fullName>
+    <active>true</active>
+    <label>Tecon Salvador</label>
+    <picklistValues>
+        <picklist>AreaAtendimento__c</picklist>
+        <values>
+            <fullName>Apoio Aduaneiro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Armazenagem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atendimento Backoffice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadastro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Comercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Compliance Operacional</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Conciliação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contabilidade</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contas a Receber</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contêineres %2F Vazios</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Faturamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financeiro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Liberação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operações</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operações AG %2F Programação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operações Reefer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Segurança Patrimonial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transporte</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>OrigemAtuacao__c</picklist>
+        <values>
+            <fullName>Manual</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reabertura</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>OrigemSLA__c</picklist>
+        <values>
+            <fullName>Custom</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Standard</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>StatusAtuacao__c</picklist>
+        <values>
+            <fullName>Aberta</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Cancelada</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Em Andamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vencida</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>StatusSLA__c</picklist>
+        <values>
+            <fullName>Cancelado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Concluído</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dentro do Prazo</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Em Atenção</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pausado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vencido</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>TipoAreaParticipante__c</picklist>
+        <values>
+            <fullName>Categorização Inicial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retorno ao Cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SLA Total</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tratamento Primário</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Área Interna</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>TipoAtuacao__c</picklist>
+        <values>
+            <fullName>Retorno ao Cliente</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

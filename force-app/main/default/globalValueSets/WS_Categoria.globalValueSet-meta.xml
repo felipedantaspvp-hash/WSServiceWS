@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Acompanhamento de Serviço - AG/REDEX</fullName>
+        <default>false</default>
+        <label>Acompanhamento de Serviço - AG/REDEX</label>
+    </customValue>
+    <customValue>
+        <fullName>Agendamento</fullName>
+        <default>false</default>
+        <label>Agendamento</label>
+    </customValue>
+    <customValue>
+        <fullName>Apoio Aduaneiro</fullName>
+        <default>false</default>
+        <label>Apoio Aduaneiro</label>
+    </customValue>
+    <customValue>
+        <fullName>Atendimento</fullName>
+        <default>false</default>
+        <label>Atendimento</label>
+    </customValue>
+    <customValue>
+        <fullName>Atualização Cadastral</fullName>
+        <default>false</default>
+        <label>Atualização Cadastral</label>
+    </customValue>
+    <customValue>
+        <fullName>Cadastro de Cliente</fullName>
+        <default>false</default>
+        <label>Cadastro de Cliente</label>
+    </customValue>
+    <customValue>
+        <fullName>Clearance / Embarque</fullName>
+        <default>false</default>
+        <label>Clearance / Embarque</label>
+    </customValue>
+    <customValue>
+        <fullName>Comercial</fullName>
+        <default>false</default>
+        <label>Comercial</label>
+    </customValue>
+    <customValue>
+        <fullName>Commercial</fullName>
+        <default>false</default>
+        <label>Commercial</label>
+    </customValue>
+    <customValue>
+        <fullName>Depot / Vazios</fullName>
+        <default>false</default>
+        <label>Depot / Vazios</label>
+    </customValue>
+    <customValue>
+        <fullName>Descontos e Negociações</fullName>
+        <default>false</default>
+        <label>Descontos e Negociações</label>
+    </customValue>
+    <customValue>
+        <fullName>Desembaraço / Embarque</fullName>
+        <default>false</default>
+        <label>Desembaraço / Embarque</label>
+    </customValue>
+    <customValue>
+        <fullName>Documentação</fullName>
+        <default>false</default>
+        <label>Documentação</label>
+    </customValue>
+    <customValue>
+        <fullName>Doubts about the vessel&apos;s name</fullName>
+        <default>false</default>
+        <label>Doubts about the vessel&apos;s name</label>
+    </customValue>
+    <customValue>
+        <fullName>Dúvidas sobre nome da embarcação</fullName>
+        <default>false</default>
+        <label>Dúvidas sobre nome da embarcação</label>
+    </customValue>
+    <customValue>
+        <fullName>Faturamento</fullName>
+        <default>false</default>
+        <label>Faturamento</label>
+    </customValue>
+    <customValue>
+        <fullName>Financeiro</fullName>
+        <default>false</default>
+        <label>Financeiro</label>
+    </customValue>
+    <customValue>
+        <fullName>Financial</fullName>
+        <default>false</default>
+        <label>Financial</label>
+    </customValue>
+    <customValue>
+        <fullName>Inatividade</fullName>
+        <default>false</default>
+        <label>Inatividade</label>
+    </customValue>
+    <customValue>
+        <fullName>Integração de Cliente</fullName>
+        <default>false</default>
+        <label>Integração de Cliente</label>
+    </customValue>
+    <customValue>
+        <fullName>Inteligência de Mercado</fullName>
+        <default>false</default>
+        <label>Inteligência de Mercado</label>
+    </customValue>
+    <customValue>
+        <fullName>Marketing</fullName>
+        <default>false</default>
+        <label>Marketing</label>
+    </customValue>
+    <customValue>
+        <fullName>Não se Aplica</fullName>
+        <default>false</default>
+        <label>Não se Aplica</label>
+    </customValue>
+    <customValue>
+        <fullName>Onboarding</fullName>
+        <default>false</default>
+        <label>Onboarding</label>
+    </customValue>
+    <customValue>
+        <fullName>Operação</fullName>
+        <default>false</default>
+        <label>Operação</label>
+    </customValue>
+    <customValue>
+        <fullName>Operacional - pátio</fullName>
+        <default>false</default>
+        <label>Operacional - pátio</label>
+    </customValue>
+    <customValue>
+        <fullName>Operational</fullName>
+        <default>false</default>
+        <label>Operational</label>
+    </customValue>
+    <customValue>
+        <fullName>Pátio de Vazios</fullName>
+        <default>false</default>
+        <label>Pátio de Vazios</label>
+    </customValue>
+    <customValue>
+        <fullName>Planejamento Operacional Alfandegado</fullName>
+        <default>false</default>
+        <label>Planejamento Operacional Alfandegado</label>
+    </customValue>
+    <customValue>
+        <fullName>Portal do Cliente</fullName>
+        <default>false</default>
+        <label>Portal do Cliente</label>
+    </customValue>
+    <customValue>
+        <fullName>Portal Logistico</fullName>
+        <default>false</default>
+        <label>Portal Logistico</label>
+    </customValue>
+    <customValue>
+        <fullName>Portal Logístico</fullName>
+        <default>false</default>
+        <label>Portal Logístico</label>
+    </customValue>
+    <customValue>
+        <fullName>Programação de Serviço</fullName>
+        <default>false</default>
+        <label>Programação de Serviço</label>
+    </customValue>
+    <customValue>
+        <fullName>Proposta</fullName>
+        <default>false</default>
+        <label>Proposta</label>
+    </customValue>
+    <customValue>
+        <fullName>QSMS</fullName>
+        <default>false</default>
+        <label>QSMS</label>
+    </customValue>
+    <customValue>
+        <fullName>RH</fullName>
+        <default>false</default>
+        <label>RH</label>
+    </customValue>
+    <customValue>
+        <fullName>Santa Clara</fullName>
+        <default>false</default>
+        <label>Santa Clara</label>
+    </customValue>
+    <customValue>
+        <fullName>Serviços especificos</fullName>
+        <default>false</default>
+        <label>Serviços especificos</label>
+    </customValue>
+    <customValue>
+        <fullName>Serviços específicos</fullName>
+        <default>false</default>
+        <label>Serviços específicos</label>
+    </customValue>
+    <customValue>
+        <fullName>Sistema</fullName>
+        <default>false</default>
+        <label>Sistema</label>
+    </customValue>
+    <customValue>
+        <fullName>SMS</fullName>
+        <default>false</default>
+        <label>SMS</label>
+    </customValue>
+    <customValue>
+        <fullName>Solicitação</fullName>
+        <default>false</default>
+        <label>Solicitação</label>
+    </customValue>
+    <customValue>
+        <fullName>Transporte</fullName>
+        <default>false</default>
+        <label>Transporte</label>
+    </customValue>
+    <customValue>
+        <fullName>Acesso ao Porto</fullName>
+        <default>false</default>
+        <label>Acesso ao Porto</label>
+    </customValue>
+    <customValue>
+        <fullName>Direcionamento de Carga</fullName>
+        <default>false</default>
+        <label>Direcionamento de Carga</label>
+    </customValue>
+    <customValue>
+        <fullName>Processos Aduaneiros</fullName>
+        <default>false</default>
+        <label>Processos Aduaneiros</label>
+    </customValue>
+    <customValue>
+        <fullName>Serviços de Armazém</fullName>
+        <default>false</default>
+        <label>Serviços de Armazém</label>
+    </customValue>
+    <customValue>
+        <fullName>App Meu Tecon</fullName>
+        <default>false</default>
+        <label>App Meu Tecon</label>
+    </customValue>
+    <customValue>
+        <fullName>Operacional – Pátio</fullName>
+        <default>false</default>
+        <label>Operacional – Pátio</label>
+    </customValue>
+    <customValue>
+        <fullName>Fatuamento</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Fatuamento</label>
+    </customValue>
+    <masterLabel>WS Categoria</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

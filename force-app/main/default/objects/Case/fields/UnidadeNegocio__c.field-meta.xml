@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UnidadeNegocio__c</fullName>
+    <description>Define a área de negócio do Case. Usado para visibilidade, fila, categorização, relatórios e Permission Sets.</description>
+    <label>Unidade de Negócio</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>UnidadeNegocio</valueSetName>
+    </valueSet>
+</CustomField>

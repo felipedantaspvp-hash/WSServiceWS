@@ -1,0 +1,3 @@
+<aura:documentation>
+    <aura:description>Wrapper de override da ação New do Case para carregar o LWC caseNewCategorization.</aura:description>
+</aura:documentation>

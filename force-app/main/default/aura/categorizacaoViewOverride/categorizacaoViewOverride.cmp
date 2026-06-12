@@ -1,0 +1,6 @@
+<aura:component
+    implements="lightning:actionOverride,force:hasSObjectName,force:hasRecordId,flexipage:availableForAllPageTypes"
+    access="global"
+>
+    <c:categorizacaoViewerV2 recordId="{!v.recordId}" />
+</aura:component>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EtapaAtendimento__c</fullName>
+    <description>Controla o Path operacional: Novo, Em Triagem, Em Atendimento, Aguardando Cliente, Aguardando Área Interna, Em Acompanhamento, Preparando Retorno ao Cliente, Concluído, Cancelado.</description>
+    <label>Etapa Atendimento</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Novo</fullName>
+                <default>true</default>
+                <label>Novo</label>
+            </value>
+            <value>
+                <fullName>Em Triagem</fullName>
+                <default>false</default>
+                <label>Em Triagem</label>
+            </value>
+            <value>
+                <fullName>Em Atendimento</fullName>
+                <default>false</default>
+                <label>Em Atendimento</label>
+            </value>
+            <value>
+                <fullName>Aguardando Cliente</fullName>
+                <default>false</default>
+                <label>Aguardando Cliente</label>
+            </value>
+            <value>
+                <fullName>Aguardando Área Interna</fullName>
+                <default>false</default>
+                <label>Aguardando Área Interna</label>
+            </value>
+            <value>
+                <fullName>Em Acompanhamento</fullName>
+                <default>false</default>
+                <label>Em Acompanhamento</label>
+            </value>
+            <value>
+                <fullName>Preparando Retorno ao Cliente</fullName>
+                <default>false</default>
+                <label>Preparando Retorno ao Cliente</label>
+            </value>
+            <value>
+                <fullName>Concluído</fullName>
+                <default>false</default>
+                <label>Concluído</label>
+            </value>
+            <value>
+                <fullName>Cancelado</fullName>
+                <default>false</default>
+                <label>Cancelado</label>
+            </value>
+            <value>
+                <fullName>Aguardando atendimento</fullName>
+                <default>false</default>
+                <label>Aguardando atendimento</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
