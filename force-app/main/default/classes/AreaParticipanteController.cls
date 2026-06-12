@@ -7,7 +7,7 @@ public inherited sharing class AreaParticipanteController {
         String lang = UserInfo.getLanguage();
         return !String.isBlank(lang) && lang.toLowerCase().startsWith('en');
     }
-
+// Teste Jean
     private static String msg(String pt, String en) {
         return isEnglish() ? en : pt;
     }
