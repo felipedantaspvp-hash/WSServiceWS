@@ -10,6 +10,7 @@ public inherited sharing class AreaParticipanteController {
 // Teste Jean
 //Teste Madruga
 //teste Marllon
+//outro disco voador
     private static String msg(String pt, String en) {
         return isEnglish() ? en : pt;
     }
