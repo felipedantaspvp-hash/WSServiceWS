@@ -8,6 +8,7 @@ public inherited sharing class AreaParticipanteController {
         return !String.isBlank(lang) && lang.toLowerCase().startsWith('en');
     }
 // Teste Jean
+//Teste Madruga
     private static String msg(String pt, String en) {
         return isEnglish() ? en : pt;
     }
