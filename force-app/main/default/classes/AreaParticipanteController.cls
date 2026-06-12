@@ -12,7 +12,7 @@ public inherited sharing class AreaParticipanteController {
 //teste Marllon
 //outro disco voador
     private static String msg(String pt, String en) {
-        return isEnglish() ? en : pt;
+        return isEnglish() ? en : es;
     }
 
     @AuraEnabled
