@@ -9,6 +9,7 @@
 
 | Agente | Branch | Arquivos bloqueados | Tarefa | Status |
 |--------|--------|---------------------|--------|--------|
+| Codex  | main   | `force-app/main/default/objects/Account/fields/Teste__c.field-meta.xml`, `docs/PROJECT_INDEX.md` | Criar campo texto Teste em Account | ✅ concluído |
 | —      | —      | —                   | —      | —      |
 
 **Status válidos:** `🔄 em andamento` · `✅ concluído` · `⏸ pausado` · `🔀 merge pendente`

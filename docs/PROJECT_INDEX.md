@@ -228,6 +228,12 @@ Framework base: `TriggerHandler.cls`
 | `ChaveNaturalHash__c` | `Categorizacao__c` | Text 64, Unique — unicidade da categorização |
 | `ExternalId__c` | `Categorizacao__c` | External ID para upsert seguro |
 
+## Campos customizados relevantes
+
+| Campo | Objeto | Caminho | Responsabilidade |
+|---|---|---|---|
+| `Teste__c` | `Account` | `objects/Account/fields/Teste__c.field-meta.xml` | Campo texto 255 de teste para WilsonSons Service |
+
 ---
 
 ## Record Types por objeto
