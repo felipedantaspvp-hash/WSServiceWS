@@ -1,5 +1,5 @@
 //Teste outra coisa
-
+// Outro teste
 public inherited sharing class AreaParticipanteController {
     @TestVisible static Exception testException;
 
