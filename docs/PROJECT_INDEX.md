@@ -5,9 +5,9 @@
 
 ## Última atualização
 
-- Data:
-- Responsável:
-- Observação:
+- Data: 2026-06-13
+- Responsável: Codex
+- Observação: Incluído mapeamento do Entitlement Process `atendimento salvador_v2` e dependências de SLA recuperadas da org `WILSON_SERVICE`.
 
 ---
 
@@ -70,6 +70,10 @@ Sistema externo / SObject / Metadata
 
 | Objeto | Campo/Metadata | Caminho | Uso |
 |---|---|---|---|
+| EntitlementProcess | atendimento salvador_v2 | force-app/main/default/entitlementProcesses/atendimento salvador_v2.entitlementProcess-meta.xml | Processo ativo/default v2 de Atendimento Salvador para Case; referencia Business Hours `Atendimento Salvador` e milestones de SLA. |
+| MilestoneType | Acompanhamento; Atendimento; Atendimento N3; Primeira Resposta (Fila N2); Resposta Chat; Retorno N3; SLA Total; Triagem | force-app/main/default/milestoneTypes/ | Milestones usados pelo Entitlement Process `atendimento salvador_v2`. |
+| Settings | BusinessHours | force-app/main/default/settings/BusinessHours.settings-meta.xml | Settings org-level de Business Hours; inclui `Atendimento Salvador`, além de outros horários retornados pela Metadata API. |
+| Settings | Entitlement | force-app/main/default/settings/Entitlement.settings-meta.xml | Settings org-level necessários para Entitlement Management. |
 
 ## Layouts / FlexiPages
 
@@ -95,4 +99,13 @@ Entrada:
 Camadas:
 Saída:
 Riscos:
+```
+
+### SLA Atendimento Salvador v2
+
+```text
+Entrada: Case associado ao Entitlement Process ativo/default `atendimento salvador_v2`.
+Camadas: EntitlementProcess -> MilestoneType -> ApexClass CaseMilestoneTriggerTimeCalculator.
+Saída: Milestones de triagem, resposta, atendimento, acompanhamento e SLA total aplicados ao Case.
+Riscos: BusinessHours é recuperado como Settings org-level; revisar escopo antes de deploy para não sobrescrever horários não relacionados.
 ```

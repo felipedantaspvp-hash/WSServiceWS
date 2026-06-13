@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MilestoneType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Marco macro SLA para área de atendimento resolver o Caso, ele compreende a primeira tratativa do cliente</description>
+    <recurrenceType>none</recurrenceType>
+</MilestoneType>

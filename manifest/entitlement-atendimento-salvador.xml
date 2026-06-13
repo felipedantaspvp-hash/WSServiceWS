@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>atendimento salvador_v2</members>
+        <name>EntitlementProcess</name>
+    </types>
+    <types>
+        <members>Acompanhamento</members>
+        <members>Atendimento</members>
+        <members>Atendimento N3</members>
+        <members>Primeira Resposta %28Fila N2%29</members>
+        <members>Resposta Chat</members>
+        <members>Retorno N3</members>
+        <members>SLA Total</members>
+        <members>Triagem</members>
+        <name>MilestoneType</name>
+    </types>
+    <types>
+        <members>BusinessHours</members>
+        <members>Entitlement</members>
+        <name>Settings</name>
+    </types>
+    <version>66.0</version>
+</Package>

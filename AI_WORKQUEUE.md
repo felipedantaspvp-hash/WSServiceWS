@@ -10,6 +10,7 @@
 | Agente | Branch | Arquivos bloqueados | Tarefa | Status |
 |--------|--------|---------------------|--------|--------|
 | Codex  | main   | `force-app/main/default/objects/Account/fields/Teste__c.field-meta.xml`, `docs/PROJECT_INDEX.md` | Excluir campo texto Teste em Account | ✅ concluído |
+| Codex  | feat/codex/retrieve-entitlement-atendimento-salvador | `AI_WORKQUEUE.md`, `manifest/entitlement-atendimento-salvador.xml`, `force-app/main/default/entitlementProcesses/*`, `force-app/main/default/milestoneTypes/*`, `force-app/main/default/settings/BusinessHours.settings-meta.xml`, `force-app/main/default/settings/Entitlement.settings-meta.xml`, `docs/PROJECT_INDEX.md` | Baixar Entitlement Process ativo Atendimento Salvador v2 e dependências | ✅ concluído |
 | —      | —      | —                   | —      | —      |
 
 **Status válidos:** `🔄 em andamento` · `✅ concluído` · `⏸ pausado` · `🔀 merge pendente`

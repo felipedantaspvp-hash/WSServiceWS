@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MilestoneType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Marco macro SLA Wilson Sons para o time de atendimento analisar o retorno das áreas participantes e responder ao cliente. Ele poderá ser criado mais de uma vez em casos que a área participante também precise ser acionada mais de uma vez.</description>
+    <recurrenceType>recursIndependently</recurrenceType>
+</MilestoneType>
