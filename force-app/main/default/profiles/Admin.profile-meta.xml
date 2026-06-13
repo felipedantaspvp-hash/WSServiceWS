@@ -1889,6 +1889,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Entitlement.UnidadeNegocio__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>GestaoSLA__c.Ativo__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2665,6 +2670,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>CommunityMemberLayout-Community Member Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Entitlement-Direito Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>MessagingEndUser-Layout de Envio de mensagens ao usuário</layout>
