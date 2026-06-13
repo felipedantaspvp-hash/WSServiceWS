@@ -1670,11 +1670,9 @@ Before we begin, please choose your service language.</message>
         <includeInPrompt>false</includeInPrompt>
         <label>EtapaAtendimento</label>
     </conversationVariables>
-    <defaultStdObjForContactIdFltrEnabled>false</defaultStdObjForContactIdFltrEnabled>
     <entryDialog>Welcome</entryDialog>
     <intentDisambiguationEnabled>false</intentDisambiguationEnabled>
     <intentV3Enabled>true</intentV3Enabled>
-    <isScriptCompatibleAgent>false</isScriptCompatibleAgent>
     <knowledgeActionEnabled>false</knowledgeActionEnabled>
     <knowledgeFallbackEnabled>false</knowledgeFallbackEnabled>
     <mainMenuDialog>Teste_Menu</mainMenuDialog>
@@ -1687,9 +1685,6 @@ Before we begin, please choose your service language.</message>
         <nlpProviderType>EinsteinAi</nlpProviderType>
     </nlpProviders>
     <smallTalkEnabled>false</smallTalkEnabled>
-    <staticPromptsEnabled>false</staticPromptsEnabled>
-    <stopRecPrompts>false</stopRecPrompts>
-    <stopWelcomePrompts>false</stopWelcomePrompts>
     <surfacesEnabled>true</surfacesEnabled>
     <toneType>Casual</toneType>
 </BotVersion>

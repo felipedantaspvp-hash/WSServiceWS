@@ -13,7 +13,6 @@
     <isVersionDefault>true</isVersionDefault>
     <milestones>
         <businessHours>Atendimento Salvador</businessHours>
-        <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
             <operation>equals</operation>
@@ -30,7 +29,6 @@
     </milestones>
     <milestones>
         <businessHours>Atendimento Salvador</businessHours>
-        <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
             <operation>equals</operation>
@@ -47,19 +45,17 @@
     </milestones>
     <milestones>
         <businessHours>Atendimento Salvador</businessHours>
-        <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
             <operation>equals</operation>
             <value>Aguardando atendimento</value>
         </milestoneCriteriaFilterItems>
-        <milestoneName>Primeira Resposta %28Fila N2%29</milestoneName>
+        <milestoneName>Primeira Resposta (Fila N2)</milestoneName>
         <minutesCustomClass>CaseMilestoneTriggerTimeCalculator</minutesCustomClass>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <milestones>
         <businessHours>Atendimento Salvador</businessHours>
-        <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
             <operation>equals</operation>
@@ -71,7 +67,6 @@
     </milestones>
     <milestones>
         <businessHours>Atendimento Salvador</businessHours>
-        <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
             <operation>equals</operation>
@@ -83,7 +78,6 @@
     </milestones>
     <milestones>
         <businessHours>Atendimento Salvador</businessHours>
-        <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
             <operation>equals</operation>
@@ -95,7 +89,6 @@
     </milestones>
     <milestones>
         <businessHours>Atendimento Salvador</businessHours>
-        <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
             <operation>equals</operation>
@@ -107,7 +100,6 @@
     </milestones>
     <milestones>
         <businessHours>Atendimento Salvador</businessHours>
-        <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.IsClosed</field>
             <operation>equals</operation>

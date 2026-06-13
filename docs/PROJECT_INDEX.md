@@ -65,6 +65,7 @@ Sistema externo / SObject / Metadata
 
 | Flow | Caminho | Objeto | Tipo | Before/After | Observação |
 |---|---|---|---|---|---|
+| Case_EntitlementAutoAssignment | force-app/main/default/flows/Case_EntitlementAutoAssignment.flow-meta.xml | Case | Record-Triggered | Before Save — Create | Busca Entitlement WHERE UnidadeNegocio__c = Case.UnidadeNegocio__c (LIMIT 1) e atribui EntitlementId. Substitui o Apex CaseEntitlementAssignmentService.assignForSalvador, cobrindo todas as 4 unidades. Ativo. |
 
 ## Objetos / Campos relevantes
 

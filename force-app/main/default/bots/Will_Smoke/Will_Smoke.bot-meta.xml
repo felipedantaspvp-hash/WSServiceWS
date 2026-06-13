@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Bot xmlns="http://soap.sforce.com/2006/04/metadata">
-    <agentDSLEnabled>false</agentDSLEnabled>
     <botMlDomain>
         <label>Will Smoke</label>
         <name>Will_Smoke</name>
     </botMlDomain>
-    <botSource>None</botSource>
     <botUser>mnascimento@triscal.com.br.willbot</botUser>
     <contextVariables>
         <contextVariableMappings>

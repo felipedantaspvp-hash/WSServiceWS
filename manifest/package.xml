@@ -755,6 +755,7 @@
         <name>DigitalExperience</name>
     </types>
     <types>
+        <members>Case_EntitlementAutoAssignment</members>
         <members>Route_from_Will</members>
         <members>Route_to_Will_Smoke</members>
         <name>Flow</name>
