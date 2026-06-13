@@ -1,5 +1,6 @@
 public inherited sharing class CaseAreaParticipantePauseService {
     @TestVisible public static Boolean bypassBusinessHoursMathForTests = false;
+    @TestVisible public static Boolean bypassCaseMilestoneDmlInTests = false;
 
     public static void handleEtapaChanges(Map<Id, Case> newMap, Map<Id, Case> oldMap){
         if (!AreaParticipanteSLARecursionGuard.enter('CASE_PAUSE_RESUME')) return;
@@ -16,6 +17,7 @@ public inherited sharing class CaseAreaParticipantePauseService {
             }
 
             List<AreaParticipante__c> updates = new List<AreaParticipante__c>();
+            List<Case> caseUpdates = new List<Case>();
 
             if (!entered.isEmpty()){
                 for (AreaParticipante__c a : [
@@ -32,6 +34,14 @@ public inherited sharing class CaseAreaParticipantePauseService {
                     a.StatusAtuacao__c = AreaParticipanteSLAHelper.STATUS_ATUACAO_PAUSADA;
                     a.StatusSLA__c = AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO;
                     updates.add(a);
+                }
+
+                // Registra início da pausa nos marcos nativos para rastreamento
+                if (!(Test.isRunningTest() && bypassCaseMilestoneDmlInTests)) {
+                    Datetime pauseStart = System.now();
+                    for (Id caseId : entered) {
+                        caseUpdates.add(new Case(Id = caseId, DataHoraPausaMilestone__c = pauseStart));
+                    }
                 }
             }
 
@@ -77,12 +87,21 @@ public inherited sharing class CaseAreaParticipantePauseService {
                     a.StatusAtuacaoAnteriorPausa__c = null;
                     updates.add(a);
                 }
+
+                // Limpa o marcador de pausa dos marcos nativos
+                if (!(Test.isRunningTest() && bypassCaseMilestoneDmlInTests)) {
+                    for (Id caseId : exited) {
+                        caseUpdates.add(new Case(Id = caseId, DataHoraPausaMilestone__c = null));
+                    }
+                }
             }
 
             if (!updates.isEmpty()) {
                 AreaParticipanteSLAService.calculateCacheBulk(updates, System.now());
                 update updates;
             }
+
+            if (!caseUpdates.isEmpty()) update caseUpdates;
         } finally {
             AreaParticipanteSLARecursionGuard.leave('CASE_PAUSE_RESUME');
         }

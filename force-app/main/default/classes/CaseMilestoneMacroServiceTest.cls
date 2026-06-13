@@ -13,97 +13,94 @@ private class CaseMilestoneMacroServiceTest {
         );
     }
 
-    @IsTest
-    static void testComputeMilestonesByStageTransition() {
-        Case oldCase = makeCase(FAKE_ID_1, 'Novo', false);
-        Case newCase = makeCase(FAKE_ID_1, 'Em Atendimento', false);
-
+    private static void setup() {
         CaseMilestoneMacroService.bypassCaseMilestoneDmlInTests = true;
-        CaseMilestoneMacroService.lastComputedByCase.clear();
-        CaseMilestoneMacroService.completeByStageTransition(
-            new Map<Id, Case>{ FAKE_ID_1 => newCase },
-            new Map<Id, Case>{ FAKE_ID_1 => oldCase }
-        );
-
-        Assert.areEqual(true, CaseMilestoneMacroService.lastComputedByCase.containsKey(FAKE_ID_1));
-        Set<String> names = CaseMilestoneMacroService.lastComputedByCase.get(FAKE_ID_1);
-        Assert.areEqual(true, names.contains('Primeira Resposta'));
-        Assert.areEqual(false, names.contains('SLA Total'));
+        CaseMilestoneMacroService.lastCatchAllCaseIds.clear();
+        CaseMilestoneMacroService.lastSLATotalCaseIds.clear();
     }
 
     @IsTest
-    static void testAtendimentoTransition() {
-        Case oldCase = makeCase(FAKE_ID_2, 'Em Atendimento', false);
-        Case newCase = makeCase(FAKE_ID_2, 'Concluído', false);
-
-        CaseMilestoneMacroService.bypassCaseMilestoneDmlInTests = true;
-        CaseMilestoneMacroService.lastComputedByCase.clear();
+    static void testStageChangeAddsToCatchAll() {
+        setup();
         CaseMilestoneMacroService.completeByStageTransition(
-            new Map<Id, Case>{ FAKE_ID_2 => newCase },
-            new Map<Id, Case>{ FAKE_ID_2 => oldCase }
+            new Map<Id, Case>{ FAKE_ID_1 => makeCase(FAKE_ID_1, 'Em Atendimento', false) },
+            new Map<Id, Case>{ FAKE_ID_1 => makeCase(FAKE_ID_1, 'Novo', false) }
         );
 
-        Assert.areEqual(true, CaseMilestoneMacroService.lastComputedByCase.containsKey(FAKE_ID_2));
-        Set<String> names = CaseMilestoneMacroService.lastComputedByCase.get(FAKE_ID_2);
-        Assert.areEqual(true, names.contains('Atendimento'));
-        Assert.areEqual(true, names.contains('SLA Total'));
+        Assert.isTrue(CaseMilestoneMacroService.lastCatchAllCaseIds.contains(FAKE_ID_1));
+        Assert.isFalse(CaseMilestoneMacroService.lastSLATotalCaseIds.contains(FAKE_ID_1));
     }
 
     @IsTest
-    static void testRetornoN3Transition() {
-        Case oldCase = makeCase(FAKE_ID_3, 'Preparando Retorno ao Cliente', false);
-        Case newCase = makeCase(FAKE_ID_3, 'Em Atendimento', false);
-
-        CaseMilestoneMacroService.bypassCaseMilestoneDmlInTests = true;
-        CaseMilestoneMacroService.lastComputedByCase.clear();
+    static void testConclusaoAddsToBothSets() {
+        setup();
         CaseMilestoneMacroService.completeByStageTransition(
-            new Map<Id, Case>{ FAKE_ID_3 => newCase },
-            new Map<Id, Case>{ FAKE_ID_3 => oldCase }
+            new Map<Id, Case>{ FAKE_ID_2 => makeCase(FAKE_ID_2, 'Concluído', false) },
+            new Map<Id, Case>{ FAKE_ID_2 => makeCase(FAKE_ID_2, 'Em Atendimento', false) }
         );
 
-        Assert.areEqual(true, CaseMilestoneMacroService.lastComputedByCase.containsKey(FAKE_ID_3));
-        Set<String> names = CaseMilestoneMacroService.lastComputedByCase.get(FAKE_ID_3);
-        Assert.areEqual(true, names.contains('Retorno N3'));
+        Assert.isTrue(CaseMilestoneMacroService.lastCatchAllCaseIds.contains(FAKE_ID_2));
+        Assert.isTrue(CaseMilestoneMacroService.lastSLATotalCaseIds.contains(FAKE_ID_2));
     }
 
     @IsTest
-    static void testAtendimentoN3AndAcompanhamentoTransitions() {
-        CaseMilestoneMacroService.bypassCaseMilestoneDmlInTests = true;
-
-        Case oldN3 = makeCase(FAKE_ID_4, 'Aguardando Área Interna', false);
-        Case newN3 = makeCase(FAKE_ID_4, 'Em Atendimento', false);
-        CaseMilestoneMacroService.lastComputedByCase.clear();
+    static void testCancelamentoAddsToBothSets() {
+        setup();
         CaseMilestoneMacroService.completeByStageTransition(
-            new Map<Id, Case>{ FAKE_ID_4 => newN3 },
-            new Map<Id, Case>{ FAKE_ID_4 => oldN3 }
+            new Map<Id, Case>{ FAKE_ID_3 => makeCase(FAKE_ID_3, 'Cancelado', false) },
+            new Map<Id, Case>{ FAKE_ID_3 => makeCase(FAKE_ID_3, 'Em Atendimento', false) }
         );
-        Set<String> namesN3 = CaseMilestoneMacroService.lastComputedByCase.get(FAKE_ID_4);
-        Assert.areEqual(true, namesN3.contains('Atendimento N3'));
 
-        Case oldAcomp = makeCase(FAKE_ID_5, 'Aguardando Cliente', false);
-        Case newAcomp = makeCase(FAKE_ID_5, 'Em Atendimento', false);
-        CaseMilestoneMacroService.lastComputedByCase.clear();
+        Assert.isTrue(CaseMilestoneMacroService.lastCatchAllCaseIds.contains(FAKE_ID_3));
+        Assert.isTrue(CaseMilestoneMacroService.lastSLATotalCaseIds.contains(FAKE_ID_3));
+    }
+
+    @IsTest
+    static void testCaseClosureWithoutStageChangeAddsOnlySLATotal() {
+        setup();
         CaseMilestoneMacroService.completeByStageTransition(
-            new Map<Id, Case>{ FAKE_ID_5 => newAcomp },
-            new Map<Id, Case>{ FAKE_ID_5 => oldAcomp }
+            new Map<Id, Case>{ FAKE_ID_4 => makeCase(FAKE_ID_4, 'Em Atendimento', true) },
+            new Map<Id, Case>{ FAKE_ID_4 => makeCase(FAKE_ID_4, 'Em Atendimento', false) }
         );
-        Set<String> namesAcomp = CaseMilestoneMacroService.lastComputedByCase.get(FAKE_ID_5);
-        Assert.areEqual(true, namesAcomp.contains('Acompanhamento'));
+
+        Assert.isFalse(CaseMilestoneMacroService.lastCatchAllCaseIds.contains(FAKE_ID_4));
+        Assert.isTrue(CaseMilestoneMacroService.lastSLATotalCaseIds.contains(FAKE_ID_4));
     }
 
     @IsTest
     static void testNoTransitionSkipsProcessing() {
-        Case c1 = makeCase(FAKE_ID_1, 'Em Atendimento', false);
-        Case c2 = makeCase(FAKE_ID_1, 'Em Atendimento', false);
-
-        CaseMilestoneMacroService.bypassCaseMilestoneDmlInTests = true;
-        CaseMilestoneMacroService.lastComputedByCase.clear();
+        setup();
         CaseMilestoneMacroService.completeByStageTransition(
-            new Map<Id, Case>{ FAKE_ID_1 => c2 },
-            new Map<Id, Case>{ FAKE_ID_1 => c1 }
+            new Map<Id, Case>{ FAKE_ID_5 => makeCase(FAKE_ID_5, 'Em Atendimento', false) },
+            new Map<Id, Case>{ FAKE_ID_5 => makeCase(FAKE_ID_5, 'Em Atendimento', false) }
         );
 
-        Assert.areEqual(false, CaseMilestoneMacroService.lastComputedByCase.containsKey(FAKE_ID_1));
+        Assert.isFalse(CaseMilestoneMacroService.lastCatchAllCaseIds.contains(FAKE_ID_5));
+        Assert.isFalse(CaseMilestoneMacroService.lastSLATotalCaseIds.contains(FAKE_ID_5));
+    }
+
+    @IsTest
+    static void testMultipleCasesHandledIndependently() {
+        setup();
+        CaseMilestoneMacroService.completeByStageTransition(
+            new Map<Id, Case>{
+                FAKE_ID_1 => makeCase(FAKE_ID_1, 'Em Atendimento', false),
+                FAKE_ID_2 => makeCase(FAKE_ID_2, 'Em Atendimento', false),
+                FAKE_ID_3 => makeCase(FAKE_ID_3, 'Concluído', false)
+            },
+            new Map<Id, Case>{
+                FAKE_ID_1 => makeCase(FAKE_ID_1, 'Novo', false),
+                FAKE_ID_2 => makeCase(FAKE_ID_2, 'Em Atendimento', false),
+                FAKE_ID_3 => makeCase(FAKE_ID_3, 'Em Atendimento', false)
+            }
+        );
+
+        Assert.isTrue(CaseMilestoneMacroService.lastCatchAllCaseIds.contains(FAKE_ID_1));
+        Assert.isFalse(CaseMilestoneMacroService.lastCatchAllCaseIds.contains(FAKE_ID_2));
+        Assert.isTrue(CaseMilestoneMacroService.lastCatchAllCaseIds.contains(FAKE_ID_3));
+        Assert.isFalse(CaseMilestoneMacroService.lastSLATotalCaseIds.contains(FAKE_ID_1));
+        Assert.isFalse(CaseMilestoneMacroService.lastSLATotalCaseIds.contains(FAKE_ID_2));
+        Assert.isTrue(CaseMilestoneMacroService.lastSLATotalCaseIds.contains(FAKE_ID_3));
     }
 
     @IsTest
@@ -111,6 +108,23 @@ private class CaseMilestoneMacroServiceTest {
         CaseMilestoneMacroService.bypassCaseMilestoneDmlInTests = true;
         CaseMilestoneMacroService.completeByStageTransition(null, null);
         CaseMilestoneMacroService.completeByStageTransition(new Map<Id, Case>(), new Map<Id, Case>());
-        Assert.areEqual(true, true);
+        Assert.isTrue(true);
+    }
+
+    @IsTest
+    static void testQueryPathExecutesWhenNoCaseMilestonesExist() {
+        // Não usa bypass — cobre o bloco SOQL/DML com IDs que não têm CaseMilestones
+        CaseMilestoneMacroService.bypassCaseMilestoneDmlInTests = false;
+        CaseMilestoneMacroService.lastCatchAllCaseIds.clear();
+        CaseMilestoneMacroService.lastSLATotalCaseIds.clear();
+
+        Test.startTest();
+        CaseMilestoneMacroService.completeByStageTransition(
+            new Map<Id, Case>{ FAKE_ID_1 => makeCase(FAKE_ID_1, 'Em Atendimento', false) },
+            new Map<Id, Case>{ FAKE_ID_1 => makeCase(FAKE_ID_1, 'Novo', false) }
+        );
+        Test.stopTest();
+
+        Assert.isTrue(CaseMilestoneMacroService.lastCatchAllCaseIds.contains(FAKE_ID_1));
     }
 }

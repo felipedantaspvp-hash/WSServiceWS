@@ -45,6 +45,8 @@ Sistema externo / SObject / Metadata
 
 | Artefato | Caminho | Responsabilidade | Chamado por |
 |---|---|---|---|
+| CaseAreaParticipantePauseService | force-app/main/default/classes/CaseAreaParticipantePauseService.cls | Pausa/retoma AreaParticipante interna ao entrar/sair de "Aguardando Cliente"; registra DataHoraPausaMilestone__c no Case para rastreamento de pausa dos marcos nativos. | CaseTriggerHandler.afterUpdate |
+| CaseMilestoneMacroService | force-app/main/default/classes/CaseMilestoneMacroService.cls | Fecha marcos SLA não-SLA Total em qualquer transição de EtapaAtendimento__c; fecha SLA Total na conclusão/cancelamento do Case. | CaseTriggerHandler.afterUpdate |
 
 ## ServiceAgents / Integrações
 
@@ -78,6 +80,7 @@ Sistema externo / SObject / Metadata
 | MilestoneType | Acompanhamento; Atendimento; Atendimento N3; Primeira Resposta (Fila N2); Resposta Chat; Retorno N3; SLA Total; Triagem | force-app/main/default/milestoneTypes/ | Milestones usados pelo Entitlement Process `atendimento salvador_v2`. |
 | Settings | BusinessHours | force-app/main/default/settings/BusinessHours.settings-meta.xml | Settings org-level de Business Hours; inclui `Atendimento Salvador`, além de outros horários retornados pela Metadata API. |
 | Settings | Entitlement | force-app/main/default/settings/Entitlement.settings-meta.xml | Settings org-level necessários para Entitlement Management. |
+| Case | DataHoraPausaMilestone__c (DateTime) | force-app/main/default/objects/Case/fields/DataHoraPausaMilestone__c.field-meta.xml | Registra início da pausa dos marcos SLA nativos ao entrar em "Aguardando Cliente"; limpo ao sair. Usado por CaseAreaParticipantePauseService. FLS Admin: editable+readable. |
 
 ## Layouts / FlexiPages
 

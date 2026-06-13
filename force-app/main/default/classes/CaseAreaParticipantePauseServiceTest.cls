@@ -295,6 +295,81 @@ private class CaseAreaParticipantePauseServiceTest {
     }
 
     @IsTest
+    static void testPauseEnterSetsMilestonePauseField() {
+        CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
+        CaseAreaParticipantePauseService.bypassCaseMilestoneDmlInTests = false;
+        Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(
+            AreaParticipanteTestDataFactory.commonAreaValues()[0], null
+        );
+
+        Case oldCase = (Case) c.clone(true, true, true, true);
+        oldCase.EtapaAtendimento__c = 'Em Atendimento';
+        Case newCase = (Case) c.clone(true, true, true, true);
+        newCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.etapaAguardandoCliente();
+
+        Test.startTest();
+        CaseAreaParticipantePauseService.handleEtapaChanges(
+            new Map<Id, Case>{ c.Id => newCase },
+            new Map<Id, Case>{ c.Id => oldCase }
+        );
+        Test.stopTest();
+
+        Case saved = [SELECT DataHoraPausaMilestone__c FROM Case WHERE Id = :c.Id];
+        Assert.isTrue(saved.DataHoraPausaMilestone__c != null, 'DataHoraPausaMilestone__c deve ser preenchido ao entrar em Aguardando Cliente');
+    }
+
+    @IsTest
+    static void testResumeExitClearsMilestonePauseField() {
+        CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
+        CaseAreaParticipantePauseService.bypassCaseMilestoneDmlInTests = false;
+        Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(
+            AreaParticipanteTestDataFactory.commonAreaValues()[0], null
+        );
+
+        c.DataHoraPausaMilestone__c = System.now().addMinutes(-15);
+        update c;
+
+        Case oldCase = (Case) c.clone(true, true, true, true);
+        oldCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.etapaAguardandoCliente();
+        Case newCase = (Case) c.clone(true, true, true, true);
+        newCase.EtapaAtendimento__c = 'Em Atendimento';
+
+        Test.startTest();
+        CaseAreaParticipantePauseService.handleEtapaChanges(
+            new Map<Id, Case>{ c.Id => newCase },
+            new Map<Id, Case>{ c.Id => oldCase }
+        );
+        Test.stopTest();
+
+        Case saved = [SELECT DataHoraPausaMilestone__c FROM Case WHERE Id = :c.Id];
+        Assert.isNull(saved.DataHoraPausaMilestone__c, 'DataHoraPausaMilestone__c deve ser limpo ao sair de Aguardando Cliente');
+    }
+
+    @IsTest
+    static void testBypassSkipsCaseMilestoneDml() {
+        CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
+        CaseAreaParticipantePauseService.bypassCaseMilestoneDmlInTests = true;
+        Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(
+            AreaParticipanteTestDataFactory.commonAreaValues()[0], null
+        );
+
+        Case oldCase = (Case) c.clone(true, true, true, true);
+        oldCase.EtapaAtendimento__c = 'Em Atendimento';
+        Case newCase = (Case) c.clone(true, true, true, true);
+        newCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.etapaAguardandoCliente();
+
+        Test.startTest();
+        CaseAreaParticipantePauseService.handleEtapaChanges(
+            new Map<Id, Case>{ c.Id => newCase },
+            new Map<Id, Case>{ c.Id => oldCase }
+        );
+        Test.stopTest();
+
+        Case saved = [SELECT DataHoraPausaMilestone__c FROM Case WHERE Id = :c.Id];
+        Assert.isNull(saved.DataHoraPausaMilestone__c, 'Bypass deve impedir DML do campo milestone');
+    }
+
+    @IsTest
     static void testNoOpWhenRecursionGuardIsAlreadyEntered() {
         CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
         String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];

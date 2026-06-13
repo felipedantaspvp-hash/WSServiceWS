@@ -304,6 +304,7 @@
         <members>Case.Categorizacao__c</members>
         <members>Case.ComentarioEncerramento__c</members>
         <members>Case.DataHoraEnvioPesquisa__c</members>
+        <members>Case.DataHoraPausaMilestone__c</members>
         <members>Case.DI_DUIMP__c</members>
         <members>Case.DistribuicaoSolicitada__c</members>
         <members>Case.DtGeracaoReclamacao__c</members>
