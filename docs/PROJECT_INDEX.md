@@ -71,6 +71,9 @@ Sistema externo / SObject / Metadata
 | Objeto | Campo/Metadata | Caminho | Uso |
 |---|---|---|---|
 | EntitlementProcess | atendimento salvador_v2 | force-app/main/default/entitlementProcesses/atendimento salvador_v2.entitlementProcess-meta.xml | Processo ativo/default v2 de Atendimento Salvador para Case; referencia Business Hours `Atendimento Salvador` e milestones de SLA. |
+| EntitlementProcess | atendimento rio grande_v2 | force-app/main/default/entitlementProcesses/atendimento rio grande_v2.entitlementProcess-meta.xml | Processo ativo/default v2 de Atendimento Rio Grande para Case; referencia Business Hours `Atendimento Rio Grande` (a criar na org) e milestones de SLA. |
+| EntitlementProcess | atendimento centro logistico_v2 | force-app/main/default/entitlementProcesses/atendimento centro logistico_v2.entitlementProcess-meta.xml | Processo ativo/default v2 de Atendimento Centro Logístico para Case; referencia Business Hours `Atendimento Centro Logístico` (a criar na org) e milestones de SLA. |
+| EntitlementProcess | atendimento rebocadores_v2 | force-app/main/default/entitlementProcesses/atendimento rebocadores_v2.entitlementProcess-meta.xml | Processo ativo/default v2 de Atendimento Rebocadores para Case; referencia Business Hours `Atendimento Rebocadores` (a criar na org) e milestones de SLA. |
 | MilestoneType | Acompanhamento; Atendimento; Atendimento N3; Primeira Resposta (Fila N2); Resposta Chat; Retorno N3; SLA Total; Triagem | force-app/main/default/milestoneTypes/ | Milestones usados pelo Entitlement Process `atendimento salvador_v2`. |
 | Settings | BusinessHours | force-app/main/default/settings/BusinessHours.settings-meta.xml | Settings org-level de Business Hours; inclui `Atendimento Salvador`, além de outros horários retornados pela Metadata API. |
 | Settings | Entitlement | force-app/main/default/settings/Entitlement.settings-meta.xml | Settings org-level necessários para Entitlement Management. |

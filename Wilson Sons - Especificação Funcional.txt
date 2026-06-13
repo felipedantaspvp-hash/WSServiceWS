@@ -1,0 +1,767 @@
+      
+
+
+
+Wilson Sons - Implementação Salesforce Service Cloud
+
+Sobre o Documento
+
+ClienteWilson SonsProjetoOtimização Pós-Venda
+Envolvidos
+
+ NomeEmpresaPapelAndréa SoaresTriscalGerente de projetosJean DuarteTriscalAnalista de negóciosMarllon NascimentoTriscalAnalista de negócios
+Histórico
+
+VersãoDataAçãoResponsávelRevisorV.109/05/2026Criação do documento funcional para uso das melhorias no sistemaTriscalAndréa SoaresV.221/05/2026Alteração do nome do Objeto Atuação para Área Participante. Alteração do anexo da árvore de SalvadorTriscalAndréa Soares
+
+Sumário
+1.	Objetivo do documento	6
+2.	Cenário Atual	6
+3.	Proposta de evolução	6
+4.	Cenário Atual x Cenário Proposto	7
+5.	Solução Funcional	8
+5.1	Arquitetura geral da solução	8
+5.2	Apps Salesforce	8
+5.2.1	Recursos Mínimos por APP	9
+5.2.2	Experiência do usuário	9
+5.3	Conta e Contato	10
+5.3.1	Tipos funcionais de Conta	10
+5.3.2	Hierarquia de contas	11
+5.3.3	Regra de domínio de e-mail	11
+5.3.4	Definição de Contato	11
+5.3.5	Governança Cadastral	12
+5.4	Categorização	12
+5.4.1	Distribuição de Fila (opcional)	13
+5.4.2	Protótipo de Layout de Tela de Categorização	13
+5.5	Caso	14
+5.5.1	Origens de Criação do Caso	15
+5.5.2	Criação de Caso por e-mail	15
+5.5.3	Abertura manual de Caso	15
+5.5.4	Recategorização do Caso	16
+5.5.5	Regras de Conta, Requisitante e Representante	17
+5.5.6	Campos Dinâmicos por Categorização	17
+5.5.7	Criação Recorrente de Casos	17
+5.5.8	Distribuição via Omni-Channel	19
+5.5.9	Omni Supervisor	19
+5.5.10	Pesquisa de Satisfação	20
+5.5.11	Bot Salesforce	21
+5.5.12	Segurança e Compartilhamento de Caso	21
+5.5.13	Objeto de Reclamações (Atendimento Salvador)	21
+5.6	SLA e Atuações do Caso	22
+5.6.1	Conceitos Funcionais	22
+5.6.2	Status do Caso	22
+5.6.3	Etapa do Atendimento	23
+5.6.4	Marcos do Processo de SLA	23
+5.6.5	Objeto Área Participante	25
+5.6.6	Regras Funcionais de Criação e Encerramento de Áreas Participantes	25
+5.6.7	Protótipo Visual do Componente de Área Participante	26
+6.	Solução Técnica	28
+6.1	Arquitetura geral da solução	28
+6.2	Caso, Conta e Contato	28
+6.2.1	Campos e configurações sugeridas	29
+6.3	Categorização	29
+6.3.1	Seleção de filas	29
+6.3.2	Chave natural e hash único	30
+6.3.3	Automação server-side e carga de dados	30
+6.3.4	LWC categorizacaoManager	31
+6.3.5	Validações funcionais e técnicas	31
+6.3.6	Segurança e governança da Categorização	32
+6.3.7	Record Types	32
+6.3.8	Campos Principais	32
+6.3.9	Campos de distribuição	33
+6.3.10	Campos Técnicos de Unicidade	33
+6.4	Email-to-Case Customizado	33
+6.4.1	Escopo Funcional	34
+6.4.2	Arquitetura Lógica	34
+6.4.3	Componentes principais	35
+6.4.4	Entrada do e-mail	35
+6.4.5	Resolução de rota	35
+6.4.6	Deduplicação	36
+6.4.7	Threading	36
+6.4.8	Decisão de processamento do Caso	36
+6.4.9	Persistência de e-mail e anexos	37
+6.4.10	Auditoria de erro	37
+6.4.11	Parametrização por Custom Metadata	38
+6.4.12	Regras de consistência das rotas	38
+6.4.13	Construção do Caso	39
+6.4.14	Segurança e Governança	39
+6.4.15	Pontos de segurança relevantes	39
+6.4.16	Tratamento de Erros	40
+6.4.17	Contratos Técnicos por Classe	40
+6.4.18	Testes Automatizados	41
+6.5	Campos, Componentes Técnicos e Permission Sets (Caso e Reclamação)	41
+6.5.1	Campos Caso	41
+6.5.2	Campos Reclamação	44
+6.5.3	Componentes Técnicos Sugeridos	45
+6.5.4	Permission Sets por Área de Negócio	45
+6.6	SLA e Atuações do Caso	46
+6.6.1	Tipos de Área Participante	46
+6.6.2	Dicionário de campos de Área Participante	46
+6.6.3	Componente LWC caseAtuacoesPanel	47
+7.	Regras de Validação	49
+8.	Automações	49
+9.	Papéis, perfis e Permission Sets	49
+10.	Relatórios e Indicadores	49
+8	Pontos de atenção	50
+11.	Oportunidades de melhorias futuras	50
+12.	Anexos	51
+13.	Aceite	51
+
+
+
+
+1. Objetivo do documento
+
+Este documento consolida a especificação técnica e funcional final do projeto Otimização Pós-Venda com a implementação do Salesforce Service Cloud na Wilson, Sons. A especificação reúne as definições funcionais, arquiteturais, operacionais e técnicas discutidas para suportar os processos de atendimento das unidades de negócio contempladas no projeto.
+
+O documento deve servir como referência para validação com as áreas de negócio, desenho da solução, configuração Salesforce, desenvolvimento, homologação, treinamento, implantação e sustentação. Também orienta decisões de governança, segurança, visibilidade de dados, permissionamento, automações, relatórios, integração de canais e evolução futura da plataforma.
+
+A solução terá como premissa estruturar uma operação de atendimento escalável, governada e aderente à realidade da Wilson, Sons, evitando a simples reprodução de limitações de ferramentas legadas e preservando as particularidades das diferentes unidades de negócio.
+
+2. Cenário Atual
+
+A Wilson Sons possui diferentes modelos de atendimento entre suas áreas de negócio. Algumas operações já utilizam ferramentas ou canais estruturados, enquanto outras realizam atendimento por e-mail, WhatsApp, telefone, e acompanhamento operacional direto junto a clientes, despachantes, transportadoras e demais representantes.
+Os atendimentos podem nascer por e-mail, WhatsApp, chat, formulário web, telefone, portal, ou acompanhamento operacional. Em algumas áreas, a demanda possui característica tradicional de solicitação, dúvida, reclamação ou desvio. Em outras, especialmente no Centro Logístico, o atendimento se mistura com monitoramento, follow-up, documentação, faturamento e acompanhamento recorrente de clientes.
+O cenário atual apresenta limitação de métricas consolidadas, dificuldade de rastreabilidade ponta a ponta, baixa padronização de SLA, pouca visibilidade sobre backlog e dependência de canais não estruturados. A implantação do Service Cloud deve centralizar o atendimento, padronizar indicadores e permitir gestão por unidade de negócio. 
+
+3. Proposta de evolução
+
+A proposta de evolução consiste na implantação de uma solução integrada de Service Cloud com objetos comuns, parametrização por unidade de negócio e componentes específicos para os fluxos mais críticos. O Caso será o registro central de atendimento, enquanto Conta, Contato, Categorização, Área Participante, Agendamento e objetos auxiliares apoiarão a operação.
+A solução será organizada por Apps Salesforce específicos para cada área de negócios, apoiados em tipos de registros, páginas dinâmicas, filas, Omni-Channel, Omni Supervisor, permissões específicas por área, compartilhamento de registros por áreas, automações e relatórios segmentados por unidade de negócio.
+
+
+
+
+
+
+
+
+
+
+
+
+
+4. Cenário Atual x Cenário Proposto
+
+AspectoCenário AtualCenário PropostoCanaisMúltiplos canais com registro disperso e baixa padronização.Canais convergindo para Caso: e-mail, WhatsApp, chat, formulário web, manual e recorrente.CategorizaçãoClassificações heterogêneas e dependentes de interpretação manualCategorização com árvore governada e distribuição automática opcional.SLABaixa padronização e pouca rastreabilidade por etapa/área.Processo de Direitos com Horário de atendimento, Marcos e Atuações para medição e histórico.VisibilidadeControle operacional por ferramenta/canalCaso privado, compartilhamento por papéis e permissionamento por unidade.GestãoIndicadores fragmentados e baixa visão de backlog.Omni-Channel, Omni Supervisor, relatórios e painéis por área, porém com padrão de acompanhamento centralizado
+5. Solução Funcional
+
+1 
+2 
+3 
+4 
+5 
+5.1 Arquitetura geral da solução
+
+A arquitetura funcional proposta utiliza o Caso como núcleo de atendimento e relaciona os demais componentes de acordo com sua finalidade operacional. O objeto Categorização parametriza a árvore de atendimento e pode indicar distribuição para filas. O objeto Área Participante registra atividades de atendimento e áreas internas. O objeto Agendamento permite criação recorrente de casos. O Email-to-Case customizado recebe e-mails e respeita rotas parametrizadas.
+
+ComponentePapel na soluçãoCasoRegistro central de atendimento, comunicação, acompanhamento, SLA e históricoContaRepresenta Grupo Econômico ou Conta Unidade Operacional atendida.ContatoRepresenta a pessoa física requisitante ou interlocutora do atendimento.CategorizaçãoParametriza Tipo de Caso, Categoria, Assunto, Subassunto e distribuição (opcional).Área ParticipanteRegistra Área Participante de atendimento ou área interna vinculada ao Caso.AgendamentoControla criação recorrente de casos para clientes e atividades programadas.Log de IntegraçãoRegistra falhas técnicas e funcionais de integrações e rotinas automatizadas.
+5.2 Apps Salesforce
+
+Serão criados Lightning Apps, sendo um App dedicado para cada área de negócio contemplada no projeto. Essa abordagem tem como objetivo disponibilizar uma experiência de atendimento segmentada, organizada e aderente à operação de cada área, respeitando suas particularidades de processo, indicadores, filas, relatórios e identidade visual.
+DiretrizDescrição funcionalApp por Área de NegócioDisponibilizar ambiente de trabalho direcionado à operação específica de cada área.Identificação própriaConfigurar nome, descrição, ícone, marcação visual e navegação própria.Objetos comunsDisponibilizar Contas, Contatos, Casos, Relatórios, Painéis e Tela Inicial conforme necessidade operacional.Experiência segmentadaReduzir ruído operacional e apresentar apenas os recursos relevantes para o usuário da área.Governança comumManter arquitetura reutilizável e evitar duplicação técnica de objetos, campos e automações.
+5.2.1 Recursos Mínimos por APP
+
+•	Tela Inicial
+•	Contas
+•	Contatos
+•	Casos
+•	Categorização
+•	Relatórios
+•	Painéis
+
+5.2.2 Experiência do usuário
+
+Cada App deverá apresentar uma experiência direcionada ao usuário da respectiva área de negócio. A navegação deverá conter apenas os itens necessários para a operação daquela área, evitando excesso de abas, informações irrelevantes ou componentes que não façam parte do processo de atendimento.
+A Tela Inicial de cada App poderá ser personalizada para exibir indicadores de atendimento, filas de trabalho, casos pendentes, casos críticos, SLA, volumetria e atalhos operacionais. Os Relatórios e Painéis também deverão ser segmentados por área, permitindo que gestores e usuários acompanhem indicadores específicos do seu processo.
+
+
+
+
+5.3 Conta e Contato
+
+A modelagem de Conta e Contato será utilizada como base para identificação do cliente, abertura de casos, relacionamento com solicitantes e consolidação da visão 360 do atendimento.
+A Conta representará a entidade empresarial atendida pela Wilson Sons. Essa entidade poderá assumir o comportamento de Grupo Econômico, quando houver hierarquia de empresas, ou Conta Unidade Operacional, quando a própria conta for a referência principal de atendimento.
+
+
+
+
+
+
+
+
+
+
+
+
+         Figura 2 - Modelo funcional de relacionamento entre Conta, Contato e Caso.
+5.3.1 Tipos funcionais de Conta 
+
+Cada App deverá apresentar uma experiência direcionada ao usuário da respectiva área de negócio. A navegação deverá conter apenas os itens necessários para a operação daquela área, evitando excesso de abas, informações irrelevantes ou componentes que não façam parte do processo de atendimento.
+Tipo FuncionalDefiniçãoGrupo EconômicoRepresenta o nível superior de uma hierarquia de empresas pertencentes ao mesmo grupo. Deve ser cadastrado como Conta e utilizado como referência principal para atendimento, domínio de e-mail e visão gerencial.Conta Unidade OperacionalRepresenta uma empresa que pode estar ou não associada a Grupo Econômico. Quando não houver Grupo Econômico, a própria conta será considerada a conta principal de atendimento.
+5.3.2 Hierarquia de contas 
+
+Quando houver empresas relacionadas a um Grupo Econômico, essa relação será representada por meio do campo Parent Account, onde as contas subordinadas apontarão para a conta de topo correspondente ao grupo. Essa abordagem preserva a hierarquia sem duplicação desnecessária e sem obrigar que toda conta possua Grupo Econômico quando isso não fizer sentido para o negócio.
+No processo de abertura e tratamento de casos, o time de atendimento deverá selecionar sempre a conta principal de referência do atendimento. Essa conta poderá ser a Conta Unidade Operacional, quando não existir Grupo Econômico, ou o Grupo Econômico, quando existir uma hierarquia de empresas relacionadas.
+
+5.3.3 Regra de domínio de e-mail 
+
+A identificação automática de clientes por e-mail utilizará o domínio cadastrado na Conta. Para garantir consistência e evitar conflitos de identificação, os domínios deverão ser mantidos somente no nível principal da hierarquia.
+CenárioRegra funcionalGrupo Econômico existenteO domínio deverá ser cadastrado somente na conta do Grupo Econômico.Conta independenteO domínio deverá ser cadastrado na própria Conta Unidade Operacional.Contas subordinadasNão deverão possuir domínio preenchido.Contato novo por e-mailDeverá ser inicialmente associado à conta principal identificada pelo domínio, cabendo ao atendente ajustar quando necessário.
+
+5.3.4 Definição de Contato
+
+O Contato representará a pessoa física que interage com a Wilson Sons em nome de uma empresa, grupo econômico, despachante, representante ou outro agente relacionado ao atendimento.
+Quando o contato já existir na base, o Salesforce deverá utilizar o vínculo cadastral existente para relacionar o atendimento à conta correspondente. Quando o contato não existir, a identificação inicial poderá ocorrer a partir do domínio do e-mail, respeitando a regra de domínio centralizado na conta principal.
+Em cenários nos quais o contato represente empresas diferentes em momentos distintos, como despachantes, representantes ou intermediários, a solução deverá permitir que o atendente ajuste a empresa representada no contexto do Caso, sem comprometer o cadastro principal do contato.
+5.3.5 Governança Cadastral
+
+Para garantir qualidade e consistência da base de dados, a solução deverá aplicar regras de governança para criação, manutenção e identificação de contas e contatos.
+* Contas subordinadas a Grupo Econômico não deverão possuir domínio preenchido;
+* Domínios deverão ser únicos no nível de conta principal;
+* Contas sem necessidade de Grupo Econômico poderão permanecer como Contas Unidade Operacional;
+* A hierarquia via Parent Account deverá ser utilizada apenas quando houver relação real de grupo;
+* A criação automática de contatos deverá seguir a identificação por domínio;
+* Ajustes manuais pelo atendente deverão ser permitidos quando a identificação automática não refletir corretamente a empresa relacionada ao atendimento;
+* Regras de deduplicação e saneamento cadastral deverão ser consideradas para evitar múltiplos registros representando a mesma empresa ou pessoa.
+
+5.4 Categorização
+
+Será criado um objeto (tabela) para configuração da categorização do Caso.
+Cada registro de Categorização representa uma combinação válida de categorização para o Caso. A distribuição para fila é opcional e poderá ocorrer diretamente pela categorização ou condicionada ao valor de um campo picklist do Caso.
+O objeto Categorização irá possuir Tipos de Registros por Unidade de Negócio. Essa configuração permitirá identificar a área do usuário e restringir a criação de registros ao contexto autorizado.
+Neste objeto além dos campos Tipo de Caso, Categoria, Assunto e Subassunto terá o campo de Unidade de Negócios, porém, funcionalmente, o usuário não preencherá manualmente o campo Unidade de Negócio. Esse campo será preenchido automaticamente a partir do tipo de registro disponível para o usuário. Quando o usuário possuir acesso a apenas um tipo de registro, o sistema deverá selecionar automaticamente a Unidade de Negócio. Quando houver mais de um tipo de registro disponível, o sistema deverá solicitar a seleção no momento da criação ou manter o campo habilitado para edição conforme permissão.
+
+
+
+5.4.1 Distribuição de Fila (opcional)
+
+Será criado um campo Distribuir para fila, do tipo lista de valores (sim/não).
+Quando Distribuir para fila? estiver desmarcado ou com valor Não, os campos de distribuição não deverão ser exigidos e o registro será usado apenas na árvore de categorização.
+Quando Distribuir para fila? estiver marcado ou com valor Sim e Por categorização? estiver marcado ou com valor Sim, o sistema deverá exigir a seleção da fila de Caso relacionada à área de negócio. Nessa situação, não será necessário informar campo ou valor de distribuição.
+Quando Distribuir para fila? estiver marcado ou com valor Sim e Por categorização? estiver desmarcado ou com valor Não, o sistema deverá exigir a seleção de um campo picklist do objeto Caso, um valor válido dessa picklist e uma fila de Caso relacionada à área de negócio.
+No momento da escolha do campo de distribuição, o sistema deverá listar dinamicamente os campos do tipo picklist disponíveis no objeto Caso. Após a seleção do campo, o sistema deverá listar os valores válidos dessa picklist para que o usuário selecione o valor da regra.
+A seleção de fila deverá listar todas as filas de Caso relacionadas à Unidade de Negócio.
+
+5.4.2 Protótipo de Layout de Tela de Categorização
+
+
+
+
+5.5 Caso
+
+O Caso será utilizado como principal registro de atendimento no Service Cloud, permitindo controlar solicitações, dúvidas, reclamações, acompanhamentos, tratativas, histórico de comunicação e demais interações relevantes entre a Wilson Sons e seus clientes ou representantes.
+A solução deverá permitir que diferentes origens de atendimento conversem com um modelo comum de Caso, mantendo as particularidades de cada Unidade de Negócio por meio de Tipos de Registros, Layout de Páginas, Filas, Omni-Channel, Permission Sets e regras de compartilhamento.
+Resumo de escopo de Caso:
+- Criação de Casos por Email-to-Case customizado, WhatsApp/Bot, Chat/Bot, formulários web, criação manual e agendamentos recorrentes.
+- Substituição do botão New do Caso por um fluxo inicial de categorização customizado, com posterior abertura da tela padrão de Caso.
+- Criação de ação adicional para reclassificação de Caso já existente, preservando o botão Edit padrão.
+- Regras de Conta, Conta Unidade Operacional, Requisitante e Representante no Caso.
+- Uso de layout com formulário dinâmico para campos condicionais por categorização.
+- Criação recorrente de Casos por objeto Agendamento.
+- Distribuição por Omni-Channel para Casos de mensagens oriundas de chat/WhatsApp e e-mail.
+- Uso do Omni Supervisor para acompanhamento operacional das filas, agentes, backlog e atendimentos em tempo real.
+- Encerramento de Caso com opção de envio de pesquisa de satisfação.
+- Bot único MVP para Wilson, Sons.
+- Modelo de segurança com Caso privado, compartilhamento por papéis e Permission Sets por área de negócio.
+- Criação de objeto para registro estruturado de reclamações da Unidade de Negócio Salvador no fechamento do Caso
+Somente será implementado o que estiver estritamente descrito neste documento ou em documentação complementar formalmente aprovada.
+
+
+
+5.5.1 Origens de Criação do Caso
+
+Os Casos poderão ser gerados por diferentes canais. Cada origem deverá convergir para o mesmo modelo de campos, categorização, proprietário, permissões, relatórios e regras de atendimento.
+OrigemCategorização InicialProprietário InicialObservaçãoE-mailPendenteFila ou Omni-ChannelCada e-mail de entrada poderá direcionar para uma fila responsável pela triagem/ categori-zação.WhatsappCategorizadoFila ou Omni-ChannelUnidade de Negócio identificada pelo número/canal de WhatsApp.ChatCategorizadoFila ou Omni-ChannelPré-chat deverá coletar Unidade de Negócio, Nome e E-mail.Formulário WebCategorizadoFila ou Omni-ChannelAplicável quando houver formulário por processo/unidade.ManualCategorizadoUsuário atual ou filaFluxo iniciado pela tela customizada de categorização.RecorrenteCategorizadoUsuário atual ou filaCriado automaticamente pelo agen-damento criado
+5.5.2 Criação de Caso por e-mail
+
+A solução de Email-to-Case será customizada. Ela deverá criar Casos, anexar e-mails a Casos existentes quando houver threading, reabrir ou criar Caso a partir de caso fechado conforme parametrização da rota, registrar EmailMessage e anexos, além de gravar logs de erro no objeto corporativo Log de Integração.
+Cada rota de e-mail deverá definir origem, prioridade, Tipo de Registro, proprietário, comportamento de Caso fechado, janela de reabertura e demais parâmetros necessários. Quando o e-mail não possuir categorização suficiente, o Caso deverá cair em uma fila de categorização da Unidade de Negócio correspondente.
+
+5.5.3 Abertura manual de Caso
+
+Devido as características de categorização de árvore da Wilson Sons tendo diversas áreas de negócio tendo que convergir para uma categorização unificada será necessário alterar o comportamento padrão do botão Novo do Caso. Onde ao clicar no botão o usuário será direcionado para uma tela customizada para que o usuário possa selecionar Tipo de Caso, Categoria, Assunto e Subassunto, considerando a Unidade de Negócio identificada pelo Tipo de Registro/área do usuário.
+Ao final da categorização, o componente deverá abrir a tela padrão de criação do Caso, preenchendo os valores selecionados nos campos homônimos do Caso. Não será gravado lookup para o registro de Categorização, pois a solução não exige rastreabilidade técnica da parametrização aplicada no Caso. O Caso manterá apenas a cópia dos valores da árvore e as informações necessárias para proprietário/distribuição.
+A tela de categorização inicial deverá permitir três decisões de destino: assumir o caso, distribuir para fila ou encerrar na criação. Quando o usuário optar por assumir, o proprietário será o usuário atual. Quando optar por distribuir, será usada a fila parametrizada na categoria, se existir; caso contrário, o componente deverá listar as filas de Caso disponíveis para a Unidade de Negócio. Quando optar por encerrar na própria categorização, o owner deverá ser alterado para o usuário que executou a ação, evitando que o registro retorne para fila.
+A categorização inicial deve permanecer restrita ao componente. Os campos dinâmicos de negócio, incluindo exibição e obrigatoriedade por categorização, serão tratados no layout de página dinâmico e validações complementares.
+
+         Protótipo SLDS2 - LWC de criação manual de Caso com categorização inicial e destino do atendimento
+
+5.5.4 Recategorização do Caso
+
+O botão padrão Edit do Caso será mantido. Para alteração de categorização, deverá ser criada uma ação adicional chamada Recategorizar Caso, reutilizando o mesmo racional do componente de categorização, porém sem a etapa de distribuição inicial.
+Após a recategorização, a tela padrão de edição do Caso deverá ser aberta para que o usuário preencha os campos dinâmicos exigidos pela nova categorização. Essa decisão é necessária porque o usuário nem sempre sabe previamente quais campos são obrigatórios para cada categoria, assunto ou subassunto. O layout de página dinâmico deverá controlar a exibição e a obrigatoriedade visual, enquanto regras de validação/automação devem garantir integridade dos dados.
+
+5.5.5 Regras de Conta, Requisitante e Representante
+
+No preenchimento da Conta do Caso, o usuário deverá visualizar apenas registros que representem Grupos Econômicos ou Contas Unidade Operacional sem Grupo Econômico. 
+O contato solicitante deverá ser gravado no Caso como requisitante. Este contato será utilizado para comunicação, envio de devolutivas, pesquisa de satisfação e demais interações formais do atendimento. Quando o requisitante representar um despachante, transportadora ou outro intermediário que não seja a unidade atendida, o Caso deverá permitir o preenchimento do campo Representante, do tipo busca para o objeto Contas.
+ConceitoCampo SugeridoObservaçãoClienteAccountIdGrupo Econômico ou Conta Unidade Operacional sem grupo.RequisitanteRequisitante__cContato que solicita, interage com o caso e recebe comunicações/pesquisa.RepresentanteRepresentante__cConta associada ao requisitante
+5.5.6 Campos Dinâmicos por Categorização
+
+Campos exclusivos de determinados itens de atendimento serão exibidos e exigidos por configuração no layout de página, considerando Unidade de Negócio, Tipo de Caso, Categoria, Assunto e Subassunto. O componente customizado tanto para criação do caso quanto para recategorização do caso não irá concentrar esses campos; ele deverá apenas definir a categorização para que o layout de página carregue a experiência correta.
+A matriz detalhada de campos por categorização deverá ser mantida por Unidade de Negócio, com base nas planilhas de levantamento, contemplando ao menos Salvador, Rio Grande, Centro Logístico e Rebocadores.
+
+5.5.7 Criação Recorrente de Casos
+
+Será criado um processo de criação recorrente de Casos a partir da Conta. A manutenção será feita por um botão em Conta, implementada por tela customizada, responsável por criar e editar registros do objeto Agendamento.
+O agendamento deverá solicitar a categorização do Caso recorrente, a descrição da atividade, proprietário ou fila, frequência, horário e data de início. Não haverá data de fim. O processo será executado até que o agendamento seja inativado manualmente.
+
+
+Campo/regraDescriçãoContaConta na qual o agendamento será criado. Uma conta pode possuir múltiplos agendamentos.CategorizaçãoTipo de Caso, Categoria, Assunto e Subassunto do Caso recorrente.Descrição da atividadeTexto que descreve o motivo e a rotina do atendimento.ProprietárioUsuário ou fila, obedecendo à Unidade de Negócio.FrequênciaDiária, dias específicos da semana, semanal, mensal, trimestral ou anual.HorárioHorário previsto para criação do Caso.Data de inícioData a partir da qual a rotina passa a criar Casos.Finais de semanaSe a execução cair sábado ou domingo, a criação será pulada e ocorrerá somente no próximo dia útil aplicável.ErrosFalhas da schedule deverão ser registradas em Log de Integração.
+A geração recorrente deverá ser implementada por rotina agendada, com serviço responsável por avaliar os agendamentos ativos, calcular a elegibilidade de execução, criar o Caso e registrar a última/próxima execução. A rotina não deve gerar Casos em finais de semana.
+
+Protótipo SLDS2 - Tela customizada de gerenciamento de agendamento recorrente em Conta.
+
+
+
+5.5.8 Distribuição via Omni-Channel
+
+Os Casos serão distribuídos por filas de atendimento e as filas do contexto do projeto deverão estar associadas a canais de distribuição do Omni-Channel. O Omni-Channel também receberá transbordos do Bot, quando o usuário solicitar falar com atendente nos canais WhatsApp ou Chat.
+Status de disponibilidadeAceita CasosAceita Chat/MensagensDescriçãoDisponível TodosSimSimRecebe Casos e transbordos de atendimento digital.Disponível CasosSimNãoRecebe apenas Casos.Disponível ChatNãoSimRecebe apenas transbordos de chat/WhatsApp.OcupadoNãoNãoNão recebe novos itens.
+Inicialmente, a capacidade planejada será de quatro itens por canal: quatro chats e quatro Casos, totalizando oito itens quando o usuário estiver disponível para todos os canais. Essa configuração deverá ser validada em sandbox considerando Service Channels, Routing Configurations, Presence Configurations e modelo de capacidade adotado.
+
+5.5.9 Omni Supervisor
+
+Após a seção de Omni-Channel, a solução deverá contemplar o uso do Omni Supervisor. A funcionalidade oferece aos supervisores uma visão operacional do centro de atendimento, permitindo acompanhar agentes, filas, backlog, trabalho atribuído, capacidade e tempos de atendimento em tempo real.
+O Omni Supervisor deverá apoiar os supervisores na gestão diária da operação, permitindo acompanhar representantes de serviço, filas, itens em espera, itens atribuídos, tempos de espera, capacidade utilizada e status de disponibilidade dos agentes.
+
+FuncionalidadeAplicação para Wilson SonsRepresentantes / agentesAcompanhar quem está online, status de presença, capacidade e carga de trabalho.Backlog de filasMonitorar filas por Unidade de Negócio, maior tempo de espera e quantidade de itens pendentes.Trabalho atribuídoVisualizar Casos e mensagens já atribuídos aos atendentes.Tempo médio e ativoApoiar gestão de produtividade e operação em tempo real.Filtros por configuração de supervisorPermitir visões segmentadas por grupos de supervisores e áreas de atendimento.
+
+
+Para as áreas de atendimento, o Omni Supervisor agrega visibilidade operacional sobre backlog, disponibilidade dos usuários, filas críticas, tempo de espera e distribuição de workload. Essa visão deverá apoiar supervisores de cada Unidade de Negócio no acompanhamento diário da operação.
+
+Representação visual do Salesforce Omni Supervisor: visão de backlog, filas, agentes, capacidade e trabalho atribuído.
+
+5.5.10 Pesquisa de Satisfação
+
+Será criada uma funcionalidade de encerramento de Caso por botão abrindo tela customizada. Ao encerrar o Caso, o usuário poderá indicar se a pesquisa de satisfação deve ou não ser enviada naquele momento. A pesquisa será enviada por Salesforce Survey e haverá apenas uma pesquisa por Unidade de Negócio.
+Caso o Requisitante já tenha recebido uma pesquisa de satisfação no mesmo dia, o sistema deverá exibir um alerta visual. Esse alerta será informativo e não bloqueará o envio. O usuário poderá prosseguir com o envio da pesquisa mesmo após o alerta.
+
+
+
+
+
+
+
+       Protótipo SLDS2 - LWC de encerramento de Caso com alerta não bloqueante de pesquisa já enviada no dia.
+5.5.11 Bot Salesforce
+
+O projeto terá um único Bot Salesforce para a Wilson Sons, com nome único a ser definido pela companhia. No MVP, o Bot terá diálogos simples para criar Caso, consultar Caso existente ou falar com atendente.
+O Bot receberá interações dos canais WhatsApp e Chat. No WhatsApp, a identificação do cliente ocorrerá pelo telefone, buscando o Contato correspondente. No Chat, o pré-chat deverá coletar Unidade de Negócio, Nome e E-mail para identificação do Contato e direcionamento correto.
+A Unidade de Negócio será identificada pelo canal de entrada: número de WhatsApp para origem WhatsApp e seleção em pré-chat para origem Live Agent/Chat. Essa informação direcionará a categorização, fila, roteamento Omni-Channel, relatórios e pesquisa de satisfação.
+
+5.5.12 Segurança e Compartilhamento de Caso
+
+O objeto Caso deverá ser configurado como privado no modelo de compartilhamento. A visibilidade dos registros será segregada por Unidade de Negócio, de forma que somente usuários pertencentes à unidade correspondente tenham acesso aos Casos daquela operação, salvo usuários administrativos, supervisores corporativos ou exceções formalmente configuradas.
+O compartilhamento será estruturado por papéis, representando as Unidades de Negócio. A hierarquia de papéis deverá permitir que gestores e supervisores da unidade visualizem os registros de sua área, sem conceder visibilidade transversal indevida entre negócios.
+
+ComponenteDefiniçãoOWD de CasoPrivadoSegregaçãoPor Unidade de Negócio.CompartilhamentoPor papéis associados às Unidades de Negócio e hierarquia aplicável.OwnerUsuário ou fila da Unidade de Negócio do Caso.ExceçõesSomente por regra explícita, Permission Set administrativo ou perfil de governança.
+5.5.13 Objeto de Reclamações (Atendimento Salvador)
+
+Deverá ser considerada a criação de um objeto para armazenar as informações históricas e estruturadas do arquivo de reclamações da operação Salvador. Quando um Caso for encerrado, se a Unidade de Negócio for Salvador e o Tipo de Caso for Reclamação, o sistema deverá criar automaticamente um registro neste objeto no formato compatível com a planilha utilizada pela área.
+O objetivo é manter um repositório estruturado para análises de reclamações, procedência, área responsável, causa, impacto, voz do cliente, dados de qualidade e indicadores gerenciais, preservando a capacidade de relatório no Salesforce sem depender de planilhas externas.
+
+5.6 SLA e Atuações do Caso
+
+A solução será baseada no processo padrão de SLA do Salesforce, utilizando Marcos e Processos de Direito para controle oficial dos prazos. O objeto Área Participante será utilizado como camada funcional de rastreabilidade, permitindo consolidar em um único repositório as atuações executadas pelo atendimento e pelas áreas internas.
+A separação de responsabilidades será a seguinte: o Caso concentra o estado macro do atendimento; os Milestones medem os prazos oficiais; o campo Áreas de Atendimento Ativas aciona os milestones concorrentes das áreas internas; o objeto Área Participante registra o histórico de cada Área Participante; e o componente personalizado apresenta a visão operacional na coluna lateral do Caso.
+
+5.6.1 Conceitos Funcionais
+
+ConceitoDefiniçãoSLAPrazo acordado para execução de uma etapa do atendimento ou para resolução total do Caso.MarcosMarco de SLA configurado no Salesforce para medir uma etapa específica do atendimento.Processo de DireitoProcesso padrão do Salesforce que organiza os marcos aplicáveis ao Caso.Área ParticipanteRegistro funcional criado para rastrear uma atividade relevante executada durante o atendimento.Área de AtendimentoÁrea interna acionada no Caso e ainda pendente de conclusão.CaseMilestoneRegistro técnico do Salesforce que representa a execução de um milestone em um Case.
+5.6.2 Status do Caso
+
+O campo padrão Status do Case será utilizado como controle macro do ciclo do atendimento. O Status será utilizado para determinar se os SLAs devem continuar contando, ficar pausados, serem concluídos ou serem encerrados funcionalmente.
+
+
+
+StatusComportamento funcionalAbertoO Caso está em andamento e os SLAs aplicáveis podem contar.PausadoO Caso está temporariamente suspenso e os marcos ativos devem ficar pausados.FechadoO Caso foi concluído e os marcos devem ser concluídos.CanceladoO atendimento foi interrompido e os marcos devem ser encerrados conforme regra funcional de cancelamento.
+
+5.6.3 Etapa do Atendimento
+
+O campo Etapa do Atendimento será utilizado para representar a jornada operacional do Caso na Linha do Tempo. Enquanto o Status representa a situação macro do atendimento, a Etapa do Atendimento indica a posição operacional detalhada do Caso.
+
+EtapaDescrição funcionalNovoIndica que o Caso foi criado e ainda não teve atendimento iniciado.Em TriagemIndica que o Caso está sendo analisado e categorizado.Em AtendimentoIndica que o Caso já está categorizado e em tratamento pela equipe de atendimento.Aguardando ClienteIndica que o Caso depende de retorno do cliente e o SLA deve ficar pausado.Aguardando Área InternaIndica que uma ou mais áreas internas foram acionadas.Em AcompanhamentoIndica que o Caso aguarda processo externo ou indeterminado e o SLA deve ficar pausado.Preparando Retorno ao ClienteIndica que as áreas internas concluíram sua Área Participante e o atendimento deve responder ao cliente.ConcluídoIndica que o Caso foi concluído completamente.CanceladoIndica que o atendimento foi interrompido antes da conclusão.
+5.6.4 Marcos do Processo de SLA
+
+Os marcos abaixo serão configurados no Processo de Direito do Caso. Os nomes propostos buscam clareza funcional para relatórios, componentes de SLA e entendimento pelos usuários de atendimento.
+
+MarcoNome sugeridoObjetivoTempo de filaCategorização InicialMedir o tempo até a categorização ou triagem inicial do Caso.Tempo de tratamento primárioTratamento PrimárioMedir a Área Participante inicial de N1/N2 após categorização.Tempo de N3Atendimento de Área Interna - <Área>Medir o prazo de cada área interna acionada.Tempo para retornar ao clienteRetorno ao ClienteMedir o tempo para o atendimento responder ao cliente após retorno das áreas internas.Total SLA 12hSLA TotalMedir o tempo total do Caso, da abertura ao encerramento.
+Categorização Inicial
+
+O marco Categorização Inicial mede o tempo entre a criação do Caso e sua categorização inicial. Ele está relacionado às etapas Novo e Em Triagem e, em geral, será tratado por N1.
+
+Tratamento Primário
+
+O marco Tratamento Primário mede o período em que a equipe de atendimento atua sobre um Caso já categorizado. O Caso pode ser resolvido nesse nível ou encaminhado para área interna.
+
+Atendimento de Área Interna
+
+Os marcos de Atendimento de Área Interna serão configurados por área. Cada área terá seu próprio marco, acionado quando o campo Áreas de Atendimento contiver o nome daquela área. Exemplos: Atendimento de Área Interna - TI, Atendimento de Área Interna - Faturamento e Atendimento de Área Interna - Financeiro.
+
+Retorno ao Cliente
+
+O marco Retorno ao Cliente mede o tempo que a equipe de atendimento possui para responder ao cliente após a conclusão das atuações das áreas internas. Como as áreas internas não responderão diretamente ao cliente pelo Salesforce, a devolutiva final permanece sob responsabilidade do atendimento.
+
+
+
+
+SLA Total
+
+O marco SLA Total mede o tempo total do Caso desde sua criação até o encerramento. Esse marco não gera registro de Área Participante, pois representa o ciclo completo do Caso e não uma atividade operacional isolada.
+
+5.6.5 Objeto Área Participante
+
+O objeto Área Participante será o repositório funcional das atividades relevantes executadas no atendimento. Ele permitirá consolidar a visão das ações do atendimento e das áreas internas em um único local, apoiando relatórios gerenciais, rastreabilidade e operação do Caso.
+Cada registro de Área Participante representará uma etapa ou acionamento relevante dentro do Case. Áreas Participantes de atendimento poderão ser criadas automaticamente para fins de relatório e histórico. Áreas Participantes Internas serão usadas também como controle operacional, com ações manuais no LWC para encerramento, cancelamento ou detalhamento.
+
+5.6.6 Regras Funcionais de Criação e Encerramento de Áreas Participantes
+
+Criação de Áreas Participantes de Atendimento
+
+As atuações de atendimento, como Categorização Inicial, Tratamento Primário e Retorno ao Cliente, devem ser criadas automaticamente para fins de histórico e relatório consolidado. Essas atuações não exigem ações manuais no componente lateral, pois seu ciclo acompanha a evolução do Caso e dos marcos.
+
+Criação de Áreas Participantes Internas
+
+Quando uma área for selecionada no campo Áreas de Atendimento e o usuário selecionar a etapa Aguardando Área Interna, o sistema deverá criar uma Área Participante do tipo Área Interna, preencher a área correspondente, registrar a Data/Hora de Início, relacionar o Marco quando disponível e manter a Área Participante aberta até encerramento pela equipe de atendimento.
+
+
+
+
+Encerramento de Áreas Participantes Internas
+
+Ao receber o retorno da área interna, a equipe de atendimento deverá acessar o componente de Áreas Participantes na coluna lateral do Caso e encerrar a Área Participante correspondente. O encerramento exige o preenchimento do Comentário de Retorno e da Solução Tomada.
+
+5.6.7 Protótipo Visual do Componente de Área Participante
+
+A figura a seguir representa o comportamento esperado do componente em padrão visual inspirado no Salesforce Lightning Design System. O componente foi pensado para a coluna lateral do Caso, com largura compacta, cards empilhados, badges de status e barras de progresso para evidenciar o tempo decorrido.
+
+
+6. Solução Técnica
+
+6 
+6.1 Arquitetura geral da solução
+
+Recurso SalesforceUso esperadoLightning AppsOrganização da experiência do usuário por área.Record TypesDiferenciação de processos, layouts e regras por unidade de negócio.Page Layouts e Dynamic FormsExibição de campos e seções conforme contexto operacional.Lightning Record PagesPáginas específicas por App, perfil ou Record Type.List ViewsVisões operacionais por fila, área, status, prioridade.QueuesDistribuição e organização de trabalho por equipe.Assignment RulesApoio ao roteamento quando aplicável.Permission Sets e GroupsControle de acesso por função e área.Reports e DashboardsIndicadores segmentados por área de negócio.Home Pages específicasPainéis operacionais e atalhos por App.
+6.2 Caso, Conta e Contato
+
+A implementação irá priorizar configuração nativa do Salesforce sempre que possível, mantendo uma arquitetura comum para todas as áreas de negócio e evitando duplicação técnica. Quando houver necessidade de automação ou customização, deverão ser aplicados os padrões de arquitetura definidos para o projeto.
+ComponenteDiretrizLightning AppsCriar Apps com navegação específica por área de negócio.ContaUtilizar hierarquia por Parent Account para representar Grupo Econômico e contas subordinadas.ContatoRelacionar pessoa física à conta principal identificada por domínio, permitindo ajustes operacionais quando necessário.CasoUsar como objeto central de atendimento, vinculado à conta principal e ao contato solicitante.Record TypesPor Unidade de NegócioDynamic FormsAplicar exibição condicional de campos conforme área, contexto ou Record Type.FilasOrganizar filas de trabalho por área ou processo operacional.Permission SetsControlar acesso por função, área e necessidade operacional.Reports/DashboardsCriar indicadores por área de negócio.
+6.2.1 Campos e configurações sugeridas
+
+ObjetoCampo sugeridoTipoObjetivoAccountDominiosEmail__cTextoArmazenar domínios válidos para identificação automática, apenas na conta principal.AccountTypePicklistIndicar Grupo Econômico ou Conta Unidade Operacional, se necessário para governança e relatório.ContactEmailEmailIdentificar contato por e-mail e apoiar vínculo com conta.
+6.3 Categorização
+
+O objeto Categorizacao__c será o parametrizador central da árvore de atendimento e da distribuição opcional para fila de Caso.
+Será necessária a criação de um LWC que irá facilitar a usabilidade da criação e manutenção da categorização por Unidade de Negócio.
+Para os casos em que o usuário irá além de categorizar, configurar uma distribuição automática de fila, no momento da escolha do campo de distribuição, o LWC deverá listar dinamicamente os campos do tipo picklist disponíveis no objeto Caso. Após a seleção do campo, o sistema deverá listar os valores válidos dessa picklist para que o usuário selecione o valor da regra.
+A informação técnica gravada para automação deverá ser o API Name do campo em CampoDistribuicao__c e o API Value do valor escolhido em ValorDistribuicao__c. As labels deverão ser gravadas em campos separados apenas para exibição funcional e relatórios
+
+6.3.1 Seleção de filas
+
+A seleção de fila deverá listar filas do Salesforce relacionadas à Unidade de Negócio informada. Essas filas serão filas de Caso da área de negócio relacionada. A filtragem deverá considerar as filas reais do Salesforce no objeto Group, habilitadas para Caso, respeitando a convenção técnica definida para o DeveloperName da fila.
+
+InformaçãoCampo técnicoUsoNome visual da filaNomeFilaDistribuicao__cExibição funcional na tela e em relatórios.DeveloperName da filaFilaDeveloperName__cReferência técnica principal para validação e cargas.Id da filaFilaId__cCache operacional para facilitar automações futuras.
+O Id da fila não deve ser considerado a fonte primária em cargas ou migrações entre ambientes, pois o Id pode variar entre sandbox e produção. A fonte funcional e técnica de referência deverá ser o DeveloperName da fila, com atualização do Id por automação server-side.
+
+6.3.2 Chave natural e hash único
+
+Tipo de regraComposição da chave naturalSem distribuiçãoUnidade, Tipo de Caso, Categoria, Assunto, Subassunto e marcador SEM_DISTRIBUICAO.Distribuição por categorizaçãoUnidade, Tipo de Caso, Categoria, Assunto, Subassunto e marcador POR_CATEGORIZACAO.Distribuição por campoUnidade, Tipo de Caso, Categoria, Assunto, Subassunto, API Name do campo e API Value do valor.A solução deverá gerar uma chave natural legível em ChaveNatural__c e um hash técnico em ChaveNaturalHash__c. O campo de hash deverá ser único para impedir a criação de registros equivalentes que possam gerar ambiguidade de categorização ou distribuição.
+A chave natural deverá representar a condição de aplicação da regra, sem incluir a fila de destino. Dessa forma, não será possível criar duas regras equivalentes apontando para filas diferentes.
+
+6.3.3 Automação server-side e carga de dados
+
+A criação e edição funcional serão realizadas pelo LWC categorizacaoManager. Porém, a integridade da parametrização não poderá depender exclusivamente da tela, pois o objeto poderá receber registros por carga de dados, API ou processos administrativos.
+Para suportar esse cenário, deverá existir automação server-side no objeto Categorizacao__c. O Flow poderá tratar regras declarativas simples, como limpeza de campos e normalizações básicas. A geração oficial da chave natural, do hash e as validações técnicas deverão ser centralizadas em Apex Service/Trigger para garantir execução antes do commit do registro, inclusive em cargas de dados.
+
+MecanismoResponsabilidadecategorizacaoManagerTela oficial para criação e edição de registros.CategorizacaoBeforeSaveNormalizações simples e limpeza declarativa de campos, quando aplicável.CategorizacaoTriggerExecução server-side em insert/update para qualquer origem de gravação.CategorizacaoServiceValidação de regras, geração de chave natural, geração de hash e validações técnicas.
+6.3.4 LWC categorizacaoManager
+
+O LWC categorizacaoManager deverá ser o componente oficial para criação e edição de registros de Categorizacao__c. O componente deverá seguir o padrão visual Salesforce Lightning Design System 2 (SLDS2), com uso de cards, seções, comboboxes, lookup visual, botões padronizados, mensagens de ajuda e comportamento responsivo.
+O componente deverá operar em modo criação e edição. Em modo criação, deverá identificar os Record Types disponíveis para o usuário e preencher automaticamente a Unidade de Negócio quando houver apenas uma opção disponível. Em modo edição, deverá carregar os dados existentes, preservar a coerência entre Record Type e Unidade de Negócio e recalcular chave natural/hash ao salvar.
+ComportamentoRegraDistribuir para fila? = NãoOcultar campos de fila, campo de distribuição e valor de distribuição.Distribuir para fila? = Sim e Por categorização? = SimExibir e exigir fila de Caso da área de negócio.Distribuir para fila? = Sim e Por categorização? = NãoExibir e exigir campo picklist, valor da picklist e fila de Caso.Alteração da Unidade de NegócioRecarregar filas relacionadas e limpar seleção de fila incompatível.Alteração do campo picklistRecarregar valores válidos e limpar valor anterior incompatível.
+6.3.5 Validações funcionais e técnicas
+* Unidade de Negócio, Tipo de Caso, Categoria, Status e Distribuir para fila? são obrigatórios;
+* Quando houver distribuição para fila, a fila de Caso deverá ser obrigatória e relacionada à área de negócio do registro;
+* Quando a distribuição não for por categorização, o campo de distribuição e o valor de distribuição deverão ser obrigatórios;
+* O campo de distribuição deverá existir no objeto Caso e ser do tipo picklist;
+* O valor de distribuição deverá pertencer à picklist do campo selecionado;
+* A fila deverá existir no Salesforce como Group do tipo Queue e estar habilitada para Caso;
+* O Record Type deverá ser compatível com a Unidade de Negócio preenchida automaticamente;
+* O hash da chave natural deverá impedir duplicidade de registros equivalentes.
+6.3.6 Segurança e governança da Categorização
+
+A manutenção da categorização deverá ser restrita a usuários autorizados. Os campos técnicos usados por automações, como ChaveNatural__c, ChaveNaturalHash__c, FilaDeveloperName__c e FilaId__c, deverão ser ocultos ou somente leitura para usuários funcionais.
+A exclusão física de registros deverá ser restringida. A desativação funcional deverá ocorrer por meio do campo 
+, com preenchimento de Motivo de Inativação quando aplicável. Alterações em campos críticos de fila, status e distribuição deverão ser auditáveis.
+
+6.3.7 Record Types
+
+LabelAPI NameFinalidadeAtendimento SalvadorTeconSalvadorParametrizações da área de negócio Salvador.Atendimento Rio GrandeTeconRioGrandeParametrizações da área de negócio Rio Grande.Atendimento Centro LogísticoCentroLogisticoParametrizações da área de negócio Centro Logístico.Atendimento RebocadoresRebocadoresParametrizações da área de negócio Rebocadores.
+6.3.8 Campos Principais
+CampoAPI NameTipoRegra funcionalNomeNameAuto NumberIdentificador automático do registro.Unidade de NegócioUnidadeNegocio__cPicklistPreenchido automaticamente pela área/Record Type do usuário.Tipo de CasoTipoCaso__cPicklistObrigatório. Exemplo: Solicitação, Informação, Reclamação, Incidente, Elogio.CategoriaCategoria__cPicklistObrigatório. Primeiro nível da árvore.AssuntoAssunto__cPicklistSegundo nível da árvore, quando aplicável.SubassuntoSubassunto__cPicklistTerceiro nível da árvore, quando aplicável.StatusStatus__cPicklistAtivo ou Inativo.DescriçãoDescricao__cLong Text AreaDescrição funcional da regra.Motivo de InativaçãoMotivoInativacao__cLong Text AreaObrigatório quando Status = Inativo.
+
+6.3.9 Campos de distribuição
+CampoAPI NameTipoRegra funcionalDistribuir para fila?DistribuirParaFila__cCheckbox ou PicklistDefine se o registro terá distribuição automática.Por categorização?PorCategorizacao__cCheckbox ou PicklistObrigatório quando houver distribuição.Campo de DistribuiçãoCampoDistribuicao__cTextoAPI Name do campo picklist do Caso.Label do Campo de DistribuiçãoLabelCampoDistribuicao__cTextoLabel funcional do campo escolhido.Valor de DistribuiçãoValorDistribuicao__cTextoAPI Value do valor da picklist selecionada.Label do Valor de DistribuiçãoLabelValorDistribuicao__cTextoLabel funcional do valor selecionado.
+
+
+6.3.10 Campos Técnicos de Unicidade
+CampoAPI NameTipoRegra funcionalChave NaturalChaveNatural__cLong Text AreaChave legível usada para auditoria.Hash da Chave NaturalChaveNaturalHash__cTexto(64), ÚnicoHash técnico usado para impedir duplicidade.
+
+
+
+6.4 Email-to-Case Customizado
+
+Será implementado um mecanismo customizado de recebimento de e-mails por Apex Email Service, substituindo uma abordagem puramente padrão por um pipeline parametrizável, com roteamento por Custom Metadata, deduplicação por rota e identificador da mensagem, threading por token ou cabeçalhos, tratamento diferenciado para Casos fechados, persistência de EmailMessage e anexos, além de log corporativo em caso de erro.
+O desenho evita hardcode de IDs, filas, usuários, Record Types e status, centralizando a parametrização no metadado customizado WS_Email_Route__mdt. A solução também preserva rastreabilidade no Caso por meio de EmailMessage e ContentVersion e registra falhas no objeto LogIntegracao__c, sem persistir logs de sucesso ou duplicidade.
+A solução tem como objetivo receber e-mails enviados aos endereços de serviço da Wilson, Sons, identificar a rota correspondente, decidir se deve criar um Caso, anexar a mensagem a um Caso existente, reabrir um Caso fechado ou criar um Caso relacionado ao original. A solução também deve registrar a mensagem recebida como EmailMessage, publicar anexos como arquivos do Caso e gerar log corporativo quando houver erro relevante.
+
+
+6.4.1 Escopo Funcional
+
+      Itens Incluídos
+• Recepção de e-mails por Messaging.InboundEmailHandler.
+• Resolução de rota por WS_Email_Route__mdt.
+• Deduplicação por rota e MessageIdentifier.
+• Threading por token e fallback por cabeçalhos de e-mail.
+• Criação de Caso com Record Type, origem, prioridade e owner parametrizados por rota.
+• Append lógico em Caso aberto quando o threading identifica Caso existente.
+• Reabertura de Caso fechado ou criação de novo Caso, conforme configuração da rota.
+• Relacionamento do novo Caso com Caso original via ParentId, quando aplicável.
+• Criação de EmailMessage inbound relacionado ao Caso.
+• Publicação de anexos como ContentVersion no Caso.
+• Auditoria de erro em LogIntegracao__c com contexto da rota, mensagem, headers e corpo do e-mail.
+      Itens fora do escopo
+• Trigger para entrada de e-mail, pois a entrada é exclusivamente por Apex Email Service.
+• Bloqueio de remetente por domínio.
+• Persistência de log de sucesso ou duplicidade.
+6.4.2 Arquitetura Lógica
+
+A arquitetura é composta por um handler de entrada, um service principal de processamento, uma fachada de compatibilidade, serviços especializados, DTOs, utilitários, metadados de configuração, campos de Caso e objeto de log corporativo. A responsabilidade de cada componente é separada para manter governança, testabilidade e aderência ao padrão arquitetural do projeto.
+
+
+
+
+
+
+
+
+
+
+
+6.4.3 Componentes principais
+CamadaComponenteResponsabilidadeHandlerWS_EmailToCaseInboundHandlerRecebe a chamada do Apex Email Service e delega o processamento a service principal.OrquestraçãoWS_EmailToCaseOrchestratorCoordena resolução de rota, deduplicação, threading, decisão do Case, persistência de e-mail/anexos e log de erro.RoteamentoWS_EmailToCaseRouteServiceResolve a rota ativa com base nos destinatários e no modo de matching configurado.DeduplicaçãoWS_EmailToCaseDedupServiceIdentifica reprocessamentos na mesma rota usando MessageIdentifier e EmailMessage.ThreadingWS_EmailToCaseThreadingServiceIdentifica Case existente por token ou cabeçalhos de e-mail.CaseWS_EmailToCaseCaseServiceCria Case, reabre Case fechado e valida Record Type/status.OwnerWS_EmailToCaseOwnerServiceResolve owner por fila ou usuário, sem hardcode de IDs.MensagemWS_EmailToCaseEmailMessageServiceRegistra EmailMessage inbound associado ao Case.AnexosWS_EmailToCaseAttachmentServicePublica anexos como ContentVersion no Case.LogWS_EmailToCaseLogServiceRegistra erros no objeto LogIntegracao__c.ConfiguraçãoWS_EmailToCaseConfigServiceLê WS_Email_Route__mdt e transforma os registros em DTOs de rota.
+
+6.4.4 Entrada do e-mail
+1. O Salesforce invoca WS_EmailToCaseInboundHandler.handleInboundEmail(email, envelope).
+2. O handler delega o processamento ao WS_EmailToCaseOrchestrator.process(...).
+3. O retorno para o Email Service é sempre Messaging.InboundEmailResult com sucesso controlado, evitando falhas disruptivas por erro funcional tratado.
+
+6.4.5 Resolução de rota
+
+As rotas são carregadas do metadado WS_Email_Route__mdt. A comparação de destinatários utiliza normalização de espaços e caixa baixa para envelope.toAddress, email.toAddresses e email.ccAddresses. O modo de matching é definido pelo campo Match_Mode__c, podendo considerar envelope, To, Cc ou qualquer destinatário.
+ModoDescriçãoENVELOPE_TOCompara a rota com o destinatário técnico do envelope.TO_ADDRESSESCompara a rota com os destinatários do campo To.CC_ADDRESSESCompara a rota com os destinatários em cópia.ANY_RECIPIENTCompara a rota com qualquer destinatário identificado no e-mail.
+Quando não houver correspondência exata, a solução poderá usar uma rota default se existir exatamente uma rota default ativa. Se houver mais de uma rota default ou nenhuma rota aplicável, o erro é tratado e auditado conforme configuração.
+6.4.6 Deduplicação
+
+A deduplicação é realizada por rota e identificador da mensagem. O identificador é resolvido preferencialmente por email.messageId, depois pelo header Message-ID e, por fim, por um hash determinístico baseado em remetente, assunto, fatias dos corpos do e-mail e chave da rota. A chave de processamento é composta por routeKey + MessageIdentifier.
+CenárioResultado esperadoMesmo Message-ID na mesma rotaProcessamento ignorado como DUPLICATE_IGNORED.Mesmo Message-ID em rota diferenteProcessamento permitido, pois rotas distintas podem representar contextos de atendimento diferentes.Sem Message-IDUso de hash determinístico para reduzir risco de duplicidade.
+6.4.7 Threading
+
+O threading tenta identificar um Caso existente utilizando, em primeiro lugar, System.EmailMessages.getRecordIdFromEmail(subject, plainTextBody, htmlBody). Em seguida, utiliza System.Cases.getCaseIdFromEmailHeaders(headers). A solução aceita somente IDs do tipo Case, descartando qualquer outro tipo de registro identificado por engano.
+
+6.4.8 Decisão de processamento do Caso
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CondiçãoAçãoDescriçãoSem Case identificado por threadingNEW_CASECria Case com dados parametrizados pela rota.Case identificado e abertoAPPEND_OPEN_CASENão cria Case; mantém owner atual e registra a mensagem no Case existente.Case identificado e fechado + CREATE_NEWNEW_CASECria Case, podendo relacionar ao Case original.Case identificado e fechado + REOPEN dentro da janelaREOPEN_CLOSED_CASEReabre o Case existente com status parametrizado na rota.Case identificado e fechado + REOPEN fora da janelaNEW_AFTER_REOPEN_WINDOWCria Case após expiração da janela de reabertura.
+6.4.9 Persistência de e-mail e anexos
+
+Todo e-mail processado com Case associado deve gerar um EmailMessage inbound relacionado ao Case. Os principais campos considerados são ParentId, Incoming, FromAddress, ToAddress, CcAddress, Subject, TextBody, HtmlBody, MessageIdentifier e ThreadIdentifier. Quando habilitado por rota, os anexos devem ser convertidos em ContentVersion e publicados no Case por FirstPublishLocationId.
+Falhas na criação de EmailMessage ou anexos não devem interromper a criação ou atualização principal do Case. Esses erros são acumulados no contexto e, se a auditoria estiver habilitada, registrados em LogIntegracao__c.
+6.4.10 Auditoria de erro
+
+A solução registra log apenas em caso de erro. O objeto corporativo utilizado é LogIntegracao__c, com Name = WS EmailToCase, MetodoCallout__c = EMAIL, mensagem curta do erro, diagnóstico detalhado, snapshot do corpo do e-mail, endpoint contextual e relacionamento com Case quando aplicável. Sucesso e duplicidade não geram log persistido por decisão funcional.
+
+
+
+6.4.11 Parametrização por Custom Metadata
+
+A parametrização das rotas é realizada por registros do tipo WS_Email_Route__mdt. Essa abordagem permite criação e alteração de rotas sem alteração de Apex, reduzindo acoplamento técnico e evitando hardcode de IDs, filas, usuários, Record Types e status.
+CampoTipo/Valor esperadoFinalidadeActive__cBooleanIndica se a rota está ativa.Route_Key__cTextoChave funcional/técnica da rota.Business_Email__cTextoE-mail de negócio associado à rota.Salesforce_Service_Address__cTextoEndereço gerado pelo Email Service Salesforce.Match_Mode__cPicklistDefine como destinatários serão comparados.Case_RT_DeveloperName__cTextoDeveloperName do Record Type do Case.Case_Origin__cTextoValor de origem do Case.Case_Priority__cTextoPrioridade padrão do Case.Owner_Type__cQUEUE/USERDefine se o owner será fila ou usuário.Owner_Key__cTextoDeveloperName da fila ou Username do usuário.Closed_Case_Behavior__cREOPEN /CREATE_NEWComportamento quando o e-mail referência Case fechado.Reopen_Window_Minutes__cNúmeroJanela de reabertura em minutos.Reopen_Status__cTextoStatus usado para reabrir o Case.Relate_New_Case_Original__cBooleanIndica se novo Caso será relacionado ao original.Is_Default_Route__cBooleanDefine rota default para fallback.Create_Content_Files__cBooleanControla publicação de anexos como ContentVersion.Persist_Email_Audit__cBooleanControla persistência de log de erro.Allowed_From_Domains__cTextoReservado para validação futura de domínio remetente.Description__cTextoDescrição funcional da rota.
+6.4.12 Regras de consistência das rotas
+
+1. Route_Key__c deve ser único por rota funcional.
+2. Salesforce_Service_Address__c deve ser único por rota ativa.
+3. Deve existir no máximo uma rota default ativa.
+4. Quando Owner_Type__c = QUEUE, Owner_Key__c deve conter Group.DeveloperName de fila habilitada para Case.
+5. Quando Owner_Type__c = USER, Owner_Key__c deve conter Username de usuário válido.
+6. Quando Closed_Case_Behavior__c = REOPEN, Reopen_Status__c deve estar preenchido com status válido e não fechado.
+
+6.4.13 Construção do Caso
+
+Campo/atributo do CasoRegra de preenchimentoRecordTypeIdResolvido dinamicamente por DeveloperName configurado na rota.OriginPreenchido com Case_Origin__c da rota.PriorityPreenchido com Case_Priority__c da rota.OwnerIdResolvido por fila ou usuário conforme Owner_Type__c e Owner_Key__c.SubjectAssunto do e-mail; fallback: Inbound Email - Sem Assunto.DescriptionPlainTextBody; fallback para HTML convertido em texto; fallback final para mensagem padrão de e-mail sem conteúdo.SuppliedEmailEndereço do remetente quando disponível.WS_Email_Route_Key__cRoute_Key__c da rota processada.WS_Original_Case__cPreenchido quando novo Caso é criado a partir de Caso fechado e a rota permite relacionamento com original.
+6.4.14 Segurança e Governança
+
+A solução deve respeitar validações de CRUD/FLS nos objetos Case, EmailMessage, ContentVersion e LogIntegracao__c. A criação e atualização de registros devem ocorrer por serviços centralizados para reduzir risco de bypass de permissões e facilitar rastreabilidade. A solução inclui Permission Set específico para configuração e operação, com acesso aos campos customizados de Case e ao objeto de log corporativo, conforme necessidade do projeto.
+
+6.4.15 Pontos de segurança relevantes
+
+• Evitar hardcode de IDs de fila, usuário, Record Type e status.
+• Validar dinamicamente filas habilitadas para Case por QueueSobject.
+• Validar usuários por Username quando Owner_Type__c = USER.
+• Registrar corpo de e-mail no log somente quando houver erro, observando risco de dados sensíveis.
+• Restringir manutenção de WS_Email_Route__mdt a administradores ou perfis autorizados.
+• Controlar acesso ao LogIntegracao__c, pois o log pode conter corpo de e-mail e informações sensíveis.
+
+
+
+6.4.16 Tratamento de Erros
+
+Os erros de configuração e processamento são capturados e tratados de forma controlada. A solução evita propagar exceções fatais ao Email Service para reduzir risco de reprocessamentos infinitos por erro de negócio ou parametrização.
+Erro tratadoComportamento esperadoRota ambíguaRegistrar erro e não processar Case sem rota inequívoca.Mais de uma rota defaultRegistrar erro de configuração.Owner_Type__c inválidoRegistrar erro de parametrização.Fila inexistente ou não habilitada para CaseRegistrar erro e impedir atribuição inválida.Usuário inexistenteRegistrar erro de configuração.Record Type inexistenteRegistrar erro de configuração.Reopen_Status__c ausente ou inválidoRegistrar erro quando reabertura exige status válido.Falha ao persistir EmailMessage ou anexosNão interromper o Case; acumular erro e registrar auditoria quando habilitado.
+6.4.17 Contratos Técnicos por Classe
+
+ClasseResponsabilidadeWS_EmailToCaseInboundHandlerAdaptar o contrato do Email Service e retornar Messaging.InboundEmailResult.WS_EmailToCaseOrchestratorCoordenar o pipeline completo e consolidar resultado final.WS_EmailToCaseRouteServiceResolver rota, aplicar fallback default e detectar ambiguidades.WS_EmailToCaseDedupServiceConstruir messageIdentifier e detectar duplicidade por rota.WS_EmailToCaseThreadingServiceResolver Case por token/header e validar tipo do registro.WS_EmailToCaseCaseServiceCriar ou reabrir Case e validar Record Type/status.WS_EmailToCaseOwnerServiceResolver owner por fila ou usuário e validar fila habilitada para Case.WS_EmailToCaseEmailMessageServiceCriar EmailMessage inbound relacionado ao Case.WS_EmailToCaseAttachmentServiceConverter anexos em ContentVersion no Case.WS_EmailToCaseLogServiceRegistrar log de erro detalhado em LogIntegracao__c.WS_EmailToCaseConfigServiceLer CMDT e mapear configurações para DTOs de rota.WS_EmailToCaseClockAbstrair tempo para testes determinísticos.WS_EmailToCaseUtilsNormalização, hash, conversão HTML para texto e guardrails de CRUD/FLS.
+
+
+6.4.18 Testes Automatizados
+
+A classe WS_EmailToCaseServiceTest cobre os principais cenários funcionais e técnicos da solução, garantindo regressão controlada para criação, append, reabertura, deduplicação, anexos, owner, rotas, erros e fallback de threading.
+Grupo de testeCenários cobertosCriação e threadingCriação de novo Case sem thread, append em Case aberto por token e fallback por headers.Case fechadoReabertura dentro da janela, novo Case fora da janela, CREATE_NEW sempre criando novo, relacionamento com Case original.DeduplicaçãoDuplicado na mesma rota ignorado e mesmo Message-ID em rotas diferentes gerando Cases distintos.Owner e configuraçãoOwner por Queue/User, erros para queue/user inválidos, Record Type inválido, status de reabertura inválido.RotaRota default e rota inativa ignorada.PersistênciaAnexos como ContentVersion, EmailMessage e log de erro coerente.ResiliênciaClock service, body vazio e fallback hash sem Message-ID.
+.
+
+6.5 Campos, Componentes Técnicos e Permission Sets (Caso e Reclamação)
+
+6.5.1 Campos Caso
+
+CampoAPI NameTipoPadrão
+/CustomRegra / ObservaçãoAção Pós-CategorizaçãoAcaoPosCategorizacao__cPicklistCustomValores sugeridos: Assumir, Distribuir, Encerrar. Usado pelo fluxo de criação manual.Agendamento de OrigemAgendamento__cLookup AgendamentoCustomPreenchido quando o Caso for criado automaticamente por agendamento recorrente.Áreas de Atendimento AtivasAreasAtendimentoAtivas__cMulti-Select PicklistCustomUsado para ativar milestones concorrentes por área via Entitlement Process.AssuntoSubjectTextPadrãoPreenchido manualmente, por canal digital, formulário ou e-mail. No Email-to-Case, usa o assunto do e-mail ou fallback.AssuntoAssunto__cPicklistCustomCopiado da árvore de categorização.
+
+CampoAPI NameTipoPadrão
+/CustomRegra / ObservaçãoBase / LocalidadeBaseLocalidade__cPicklist/TextCustomUsado quando a categorização exigir identificação de base, filial ou localidade.BLBL__cTextCustomUsado em contextos documentais/aduaneiros.BookingBooking__cTextCustomUsado em atendimentos relacionados a programação/carga.Caso OriginalParentIdLookup CasePadrãoPreenchido quando um novo Case é criado a partir de um Case fechado, conforme configuração da rota.CategoriaCategoria__cText ou PicklistCustomCopiado da árvore de categorização.Chave da Rota de E-mailWS_Email_Route_Key__cTextCustomIdentifica a rota que criou/processou o Case no Email-to-Case custom.ClienteAccountIdLookup ContaPadrãoVincular o atendimento à conta principal de referência.Comentário de EncerramentoComentarioEncerramento__cLong Text AreaCustomComentário complementar usado pelo LWC de encerramento.Data de FechamentoClosedDateDate/TimePadrãoUsado para controle de reabertura e encerramento.Data/Hora da Geração da ReclamaçãoDtGeracaoReclamacao__cDate/TimeCustomRegistra quando o espelho da reclamação foi criado.Data/Hora de Envio da PesquisaDataHoraEnvioPesquisa__cDate/TimeCustomRegistra quando a pesquisa foi enviada.DescriçãoDescriptionLong Text AreaPadrãoNo Email-to-Case, usa corpo texto, HTML convertido ou fallback.DI / DUIMPDI_DUIMP__cTextCustomUsado em atendimento aduaneiro/documental.Distribuição SolicitadaDistribuicaoSolicitada__cCheckboxCustomIndica que o Case deve ser distribuído após criação.E-mail fornecidoSuppliedEmailEmailPadrãoNo Email-to-Case, preenchido com remetente quando disponível.Enviar Pesquisa de SatisfaçãoEnviarPesquisaSatisfacao__cCheckboxCustomMarcado no encerramento do Case. O sistema alerta se o requisitante já recebeu pesquisa no dia, mas não bloqueia o envio.Etapa do AtendimentoEtapaAtendimento__cPicklistCustomControla o Path operacional: Novo, Em Triagem, Em Atendimento, Aguardando Cliente, Aguardando Área Interna, Em Acompanhamento, Preparando Retorno ao Cliente, Concluído, Cancelado.Fila Destino DeveloperNameFilaDestinoDeveloperName__cTextCustomGuarda o DeveloperName da fila para distribuição.Fila Destino IdFilaDestinoId__cText(18)CustomCache do Group.Id da fila. Usado para facilitar atribuição de OwnerId.Idioma de AtendimentoIdiomaAtendimento__cPicklistCustomEspecialmente aplicável a cenários de atendimento internacional/Rebocadores, se confirmado.ModalidadeModalidade__cPicklistCustomTambém pode ser usado como critério de distribuição.Motivo de EncerramentoMotivoEncerramento__cPicklistCustomDeve ser preenchido no encerramento, conforme regra de negócio.CampoAPI NameTipoPadrão
+/CustomRegra / ObservaçãoNúmero da FaturaNumeroFatura__cTextCustomUsado em faturamento, cobrança ou contestação.Número do CasoCaseNumberAuto NumberPadrãoNúmero padrão do Case.Número do ContêinerNumeroConteiner__cTextCustomExibido para atendimentos operacionais/logísticos.OrigemOriginPicklistPadrãoValores esperados: E-mail, Manual, WhatsApp, Chat, Formulário Web, Recorrente, entre outros conforme configuração.Origem da DistribuiçãoOrigemDistribuicao__cPicklistCustomValores sugeridos: Categorização, Seleção Manual, Rota de E-mail, Bot, Formulário, Agendamento.Pausar SLAIsStoppedCheckboxPadrãoDeve ser controlado por automação quando Status/Etapa indicar pausa.Pesquisa de Satisfação EnviadaPesquisaEnviada__cCheckboxCustomIndica que o envio foi realizado.Possui Anexo ObrigatórioAnexoObrigatorio__cCheckboxCustomControle auxiliar para validação de anexos, se aplicável.PrioridadePriorityPicklistPadrãoPode ser definida por rota, categorização ou regra operacional.Procedência da ReclamaçãoProcedenciaReclamacao__cPicklistCustomPode apoiar indicadores e objeto de Reclamações Salvador.ProprietárioOwnerIdLookup User/QueuePadrãoPode ser usuário, fila, Omni-Channel ou owner parametrizado por rota/categorização.Quantidade de Atuações AbertasQtdAtuacoesAbertas__cNumberCustomCampo resumo/controle para apoiar validações e relatórios.Quantidade de Atuações VencidasQtdAtuacoesVencidas__cNumberCustomCampo resumo/controle para apoiar dashboards e alertas.Reclamação GeradaReclamacaoGerada__cCheckboxCustomEvita duplicidade de geração do registro no objeto de reclamações quando Case de Salvador/Reclamação for encerrado.RepresentanteRepresentante__cLookup AccountCustomConta do despachante, escritório, transportadora, comissária ou terceiro representante do requisitante.RequisitanteContactIdLookup ContactPadrãoRepresenta o contato solicitante. Recebe comunicação e pesquisa de satisfação. Pode ser renomeado no layout para "Requisitante".Solução do CasoSolucaoCaso__cLong Text AreaCustomDescrição da solução aplicada.StatusStatusPicklistPadrãoUsado como campo macro do ciclo: Aberto, Pausado, Fechado, Cancelado.SubassuntoSubassunto__cPicklistCustomCopiado da árvore de categorização.Tipo de RegistroRecordTypeIdRecord TypePadrãoDeve ser definido conforme Unidade de Negócio / origem. No Email-to-Case custom, é resolvido por DeveloperName da rota.
+CampoAPI NameTipoPadrão
+/CustomRegra / ObservaçãoTipo de CasoTipoCaso__cPicklistCustomPrimeiro nível funcional da árvore.Unidade de NegócioUnidadeNegocio__cPicklistCustomDefine a área de negócio do Case. Usado para visibilidade, fila, categorização, relatórios e Permission Sets.Valor ContestadoValorContestado__cCurrencyCustomUsado em reclamações ou contestações financeiras.
+6.5.2 Campos Reclamação
+
+CampoAPI NameTipoPadrão
+/CustomRegra / ObservaçãoData/HoraCarimboDataHora__cDate/TimeCustomCarimbo de data/horaUnidadeUnidade__cText/PicklistCustomUnidadeSemana RecebimentoSemanaRecebimento__cNumber/TextCustomSemana da reclamaçãoData InícioDataInicioTicket__cDateCustomDt Início do ticketData RetornoDataRetornoCliente__cDateCustomDt Retorno p/ ClienteCasoCaso__cLookup CaseCustomRelacionamento com o CasoRequisitanteQuemReclamou__cTextCustomQuem reclamou?ClienteCliente__cText/LookupCustomQual cliente?ProcedênciaProcedencia__cPicklistCustomProcedênciaÁreaArea__cPicklistCustomQual a área?Impacto ClienteCategorizacaoImpactoCliente__cPicklist/TextCustomCategorização impacto ao clienteCategorização DetalhadaCategorizacaoDetalhada__cTextCustomCategorização detalhadaEvidênciaEvidencia__cLong TextCustomEvidênciaFluigFluig__cTextCustomFluigData Abertura FluigDataAberturaFluig__cDateCustomData abertura do fluigData Fechamento FluigDataFechamentoFluig__cDateCustomData fechamento do fluigDias AbertoDiasAberto__cNumberCustomDias abertoStatus FluigStatusFluig__cText/PicklistCustomStatus do FluigFato/CausaFatoCausa__cLong TextCustomFato causaCausaCausa__cLong Text/PicklistCustomCausaStatusStatusRegistro__cPicklistCustomStatusComentário ÁreaComentarioArea__cLong TextCustomComentário da áreaAnáliseAnaliseProcessos__cLong TextCustomAnálise ProcessosObservações QualidadeObservacoesQualidade__cLong TextCustomObservações QualidadeData Validade ProcedênciaDataValidacaoProcedencia__cDateCustomData validação ProcedênciaDocumento QualidadeDocumentoQualidade__cTextCustomDocumento QualidadeData Abertura SEDataAberturaSE__cDateCustomData da abertura SERegistro SERegistroSE__cTextCustomRegistro SERecicidente?Reincidente__cPicklist/CheckboxCustomReincidente?
+CampoAPI NameTipoPadrão
+/CustomRegra / ObservaçãoInformações ReincidênciaMaisInformacoesReincidencia__cLong TextCustomMais informações sobre reincidênciaModalidadeModalidade__cPicklistCustomModalidadeAgenteAgente__cTextCustomAgenteData AnáliseDataAnalise__cDateCustomData de análiseSemana AnáliseSemanaAnalise__cNumber/TextCustomSemana de análiseAtualizado Pós ReuniãoAtualizadoAposReuniao__cCheckbox/PicklistCustomAtualizado após reuniãoTipoTipo__cPicklistCustomTipoImpactoImpacto__cPicklistCustomImpactoVoz ClienteVozCliente__cLong TextCustomVoz do ClienteCategoria ReclamanteCategoriaReclamante__cPicklistCustomCategoria do ReclamanteAção da ÁreaAcaoArea__cLong TextCustomAção da ÁreaData da AçãoDataAcao__cDateCustomData da AçãoCategoria MasterCategoriaMaster__cPicklist/TextCustomCategoria MasterImpacto MasterImpactoMaster__cPicklist/TextCustomImpacto Master
+6.5.3 Componentes Técnicos Sugeridos
+
+ComponenteResponsabilidadecaseNewCategorizationLWC de categorização inicial usado no New Case.caseRecategorizationAção de reclassificação de Case.caseCloseWithSurveyEncerramento controlado com envio opcional de pesquisa.accountCaseScheduleManagerAction em Account para gerenciar Agendamento__c.CaseCreationServiceOrquestra criação manual e herança de valores para a tela padrão.CaseDistributionServiceDistribuição oportuna após criação do Case.CaseScheduleServiceCriação recorrente de Cases por Apex Scheduler.CaseSurveyServiceControle de envio de pesquisa e alerta diário.ReclamacaoSalvadorServiceCriação do registro estruturado de reclamação no fechamento do Case.
+6.5.4 Permission Sets por Área de Negócio
+
+Serão criados Permission Sets ou Permission Set Groups por área de negócio. Cada área terá acesso apenas aos recursos necessários à sua operação, incluindo App, Record Types, Lightning Pages, filas, objetos, campos, ações e relatórios correspondentes.
+Permission Set / GrupoEscopo esperadoAtendimento SalvadorApp Salvador, Record Types Salvador, filas Salvador, páginas e relatórios da unidade.Atendimento Rio GrandeApp Rio Grande, Record Types Rio Grande, filas Rio Grande, páginas e relatórios da unidade.Atendimento Centro LogísticoApp Centro Logístico, Record Types LOG, agendamentos e relatórios da unidade.Atendimento RebocadoresApp Rebocadores, Record Types REB, filas e relatórios da unidade.Supervisor da UnidadeVisibilidade ampliada dentro da própria Unidade de Negócio.Administrador / GovernançaAcesso administrativo conforme política de segurança.
+A segregação de acesso não deverá depender apenas dos Apps. O App organiza a experiência do usuário, enquanto a visibilidade de registros deverá ser garantida por compartilhamento, papéis, filas, Record Types e permissões de objeto/campo.
+
+6.6 SLA e Atuações do Caso
+
+Será criado o objeto customizado Área Participante (Atuacao__c) para repositório de atuações relacionadas ao Caso.
+
+6.6.1 Tipos de Área Participante
+Tipo de Área ParticipanteCriaçãoAção manual no LWC?FinalidadeCategorização InicialAutomáticaNãoRegistrar tempo e histórico de triagem/categorização.Tratamento PrimárioAutomáticaNãoRegistrar Área Participante inicial de N1/N2.Área InternaAutomática ou assistidaSimRegistrar Área Participante de áreas N3 e permitir encerramento operacional.Retorno ao ClienteAutomáticaOpcionalRegistrar etapa de devolutiva ao cliente.
+
+
+6.6.2 Dicionário de campos de Área Participante
+
+CampoTipo sugeridoDescriçãoCasoLookup para CasoVincula a Área Participante ao Caso.Tipo de Área ParticipantePicklistDefine se a Área Participante é de categorização, tratamento primário, área interna ou retorno ao cliente.Área de AtendimentoPicklistObrigatório para atuações de área interna.Status da Área ParticipantePicklistAberta, Em Andamento, Concluída, Cancelada ou Vencida.Data/Hora de InícioDate/TimeMomento em que a Área Participante foi iniciada.Data/Hora de PrazoDate/TimePrazo esperado, preferencialmente derivado do CaseMilestone.
+CampoTipo sugeridoDescriçãoData/Hora de FimDate/TimeMomento em que a Área Participante foi concluída.Tempo de ConclusãoNumber/FórmulaTempo total entre início e fim.Percentual DecorridoNumber/FórmulaPercentual utilizado pela barra de progresso do LWC.Violou SLA?CheckboxIndica se a Área Participante foi concluída após o prazo.Nome do MarcoTextNome do milestone relacionado.Id do CaseMilestoneText(18)Referência técnica ao CaseMilestone, quando aplicável.ResponsávelLookup User ou texto/filaResponsável pela Área Participante.SolicitanteLookup UserUsuário que acionou a Área Participante.Comentário de SolicitaçãoLong Text AreaDescrição do que foi solicitado para a área.Comentário de RetornoLong Text AreaRetorno recebido da área.Solução TomadaLong Text AreaSolução informada ao encerrar a Área Participante.Finalizado porLookup UserUsuário que encerrou a Área Participante.Requer Retorno ao Cliente?CheckboxIndica se a Área Participante exige devolutiva formal ao cliente.Bloqueia Fechamento do Caso?CheckboxImpede fechamento enquanto a Área Participante estiver aberta.Origem da Área ParticipantePicklistAutomática, Manual, Reabertura ou Reclassificação.
+
+6.6.3 Componente LWC caseAtuacoesPanel
+
+O componente caseAtuacoesPanel deverá ser posicionado na coluna lateral direita da Lightning Record Page do Caso, conforme indicado pelo print de referência enviado. A proposta é que ele apareça em uma área de fácil acesso ao usuário, preferencialmente na coluna lateral junto aos componentes relacionados, permitindo acompanhamento rápido das atuações sem ocupar a área principal de detalhes do Caso.
+Responsabilidade do componente:
+- Exibir resumo das atuações do Case.
+- Destacar atuações abertas, vencidas e próximas do prazo.
+- Apresentar barra de progresso indicando o tempo decorrido de cada Área Participante em relação ao prazo previsto.
+- Permitir ações rápidas apenas para atuações de área interna.
+- Permitir visualização de detalhes das atuações de atendimento e de áreas internas.
+- Abrir modal para encerramento de Área Participante de área interna.
+
+Regras de exibição
+Tipo de Área ParticipanteExibição no LWCAções disponíveisÁrea Interna abertaCard com área, status, início, prazo, progresso, solicitação e responsável.Encerrar Área Participante, Ver Detalhes.Área Interna vencidaCard com destaque visual de vencimento e barra de progresso em estado crítico.Encerrar Área Participante, Ver Detalhes.Atendimento concluídoCard em modo leitura com tempo de conclusão e solução/resumo.Ver Detalhes.Atendimento em andamentoCard em modo leitura com progresso e prazo.Ver Detalhes.
+Barra de progresso
+A barra de progresso deve representar o tempo decorrido da Área Participante em relação ao prazo previsto. O cálculo deve considerar Data/Hora de Início e Data/Hora de Prazo. Quando aplicável, o valor poderá ser alinhado ao CaseMilestone relacionado. A exibição deve apresentar percentual, tempo decorrido e prazo total.
+EstadoCritério sugeridoComportamento visualNormalPercentual decorrido menor que 80%.Barra em azul padrão.AtençãoPercentual decorrido entre 80% e 100%.Barra em tom de alerta.VencidaPercentual decorrido acima de 100% ou Data/Hora atual maior que o prazo.Barra em estado crítico e indicador de atraso.ConcluídaÁrea Participante finalizada.Barra concluída ou indicador verde com tempo de conclusão.
+
+Modal de encerramento
+Ao clicar em Encerrar Área Participante, o componente deverá abrir um modal para confirmação do encerramento. Esse modal deverá solicitar Comentário de Retorno, Solução Tomada e, quando aplicável, indicação de que a Área Participante requer retorno ao cliente. Após confirmação, a automação deverá atualizar a Área Participante e avaliar a mudança de etapa do Caso.
+
+7 
+8 
+9 
+7. Regras de Validação
+
+As regras de validação previstas estão descritas nas seções específicas de Categorização, Caso, SLA/Atuações, Email-to-Case e Agendamento. Quando aplicável, deverão ser implementadas por Validation Rules, Flows ou Apex, mantendo validação server-side para regras críticas de integridade, segurança e distribuição
+
+8. Automações
+
+Serão criadas automações por meio de Flows, Triggers/Apex, Apex Scheduler, Milestone Actions e componentes customizados mencionados neste documento, respeitando a separação de responsabilidades entre configuração declarativa, lógica server-side e experiência de usuário.
+
+9. Papéis, perfis e Permission Sets
+
+Serão criados Permission Sets ou Permission Set Groups e papéis por Unidade de Negócio, com o objetivo de conceder acesso aos Apps, Record Types, objetos, campos, filas, relatórios e ações correspondentes. As permissões deverão contemplar, conforme perfil operacional, criação e edição de Casos, Área Participante e Agendamento.
+1 
+2 
+3 
+4 
+5 
+6 
+7 
+
+10. Relatórios e Indicadores
+
+Os relatórios e painéis deverão permitir gestão operacional e gerencial do atendimento. Cada área deverá possuir indicadores específicos ao seu processo, sem perder a possibilidade de visão consolidada da operação quando houver permissão para isso.
+•	Volume de casos por área de negócio, origem, tipo e status.
+•	Casos abertos, pendentes, críticos e fechados.
+•	Tempo de resposta e tempo de resolução, quando a documentação de SLA estiver aplicada.
+•	Backlog por fila, responsável e categoria.
+•	Atendimentos por conta, Grupo Econômico e contato.
+•	Indicadores de qualidade cadastral, como contatos sem conta validada ou contas com domínio ausente.
+
+8 Pontos de atenção
+
+Os principais pontos de atenção deverão ser acompanhados durante a construção e homologação, especialmente: comportamento do override do botão Novo do Caso, recategorização com abertura da Lightning Page padrão, marcos concorrentes por Áreas de Atendimento Ativas, capacidade do Omni-Channel, execução da rotina recorrente de Casos e validação do modelo privado de compartilhamento por Unidade de Negócio.
+
+11. Oportunidades de melhorias futuras
+
+Como oportunidades futuras, poderão ser avaliadas a validação de domínios remetentes no Email-to-Case, painel operacional para erros de integração, evolução dos diálogos do Bot, automações adicionais para formulários digitais e ampliação dos indicadores gerenciais por Unidade de Negócio.
+
+
+
+12. Anexos
+
+
+
+13. Aceite
+
+Aprovações
+
+
+
+
+
+
+Preparado porProjetoVersãoRevisado por:TRISCALOtimização Pós-VendaV2.0TRISCAL
+18
+
+
+
+
+

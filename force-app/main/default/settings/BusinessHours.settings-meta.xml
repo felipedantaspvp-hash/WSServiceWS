@@ -60,4 +60,64 @@
         <wednesdayEndTime>22:00:00.000Z</wednesdayEndTime>
         <wednesdayStartTime>07:00:00.000Z</wednesdayStartTime>
     </businessHours>
+    <businessHours>
+        <active>true</active>
+        <default>false</default>
+        <fridayEndTime>22:00:00.000Z</fridayEndTime>
+        <fridayStartTime>07:00:00.000Z</fridayStartTime>
+        <mondayEndTime>22:00:00.000Z</mondayEndTime>
+        <mondayStartTime>07:00:00.000Z</mondayStartTime>
+        <name>Atendimento Rio Grande</name>
+        <saturdayEndTime>18:00:00.000Z</saturdayEndTime>
+        <saturdayStartTime>08:00:00.000Z</saturdayStartTime>
+        <sundayEndTime>18:00:00.000Z</sundayEndTime>
+        <sundayStartTime>08:00:00.000Z</sundayStartTime>
+        <thursdayEndTime>22:00:00.000Z</thursdayEndTime>
+        <thursdayStartTime>07:00:00.000Z</thursdayStartTime>
+        <timeZoneId>America/Recife</timeZoneId>
+        <tuesdayEndTime>22:00:00.000Z</tuesdayEndTime>
+        <tuesdayStartTime>07:00:00.000Z</tuesdayStartTime>
+        <wednesdayEndTime>22:00:00.000Z</wednesdayEndTime>
+        <wednesdayStartTime>07:00:00.000Z</wednesdayStartTime>
+    </businessHours>
+    <businessHours>
+        <active>true</active>
+        <default>false</default>
+        <fridayEndTime>22:00:00.000Z</fridayEndTime>
+        <fridayStartTime>07:00:00.000Z</fridayStartTime>
+        <mondayEndTime>22:00:00.000Z</mondayEndTime>
+        <mondayStartTime>07:00:00.000Z</mondayStartTime>
+        <name>Atendimento Centro Logístico</name>
+        <saturdayEndTime>18:00:00.000Z</saturdayEndTime>
+        <saturdayStartTime>08:00:00.000Z</saturdayStartTime>
+        <sundayEndTime>18:00:00.000Z</sundayEndTime>
+        <sundayStartTime>08:00:00.000Z</sundayStartTime>
+        <thursdayEndTime>22:00:00.000Z</thursdayEndTime>
+        <thursdayStartTime>07:00:00.000Z</thursdayStartTime>
+        <timeZoneId>America/Recife</timeZoneId>
+        <tuesdayEndTime>22:00:00.000Z</tuesdayEndTime>
+        <tuesdayStartTime>07:00:00.000Z</tuesdayStartTime>
+        <wednesdayEndTime>22:00:00.000Z</wednesdayEndTime>
+        <wednesdayStartTime>07:00:00.000Z</wednesdayStartTime>
+    </businessHours>
+    <businessHours>
+        <active>true</active>
+        <default>false</default>
+        <fridayEndTime>22:00:00.000Z</fridayEndTime>
+        <fridayStartTime>07:00:00.000Z</fridayStartTime>
+        <mondayEndTime>22:00:00.000Z</mondayEndTime>
+        <mondayStartTime>07:00:00.000Z</mondayStartTime>
+        <name>Atendimento Rebocadores</name>
+        <saturdayEndTime>18:00:00.000Z</saturdayEndTime>
+        <saturdayStartTime>08:00:00.000Z</saturdayStartTime>
+        <sundayEndTime>18:00:00.000Z</sundayEndTime>
+        <sundayStartTime>08:00:00.000Z</sundayStartTime>
+        <thursdayEndTime>22:00:00.000Z</thursdayEndTime>
+        <thursdayStartTime>07:00:00.000Z</thursdayStartTime>
+        <timeZoneId>America/Recife</timeZoneId>
+        <tuesdayEndTime>22:00:00.000Z</tuesdayEndTime>
+        <tuesdayStartTime>07:00:00.000Z</tuesdayStartTime>
+        <wednesdayEndTime>22:00:00.000Z</wednesdayEndTime>
+        <wednesdayStartTime>07:00:00.000Z</wednesdayStartTime>
+    </businessHours>
 </BusinessHoursSettings>

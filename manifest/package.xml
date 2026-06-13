@@ -232,6 +232,13 @@
         <name>CustomApplication</name>
     </types>
     <types>
+        <members>atendimento salvador_v2</members>
+        <members>atendimento rio grande_v2</members>
+        <members>atendimento centro logistico_v2</members>
+        <members>atendimento rebocadores_v2</members>
+        <name>EntitlementProcess</name>
+    </types>
+    <types>
         <members>Account.DominiosEmail__c</members>
         <members>Account.PermitirAgendamentoRecorrente__c</members>
         <members>Account.TipoFuncionalConta__c</members>
