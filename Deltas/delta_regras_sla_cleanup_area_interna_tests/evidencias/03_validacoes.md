@@ -2,19 +2,20 @@
 
 **Data:** 2026-06-14
 
-## Validação 1 — Nenhum teste (nos 5 arquivos alvo) cria Area Interna com MarcoSLA__c
+## Validação 1 — Nenhum teste (nos 6 arquivos alvo) cria Area Interna com MarcoSLA__c
 
 | Arquivo | Status |
 |---------|--------|
 | `RegrasSLACompatibilidadeServiceTest.cls` | `createRegra` sem `MarcoSLA__c`; todos os 3 testes atualizados ✓ |
 | `SLACoverageCoreTest.cls` | `createRule` sem `MarcoSLA__c`; `dup` e `inactiveDup` sem `MarcoSLA__c` ✓ |
 | `RegrasSLACategorizacaoSelectorTest.cls` | regras inline sem `MarcoSLA__c` nos 3 testes ✓ |
-| `RegrasSLACategorizacaoHelperTest.cls` | `base` (AREA_INTERNA) sem `MarcoSLA__c` ✓ |
+| `RegrasSLACategorizacaoHelperTest.cls` | `base` (AREA_INTERNA) sem `MarcoSLA__c`; `vMarco` usa ESCOPO_ATENDIMENTO ✓ |
 | `CaseMilestoneTriggerTimeCalculatorTest.cls` | chamada AREA_INTERNA com `null` marcoSlaId ✓ |
+| `CategorizacaoServiceTest.cls` | 2 regras AREA_INTERNA sem `MarcoSLA__c` ✓ |
 
 ## Validação 2 — Nenhuma classe de produção alterada
 
-Mudanças exclusivas em 5 classes de teste. Zero alterações em classes sem sufixo `Test`. ✓
+Mudanças exclusivas em 6 classes de teste. Zero alterações em classes sem sufixo `Test`. ✓
 
 ## Validação 3 — Nenhuma referência a campos legados 16B
 
@@ -36,7 +37,7 @@ Nenhuma alteração em LWC, metadata, fluxos ou Permission Sets. ✓
     <name>ApexClass</name>
 </types>
 ```
-5 membros explícitos. Sem wildcard. ✓
+6 membros explícitos. Sem wildcard. ✓
 
 ## Validação 6 — UTF-8 sem BOM
 
@@ -48,7 +49,7 @@ Arquivos Apex puro (ASCII/UTF-8). Nenhum caractere especial adicionado. ✓
 |-------|--------|-------------|
 | `testBuildKeyNovoNaoIncluiPrioridade` | ESCOPO_ATENDIMENTO | marco.Id ✓ |
 | `testBuildKeyEscopo` | ESCOPO_ATENDIMENTO | marco.Id ✓ |
-| `testBuildKeyNovoMudaComCamposDaChave` → `vMarco` | ESCOPO_AREA_INTERNA (clone) | m2.Id (verifica que null→m2 muda chave) ✓ |
+| `testBuildKeyNovoMudaComCamposDaChave` → `baseAtendimento`/`vMarco` | ESCOPO_ATENDIMENTO | null / m2.Id ✓ |
 | `assertMarcoRegraSla` (CaseMilestone) | ESCOPO_ATENDIMENTO | marco.Id ✓ |
 | `testAtendimentoN3MacroNaoUsaRegraAreaInterna` — ATENDIMENTO | ESCOPO_ATENDIMENTO | marco.Id ✓ |
 
