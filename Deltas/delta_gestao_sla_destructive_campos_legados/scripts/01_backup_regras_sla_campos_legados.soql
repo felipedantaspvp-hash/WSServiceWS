@@ -1,0 +1,5 @@
+SELECT Id, Name, Origem__c, VigenciaInicio__c, VigenciaFim__c, EscopoRegra__c, GestaoSLA__c, Categorizacao__c, MarcoSLA__c, AreaAtendimento__c, Ativo__c, CreatedDate, LastModifiedDate
+FROM RegrasSLACategorizacao__c
+WHERE Origem__c != null
+OR VigenciaInicio__c != null
+OR VigenciaFim__c != null
