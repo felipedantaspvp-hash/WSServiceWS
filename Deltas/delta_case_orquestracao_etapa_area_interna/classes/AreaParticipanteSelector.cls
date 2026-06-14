@@ -19,12 +19,12 @@ public inherited sharing class AreaParticipanteSelector {
         if (testAreas != null) return testAreas;
         String soql =
             'SELECT Id, Caso__c, ' + AREA_FIELD + ', StatusAtuacao__c,' +
-            ' DataHoraInicio__c, DataHoraPrazo__c, DataHoraFim__c,' +
+            ' DataHoraInicio__c, DataHoraInicioPausa__c, DataHoraPrazo__c, DataHoraFim__c, StatusAtuacaoAnteriorPausa__c,' +
             ' ComentarioSolicitacao__c, ComentarioRetorno__c, SolucaoTomada__c,' +
             ' FinalizadoPor__c, FinalizadoPor__r.Name,' +
             ' ViolouSLA__c, NomeMarco__c, CaseMilestoneId__c,' +
             ' Responsavel__c, RequerRetornoCliente__c, BloqueiaFechamentoCaso__c,' +
-            ' PercentualDecorrido__c, StatusSLA__c, TempoSLAMinutos__c, TempoPausadoMinutos__c, TempoConsumidoMinutos__c, TempoRestanteMinutos__c, SequenciaAcionamento__c, TipoAreaParticipante__c, OrigemSLA__c, RegraSLACategorizacao__c' +
+            ' PercentualDecorrido__c, StatusSLA__c, TempoSLAMinutos__c, TempoPausadoMinutos__c, TempoConsumidoMinutos__c, TempoRestanteMinutos__c, SequenciaAcionamento__c, TipoAreaParticipante__c, OrigemSLA__c, RegraSLACategorizacao__c, RegraSLACategorizacao__r.BusinessHoursName__c' +
             ' FROM AreaParticipante__c' +
             ' WHERE Caso__c = :caseId' +
             ' ORDER BY DataHoraPrazo__c ASC NULLS LAST, CreatedDate DESC';
@@ -34,16 +34,29 @@ public inherited sharing class AreaParticipanteSelector {
     public static AreaParticipante__c getAreaById(Id areaId) {
         String soql =
             'SELECT Id, Caso__c, ' + AREA_FIELD + ', StatusAtuacao__c,' +
-            ' DataHoraInicio__c, DataHoraPrazo__c, DataHoraFim__c,' +
+            ' DataHoraInicio__c, DataHoraInicioPausa__c, DataHoraPrazo__c, DataHoraFim__c, StatusAtuacaoAnteriorPausa__c,' +
             ' ComentarioSolicitacao__c, ComentarioRetorno__c, SolucaoTomada__c,' +
             ' FinalizadoPor__c, FinalizadoPor__r.Name,' +
             ' ViolouSLA__c, NomeMarco__c, CaseMilestoneId__c,' +
             ' Responsavel__c, RequerRetornoCliente__c, BloqueiaFechamentoCaso__c,' +
-            ' PercentualDecorrido__c, StatusSLA__c, TempoSLAMinutos__c, TempoPausadoMinutos__c, TempoConsumidoMinutos__c, TempoRestanteMinutos__c, SequenciaAcionamento__c, TipoAreaParticipante__c, OrigemSLA__c, RegraSLACategorizacao__c' +
+            ' PercentualDecorrido__c, StatusSLA__c, TempoSLAMinutos__c, TempoPausadoMinutos__c, TempoConsumidoMinutos__c, TempoRestanteMinutos__c, SequenciaAcionamento__c, TipoAreaParticipante__c, OrigemSLA__c, RegraSLACategorizacao__c, RegraSLACategorizacao__r.BusinessHoursName__c' +
             ' FROM AreaParticipante__c' +
             ' WHERE Id = :areaId LIMIT 1';
         List<AreaParticipante__c> rows = (List<AreaParticipante__c>) Database.query(soql);
         return rows.isEmpty() ? null : rows[0];
+    }
+
+    public static List<AreaParticipante__c> getAreasByIds(Set<Id> areaIds) {
+        if (areaIds == null || areaIds.isEmpty()) return new List<AreaParticipante__c>();
+        String soql =
+            'SELECT Id, Caso__c, ' + AREA_FIELD + ', StatusAtuacao__c,' +
+            ' DataHoraInicio__c, DataHoraInicioPausa__c, DataHoraPrazo__c, DataHoraFim__c, StatusAtuacaoAnteriorPausa__c,' +
+            ' ViolouSLA__c, PercentualDecorrido__c, StatusSLA__c, TempoSLAMinutos__c,' +
+            ' TempoPausadoMinutos__c, TempoConsumidoMinutos__c, TempoRestanteMinutos__c,' +
+            ' TipoAreaParticipante__c, OrigemSLA__c, RegraSLACategorizacao__c, RegraSLACategorizacao__r.BusinessHoursName__c' +
+            ' FROM AreaParticipante__c' +
+            ' WHERE Id IN :areaIds';
+        return (List<AreaParticipante__c>) Database.query(soql);
     }
 
     public static Set<String> getEligibleAreaValuesForCase(Case caseRow) {

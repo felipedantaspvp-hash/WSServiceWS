@@ -251,6 +251,126 @@ public inherited sharing class AreaParticipanteService {
         return out;
     }
 
+    public static AreaParticipanteDTO.PauseResumeResponseDTO pauseParticipation(AreaParticipanteDTO.PauseResumeRequestDTO request) {
+        validatePauseResumePermissions();
+        if (request == null || request.areaParticipanteId == null) {
+            throwFunctional('REQUIRED_AREA_ID', msg('Área participante não encontrada ou sem acesso.', 'Participant area not found or no access.'));
+        }
+
+        Map<Id, AreaParticipante__c> rowsById = new Map<Id, AreaParticipante__c>(
+            AreaParticipanteSelector.getAreasByIds(new Set<Id>{ request.areaParticipanteId })
+        );
+        AreaParticipante__c row = rowsById.get(request.areaParticipanteId);
+        if (row == null) throwFunctional('AREA_NOT_FOUND', msg('Área participante não encontrada ou sem acesso.', 'Participant area not found or no access.'));
+
+        pauseRows(new List<AreaParticipante__c>{ row }, System.now());
+        return toPauseResumeResponse(row, msg('Participação pausada com sucesso.', 'Participation paused successfully.'));
+    }
+
+    public static AreaParticipanteDTO.PauseResumeResponseDTO resumeParticipation(AreaParticipanteDTO.PauseResumeRequestDTO request) {
+        validatePauseResumePermissions();
+        if (request == null || request.areaParticipanteId == null) {
+            throwFunctional('REQUIRED_AREA_ID', msg('Área participante não encontrada ou sem acesso.', 'Participant area not found or no access.'));
+        }
+
+        Map<Id, AreaParticipante__c> rowsById = new Map<Id, AreaParticipante__c>(
+            AreaParticipanteSelector.getAreasByIds(new Set<Id>{ request.areaParticipanteId })
+        );
+        AreaParticipante__c row = rowsById.get(request.areaParticipanteId);
+        if (row == null) throwFunctional('AREA_NOT_FOUND', msg('Área participante não encontrada ou sem acesso.', 'Participant area not found or no access.'));
+
+        resumeRows(new List<AreaParticipante__c>{ row }, System.now());
+        return toPauseResumeResponse(row, msg('Participação retomada com sucesso.', 'Participation resumed successfully.'));
+    }
+
+    @TestVisible
+    private static void pauseRows(List<AreaParticipante__c> rows, Datetime nowRef) {
+        if (rows == null || rows.isEmpty()) return;
+        for (AreaParticipante__c row : rows) {
+            validateManualPauseResumeTarget(row);
+            if (row.DataHoraInicioPausa__c != null || row.StatusSLA__c == AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO) {
+                throwFunctional('ALREADY_PAUSED', msg('Esta participação já está pausada.', 'This participation is already paused.'));
+            }
+            if (!AreaParticipanteSLAHelper.isOpenStatus(row.StatusAtuacao__c)) {
+                throwFunctional('INVALID_STATUS', msg('Esta participação não pode ser pausada.', 'This participation cannot be paused.'));
+            }
+        }
+
+        for (AreaParticipante__c row : rows) {
+            row.StatusAtuacaoAnteriorPausa__c = row.StatusAtuacao__c;
+            row.DataHoraInicioPausa__c = nowRef;
+            row.StatusSLA__c = AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO;
+        }
+        update rows;
+    }
+
+    @TestVisible
+    private static void resumeRows(List<AreaParticipante__c> rows, Datetime nowRef) {
+        if (rows == null || rows.isEmpty()) return;
+        Map<String, Id> bhByName = new Map<String, Id>();
+        for (AreaParticipante__c row : rows) {
+            validateManualPauseResumeTarget(row);
+            if (row.DataHoraInicioPausa__c == null) {
+                throwFunctional('NOT_PAUSED', msg('Esta participação não está pausada.', 'This participation is not paused.'));
+            }
+            String bhName = row.RegraSLACategorizacao__r == null ? null : row.RegraSLACategorizacao__r.BusinessHoursName__c;
+            if (String.isBlank(bhName)) {
+                throwFunctional('BUSINESS_HOURS_NOT_FOUND', msg('Regra de SLA sem horário comercial para retomada.', 'SLA rule has no business hours for resume.'));
+            }
+            if (!bhByName.containsKey(bhName)) {
+                bhByName.put(bhName, BusinessHoursResolverService.resolveActiveByName(bhName));
+            }
+        }
+
+        for (AreaParticipante__c row : rows) {
+            String bhName = row.RegraSLACategorizacao__r.BusinessHoursName__c;
+            Id bhId = bhByName.get(bhName);
+            Long pausedMs = useBypassBusinessHoursInTests()
+                ? nowRef.getTime() - row.DataHoraInicioPausa__c.getTime()
+                : BusinessHours.diff(bhId, row.DataHoraInicioPausa__c, nowRef);
+            pausedMs = Math.max(0, pausedMs);
+            Long pausedMin = pausedMs / (60L * 1000L);
+            row.TempoPausadoMinutos__c = (row.TempoPausadoMinutos__c == null ? 0 : row.TempoPausadoMinutos__c) + pausedMin;
+            if (row.DataHoraPrazo__c != null) {
+                row.DataHoraPrazo__c = useBypassBusinessHoursInTests()
+                    ? row.DataHoraPrazo__c.addSeconds(Integer.valueOf(String.valueOf(pausedMs / 1000L)))
+                    : BusinessHours.add(bhId, row.DataHoraPrazo__c, pausedMs);
+            }
+            row.DataHoraInicioPausa__c = null;
+            row.StatusAtuacaoAnteriorPausa__c = null;
+            row.StatusSLA__c = AreaParticipanteSLAHelper.STATUS_SLA_DENTRO_PRAZO;
+        }
+        AreaParticipanteSLAService.calculateCacheBulk(rows, nowRef);
+        update rows;
+    }
+
+    private static void validateManualPauseResumeTarget(AreaParticipante__c row) {
+        if (row == null) throwFunctional('AREA_NOT_FOUND', msg('Área participante não encontrada ou sem acesso.', 'Participant area not found or no access.'));
+        if (!AreaParticipanteSLAHelper.TIPO_AREA_INTERNA.equals(row.TipoAreaParticipante__c)
+            || !AreaParticipanteSLAHelper.ORIGEM_SLA_CUSTOM.equals(row.OrigemSLA__c)) {
+            throwFunctional('NOT_CUSTOM_INTERNAL_AREA', msg('Somente Área Interna Custom pode ser pausada ou retomada.', 'Only Custom Internal Area can be paused or resumed.'));
+        }
+        if (AreaParticipanteHelper.isConcluida(row.StatusAtuacao__c) || row.DataHoraFim__c != null) {
+            throwFunctional('ALREADY_CLOSED', msg('Esta participação já foi concluída.', 'This participation is already closed.'));
+        }
+        if (AreaParticipanteHelper.isCancelada(row.StatusAtuacao__c)) {
+            throwFunctional('ALREADY_CANCELED', msg('Esta participação já foi cancelada.', 'This participation is already canceled.'));
+        }
+    }
+
+    private static AreaParticipanteDTO.PauseResumeResponseDTO toPauseResumeResponse(AreaParticipante__c row, String message) {
+        AreaParticipanteDTO.PauseResumeResponseDTO out = new AreaParticipanteDTO.PauseResumeResponseDTO();
+        out.success = true;
+        out.message = message;
+        out.caseId = row.Caso__c;
+        out.areaParticipanteId = row.Id;
+        out.statusAtuacao = row.StatusAtuacao__c;
+        out.statusSLA = row.StatusSLA__c;
+        out.dataHoraInicioPausa = row.DataHoraInicioPausa__c;
+        out.tempoPausadoMinutos = row.TempoPausadoMinutos__c;
+        return out;
+    }
+
     public static AreaParticipanteDTO.DetailDTO getParticipationDetails(Id areaParticipanteId) {
         validateReadPermissions();
         if (areaParticipanteId == null) throwFunctional('REQUIRED_AREA_ID', msg('Área participante não encontrada ou sem acesso.', 'Participant area not found or no access.'));
@@ -285,6 +405,24 @@ public inherited sharing class AreaParticipanteService {
         }
     }
 
+    private static void validatePauseResumePermissions() {
+        validateReadPermissions();
+        if (!Schema.sObjectType.AreaParticipante__c.isUpdateable()) {
+            throwFunctional('CRUD_DENIED', msg('Você não possui permissão para pausar ou retomar esta participação.', 'You do not have permission to pause or resume this participation.'));
+        }
+        if (!AreaParticipante__c.DataHoraInicioPausa__c.getDescribe().isUpdateable()
+            || !AreaParticipante__c.StatusAtuacaoAnteriorPausa__c.getDescribe().isUpdateable()
+            || !AreaParticipante__c.StatusSLA__c.getDescribe().isUpdateable()
+            || !AreaParticipante__c.TempoPausadoMinutos__c.getDescribe().isUpdateable()
+            || !AreaParticipante__c.DataHoraPrazo__c.getDescribe().isUpdateable()
+            || !AreaParticipante__c.TempoConsumidoMinutos__c.getDescribe().isUpdateable()
+            || !AreaParticipante__c.TempoRestanteMinutos__c.getDescribe().isUpdateable()
+            || !AreaParticipante__c.PercentualDecorrido__c.getDescribe().isUpdateable()
+            || !AreaParticipante__c.ViolouSLA__c.getDescribe().isUpdateable()) {
+            throwFunctional('FLS_DENIED', msg('Você não possui permissão para pausar ou retomar esta participação.', 'You do not have permission to pause or resume this participation.'));
+        }
+    }
+
     private static void validateAddPermissions() {
         validateReadPermissions();
         if (!Schema.sObjectType.Case.isUpdateable() || !Schema.sObjectType.AreaParticipante__c.isCreateable()) {
@@ -301,6 +439,10 @@ public inherited sharing class AreaParticipanteService {
             || !Case.AreasParticipantes__c.getDescribe().isUpdateable()) {
             throwFunctional('FLS_DENIED', msg('Você não possui permissão para adicionar participação.', 'You do not have permission to add participation.'));
         }
+    }
+
+    private static Boolean useBypassBusinessHoursInTests() {
+        return Test.isRunningTest() && AreaParticipanteSLAService.bypassBusinessHoursMathForTests == true;
     }
 
     private static Map<String, String> getCaseAreaLabelByValue() {
