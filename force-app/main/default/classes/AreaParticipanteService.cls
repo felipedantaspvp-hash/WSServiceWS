@@ -134,7 +134,8 @@ public inherited sharing class AreaParticipanteService {
 
         if (Case.EtapaAtendimento__c.getDescribe().isUpdateable()) {
             String etapaNorm = AreaParticipanteHelper.normalizeText(caseRow.EtapaAtendimento__c);
-            Boolean addIsTerminal = caseRow.IsClosed || etapaNorm.contains('conclu') || etapaNorm.contains('cancel');
+            String statusNorm = AreaParticipanteHelper.normalizeText(caseRow.Status);
+            Boolean addIsTerminal = statusNorm.contains('fechad') || etapaNorm.contains('conclu') || etapaNorm.contains('cancel');
             if (!addIsTerminal) {
                 caseRow.EtapaAtendimento__c = 'Aguardando Área Interna';
             }
@@ -208,7 +209,7 @@ public inherited sharing class AreaParticipanteService {
         for (AreaParticipante__c other : remainingRows) {
             if (other.Id == row.Id) continue;
             if (!AreaParticipanteSLAHelper.TIPO_AREA_INTERNA.equals(other.TipoAreaParticipante__c)) continue;
-            if (!other.BloqueiaFechamentoCaso__c) continue;
+            if (!AreaParticipanteSLAHelper.ORIGEM_SLA_CUSTOM.equals(other.OrigemSLA__c)) continue;
             if (AreaParticipanteHelper.isAbertaOuAndamento(other.StatusAtuacao__c) || AreaParticipanteHelper.isOverdue(other.DataHoraPrazo__c, nowRef, other.StatusAtuacao__c)) {
                 openCustomInterna++;
             }
@@ -219,7 +220,8 @@ public inherited sharing class AreaParticipanteService {
         List<String> warnings = new List<String>();
 
         String etapaNormClose = AreaParticipanteHelper.normalizeText(caseRow.EtapaAtendimento__c);
-        Boolean caseIsTerminal = caseRow.IsClosed || etapaNormClose.contains('conclu') || etapaNormClose.contains('cancel');
+        String statusNormClose = AreaParticipanteHelper.normalizeText(caseRow.Status);
+        Boolean caseIsTerminal = statusNormClose.contains('fechad') || etapaNormClose.contains('conclu') || etapaNormClose.contains('cancel');
 
         if (rowIsCustomInterna && !caseIsTerminal && Case.EtapaAtendimento__c.getDescribe().isUpdateable() && openCustomInterna == 0) {
             caseRow.EtapaAtendimento__c = 'Preparando Retorno ao Cliente';

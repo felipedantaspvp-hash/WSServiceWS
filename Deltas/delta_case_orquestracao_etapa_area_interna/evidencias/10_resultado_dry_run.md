@@ -1,8 +1,8 @@
 # 10 - Resultado do Dry-Run (v2 — pós-ajustes)
 
-## Deploy ID
+## Deploy ID (v3 — mais recente)
 
-`0Afbe00000AA3rhCAD`
+`0Afbe00000AA2naCAD`
 
 ## Status
 
@@ -50,15 +50,16 @@
 | AreaParticipanteSelector | **97%** (33/34 linhas) |
 | AreaParticipanteService | **85%** (240/283 linhas) |
 
-## Quick Deploy
+## Quick Deploy (v3)
 
 ```
-sf project deploy quick --job-id 0Afbe00000AA3rhCAD --target-org WILSON_SERVICE
+sf project deploy quick --job-id 0Afbe00000AA2naCAD --target-org WILSON_SERVICE
 ```
 
 ## Histórico de dry-runs
 
-| Versão | Deploy ID | Resultado | Testes |
-|---|---|---|---|
-| v1 (inicial) | 0Afbe00000AA2ysCAD | Succeeded | 18/18 |
-| v2 (pós-ajustes) | 0Afbe00000AA3rhCAD | Succeeded | 20/20 |
+| Versão | Deploy ID | Resultado | Testes | Selector | Service |
+|---|---|---|---|---|---|
+| v1 (inicial) | 0Afbe00000AA2ysCAD | Succeeded | 18/18 | — | 85% |
+| v2 (rowIsCustomInterna + IsClosed) | 0Afbe00000AA3rhCAD | Succeeded | 20/20 | 97% | 85% |
+| v3 (Status + OrigemSLA__c direto) | 0Afbe00000AA2naCAD | Succeeded | 20/20 | 97% | 85% |

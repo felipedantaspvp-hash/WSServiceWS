@@ -361,30 +361,29 @@ private class AreaParticipanteServiceTest {
     }
 
     @IsTest
-    static void testCloseDoesNotUpdateEtapaWhenCaseIsClosed() {
+    static void testCloseDoesNotUpdateEtapaWhenCaseIsFechado() {
         enableBhBypass();
         List<String> areas = AreaParticipanteTestDataFactory.commonAreaValues();
         String area1 = areas[0];
         Case c = AreaParticipanteTestDataFactory.createCase(area1, null);
 
         AreaParticipanteDTO.AddRequestDTO addReq = new AreaParticipanteDTO.AddRequestDTO();
-        addReq.caseId = c.Id; addReq.area = area1; addReq.comentarioSolicitacao = 'Test IsClosed guard';
+        addReq.caseId = c.Id; addReq.area = area1; addReq.comentarioSolicitacao = 'Test Status Fechado guard';
         AreaParticipanteDTO.AddResponseDTO addRes = AreaParticipanteService.addParticipation(addReq);
 
         Case refreshed = [SELECT Id, AreasParticipantesSLA__c, AreasParticipantes__c, EtapaAtendimento__c FROM Case WHERE Id = :c.Id];
-        Map<String, Object> fakeData = new Map<String, Object>{
-            'Id' => (String) refreshed.Id,
-            'IsClosed' => true,
-            'EtapaAtendimento__c' => refreshed.EtapaAtendimento__c,
-            'AreasParticipantesSLA__c' => refreshed.AreasParticipantesSLA__c,
-            'AreasParticipantes__c' => refreshed.AreasParticipantes__c
-        };
-        AreaParticipanteSelector.testCase = (Case) JSON.deserialize(JSON.serialize(fakeData), Case.class);
+        AreaParticipanteSelector.testCase = new Case(
+            Id = refreshed.Id,
+            Status = 'Fechado',
+            EtapaAtendimento__c = refreshed.EtapaAtendimento__c,
+            AreasParticipantesSLA__c = refreshed.AreasParticipantesSLA__c,
+            AreasParticipantes__c = refreshed.AreasParticipantes__c
+        );
 
         AreaParticipanteDTO.CloseRequestDTO closeReq = new AreaParticipanteDTO.CloseRequestDTO();
         closeReq.areaParticipanteId = addRes.areaParticipanteId;
-        closeReq.comentarioRetorno = 'Retorno IsClosed';
-        closeReq.solucaoRetorno = 'Solução IsClosed';
+        closeReq.comentarioRetorno = 'Retorno Status Fechado';
+        closeReq.solucaoRetorno = 'Solução Status Fechado';
 
         Test.startTest();
         AreaParticipanteDTO.CloseResponseDTO closeRes = AreaParticipanteService.closeParticipation(closeReq);

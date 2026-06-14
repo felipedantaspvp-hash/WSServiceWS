@@ -2,27 +2,33 @@
 
 ## O que é mojibake
 
-Mojibake é corrupção de caracteres especiais ao salvar/abrir arquivo com encoding incorreto. Exemplo: 'Área' → 'Ãrea' ou 'Ãrea'.
+Mojibake é corrupção de caracteres especiais ao salvar ou abrir arquivo com encoding incorreto. Resulta em caracteres ilegíveis no lugar de acentos e símbolos.
 
 ## Caracteres especiais nos arquivos alterados
+
+### AreaParticipanteSelector.cls
+
+| Ocorrência | Status |
+|---|---|
+| Sem literais com acentos | ✅ OK |
 
 ### AreaParticipanteService.cls
 
 | Ocorrência | Valor correto | Status |
 |---|---|---|
-| `'Aguardando Área Interna'` | 'Á' (U+00C1) | ✅ OK |
+| `'Aguardando Area Interna'` (constante API via TIPO_AREA_INTERNA) | referencia constante | ✅ OK |
+| `'Aguardando Área Interna'` (literal) | U+00C1 = A com acento agudo | ✅ OK |
 | `'Preparando Retorno ao Cliente'` | sem especiais | ✅ OK |
-| `AreaParticipanteSLAHelper.TIPO_AREA_INTERNA` | constante referenciada | ✅ OK |
+| mensagens de erro PT/EN | sem especiais problemáticos | ✅ OK |
 
 ### AreaParticipanteServiceTest.cls
 
 | Ocorrência | Valor correto | Status |
 |---|---|---|
-| `'Aguardando Área Interna'` | 'Á' (U+00C1) | ✅ OK |
-| `'Cancelado'` | sem especiais | ✅ OK |
-| `'Em Atendimento'` | sem especiais | ✅ OK |
+| `'Aguardando Área Interna'` | U+00C1 = A com acento agudo | ✅ OK |
+| `'Cancelado'`, `'Em Atendimento'` | sem especiais | ✅ OK |
 | `'Preparando Retorno ao Cliente'` | sem especiais | ✅ OK |
-| `'Área 1'`, `'Área 2'` (comentários) | 'Á' (U+00C1) | ✅ OK |
+| `'Solução IsClosed'` → atualizado para `'Solução Status Fechado'` | U+00E7 = c com cedilha | ✅ OK |
 
 ## Resultado
 

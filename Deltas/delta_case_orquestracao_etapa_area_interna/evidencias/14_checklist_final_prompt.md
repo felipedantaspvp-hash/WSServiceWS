@@ -26,9 +26,10 @@
 
 - [x] Dry-run v1 executado — Deploy ID `0Afbe00000AA2ysCAD`, Succeeded, 18/18 testes
 - [x] Dry-run v2 executado — Deploy ID `0Afbe00000AA3rhCAD`, Succeeded, 20/20 testes, 0 falhas
+- [x] Dry-run v3 executado — Deploy ID `0Afbe00000AA2naCAD`, Succeeded, 20/20 testes, 0 falhas
 - [x] BOM check executado — todos os arquivos OK
-- [x] Evidências 06–10 atualizadas para v2
+- [x] Evidências 06–10 e 12 atualizadas; README atualizado para v3
 - [x] Evidências 15 e 16 criadas
-- [x] ZIP a gerar — `delta_case_orquestracao_etapa_area_interna.zip` na raiz do projeto
-- [x] Commit e push realizados — 954f7b9
-- [x] Deploy definitivo executado — Deploy ID `0Afbe00000AA41NCAT`, Succeeded, 3/3 componentes
+- [x] ZIP regenerado
+- [ ] Commit e push realizados (v3)
+- [ ] Deploy definitivo executado (v3)

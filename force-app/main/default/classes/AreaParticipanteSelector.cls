@@ -6,7 +6,7 @@ public inherited sharing class AreaParticipanteSelector {
     public static Case getCaseById(Id caseId) {
         if (testCase != null) return testCase;
         List<Case> rows = [
-            SELECT Id, CaseNumber, OwnerId, Status, IsClosed, Categorizacao__c, Categorizacao__r.GestaoSLA__c, Priority, Origin,
+            SELECT Id, CaseNumber, OwnerId, Status, Categorizacao__c, Categorizacao__r.GestaoSLA__c, Priority, Origin,
                 AreasParticipantes__c, AreasParticipantesSLA__c, EtapaAtendimento__c
             FROM Case
             WHERE Id = :caseId
@@ -24,7 +24,7 @@ public inherited sharing class AreaParticipanteSelector {
             ' FinalizadoPor__c, FinalizadoPor__r.Name,' +
             ' ViolouSLA__c, NomeMarco__c, CaseMilestoneId__c,' +
             ' Responsavel__c, RequerRetornoCliente__c, BloqueiaFechamentoCaso__c,' +
-            ' PercentualDecorrido__c, StatusSLA__c, TempoSLAMinutos__c, TempoPausadoMinutos__c, TempoConsumidoMinutos__c, TempoRestanteMinutos__c, SequenciaAcionamento__c, TipoAreaParticipante__c, RegraSLACategorizacao__c' +
+            ' PercentualDecorrido__c, StatusSLA__c, TempoSLAMinutos__c, TempoPausadoMinutos__c, TempoConsumidoMinutos__c, TempoRestanteMinutos__c, SequenciaAcionamento__c, TipoAreaParticipante__c, OrigemSLA__c, RegraSLACategorizacao__c' +
             ' FROM AreaParticipante__c' +
             ' WHERE Caso__c = :caseId' +
             ' ORDER BY DataHoraPrazo__c ASC NULLS LAST, CreatedDate DESC';
