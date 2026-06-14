@@ -31,4 +31,5 @@
 - [x] Dry-run executado — Deploy ID `0Afbe00000AA0fJCAT`, Succeeded, 12/12 testes, 96% cobertura
 - [x] BOM check executado — todos os arquivos OK (sem BOM)
 - [x] ZIP gerado — `delta_case_bloqueio_fechamento_area_participante.zip` (21.1 KB)
-- [ ] Commit e push realizados
+- [x] Commit e push realizados — `c0290cc`
+- [x] Deploy definitivo executado — Deploy ID `0Afbe00000AA1xxCAD`, Succeeded, 12/12 testes
