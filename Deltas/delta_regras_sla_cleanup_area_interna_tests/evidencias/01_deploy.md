@@ -1,10 +1,11 @@
 # Evidência 01 — Deploy
 
-**Deploy ID:** 0Afbe00000A9x37CAB
+**Deploy ID (patch):** 0Afbe00000A9xCnCAJ — Succeeded — 47/47 testes (inclui CategorizacaoServiceTest)
+**Deploy ID (inicial):** 0Afbe00000A9x37CAB — Succeeded — 33/33 testes
 **Data:** 2026-06-14
 **Org:** jduarte@wilsonsons.com.br.service
 **Status:** Succeeded
-**Componentes:** 5/5 (100%)
+**Componentes:** 6/6 (100%)
 
 ## Classes implantadas
 
@@ -36,6 +37,10 @@
 - `testFindAllActiveForCompatibilityReturnsExpectedFields`: removida variável `marco`; removido `MarcoSLA__c = marco.Id`; assertion `found.MarcoSLA__c == marco.Id` → `found.MarcoSLA__c == null`
 - `testFindActiveRulesAndByMarcoAndByHash`: removida variável `marco`; removido `MarcoSLA__c = marco.Id` das 2 regras inline
 - `testFindActiveRulesNovoN3Coverage`: removido `MarcoSLA__c = marco.Id` da regra; assertion `rows.size() == 1` → `rows.size() == 0` (regras Area Interna sem MarcoSLA não são encontradas por findActiveRulesNovoN3)
+
+### CategorizacaoServiceTest (patch)
+- `testGetRegrasSlaByCategorizacaoReturnsRows`: removido bloco `MarcoSLA__c marco = new MarcoSLA__c(...)` + `insert marco`; removido `MarcoSLA__c = marco.Id` da regra
+- `testSaveDeletesExistingRegrasWhenRequestListIsEmpty`: removido bloco `MarcoSLA__c marco2 = new MarcoSLA__c(...)` + `insert marco2`; removido `MarcoSLA__c = marco2.Id` do insert inline
 
 ### RegrasSLACategorizacaoHelperTest
 - `testBuildKeyNovoMudaComCamposDaChave`: removida variável `m1`; removido `MarcoSLA__c = m1.Id` de `base` (Area Interna — correto sem MarcoSLA__c)

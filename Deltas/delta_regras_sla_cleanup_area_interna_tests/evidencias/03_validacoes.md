@@ -52,8 +52,11 @@ Arquivos Apex puro (ASCII/UTF-8). Nenhum caractere especial adicionado. ✓
 | `assertMarcoRegraSla` (CaseMilestone) | ESCOPO_ATENDIMENTO | marco.Id ✓ |
 | `testAtendimentoN3MacroNaoUsaRegraAreaInterna` — ATENDIMENTO | ESCOPO_ATENDIMENTO | marco.Id ✓ |
 
-## Nota — arquivo fora do escopo
+## Validação 8 — CategorizacaoServiceTest (patch)
 
-`CategorizacaoServiceTest.cls` também tem 2 ocorrências de `ESCOPO_AREA_INTERNA + MarcoSLA__c`
-(linhas 284-285 e 401-402) identificadas durante o grep inicial. Não alterado neste pacote
-por estar fora do escopo definido. Pode ser tratado em cleanup futuro.
+| Método | Antes | Depois |
+|--------|-------|--------|
+| `testGetRegrasSlaByCategorizacaoReturnsRows` | AREA_INTERNA + `MarcoSLA__c = marco.Id` | AREA_INTERNA, `MarcoSLA__c` null ✓ |
+| `testSaveDeletesExistingRegrasWhenRequestListIsEmpty` | AREA_INTERNA + `MarcoSLA__c = marco2.Id` | AREA_INTERNA, `MarcoSLA__c` null ✓ |
+
+Deploy patch `0Afbe00000A9xCnCAJ` Succeeded. 47/47 testes.
