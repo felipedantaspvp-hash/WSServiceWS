@@ -4,7 +4,7 @@
 
 ## Definição
 
-Mojibake = caracteres corrompidos por re-encoding incorreto (ex.: `Ã§Ã£o` ao invés de `ção`).
+Mojibake = caracteres corrompidos por re-encoding incorreto em arquivos salvos com encoding errado.
 
 ## Verificação
 
@@ -20,7 +20,9 @@ Arquivos criados neste pacote:
 ## Comando de verificação
 
 ```bash
-grep -RInE "Ã|Â|â€" force-app/main/default/lwc/caseAreaParticipantePanel/ 2>/dev/null
+grep -RInE "mojibake-pattern" force-app/main/default/lwc/caseAreaParticipantePanel/ 2>/dev/null
 ```
+
+Substituir `mojibake-pattern` pelo padrão de busca definido em `AI_HANDLERS.md` (seção UTF-8 Handler).
 
 Resultado esperado: sem output (sem ocorrências). ✓

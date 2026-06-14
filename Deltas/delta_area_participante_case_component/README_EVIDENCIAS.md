@@ -163,15 +163,22 @@ Jest não configurado no projeto — não criado.
 
 ## 14. Dry-Run
 
-Deploy pendente. Executar após validação manual:
+| Campo | Valor |
+|-------|-------|
+| Deploy ID | `0Afbe00000A9yVRCAZ` |
+| Status | **Succeeded** |
+| Componentes | 1/1 |
+| Elapsed | 4.07s |
+| Org | jduarte@wilsonsons.com.br.service |
 
-```bash
-sf project deploy start \
-  --manifest Deltas/delta_area_participante_case_component/package.xml \
-  --dry-run \
-  --ignore-conflicts \
-  --target-org WILSON_SERVICE
-```
+Componentes validados:
+
+| Ação | Componente | Tipo |
+|------|-----------|------|
+| Created | `caseAreaParticipantePanel` | LightningComponentBundle (.css) |
+| Created | `caseAreaParticipantePanel` | LightningComponentBundle (.html) |
+| Created | `caseAreaParticipantePanel` | LightningComponentBundle (.js) |
+| Created | `caseAreaParticipantePanel` | LightningComponentBundle (.js-meta.xml) |
 
 ---
 

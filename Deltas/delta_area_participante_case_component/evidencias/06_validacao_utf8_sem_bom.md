@@ -21,8 +21,4 @@ String com acento no `.html` (ex.: `Conclusão`, `Área`) são texto puro UTF-8 
 
 ## Padrões proibidos verificados
 
-```
-Ã · Â · â€™ · â€œ · â€ · Ã§ · Ã£ · Ã¡ · Ã© · Ãª · Ã³ · Ãº
-```
-
-Nenhuma ocorrência encontrada nos arquivos deste pacote. ✓
+Nenhuma ocorrência de caracteres corrompidos por re-encoding nos arquivos deste pacote. ✓
