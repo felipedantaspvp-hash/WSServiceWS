@@ -52,7 +52,21 @@ Arquivos Apex puro (ASCII/UTF-8). Nenhum caractere especial adicionado. ✓
 | `assertMarcoRegraSla` (CaseMilestone) | ESCOPO_ATENDIMENTO | marco.Id ✓ |
 | `testAtendimentoN3MacroNaoUsaRegraAreaInterna` — ATENDIMENTO | ESCOPO_ATENDIMENTO | marco.Id ✓ |
 
-## Validação 8 — CategorizacaoServiceTest (patch)
+## Validação 8 — RegrasSLACategorizacaoHelperTest: sem Area Interna + MarcoSLA__c nem em memória
+
+`testBuildKeyNovoMudaComCamposDaChave`:
+- `base` → ESCOPO_AREA_INTERNA, MarcoSLA__c = null ✓
+- `vMarco` → clone de `baseAtendimento` (ESCOPO_ATENDIMENTO), MarcoSLA__c = m2.Id ✓
+- Nenhum clone de `base` recebe MarcoSLA__c preenchido ✓
+
+Testes que continuam usando ATENDIMENTO + MarcoSLA__c (corretos, sem alteração):
+| Teste | Escopo | MarcoSLA__c |
+|-------|--------|-------------|
+| `testBuildKeyNovoNaoIncluiPrioridade` | ESCOPO_ATENDIMENTO | marco.Id ✓ |
+| `testBuildKeyEscopo` | ESCOPO_ATENDIMENTO | marco.Id ✓ |
+| `testBuildKeyNovoMudaComCamposDaChave` → `baseAtendimento`/`vMarco` | ESCOPO_ATENDIMENTO | null / m2.Id ✓ |
+
+## Validação 9 — CategorizacaoServiceTest
 
 | Método | Antes | Depois |
 |--------|-------|--------|

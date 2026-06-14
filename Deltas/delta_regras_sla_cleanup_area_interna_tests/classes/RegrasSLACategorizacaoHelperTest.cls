@@ -78,10 +78,6 @@ private class RegrasSLACategorizacaoHelperTest {
         vGestao.GestaoSLA__c = g2.Id;
         Assert.areNotEqual(kBase, RegrasSLACategorizacaoHelper.buildKey(vGestao));
 
-        RegrasSLACategorizacao__c vMarco = base.clone(false, true, false, false);
-        vMarco.MarcoSLA__c = m2.Id;
-        Assert.areNotEqual(kBase, RegrasSLACategorizacaoHelper.buildKey(vMarco));
-
         RegrasSLACategorizacao__c vEscopo = base.clone(false, true, false, false);
         vEscopo.EscopoRegra__c = RegrasSLACompatibilidadeService.ESCOPO_ATENDIMENTO;
         Assert.areNotEqual(kBase, RegrasSLACategorizacaoHelper.buildKey(vEscopo));
@@ -95,6 +91,20 @@ private class RegrasSLACategorizacaoHelperTest {
             ? AreaParticipanteTestDataFactory.commonAreaValues()[1]
             : base.AreaAtendimento__c + ' X';
         Assert.areNotEqual(kBase, RegrasSLACategorizacaoHelper.buildKey(vArea));
+
+        // MarcoSLA__c afeta a chave — testado com ESCOPO_ATENDIMENTO (modelo correto)
+        RegrasSLACategorizacao__c baseAtendimento = new RegrasSLACategorizacao__c(
+            GestaoSLA__c = g1.Id,
+            EscopoRegra__c = RegrasSLACompatibilidadeService.ESCOPO_ATENDIMENTO,
+            Categorizacao__c = c1.Id,
+            TempoBaixa__c = 20
+        );
+        RegrasSLACategorizacao__c vMarco = baseAtendimento.clone(false, true, false, false);
+        vMarco.MarcoSLA__c = m2.Id;
+        Assert.areNotEqual(
+            RegrasSLACategorizacaoHelper.buildKey(baseAtendimento),
+            RegrasSLACategorizacaoHelper.buildKey(vMarco)
+        );
     }
 
     @IsTest
