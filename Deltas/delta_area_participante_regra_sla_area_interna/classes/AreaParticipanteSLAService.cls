@@ -5,11 +5,11 @@ public inherited sharing class AreaParticipanteSLAService {
     public static void beforeSave(List<AreaParticipante__c> newList, Map<Id, AreaParticipante__c> oldMap){
         Set<Id> caseIds = new Set<Id>();
         for (AreaParticipante__c a : newList) if (a.Caso__c != null) caseIds.add(a.Caso__c);
-        Map<Id, Case> caseById = new Map<Id, Case>([SELECT Id,Categorizacao__c,Priority,Origin,EtapaAtendimento__c FROM Case WHERE Id IN :caseIds]);
+        Map<Id, Case> caseById = new Map<Id, Case>([SELECT Id,Categorizacao__c,Categorizacao__r.GestaoSLA__c,Priority,Origin,EtapaAtendimento__c FROM Case WHERE Id IN :caseIds]);
 
-        Map<String, Integer> maxSeqByKey = new Map<String, Integer>();
-        for (AggregateResult ar : [SELECT Caso__c c, AreaAtendimento__c a, MAX(SequenciaAcionamento__c) m FROM AreaParticipante__c WHERE Caso__c IN :caseIds GROUP BY Caso__c, AreaAtendimento__c]) {
-            maxSeqByKey.put(String.valueOf(ar.get('c')) + '|' + String.valueOf(ar.get('a')), ((Decimal) ar.get('m')).intValue());
+        Map<Id, Integer> maxSeqByCaseId = new Map<Id, Integer>();
+        for (AggregateResult ar : [SELECT Caso__c c, MAX(SequenciaAcionamento__c) m FROM AreaParticipante__c WHERE Caso__c IN :caseIds GROUP BY Caso__c]) {
+            maxSeqByCaseId.put((Id) ar.get('c'), ((Decimal) ar.get('m')).intValue());
         }
 
         for (AreaParticipante__c a : newList){
@@ -44,10 +44,9 @@ public inherited sharing class AreaParticipanteSLAService {
                 a.ViolouSLA__c = false;
                 a.OrigemSLA__c = AreaParticipanteSLAHelper.ORIGEM_SLA_CUSTOM;
                 a.BloqueiaFechamentoCaso__c = true;
-                String seqKey = String.valueOf(a.Caso__c) + '|' + String.valueOf(a.AreaAtendimento__c);
-                Integer seq = maxSeqByKey.containsKey(seqKey) ? maxSeqByKey.get(seqKey) + 1 : 1;
+                Integer seq = maxSeqByCaseId.containsKey(a.Caso__c) ? maxSeqByCaseId.get(a.Caso__c) + 1 : 1;
                 a.SequenciaAcionamento__c = seq;
-                maxSeqByKey.put(seqKey, seq);
+                maxSeqByCaseId.put(a.Caso__c, seq);
             }
         }
 
@@ -87,11 +86,15 @@ public inherited sharing class AreaParticipanteSLAService {
     }
 
     private static RegrasSLACategorizacao__c findRule(Case c, AreaParticipante__c a){
+        SObject categRel = c.getSObject('Categorizacao__r');
+        Id gestaoId = categRel != null ? (Id) categRel.get('GestaoSLA__c') : null;
+        if (gestaoId == null) return null;
         List<RegrasSLACategorizacao__c> rows = [
             SELECT Id,BusinessHoursName__c,TempoBaixa__c,TempoMedia__c,TempoAlta__c
             FROM RegrasSLACategorizacao__c
             WHERE Ativo__c = true
                 AND Categorizacao__c = :c.Categorizacao__c
+                AND GestaoSLA__c = :gestaoId
                 AND EscopoRegra__c = :RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA
                 AND AreaAtendimento__c = :a.AreaAtendimento__c
             LIMIT 1

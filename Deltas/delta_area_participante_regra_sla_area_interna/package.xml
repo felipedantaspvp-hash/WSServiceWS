@@ -7,6 +7,8 @@
         <members>AreaParticipanteSLAServiceTest</members>
         <members>AreaParticipanteServiceTest</members>
         <members>AreaParticipanteControllerTest</members>
+        <members>AreaParticipanteTestDataFactory</members>
+        <members>AreaParticipanteSLABatchTest</members>
         <name>ApexClass</name>
     </types>
     <version>64.0</version>

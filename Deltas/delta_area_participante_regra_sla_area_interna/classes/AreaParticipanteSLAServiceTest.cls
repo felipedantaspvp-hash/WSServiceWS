@@ -58,7 +58,6 @@ private class AreaParticipanteSLAServiceTest {
     private static RegrasSLACategorizacao__c createRegraNova(
         Id categId,
         Id gestaoId,
-        Id marcoSlaId,
         String area,
         String escopo
     ) {
@@ -69,7 +68,6 @@ private class AreaParticipanteSLAServiceTest {
             BusinessHoursName__c = 'BH_SLA_SERVICE_TEST',
             Ativo__c = true,
             GestaoSLA__c = gestaoId,
-            MarcoSLA__c = marcoSlaId,
             EscopoRegra__c = escopo,
             TempoBaixa__c = 10,
             TempoMedia__c = 20,
@@ -130,12 +128,10 @@ private class AreaParticipanteSLAServiceTest {
         enableDeterministicBusinessHoursMath();
         String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
         GestaoSLA__c gestao = createGestao();
-        MarcoSLA__c marcoN3 = createMarcoN3(gestao.Id, 'principal');
         Categorizacao__c categ = createCategorizacao(gestao.Id);
         createRegraNova(
             categ.Id,
             gestao.Id,
-            marcoN3.Id,
             area,
             RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA
         );
@@ -164,12 +160,10 @@ private class AreaParticipanteSLAServiceTest {
         enableDeterministicBusinessHoursMath();
         String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
         GestaoSLA__c gestao = createGestao();
-        MarcoSLA__c marcoN3 = createMarcoN3(gestao.Id, 'ativa');
         Categorizacao__c categ = createCategorizacao(gestao.Id);
         RegrasSLACategorizacao__c regra = createRegraNova(
             categ.Id,
             gestao.Id,
-            marcoN3.Id,
             area,
             RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA
         );
@@ -187,7 +181,6 @@ private class AreaParticipanteSLAServiceTest {
         enableDeterministicBusinessHoursMath();
         String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
         GestaoSLA__c gestao = createGestao();
-        createMarcoN3(gestao.Id, 'macro');
         Categorizacao__c categ = createCategorizacao(gestao.Id);
 
         Case c = createCase(categ.Id, 'High', 'Manual');
@@ -205,13 +198,11 @@ private class AreaParticipanteSLAServiceTest {
         enableDeterministicBusinessHoursMath();
         String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
         GestaoSLA__c gestao = createGestao();
-        MarcoSLA__c marcoN3 = createMarcoN3(gestao.Id, 'inativa');
         Categorizacao__c categ = createCategorizacao(gestao.Id);
 
         RegrasSLACategorizacao__c regraInativa = createRegraNova(
             categ.Id,
             gestao.Id,
-            marcoN3.Id,
             area,
             RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA
         );
@@ -233,13 +224,11 @@ private class AreaParticipanteSLAServiceTest {
         enableDeterministicBusinessHoursMath();
         String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
         GestaoSLA__c gestao = createGestao();
-        MarcoSLA__c marcoN3 = createMarcoN3(gestao.Id, 'area-interna');
         Categorizacao__c categ = createCategorizacao(gestao.Id);
 
         RegrasSLACategorizacao__c regra = createRegraNova(
             categ.Id,
             gestao.Id,
-            marcoN3.Id,
             area,
             RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA
         );
@@ -258,7 +247,6 @@ private class AreaParticipanteSLAServiceTest {
         enableDeterministicBusinessHoursMath();
         String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
         GestaoSLA__c gestao = createGestao();
-        createMarcoN3(gestao.Id, 'sem-regra');
         Categorizacao__c categ = createCategorizacao(gestao.Id);
         Case c = createCase(categ.Id, 'High', 'Manual');
 
@@ -277,9 +265,8 @@ private class AreaParticipanteSLAServiceTest {
         enableDeterministicBusinessHoursMath();
         String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
         GestaoSLA__c gestao = createGestao();
-        MarcoSLA__c marco = createMarcoN3(gestao.Id, 'prio-invalida');
         Categorizacao__c categ = createCategorizacao(gestao.Id);
-        createRegraNova(categ.Id, gestao.Id, marco.Id, area, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
+        createRegraNova(categ.Id, gestao.Id, area, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
         Case c = createCase(categ.Id, 'Low', 'Manual');
         c.Priority = 'Critical';
         update c;
@@ -299,9 +286,8 @@ private class AreaParticipanteSLAServiceTest {
         enableDeterministicBusinessHoursMath();
         String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
         GestaoSLA__c gestao = createGestao();
-        MarcoSLA__c marco = createMarcoN3(gestao.Id, 'campos');
         Categorizacao__c categ = createCategorizacao(gestao.Id);
-        RegrasSLACategorizacao__c regra = createRegraNova(categ.Id, gestao.Id, marco.Id, area, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
+        RegrasSLACategorizacao__c regra = createRegraNova(categ.Id, gestao.Id, area, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
         Case c = createCase(categ.Id, 'High', 'Manual');
 
         insert createAreaParticipante(c.Id, area);
@@ -326,9 +312,8 @@ private class AreaParticipanteSLAServiceTest {
         enableDeterministicBusinessHoursMath();
         String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
         GestaoSLA__c gestao = createGestao();
-        MarcoSLA__c marco = createMarcoN3(gestao.Id, 'seq');
         Categorizacao__c categ = createCategorizacao(gestao.Id);
-        createRegraNova(categ.Id, gestao.Id, marco.Id, area, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
+        createRegraNova(categ.Id, gestao.Id, area, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
         Case c = createCase(categ.Id, 'High', 'Manual');
 
         AreaParticipante__c a1 = createAreaParticipante(c.Id, area);
@@ -351,9 +336,8 @@ private class AreaParticipanteSLAServiceTest {
         enableDeterministicBusinessHoursMath();
         String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
         GestaoSLA__c gestao = createGestao();
-        MarcoSLA__c marco = createMarcoN3(gestao.Id, 'dup');
         Categorizacao__c categ = createCategorizacao(gestao.Id);
-        createRegraNova(categ.Id, gestao.Id, marco.Id, area, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
+        createRegraNova(categ.Id, gestao.Id, area, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
         Case c = createCase(categ.Id, 'High', 'Manual');
 
         insert createAreaParticipante(c.Id, area);
@@ -373,9 +357,8 @@ private class AreaParticipanteSLAServiceTest {
         enableDeterministicBusinessHoursMath();
         String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
         GestaoSLA__c gestao = createGestao();
-        MarcoSLA__c marco = createMarcoN3(gestao.Id, 'reabert');
         Categorizacao__c categ = createCategorizacao(gestao.Id);
-        createRegraNova(categ.Id, gestao.Id, marco.Id, area, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
+        createRegraNova(categ.Id, gestao.Id, area, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
         Case c = createCase(categ.Id, 'High', 'Manual');
 
         AreaParticipante__c a1 = createAreaParticipante(c.Id, area);
@@ -402,10 +385,9 @@ private class AreaParticipanteSLAServiceTest {
         String area1 = areas[0];
         String area2 = areas[1];
         GestaoSLA__c gestao = createGestao();
-        MarcoSLA__c marco = createMarcoN3(gestao.Id, 'multi');
         Categorizacao__c categ = createCategorizacao(gestao.Id);
-        createRegraNova(categ.Id, gestao.Id, marco.Id, area1, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
-        createRegraNova(categ.Id, gestao.Id, marco.Id, area2, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
+        createRegraNova(categ.Id, gestao.Id, area1, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
+        createRegraNova(categ.Id, gestao.Id, area2, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
         Case c = createCase(categ.Id, 'High', 'Manual');
 
         insert new List<AreaParticipante__c>{
@@ -416,15 +398,39 @@ private class AreaParticipanteSLAServiceTest {
     }
 
     @IsTest
+    static void testSequenciaGlobalPorCaseNaoPorArea() {
+        enableDeterministicBusinessHoursMath();
+        List<String> areas = AreaParticipanteTestDataFactory.commonAreaValues();
+        if (areas.size() < 2) return;
+        String area1 = areas[0];
+        String area2 = areas[1];
+        GestaoSLA__c gestao = createGestao();
+        Categorizacao__c categ = createCategorizacao(gestao.Id);
+        createRegraNova(categ.Id, gestao.Id, area1, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
+        createRegraNova(categ.Id, gestao.Id, area2, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
+        Case c = createCase(categ.Id, 'High', 'Manual');
+
+        AreaParticipante__c a1 = createAreaParticipante(c.Id, area1);
+        insert a1;
+        a1 = [SELECT SequenciaAcionamento__c FROM AreaParticipante__c WHERE Id = :a1.Id];
+        Assert.areEqual(1, Integer.valueOf(String.valueOf(a1.SequenciaAcionamento__c)));
+
+        AreaParticipante__c a2 = createAreaParticipante(c.Id, area2);
+        insert a2;
+        a2 = [SELECT SequenciaAcionamento__c FROM AreaParticipante__c WHERE Id = :a2.Id];
+        Assert.areEqual(2, Integer.valueOf(String.valueOf(a2.SequenciaAcionamento__c)), 'Sequencia deve ser global por Case, nao reiniciar por area diferente');
+    }
+
+    @IsTest
     static void testMarcosDuplicadosNaGestaoNaoImpedeSLAComRegra() {
         enableDeterministicBusinessHoursMath();
         String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
         GestaoSLA__c gestao = createGestao();
-        MarcoSLA__c marco1 = createMarcoN3(gestao.Id, 'dup-1');
+        createMarcoN3(gestao.Id, 'dup-1');
         createMarcoN3(gestao.Id, 'dup-2');
         Categorizacao__c categ = createCategorizacao(gestao.Id);
         createRegraNova(
-            categ.Id, gestao.Id, marco1.Id, area,
+            categ.Id, gestao.Id, area,
             RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA
         );
         Case c = createCase(categ.Id, 'High', 'Manual');
