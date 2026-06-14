@@ -1,0 +1,260 @@
+﻿<template>
+    <lightning-card title={labels.title} icon-name="standard:skill_requirement">
+        <template if:true={loading}>
+            <div class="slds-p-around_medium">
+                <lightning-spinner size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={loading}>
+            <div class="slds-p-horizontal_medium slds-p-bottom_small summary-box">
+                <div class="summary-title">{labels.operationalSummary}</div>
+                <div class="summary-row">
+                    <div class="summary-text">{summaryText}</div>
+                    <div class="summary-actions">
+                        <lightning-button variant="neutral" label={labels.refresh} onclick={handleRefresh} disabled={submitting}></lightning-button>
+                        <template if:true={canManage}>
+                            <lightning-button class="slds-m-left_x-small" variant="brand" label={labels.add} onclick={openAddModal} disabled={submitting}></lightning-button>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <template if:false={hasItems}>
+                <div class="slds-p-around_medium slds-text-color_weak">{labels.empty}</div>
+            </template>
+
+            <template if:true={hasItems}>
+                <div class="slds-p-horizontal_small slds-p-bottom_small list-wrap">
+                    <div class="group-header" onclick={toggleOpenGroup}>
+                        <lightning-icon icon-name={openGroupIcon} size="x-small"></lightning-icon>
+                        <span class="group-title">{labels.openGroup}</span>
+                        <span class="group-count">({openItems.length})</span>
+                    </div>
+                    <template if:true={isOpenGroupExpanded}>
+                        <template if:true={hasOpenItems}>
+                            <template for:each={openItems} for:item="item">
+                                <article key={item.id} class={item.cardClass}>
+                                    <div class="slds-grid slds-wrap slds-gutters_x-small">
+                                        <div class="slds-col slds-size_1-of-1">
+                                            <div class="slds-grid slds-wrap slds-grid_vertical-align-center slds-grid_align-spread">
+                                                <div class="slds-truncate card-title">
+                                                    <span class="area-type-pill">{labels.internalArea}</span>
+                                                    <span class="area-pill">{item.areaLabel}</span>
+                                                </div>
+                                                <div class="pill-group">
+                                                    <span class={item.statusClass}>{item.statusLabel}</span>
+                                                    <template if:true={item.hasClassificationPills}>
+                                                        <template for:each={item.classificationPills} for:item="pill">
+                                                            <span key={pill.key} class={pill.className}>{pill.label}</span>
+                                                        </template>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-1 slds-text-body_small slds-text-color_weak">
+                                            <span>{item.elapsedLabel}</span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-1 slds-m-top_x-small">
+                                            <span class="status-pill open">{labels.slaStatus}: {item.statusSLAText}</span>
+                                        </div>
+                                        <template if:true={item.showProgress}>
+                                            <div class="slds-col slds-size_1-of-1 slds-m-top_x-small">
+                                                <div class="progress-track">
+                                                    <div class={item.progressBarClass} style={item.progressStyle}></div>
+                                                </div>
+                                            </div>
+                                        </template>
+                                        <div class="slds-col slds-size_1-of-2 slds-text-body_small slds-m-top_x-small">
+                                            <span class="meta-label">{labels.slaTime}:</span>
+                                            <span class="meta-value">{item.tempoSLAText}</span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-text-body_small slds-m-top_x-small">
+                                            <span class="meta-label">{labels.consumedTime}:</span>
+                                            <span class="meta-value">{item.tempoConsumidoText}</span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-text-body_small slds-m-top_x-small">
+                                            <span class="meta-label">{labels.remainingTime}:</span>
+                                            <span class="meta-value">{item.tempoRestanteText}</span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-text-body_small slds-m-top_x-small">
+                                            <span class="meta-label">{labels.pausedTime}:</span>
+                                            <span class="meta-value">{item.tempoPausadoText}</span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-1 slds-text-body_small slds-m-top_x-small">
+                                            <span class="meta-label">{labels.sequence}:</span>
+                                            <span class="meta-value">{item.sequenciaText}</span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-text-body_small slds-m-top_x-small">
+                                            <span class="meta-label">{labels.start}:</span>
+                                            <span class="meta-value">{item.startText}</span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-text-body_small slds-m-top_x-small">
+                                            <span class="meta-label">{labels.deadline}:</span>
+                                            <span class="meta-value">{item.deadlineText}</span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-1 slds-m-top_x-small">
+                                            <div class="meta-label">{labels.request}:</div>
+                                            <div class="request-text">{item.requestText}</div>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-1 slds-m-top_small actions-row">
+                                            <lightning-button variant="base" label={labels.details} data-id={item.id} onclick={handleViewDetails}></lightning-button>
+                                            <template if:true={item.canClose}>
+                                                <lightning-button variant="brand" label={labels.close} data-id={item.id} onclick={handleCloseAction}></lightning-button>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </article>
+                            </template>
+                        </template>
+                    </template>
+
+                    <div class="group-header slds-m-top_small" onclick={toggleDoneGroup}>
+                        <lightning-icon icon-name={doneGroupIcon} size="x-small"></lightning-icon>
+                        <span class="group-title">{labels.doneGroup}</span>
+                        <span class="group-count">({doneItems.length})</span>
+                    </div>
+                    <template if:true={isDoneGroupExpanded}>
+                        <template if:true={hasDoneItems}>
+                            <template for:each={doneItems} for:item="item">
+                                <article key={item.id} class={item.cardClass}>
+                                    <div class="slds-grid slds-wrap slds-gutters_x-small">
+                                        <div class="slds-col slds-size_1-of-1">
+                                            <div class="slds-grid slds-wrap slds-grid_vertical-align-center slds-grid_align-spread">
+                                                <div class="slds-truncate card-title">
+                                                    <span class="area-type-pill">{labels.internalArea}</span>
+                                                    <span class="area-pill">{item.areaLabel}</span>
+                                                </div>
+                                                <div class="pill-group">
+                                                    <span class={item.statusClass}>{item.statusLabel}</span>
+                                                    <template if:true={item.hasClassificationPills}>
+                                                        <template for:each={item.classificationPills} for:item="pill">
+                                                            <span key={pill.key} class={pill.className}>{pill.label}</span>
+                                                        </template>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-1 slds-text-body_small slds-text-color_weak">
+                                            <span>{item.elapsedLabel}</span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-1 slds-m-top_x-small">
+                                            <span class="status-pill open">{labels.slaStatus}: {item.statusSLAText}</span>
+                                        </div>
+                                        <template if:true={item.showProgress}>
+                                            <div class="slds-col slds-size_1-of-1 slds-m-top_x-small">
+                                                <div class="progress-track">
+                                                    <div class={item.progressBarClass} style={item.progressStyle}></div>
+                                                </div>
+                                            </div>
+                                        </template>
+                                        <div class="slds-col slds-size_1-of-2 slds-text-body_small slds-m-top_x-small">
+                                            <span class="meta-label">{labels.slaTime}:</span>
+                                            <span class="meta-value">{item.tempoSLAText}</span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-text-body_small slds-m-top_x-small">
+                                            <span class="meta-label">{labels.consumedTime}:</span>
+                                            <span class="meta-value">{item.tempoConsumidoText}</span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-text-body_small slds-m-top_x-small">
+                                            <span class="meta-label">{labels.remainingTime}:</span>
+                                            <span class="meta-value">{item.tempoRestanteText}</span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-text-body_small slds-m-top_x-small">
+                                            <span class="meta-label">{labels.pausedTime}:</span>
+                                            <span class="meta-value">{item.tempoPausadoText}</span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-1 slds-text-body_small slds-m-top_x-small">
+                                            <span class="meta-label">{labels.sequence}:</span>
+                                            <span class="meta-value">{item.sequenciaText}</span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-text-body_small slds-m-top_x-small">
+                                            <span class="meta-label">{labels.start}:</span>
+                                            <span class="meta-value">{item.startText}</span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-text-body_small slds-m-top_x-small">
+                                            <span class="meta-label">{labels.deadline}:</span>
+                                            <span class="meta-value">{item.deadlineText}</span>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-1 slds-m-top_x-small">
+                                            <div class="meta-label">{labels.request}:</div>
+                                            <div class="request-text">{item.requestText}</div>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-1 slds-m-top_small actions-row">
+                                            <lightning-button variant="base" label={labels.details} data-id={item.id} onclick={handleViewDetails}></lightning-button>
+                                            <template if:true={item.canClose}>
+                                                <lightning-button variant="brand" label={labels.close} data-id={item.id} onclick={handleCloseAction}></lightning-button>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </article>
+                            </template>
+                        </template>
+                    </template>
+                </div>
+            </template>
+        </template>
+    </lightning-card>
+
+    <template if:true={showCloseModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-modal__title slds-hyphenate">{labels.closeTitle}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-input label={labels.area} value={selectedItem.areaLabel} disabled></lightning-input>
+                    <lightning-input class="slds-m-top_small" label={labels.currentStatus} value={selectedItem.statusLabel} disabled></lightning-input>
+                    <lightning-textarea class="slds-m-top_small" label={labels.requestComment} value={selectedItem.comentarioSolicitacao} disabled></lightning-textarea>
+                    <lightning-textarea class="slds-m-top_small" label={labels.returnComment} required value={closeComment} onchange={handleCommentChange}></lightning-textarea>
+                    <lightning-textarea class="slds-m-top_small" label={labels.solution} required value={closeSolution} onchange={handleSolutionChange}></lightning-textarea>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label={labels.cancel} onclick={closeModal}></lightning-button>
+                    <lightning-button class="slds-m-left_small" variant="brand" label={labels.confirmClose} onclick={confirmClose} disabled={submitting}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template if:true={showDetailModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-modal__title slds-hyphenate">{labels.detailTitle}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-input label={labels.area} value={selectedItem.areaLabel} disabled></lightning-input>
+                    <lightning-input class="slds-m-top_small" label={labels.status} value={selectedItem.statusLabel} disabled></lightning-input>
+                    <lightning-textarea class="slds-m-top_small" label={labels.requestComment} value={selectedItem.comentarioSolicitacao} disabled></lightning-textarea>
+                    <lightning-textarea class="slds-m-top_small" label={labels.returnComment} value={selectedItem.comentarioRetorno} disabled></lightning-textarea>
+                    <lightning-textarea class="slds-m-top_small" label={labels.solution} value={selectedItem.solucaoRetorno} disabled></lightning-textarea>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="brand" label={labels.closeModal} onclick={closeModal}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template if:true={showAddModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-modal__title slds-hyphenate">{labels.addTitle}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-combobox label={labels.area} value={addArea} options={addAreaOptions} onchange={handleAddAreaChange} required></lightning-combobox>
+                    <lightning-textarea class="slds-m-top_small" label={labels.requestCommentInput} value={addComentarioSolicitacao} onchange={handleAddComentarioSolicitacaoChange} required></lightning-textarea>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label={labels.cancel} onclick={closeModal}></lightning-button>
+                    <lightning-button class="slds-m-left_small" variant="brand" label={labels.confirmAdd} onclick={confirmAdd} disabled={submitting}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>
