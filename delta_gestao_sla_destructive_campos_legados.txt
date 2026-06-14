@@ -1,0 +1,450 @@
+CONTEXTO
+
+Você está dentro de um projeto Salesforce existente da Wilson Sons.
+
+Estamos trabalhando na Gestão de SLA customizada em pacotes pequenos, com deltas isolados e validação antes de seguir para a próxima etapa.
+
+Pacotes anteriores concluídos:
+
+1. Pacote 15A:
+
+   * Preparou o campo RegrasSLACategorizacao__c.EscopoRegra__c.
+
+2. Pacote 15B Fix:
+
+   * Refatorou Apex/LWC para usar os valores Atendimento e Area Interna.
+
+3. Pacote 15C:
+
+   * Atualizou os dados existentes de EscopoRegra__c.
+
+4. Pacote 15D:
+
+   * Removeu os valores antigos da picklist EscopoRegra__c.
+
+5. Pacote 16A:
+
+   * Removeu dependências funcionais dos campos legados:
+
+     * RegrasSLACategorizacao__c.Origem__c
+     * RegrasSLACategorizacao__c.VigenciaInicio__c
+     * RegrasSLACategorizacao__c.VigenciaFim__c
+     * AreaParticipante__c.TipoAtuacao__c
+   * Não excluiu fisicamente os campos.
+   * Não criou destructiveChanges.
+   * Preservou AreaParticipante__c.OrigemSLA__c.
+   * Preservou AreaParticipante__c.TipoAreaParticipante__c como campo oficial.
+
+Agora precisamos criar o Pacote 16B.
+
+OBJETIVO DO PACOTE 16B
+
+Criar um pacote destructiveChanges para excluir fisicamente os campos legados abaixo:
+
+1. RegrasSLACategorizacao__c.Origem__c
+2. RegrasSLACategorizacao__c.VigenciaInicio__c
+3. RegrasSLACategorizacao__c.VigenciaFim__c
+4. AreaParticipante__c.TipoAtuacao__c
+
+Este pacote deve ser exclusivamente destrutivo.
+
+Não alterar Apex.
+Não alterar LWC.
+Não alterar Permission Sets.
+Não alterar Profiles.
+Não alterar Flow.
+Não alterar layouts, salvo se o Salesforce exigir por dependência residual e isso deve ser documentado.
+Não alterar dados.
+Não criar novos campos.
+Não recriar campos removidos.
+Não alterar AreaParticipante__c.OrigemSLA__c.
+Não alterar AreaParticipante__c.TipoAreaParticipante__c.
+
+PRÉ-CONDIÇÃO OBRIGATÓRIA
+
+Antes de gerar ou validar o destructiveChanges, confirmar:
+
+1. O Pacote 16A final foi implantado no ambiente alvo.
+
+2. Não há uso funcional dos campos alvo em:
+
+   * Apex
+   * LWC
+   * DTOs
+   * Selectors
+   * Services
+   * Helpers
+   * Testes
+   * Layouts
+   * Flexipages
+   * Field Sets
+   * Permission Sets
+   * Profiles
+   * Flows
+   * Reports
+   * Dashboards
+   * List Views
+   * Quick Actions
+
+3. A busca final no projeto não retorna referências funcionais para:
+
+   * Origem__c
+   * VigenciaInicio__c
+   * VigenciaFim__c
+   * TipoAtuacao__c
+
+4. Referências a OrigemSLA__c não são alvo e devem permanecer.
+
+5. Referências a TipoAreaParticipante__c não são alvo e devem permanecer.
+
+Se qualquer dependência funcional for encontrada, parar e documentar. Não gerar destructiveChanges até a dependência ser removida.
+
+VALIDAÇÃO PRÉ-DESTRUCTIVE
+
+Gerar evidência com busca no projeto:
+
+grep -RIn "Origem__c|VigenciaInicio__c|VigenciaFim__c|TipoAtuacao__c" force-app/main/default
+
+Resultado esperado:
+
+* Nenhuma referência funcional.
+* Aceitável encontrar somente documentação/evidência do pacote.
+* Aceitável encontrar os próprios arquivos field-meta.xml dos campos alvo no projeto completo, se ainda existirem antes do destructive.
+* Não aceitar uso em Apex, LWC, Flow, Permission Set, Profile, Layout, Report, Dashboard, Field Set ou Record Type.
+
+Gerar também evidência separada confirmando que estes campos NÃO foram alterados:
+
+* AreaParticipante__c.OrigemSLA__c
+* AreaParticipante__c.TipoAreaParticipante__c
+
+BACKUP PRÉ-DESTRUCTIVE
+
+Antes da exclusão física, gerar scripts de backup lógico dos dados dos campos que serão removidos.
+
+Criar queries de backup:
+
+1. Backup de RegrasSLACategorizacao__c:
+
+SELECT Id, Name, Origem__c, VigenciaInicio__c, VigenciaFim__c, EscopoRegra__c, GestaoSLA__c, Categorizacao__c, MarcoSLA__c, AreaAtendimento__c, Ativo__c, CreatedDate, LastModifiedDate
+FROM RegrasSLACategorizacao__c
+WHERE Origem__c != null
+OR VigenciaInicio__c != null
+OR VigenciaFim__c != null
+
+2. Backup de AreaParticipante__c:
+
+SELECT Id, Name, TipoAtuacao__c, TipoAreaParticipante__c, Caso__c, AreaAtendimento__c, OrigemSLA__c, StatusAtuacao__c, StatusSLA__c, CreatedDate, LastModifiedDate
+FROM AreaParticipante__c
+WHERE TipoAtuacao__c != null
+
+Essas queries são para backup pré-exclusão.
+
+Não executar update.
+Não executar delete de dados.
+
+DESTRUCTIVECHANGES
+
+Criar arquivo:
+
+destructiveChanges.xml
+
+Com os campos:
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>RegrasSLACategorizacao__c.Origem__c</members>
+        <members>RegrasSLACategorizacao__c.VigenciaInicio__c</members>
+        <members>RegrasSLACategorizacao__c.VigenciaFim__c</members>
+        <members>AreaParticipante__c.TipoAtuacao__c</members>
+        <name>CustomField</name>
+    </types>
+    <version>64.0</version>
+</Package>
+
+Ajustar a versão para a versão usada no projeto, se necessário.
+
+Criar package.xml mínimo:
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <version>64.0</version>
+</Package>
+
+Não usar wildcard.
+
+Não incluir outros metadados.
+
+Não incluir Apex.
+Não incluir LWC.
+Não incluir Permission Sets.
+Não incluir objetos completos.
+Não incluir fields que não serão destruídos.
+
+COMANDOS DE VALIDAÇÃO
+
+Documentar comando de dry-run conforme CLI disponível no projeto.
+
+Exemplo com Salesforce CLI moderna:
+
+sf project deploy start 
+--manifest package.xml 
+--post-destructive-changes destructiveChanges.xml 
+--target-org <ORG_ALIAS> 
+--dry-run 
+--test-level RunLocalTests
+
+Se o projeto usar outro padrão de CLI, adaptar e documentar.
+
+O dry-run deve validar:
+
+1. destructiveChanges.xml aceito.
+2. Nenhuma dependência bloqueia a exclusão.
+3. Testes executados ou justificativa formal se não forem executados.
+4. Sem falhas de deploy.
+
+COMANDO DE DEPLOY REAL
+
+Documentar comando de deploy real, mas não executar automaticamente sem aprovação.
+
+Exemplo:
+
+sf project deploy start 
+--manifest package.xml 
+--post-destructive-changes destructiveChanges.xml 
+--target-org <ORG_ALIAS> 
+--test-level RunLocalTests
+
+VALIDAÇÃO PÓS-DESTRUCTIVE
+
+Criar roteiro de validação pós-deploy:
+
+1. Confirmar que os campos não existem mais no org:
+
+* RegrasSLACategorizacao__c.Origem__c
+* RegrasSLACategorizacao__c.VigenciaInicio__c
+* RegrasSLACategorizacao__c.VigenciaFim__c
+* AreaParticipante__c.TipoAtuacao__c
+
+2. Confirmar que os campos preservados seguem existindo:
+
+* AreaParticipante__c.OrigemSLA__c
+* AreaParticipante__c.TipoAreaParticipante__c
+
+3. Rodar testes relacionados à Gestão SLA e Área Participante.
+
+4. Validar tela de Gestão SLA:
+
+   * Regras Atendimento funcionam.
+   * Regras Area Interna funcionam.
+   * Origem e Vigência não aparecem.
+
+5. Validar Área Participante:
+
+   * TipoAreaParticipante__c continua sendo usado como classificação oficial.
+   * TipoAtuacao__c não aparece.
+
+REMOÇÃO DOS ARQUIVOS DO REPOSITÓRIO
+
+Além do destructiveChanges para a org, documentar que, após o deploy destrutivo bem-sucedido, os arquivos dos campos alvo devem ser removidos do repositório fonte para evitar recriação futura.
+
+Arquivos esperados para remoção do repositório, se existirem:
+
+force-app/main/default/objects/RegrasSLACategorizacao__c/fields/Origem__c.field-meta.xml
+force-app/main/default/objects/RegrasSLACategorizacao__c/fields/VigenciaInicio__c.field-meta.xml
+force-app/main/default/objects/RegrasSLACategorizacao__c/fields/VigenciaFim__c.field-meta.xml
+force-app/main/default/objects/AreaParticipante__c/fields/TipoAtuacao__c.field-meta.xml
+
+Se o delta for apenas de deploy destructive, criar evidência com a lista desses arquivos para remoção no repositório principal.
+
+Não remover outros campos.
+
+FORA DO ESCOPO
+
+NÃO alterar Apex.
+
+NÃO alterar LWC.
+
+NÃO alterar Flow.
+
+NÃO alterar Entitlement Process.
+
+NÃO alterar CaseMilestoneTriggerTimeCalculator.
+
+NÃO alterar motor de SLA.
+
+NÃO alterar regras de Área Participante.
+
+NÃO alterar Permission Sets, salvo se o deploy destrutivo apontar dependência residual e isso deve parar o pacote para nova análise.
+
+NÃO alterar Profiles, salvo se o deploy destrutivo apontar dependência residual e isso deve parar o pacote para nova análise.
+
+NÃO alterar dados.
+
+NÃO executar update.
+
+NÃO executar delete de registros.
+
+NÃO alterar EscopoRegra__c.
+
+NÃO alterar TipoAreaParticipante__c.
+
+NÃO alterar OrigemSLA__c.
+
+NÃO criar novos campos.
+
+NÃO criar novos objetos.
+
+NÃO criar novo LWC.
+
+NÃO criar nova classe.
+
+NÃO criar Flow.
+
+REGRAS GERAIS WS
+
+1. Todos os arquivos criados devem estar em UTF-8 sem BOM.
+
+2. Remover qualquer mojibake.
+
+3. Não reproduzir strings corrompidas nem em exemplos.
+
+4. Não usar wildcard no package.xml.
+
+5. Não incluir metadados fora do escopo.
+
+6. Não incluir arquivos não alterados.
+
+7. Evidências claras.
+
+8. README obrigatório.
+
+9. Não executar deploy real sem aprovação.
+
+FORMATO DO PACOTE ESPERADO
+
+Criar uma pasta separada chamada:
+
+delta_gestao_sla_destructive_campos_legados/
+
+Estrutura esperada:
+
+delta_gestao_sla_destructive_campos_legados/
+├── package.xml
+├── destructiveChanges.xml
+├── README_EVIDENCIAS.md
+├── scripts/
+│    ├── 01_backup_regras_sla_campos_legados.soql
+│    ├── 02_backup_area_participante_tipo_atuacao.soql
+│    ├── 03_validacao_pos_destructive.md
+│    └── 04_arquivos_repositorio_para_remover.md
+└── evidencias/
+├── 01_pre_condicao_16A_implantado.md
+├── 02_busca_referencias_pre_destructive.md
+├── 03_backup_pre_destructive.md
+├── 04_destructive_changes.md
+├── 05_dry_run.md
+├── 06_validacao_campos_preservados.md
+├── 07_validacao_utf8_sem_bom.md
+├── 08_validacao_sem_mojibake.md
+└── 09_pendencias_pos_deploy.md
+
+Não incluir pasta classes.
+Não incluir pasta lwc.
+Não incluir pasta objects, exceto se houver necessidade documental, mas não incluir field-meta.xml dos campos alvo como metadata normal.
+
+PACKAGE.XML
+
+Deve ser mínimo:
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <version>64.0</version>
+</Package>
+
+DESTRUCTIVECHANGES.XML
+
+Deve conter somente os quatro CustomFields alvo:
+
+* RegrasSLACategorizacao__c.Origem__c
+* RegrasSLACategorizacao__c.VigenciaInicio__c
+* RegrasSLACategorizacao__c.VigenciaFim__c
+* AreaParticipante__c.TipoAtuacao__c
+
+EVIDÊNCIAS OBRIGATÓRIAS
+
+Criar README_EVIDENCIAS.md contendo:
+
+1. Objetivo do pacote.
+2. Campos que serão removidos.
+3. Confirmação de que o 16A deve estar implantado antes do 16B.
+4. Confirmação de que não há dependências funcionais.
+5. Resultado da busca pré-destructive.
+6. Scripts de backup criados.
+7. Conteúdo do destructiveChanges.xml.
+8. Confirmação de que package.xml está vazio/minimalista.
+9. Confirmação de que nenhum Apex foi alterado.
+10. Confirmação de que nenhuma LWC foi alterada.
+11. Confirmação de que nenhum dado foi alterado.
+12. Confirmação de que OrigemSLA__c não foi alterado.
+13. Confirmação de que TipoAreaParticipante__c não foi alterado.
+14. Resultado do dry-run, se executado.
+15. Comando recomendado para deploy real, sem execução automática.
+16. Roteiro de validação pós-deploy.
+17. Lista de arquivos do repositório que devem ser removidos após deploy destrutivo bem-sucedido.
+18. Confirmação de UTF-8 sem BOM.
+19. Confirmação de ausência de mojibake.
+20. Próximo pacote recomendado.
+
+VALIDAÇÕES OBRIGATÓRIAS ANTES DE FINALIZAR
+
+1. destructiveChanges.xml contém somente os quatro campos alvo.
+2. package.xml não contém wildcard.
+3. Nenhum Apex foi incluído.
+4. Nenhuma LWC foi incluída.
+5. Nenhum Permission Set foi incluído.
+6. Nenhum Profile foi incluído.
+7. Nenhum Flow foi incluído.
+8. Nenhum dado foi alterado.
+9. OrigemSLA__c não foi incluído no destructive.
+10. TipoAreaParticipante__c não foi incluído no destructive.
+11. Scripts de backup foram criados.
+12. Busca pré-destructive foi documentada.
+13. Roteiro pós-deploy foi criado.
+14. UTF-8 sem BOM.
+15. Sem mojibake.
+16. Dry-run executado e documentado, se houver org disponível.
+
+CRITÉRIOS DE ACEITE
+
+A entrega será considerada correta quando:
+
+1. O pacote tiver destructiveChanges.xml para os quatro campos legados.
+2. Nenhum outro campo for incluído no destructive.
+3. O pacote tiver package.xml mínimo.
+4. O pacote tiver backup pré-destructive documentado.
+5. O pacote tiver validação de ausência de dependências.
+6. O pacote não alterar Apex/LWC/metadados fora do destructive.
+7. OrigemSLA__c e TipoAreaParticipante__c forem preservados.
+8. O pacote estiver isolado em delta_gestao_sla_destructive_campos_legados.
+
+SAÍDA ESPERADA NO CHAT
+
+Ao final, apresentar:
+
+1. Caminho do pacote gerado.
+2. Campos incluídos no destructiveChanges.xml.
+3. Confirmação de que nenhum outro campo foi incluído.
+4. Resultado da busca pré-destructive.
+5. Scripts de backup criados.
+6. Resultado do dry-run, se executado.
+7. Comando recomendado para deploy real.
+8. Validação pós-deploy recomendada.
+9. Lista de arquivos do repositório para remoção após deploy bem-sucedido.
+10. Confirmação de que Apex/LWC/Permission Sets/Profiles/Flows não foram alterados.
+11. Confirmação de que OrigemSLA__c e TipoAreaParticipante__c não foram alterados.
+12. Confirmação de UTF-8 sem BOM.
+13. Confirmação de ausência de mojibake.
