@@ -1,0 +1,59 @@
+# Evidência 03 — Validações
+
+**Data:** 2026-06-14
+
+## Validação 1 — Nenhum teste (nos 5 arquivos alvo) cria Area Interna com MarcoSLA__c
+
+| Arquivo | Status |
+|---------|--------|
+| `RegrasSLACompatibilidadeServiceTest.cls` | `createRegra` sem `MarcoSLA__c`; todos os 3 testes atualizados ✓ |
+| `SLACoverageCoreTest.cls` | `createRule` sem `MarcoSLA__c`; `dup` e `inactiveDup` sem `MarcoSLA__c` ✓ |
+| `RegrasSLACategorizacaoSelectorTest.cls` | regras inline sem `MarcoSLA__c` nos 3 testes ✓ |
+| `RegrasSLACategorizacaoHelperTest.cls` | `base` (AREA_INTERNA) sem `MarcoSLA__c` ✓ |
+| `CaseMilestoneTriggerTimeCalculatorTest.cls` | chamada AREA_INTERNA com `null` marcoSlaId ✓ |
+
+## Validação 2 — Nenhuma classe de produção alterada
+
+Mudanças exclusivas em 5 classes de teste. Zero alterações em classes sem sufixo `Test`. ✓
+
+## Validação 3 — Nenhuma referência a campos legados 16B
+
+Campos `Origem__c`, `VigenciaInicio__c`, `VigenciaFim__c`, `TipoAtuacao__c` não introduzidos. ✓
+
+## Validação 4 — LWC, metadata, Permission Sets intactos
+
+Nenhuma alteração em LWC, metadata, fluxos ou Permission Sets. ✓
+
+## Validação 5 — Package.xml mínimo e sem wildcard
+
+```xml
+<types>
+    <members>RegrasSLACompatibilidadeServiceTest</members>
+    <members>SLACoverageCoreTest</members>
+    <members>RegrasSLACategorizacaoSelectorTest</members>
+    <members>RegrasSLACategorizacaoHelperTest</members>
+    <members>CaseMilestoneTriggerTimeCalculatorTest</members>
+    <name>ApexClass</name>
+</types>
+```
+5 membros explícitos. Sem wildcard. ✓
+
+## Validação 6 — UTF-8 sem BOM
+
+Arquivos Apex puro (ASCII/UTF-8). Nenhum caractere especial adicionado. ✓
+
+## Validação 7 — Atendimento mantém MarcoSLA__c
+
+| Teste | Escopo | MarcoSLA__c |
+|-------|--------|-------------|
+| `testBuildKeyNovoNaoIncluiPrioridade` | ESCOPO_ATENDIMENTO | marco.Id ✓ |
+| `testBuildKeyEscopo` | ESCOPO_ATENDIMENTO | marco.Id ✓ |
+| `testBuildKeyNovoMudaComCamposDaChave` → `vMarco` | ESCOPO_AREA_INTERNA (clone) | m2.Id (verifica que null→m2 muda chave) ✓ |
+| `assertMarcoRegraSla` (CaseMilestone) | ESCOPO_ATENDIMENTO | marco.Id ✓ |
+| `testAtendimentoN3MacroNaoUsaRegraAreaInterna` — ATENDIMENTO | ESCOPO_ATENDIMENTO | marco.Id ✓ |
+
+## Nota — arquivo fora do escopo
+
+`CategorizacaoServiceTest.cls` também tem 2 ocorrências de `ESCOPO_AREA_INTERNA + MarcoSLA__c`
+(linhas 284-285 e 401-402) identificadas durante o grep inicial. Não alterado neste pacote
+por estar fora do escopo definido. Pode ser tratado em cleanup futuro.
