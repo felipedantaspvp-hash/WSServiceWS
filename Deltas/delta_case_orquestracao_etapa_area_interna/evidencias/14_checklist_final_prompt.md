@@ -30,5 +30,5 @@
 - [x] Evidências 06–10 atualizadas para v2
 - [x] Evidências 15 e 16 criadas
 - [x] ZIP a gerar — `delta_case_orquestracao_etapa_area_interna.zip` na raiz do projeto
-- [ ] Commit e push realizados
-- [ ] Deploy definitivo executado
+- [x] Commit e push realizados — 954f7b9
+- [x] Deploy definitivo executado — Deploy ID `0Afbe00000AA41NCAT`, Succeeded, 3/3 componentes
