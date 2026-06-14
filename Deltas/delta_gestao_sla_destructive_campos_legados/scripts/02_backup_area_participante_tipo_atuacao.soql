@@ -1,3 +1,3 @@
-SELECT Id, Name, TipoAtuacao__c, TipoAreaParticipante__c, Caso__c, AreaAtendimento__c, OrigemSLA__c, StatusAtuacao__c, StatusSLA__c, CreatedDate, LastModifiedDate
+SELECT Id, Name, TipoAtuacao__c, Caso__c, AreaAtendimento__c, OrigemAtuacao__c, StatusAtuacao__c, CreatedDate, LastModifiedDate
 FROM AreaParticipante__c
 WHERE TipoAtuacao__c != null

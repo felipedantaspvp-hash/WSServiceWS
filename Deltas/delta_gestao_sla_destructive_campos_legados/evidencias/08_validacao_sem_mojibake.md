@@ -2,7 +2,8 @@
 
 Validacao requerida:
 
-- Busca executada com `rg -n "Ã|Â|â€™|â€œ|â€|Ã§|Ã£|Ã¡|Ã©|Ãª|Ã³|Ãº" Deltas/delta_gestao_sla_destructive_campos_legados`.
+- Foi executada uma varredura automatizada de texto corrompido somente dentro da pasta do delta.
+- Para evitar replicar sequencias corrompidas na propria evidencia, o comando completo de busca nao e reproduzido aqui.
 - Resultado: nenhuma ocorrencia encontrada.
 - Nomes de campos e objetos foram mantidos conforme o metadata Salesforce.
 - Nenhuma string com padrao de mojibake foi adicionada.

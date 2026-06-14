@@ -13,6 +13,7 @@
 | Codex  | feat/codex/retrieve-entitlement-atendimento-salvador | `AI_WORKQUEUE.md`, `manifest/entitlement-atendimento-salvador.xml`, `force-app/main/default/entitlementProcesses/*`, `force-app/main/default/milestoneTypes/*`, `force-app/main/default/settings/BusinessHours.settings-meta.xml`, `force-app/main/default/settings/Entitlement.settings-meta.xml`, `docs/PROJECT_INDEX.md` | Baixar Entitlement Process ativo Atendimento Salvador v2 e dependências | ✅ concluído |
 | Claude | feat/claude/entitlement-rio-grande-centro-logistico-rebocadores | `force-app/main/default/entitlementProcesses/*`, `docs/PROJECT_INDEX.md` | Clonar EntitlementProcess Salvador para Rio Grande, Centro Logístico e Rebocadores | ✅ concluído |
 | Codex  | feat/claude/entitlement-rio-grande-centro-logistico-rebocadores | `AI_WORKQUEUE.md`, `docs/PROJECT_INDEX.md`, `Deltas/delta_gestao_sla_destructive_campos_legados/**` | Pacote 16B: excluir fisicamente 4 campos legados via destructiveChanges, validar dry-run e documentar evidências | ✅ concluído |
+| Codex  | feat/claude/entitlement-rio-grande-centro-logistico-rebocadores | `AI_WORKQUEUE.md`, `docs/PROJECT_INDEX.md`, `Deltas/delta_gestao_sla_destructive_campos_legados/**` | Pacote 16B: exportar backups CSV, ajustar evidências e formalizar bloqueio/alternativa de dry-run | ✅ concluído |
 | —      | —      | —                   | —      | —      |
 
 **Status válidos:** `🔄 em andamento` · `✅ concluído` · `⏸ pausado` · `🔀 merge pendente`

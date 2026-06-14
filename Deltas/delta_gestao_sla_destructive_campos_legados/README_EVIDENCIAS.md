@@ -30,6 +30,11 @@ Ver evidencia: `evidencias/02_busca_referencias_pre_destructive.md`
 - `scripts/01_backup_regras_sla_campos_legados.soql`
 - `scripts/02_backup_area_participante_tipo_atuacao.soql`
 
+## Backups CSV exportados
+
+- `backups/01_backup_regras_sla_campos_legados.csv`
+- `backups/02_backup_area_participante_tipo_atuacao.csv`
+
 ## Conteudo do destructiveChanges.xml
 
 Contem somente os 4 `CustomField` alvo e nenhum outro metadata.
@@ -48,6 +53,11 @@ Comando recomendado para dry-run:
 sf project deploy start --manifest Deltas/delta_gestao_sla_destructive_campos_legados/package.xml --post-destructive-changes Deltas/delta_gestao_sla_destructive_campos_legados/destructiveChanges.xml --target-org WILSON_SERVICE --dry-run --test-level RunLocalTests --wait 30
 ```
 
+Resumo atual:
+
+- `RunLocalTests`: pacote valido, mas org bloqueado por erro preexistente em `DataMass.remarkProductMass()`.
+- `NoTestRun`: `Succeeded` no job `0Afbe00000A9uWfCAJ`.
+
 ## Comando recomendado para deploy real
 
 Nao executar sem aprovacao explicita:
@@ -55,6 +65,11 @@ Nao executar sem aprovacao explicita:
 ```powershell
 sf project deploy start --manifest Deltas/delta_gestao_sla_destructive_campos_legados/package.xml --post-destructive-changes Deltas/delta_gestao_sla_destructive_campos_legados/destructiveChanges.xml --target-org WILSON_SERVICE --test-level RunLocalTests --wait 30
 ```
+
+Bloqueio/aceite:
+
+- Ver `evidencias/10_bloqueio_testes_ambiente.md` para a limitacao atual do ambiente.
+- Nao ha aprovacao explicita de governanca registrada neste delta para contornar o gate de `RunLocalTests`.
 
 ## Roteiro de validacao pos-deploy
 
