@@ -12,6 +12,8 @@
 | 4 | `testCloseWithOtherOpenCustomInternaKeepsEtapa` | 2 APs abertas → close 1ª → etapa permanece 'Aguardando Área Interna' | `EtapaAtendimento__c = 'Aguardando Área Interna'`, `etapaAtualizada = false` |
 | 5 | `testCloseWithStandardOnlyRemainingMovesEtapa` | 1 Custom + 1 Standard → close Custom → Standard não conta → 'Preparando Retorno ao Cliente' | `EtapaAtendimento__c = 'Preparando Retorno ao Cliente'` |
 | 6 | `testCloseDoesNotUpdateEtapaForTerminalCase` | Case 'Cancelado' → addParticipation + closeParticipation → etapa NÃO muda | `EtapaAtendimento__c = 'Cancelado'`, `etapaAtualizada = false` |
+| 7 | `testCloseStandardApDoesNotUpdateEtapa` | AP Standard fechado enquanto Custom Interna permanece aberta → etapa NÃO muda | `etapaAtualizada = false`, `EtapaAtendimento__c = 'Aguardando Área Interna'` |
+| 8 | `testCloseDoesNotUpdateEtapaWhenCaseIsClosed` | `IsClosed=true` injetado via `AreaParticipanteSelector.testCase` → etapa NÃO muda | `etapaAtualizada = false`, `EtapaAtendimento__c = 'Aguardando Área Interna'` |
 
 ### Testes existentes (regressão)
 
@@ -45,6 +47,8 @@
 | close com outra Custom Interna aberta → sem mudança de etapa | #4 |
 | Standard não conta como "aberta" | #5 |
 | Case terminal não tem etapa alterada por close | #6 |
+| Standard AP não dispara orquestração de etapa | #7 |
+| Case IsClosed não tem etapa sobrescrita | #8 |
 | Sem SeeAllData=true | Todos ✅ |
 | Sem System.assert | Todos ✅ (usam Assert.areEqual) |
 | Sem hardcoded Id | Todos ✅ |

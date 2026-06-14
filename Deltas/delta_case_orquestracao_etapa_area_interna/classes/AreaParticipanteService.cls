@@ -134,7 +134,8 @@ public inherited sharing class AreaParticipanteService {
 
         if (Case.EtapaAtendimento__c.getDescribe().isUpdateable()) {
             String etapaNorm = AreaParticipanteHelper.normalizeText(caseRow.EtapaAtendimento__c);
-            if (!etapaNorm.contains('conclu') && !etapaNorm.contains('cancel')) {
+            Boolean addIsTerminal = caseRow.IsClosed || etapaNorm.contains('conclu') || etapaNorm.contains('cancel');
+            if (!addIsTerminal) {
                 caseRow.EtapaAtendimento__c = 'Aguardando Área Interna';
             }
         }
@@ -199,6 +200,9 @@ public inherited sharing class AreaParticipanteService {
         String removedArea = (String) row.get(AREA_FIELD);
         caseRow.AreasParticipantesSLA__c = AreaParticipanteHelper.removeValue(caseRow.AreasParticipantesSLA__c, removedArea);
 
+        Boolean rowIsCustomInterna = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA.equals(row.TipoAreaParticipante__c)
+            && AreaParticipanteSLAHelper.ORIGEM_SLA_CUSTOM.equals(row.OrigemSLA__c);
+
         List<AreaParticipante__c> remainingRows = AreaParticipanteSelector.getAreasByCase(caseRow.Id);
         Integer openCustomInterna = 0;
         for (AreaParticipante__c other : remainingRows) {
@@ -215,9 +219,9 @@ public inherited sharing class AreaParticipanteService {
         List<String> warnings = new List<String>();
 
         String etapaNormClose = AreaParticipanteHelper.normalizeText(caseRow.EtapaAtendimento__c);
-        Boolean caseIsTerminal = etapaNormClose.contains('conclu') || etapaNormClose.contains('cancel');
+        Boolean caseIsTerminal = caseRow.IsClosed || etapaNormClose.contains('conclu') || etapaNormClose.contains('cancel');
 
-        if (!caseIsTerminal && Case.EtapaAtendimento__c.getDescribe().isUpdateable() && openCustomInterna == 0) {
+        if (rowIsCustomInterna && !caseIsTerminal && Case.EtapaAtendimento__c.getDescribe().isUpdateable() && openCustomInterna == 0) {
             caseRow.EtapaAtendimento__c = 'Preparando Retorno ao Cliente';
             etapaUpdated = true;
             novaEtapa = caseRow.EtapaAtendimento__c;

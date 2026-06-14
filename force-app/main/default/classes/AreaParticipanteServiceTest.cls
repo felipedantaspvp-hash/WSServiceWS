@@ -325,6 +325,80 @@ private class AreaParticipanteServiceTest {
     }
 
     @IsTest
+    static void testCloseStandardApDoesNotUpdateEtapa() {
+        enableBhBypass();
+        List<String> areas = AreaParticipanteTestDataFactory.commonAreaValues();
+        String area1 = areas[0];
+        Case c = AreaParticipanteTestDataFactory.createCase(area1, null);
+
+        AreaParticipanteDTO.AddRequestDTO addReq = new AreaParticipanteDTO.AddRequestDTO();
+        addReq.caseId = c.Id; addReq.area = area1; addReq.comentarioSolicitacao = 'Custom aberta';
+        AreaParticipanteService.addParticipation(addReq);
+
+        AreaParticipante__c stdAp = new AreaParticipante__c(
+            Caso__c = c.Id,
+            TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
+            OrigemSLA__c = AreaParticipanteSLAHelper.ORIGEM_SLA_STANDARD,
+            BloqueiaFechamentoCaso__c = false,
+            StatusAtuacao__c = AreaParticipanteSLAHelper.STATUS_ATUACAO_ABERTA,
+            DataHoraInicio__c = System.now()
+        );
+        insert stdAp;
+
+        AreaParticipanteDTO.CloseRequestDTO closeReq = new AreaParticipanteDTO.CloseRequestDTO();
+        closeReq.areaParticipanteId = stdAp.Id;
+        closeReq.comentarioRetorno = 'Retorno Standard';
+        closeReq.solucaoRetorno = 'Solução Standard';
+
+        Test.startTest();
+        AreaParticipanteDTO.CloseResponseDTO closeRes = AreaParticipanteService.closeParticipation(closeReq);
+        Test.stopTest();
+
+        Case updatedCase = [SELECT EtapaAtendimento__c FROM Case WHERE Id = :c.Id];
+        Assert.areEqual(true, closeRes.success);
+        Assert.areEqual(false, closeRes.etapaAtualizada);
+        Assert.areEqual('Aguardando Área Interna', updatedCase.EtapaAtendimento__c);
+    }
+
+    @IsTest
+    static void testCloseDoesNotUpdateEtapaWhenCaseIsClosed() {
+        enableBhBypass();
+        List<String> areas = AreaParticipanteTestDataFactory.commonAreaValues();
+        String area1 = areas[0];
+        Case c = AreaParticipanteTestDataFactory.createCase(area1, null);
+
+        AreaParticipanteDTO.AddRequestDTO addReq = new AreaParticipanteDTO.AddRequestDTO();
+        addReq.caseId = c.Id; addReq.area = area1; addReq.comentarioSolicitacao = 'Test IsClosed guard';
+        AreaParticipanteDTO.AddResponseDTO addRes = AreaParticipanteService.addParticipation(addReq);
+
+        Case refreshed = [SELECT Id, AreasParticipantesSLA__c, AreasParticipantes__c, EtapaAtendimento__c FROM Case WHERE Id = :c.Id];
+        Map<String, Object> fakeData = new Map<String, Object>{
+            'Id' => (String) refreshed.Id,
+            'IsClosed' => true,
+            'EtapaAtendimento__c' => refreshed.EtapaAtendimento__c,
+            'AreasParticipantesSLA__c' => refreshed.AreasParticipantesSLA__c,
+            'AreasParticipantes__c' => refreshed.AreasParticipantes__c
+        };
+        AreaParticipanteSelector.testCase = (Case) JSON.deserialize(JSON.serialize(fakeData), Case.class);
+
+        AreaParticipanteDTO.CloseRequestDTO closeReq = new AreaParticipanteDTO.CloseRequestDTO();
+        closeReq.areaParticipanteId = addRes.areaParticipanteId;
+        closeReq.comentarioRetorno = 'Retorno IsClosed';
+        closeReq.solucaoRetorno = 'Solução IsClosed';
+
+        Test.startTest();
+        AreaParticipanteDTO.CloseResponseDTO closeRes = AreaParticipanteService.closeParticipation(closeReq);
+        Test.stopTest();
+
+        AreaParticipanteSelector.testCase = null;
+
+        Case updatedCase = [SELECT EtapaAtendimento__c FROM Case WHERE Id = :c.Id];
+        Assert.areEqual(true, closeRes.success);
+        Assert.areEqual(false, closeRes.etapaAtualizada);
+        Assert.areEqual('Aguardando Área Interna', updatedCase.EtapaAtendimento__c);
+    }
+
+    @IsTest
     static void testCloseDoesNotUpdateEtapaForTerminalCase() {
         enableBhBypass();
         List<String> areas = AreaParticipanteTestDataFactory.commonAreaValues();

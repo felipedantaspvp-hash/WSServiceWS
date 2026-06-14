@@ -39,3 +39,19 @@ AND DataHoraFim__c = null
 ```
 
 O Pacote 21 usa a mesma lógica no loop in-memory (pois `remainingRows` já foi carregado), substituindo `OrigemSLA__c` por `BloqueiaFechamentoCaso__c` como proxy (campo já disponível no SOQL de `getAreasByCase()`).
+
+## Uso direto de OrigemSLA__c (v2 — guard rowIsCustomInterna)
+
+Para o AP **sendo fechado** (`row`), o Selector `getAreaById()` agora traz `OrigemSLA__c` diretamente. Isso permite o guard:
+
+```apex
+Boolean rowIsCustomInterna = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA.equals(row.TipoAreaParticipante__c)
+    && AreaParticipanteSLAHelper.ORIGEM_SLA_CUSTOM.equals(row.OrigemSLA__c);
+```
+
+`BloqueiaFechamentoCaso__c` continua sendo o proxy para os **outros** APs no loop in-memory (campo já presente em `getAreasByCase()`). Os dois campos são complementares:
+
+| Uso | Campo | Onde |
+|---|---|---|
+| AP que está sendo fechado | `OrigemSLA__c` (direto) | `getAreaById()` |
+| APs restantes abertas | `BloqueiaFechamentoCaso__c` (proxy) | `getAreasByCase()` |

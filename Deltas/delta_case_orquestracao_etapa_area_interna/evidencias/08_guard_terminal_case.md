@@ -35,6 +35,18 @@ if (!etapaNorm.contains('conclu') && !etapaNorm.contains('cancel')) {
 
 Idêntico em semântica — impede sobrescrever 'Concluído' ou 'Cancelado'.
 
-## Por que não usar `IsClosed`
+## Adição de IsClosed ao guard (v2)
 
-`AreaParticipanteSelector.getCaseById()` não seleciona `IsClosed`. Como `IsClosed = true` implica `Status='Fechado'` que implica `EtapaAtendimento__c='Concluído'`, verificar a etapa é suficiente. Minimiza alterações ao Selector.
+`AreaParticipanteSelector.getCaseById()` agora seleciona `IsClosed`. O guard terminal foi expandido:
+
+```apex
+Boolean caseIsTerminal = caseRow.IsClosed || etapaNormClose.contains('conclu') || etapaNormClose.contains('cancel');
+```
+
+Idem em `addParticipation()`:
+```apex
+Boolean addIsTerminal = caseRow.IsClosed || etapaNorm.contains('conclu') || etapaNorm.contains('cancel');
+if (!addIsTerminal) { caseRow.EtapaAtendimento__c = 'Aguardando Área Interna'; }
+```
+
+Isso protege contra o cenário onde `IsClosed=true` mas `EtapaAtendimento__c` está inconsistente (ex: vazio ou valor não-terminal por inconsistência de dados).

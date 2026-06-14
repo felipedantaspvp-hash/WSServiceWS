@@ -25,9 +25,12 @@ if (openRemaining == 0 && Case.EtapaAtendimento__c.getDescribe().isUpdateable())
 }
 ```
 
-### Depois (Pacote 21)
+### Depois (Pacote 21 v2)
 
 ```apex
+Boolean rowIsCustomInterna = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA.equals(row.TipoAreaParticipante__c)
+    && AreaParticipanteSLAHelper.ORIGEM_SLA_CUSTOM.equals(row.OrigemSLA__c);
+
 Integer openCustomInterna = 0;
 for (AreaParticipante__c other : remainingRows) {
     if (other.Id == row.Id) continue;
@@ -42,9 +45,9 @@ String novaEtapa;
 List<String> warnings = new List<String>();
 
 String etapaNormClose = AreaParticipanteHelper.normalizeText(caseRow.EtapaAtendimento__c);
-Boolean caseIsTerminal = etapaNormClose.contains('conclu') || etapaNormClose.contains('cancel');
+Boolean caseIsTerminal = caseRow.IsClosed || etapaNormClose.contains('conclu') || etapaNormClose.contains('cancel');
 
-if (!caseIsTerminal && Case.EtapaAtendimento__c.getDescribe().isUpdateable() && openCustomInterna == 0) {
+if (rowIsCustomInterna && !caseIsTerminal && Case.EtapaAtendimento__c.getDescribe().isUpdateable() && openCustomInterna == 0) {
     caseRow.EtapaAtendimento__c = 'Preparando Retorno ao Cliente';
     etapaUpdated = true;
     novaEtapa = caseRow.EtapaAtendimento__c;
@@ -58,7 +61,8 @@ if (!caseIsTerminal && Case.EtapaAtendimento__c.getDescribe().isUpdateable() && 
 | `openRemaining` → `openCustomInterna` | Contar apenas Custom Interna (excluir Standard e não-Interna) |
 | Filtro `TipoAreaParticipante__c = 'Área Interna'` | Excluir marcos SLA e outros tipos |
 | Filtro `BloqueiaFechamentoCaso__c = true` | Proxy para Custom aberta (Standard sempre tem = false) |
-| Guard `caseIsTerminal` | Não sobrescrever etapa de Case 'Concluído' ou 'Cancelado' |
+| `rowIsCustomInterna` (v2) | Garantir que apenas fechamento de AP Custom Interna dispara orquestração |
+| Guard `caseIsTerminal` com `IsClosed` (v2) | Proteger Case fechado mesmo que `EtapaAtendimento__c` esteja inconsistente |
 | Removida condição `current.contains(...)` | Desnecessária após guard terminal; simplifica a lógica |
 
 ## Dados de output não alterados
