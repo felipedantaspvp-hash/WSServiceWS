@@ -31,5 +31,5 @@
 - [x] Evidências 06–10 e 12 atualizadas; README atualizado para v3
 - [x] Evidências 15 e 16 criadas
 - [x] ZIP regenerado
-- [ ] Commit e push realizados (v3)
-- [ ] Deploy definitivo executado (v3)
+- [x] Commit e push realizados (v3) — bae7b25
+- [x] Deploy definitivo executado (v3) — Deploy ID `0Afbe00000AA4PZCA1`, Succeeded, 3/3 componentes
