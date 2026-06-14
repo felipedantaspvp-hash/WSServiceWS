@@ -1328,6 +1328,11 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>AreaParticipante__c.TipoAtuacao__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>AreaParticipante__c.TipoAreaParticipante__c</field>
         <readable>false</readable>

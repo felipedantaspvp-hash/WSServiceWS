@@ -7,7 +7,7 @@
 
 - Data: 2026-06-13
 - Responsável: Jean Duarte
-- Observação: Pacotes 15D e 16A concluídos e deployados. 16A: removidas todas as referências de código/metadado aos campos legados `Origem__c`, `VigenciaInicio__c`, `VigenciaFim__c` (em `RegrasSLACategorizacao__c`) e `TipoAtuacao__c` (em `AreaParticipante__c`). Deploys reais: `0Afbe00000A9tXNCAZ` (30 componentes), `0Afbe00000A9th3CAB` (16 cabeçalhos), `0Afbe00000A9uLNCAZ` (ajuste final). Pacote 16B preparado em `Deltas/delta_gestao_sla_destructive_campos_legados/` com `destructiveChanges.xml`, scripts SOQL, backups CSV e evidências; dry-run `0Afbe00000A9uRpCAJ` confirmou o destructive mas falhou no gate de `RunLocalTests` por problema preexistente ligado a `DataMass.remarkProductMass()`, e dry-run `0Afbe00000A9uWfCAJ` fechou com `Succeeded` em `NoTestRun`. Regra: `@last modified by` deve ser sempre nome do usuário Salesforce da org (nunca nome de IA).
+- Observação: Pacotes 15D e 16A concluídos e deployados. 16A: removidas todas as referências de código/metadado aos campos legados `Origem__c`, `VigenciaInicio__c`, `VigenciaFim__c` (em `RegrasSLACategorizacao__c`) e `TipoAtuacao__c` (em `AreaParticipante__c`). Deploys reais: `0Afbe00000A9tXNCAZ` (30 componentes), `0Afbe00000A9th3CAB` (16 cabeçalhos), `0Afbe00000A9uLNCAZ` (ajuste final). Pacote 16B preparado em `Deltas/delta_gestao_sla_destructive_campos_legados/` com `destructiveChanges.xml`, scripts SOQL, backups CSV e evidências; dry-run `0Afbe00000A9uRpCAJ` confirmou o destructive mas falhou no gate de `RunLocalTests` por problema preexistente ligado a `DataMass.remarkProductMass()`, e dry-run `0Afbe00000A9uWfCAJ` fechou com `Succeeded` em `NoTestRun`. Em seguida, o perfil `Admin` foi ajustado para incluir FLS de `AreaParticipante__c.TipoAtuacao__c`; dry-run `0Afbe00000A9ud7CAB` e deploy real `0Afbe00000A9uejCAB` concluídos com sucesso. Regra: `@last modified by` deve ser sempre nome do usuário Salesforce da org (nunca nome de IA).
 
 ---
 
@@ -91,6 +91,7 @@ Sistema externo / SObject / Metadata
 
 | Artefato | Caminho | Finalidade |
 |---|---|---|
+| Admin | force-app/main/default/profiles/Admin.profile-meta.xml | Perfil administrativo atualizado para incluir `readable/editable` em `AreaParticipante__c.TipoAtuacao__c`, completando a cobertura dos campos locais de `AreaParticipante__c`. |
 
 ## Testes
 

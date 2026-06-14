@@ -14,6 +14,7 @@
 | Claude | feat/claude/entitlement-rio-grande-centro-logistico-rebocadores | `force-app/main/default/entitlementProcesses/*`, `docs/PROJECT_INDEX.md` | Clonar EntitlementProcess Salvador para Rio Grande, Centro Logístico e Rebocadores | ✅ concluído |
 | Codex  | feat/claude/entitlement-rio-grande-centro-logistico-rebocadores | `AI_WORKQUEUE.md`, `docs/PROJECT_INDEX.md`, `Deltas/delta_gestao_sla_destructive_campos_legados/**` | Pacote 16B: excluir fisicamente 4 campos legados via destructiveChanges, validar dry-run e documentar evidências | ✅ concluído |
 | Codex  | feat/claude/entitlement-rio-grande-centro-logistico-rebocadores | `AI_WORKQUEUE.md`, `docs/PROJECT_INDEX.md`, `Deltas/delta_gestao_sla_destructive_campos_legados/**` | Pacote 16B: exportar backups CSV, ajustar evidências e formalizar bloqueio/alternativa de dry-run | ✅ concluído |
+| Codex  | feat/claude/entitlement-rio-grande-centro-logistico-rebocadores | `AI_WORKQUEUE.md`, `force-app/main/default/profiles/Admin.profile-meta.xml`, `docs/PROJECT_INDEX.md` | Adicionar todos os campos de AreaParticipante__c ao perfil Admin e deployar na WILSON_SERVICE | ✅ concluído |
 | —      | —      | —                   | —      | —      |
 
 **Status válidos:** `🔄 em andamento` · `✅ concluído` · `⏸ pausado` · `🔀 merge pendente`
