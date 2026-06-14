@@ -26,6 +26,42 @@ sf project deploy validate --manifest Deltas/delta_area_participante_milestone_s
   --tests AreaParticipanteSLABatchTest
 ```
 
+## Resultado do dry-run executado
+
+**Data:** 2026-06-14
+**Deploy ID:** `0Afbe00000AA0H7CAL`
+**Org:** `jduarte@wilsonsons.com.br.service` (WILSON_SERVICE)
+**Status:** ✅ **Succeeded**
+**Duração:** 25.45s
+
+### Testes
+
+| Total | Passing | Failing |
+|-------|---------|---------|
+| 46 | 46 | 0 |
+
+Classes de teste executadas:
+- `AreaParticipanteMilestoneSyncServiceTest` (22 cenários)
+- `AreaParticipanteMilestoneSyncBatchTest` (3 cenários)
+- `AreaParticipanteSLAServiceTest`
+- `AreaParticipanteSLAHelperTest`
+- `AreaParticipanteSLABatchTest`
+
+### Componentes validados (15)
+
+| Estado | Componente | Tipo |
+|--------|-----------|------|
+| Created | AreaParticipanteMilestoneSyncBatch | ApexClass |
+| Created | AreaParticipanteMilestoneSyncBatchTest | ApexClass |
+| Created | AreaParticipanteMilestoneSyncScheduler | ApexClass |
+| Created | AreaParticipanteMilestoneSyncService | ApexClass |
+| Created | AreaParticipanteMilestoneSyncServiceTest | ApexClass |
+| Changed | AreaParticipanteSLAHelper | ApexClass |
+| Changed | AreaParticipanteSLAService | ApexClass |
+| Changed | AreaParticipante__c.TipoAreaParticipante__c | CustomField |
+
+> Para deploy imediato aproveitando a validação: `sf project deploy quick --job-id 0Afbe00000AA0H7CAL`
+
 ## Executar sincronização inicial (via Anon Apex)
 
 ```apex
