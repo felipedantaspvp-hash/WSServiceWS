@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>AreaParticipanteSLAService</members>
+        <members>AreaParticipanteSelector</members>
+        <members>AreaParticipanteService</members>
+        <members>AreaParticipanteSLAServiceTest</members>
+        <members>AreaParticipanteServiceTest</members>
+        <members>AreaParticipanteControllerTest</members>
+        <name>ApexClass</name>
+    </types>
+    <version>64.0</version>
+</Package>

@@ -5,9 +5,9 @@
 
 ## Última atualização
 
-- Data: 2026-06-13
+- Data: 2026-06-14
 - Responsável: Jean Duarte
-- Observação: Pacotes 15D, 16A e 16B concluídos e deployados. **16B (2026-06-13):** campos legados excluídos fisicamente da org via destructiveChanges — dry-run `0Afbe00000A9v9NCAR` (Succeeded) e deploy real `0Afbe00000A9vAzCAJ` (Succeeded). Campos excluídos: `RegrasSLACategorizacao__c.Origem__c`, `RegrasSLACategorizacao__c.VigenciaInicio__c`, `RegrasSLACategorizacao__c.VigenciaFim__c`, `AreaParticipante__c.TipoAtuacao__c`. Arquivos de campo removidos do repositório local. 16A: removidas referências de código/metadado, deploys `0Afbe00000A9tXNCAZ`, `0Afbe00000A9th3CAB`, `0Afbe00000A9uLNCAZ`. Regra: `@last modified by` sempre nome do usuário Salesforce da org (nunca nome de IA).
+- Observação: **Pacote 17A (2026-06-14):** Regra SLA Área Interna habilitada no acionamento manual de AreaParticipante. Deploy `0Afbe00000A9vnhCAB` Succeeded. 42/42 testes passando. Classes alteradas: `AreaParticipanteSLAService`, `AreaParticipanteSelector`, `AreaParticipanteService`. Testes: `AreaParticipanteSLAServiceTest` (+6 novos), `AreaParticipanteServiceTest` (+1 novo, +4 corrigidos), `AreaParticipanteControllerTest` (+3 corrigidos). **16B (2026-06-13):** campos legados excluídos fisicamente da org via destructiveChanges — dry-run `0Afbe00000A9v9NCAR` (Succeeded) e deploy real `0Afbe00000A9vAzCAJ` (Succeeded). Campos excluídos: `RegrasSLACategorizacao__c.Origem__c`, `RegrasSLACategorizacao__c.VigenciaInicio__c`, `RegrasSLACategorizacao__c.VigenciaFim__c`, `AreaParticipante__c.TipoAtuacao__c`. Regra: `@last modified by` sempre nome do usuário Salesforce da org (nunca nome de IA).
 
 ---
 
