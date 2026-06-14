@@ -7,7 +7,7 @@
 
 - Data: 2026-06-13
 - Responsável: Jean Duarte
-- Observação: Pacotes 15D e 16A concluídos e deployados. 16A: removidas todas as referências de código/metadado aos campos legados `Origem__c`, `VigenciaInicio__c`, `VigenciaFim__c` (em `RegrasSLACategorizacao__c`) e `TipoAtuacao__c` (em `AreaParticipante__c`). Deploys reais: `0Afbe00000A9tXNCAZ` (30 componentes), `0Afbe00000A9th3CAB` (16 cabeçalhos), `0Afbe00000A9uLNCAZ` (ajuste final). Pacote 16B preparado em `Deltas/delta_gestao_sla_destructive_campos_legados/` com `destructiveChanges.xml`, scripts SOQL, backups CSV e evidências; dry-run `0Afbe00000A9uRpCAJ` confirmou o destructive mas falhou no gate de `RunLocalTests` por problema preexistente ligado a `DataMass.remarkProductMass()`, e dry-run `0Afbe00000A9uWfCAJ` fechou com `Succeeded` em `NoTestRun`. Em seguida, o perfil `Admin` foi ajustado para incluir FLS de `AreaParticipante__c.TipoAtuacao__c`; dry-run `0Afbe00000A9ud7CAB` e deploy real `0Afbe00000A9uejCAB` concluídos com sucesso. Regra: `@last modified by` deve ser sempre nome do usuário Salesforce da org (nunca nome de IA).
+- Observação: Pacotes 15D, 16A e 16B concluídos e deployados. **16B (2026-06-13):** campos legados excluídos fisicamente da org via destructiveChanges — dry-run `0Afbe00000A9v9NCAR` (Succeeded) e deploy real `0Afbe00000A9vAzCAJ` (Succeeded). Campos excluídos: `RegrasSLACategorizacao__c.Origem__c`, `RegrasSLACategorizacao__c.VigenciaInicio__c`, `RegrasSLACategorizacao__c.VigenciaFim__c`, `AreaParticipante__c.TipoAtuacao__c`. Arquivos de campo removidos do repositório local. 16A: removidas referências de código/metadado, deploys `0Afbe00000A9tXNCAZ`, `0Afbe00000A9th3CAB`, `0Afbe00000A9uLNCAZ`. Regra: `@last modified by` sempre nome do usuário Salesforce da org (nunca nome de IA).
 
 ---
 
@@ -91,7 +91,8 @@ Sistema externo / SObject / Metadata
 
 | Artefato | Caminho | Finalidade |
 |---|---|---|
-| Admin | force-app/main/default/profiles/Admin.profile-meta.xml | Perfil administrativo atualizado para incluir `readable/editable` em `AreaParticipante__c.TipoAtuacao__c`, completando a cobertura dos campos locais de `AreaParticipante__c`. |
+| Profiles (`force-app/main/default/profiles/`) | force-app/main/default/profiles/ | Fonte local dos perfis recuperados da `WILSON_SERVICE`; FLS de `AreaParticipante__c` padronizado para `Admin` com acesso total e demais perfis sem acesso aos 32 campos locais. Exceção pendente: `B2BMA Integration User`, bloqueado por licença gerenciada ao redeployar o profile completo. |
+| Admin | force-app/main/default/profiles/Admin.profile-meta.xml | Perfil administrativo com `readable/editable` ativo em todos os 32 campos locais de `AreaParticipante__c`, após normalização de FLS. |
 
 ## Testes
 
@@ -103,8 +104,8 @@ Sistema externo / SObject / Metadata
 | Pacote | Escopo | Campos/Constantes removidos |
 |---|---|---|
 | 15D | Refatoração de escopos | `ESCOPO_GLOBAL`, `ESCOPO_POR_CATEGORIZACAO`, `ESCOPO_POR_AREA_INTERNA` renomeados para `ESCOPO_ATENDIMENTO` e `ESCOPO_AREA_INTERNA` em `RegrasSLACompatibilidadeService` |
-| 16A | Remoção de referências de campos legados | `Origem__c`, `VigenciaInicio__c`, `VigenciaFim__c` de `RegrasSLACategorizacao__c`; `TipoAtuacao__c` de `AreaParticipante__c` — referências removidas do código/metadado (campos fisicamente existem ainda) |
-| 16B | Exclusão física dos campos | Delta destrutivo criado em `Deltas/delta_gestao_sla_destructive_campos_legados/`; dry-run validou a exclusão dos 4 campos, pendente apenas resolução de falhas globais preexistentes de testes para deploy com `RunLocalTests` |
+| 16A | Remoção de referências de campos legados | `Origem__c`, `VigenciaInicio__c`, `VigenciaFim__c` de `RegrasSLACategorizacao__c`; `TipoAtuacao__c` de `AreaParticipante__c` — referências removidas do código/metadado |
+| 16B | Exclusão física dos campos | `RegrasSLACategorizacao__c.Origem__c`, `VigenciaInicio__c`, `VigenciaFim__c`; `AreaParticipante__c.TipoAtuacao__c` — excluídos via destructiveChanges. Deploy `0Afbe00000A9vAzCAJ` Succeeded. |
 
 ## Fluxos técnicos principais
 

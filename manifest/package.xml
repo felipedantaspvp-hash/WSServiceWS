@@ -781,12 +781,25 @@
         <name>Profile</name>
     </types>
     <types>
+        <members>AreaParticipante__c.CentroLogistico</members>
+        <members>AreaParticipante__c.Rebocadores</members>
+        <members>AreaParticipante__c.TeconRioGrande</members>
+        <members>AreaParticipante__c.TeconSalvador</members>
         <members>Categorizacao__c.AtendimentoCentroLogistico</members>
         <members>Categorizacao__c.AtendimentoRebocadores</members>
         <members>Categorizacao__c.AtendimentoTeconRioGrande</members>
         <members>Contact.Default</members>
         <members>Contact.Startup</members>
         <name>RecordType</name>
+    </types>
+    <types>
+        <members>AreaParticipante__c-Área Participante Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>GestaoSLAAdminTecnico</members>
+        <members>GestaoSLAConfigurador</members>
+        <name>PermissionSet</name>
     </types>
     <version>63.0</version>
 </Package>
