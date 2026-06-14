@@ -7,15 +7,15 @@ public inherited sharing class AreaParticipanteMilestoneSyncService {
     private static final String KEY_SLA_TOTAL        = 'sla total';
 
     // Normalized MilestoneType.Name → TipoAreaParticipante__c picklist value
+    // 'Atendimento N3' not mapped: Área Interna requires explicit business decision
     private static final Map<String, String> TIPO_BY_MILESTONE = new Map<String, String>{
         'triagem'                       => 'Categorização Inicial',
         'resposta chat'                 => 'Categorização Inicial',
         'primeira resposta fila n2'     => 'Tratamento Primário',
         'atendimento'                   => 'Tratamento Primário',
-        'atendimento n3'                => 'Área Interna',
         'retorno n3'                    => 'Retorno ao Cliente',
         'acompanhamento'                => 'Retorno ao Cliente',
-        'sla total'                     => 'SLA Total'
+        'sla total'                     => 'Tempo Total de Atendimento'
     };
 
     @TestVisible private static List<CaseMilestone> mockMilestonesForSync;
@@ -66,6 +66,11 @@ public inherited sharing class AreaParticipanteMilestoneSyncService {
 
         for (CaseMilestone cm : milestones) {
             String cmId = String.valueOf(cm.Id);
+            String milestoneKey = AreaParticipanteHelper.normalizeText(
+                cm.MilestoneType != null ? cm.MilestoneType.Name : null
+            );
+            if (!TIPO_BY_MILESTONE.containsKey(milestoneKey)) continue;
+
             AreaParticipante__c existing = existingByMilestoneId.get(cmId);
             if (existing != null && ORIGEM_CUSTOM.equals(existing.OrigemSLA__c)) continue;
 
@@ -77,8 +82,8 @@ public inherited sharing class AreaParticipanteMilestoneSyncService {
             }
         }
 
-        if (!toInsert.isEmpty()) insert toInsert;
-        if (!toUpdate.isEmpty()) update toUpdate;
+        if (!toInsert.isEmpty()) Database.insert(toInsert, false);
+        if (!toUpdate.isEmpty()) Database.update(toUpdate, false);
     }
 
     @TestVisible

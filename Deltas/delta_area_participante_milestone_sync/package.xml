@@ -10,5 +10,9 @@
         <members>AreaParticipanteSLAService</members>
         <name>ApexClass</name>
     </types>
+    <types>
+        <members>AreaParticipante__c.TipoAreaParticipante__c</members>
+        <name>CustomField</name>
+    </types>
     <version>61.0</version>
 </Package>

@@ -9,6 +9,12 @@ private class AreaParticipanteMilestoneSyncServiceTest {
         return pfx + String.valueOf(n).leftPad(12, '0') + 'AAA';
     }
 
+    private static Id fakeMilestoneSfId(Integer n) {
+        String pfx = Schema.SObjectType.CaseMilestone.getKeyPrefix();
+        if (pfx == null) pfx = '0BL';
+        return Id.valueOf(pfx + String.valueOf(n).leftPad(12, '0')); // 15-char, sem check digits
+    }
+
     private static String fakeCaseId() {
         return Schema.SObjectType.Case.getKeyPrefix() + '000000000001AAA';
     }
@@ -70,11 +76,12 @@ private class AreaParticipanteMilestoneSyncServiceTest {
     }
 
     @IsTest
-    static void buildRecord_atendimentoN3_mapsAreaInterna() {
+    static void buildRecord_atendimentoN3_naoMapeado_tipoNull() {
+        // 'Atendimento N3' removed from map — Área Interna requires explicit business decision
         CaseMilestone cm = makeMock(fakeCmId(5), fakeCaseId(), 'Atendimento N3',
             Datetime.now().addHours(-1), Datetime.now().addHours(4), null, false, false, 60, 240);
         AreaParticipante__c r = AreaParticipanteMilestoneSyncService.buildRecord(cm, null);
-        Assert.areEqual('Área Interna', r.TipoAreaParticipante__c, 'Tipo Atendimento N3');
+        Assert.isNull(r.TipoAreaParticipante__c, 'Atendimento N3 nao deve ter Tipo — nao mapeado');
     }
 
     @IsTest
@@ -86,12 +93,14 @@ private class AreaParticipanteMilestoneSyncServiceTest {
     }
 
     @IsTest
-    static void buildRecord_slaTotal_mapsSLATotalComNomeMarco() {
+    static void buildRecord_slaTotal_mapsTempTotalDeAtendimentoComNomeMarco() {
         CaseMilestone cm = makeMock(fakeCmId(7), fakeCaseId(), 'SLA Total',
             Datetime.now().addHours(-2), Datetime.now().addHours(22), null, false, false, 120, 1320);
         AreaParticipante__c r = AreaParticipanteMilestoneSyncService.buildRecord(cm, null);
-        Assert.areEqual('SLA Total', r.TipoAreaParticipante__c, 'Tipo SLA Total');
-        Assert.areEqual('Tempo Total de Atendimento', r.NomeMarco__c, 'NomeMarco SLA Total deve ser Tempo Total de Atendimento');
+        Assert.areEqual('Tempo Total de Atendimento', r.TipoAreaParticipante__c,
+            'Tipo SLA Total deve ser Tempo Total de Atendimento');
+        Assert.areEqual('Tempo Total de Atendimento', r.NomeMarco__c,
+            'NomeMarco SLA Total deve ser Tempo Total de Atendimento');
     }
 
     // ── buildRecord — status SLA ──────────────────────────────────────────────
@@ -152,7 +161,6 @@ private class AreaParticipanteMilestoneSyncServiceTest {
 
     @IsTest
     static void buildRecord_updatePath_mantemId() {
-        AreaParticipante__c existing = new AreaParticipante__c(Id = null); // Sem DML — só testa path
         CaseMilestone cm = makeMock(fakeCmId(15), fakeCaseId(), 'Triagem',
             Datetime.now().addHours(-1), Datetime.now().addHours(4), null, false, false, 60, 240);
         AreaParticipante__c r = AreaParticipanteMilestoneSyncService.buildRecord(cm, null);
@@ -219,11 +227,11 @@ private class AreaParticipanteMilestoneSyncServiceTest {
         AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
 
         AreaParticipante__c custom = new AreaParticipante__c(
-            Caso__c                = c.Id,
-            CaseMilestoneId__c     = cmId,
-            OrigemSLA__c           = 'Custom',
+            Caso__c                 = c.Id,
+            CaseMilestoneId__c      = cmId,
+            OrigemSLA__c            = 'Custom',
             TipoAreaParticipante__c = 'Categorização Inicial',
-            StatusAtuacao__c       = 'Aberta'
+            StatusAtuacao__c        = 'Aberta'
         );
         insert custom;
 
@@ -251,6 +259,25 @@ private class AreaParticipanteMilestoneSyncServiceTest {
     }
 
     @IsTest
+    static void syncByCaseIds_milestoneNaoMapeado_naoInsere() {
+        // 'Atendimento N3' is unmapped — syncInternal must skip it without error
+        Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(null, null);
+        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+
+        AreaParticipanteMilestoneSyncService.mockMilestonesForSync = new List<CaseMilestone>{
+            makeMock(fakeCmId(23), c.Id, 'Atendimento N3',
+                Datetime.now().addHours(-1), Datetime.now().addHours(4), null, false, false, 60, 240)
+        };
+
+        Test.startTest();
+        AreaParticipanteMilestoneSyncService.syncByCaseIds(new Set<Id>{ c.Id });
+        Test.stopTest();
+
+        Integer count = [SELECT COUNT() FROM AreaParticipante__c WHERE Caso__c = :c.Id AND OrigemSLA__c = 'Standard'];
+        Assert.areEqual(0, count, 'Milestone nao mapeado nao deve criar registro');
+    }
+
+    @IsTest
     static void syncByCaseMilestoneIds_inserePorMilestoneId() {
         Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(null, null);
         String cmId = fakeCmId(30);
@@ -262,7 +289,9 @@ private class AreaParticipanteMilestoneSyncServiceTest {
         };
 
         Test.startTest();
-        AreaParticipanteMilestoneSyncService.syncByCaseMilestoneIds(new Set<Id>{ c.Id });
+        AreaParticipanteMilestoneSyncService.syncByCaseMilestoneIds(
+            new Set<Id>{ fakeMilestoneSfId(30) }
+        );
         Test.stopTest();
 
         List<AreaParticipante__c> areas = [
@@ -271,7 +300,8 @@ private class AreaParticipanteMilestoneSyncServiceTest {
             WHERE Caso__c = :c.Id AND OrigemSLA__c = 'Standard'
         ];
         Assert.areEqual(1, areas.size(), 'Deve criar registro via syncByCaseMilestoneIds');
-        Assert.areEqual('SLA Total', areas[0].TipoAreaParticipante__c, 'Tipo SLA Total');
+        Assert.areEqual('Tempo Total de Atendimento', areas[0].TipoAreaParticipante__c,
+            'Tipo SLA Total deve ser Tempo Total de Atendimento');
         Assert.areEqual('Tempo Total de Atendimento', areas[0].NomeMarco__c, 'NomeMarco SLA Total');
     }
 
@@ -299,7 +329,8 @@ private class AreaParticipanteMilestoneSyncServiceTest {
         AreaParticipanteMilestoneSyncService.syncByCaseIds(new Set<Id>{ c.Id });
         Test.stopTest();
 
-        AreaParticipante__c a = [SELECT StatusSLA__c, ViolouSLA__c FROM AreaParticipante__c WHERE Caso__c = :c.Id AND OrigemSLA__c = 'Standard' LIMIT 1];
+        AreaParticipante__c a = [SELECT StatusSLA__c, ViolouSLA__c FROM AreaParticipante__c
+                                 WHERE Caso__c = :c.Id AND OrigemSLA__c = 'Standard' LIMIT 1];
         Assert.areEqual('Vencido', a.StatusSLA__c, 'StatusSLA Vencido para milestone concluido+violado');
         Assert.areEqual(true, a.ViolouSLA__c, 'ViolouSLA true');
     }
@@ -316,7 +347,8 @@ private class AreaParticipanteMilestoneSyncServiceTest {
         };
         AreaParticipanteMilestoneSyncService.syncByCaseIds(new Set<Id>{ c.Id });
 
-        AreaParticipante__c before = [SELECT Id, StatusAtuacao__c FROM AreaParticipante__c WHERE CaseMilestoneId__c = :cmId LIMIT 1];
+        AreaParticipante__c before = [SELECT Id, StatusAtuacao__c FROM AreaParticipante__c
+                                      WHERE CaseMilestoneId__c = :cmId LIMIT 1];
         Assert.areEqual('Aberta', before.StatusAtuacao__c, 'Pre-update: Aberta');
 
         AreaParticipanteMilestoneSyncService.mockMilestonesForSync = new List<CaseMilestone>{
@@ -329,7 +361,8 @@ private class AreaParticipanteMilestoneSyncServiceTest {
         AreaParticipanteMilestoneSyncService.syncByCaseIds(new Set<Id>{ c.Id });
         Test.stopTest();
 
-        AreaParticipante__c after = [SELECT StatusAtuacao__c, StatusSLA__c FROM AreaParticipante__c WHERE Id = :before.Id];
+        AreaParticipante__c after = [SELECT StatusAtuacao__c, StatusSLA__c FROM AreaParticipante__c
+                                     WHERE Id = :before.Id];
         Assert.areEqual('Concluída', after.StatusAtuacao__c, 'Pos-update: Concluída');
         Assert.areEqual('Concluído', after.StatusSLA__c, 'Pos-update: StatusSLA Concluído');
     }

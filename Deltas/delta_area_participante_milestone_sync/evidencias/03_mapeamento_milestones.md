@@ -1,6 +1,6 @@
 # Evidência 03 — Mapeamento de MilestoneType para TipoAreaParticipante__c
 
-**Data:** 2026-06-14
+**Data:** 2026-06-14 (revisado)
 
 ## Tabela de mapeamento
 
@@ -10,10 +10,10 @@
 | Resposta Chat | `resposta chat` | Categorização Inicial |
 | Primeira Resposta (Fila N2) | `primeira resposta fila n2` | Tratamento Primário |
 | Atendimento | `atendimento` | Tratamento Primário |
-| Atendimento N3 | `atendimento n3` | Área Interna |
+| ~~Atendimento N3~~ | ~~`atendimento n3`~~ | **Não mapeado** — ver nota abaixo |
 | Retorno N3 | `retorno n3` | Retorno ao Cliente |
 | Acompanhamento | `acompanhamento` | Retorno ao Cliente |
-| SLA Total | `sla total` | SLA Total |
+| SLA Total | `sla total` | **Tempo Total de Atendimento** |
 
 ## Normalização
 
@@ -25,12 +25,24 @@ A normalização usa `AreaParticipanteHelper.normalizeText()`:
 
 Exemplo crítico: `'Primeira Resposta (Fila N2)'` → `'primeira resposta fila n2'` (parênteses removidos).
 
+## Milestone não mapeado — comportamento
+
+Se `AreaParticipanteHelper.normalizeText(MilestoneType.Name)` não estiver no mapa `TIPO_BY_MILESTONE`,
+o registro é **ignorado silenciosamente** em `syncInternal` (sem erro, sem DML).
+Isso protege o batch de falhar em novos milestones futuros.
+
+## Decisão sobre 'Atendimento N3'
+
+`'Atendimento N3'` foi removido do mapa porque mapeá-lo para `TipoAreaParticipante__c = 'Área Interna'`
+exigiria validações de `Caso__c` e `AreaAtendimento__c` que não se aplicam a espelhos Standard.
+O mapeamento só deve ser adicionado com decisão explícita de negócio sobre qual Área usar.
+
 ## Campo NomeMarco__c
 
 - Para todos os milestones: `NomeMarco__c = MilestoneType.Name` (nome original)
 - **Exceção — SLA Total:** `NomeMarco__c = 'Tempo Total de Atendimento'` (conforme especificação)
 
-## Limitação documentada
+## Picklist TipoAreaParticipante__c — mudança neste pacote
 
-O picklist `TipoAreaParticipante__c` não possui o valor `'Tempo Total de Atendimento'`.
-Solução adotada: usar `TipoAreaParticipante__c = 'SLA Total'` (valor existente) e armazenar `'Tempo Total de Atendimento'` em `NomeMarco__c` (campo de texto livre).
+`'SLA Total'` foi **removido** do picklist. Substituído por `'Tempo Total de Atendimento'`.
+O campo `TipoAreaParticipante__c.field-meta.xml` é incluído no deploy deste pacote.
