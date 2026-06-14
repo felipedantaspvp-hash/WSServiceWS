@@ -1,0 +1,307 @@
+<template>
+    <lightning-card title="Áreas Participantes" icon-name="standard:groups">
+        <div slot="actions">
+            <template lwc:if={canManage}>
+                <lightning-button
+                    label="Acionar Área Interna"
+                    icon-name="utility:add"
+                    variant="brand"
+                    onclick={handleOpenAddModal}
+                    disabled={loading}
+                ></lightning-button>
+            </template>
+            <lightning-button-icon
+                icon-name="utility:refresh"
+                alternative-text="Atualizar"
+                onclick={handleRefresh}
+                disabled={loading}
+                class="slds-m-left_x-small"
+            ></lightning-button-icon>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+
+            <!-- Loading -->
+            <template lwc:if={loading}>
+                <div class="slds-align_absolute-center slds-p-around_medium">
+                    <lightning-spinner alternative-text="Carregando..." size="small"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Error -->
+            <template lwc:elseif={hasError}>
+                <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                    <span class="slds-assistive-text">Erro</span>
+                    <p class="slds-text-body_small">{errorMessage}</p>
+                </div>
+            </template>
+
+            <!-- Content -->
+            <template lwc:else>
+
+                <!-- Summary bar -->
+                <div class="slds-grid slds-wrap slds-gutters_x-small slds-m-bottom_small summary-bar">
+                    <div class="slds-col">
+                        <span class="slds-badge badge-aberta">{totalAbertas} aberta(s)</span>
+                    </div>
+                    <div class="slds-col">
+                        <span class="slds-badge badge-overdue">{totalVencidas} vencida(s)</span>
+                    </div>
+                    <div class="slds-col">
+                        <span class="slds-badge badge-done">{totalConcluidas} concluída(s)</span>
+                    </div>
+                </div>
+
+                <!-- Empty state -->
+                <template lwc:if={hasNoItems}>
+                    <div class="slds-align_absolute-center slds-p-around_medium">
+                        <p class="slds-text-color_weak slds-text-body_regular">
+                            Nenhuma área participante registrada para este caso.
+                        </p>
+                    </div>
+                </template>
+
+                <!-- Item list -->
+                <template for:each={items} for:item="item">
+                    <div key={item.id} class={item.containerClass}>
+
+                        <!-- Item header -->
+                        <div class="slds-grid slds-grid_align-spread slds-m-bottom_xx-small">
+                            <div>
+                                <strong class="slds-text-body_regular">{item.areaLabel}</strong>
+                                <span class={item.statusBadgeClass}>{item.statusLabel}</span>
+                                <template lwc:if={item.violouSLA}>
+                                    <span class="slds-badge badge-overdue slds-m-left_xx-small">Violação SLA</span>
+                                </template>
+                            </div>
+                            <span class="slds-text-color_weak slds-text-body_small seq-label">
+                                #<lightning-formatted-number value={item.sequenciaAcionamento} maximum-fraction-digits="0"></lightning-formatted-number>
+                            </span>
+                        </div>
+
+                        <!-- SLA fields grid -->
+                        <div class="slds-grid slds-wrap slds-gutters_x-small slds-m-top_xx-small">
+
+                            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 field-block">
+                                <p class="field-label">Início</p>
+                                <template lwc:if={item.dataHoraInicio}>
+                                    <lightning-formatted-date-time
+                                        value={item.dataHoraInicio}
+                                        year="numeric"
+                                        month="2-digit"
+                                        day="2-digit"
+                                        hour="2-digit"
+                                        minute="2-digit"
+                                    ></lightning-formatted-date-time>
+                                </template>
+                                <template lwc:else>
+                                    <span class="slds-text-color_weak">—</span>
+                                </template>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 field-block">
+                                <p class="field-label">Prazo</p>
+                                <template lwc:if={item.dataHoraPrazo}>
+                                    <lightning-formatted-date-time
+                                        value={item.dataHoraPrazo}
+                                        year="numeric"
+                                        month="2-digit"
+                                        day="2-digit"
+                                        hour="2-digit"
+                                        minute="2-digit"
+                                    ></lightning-formatted-date-time>
+                                </template>
+                                <template lwc:else>
+                                    <span class="slds-text-color_weak">—</span>
+                                </template>
+                            </div>
+
+                            <template lwc:if={item.dataHoraFim}>
+                                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 field-block">
+                                    <p class="field-label">Conclusão</p>
+                                    <lightning-formatted-date-time
+                                        value={item.dataHoraFim}
+                                        year="numeric"
+                                        month="2-digit"
+                                        day="2-digit"
+                                        hour="2-digit"
+                                        minute="2-digit"
+                                    ></lightning-formatted-date-time>
+                                </div>
+                            </template>
+
+                            <template lwc:if={item.tempoSLAMinutos}>
+                                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 field-block">
+                                    <p class="field-label">SLA (min)</p>
+                                    <p>{item.tempoSLAMinutos}</p>
+                                </div>
+                            </template>
+
+                            <template lwc:if={item.tempoRestanteMinutos}>
+                                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 field-block">
+                                    <p class="field-label">Restante (min)</p>
+                                    <p>{item.tempoRestanteMinutos}</p>
+                                </div>
+                            </template>
+
+                            <template lwc:if={item.statusSLA}>
+                                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 field-block">
+                                    <p class="field-label">Status SLA</p>
+                                    <p>{item.statusSLA}</p>
+                                </div>
+                            </template>
+
+                            <template lwc:if={item.nomeMarco}>
+                                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 field-block">
+                                    <p class="field-label">Regra SLA</p>
+                                    <p>{item.nomeMarco}</p>
+                                </div>
+                            </template>
+
+                            <template lwc:if={item.tempoTexto}>
+                                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 field-block">
+                                    <p class="field-label">Tempo</p>
+                                    <p>{item.tempoTexto}</p>
+                                </div>
+                            </template>
+
+                        </div>
+
+                        <!-- Progress bar -->
+                        <template lwc:if={item.hasPercent}>
+                            <div class="slds-m-top_x-small">
+                                <div class="progress-bar-track">
+                                    <div class={item.progressBarClass} style={item.progressStyle}></div>
+                                </div>
+                                <p class="slds-text-body_small slds-text-color_weak">
+                                    <lightning-formatted-number value={item.percentualDecorrido} maximum-fraction-digits="0"></lightning-formatted-number>% decorrido
+                                </p>
+                            </div>
+                        </template>
+
+                        <!-- Close action -->
+                        <template lwc:if={item.canClose}>
+                            <div class="slds-m-top_x-small">
+                                <lightning-button
+                                    label="Concluir"
+                                    icon-name="utility:check"
+                                    size="small"
+                                    data-id={item.id}
+                                    onclick={handleOpenCloseModal}
+                                ></lightning-button>
+                            </div>
+                        </template>
+
+                    </div>
+                </template>
+
+            </template>
+        </div>
+    </lightning-card>
+
+    <!-- Modal: Acionar Área Interna -->
+    <template lwc:if={showAddModal}>
+        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning-button-icon
+                        icon-name="utility:close"
+                        alternative-text="Fechar"
+                        variant="bare-inverse"
+                        class="slds-modal__close"
+                        onclick={handleCloseAddModal}
+                    ></lightning-button-icon>
+                    <h2 class="slds-modal__title slds-hyphenate">Acionar Área Interna</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <template lwc:if={hasAreaOptions}>
+                        <lightning-combobox
+                            label="Área Interna"
+                            placeholder="Selecione a área"
+                            options={areaOptions}
+                            value={addArea}
+                            onchange={handleAddAreaChange}
+                            required
+                        ></lightning-combobox>
+                    </template>
+                    <template lwc:else>
+                        <div class="slds-notify slds-notify_alert" role="alert">
+                            <p>Nenhuma área disponível para acionamento neste caso. Verifique a categorização e regras SLA ativas.</p>
+                        </div>
+                    </template>
+                    <div class="slds-m-top_small">
+                        <lightning-textarea
+                            label="Comentário de Solicitação"
+                            value={addComment}
+                            onchange={handleAddCommentChange}
+                            required
+                        ></lightning-textarea>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                        label="Cancelar"
+                        onclick={handleCloseAddModal}
+                    ></lightning-button>
+                    <lightning-button
+                        label="Confirmar"
+                        variant="brand"
+                        onclick={handleConfirmAdd}
+                        disabled={saving}
+                        class="slds-m-left_x-small"
+                    ></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- Modal: Concluir Participação -->
+    <template lwc:if={showCloseModal}>
+        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning-button-icon
+                        icon-name="utility:close"
+                        alternative-text="Fechar"
+                        variant="bare-inverse"
+                        class="slds-modal__close"
+                        onclick={handleCloseCloseModal}
+                    ></lightning-button-icon>
+                    <h2 class="slds-modal__title slds-hyphenate">Concluir Participação</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-textarea
+                        label="Comentário de Retorno"
+                        value={closeComment}
+                        onchange={handleCloseCommentChange}
+                        required
+                    ></lightning-textarea>
+                    <div class="slds-m-top_small">
+                        <lightning-textarea
+                            label="Solução / Retorno da Área"
+                            value={closeSolution}
+                            onchange={handleCloseSolutionChange}
+                            required
+                        ></lightning-textarea>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                        label="Cancelar"
+                        onclick={handleCloseCloseModal}
+                    ></lightning-button>
+                    <lightning-button
+                        label="Confirmar"
+                        variant="brand"
+                        onclick={handleConfirmClose}
+                        disabled={closing}
+                        class="slds-m-left_x-small"
+                    ></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+</template>

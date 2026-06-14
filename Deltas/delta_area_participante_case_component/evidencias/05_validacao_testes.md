@@ -18,6 +18,22 @@ Jest não está configurado no projeto (ausência de `jest.config.js` ou `packag
 
 Testes Jest não foram criados. Documentado como pendência no Pacote 19 ou pacote de governança.
 
+## Conteúdo físico do ZIP
+
+ZIP: `delta_area_participante_case_component.zip` (raiz do projeto)
+
+| Caminho no ZIP | Presente? |
+|----------------|-----------|
+| `package.xml` | ✓ |
+| `README_EVIDENCIAS.md` | ✓ |
+| `evidencias/` (8 arquivos) | ✓ |
+| `lwc/caseAreaParticipantePanel/caseAreaParticipantePanel.html` | ✓ |
+| `lwc/caseAreaParticipantePanel/caseAreaParticipantePanel.js` | ✓ |
+| `lwc/caseAreaParticipantePanel/caseAreaParticipantePanel.css` | ✓ |
+| `lwc/caseAreaParticipantePanel/caseAreaParticipantePanel.js-meta.xml` | ✓ |
+
+Total: 14 entradas — componente presente fisicamente. ✓
+
 ## Critérios de aceite verificáveis manualmente
 
 | Critério | Verificável via |

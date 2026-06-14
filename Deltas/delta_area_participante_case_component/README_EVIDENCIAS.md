@@ -52,14 +52,39 @@ Motivo: nenhum LWC ou Aura existente aborda listagem/acionamento/conclusão de �
 
 ## 5. Arquivos Alterados
 
-| Arquivo | Operação |
-|---------|----------|
+| Arquivo (source) | Operação |
+|------------------|----------|
 | `force-app/main/default/lwc/caseAreaParticipantePanel/caseAreaParticipantePanel.html` | Criado |
 | `force-app/main/default/lwc/caseAreaParticipantePanel/caseAreaParticipantePanel.js` | Criado |
 | `force-app/main/default/lwc/caseAreaParticipantePanel/caseAreaParticipantePanel.css` | Criado |
 | `force-app/main/default/lwc/caseAreaParticipantePanel/caseAreaParticipantePanel.js-meta.xml` | Criado |
 
 Nenhuma classe Apex, metadata, Flow, trigger, objeto ou campo alterado.
+
+### Estrutura do ZIP (delta_area_participante_case_component.zip)
+
+```
+delta_area_participante_case_component/
+├── package.xml
+├── README_EVIDENCIAS.md
+├── evidencias/
+│   ├── 01_inventario_componentes.md
+│   ├── 02_funcionalidades_entregues.md
+│   ├── 03_metodos_apex_consumidos.md
+│   ├── 04_validacao_campos_removidos_16b.md
+│   ├── 05_validacao_testes.md
+│   ├── 06_validacao_utf8_sem_bom.md
+│   ├── 07_validacao_sem_mojibake.md
+│   └── 08_pendencias_proximos_pacotes.md
+└── lwc/
+    └── caseAreaParticipantePanel/
+        ├── caseAreaParticipantePanel.html
+        ├── caseAreaParticipantePanel.js
+        ├── caseAreaParticipantePanel.css
+        └── caseAreaParticipantePanel.js-meta.xml
+```
+
+ZIP salvo em: `d:\Projetos VSCode\WILSONSONS\SERVICE\WSServiceWS\delta_area_participante_case_component.zip` (15.4 KB)
 
 ---
 
