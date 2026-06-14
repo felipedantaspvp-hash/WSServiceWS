@@ -1,0 +1,25 @@
+EVIDENCIA 09 — Validacao Ausencia de Mojibake
+Pacote 15C — Migracao EscopoRegra__c
+
+Nenhum arquivo deste pacote contem caracteres corrompidos (mojibake).
+
+Termos presentes nos arquivos e verificados como corretos:
+  Gestao / Gestao SLA — sem corrupcao
+  Categorizacao — sem corrupcao
+  Migracao — sem corrupcao
+  Validacao — sem corrupcao
+  Atendimento — sem corrupcao
+  Area Interna — sem corrupcao
+  Execucao — sem corrupcao
+  Decisao — sem corrupcao
+
+Mensagens de debug no script Apex verificadas:
+  'INICIO MIGRACAO EscopoRegra__c'
+  'Total encontrado para migracao: '
+  'Total atualizado com sucesso: '
+  'Total com erro: '
+  'FIM MIGRACAO EscopoRegra__c'
+  'Nenhum registro pendente de migracao. Script encerrado sem alteracoes.'
+
+Todos os arquivos foram gerados em UTF-8 sem BOM.
+Nenhum caracter fora do conjunto ASCII/Latin esperado foi introduzido por erro de encoding.

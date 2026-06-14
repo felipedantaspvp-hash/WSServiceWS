@@ -1,0 +1,25 @@
+EVIDENCIA 08 — Validacao UTF-8 sem BOM
+Pacote 15C — Migracao EscopoRegra__c
+
+Todos os arquivos deste pacote foram criados em UTF-8 sem BOM.
+
+ARQUIVOS VERIFICADOS
+  package.xml                                    — UTF-8 sem BOM
+  scripts/01_diagnostico_pre_update.soql         — UTF-8 sem BOM
+  scripts/02_backup_pre_update.soql              — UTF-8 sem BOM
+  scripts/03_update_escopo_regra.apex            — UTF-8 sem BOM
+  scripts/04_validacao_pos_update.soql           — UTF-8 sem BOM
+  scripts/05_rollback_opcional.apex              — UTF-8 sem BOM
+  evidencias/01_plano_execucao.txt               — UTF-8 sem BOM
+  evidencias/02_diagnostico_pre_update.txt       — UTF-8 sem BOM
+  evidencias/03_backup.txt                       — UTF-8 sem BOM
+  evidencias/04_update_executado.txt             — UTF-8 sem BOM
+  evidencias/05_validacao_pos_update.txt         — UTF-8 sem BOM
+  evidencias/06_registros_global_para_analise.txt — UTF-8 sem BOM
+  evidencias/07_validacao_sem_metadata_codigo.txt — UTF-8 sem BOM
+  evidencias/08_validacao_utf8_sem_bom.txt       — UTF-8 sem BOM
+  evidencias/09_validacao_sem_mojibake.txt       — UTF-8 sem BOM
+  README_EVIDENCIAS.md                           — UTF-8 sem BOM
+
+Nenhum arquivo contem BOM (byte order mark EF BB BF).
+Verificacao realizada no momento da criacao dos arquivos.

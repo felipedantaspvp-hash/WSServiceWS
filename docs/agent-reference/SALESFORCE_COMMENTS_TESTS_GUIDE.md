@@ -18,6 +18,18 @@ Leia este arquivo quando criar/alterar Apex, LWC, testes, DTOs, ServiceAgents, B
 
 Preservar padrão existente. Não alterar autoria original sem motivo. Não preencher informação falsa.
 
+**`@last modified by`** — preencher **sempre** com o nome completo do usuário Salesforce da org (campo `User.Name`), nunca com o nome da IA responsável pela alteração (Claude, Codex, GPT etc.). Para identificar o responsável:
+
+```bash
+sf data query --query "SELECT Name FROM User WHERE Username = '<username-do-responsavel>'" -o <alias-org>
+```
+
+Se a classe ainda não existir na org, usar o nome do usuário que solicitou a criação. Se houver dúvida, consultar `LastModifiedBy.Name` da classe via:
+
+```bash
+sf data query --query "SELECT LastModifiedBy.Name FROM ApexClass WHERE Name = '<NomeDaClasse>'" -o <alias-org>
+```
+
 ## Métodos Apex
 
 Métodos públicos, globais, invocable, aura-enabled, batch, schedulable, queueable, service, integração ou regra relevante devem ter:

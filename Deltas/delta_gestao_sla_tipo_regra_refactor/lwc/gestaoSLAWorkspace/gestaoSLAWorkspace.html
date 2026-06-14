@@ -1,0 +1,860 @@
+<template>
+    <div class="workspace-shell">
+        <div class="left-rail" aria-hidden="true"></div>
+
+        <div class="workspace-main">
+            <template if:true={loading}>
+                <lightning-spinner alternative-text={labels.spinnerLoading}></lightning-spinner>
+            </template>
+
+            <template if:true={accessDenied}>
+                <lightning-card title={labels.accessDeniedTitle} icon-name="utility:lock">
+                    <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                        {labels.accessDeniedMessage}
+                    </div>
+                </lightning-card>
+            </template>
+
+            <template if:true={hasError}>
+                <lightning-card title="Erro" icon-name="utility:error">
+                    <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                        {errorMessage}
+                    </div>
+                </lightning-card>
+            </template>
+
+            <template if:true={noGestao}>
+                <lightning-card title={labels.gestaoLabel} icon-name="utility:warning">
+                    <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                        {noGestaoMessage}
+                    </div>
+                    <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                        <template if:true={canCreateGestao}>
+                            <lightning-button
+                                label={labels.gestaoNewButton}
+                                variant="brand"
+                                onclick={openCreateModal}
+                            ></lightning-button>
+                        </template>
+                    </div>
+                </lightning-card>
+            </template>
+
+            <template if:true={hasGestao}>
+                <div class="breadcrumb">{breadcrumbLabel}</div>
+                <template if:true={canShowTechnical}>
+                    <div class="gestao-switcher-bar">
+                        <div class="gestao-switcher-left">
+                            <span class="gestao-switcher-label">{labels.gestaoLabel}</span>
+                            <template if:true={showGestaoSelector}>
+                                <lightning-combobox
+                                    class="gestao-switcher-combobox"
+                                    value={selectedGestaoSLAId}
+                                    options={gestaoOptions}
+                                    onchange={handleGestaoChange}
+                                ></lightning-combobox>
+                            </template>
+                        </div>
+                        <template if:true={canCreateGestao}>
+                            <div class="slds-button-group" role="group">
+                                <lightning-button
+                                    label={labels.gestaoReactivateButton}
+                                    variant="neutral"
+                                    onclick={openReactivateModal}
+                                ></lightning-button>
+                                <lightning-button
+                                    label={labels.gestaoNewButton}
+                                    variant="brand"
+                                    onclick={openCreateModal}
+                                    class="slds-m-left_x-small"
+                                ></lightning-button>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <section class="header-card">
+                    <div class="header-banner">
+                        <template if:true={hasHeaderStaticImage}>
+                            <img src={headerBannerImageUrl} alt={labels.gestaoBannerAlt} class="header-banner-image" />
+                        </template>
+                        <div class="header-banner-overlay">
+                            <template if:false={hasHeaderStaticImage}>
+                                <lightning-icon icon-name="utility:anchor" size="small" class="banner-icon"></lightning-icon>
+                                <div class="banner-text">
+                                    <p class="banner-caption">{labels.categoryBusinessUnit}</p>
+                                    <h1>{gestao.name}</h1>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                    <div class="header-details">
+                        <div class="header-grid">
+                            <div>
+                                <p class="detail-label">{labels.categoryBusinessUnit}</p>
+                                <p class="detail-value">{gestao.unidadeNegocio}</p>
+                            </div>
+                            <div>
+                                <p class="detail-label">{labels.categoryStatusField}</p>
+                                <lightning-badge label={statusLabel}></lightning-badge>
+                            </div>
+                            <template if:true={canShowTechnical}>
+                                <div>
+                                    <p class="detail-label">{labels.gestaoEntitlementProcess}</p>
+                                    <p class="detail-value">{gestao.entitlementProcessName}</p>
+                                </div>
+                                <div>
+                                    <p class="detail-label">{labels.gestaoBusinessHours}</p>
+                                    <p class="detail-value">{gestao.businessHoursName}</p>
+                                </div>
+                            </template>
+                            <div>
+                                <p class="detail-label">{labels.gestaoTriageTime}</p>
+                                <p class="detail-value">{gestao.tempoTriagemMinutos} min</p>
+                            </div>
+                            <div>
+                                <p class="detail-label">{labels.gestaoChatResponseTime}</p>
+                                <p class="detail-value">{gestao.tempoRespostaChatMinutos} min</p>
+                            </div>
+                        </div>
+                        <div class="header-actions">
+                            <template if:true={canEditGestao}>
+                                <lightning-button
+                                    label={labels.gestaoEditButton}
+                                    variant="neutral"
+                                    onclick={openEditModal}
+                                ></lightning-button>
+                            </template>
+                            <template if:true={canShowTechnical}>
+                                <lightning-button
+                                    label={labels.gestaoEditSettingsButton}
+                                    variant="brand-outline"
+                                    data-action="editarConfiguracoes"
+                                    onclick={handlePlaceholderAction}
+                                    class="slds-m-left_small"
+                                ></lightning-button>
+                            </template>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="content-grid">
+                    <div class="content-main">
+                        <div class="top-tabs">
+                            <button class={categoriasTabClass} data-tab="categorias" onclick={handleTabClick}>
+                                {labels.categoryTabTitle}
+                            </button>
+                            <button class={regrasTabClass} data-tab="regras" onclick={handleTabClick}>
+                                {labels.rulesTabTitle}
+                            </button>
+                            <template if:true={showConfigTab}>
+                                <button class={configTabClass} data-tab="config" onclick={handleTabClick}>
+                                    {labels.technicalSettingsTabTitle} <span class="admin-pill">Admin</span>
+                                </button>
+                            </template>
+                        </div>
+
+                        <template if:true={activeIsCategorias}>
+                            <section class="panel">
+                                <template if:true={permissions.canManageCategories}>
+                                    <div class="categoria-action-row">
+                                        <lightning-button
+                                            label={labels.categoryReactivateButton}
+                                            variant="neutral"
+                                            onclick={openReactivateCategoriaModal}
+                                        ></lightning-button>
+                                        <lightning-button
+                                            label={labels.categoryNewButton}
+                                            variant="brand"
+                                            onclick={openCreateCategoriaModal}
+                                        ></lightning-button>
+                                    </div>
+                                </template>
+                                <div class="filters-row">
+                                    <lightning-input
+                                        type="search"
+                                        placeholder={labels.categorySearchPlaceholder}
+                                        value={searchTerm}
+                                        onchange={handleSearchChange}
+                                    ></lightning-input>
+                                    <lightning-combobox value={filtroTipoCaso} options={tipoCasoOptions} onchange={handleFilterTipoCaso}></lightning-combobox>
+                                    <lightning-combobox value={filtroCategoria} options={categoriaOptions} onchange={handleFilterCategoria}></lightning-combobox>
+                                    <lightning-combobox value={filtroAtivo} options={ativoOptions} onchange={handleFilterAtivo}></lightning-combobox>
+                                    <lightning-button label={labels.categoryFilterButton} variant="neutral" onclick={handleApplyFilters}></lightning-button>
+                                </div>
+
+                                <template if:true={hasCategorias}>
+                                    <div class="table-scroll">
+                                        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>{labels.categoryBusinessUnit}</th>
+                                                    <th>{labels.categoryCaseType}</th>
+                                                    <th>{labels.categoryLabel}</th>
+                                                    <th>{labels.categorySubject}</th>
+                                                    <th>{labels.categorySubsubject}</th>
+                                                    <th>{labels.categorySuggestedPriority}</th>
+                                                    <th>{labels.categoryActiveColumn}</th>
+                                                    <th>{labels.categorySlaRules}</th>
+                                                    <th>{labels.categoryActions}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <template for:each={pagedCategorias} for:item="row">
+                                                    <tr key={row.id}>
+                                                        <td>{row.unidadeNegocio}</td>
+                                                        <td>{row.tipoCaso}</td>
+                                                        <td>{row.categoria}</td>
+                                                        <td>{row.assunto}</td>
+                                                        <td>{row.subassunto}</td>
+                                                        <td><span class={row.prioridadeBadgeClass}>{row.prioridadeSugerida}</span></td>
+                                                        <td><lightning-badge label={row.ativoLabel}></lightning-badge></td>
+                                                        <td>{row.totalRegrasLabel}</td>
+                                                        <td>
+                                                            <lightning-button-menu
+                                                                icon-name="utility:down"
+                                                                alternative-text={labels.categoryActions}
+                                                                menu-alignment="right"
+                                                                variant="border-filled"
+                                                                data-id={row.id}
+                                                                onselect={handleCategoriaAction}
+                                                            >
+                                                                <template if:true={permissions.canManageCategories}>
+                                                                    <lightning-menu-item
+                                                                        value="edit"
+                                                                        label={labels.categoryEdit}
+                                                                        prefix-icon-name="utility:edit"
+                                                                    ></lightning-menu-item>
+                                                                    <lightning-menu-item
+                                                                        value="deactivate"
+                                                                        label={labels.categoryDeactivate}
+                                                                        prefix-icon-name="utility:clear"
+                                                                    ></lightning-menu-item>
+                                                                </template>
+                                                                <lightning-menu-item
+                                                                    value="configure-sla"
+                                                                    label={labels.categoryConfigureSla}
+                                                                    prefix-icon-name="utility:settings"
+                                                                    disabled={disableManageRules}
+                                                                ></lightning-menu-item>
+                                                            </lightning-button-menu>
+                                                        </td>
+                                                    </tr>
+                                                </template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="pagination-row">
+                                        <div class="pagination-left">
+                                            <div class="slds-form-element page-size-form">
+                                                <lightning-combobox
+                                                    class="page-size-combobox"
+                                                    variant="label-hidden"
+                                                    value={pageSize}
+                                                    options={pageSizeOptions}
+                                                    onchange={handlePageSizeChange}
+                                                ></lightning-combobox>
+                                            </div>
+                                            <span class="page-range-label">{rangeLabel}</span>
+                                        </div>
+                                        <div class="pagination-actions">
+                                            <lightning-button label={labels.categoryPaginationFirst} variant="neutral" disabled={disableGoPrevious} onclick={handleFirstPage}></lightning-button>
+                                            <lightning-button label={labels.categoryPaginationPrevious} variant="neutral" disabled={disableGoPrevious} onclick={handlePreviousPage}></lightning-button>
+                                            <span>{currentPage} / {totalPages}</span>
+                                            <lightning-button label={labels.categoryPaginationNext} variant="neutral" disabled={disableGoNext} onclick={handleNextPage}></lightning-button>
+                                            <lightning-button label={labels.categoryPaginationLast} variant="neutral" disabled={disableGoNext} onclick={handleLastPage}></lightning-button>
+                                        </div>
+                                    </div>
+                                </template>
+
+                                <template if:false={hasCategorias}>
+                                    <div class="empty-state">{labels.categoryEmptyState}</div>
+                                </template>
+                            </section>
+                        </template>
+
+                        <template if:true={activeIsRegras}>
+                            <section class="panel">
+                                <div class="regras-header-row">
+                                    <h3>{labels.rulesTabTitle}</h3>
+                                    <template if:true={permissions.canManageRules}>
+                                        <lightning-button
+                                            label={labels.ruleNewButton}
+                                            variant="brand"
+                                            onclick={openCreateRegraModal}
+                                        ></lightning-button>
+                                    </template>
+                                </div>
+
+                                <div class="global-times-grid">
+                                    <article class="global-time-card">
+                                        <p class="detail-label">{labels.globalTime}</p>
+                                        <h4>{labels.milestoneTriageLabel}</h4>
+                                        <p class="global-time-value">{gestao.tempoTriagemMinutos} min</p>
+                                        <p>{labels.sourceManagementLabel}</p>
+                                        <p>{labels.applicationEmailNew}</p>
+                                    </article>
+                                    <article class="global-time-card">
+                                        <p class="detail-label">{labels.globalTime}</p>
+                                        <h4>{labels.milestoneChatResponseLabel}</h4>
+                                        <p class="global-time-value">{gestao.tempoRespostaChatMinutos} min</p>
+                                        <p>{labels.sourceManagementLabel}</p>
+                                        <p>{labels.applicationWhatsappChatNew}</p>
+                                    </article>
+                                </div>
+
+                                <template if:true={hasRegrasCategorizacaoContext}>
+                                    <div class="filter-context">
+                                        <span>{labels.rulesFilteredFor} {regrasCategorizacaoContextLabel}</span>
+                                        <lightning-button
+                                            label={labels.rulesClearFilter}
+                                            variant="base"
+                                            onclick={handleClearRegrasCategoriaFilter}
+                                        ></lightning-button>
+                                    </div>
+                                </template>
+
+                                <div class="regras-filters-row">
+                                    <lightning-combobox
+                                        name="regrasFiltroCategorizacaoId"
+                                        value={regrasFiltroCategorizacaoId}
+                                        options={regrasCategorizacaoOptions}
+                                        onchange={handleRegraFilterChange}
+                                    ></lightning-combobox>
+                                    <lightning-combobox
+                                        name="regrasFiltroMarcoSLAId"
+                                        value={regrasFiltroMarcoSLAId}
+                                        options={regrasMarcoOptions}
+                                        onchange={handleRegraFilterChange}
+                                    ></lightning-combobox>
+                                    <lightning-combobox
+                                        name="regrasFiltroEscopo"
+                                        value={regrasFiltroEscopo}
+                                        options={regrasEscopoOptions}
+                                        onchange={handleRegraFilterChange}
+                                    ></lightning-combobox>
+                                    <lightning-input
+                                        name="regrasFiltroAreaAtendimento"
+                                        type="text"
+                                        placeholder={labels.ruleInternalAreaPlaceholder}
+                                        value={regrasFiltroAreaAtendimento}
+                                        onchange={handleRegraFilterChange}
+                                    ></lightning-input>
+                                    <lightning-combobox
+                                        name="regrasFiltroAtivo"
+                                        value={regrasFiltroAtivo}
+                                        options={ativoOptions}
+                                        onchange={handleRegraFilterChange}
+                                    ></lightning-combobox>
+                                    <lightning-button label={labels.categoryFilterButton} variant="neutral" onclick={handleApplyRegrasFilters}></lightning-button>
+                                </div>
+
+                                <template if:true={loadingRegras}>
+                                    <lightning-spinner alternative-text={labels.rulesSpinnerLoading}></lightning-spinner>
+                                </template>
+
+                                <template if:true={hasRegrasSLA}>
+                                    <div class="table-scroll">
+                                        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>{labels.ruleColCategorization}</th>
+                                                    <th>{labels.ruleColMilestone}</th>
+                                                    <th>{labels.ruleColScope}</th>
+                                                    <th>{labels.ruleColInternalArea}</th>
+                                                    <th>{labels.ruleColTimeLow}</th>
+                                                    <th>{labels.ruleColTimeMedium}</th>
+                                                    <th>{labels.ruleColTimeHigh}</th>
+                                                    <th>{labels.categoryStatusField}</th>
+                                                    <th>{labels.categoryActions}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <template for:each={regrasSLA} for:item="row">
+                                                    <tr key={row.id}>
+                                                        <td>{row.categorizacaoNome}</td>
+                                                        <td>{row.marcoNome}</td>
+                                                        <td>{row.escopoRegra}</td>
+                                                        <td>{row.areaAtendimento}</td>
+                                                        <td>{row.tempoBaixaLabel}</td>
+                                                        <td>{row.tempoMediaLabel}</td>
+                                                        <td>{row.tempoAltaLabel}</td>
+                                                        <td><lightning-badge label={row.ativoLabel}></lightning-badge></td>
+                                                        <td>
+                                                            <template if:true={permissions.canManageRules}>
+                                                                <lightning-button-menu
+                                                                    icon-name="utility:down"
+                                                                    alternative-text={labels.categoryActions}
+                                                                    menu-alignment="right"
+                                                                    variant="border-filled"
+                                                                    data-id={row.id}
+                                                                    onselect={handleRegraAction}
+                                                                >
+                                                                    <lightning-menu-item
+                                                                        value="edit"
+                                                                        label={labels.categoryEdit}
+                                                                        prefix-icon-name="utility:edit"
+                                                                    ></lightning-menu-item>
+                                                                    <lightning-menu-item
+                                                                        value="deactivate"
+                                                                        label={labels.categoryDeactivate}
+                                                                        prefix-icon-name="utility:clear"
+                                                                    ></lightning-menu-item>
+                                                                </lightning-button-menu>
+                                                            </template>
+                                                        </td>
+                                                    </tr>
+                                                </template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </template>
+
+                                <template if:false={hasRegrasSLA}>
+                                    <div class="empty-state">{labels.rulesEmptyState}</div>
+                                </template>
+                            </section>
+                        </template>
+
+                        <template if:true={activeIsConfig}>
+                            <section class="panel placeholder">
+                                <h3>{labels.technicalSettingsTabTitle}</h3>
+                                <p>{labels.gestaoEntitlementProcess}: {gestao.entitlementProcessName}</p>
+                                <p>{labels.gestaoBusinessHours}: {gestao.businessHoursName}</p>
+                                <p>Static Resource: {gestao.staticResourceName}</p>
+                                <p>{labels.categoryBusinessUnit}: {gestao.unidadeNegocio}</p>
+                            </section>
+                        </template>
+                    </div>
+
+                    <aside class="summary-card">
+                        <h3>{labels.gestaoSummaryTitle}</h3>
+                        <div class="summary-item">
+                            <lightning-icon icon-name="utility:bookmark" size="x-small"></lightning-icon>
+                            <span>{summary.totalCategorias} {labels.categorySummaryActive}</span>
+                        </div>
+                        <div class="summary-item">
+                            <lightning-icon icon-name="utility:metrics" size="x-small"></lightning-icon>
+                            <span>{totalMarcosLabel} {labels.gestaoSummaryAvailableMilestones}</span>
+                        </div>
+                        <div class="summary-item">
+                            <lightning-icon icon-name="utility:groups" size="x-small"></lightning-icon>
+                            <span>{totalAreasInternasLabel} {labels.gestaoSummaryInternalAreasN3}</span>
+                        </div>
+                        <div class="summary-item">
+                            <lightning-icon icon-name="utility:clock" size="x-small"></lightning-icon>
+                            <span>{labels.gestaoSummaryLastUpdated}: {labels.gestaoToday}</span>
+                        </div>
+                        <lightning-button
+                            class="summary-button"
+                            label={labels.gestaoViewReports}
+                            variant="neutral"
+                            data-action="verRelatorios"
+                            onclick={handlePlaceholderAction}
+                        ></lightning-button>
+                    </aside>
+                </div>
+            </template>
+
+            <template if:true={showCreateModal}>
+                <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <h2 class="slds-text-heading_medium">{labels.gestaoNewButton}</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <div class="create-form-scope">
+                            <template if:true={savingGestao}>
+                                <lightning-spinner alternative-text={labels.spinnerSaving}></lightning-spinner>
+                            </template>
+                            <lightning-input
+                                lwc:ref="createName"
+                                label={labels.fieldName}
+                                name="name"
+                                data-scope="create"
+                                data-field="name"
+                                value={createForm.name}
+                                oninput={handleCreateInputChange}
+                                onchange={handleCreateInputChange}
+                                required
+                            ></lightning-input>
+                            <lightning-combobox
+                                lwc:ref="createUnidadeNegocio"
+                                label={labels.categoryBusinessUnit}
+                                name="unidadeNegocio"
+                                data-scope="create"
+                                data-field="unidadeNegocio"
+                                value={createForm.unidadeNegocio}
+                                options={unidadeNegocioOptions}
+                                oninput={handleCreateInputChange}
+                                onchange={handleCreateInputChange}
+                                required
+                            ></lightning-combobox>
+                            <lightning-input
+                                lwc:ref="createEntitlementProcessName"
+                                label={labels.gestaoEntitlementProcess}
+                                name="entitlementProcessName"
+                                data-scope="create"
+                                data-field="entitlementProcessName"
+                                value={createForm.entitlementProcessName}
+                                oninput={handleCreateInputChange}
+                                onchange={handleCreateInputChange}
+                                required
+                            ></lightning-input>
+                            <lightning-input
+                                lwc:ref="createBusinessHoursName"
+                                label={labels.gestaoBusinessHours}
+                                name="businessHoursName"
+                                data-scope="create"
+                                data-field="businessHoursName"
+                                value={createForm.businessHoursName}
+                                oninput={handleCreateInputChange}
+                                onchange={handleCreateInputChange}
+                                required
+                            ></lightning-input>
+                            <lightning-input
+                                lwc:ref="createTempoTriagemMinutos"
+                                type="number"
+                                label={labels.fieldTriageTimeMin}
+                                name="tempoTriagemMinutos"
+                                data-scope="create"
+                                data-field="tempoTriagemMinutos"
+                                value={createForm.tempoTriagemMinutos}
+                                oninput={handleCreateInputChange}
+                                onchange={handleCreateInputChange}
+                            ></lightning-input>
+                            <lightning-input
+                                lwc:ref="createTempoRespostaChatMinutos"
+                                type="number"
+                                label={labels.fieldChatResponseTimeMin}
+                                name="tempoRespostaChatMinutos"
+                                data-scope="create"
+                                data-field="tempoRespostaChatMinutos"
+                                value={createForm.tempoRespostaChatMinutos}
+                                oninput={handleCreateInputChange}
+                                onchange={handleCreateInputChange}
+                            ></lightning-input>
+                            <lightning-textarea
+                                lwc:ref="createDescricao"
+                                label={labels.fieldDescription}
+                                name="descricao"
+                                data-scope="create"
+                                data-field="descricao"
+                                value={createForm.descricao}
+                                oninput={handleCreateInputChange}
+                                onchange={handleCreateInputChange}
+                            ></lightning-textarea>
+                            <lightning-input
+                                lwc:ref="createStaticResourceName"
+                                label="Static Resource"
+                                name="staticResourceName"
+                                data-scope="create"
+                                data-field="staticResourceName"
+                                value={createForm.staticResourceName}
+                                oninput={handleCreateInputChange}
+                                onchange={handleCreateInputChange}
+                            ></lightning-input>
+                            </div>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning-button label={labels.categoryModalCancel} onclick={closeCreateModal}></lightning-button>
+                            <lightning-button
+                                variant="brand"
+                                label={labels.categoryModalSave}
+                                onclick={handleCreateGestao}
+                                class="slds-m-left_small"
+                            ></lightning-button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+
+            <template if:true={showEditModal}>
+                <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <h2 class="slds-text-heading_medium">{labels.gestaoEditButton}</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <template if:true={savingEditGestao}>
+                                <lightning-spinner alternative-text={labels.spinnerSaving}></lightning-spinner>
+                            </template>
+                            <lightning-input label={labels.fieldName} name="name" data-field="name" value={editForm.name} oninput={handleEditInputChange} onchange={handleEditInputChange} required></lightning-input>
+                            <lightning-combobox label={labels.categoryBusinessUnit} name="unidadeNegocio" data-field="unidadeNegocio" value={editForm.unidadeNegocio} options={unidadeNegocioOptions} oninput={handleEditInputChange} onchange={handleEditInputChange} required></lightning-combobox>
+                            <lightning-input label={labels.gestaoEntitlementProcess} name="entitlementProcessName" data-field="entitlementProcessName" value={editForm.entitlementProcessName} oninput={handleEditInputChange} onchange={handleEditInputChange} required></lightning-input>
+                            <lightning-input label={labels.gestaoBusinessHours} name="businessHoursName" data-field="businessHoursName" value={editForm.businessHoursName} oninput={handleEditInputChange} onchange={handleEditInputChange} required></lightning-input>
+                            <lightning-input type="number" label={labels.fieldTriageTimeMin} name="tempoTriagemMinutos" data-field="tempoTriagemMinutos" value={editForm.tempoTriagemMinutos} oninput={handleEditInputChange} onchange={handleEditInputChange} required={editTemposObrigatorios}></lightning-input>
+                            <lightning-input type="number" label={labels.fieldChatResponseTimeMin} name="tempoRespostaChatMinutos" data-field="tempoRespostaChatMinutos" value={editForm.tempoRespostaChatMinutos} oninput={handleEditInputChange} onchange={handleEditInputChange} required={editTemposObrigatorios}></lightning-input>
+                            <template if:true={canShowTechnical}>
+                                <lightning-combobox
+                                    label={labels.categoryStatusField}
+                                    name="ativo"
+                                    data-field="ativo"
+                                    value={editStatusValue}
+                                    options={statusEditOptions}
+                                    oninput={handleEditInputChange}
+                                    onchange={handleEditInputChange}
+                                    required
+                                ></lightning-combobox>
+                            </template>
+                            <lightning-textarea label={labels.fieldDescription} name="descricao" data-field="descricao" value={editForm.descricao} oninput={handleEditInputChange} onchange={handleEditInputChange}></lightning-textarea>
+                            <lightning-input label="Static Resource" name="staticResourceName" data-field="staticResourceName" value={editForm.staticResourceName} oninput={handleEditInputChange} onchange={handleEditInputChange}></lightning-input>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning-button label={labels.categoryModalCancel} onclick={closeEditModal}></lightning-button>
+                            <lightning-button variant="brand" label={labels.categoryModalSave} onclick={handleUpdateGestao} class="slds-m-left_small"></lightning-button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+
+            <template if:true={showReactivateModal}>
+                <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container slds-modal_large">
+                        <header class="slds-modal__header">
+                            <h2 class="slds-text-heading_medium">{labels.reactivateModalTitle}</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <template if:true={loadingInactiveGestoes}>
+                                <lightning-spinner alternative-text={labels.spinnerLoading}></lightning-spinner>
+                            </template>
+                            <template if:true={hasInactiveGestoes}>
+                                <div class="table-scroll">
+                                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>{labels.categoryReactivateModalSelect}</th>
+                                                <th>{labels.fieldName}</th>
+                                                <th>{labels.categoryBusinessUnit}</th>
+                                                <th>{labels.gestaoEntitlementProcess}</th>
+                                                <th>{labels.gestaoBusinessHours}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <template for:each={inactiveGestoes} for:item="row">
+                                                <tr key={row.id}>
+                                                    <td>
+                                                        <lightning-input
+                                                            type="radio"
+                                                            name="inactiveGestaoSelector"
+                                                            value={row.id}
+                                                            checked={row.selected}
+                                                            onchange={handleSelectInactiveGestao}
+                                                            variant="label-hidden"
+                                                        ></lightning-input>
+                                                    </td>
+                                                    <td>{row.name}</td>
+                                                    <td>{row.unidadeNegocio}</td>
+                                                    <td>{row.entitlementProcessName}</td>
+                                                    <td>{row.businessHoursName}</td>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </template>
+                            <template if:false={hasInactiveGestoes}>
+                                <div class="empty-state">{labels.reactivateModalEmpty}</div>
+                            </template>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning-button label={labels.categoryModalCancel} onclick={closeReactivateModal}></lightning-button>
+                            <lightning-button
+                                variant="brand"
+                                label={labels.gestaoReactivateButton}
+                                onclick={handleConfirmReactivateGestao}
+                                class="slds-m-left_small"
+                                disabled={reactivatingGestao}
+                            ></lightning-button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+
+            <template if:true={showCategoriaModal}>
+                <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <h2 class="slds-text-heading_medium">{categoriaModalTitle}</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <template if:true={savingCategoria}>
+                                <lightning-spinner alternative-text={labels.categoryModalSavingAlt}></lightning-spinner>
+                            </template>
+                            <lightning-combobox label={labels.categoryCaseType} name="tipoCaso" value={categoriaForm.tipoCaso} options={categoriaTipoCasoOptions} placeholder={labels.categoryModalSelectCaseType} onchange={handleCategoriaInputChange} required></lightning-combobox>
+                            <lightning-combobox label={labels.categoryLabel} name="categoria" value={categoriaForm.categoria} options={categoriaCategoriaOptions} placeholder={labels.categoryModalSelectCategory} onchange={handleCategoriaInputChange} required></lightning-combobox>
+                            <lightning-combobox label={labels.categorySubject} name="assunto" value={categoriaForm.assunto} options={categoriaAssuntoOptions} placeholder={labels.categoryModalSelectSubject} onchange={handleCategoriaInputChange} required></lightning-combobox>
+                            <lightning-combobox label={labels.categorySubsubject} name="subassunto" value={categoriaForm.subassunto} options={categoriaSubassuntoOptions} placeholder={labels.categoryNoSubsubject} onchange={handleCategoriaInputChange} required={categoriaSubassuntoRequired}></lightning-combobox>
+                            <lightning-combobox label={labels.categorySuggestedPriority} name="prioridadeSugerida" value={categoriaForm.prioridadeSugerida} options={prioridadeCategoriaOptions} onchange={handleCategoriaInputChange} required={categoriaPrioridadeRequired}></lightning-combobox>
+                            <lightning-combobox
+                                label={labels.categoryStatusField}
+                                name="ativo"
+                                value={categoriaAtivoValue}
+                                options={statusEditOptions}
+                                onchange={handleCategoriaInputChange}
+                                required
+                            ></lightning-combobox>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning-button label={labels.categoryModalCancel} onclick={closeCategoriaModal}></lightning-button>
+                            <lightning-button variant="brand" label={labels.categoryModalSave} onclick={handleSaveCategoria} class="slds-m-left_small"></lightning-button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+
+            <template if:true={showRegraModal}>
+                <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container slds-modal_large">
+                        <header class="slds-modal__header">
+                            <h2 class="slds-text-heading_medium">{regraModalTitle}</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <template if:true={savingRegra}>
+                                <lightning-spinner alternative-text={labels.spinnerSaving}></lightning-spinner>
+                            </template>
+                            <div class="regra-form-grid">
+                                <lightning-combobox
+                                    label={labels.ruleColCategorization}
+                                    name="categorizacaoId"
+                                    value={regraForm.categorizacaoId}
+                                    options={regraCategorizacaoOptions}
+                                    onchange={handleRegraInputChange}
+                                    required={regraCategoriaRequired}
+                                ></lightning-combobox>
+                                <lightning-combobox
+                                    label={labels.ruleColMilestone}
+                                    name="marcoSLAId"
+                                    value={regraForm.marcoSLAId}
+                                    options={regraMarcoOptions}
+                                    onchange={handleRegraInputChange}
+                                    required={regraMarcoRequired}
+                                ></lightning-combobox>
+                                <lightning-combobox
+                                    label={labels.ruleScope}
+                                    name="escopoRegra"
+                                    value={regraForm.escopoRegra}
+                                    options={regraEscopoOptions}
+                                    onchange={handleRegraInputChange}
+                                    required
+                                ></lightning-combobox>
+                                <template if:true={showRegraAreaAtendimento}>
+                                    <lightning-input
+                                        type="text"
+                                        label={labels.ruleColInternalArea}
+                                        name="areaAtendimento"
+                                        value={regraForm.areaAtendimento}
+                                        placeholder={labels.ruleInternalAreaPlaceholder}
+                                        onchange={handleRegraInputChange}
+                                        required
+                                    ></lightning-input>
+                                </template>
+                                <lightning-input
+                                    type="number"
+                                    label={labels.rulePriorityHighMin}
+                                    name="tempoAlta"
+                                    value={regraForm.tempoAlta}
+                                    onchange={handleRegraInputChange}
+                                ></lightning-input>
+                                <lightning-input
+                                    type="number"
+                                    label={labels.rulePriorityMediumMin}
+                                    name="tempoMedia"
+                                    value={regraForm.tempoMedia}
+                                    onchange={handleRegraInputChange}
+                                ></lightning-input>
+                                <lightning-input
+                                    type="number"
+                                    label={labels.rulePriorityLowMin}
+                                    name="tempoBaixa"
+                                    value={regraForm.tempoBaixa}
+                                    onchange={handleRegraInputChange}
+                                ></lightning-input>
+                            </div>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning-button label={labels.categoryModalCancel} onclick={closeRegraModal}></lightning-button>
+                            <lightning-button
+                                variant="brand"
+                                label={labels.categoryModalSave}
+                                onclick={handleSaveRegra}
+                                class="slds-m-left_small"
+                                disabled={savingRegra}
+                            ></lightning-button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+
+            <template if:true={showReactivateCategoriaModal}>
+                <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container slds-modal_large">
+                        <header class="slds-modal__header">
+                            <h2 class="slds-text-heading_medium">{labels.categoryReactivateModalTitle}</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <template if:true={loadingInactiveCategorias}>
+                                <lightning-spinner alternative-text={labels.categoryReactivateModalLoadingAlt}></lightning-spinner>
+                            </template>
+                            <template if:true={hasInactiveCategorias}>
+                                <div class="table-scroll">
+                                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>{labels.categoryReactivateModalSelect}</th>
+                                                <th>{labels.categoryCaseType}</th>
+                                                <th>{labels.categoryLabel}</th>
+                                                <th>{labels.categorySubject}</th>
+                                                <th>{labels.categorySubsubject}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <template for:each={inactiveCategorias} for:item="row">
+                                                <tr key={row.id}>
+                                                    <td>
+                                                        <lightning-input
+                                                            type="radio"
+                                                            name="inactiveCategoriaSelector"
+                                                            value={row.id}
+                                                            checked={row.selected}
+                                                            onchange={handleSelectInactiveCategoria}
+                                                            variant="label-hidden"
+                                                        ></lightning-input>
+                                                    </td>
+                                                    <td>{row.tipoCaso}</td>
+                                                    <td>{row.categoria}</td>
+                                                    <td>{row.assunto}</td>
+                                                    <td>{row.subassunto}</td>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </template>
+                            <template if:false={hasInactiveCategorias}>
+                                <div class="empty-state">{labels.categoryReactivateModalEmpty}</div>
+                            </template>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning-button label={labels.categoryModalCancel} onclick={closeReactivateCategoriaModal}></lightning-button>
+                            <lightning-button
+                                variant="brand"
+                                label={labels.categoryReactivateModalConfirm}
+                                onclick={handleConfirmReactivateCategoria}
+                                class="slds-m-left_small"
+                                disabled={reactivatingCategoria}
+                            ></lightning-button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+        </div>
+    </div>
+</template>

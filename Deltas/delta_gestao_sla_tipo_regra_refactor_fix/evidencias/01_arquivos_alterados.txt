@@ -1,0 +1,43 @@
+EVIDENCIA 01 — Arquivos Alterados
+Pacote: 15B Fix — Correcao da Refatoracao Tipo de Regra SLA
+
+METADATA:
+- objects/RegrasSLACategorizacao__c/fields/EscopoRegra__c.field-meta.xml
+  Descricao corrigida; label atualizado para "Tipo de Regra SLA";
+  valores Atendimento e Area Interna adicionados; valores antigos mantidos.
+
+APEX:
+- force-app/main/default/classes/GestaoSLAService.cls
+  * Removida validacao funcional de vigencia em validateRegraSLARequest
+  * createRegraSLA: AreaAtendimento__c forcado null para Atendimento
+  * updateRegraSLA: idem
+  * validateRegraDuplicateActive: Area Interna passa a considerar Categorizacao__c
+
+- force-app/main/default/classes/GestaoSLAServiceTest.cls
+  * testAtendimentoNaoGravaAreaAtendimento (novo)
+  * testAreaInternaNaoGravaMarcoSLA (novo)
+  * testAreaInternaDuplicidadeConsideraCategorizacao (novo)
+  * testVigenciaNaoValidada (novo)
+
+LWC:
+- force-app/main/default/lwc/gestaoSLAWorkspace/gestaoSLAWorkspace.js
+  * Getters regraMarcoRequired e showRegraAreaAtendimento substituidos por
+    isTipoAtendimento e isTipoAreaInterna
+  * Removidos getters regrasOrigemOptions e regraOrigemOptions
+  * Removido mapeamento vigenciaLabel em loadRegrasSLA
+  * Removido metodo formatVigencia
+  * handleRegraInputChange: limpa marcoSLAId ao mudar para Area Interna
+
+- force-app/main/default/lwc/gestaoSLAWorkspace/gestaoSLAWorkspace.html
+  * Marco SLA envolto em template if:true={isTipoAtendimento}
+  * Area Interna template alterado para if:true={isTipoAreaInterna}
+
+NAO ALTERADOS:
+- GestaoSLAController.cls
+- GestaoSLAControllerTest.cls
+- GestaoSLADTO.cls
+- GestaoSLAHelper.cls
+- RegrasSLACompatibilidadeService.cls
+- AreaParticipante__c (nenhum artefato)
+- OrigemSLA__c (nenhum artefato)
+- Permission Sets

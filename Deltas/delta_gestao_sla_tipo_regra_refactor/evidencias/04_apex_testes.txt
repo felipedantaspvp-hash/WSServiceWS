@@ -1,0 +1,36 @@
+EVIDENCIA 04 — GestaoSLAServiceTest.cls e GestaoSLAControllerTest.cls
+Pacote: 15B
+
+GestaoSLAServiceTest.cls — ALTERACOES:
+- createRegra helper: escopo alterado para ESCOPO_ATENDIMENTO; removidos AreaAtendimento__c e Origem__c
+- buildRegraRequest helper: removidos req.origem, req.vigenciaInicio, req.vigenciaFim;
+  marcoSLAId = null para ESCOPO_AREA_INTERNA; areaAtendimento preenchida via
+  AreaParticipanteTestDataFactory.commonAreaValues()[0] para ESCOPO_AREA_INTERNA
+- testGetRegrasSLAComFiltros: escopos diretos alterados para ESCOPO_ATENDIMENTO;
+  bloco byOrigem removido; byEscopo filtra por ESCOPO_ATENDIMENTO, espera 2 registros
+- testCreateUpdateDeactivateRegraSLAComPermissao: escopo -> ESCOPO_ATENDIMENTO;
+  vigenciaFim removida do request e da assertion
+- testUpdateRegraSLAInativaNaoReativa: escopo -> ESCOPO_ATENDIMENTO
+- testRegraSLABloqueiaSemPermissaoDeGerenciarRegras: escopo -> ESCOPO_ATENDIMENTO
+- testCreateRegraSLAComOrigemEspecificaEListagem: SUBSTITUIDO por
+  testCreateRegraSLAAreaInternaComSucesso (testa criacao de regra Area Interna)
+- testRegraSLAValidacoesDeEscopoTempoEVigencia:
+    * semMarco e semCategoria: escopo -> ESCOPO_ATENDIMENTO
+    * areaSemArea: construido manualmente com ESCOPO_AREA_INTERNA e areaAtendimento = null
+    * semTempo, tempoZero: escopo -> ESCOPO_ATENDIMENTO
+    * vigenciaInvalida: escopo -> ESCOPO_ATENDIMENTO
+    * escopoInvalido: novo caso, testa rejeicao de 'Global' como escopo
+- testRegraSLABloqueiaDuplicidadeAtivaEPermiteDuplicidadeInativa: ESCOPO_GLOBAL -> ESCOPO_ATENDIMENTO
+- testRegraSLAValidaReferenciasDaGestao: ESCOPO_POR_CATEGORIZACAO -> ESCOPO_ATENDIMENTO
+
+GestaoSLAControllerTest.cls — ALTERACOES:
+- buildRegraRequest helper: ESCOPO_POR_CATEGORIZACAO -> ESCOPO_ATENDIMENTO; removido req.origem
+- testControllerMethodsSuccess: chamada getRegrasSLA ajustada de 7 para 6 argumentos
+- testControllerThrowsAuraHandledWhenNoPermission: idem
+
+REGRAS DE TESTE MANTIDAS:
+- Sem SeeAllData=true
+- Sem System.assert (uso de Assert.areEqual / Assert.areNotEqual)
+- Sem hardcoded Id
+- Sem SOQL em loop
+- Sem DML em loop

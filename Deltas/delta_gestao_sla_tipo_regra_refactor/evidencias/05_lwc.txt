@@ -1,0 +1,33 @@
+EVIDENCIA 05 — gestaoSLAWorkspace (LWC)
+Pacote: 15B
+
+gestaoSLAWorkspace.js — ALTERACOES:
+- Constantes substituidas:
+    REMOVIDAS: RULE_SCOPE_GLOBAL, RULE_SCOPE_BY_CATEGORY, RULE_SCOPE_BY_INTERNAL_AREA
+    ADICIONADAS: RULE_SCOPE_ATENDIMENTO = 'Atendimento', RULE_SCOPE_AREA_INTERNA = 'Area Interna'
+- regraForm: escopoRegra default = RULE_SCOPE_ATENDIMENTO; removidos campos origem, vigenciaInicio, vigenciaFim
+- @track regrasFiltroOrigem: removido
+- regrasEscopoOptions: apenas Todos / Atendimento / Area Interna
+- regraEscopoOptions: apenas Atendimento / Area Interna
+- regraCategoriaRequired: sempre true (ambos os tipos exigem categorizacao)
+- regraAreaRequired: REMOVIDO
+- regraMarcoRequired: ADICIONADO — false apenas para Area Interna
+- showRegraAreaAtendimento: ADICIONADO — true apenas para Area Interna
+- openCreateRegraModal: default escopoRegra = RULE_SCOPE_ATENDIMENTO; removidos origem, vigenciaInicio, vigenciaFim
+- openEditRegraModal: fallback escopoRegra = RULE_SCOPE_ATENDIMENTO; removidos origem, vigenciaInicio, vigenciaFim
+- handleRegraInputChange: condicao limpa areaAtendimento quando escopo != RULE_SCOPE_AREA_INTERNA
+- validateRegraForm:
+    * categoria sempre obrigatoria (ambos os tipos)
+    * marco obrigatorio somente para Atendimento
+    * area obrigatoria somente para Area Interna
+    * vigencia removida (nao gravada mais)
+- buildRegraPayload: removidos origem, vigenciaInicio, vigenciaFim
+- loadRegrasSLA: removido param origem da chamada ao controller
+- resetRegrasFilters: removido regrasFiltroOrigem
+
+gestaoSLAWorkspace.html — ALTERACOES:
+- Filtros: combobox regrasFiltroOrigem removido
+- Tabela de regras: coluna origem removida (th + td); coluna vigencia removida (th + td)
+- Modal de regra: marcoSLAId combobox changed required -> required={regraMarcoRequired}
+- Modal de regra: adicionado bloco template if:true={showRegraAreaAtendimento} com
+  lightning-input para areaAtendimento (apos escopoRegra combobox)

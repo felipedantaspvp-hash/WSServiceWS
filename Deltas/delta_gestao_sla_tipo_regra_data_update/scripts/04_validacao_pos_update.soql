@@ -1,0 +1,27 @@
+-- SCRIPT 04 — Validacao pos-update
+-- Pacote 15C — Migracao EscopoRegra__c
+-- Executar APOS o script 03. Documentar resultado em evidencias/05_validacao_pos_update.txt.
+
+-- 1. Contagem final por EscopoRegra__c (todos os valores presentes na org)
+SELECT EscopoRegra__c, COUNT(Id) total
+FROM RegrasSLACategorizacao__c
+GROUP BY EscopoRegra__c
+
+-- 2. Verificar residuos — resultado esperado: zero registros
+--    Se retornar qualquer linha, a migracao foi incompleta ou gerou erro.
+SELECT Id, Name, EscopoRegra__c
+FROM RegrasSLACategorizacao__c
+WHERE EscopoRegra__c IN ('Por Categorizacao', 'Por Area Interna')
+
+-- 3. Registros Global remanescentes — listagem para decisao manual
+--    NAO alterar esses registros neste pacote.
+SELECT Id, Name, GestaoSLA__c, Categorizacao__c, MarcoSLA__c, AreaAtendimento__c, Ativo__c
+FROM RegrasSLACategorizacao__c
+WHERE EscopoRegra__c = 'Global'
+ORDER BY Ativo__c DESC, Name
+
+-- 4. Confirmar registros migrados com sucesso
+SELECT EscopoRegra__c, COUNT(Id) total
+FROM RegrasSLACategorizacao__c
+WHERE EscopoRegra__c IN ('Atendimento', 'Area Interna')
+GROUP BY EscopoRegra__c

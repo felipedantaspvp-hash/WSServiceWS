@@ -1,0 +1,29 @@
+VALIDAÇÃO UTF-8 SEM BOM — Pacote 15A
+======================================
+
+Todos os arquivos do delta foram gerados em UTF-8 sem BOM.
+
+Arquivo                                                              | Encoding        | BOM
+---------------------------------------------------------------------|-----------------|-----
+package.xml                                                          | UTF-8 sem BOM   | Não
+objects/RegrasSLACategorizacao__c/fields/EscopoRegra__c.field-meta.xml | UTF-8 sem BOM | Não
+README_EVIDENCIAS.md                                                 | UTF-8 sem BOM   | Não
+evidencias/01_arquivos_alterados.txt                                 | UTF-8 sem BOM   | Não
+evidencias/02_resumo_tecnico.txt                                     | UTF-8 sem BOM   | Não
+evidencias/03_validacao_valores_picklist.txt                         | UTF-8 sem BOM   | Não
+evidencias/04_validacao_escopo.txt                                   | UTF-8 sem BOM   | Não
+evidencias/05_validacao_utf8_sem_bom.txt                             | UTF-8 sem BOM   | Não
+evidencias/06_pendencias_proximos_pacotes.txt                        | UTF-8 sem BOM   | Não
+
+Verificação de mojibake
+------------------------
+Caracteres especiais presentes no campo alterado:
+  - "é" em "Tipo de Regra SLA" (description): codificado corretamente como UTF-8
+  - "ç" em "categorização" (description): codificado corretamente como UTF-8
+  - "á" em "área" (description): codificado corretamente como UTF-8
+  - "Á" em label "Área Interna": codificado corretamente como UTF-8
+
+[OK] Nenhum mojibake detectado
+[OK] Nenhum caractere corrompido (ex: Ã, â€, Ã§, etc.)
+[OK] XML declara encoding="UTF-8" no cabeçalho
+[OK] Arquivo salvo sem BOM (sem sequência EF BB BF inicial)

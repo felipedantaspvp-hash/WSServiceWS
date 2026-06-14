@@ -1,0 +1,26 @@
+-- SCRIPT 01 — Diagnostico pre-update
+-- Pacote 15C — Migracao EscopoRegra__c
+-- Executar ANTES do update. Documentar resultado em evidencias/02_diagnostico_pre_update.txt.
+
+-- 1. Contagem total por EscopoRegra__c (todos os valores)
+SELECT EscopoRegra__c, COUNT(Id) total
+FROM RegrasSLACategorizacao__c
+GROUP BY EscopoRegra__c
+
+-- 2. Detalhamento dos registros com valores antigos (candidatos a migracao + Global)
+SELECT Id, Name, GestaoSLA__c, Categorizacao__c, MarcoSLA__c, AreaAtendimento__c, EscopoRegra__c, Ativo__c
+FROM RegrasSLACategorizacao__c
+WHERE EscopoRegra__c IN ('Por Categorizacao', 'Por Area Interna', 'Global')
+ORDER BY EscopoRegra__c, Name
+
+-- 3. Registros Global — listagem para decisao manual posterior (NAO serao migrados)
+SELECT Id, Name, GestaoSLA__c, Categorizacao__c, MarcoSLA__c, AreaAtendimento__c, EscopoRegra__c, Ativo__c
+FROM RegrasSLACategorizacao__c
+WHERE EscopoRegra__c = 'Global'
+ORDER BY Ativo__c DESC, Name
+
+-- 4. Confirmacao dos registros ja migrados (valores novos, nao devem ser tocados)
+SELECT EscopoRegra__c, COUNT(Id) total
+FROM RegrasSLACategorizacao__c
+WHERE EscopoRegra__c IN ('Atendimento', 'Area Interna')
+GROUP BY EscopoRegra__c

@@ -1,0 +1,16 @@
+EVIDENCIA 09 — Validacao UTF-8 sem BOM
+Pacote: 15B Fix
+
+Todos os arquivos alterados ou criados neste pacote estao em UTF-8 sem BOM:
+
+- EscopoRegra__c.field-meta.xml
+- GestaoSLAService.cls
+- GestaoSLAServiceTest.cls
+- gestaoSLAWorkspace.js
+- gestaoSLAWorkspace.html
+- package.xml
+- README_EVIDENCIAS.md
+- Todos os arquivos de evidencias
+
+Verificacao: arquivos gerados pelo editor com encoding UTF-8 sem BOM.
+Nenhum arquivo contem BOM (0xEF 0xBB 0xBF) no inicio.

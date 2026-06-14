@@ -2,7 +2,7 @@
  * @description       : Invocable action to send routing fault notifications by email.
  * @author            : Triscal
  * @last modified on  : 05-27-2026
- * @last modified by  : Codex
+ * @last modified by  : Jean Duarte
  **/
 public with sharing class FlowRoutingErrorEmailInvocable {
     public class Request {

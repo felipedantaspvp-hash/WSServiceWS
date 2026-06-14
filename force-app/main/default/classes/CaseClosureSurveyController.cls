@@ -3,7 +3,7 @@
  * @author            : Triscal
  * @group             : Atendimento
  * @last modified on  : 06-10-2026
- * @last modified by  : Codex
+ * @last modified by  : Jean Duarte
  **/
 public inherited sharing class CaseClosureSurveyController {
     @TestVisible private static Boolean forceUnexpectedErrorForTest = false;

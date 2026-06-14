@@ -1,0 +1,17 @@
+EVIDENCIA 02 — GestaoSLAHelper.cls e RegrasSLACompatibilidadeService.cls
+Pacote: 15B
+
+GestaoSLAHelper.cls:
+- Adicionadas constantes:
+    TIPO_REGRA_ATENDIMENTO = 'Atendimento'
+    TIPO_REGRA_AREA_INTERNA = 'Area Interna'
+
+RegrasSLACompatibilidadeService.cls:
+- Adicionadas constantes:
+    ESCOPO_ATENDIMENTO = 'Atendimento'
+    ESCOPO_AREA_INTERNA = 'Area Interna'
+- Constantes antigas MANTIDAS para compatibilidade retroativa:
+    ESCOPO_GLOBAL = 'Global'
+    ESCOPO_POR_CATEGORIZACAO = 'Por Categorizacao'
+    ESCOPO_POR_AREA_INTERNA = 'Por Area Interna'
+  (remocao sera em Pacote 15D, apos limpeza dos valores antigos do picklist)

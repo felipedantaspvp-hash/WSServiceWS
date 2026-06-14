@@ -1,0 +1,26 @@
+EVIDENCIA 05 — Validacao Apex GestaoSLAService
+Pacote: 15B Fix
+
+COMPORTAMENTO POR TIPO:
+
+Atendimento:
+  Exige: gestaoSLAId, escopoRegra, marcoSLAId, categorizacaoId
+  NAO exige: areaAtendimento, origem, vigenciaInicio, vigenciaFim
+  Grava: MarcoSLA__c = request.marcoSLAId
+  Grava: AreaAtendimento__c = null (forcado, independente do request)
+  NAO grava: Origem__c, VigenciaInicio__c, VigenciaFim__c
+
+Area Interna:
+  Exige: gestaoSLAId, escopoRegra, categorizacaoId, areaAtendimento
+  NAO exige: marcoSLAId, origem, vigenciaInicio, vigenciaFim
+  Grava: AreaAtendimento__c = normalizeOptionalText(request.areaAtendimento)
+  Grava: MarcoSLA__c = null (forcado, independente do request)
+  NAO grava: Origem__c, VigenciaInicio__c, VigenciaFim__c
+
+VALIDACAO REMOVIDA:
+  "VigenciaFim < VigenciaInicio" removida de validateRegraSLARequest.
+  Campos de vigencia podem estar no request sem causar erro.
+
+NORMALIZE:
+  normalizeEscopoRegra rejeita valores antigos (Global, Por Categorizacao, Por Area Interna).
+  Apenas 'Atendimento' e 'Area Interna' sao aceitos pelo servico.

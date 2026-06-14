@@ -1,0 +1,31 @@
+-- SCRIPT 02 — Backup logico pre-update
+-- Pacote 15C — Migracao EscopoRegra__c
+-- Exportar resultado como CSV ANTES de executar o update.
+-- Salvar o arquivo como: backup_regras_sla_escopo_regra_pre_update.csv
+--
+-- Comando CLI recomendado:
+--
+--   sf data query \
+--     --query "SELECT Id, Name, GestaoSLA__c, Categorizacao__c, MarcoSLA__c, AreaAtendimento__c, EscopoRegra__c, Ativo__c, TempoBaixa__c, TempoMedia__c, TempoAlta__c, CreatedDate, LastModifiedDate FROM RegrasSLACategorizacao__c WHERE EscopoRegra__c IN ('Por Categorizacao', 'Por Area Interna', 'Global')" \
+--     --target-org WILSON_SERVICE \
+--     --result-format csv > backup_regras_sla_escopo_regra_pre_update.csv
+--
+-- Salvar o CSV na raiz do projeto antes de prosseguir para o script 03.
+
+SELECT
+    Id,
+    Name,
+    GestaoSLA__c,
+    Categorizacao__c,
+    MarcoSLA__c,
+    AreaAtendimento__c,
+    EscopoRegra__c,
+    Ativo__c,
+    TempoBaixa__c,
+    TempoMedia__c,
+    TempoAlta__c,
+    CreatedDate,
+    LastModifiedDate
+FROM RegrasSLACategorizacao__c
+WHERE EscopoRegra__c IN ('Por Categorizacao', 'Por Area Interna', 'Global')
+ORDER BY EscopoRegra__c, Name

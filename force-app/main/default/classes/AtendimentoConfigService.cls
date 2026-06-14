@@ -3,7 +3,7 @@
  * @author            : Triscal
  * @group             : Atendimento
  * @last modified on  : 06-12-2026
- * @last modified by  : Codex
+ * @last modified by  : Marllon Nascimento
  **/
 public inherited sharing class AtendimentoConfigService {
     @TestVisible private static Map<String, AtendimentoConfigDTO> testSurveyConfigsByKey;

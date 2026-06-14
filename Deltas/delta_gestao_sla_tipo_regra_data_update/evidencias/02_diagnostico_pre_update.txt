@@ -1,0 +1,35 @@
+EVIDENCIA 02 — Diagnostico Pre-Update
+Pacote 15C — Migracao EscopoRegra__c
+
+STATUS: CONCLUIDO — executado em 2026-06-13.
+
+--- QUERY 1: Contagem por EscopoRegra__c ---
+
+EscopoRegra__c          | total
+------------------------|------
+Por Categorizacao       | 2494
+null                    | 3099
+
+--- QUERY 2: Registros com valores antigos (candidatos a migracao + Global) ---
+
+Por Categorizacao : 2494 registros
+Por Area Interna  : 0 registros
+Global            : 0 registros
+
+--- QUERY 3: Registros Global ---
+Nenhum registro com EscopoRegra__c = 'Global' encontrado na org.
+
+--- QUERY 4: Registros ja migrados antes do update ---
+Atendimento  : 0 registros
+Area Interna : 0 registros
+
+OBSERVACAO
+2494 registros com 'Por Categorizacao' foram identificados para migracao.
+3099 registros com EscopoRegra__c = null nao sao candidatos (nao possuem escopo).
+Nenhum registro Global ou Por Area Interna encontrado.
+
+VALIDACAO PRE-UPDATE
+[X] Total de candidatos a migracao documentado
+[X] Total de registros Global documentado (zero)
+[X] Total de registros ja migrados documentado
+[X] Backup (Etapa 2) executado antes de prosseguir

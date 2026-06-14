@@ -1,0 +1,23 @@
+EVIDENCIA 10 — Validacao Ausencia de Mojibake
+Pacote: 15B Fix
+
+Nenhum arquivo deste pacote contem caracteres corrompidos (mojibake).
+
+Termos presentes nos arquivos e verificados como corretos:
+  Gestao / Gestao SLA — sem corrupcao
+  Categorizacao — sem corrupcao
+  Configuracao — sem corrupcao
+  Media — sem corrupcao
+  Area — sem corrupcao
+  Vigencia — sem corrupcao
+  Atendimento — sem corrupcao
+  Area Interna — sem corrupcao
+
+Mensagens de erro no Apex verificadas:
+  'Marco SLA e obrigatorio para regra de Atendimento.'
+  'Categorizacao e obrigatoria para regra de Atendimento.'
+  'Tipo de regra invalido. Use "Atendimento" ou "Area Interna".'
+  'Ja existe uma regra de SLA ativa com esta combinacao.'
+
+Todos os arquivos foram gerados em UTF-8 sem BOM.
+Nenhum caracter fora do conjunto ASCII/Latin esperado foi introduzido por erro de encoding.

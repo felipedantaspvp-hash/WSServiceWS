@@ -1,0 +1,29 @@
+EVIDENCIA 02 — Validacao de Dados Pre-Deploy
+Pacote 15D — Cleanup EscopoRegra__c
+
+STATUS: CONCLUIDO — validado em 2026-06-13 antes da criacao do pacote.
+
+PREMISSA
+O deploy de remocao dos valores antigos do picklist e seguro apenas se nenhum
+registro na org possuir esses valores. A validacao foi executada no pacote 15C.
+
+RESULTADO DA VALIDACAO (executado em 2026-06-13)
+
+Query executada:
+  SELECT EscopoRegra__c, COUNT(Id) total
+  FROM RegrasSLACategorizacao__c
+  GROUP BY EscopoRegra__c
+
+Resultado:
+  EscopoRegra__c  | total
+  ----------------|------
+  Atendimento     | 2494
+  null            | 0 (3099 registros sem escopo foram deletados no pacote 15C)
+
+CHECKLIST DE SEGURANCA
+[X] Zero registros com EscopoRegra__c = 'Global'
+[X] Zero registros com EscopoRegra__c = 'Por Categorizacao'
+[X] Zero registros com EscopoRegra__c = 'Por Area Interna'
+[X] Zero registros com EscopoRegra__c = null
+[X] Registros existentes: apenas 'Atendimento' (2494)
+[X] Deploy de remocao dos valores antigos e seguro

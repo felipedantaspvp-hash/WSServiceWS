@@ -1,0 +1,22 @@
+EVIDENCIA 01 — GestaoSLAService.cls
+Pacote: 15B — Refactoring GestaoSLA para EscopoRegra Atendimento / Area Interna
+
+ALTERACOES:
+- normalizeEscopoRegra: rejeita valores antigos (Global, Por Categorizacao, Por Area Interna);
+  aceita apenas 'Atendimento' e 'Area Interna'
+- validateRegraSLARequest: validacoes por tipo
+    * Atendimento: requer marcoSLAId + categorizacaoId; nao requer areaAtendimento
+    * Area Interna: requer categorizacaoId + areaAtendimento; nao requer marcoSLAId
+- validateRegraReferences: marcoSLA so validado se marcoSLAId != null
+- validateRegraDuplicateActive: bifurcado por tipo
+    * Atendimento: SOQL filtra gestao + marco + escopo; in-memory compara categorizacao
+    * Area Interna: SOQL filtra gestao + escopo; in-memory compara area (normalizada)
+- isSameRegraLogicalKey: removido (logica inlinada no bifurcado acima)
+- createRegraSLA DML: MarcoSLA__c gravado apenas para Atendimento; Origem__c,
+  VigenciaInicio__c, VigenciaFim__c nao gravados
+- updateRegraSLA DML: idem create
+- getRegrasSLA: assinatura preservada (aceita param origem para compatibilidade de chamadas diretas)
+
+CAMPOS MANTIDOS MAS NAO GRAVADOS PELO SERVICO:
+- Origem__c, VigenciaInicio__c, VigenciaFim__c permanecem no objeto e no DTO
+  (remocao de escrita somente; remocao de campo sera em pacote futuro)

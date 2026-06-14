@@ -3,7 +3,7 @@
  * @author            : Triscal
  * @group             : Atendimento
  * @last modified on  : 06-10-2026
- * @last modified by  : Codex
+ * @last modified by  : Jean Duarte
  **/
 public inherited sharing class CaseClosureSurveyDTO {
     @AuraEnabled public Id caseId { get; set; }

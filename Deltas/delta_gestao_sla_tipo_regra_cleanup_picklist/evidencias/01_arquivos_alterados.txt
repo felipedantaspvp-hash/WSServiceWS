@@ -1,0 +1,53 @@
+EVIDENCIA 01 — Arquivos Alterados
+Pacote 15D — Cleanup EscopoRegra__c (Remocao valores antigos)
+
+STATUS: CRIADO em 2026-06-13.
+
+ESCOPO DO PACOTE
+Remocao definitiva dos valores antigos do picklist EscopoRegra__c e limpeza
+de todos os residuos de Apex/testes que referenciavam esses valores.
+
+ARTEFATOS INCLUIDOS NO DELTA
+
+CustomField:
+  - RegrasSLACategorizacao__c.EscopoRegra__c
+    Acao: Removidos os valores Global, Por Categorizacao, Por Area Interna.
+    Mantidos: Atendimento, Area Interna.
+
+ApexClass:
+  - RegrasSLACompatibilidadeService
+    Acao: Removidas as constantes ESCOPO_GLOBAL, ESCOPO_POR_CATEGORIZACAO, ESCOPO_POR_AREA_INTERNA.
+
+  - RegrasSLACategorizacaoHelper
+    Acao: Removidos os metodos isEscopoGlobal, isEscopoPorCategorizacao e isEscopoAreaInterna (legado).
+    Renomeado: isEscopoAreaInternaNew -> isEscopoAreaInterna.
+    buildKey simplificado: removida logica especial de Global (categorizacao sempre preenchida).
+
+  - RegrasSLACategorizacaoService
+    Acao: validateModeloNovo simplificado para aceitar apenas Atendimento e Area Interna.
+    Removidos: isGlobal, isEscopoPorCategorizacao, isEscopoAreaInterna (legado) da validacao.
+    Mensagem de erro atualizada.
+
+  - RegrasSLACompatibilidadeServiceTest
+    Acao: Substituidas todas as referencias a ESCOPO_POR_AREA_INTERNA, ESCOPO_GLOBAL
+    e ESCOPO_POR_CATEGORIZACAO por valores validos (ESCOPO_AREA_INTERNA, ESCOPO_ATENDIMENTO).
+
+  - GestaoSLAServiceTest
+    Acao: Substituida a string literal 'Global' por 'EscopoInexistente' no teste de escopo invalido.
+
+  - AreaParticipanteTestDataFactory
+    Acao: Factory de teste atualizada para usar ESCOPO_AREA_INTERNA (era ESCOPO_POR_AREA_INTERNA).
+    Identificada durante dry-run inicial.
+
+  - RegrasSLACategorizacaoSelector
+    Acao: Query findActiveRules atualizada para filtrar por ESCOPO_AREA_INTERNA (era ESCOPO_POR_AREA_INTERNA).
+    Identificada durante dry-run inicial.
+
+ARTEFATOS NAO ALTERADOS
+  - GestaoSLAService.cls (logica funcional ja limpa desde 15B)
+  - GestaoSLAHelper.cls (ja usava apenas novos valores)
+  - GestaoSLAControllerTest.cls (limpo, sem referencias a valores antigos)
+  - GestaoSLADTO.cls (limpo)
+  - gestaoSLAWorkspace.js (usa constantes locais RULE_SCOPE_ATENDIMENTO e RULE_SCOPE_AREA_INTERNA)
+  - RegrasSLACategorizacaoTrigger (sem alteracao necessaria)
+  - Permission Sets, Profiles, Flows, Entitlement Process (fora do escopo)

@@ -3,7 +3,7 @@
  * @author Triscal
  * @group Bot Will
  * @last modified on 06-03-2026
- * @last modified by Codex
+ * @last modified by Jean Duarte
  **/
 public inherited sharing class WSWillContextResolverService {
     @TestVisible private static Map<Id, SObject> testMessagingById;

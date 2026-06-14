@@ -6,8 +6,8 @@
 ## Última atualização
 
 - Data: 2026-06-13
-- Responsável: Codex
-- Observação: Incluído mapeamento do Entitlement Process `atendimento salvador_v2` e dependências de SLA recuperadas da org `WILSON_SERVICE`.
+- Responsável: Jean Duarte
+- Observação: Pacotes 15D e 16A concluídos e deployados. 16A: removidas todas as referências de código/metadado aos campos legados `Origem__c`, `VigenciaInicio__c`, `VigenciaFim__c` (em `RegrasSLACategorizacao__c`) e `TipoAtuacao__c` (em `AreaParticipante__c`). Deploys reais: `0Afbe00000A9tXNCAZ` (30 componentes), `0Afbe00000A9th3CAB` (16 cabeçalhos), `0Afbe00000A9uLNCAZ` (ajuste final). Campos físicos ainda existem — exclusão pendente no Pacote 16B via destructiveChanges. Regra: `@last modified by` deve ser sempre nome do usuário Salesforce da org (nunca nome de IA).
 
 ---
 
@@ -96,6 +96,14 @@ Sistema externo / SObject / Metadata
 
 | Classe de teste | Caminho | Cobre |
 |---|---|---|
+
+## Histórico de pacotes relevantes
+
+| Pacote | Escopo | Campos/Constantes removidos |
+|---|---|---|
+| 15D | Refatoração de escopos | `ESCOPO_GLOBAL`, `ESCOPO_POR_CATEGORIZACAO`, `ESCOPO_POR_AREA_INTERNA` renomeados para `ESCOPO_ATENDIMENTO` e `ESCOPO_AREA_INTERNA` em `RegrasSLACompatibilidadeService` |
+| 16A | Remoção de referências de campos legados | `Origem__c`, `VigenciaInicio__c`, `VigenciaFim__c` de `RegrasSLACategorizacao__c`; `TipoAtuacao__c` de `AreaParticipante__c` — referências removidas do código/metadado (campos fisicamente existem ainda) |
+| 16B (pendente) | Exclusão física dos campos | destructiveChanges para os 4 campos acima |
 
 ## Fluxos técnicos principais
 

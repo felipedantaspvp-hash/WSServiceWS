@@ -1,0 +1,35 @@
+EVIDENCIA 07 — Validacao Origem e Vigencia
+Pacote: 15B Fix
+
+1. Origem__c e o campo legado de RegrasSLACategorizacao__c.
+   Ele existia para diferenciar regras por canal de atendimento (Email, WhatsApp, etc.).
+   No modelo atual, o canal e determinado por outra camada e esse campo nao e mais
+   usado funcionalmente pelo fluxo de criacao/edicao de regra SLA.
+   A exclusao fisica de Origem__c sera feita em pacote futuro, apos remocao de
+   todas as dependencias residuais.
+
+2. OrigemSLA__c pertence ao contexto de AreaParticipante__c.
+   Ele representa a origem do acionamento de uma area participante no Case.
+   OrigemSLA__c NAO foi alterado neste pacote.
+   OrigemSLA__c NAO e campo legado de RegrasSLACategorizacao__c.
+   NAO confundir Origem__c (legado de regra SLA) com OrigemSLA__c (area participante).
+
+3. Origem__c nao e exibido na LWC de regras SLA.
+   Os getters regrasOrigemOptions e regraOrigemOptions foram removidos da LWC.
+   Nenhum campo ou filtro de Origem aparece na experiencia funcional.
+
+4. Origem__c nao e obrigatorio na criacao/edicao de regra SLA.
+   O servico Apex nao valida, nao exige e nao grava Origem__c.
+
+5. VigenciaInicio__c e VigenciaFim__c nao sao exibidos na LWC.
+   Nenhum campo de vigencia aparece no modal de criacao/edicao de regra SLA.
+   O mapeamento vigenciaLabel foi removido de loadRegrasSLA.
+   O metodo formatVigencia foi removido da LWC.
+
+6. VigenciaInicio__c e VigenciaFim__c nao sao validados funcionalmente neste fluxo.
+   A validacao "VigenciaFim menor que VigenciaInicio" foi removida de
+   validateRegraSLARequest no GestaoSLAService.cls.
+   O servico nao exige, nao valida e nao grava VigenciaInicio__c nem VigenciaFim__c.
+
+7. A exclusao fisica dos campos Origem__c, VigenciaInicio__c e VigenciaFim__c
+   fica para pacote futuro, apos confirmacao de ausencia de dependencias.

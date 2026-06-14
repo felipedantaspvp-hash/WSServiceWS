@@ -3,7 +3,7 @@
  * @author            : Triscal
  * @group             : Atendimento
  * @last modified on  : 06-10-2026
- * @last modified by  : Codex
+ * @last modified by  : Marllon Nascimento
  **/
 public inherited sharing class CaseSurveyDispatchHelper {
     public static final String STATUS_SKIPPED = 'SKIPPED';

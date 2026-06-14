@@ -1,0 +1,35 @@
+EVIDENCIA 11 — Pendencias e Proximos Pacotes
+Pacote: 15B Fix
+
+PENDENCIAS DEIXADAS INTENCIONALMENTE:
+
+1. Valores antigos do picklist EscopoRegra__c:
+   Global, Por Categorizacao, Por Area Interna ainda existem no metadata.
+   Remocao prevista no Pacote 15D, apos confirmacao de ausencia de registros
+   ativos com esses valores.
+
+2. Campos legados nao excluidos:
+   Origem__c em RegrasSLACategorizacao__c
+   VigenciaInicio__c em RegrasSLACategorizacao__c
+   VigenciaFim__c em RegrasSLACategorizacao__c
+   Exclusao fisica prevista em pacote futuro apos mapeamento completo
+   de dependencias (relatorios, flows, automacoes que referenciem esses campos).
+
+3. Registros com valores antigos de EscopoRegra__c:
+   Registros existentes com Global, Por Categorizacao, Por Area Interna
+   NAO foram migrados neste pacote.
+   Decisao de migracao ou manutencao de legado fica para pacote especifico.
+
+4. Constantes antigas em RegrasSLACompatibilidadeService.cls:
+   ESCOPO_GLOBAL, ESCOPO_POR_CATEGORIZACAO, ESCOPO_POR_AREA_INTERNA
+   mantidas para compatibilidade retroativa.
+   Remocao prevista no Pacote 15D.
+
+PROXIMOS PACOTES PREVISTOS:
+
+15C — (se necessario) ajustes de permissao, relatorios ou vistas de lista
+      para refletir o novo conceito de Tipo de Regra SLA.
+
+15D — Remocao dos valores antigos do picklist EscopoRegra__c.
+      Exclusao fisica dos campos Origem__c, VigenciaInicio__c, VigenciaFim__c.
+      Remocao das constantes antigas de RegrasSLACompatibilidadeService.cls.

@@ -3,7 +3,7 @@
  * @author            : Triscal
  * @group             : Atendimento
  * @last modified on  : 05-27-2026
- * @last modified by  : Codex
+ * @last modified by  : Jean Duarte
  **/
 public inherited sharing class AtendimentoContextResolverInvocable {
     /**

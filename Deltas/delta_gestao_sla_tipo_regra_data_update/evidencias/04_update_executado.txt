@@ -1,0 +1,36 @@
+EVIDENCIA 04 — Update Executado
+Pacote 15C — Migracao EscopoRegra__c
+
+STATUS: CONCLUIDO — executado em 2026-06-13.
+
+SCRIPT EXECUTADO: scripts/03_update_escopo_regra.apex
+DATA DE EXECUCAO: 2026-06-13 19:14 UTC
+ORG: jduarte@wilsonsons.com.br.service
+
+OBSERVACAO PRE-EXECUCAO
+A primeira tentativa de update foi bloqueada pela validacao no trigger
+RegrasSLACategorizacaoTrigger -> RegrasSLACategorizacaoService, que aceitava
+apenas os valores antigos. Foi necessario atualizar RegrasSLACategorizacaoHelper
+e RegrasSLACategorizacaoService para aceitar os novos valores antes de repetir.
+
+OUTPUT REAL
+  === INICIO MIGRACAO EscopoRegra__c ===
+  Total encontrado para migracao: 2494
+  Total atualizado com sucesso: 2494
+  Total com erro: 0
+  === FIM MIGRACAO EscopoRegra__c ===
+
+RESULTADO
+  Total encontrado  : 2494
+  Total atualizado  : 2494
+  Total com erro    : 0
+
+CHECKLIST
+[X] Script executado sem excecao no Anonymous Apex
+[X] Total atualizado = total encontrado (2494 = 2494)
+[X] Total com erro = 0
+[X] Nenhum registro Global foi alterado (nao existiam registros Global)
+[X] Nenhum outro campo foi alterado (script toca apenas EscopoRegra__c)
+
+ERROS
+Nenhum.

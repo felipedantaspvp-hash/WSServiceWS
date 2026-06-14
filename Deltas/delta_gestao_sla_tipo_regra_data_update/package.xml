@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Pacote 15C — Migracao de dados EscopoRegra__c
+    Este pacote nao contem componentes de metadata para deploy.
+    Contem apenas scripts de diagnostico, backup, update e validacao
+    para migracao controlada de dados em RegrasSLACategorizacao__c.
+
+    Executar manualmente via Salesforce CLI ou Developer Console,
+    seguindo o plano documentado em evidencias/01_plano_execucao.txt.
+-->
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <version>64.0</version>
+</Package>

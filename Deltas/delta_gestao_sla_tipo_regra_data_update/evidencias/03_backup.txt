@@ -1,0 +1,31 @@
+EVIDENCIA 03 — Backup Pre-Update
+Pacote 15C — Migracao EscopoRegra__c
+
+STATUS: A PREENCHER — executar scripts/02_backup_pre_update.soql antes do update.
+
+INSTRUCOES DE PREENCHIMENTO
+Execute o comando de export abaixo e registre o resultado aqui.
+
+COMANDO EXECUTADO
+  sf data query \
+    --query "SELECT Id, Name, GestaoSLA__c, Categorizacao__c, MarcoSLA__c, AreaAtendimento__c, EscopoRegra__c, Ativo__c, TempoBaixa__c, TempoMedia__c, TempoAlta__c, CreatedDate, LastModifiedDate FROM RegrasSLACategorizacao__c WHERE EscopoRegra__c IN ('Por Categorizacao', 'Por Area Interna', 'Global')" \
+    --target-org WILSON_SERVICE \
+    --result-format csv > backup_regras_sla_escopo_regra_pre_update.csv
+
+RESULTADO
+  Data de geracao   : 2026-06-13
+  Org alvo          : jduarte@wilsonsons.com.br.service
+  Total de registros: 2494
+  Arquivo gerado    : backup_regras_sla_escopo_regra_pre_update.csv
+  Linhas no arquivo : 2497 (1 header + 2494 registros + 1 linha de aviso CLI)
+
+CAMPOS INCLUIDOS NO BACKUP
+  Id, Name, GestaoSLA__c, Categorizacao__c, MarcoSLA__c,
+  AreaAtendimento__c, EscopoRegra__c, Ativo__c, TempoBaixa__c,
+  TempoMedia__c, TempoAlta__c, CreatedDate, LastModifiedDate
+
+CHECKLIST
+[X] CSV gerado com sucesso
+[X] CSV salvo na raiz do projeto
+[X] Total de linhas confere com diagnostico pre-update (2494)
+[X] Arquivo nao esta vazio

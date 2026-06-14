@@ -3,7 +3,7 @@
  * @author            : Triscal
  * @group             : Atendimento
  * @last modified on  : 06-10-2026
- * @last modified by  : Codex
+ * @last modified by  : Jean Duarte
  **/
 public inherited sharing class CaseClosureSurveyHelper {
     @TestVisible private static Map<String, Boolean> testCustomerSurveyTodayByEmail;

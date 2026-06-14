@@ -1,0 +1,7 @@
+EVIDENCIA 03 — GestaoSLAController.cls
+Pacote: 15B
+
+ALTERACOES:
+- getRegrasSLA: parametro 'String origem' removido da assinatura do metodo Apex exposto via @AuraEnabled
+  O servico ainda aceita origem (6o param), o controller passa null
+  Assinatura atual: (Id gestaoSLAId, Id categorizacaoId, Id marcoSLAId, String escopo, String areaAtendimento, Boolean ativo)

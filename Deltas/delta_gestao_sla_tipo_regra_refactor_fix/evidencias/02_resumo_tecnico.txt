@@ -1,0 +1,46 @@
+EVIDENCIA 02 — Resumo Tecnico
+Pacote: 15B Fix
+
+PONTOS CORRIGIDOS DO PACOTE 15B:
+
+[1] Metadata EscopoRegra__c nao incluido no delta anterior
+    Correcao: campo incluido com descricao atualizada e todos os valores.
+
+[2] LWC exibia Marco SLA para Area Interna (campo present, apenas not-required)
+    Correcao: Marco SLA envolto em template if:true={isTipoAtendimento} — invisivel
+    quando Tipo de Regra = Area Interna.
+
+[3] Apex gravava AreaAtendimento__c para Atendimento mesmo com valor no request
+    Correcao: AreaAtendimento__c gravado apenas quando ESCOPO_AREA_INTERNA;
+    forcado null para ESCOPO_ATENDIMENTO.
+
+[4] Apex gravava MarcoSLA__c como null para Area Interna (correto), mas nao
+    havia garantia explicitamente documentada e testada
+    Correcao: teste testAreaInternaNaoGravaMarcoSLA verifica que mesmo com
+    marcoSLAId no request, o campo nao e gravado.
+
+[5] Duplicidade de Area Interna nao considerava Categorizacao__c
+    Chave antiga: GestaoSLA + EscopoRegra + AreaAtendimento
+    Chave correta: GestaoSLA + Categorizacao + EscopoRegra + AreaAtendimento
+    Correcao: SOQL em validateRegraDuplicateActive agora filtra por
+    Categorizacao__c = :request.categorizacaoId para ESCOPO_AREA_INTERNA.
+
+[6] Validacao funcional de vigencia ainda existia no Apex
+    Correcao: bloco "VigenciaFim < VigenciaInicio" removido de
+    validateRegraSLARequest.
+
+[7] Residuos de Origem/Vigencia na LWC
+    Correcao: removidos regrasOrigemOptions, regraOrigemOptions, vigenciaLabel,
+    formatVigencia; handleRegraInputChange passa a limpar marcoSLAId ao mudar
+    para Area Interna.
+
+[8] Evidencias nao diferenciavam Origem__c de OrigemSLA__c
+    Correcao: evidencia 07 detalha a distincao explicitamente.
+
+GARANTIAS MANTIDAS:
+- Valores antigos do picklist nao removidos (Global, Por Categorizacao, Por Area Interna)
+- Nenhum destructiveChanges criado
+- Nenhum dado existente atualizado
+- AreaParticipante__c nao alterado
+- OrigemSLA__c nao alterado
+- Permission Sets nao alteradas

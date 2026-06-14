@@ -1,0 +1,49 @@
+PENDÊNCIAS — PRÓXIMOS PACOTES
+==============================
+
+Pacote 15B — Atualização de Código (Apex + LWC)
+-------------------------------------------------
+Escopo:
+  - Substituir referências a "Por Categorizacao", "Por Area Interna" e "Global"
+    pelos novos valores "Atendimento" e "Area Interna" em:
+    * RegrasSLACompatibilidadeService.cls (constante ESCOPO_POR_AREA_INTERNA)
+    * Demais classes que referenciam EscopoRegra__c
+    * LWC gestaoSLAWorkspace (se houver referência ao valor do campo)
+  - Atualizar testes unitários correspondentes
+  - Não migrar dados neste pacote
+  - Não remover valores antigos neste pacote
+
+Pacote 15C — Migração de Dados
+--------------------------------
+Escopo:
+  - Script/Batch para atualizar registros de RegrasSLACategorizacao__c:
+    * "Por Categorizacao" → "Atendimento"
+    * "Por Area Interna"  → "Area Interna"
+    * "Global"            → decisão a confirmar (provavelmente "Atendimento")
+  - Executar em sandbox antes de produção
+  - Validar contagem antes e após a migração
+  - Não remover valores antigos ainda
+
+Pacote 15D — Limpeza de Valores Antigos
+-----------------------------------------
+Escopo:
+  - Remover valores antigos do campo EscopoRegra__c:
+    * Por Categorizacao
+    * Por Area Interna
+    * Global
+  - Somente executar após 15B e 15C validados em produção
+  - Confirmar que nenhum registro usa valores antigos antes de remover
+
+Pacote Futuro — Limpeza de Campos Legados
+-------------------------------------------
+Escopo:
+  - Avaliar remoção dos campos legados de RegrasSLACategorizacao__c:
+    * OrigemSLA__c (se substituído por EscopoRegra__c)
+    * VigenciaInicio__c / VigenciaFim__c (se não usados)
+    * TipoAtuacao__c (se substituído por TipoAreaParticipante__c)
+  - Requer validação de uso em dados e código antes de qualquer remoção
+  - Criar destructiveChanges somente neste pacote futuro
+
+Ordem recomendada de execução
+-------------------------------
+15A (este) → 15B → validação → 15C → validação → 15D → validação → Limpeza legado

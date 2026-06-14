@@ -3,7 +3,7 @@
  * @author            : Triscal
  * @group             : Atendimento
  * @last modified on  : 06-12-2026
- * @last modified by  : Codex
+ * @last modified by  : Marllon Nascimento
  **/
 public inherited sharing class AtendimentoConfigHelper {
     public static final String SURVEY_MODE_ALWAYS = 'ALWAYS';

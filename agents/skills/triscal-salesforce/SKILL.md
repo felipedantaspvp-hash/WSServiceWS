@@ -37,6 +37,7 @@ Configuração nativa > Flow > Apex > LWC
 - Tratar exceções com significado; não silenciar. Considerar sharing, CRUD e FLS.
 - Criar/ajustar teste para todo Apex alterado; buscar ≥95% de cobertura.
 - Cabeçalho JSDoc obrigatório em classes novas/relevantes: ver `docs/agent-reference/SALESFORCE_COMMENTS_TESTS_GUIDE.md`.
+- `@last modified by` deve ser sempre o nome completo do usuário Salesforce da org — nunca o nome da IA (Claude, Codex etc.). Consultar via `sf data query --query "SELECT LastModifiedBy.Name FROM ApexClass WHERE Name = '<Classe>'" -o <alias>` antes de preencher.
 
 ---
 

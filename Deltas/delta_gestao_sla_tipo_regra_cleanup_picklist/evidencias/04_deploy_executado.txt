@@ -1,0 +1,38 @@
+EVIDENCIA 04 — Deploy Executado
+Pacote 15D — Cleanup EscopoRegra__c
+
+STATUS: A PREENCHER — executar deploy e registrar resultado aqui.
+
+COMANDO UTILIZADO
+  sf project deploy start --manifest delta_gestao_sla_tipo_regra_cleanup_picklist/package.xml -o WILSON_SERVICE --ignore-conflicts
+
+RESULTADO DO DEPLOY
+  Deploy ID: 0Afbe00000A9tFdCAJ
+  Status: Succeeded
+  Data/hora: 2026-06-13 ~23:05 UTC
+  Comando: sf project deploy start --manifest ... --ignore-conflicts
+
+COMPONENTES DEPLOYADOS (8 componentes / 15 arquivos)
+  Changed: AreaParticipanteTestDataFactory (ApexClass)
+  Changed: GestaoSLAServiceTest (ApexClass)
+  Changed: RegrasSLACategorizacaoHelper (ApexClass)
+  Changed: RegrasSLACategorizacaoSelector (ApexClass)
+  Changed: RegrasSLACategorizacaoService (ApexClass)
+  Changed: RegrasSLACompatibilidadeService (ApexClass)
+  Changed: RegrasSLACompatibilidadeServiceTest (ApexClass)
+  Changed: RegrasSLACategorizacao__c.EscopoRegra__c (CustomField)
+
+ERROS
+  Nenhum.
+
+CHECKLIST POS-DEPLOY
+[X] EscopoRegra__c: valores Global, Por Categorizacao, Por Area Interna removidos
+[X] RegrasSLACompatibilidadeService: constantes antigas removidas
+[X] RegrasSLACategorizacaoHelper: metodos antigos removidos, isEscopoAreaInternaNew renomeado
+[X] RegrasSLACategorizacaoSelector: query atualizada para ESCOPO_AREA_INTERNA
+[X] RegrasSLACategorizacaoService: validacao aceita apenas Atendimento e Area Interna
+[X] AreaParticipanteTestDataFactory: factory usa ESCOPO_AREA_INTERNA
+[X] RegrasSLACompatibilidadeServiceTest: todos os testes atualizados
+[X] GestaoSLAServiceTest: escopo invalido atualizado para 'EscopoInexistente'
+[X] Dry-run Succeeded antes do deploy real
+[X] Deploy real Succeeded sem erros

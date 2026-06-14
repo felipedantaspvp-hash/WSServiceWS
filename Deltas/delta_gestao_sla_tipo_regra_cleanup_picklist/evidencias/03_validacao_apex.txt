@@ -1,0 +1,50 @@
+EVIDENCIA 03 — Validacao Apex Pre-Deploy
+Pacote 15D — Cleanup EscopoRegra__c
+
+STATUS: A PREENCHER — executar dry-run e registrar resultado aqui.
+
+CLASSES MODIFICADAS — CHECKLIST TECNICO
+
+RegrasSLACompatibilidadeService.cls
+  [X] Removidas: ESCOPO_GLOBAL, ESCOPO_POR_CATEGORIZACAO, ESCOPO_POR_AREA_INTERNA
+  [X] Mantidas: ESCOPO_ATENDIMENTO, ESCOPO_AREA_INTERNA
+  [X] Sem referencias a valores antigos no corpo da classe
+
+RegrasSLACategorizacaoHelper.cls
+  [X] Removidos: isEscopoGlobal, isEscopoPorCategorizacao, isEscopoAreaInterna (ESCOPO_POR_AREA_INTERNA)
+  [X] Renomeado: isEscopoAreaInternaNew -> isEscopoAreaInterna (agora referencia ESCOPO_AREA_INTERNA)
+  [X] buildKey: logica simplificada (sem isEscopoGlobal, area aplicada apenas para isEscopoAreaInterna)
+  [X] Sem SOQL, sem DML, sem referencias a valores antigos
+
+RegrasSLACategorizacaoService.cls
+  [X] validateModeloNovo: aceita apenas Atendimento e Area Interna
+  [X] Removidos: isGlobal, isEscopoPorCategorizacao, isEscopoAreaInterna (legado)
+  [X] Mensagem de erro: 'EscopoRegra__c deve ser Atendimento ou Area Interna.'
+  [X] Sem referencias a valores antigos
+
+RegrasSLACompatibilidadeServiceTest.cls
+  [X] createRegra: usa ESCOPO_AREA_INTERNA
+  [X] testBuildKeysEFallbackOrigem: usa ESCOPO_ATENDIMENTO (era ESCOPO_GLOBAL)
+  [X] testFallbackOrigemNovoELegadoHelpers: usa ESCOPO_ATENDIMENTO (era ESCOPO_POR_CATEGORIZACAO)
+  [X] testBulkCompatibilidadeSemSoqlEmLoop: usa ESCOPO_AREA_INTERNA (era ESCOPO_POR_AREA_INTERNA)
+  [X] Sem SeeAllData=true
+  [X] Sem System.assert
+
+GestaoSLAServiceTest.cls
+  [X] escopoInvalido.escopoRegra = 'EscopoInexistente' (era 'Global')
+  [X] Teste ainda valida que escopo invalido e rejeitado pelo service
+
+RESULTADO DO DRY-RUN
+  Deploy ID: 0Afbe00000A9tE1CAJ
+  Status: Succeeded
+  Componentes validados: 9/9 (100%)
+  Failures: 0
+  Data: 2026-06-13
+
+OBSERVACAO
+Durante o primeiro dry-run (ID 0Afbe00000A9t7ZCAR), foram identificadas duas
+classes adicionais com referencias a ESCOPO_POR_AREA_INTERNA nao mapeadas na
+analise inicial:
+  - AreaParticipanteTestDataFactory.cls (L110)
+  - RegrasSLACategorizacaoSelector.cls (L54)
+Ambas foram corrigidas e adicionadas ao delta antes do segundo dry-run.

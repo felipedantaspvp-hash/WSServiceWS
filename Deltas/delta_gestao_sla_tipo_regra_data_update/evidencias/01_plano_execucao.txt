@@ -1,0 +1,64 @@
+EVIDENCIA 01 — Plano de Execucao
+Pacote 15C — Migracao EscopoRegra__c
+
+OBJETIVO
+Migrar registros existentes de RegrasSLACategorizacao__c substituindo valores
+antigos de EscopoRegra__c pelos novos valores funcionais.
+
+MAPEAMENTO APROVADO
+  Por Categorizacao  ->  Atendimento
+  Por Area Interna   ->  Area Interna
+  Global             ->  NAO migrar (decisao manual posterior)
+
+ETAPAS DE EXECUCAO (ordem obrigatoria)
+
+ETAPA 1 — Diagnostico pre-update
+  Script: scripts/01_diagnostico_pre_update.soql
+  Acao: executar todas as queries via sf data query ou Developer Console
+  Documentar resultado em: evidencias/02_diagnostico_pre_update.txt
+  Pre-requisito: nenhum
+  Rollback disponivel: nao necessario (apenas leitura)
+
+ETAPA 2 — Backup logico
+  Script: scripts/02_backup_pre_update.soql
+  Acao: exportar CSV com todos os registros candidatos a migracao
+  Comando CLI:
+    sf data query \
+      --query "SELECT Id, Name, GestaoSLA__c, Categorizacao__c, MarcoSLA__c, AreaAtendimento__c, EscopoRegra__c, Ativo__c, TempoBaixa__c, TempoMedia__c, TempoAlta__c, CreatedDate, LastModifiedDate FROM RegrasSLACategorizacao__c WHERE EscopoRegra__c IN ('Por Categorizacao', 'Por Area Interna', 'Global')" \
+      --target-org WILSON_SERVICE \
+      --result-format csv > backup_regras_sla_escopo_regra_pre_update.csv
+  Salvar CSV na raiz do projeto antes de prosseguir.
+  Documentar resultado em: evidencias/03_backup.txt
+  Pre-requisito: Etapa 1 concluida e documentada
+
+ETAPA 3 — Update controlado
+  Script: scripts/03_update_escopo_regra.apex
+  Acao: executar via Developer Console > Execute Anonymous
+        ou: sf apex run --file scripts/03_update_escopo_regra.apex -o WILSON_SERVICE
+  Documentar resultado (logs de debug) em: evidencias/04_update_executado.txt
+  Pre-requisito: backup CSV gerado e salvo
+
+ETAPA 4 — Validacao pos-update
+  Script: scripts/04_validacao_pos_update.soql
+  Acao: executar todas as queries e verificar resultados esperados
+  Resultado esperado:
+    - Zero registros com Por Categorizacao
+    - Zero registros com Por Area Interna
+    - Registros Global podem existir (listar para decisao manual)
+  Documentar resultado em: evidencias/05_validacao_pos_update.txt
+
+DECISAO SOBRE GLOBAL
+  Registros com EscopoRegra__c = Global NAO serao migrados neste pacote.
+  Devem ser listados em evidencias/06_registros_global_para_analise.txt.
+  O conceito de Global foi absorvido por GestaoSLA__c.
+  Cada registro Global deve ser analisado individualmente antes de qualquer acao.
+
+RESTRICOES DESTE PACOTE
+  NAO altera Apex
+  NAO altera LWC
+  NAO altera metadata de campo
+  NAO remove valores da picklist
+  NAO cria destructiveChanges
+  NAO altera AreaParticipante__c
+  NAO altera OrigemSLA__c
+  NAO atualiza registros com EscopoRegra__c = Global

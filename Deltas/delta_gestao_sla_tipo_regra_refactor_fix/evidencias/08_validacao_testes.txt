@@ -1,0 +1,56 @@
+EVIDENCIA 08 — Validacao Testes Apex
+Pacote: 15B Fix
+
+TESTES ADICIONADOS EM GestaoSLAServiceTest.cls:
+
+testAtendimentoNaoGravaAreaAtendimento
+  Cenario: Atendimento com areaAtendimento preenchida no request.
+  Esperado: created.areaAtendimento = null.
+  Confirma: servico forca null em AreaAtendimento__c para Atendimento.
+
+testAreaInternaNaoGravaMarcoSLA
+  Cenario: Area Interna com marcoSLAId preenchido no request.
+  Esperado: created.marcoSLAId = null.
+  Confirma: servico forca null em MarcoSLA__c para Area Interna.
+
+testAreaInternaDuplicidadeConsideraCategorizacao
+  Cenario 1: mesma area em 2 categorizacoes diferentes => ambas criadas com sucesso.
+  Cenario 2: mesma area na mesma categorizacao => segunda criacao bloqueada com excecao.
+  Confirma: chave de duplicidade de Area Interna inclui Categorizacao__c.
+
+testVigenciaNaoValidada
+  Cenario: request com vigenciaFim anterior a vigenciaInicio.
+  Esperado: nao lanca excecao, regra criada com sucesso.
+  Confirma: validacao de vigencia foi removida do servico.
+
+TESTE AJUSTADO:
+
+testRegraSLAValidacoesDeEscopoTempoEVigencia
+  Removido o caso "vigenciaInvalida" da lista de requests invalidos.
+  Motivo: a validacao "VigenciaFim < VigenciaInicio" foi removida do servico;
+  manter o caso causaria falha de Assert (6 requests, apenas 5 excecoes esperadas).
+  A cobertura do comportamento de vigencia e feita agora por testVigenciaNaoValidada.
+
+TESTES EXISTENTES CONFIRMADOS (nao alterados neste pacote):
+  testCreateRegraSLAAreaInternaComSucesso — Area Interna sem marco cria corretamente
+  testRegraSLABloqueiaDuplicidadeAtivaEPermiteDuplicidadeInativa — Atendimento bloqueia dup
+  testCreateUpdateDeactivateRegraSLAComPermissao — autorizacao com GerenciarRegrasSLA
+  testRegraSLABloqueiaSemPermissaoDeGerenciarRegras — sem GerenciarRegrasSLA bloqueia
+
+REGRAS DE TESTE RESPEITADAS:
+  Sem SeeAllData=true
+  Sem System.assert
+  Sem hardcoded Id
+  Sem SOQL em loop
+  Sem DML em loop
+  Assert.areEqual utilizado
+
+Jest: nao configurado no projeto. Testes de LWC via Jest nao foram criados.
+
+DRY-RUN:
+  Executado em 2026-06-13.
+  Status: Succeeded
+  Deploy ID: 0Afbe00000A9s0ECAR
+  Org: jduarte@wilsonsons.com.br.service
+  Componentes validados: 5 Changed, 1 Unchanged (RegrasSLACompatibilidadeService)
+  Testes: skipped no dry-run (comportamento padrao do Salesforce para dry-run sem --test-level)

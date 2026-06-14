@@ -1,0 +1,42 @@
+EVIDENCIA 04 — Validacao LWC gestaoSLAWorkspace
+Pacote: 15B Fix
+
+MODAL DE REGRA SLA — CAMPOS EXIBIDOS:
+
+Tipo Atendimento:
+  Exibe: Categorização, Tipo de Regra SLA, Marco SLA, Tempo Alta, Tempo Média, Tempo Baixa
+  Oculta: Area Interna (campo), Origem, Vigencia Inicio, Vigencia Fim, Global
+
+Tipo Area Interna:
+  Exibe: Categorização, Tipo de Regra SLA, Área Interna, Tempo Alta, Tempo Média, Tempo Baixa
+  Oculta: Marco SLA, Origem, Vigencia Inicio, Vigencia Fim, Global
+
+IMPLEMENTACAO:
+
+Getters adicionados:
+  isTipoAtendimento: return this.regraForm?.escopoRegra === 'Atendimento'
+  isTipoAreaInterna: return this.regraForm?.escopoRegra === 'Area Interna'
+
+Getters removidos:
+  regraMarcoRequired (substituido por isTipoAtendimento)
+  showRegraAreaAtendimento (substituido por isTipoAreaInterna)
+  regrasOrigemOptions (residuo — removido)
+  regraOrigemOptions (residuo — removido)
+
+HTML:
+  Marco SLA: template if:true={isTipoAtendimento} (invisivel para Area Interna)
+  Area Interna input: template if:true={isTipoAreaInterna} (invisivel para Atendimento)
+
+handleRegraInputChange:
+  Ao mudar escopoRegra para Area Interna: limpa marcoSLAId
+  Ao mudar escopoRegra para Atendimento: limpa areaAtendimento
+
+validateRegraForm:
+  Marco SLA obrigatorio somente para Atendimento
+  Área Interna obrigatoria somente para Area Interna
+  Categorizacao obrigatoria para ambos
+  Vigencia: NAO validada
+
+Residuos removidos:
+  vigenciaLabel: removido do mapeamento em loadRegrasSLA
+  formatVigencia: metodo removido da classe LWC

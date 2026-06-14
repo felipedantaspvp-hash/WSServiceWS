@@ -1,0 +1,35 @@
+VALIDAÇÃO DE VALORES PICKLIST — Pacote 15A
+==========================================
+
+Campo: RegrasSLACategorizacao__c.EscopoRegra__c
+
+Estado ANTES do pacote
+-----------------------
+fullName             | label               | default | status
+---------------------|---------------------|---------|--------
+Global               | Global              | false   | existia
+Por Categorizacao    | Por Categorizacao   | false   | existia
+Por Area Interna     | Por Area Interna    | false   | existia
+
+Estado APÓS o pacote
+---------------------
+fullName             | label               | default | status
+---------------------|---------------------|---------|--------
+Atendimento          | Atendimento         | false   | NOVO
+Area Interna         | Área Interna        | false   | NOVO
+Global               | Global              | false   | mantido
+Por Categorizacao    | Por Categorizacao   | false   | mantido
+Por Area Interna     | Por Area Interna    | false   | mantido
+
+Total de valores: 5 (3 existentes + 2 novos)
+
+Verificações
+------------
+[OK] Valor "Atendimento" adicionado — fullName sem acento
+[OK] Valor "Area Interna" adicionado — fullName sem acento, label com acento "Área Interna"
+[OK] Valor "Global" mantido
+[OK] Valor "Por Categorizacao" mantido
+[OK] Valor "Por Area Interna" mantido
+[OK] Nenhum valor removido
+[OK] Nenhum default alterado
+[OK] Nenhum valor "Área Interna" com acento no fullName

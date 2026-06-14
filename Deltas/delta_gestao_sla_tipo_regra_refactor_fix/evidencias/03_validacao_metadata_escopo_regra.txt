@@ -1,0 +1,28 @@
+EVIDENCIA 03 — Validacao Metadata EscopoRegra__c
+Pacote: 15B Fix
+
+Campo: RegrasSLACategorizacao__c.EscopoRegra__c
+
+API Name: EscopoRegra__c (NAO alterado)
+Label: Tipo de Regra SLA (atualizado — era "Escopo da Regra" no metadata local)
+Tipo: Picklist (NAO alterado)
+Required: false (NAO alterado)
+
+Descricao anterior:
+  "Define se a regra e global, por categorizacao ou por area interna."
+
+Descricao corrigida:
+  "Define o tipo funcional da regra de SLA: Atendimento ou Area Interna."
+
+Valores no metadata apos este pacote:
+  - Atendimento (novo — funcional)
+  - Area Interna (novo — funcional, label "Area Interna")
+  - Global (antigo — mantido temporariamente)
+  - Por Categorizacao (antigo — mantido temporariamente)
+  - Por Area Interna (antigo — mantido temporariamente)
+
+Valores NAO removidos (conforme escopo do pacote):
+  Global, Por Categorizacao, Por Area Interna
+
+Remocao dos valores antigos: Pacote futuro (15D).
+Default value: nenhum (false para todos os valores).

@@ -1,0 +1,30 @@
+ARQUIVOS ALTERADOS — Pacote 15A
+================================
+
+delta_gestao_sla_escopo_regra_metadata/
+├── package.xml                                                     [CRIADO]
+├── README_EVIDENCIAS.md                                            [CRIADO]
+├── evidencias/
+│   ├── 01_arquivos_alterados.txt                                   [CRIADO]
+│   ├── 02_resumo_tecnico.txt                                       [CRIADO]
+│   ├── 03_validacao_valores_picklist.txt                           [CRIADO]
+│   ├── 04_validacao_escopo.txt                                     [CRIADO]
+│   ├── 05_validacao_utf8_sem_bom.txt                               [CRIADO]
+│   └── 06_pendencias_proximos_pacotes.txt                          [CRIADO]
+└── objects/
+    └── RegrasSLACategorizacao__c/
+        └── fields/
+            └── EscopoRegra__c.field-meta.xml                       [ALTERADO]
+
+Total de arquivos de metadata no delta: 1
+Arquivo de metadata alterado:
+  force-app/main/default/objects/RegrasSLACategorizacao__c/fields/EscopoRegra__c.field-meta.xml
+
+Arquivos NÃO alterados (confirmado):
+  - Nenhuma classe Apex
+  - Nenhum componente LWC
+  - Nenhum Flow
+  - Nenhum Profile
+  - Nenhuma Permission Set
+  - Nenhum Layout
+  - Nenhum destructiveChanges

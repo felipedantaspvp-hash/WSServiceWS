@@ -1,0 +1,28 @@
+EVIDENCIA 06 — Validacao Duplicidade de Regra SLA
+Pacote: 15B Fix
+
+CHAVE DE DUPLICIDADE POR TIPO:
+
+Atendimento (inalterada em relacao ao 15B):
+  GestaoSLA__c + Categorizacao__c + MarcoSLA__c + EscopoRegra__c + Ativo__c = true
+  Implementacao: SOQL filtra por GestaoSLA + Marco + EscopoRegra + Ativo;
+  in-memory compara Categorizacao__c.
+
+Area Interna (CORRIGIDA neste pacote):
+  GestaoSLA__c + Categorizacao__c + EscopoRegra__c + AreaAtendimento__c + Ativo__c = true
+  Implementacao: SOQL filtra por GestaoSLA + Categorizacao + EscopoRegra + Ativo;
+  in-memory compara AreaAtendimento__c normalizada.
+
+EXEMPLO DE COMPORTAMENTO CORRETO:
+
+  Permitido (categorizacoes diferentes, mesma area):
+    Gestao Salvador + Categorizacao A + Area Interna Financeiro — CRIA OK
+    Gestao Salvador + Categorizacao B + Area Interna Financeiro — CRIA OK
+
+  Bloqueado (mesma categorizacao e mesma area):
+    Gestao Salvador + Categorizacao A + Area Interna Financeiro — JA EXISTE, BLOQUEIA
+
+CORRECAO APLICADA:
+  Em 15B, o SOQL de Area Interna nao filtrava por Categorizacao__c,
+  o que bloqueava erroneamente a mesma area em categorizacoes diferentes.
+  Neste pacote, Categorizacao__c = :request.categorizacaoId foi adicionado ao WHERE.

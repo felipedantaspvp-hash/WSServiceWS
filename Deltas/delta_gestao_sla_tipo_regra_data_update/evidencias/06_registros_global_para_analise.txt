@@ -1,0 +1,23 @@
+EVIDENCIA 06 — Registros Global para Analise Manual
+Pacote 15C — Migracao EscopoRegra__c
+
+STATUS: A PREENCHER — colar resultado da query de Global do script 01 e 04.
+
+DECISAO FUNCIONAL
+Registros com EscopoRegra__c = 'Global' NAO foram migrados neste pacote.
+
+O conceito de Global foi absorvido por GestaoSLA__c e nao deve sobreviver
+como tipo de regra SLA. Cada registro existente com esse valor deve ser
+analisado individualmente para decidir:
+  a) Desativar o registro (Ativo__c = false)
+  b) Reclassificar manualmente como Atendimento ou Area Interna
+  c) Outro tratamento a definir pelo responsavel funcional
+
+REGISTROS ENCONTRADOS
+Nenhum registro com EscopoRegra__c = 'Global' encontrado na org em 2026-06-13.
+
+Total de registros Global: 0
+
+PROXIMOS PASSOS
+  Nao ha acao necessaria para Global neste momento.
+  Monitorar se novos registros com valor Global forem criados eventualmente.

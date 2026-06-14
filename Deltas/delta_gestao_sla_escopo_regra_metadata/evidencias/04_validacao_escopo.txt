@@ -1,0 +1,35 @@
+VALIDAÇÃO DE ESCOPO — Pacote 15A
+=================================
+
+Confirmação de que somente o metadata do campo EscopoRegra__c foi alterado.
+
+Artefatos verificados e NÃO alterados
+---------------------------------------
+Tipo                  | Status
+----------------------|--------
+Apex Classes          | Nenhuma alterada
+Apex Triggers         | Nenhuma alterada
+LWC Components        | Nenhum alterado
+Flows                 | Nenhum alterado
+Profiles              | Nenhum alterado
+Permission Sets       | Nenhuma alterada
+Layouts               | Nenhum alterado
+Custom Objects        | Nenhum alterado (além do campo)
+Other Custom Fields   | Nenhum alterado
+Global Value Sets     | Não aplicável (campo usa inline valueSetDefinition)
+destructiveChanges    | Não criado
+Dados (registros)     | Não alterados
+
+Artefato alterado
+------------------
+Tipo         : CustomField
+API Name     : RegrasSLACategorizacao__c.EscopoRegra__c
+Arquivo      : objects/RegrasSLACategorizacao__c/fields/EscopoRegra__c.field-meta.xml
+Alterações   : label + 2 novos valores picklist
+
+Confirmação
+-----------
+[OK] Delta contém somente 1 arquivo de metadata alterado
+[OK] package.xml referencia somente RegrasSLACategorizacao__c.EscopoRegra__c
+[OK] Sem wildcard no package.xml
+[OK] Sem destructiveChanges

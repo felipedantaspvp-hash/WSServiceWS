@@ -1,0 +1,47 @@
+RESUMO TÉCNICO — Pacote 15A
+============================
+
+Objetivo
+--------
+Preparar o metadata do campo RegrasSLACategorizacao__c.EscopoRegra__c para
+representar funcionalmente o "Tipo de Regra SLA", sem alterar código ou dados.
+
+Campo alterado
+--------------
+Objeto : RegrasSLACategorizacao__c
+Campo  : EscopoRegra__c
+API Name (inalterado): EscopoRegra__c
+Tipo   : Picklist (inline valueSetDefinition — sem Global Value Set)
+
+Alterações no campo
+-------------------
+1. Label: "Escopo da Regra" → "Tipo de Regra SLA"
+2. Valores novos adicionados:
+   - fullName: Atendimento  | label: Atendimento
+   - fullName: Area Interna | label: Área Interna
+3. Valores antigos mantidos temporariamente:
+   - fullName: Global           | label: Global
+   - fullName: Por Categorizacao | label: Por Categorizacao
+   - fullName: Por Area Interna  | label: Por Area Interna
+
+Decisão de encoding
+-------------------
+O valor técnico "Area Interna" não usa acento (regra do projeto).
+A label exibida usa acento: "Área Interna".
+Isso é suportado pelo metadata Salesforce (fullName != label).
+
+O que NÃO foi alterado neste pacote
+-------------------------------------
+- API Name do campo: mantido EscopoRegra__c
+- required: mantido false
+- trackHistory: mantido false
+- trackTrending: mantido false
+- description: mantida sem alteração
+- Default values: mantidos false para todos os valores
+- Nenhum valor removido
+
+Tratamento futuro
+-----------------
+- Apex/LWC continuam referenciando os valores antigos até pacote futuro.
+- Dados serão migrados em pacote futuro.
+- Valores antigos serão removidos somente após migração de dados.

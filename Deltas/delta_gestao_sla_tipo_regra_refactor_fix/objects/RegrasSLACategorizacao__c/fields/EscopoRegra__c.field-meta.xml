@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EscopoRegra__c</fullName>
+    <description>Define o tipo funcional da regra de SLA: Atendimento ou Area Interna.</description>
+    <label>Tipo de Regra SLA</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Atendimento</fullName>
+                <default>false</default>
+                <label>Atendimento</label>
+            </value>
+            <value>
+                <fullName>Area Interna</fullName>
+                <default>false</default>
+                <label>Área Interna</label>
+            </value>
+            <value>
+                <fullName>Global</fullName>
+                <default>false</default>
+                <label>Global</label>
+            </value>
+            <value>
+                <fullName>Por Categorizacao</fullName>
+                <default>false</default>
+                <label>Por Categorizacao</label>
+            </value>
+            <value>
+                <fullName>Por Area Interna</fullName>
+                <default>false</default>
+                <label>Por Area Interna</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
