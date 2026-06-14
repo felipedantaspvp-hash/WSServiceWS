@@ -35,6 +35,12 @@
                 <default>false</default>
                 <label>Tempo Total de Atendimento</label>
             </value>
+            <value>
+                <fullName>SLA Total</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>SLA Total</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
