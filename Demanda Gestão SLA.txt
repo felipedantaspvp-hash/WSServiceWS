@@ -1,0 +1,36 @@
+Tipo da Demanda: Projeto Estruturante
+Classificação: Início da sequência de pacotes de ajuste — Gestão SLA / Área Participante / Regras SLA
+Criticidade: Alta
+Impacto: Refatoração controlada da parametrização de SLA e preparação para controle operacional da Área Participante
+Área impactada: Gestão SLA / RegrasSLACategorizacao__c / AreaParticipante__c / LWC / Apex / Permission Sets
+Risco regulatório: Médio/Alto
+Necessita hotfix? Não
+É projeto ou sustentação? Projeto
+
+Resumo Executivo
+
+Sim, estamos prontos para iniciar.
+
+Vamos manter a mesma estratégia que funcionou bem até aqui:
+
+1. Um pacote pequeno.
+2. Um delta isolado.
+3. Validação técnica.
+4. Aprovação ou correção.
+5. Só depois avançamos para o próximo pacote.
+
+A sequência inicial que recomendo é:
+
+Ordem	Pacote	Objetivo
+15A	Preparar EscopoRegra__c	Adicionar/confirmar valores Atendimento e Area Interna
+15B	Refatorar LWC/Apex de Regras SLA	Usar novos valores e separar Atendimento x Área Interna
+15C	Atualização de dados	Migrar registros antigos para novos valores
+15D	Limpeza de picklist	Remover valores antigos Por Categorizacao, Por Area Interna, Global
+16	Remoção de campos legados	Remover dependências e depois excluir Origem__c, VigenciaInicio__c, VigenciaFim__c, TipoAtuacao__c
+17	Área Participante — regra aplicada	Ajustar busca de regra para Área Interna
+18	Componente Case / Área Participante	Reaproveitar ou recriar componente de acionamento
+19	Espelho de milestones	Criar registros AreaParticipante__c para relatórios dos marcos standard
+20	Bloqueio de fechamento/cancelamento	Impedir fechamento com áreas internas abertas
+21	Permissões e portabilidade	Validar Permission Sets enviadas
+22	Health Check	Criar validação técnica read-only da Gestão SLA
+

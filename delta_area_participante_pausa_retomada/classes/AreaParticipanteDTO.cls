@@ -55,8 +55,6 @@ public inherited sharing class AreaParticipanteDTO {
         @AuraEnabled public String nomeMarco { get; set; }
         @AuraEnabled public String caseMilestoneId { get; set; }
         @AuraEnabled public Boolean canClose { get; set; }
-        @AuraEnabled public Boolean canPause { get; set; }
-        @AuraEnabled public Boolean canResume { get; set; }
         @AuraEnabled public Boolean canCancel { get; set; }
         @AuraEnabled public String cssClass { get; set; }
         @AuraEnabled public String progressClass { get; set; }

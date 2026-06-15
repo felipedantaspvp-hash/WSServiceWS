@@ -499,25 +499,6 @@ public inherited sharing class AreaParticipanteService {
         return msg('Aberta', 'Open');
     }
 
-    private static Boolean canPause(AreaParticipante__c row, Boolean canManage) {
-        if (!canManage || row == null) return false;
-        if (!AreaParticipanteSLAHelper.TIPO_AREA_INTERNA.equals(row.TipoAreaParticipante__c)) return false;
-        if (!AreaParticipanteSLAHelper.ORIGEM_SLA_CUSTOM.equals(row.OrigemSLA__c)) return false;
-        if (AreaParticipanteHelper.isConcluida(row.StatusAtuacao__c) || row.DataHoraFim__c != null) return false;
-        if (AreaParticipanteHelper.isCancelada(row.StatusAtuacao__c)) return false;
-        if (row.DataHoraInicioPausa__c != null || row.StatusSLA__c == AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO) return false;
-        return AreaParticipanteSLAHelper.isOpenStatus(row.StatusAtuacao__c);
-    }
-
-    private static Boolean canResume(AreaParticipante__c row, Boolean canManage) {
-        if (!canManage || row == null) return false;
-        if (!AreaParticipanteSLAHelper.TIPO_AREA_INTERNA.equals(row.TipoAreaParticipante__c)) return false;
-        if (!AreaParticipanteSLAHelper.ORIGEM_SLA_CUSTOM.equals(row.OrigemSLA__c)) return false;
-        if (AreaParticipanteHelper.isConcluida(row.StatusAtuacao__c) || row.DataHoraFim__c != null) return false;
-        if (AreaParticipanteHelper.isCancelada(row.StatusAtuacao__c)) return false;
-        return row.DataHoraInicioPausa__c != null || row.StatusSLA__c == AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO;
-    }
-
     private static AreaParticipanteDTO.AreaItemDTO toItem(AreaParticipante__c row, Datetime nowRef, Boolean canManage) {
         AreaParticipanteDTO.AreaItemDTO item = new AreaParticipanteDTO.AreaItemDTO();
         item.id = row.Id;
@@ -549,8 +530,6 @@ public inherited sharing class AreaParticipanteService {
         item.nomeMarco = row.NomeMarco__c;
         item.caseMilestoneId = row.CaseMilestoneId__c;
         item.canClose = canManage && (item.isAberta || item.isVencida);
-        item.canPause = canPause(row, canManage);
-        item.canResume = canResume(row, canManage);
         item.canCancel = false;
         item.cssClass = item.isVencida ? 'item overdue' : (item.isConcluida ? 'item done' : 'item open');
         item.progressClass = item.isVencida ? 'progress-overdue' : ((item.percentualDecorrido != null && item.percentualDecorrido >= 80) ? 'progress-warning' : 'progress-ok');

@@ -1,0 +1,424 @@
+CONTEXTO
+
+Você está dentro de um projeto Salesforce existente da Wilson Sons.
+
+Estamos evoluindo a Gestão de SLA e Área Participante em pacotes pequenos, controlados e validados.
+
+Pacotes já concluídos:
+
+* 15A: preparação de EscopoRegra__c.
+* 15B Fix: refatoração para Atendimento e Area Interna.
+* 15C: update de dados.
+* 15D: limpeza da picklist EscopoRegra__c.
+* 16A: remoção de dependências de campos legados.
+* 16B: destructive dos campos legados.
+* 17A: backend de Área Participante usando regra SLA de Area Interna.
+* 17B: cleanup transversal de testes.
+* 18: ajuste do componente existente caseAreasParticipantesPanel.
+* 19: espelhamento de CaseMilestones standard em AreaParticipante__c.
+* 20: bloqueio de fechamento/cancelamento do Case quando houver Área Interna aberta.
+* 21: orquestração da EtapaAtendimento__c do Case por Área Interna.
+
+Agora precisamos criar o Pacote 22.
+
+OBJETIVO DO PACOTE 22
+
+Implementar controle de pausa e retomada operacional do SLA de Área Interna manual.
+
+A pausa deve permitir suspender temporariamente a contagem operacional de uma Área Interna quando houver motivo válido, por exemplo:
+
+* aguardando informação;
+* aguardando retorno externo;
+* pendência operacional;
+* bloqueio temporário.
+
+A retomada deve reativar a contagem da Área Interna.
+
+A solução deve tratar apenas registros manuais de Área Interna:
+
+* TipoAreaParticipante__c = Área Interna
+* OrigemSLA__c = Custom
+
+Registros Standard espelhados de CaseMilestone não devem ser pausados, retomados ou alterados neste pacote.
+
+DIRETRIZ ARQUITETURAL OBRIGATÓRIA — FLOW-FIRST
+
+Antes de criar qualquer nova automação Apex, analisar obrigatoriamente se já existe Flow relacionado a:
+
+* AreaParticipante__c;
+* Case;
+* pausa de SLA;
+* retomada de SLA;
+* atualização operacional de atendimento;
+* mudança de status da participação.
+
+A estratégia preferencial é:
+
+1. Reaproveitar Flow existente, se houver Flow adequado.
+2. Resolver diretamente em Flow se a regra for simples e sustentável.
+3. Se a regra exigir consulta robusta, cálculo de tempo, bulk safety, reutilização ou lógica mais complexa, criar ou reutilizar Apex Invocable/Service e chamar esse Apex pelo Flow.
+4. Se o ciclo de vida da Área Participante já for centralizado em Apex Service existente, avaliar se faz mais sentido evoluir o Service existente em vez de criar automação paralela.
+5. Criar nova Trigger Apex somente se Flow + Apex Invocable ou Service existente não forem adequados, e justificar claramente.
+6. Não criar automação paralela se já existir Flow, Service ou mecanismo oficial adequado.
+7. Não duplicar regra em múltiplos lugares.
+
+Regra de decisão:
+
+* Flow puro: permitido para orquestração simples.
+* Flow + Apex Invocable: preferido quando precisar calcular tempo, consultar registros relacionados ou aplicar regra reutilizável.
+* Service Apex existente: preferido se pausa/retomada fizer parte do ciclo de vida já centralizado em AreaParticipanteService.
+* Apex Trigger nova: última alternativa, apenas com justificativa técnica forte.
+
+DECISÕES FUNCIONAIS
+
+1. Pausa e retomada são ações operacionais sobre Área Interna manual.
+2. Registros Standard de Milestone não participam desta regra.
+3. Área Interna concluída ou cancelada não pode ser pausada.
+4. Área Interna já pausada não deve ser pausada novamente sem retomada.
+5. Área Interna não pausada não deve ser retomada.
+6. A pausa deve registrar data/hora de início da pausa.
+7. A retomada deve registrar data/hora de fim da pausa e acumular tempo pausado.
+8. O tempo pausado deve ser considerado para não penalizar indevidamente o SLA da Área Interna.
+9. Não criar campos novos sem antes verificar se já existem campos adequados.
+10. Não recriar campos removidos no 16B.
+
+ANÁLISE OBRIGATÓRIA ANTES DE IMPLEMENTAR
+
+Antes de codificar, analisar se já existem campos em AreaParticipante__c relacionados a:
+
+* pausa;
+* retomada;
+* tempo pausado;
+* status de pausa;
+* motivo de pausa;
+* data/hora início pausa;
+* data/hora fim pausa;
+* status SLA;
+* status atuação.
+
+Também analisar classes existentes relacionadas a:
+
+* AreaParticipanteService;
+* AreaParticipanteSLAHelper;
+* AreaParticipanteSelector;
+* AreaParticipanteController;
+* cálculo de tempo;
+* batch/scheduler de SLA;
+* painel LWC de Área Participante.
+
+Não criar campo novo neste pacote sem confirmação. Se faltar campo essencial, documentar a pendência e parar antes de ampliar escopo.
+
+ESCOPO FUNCIONAL
+
+Implementar, se os campos existentes permitirem, métodos/ações para:
+
+1. Pausar Área Interna manual aberta.
+2. Retomar Área Interna manual pausada.
+3. Registrar tempo pausado acumulado.
+4. Atualizar status operacional/SLA de forma coerente com valoresa manual pausada.
+5. Registrar tempo pausado acumulado.
+6. Atualizar status operacional/S existentes.
+7. Impedir pausa de registros Standard.
+8. Impedir retomada de registros Standard.
+9. Impedir pausa de registro concluído/cancelado.
+10. Impedir retomada de registro não pausado.
+11. Manter compatibilidade com o painel caseAreasParticipantesPanel, sem alterar o componente neste pacote.
+
+STATUS
+
+Antes de implementar, verificar os valores reais das picklists existentes.
+
+Não inventar valores novos.
+
+Para StatusAtuacao__c, procurar valores equivalentes a:
+
+* Aberta
+* Em Andamento
+* Pausada
+* Concluída
+* Cancelada
+* Vencida
+
+Para StatusSLA__c, procurar valores equivalentes a:
+
+* Dentro do Prazo
+* Pausado
+* Vencido
+* Concluído
+
+Se não existir valor adequado para pausa, documentar pendência e não criar valor novo neste pacote sem confirmação.
+
+CAMPOS
+
+Usar somente campos existentes.
+
+Campos possíveis, se existirem:
+
+* DataHoraInicioPausa__c
+* DataHoraFimPausa__c
+* TempoPausadoMinutos__c
+* MotivoPausa__c
+* StatusAtuacao__c
+* StatusSLA__c
+* TempoConsumidoMinutos__c
+* TempoRestanteMinutos__c
+* PercentualDecorrido__c
+* DataHoraPrazo__c
+* ViolouSLA__c
+
+Se os nomes reais forem diferentes, usar os existentes e documentar o mapeamento.
+
+REGRA DE PAUSA
+
+Para pausar uma Área Interna:
+
+1. Validar que o registro é:
+
+   * TipoAreaParticipante__c = Área Interna
+   * OrigemSLA__c = Custom
+
+2. Validar que está aberto/em andamento/vencido, conforme valores existentes.
+
+3. Validar que não está concluído/cancelado.
+
+4. Validar que ainda não está pausado.
+
+5. Registrar data/hora de início da pausa.
+
+6. Atualizar status para pausado, se houver valor existente.
+
+7. Não alterar registros Standard.
+
+REGRA DE RETOMADA
+
+Para retomar uma Área Interna:
+
+1. Validar que o registro é:
+
+   * TipoAreaParticipante__c = Área Interna
+   * OrigemSLA__c = Custom
+
+2. Validar que está pausado.
+
+3. Calcular tempo pausado desde a data/hora de início da pausa.
+
+4. Somar ao tempo pausado acumulado, se houver campo existente.
+
+5. Limpar data/hora de início da pausa ou registrar data/hora fim da pausa, conforme modelo existente.
+
+6. Atualizar status para aberto/em andamento ou status equivalente existente.
+
+7. Recalcular tempos operacionais se o projeto já tiver helper seguro para isso.
+
+8. Não alterar registros Standard.
+
+CÁLCULO DE TEMPO
+
+Se já existir helper de cálculo de SLA/tempo em AreaParticipante, reutilizar.
+
+Não criar motor complexo novo se não houver base segura.
+
+Não hardcodar BusinessHoursId.
+
+Não fazer cálculo manual frágil se o projeto já tiver cálculo centralizado.
+
+Se o cálculo depender de Business Hours e não houver helper pronto, documentar pendência e manter escopo mínimo.
+
+FORA DO ESCOPO
+
+Não alterar componente caseAreasParticipantesPanel.
+
+Não alterar layout de página.
+
+Não alterar Permission Sets.
+
+Não alterar Entitlement Process.
+
+Não alterar CaseMilestone.
+
+Não alterar espelhamento Standard do Pacote 19.
+
+Não alterar bloqueio de fechamento do Pacote 20.
+
+Não alterar orquestração de etapa do Pacote 21, salvo se houver dependência mínima e justificada.
+
+Não criar campos novos.
+
+Não alterar picklists sem confirmação.
+
+Não criar Flow novo se já houver Service adequado.
+
+Não criar Trigger Apex nova salvo justificativa técnica forte.
+
+Não recriar campos removidos no 16B:
+
+* Origem__c
+* VigenciaInicio__c
+* VigenciaFim__c
+* TipoAtuacao__c
+
+Não usar valores antigos de EscopoRegra__c:
+
+* Global
+* Por Categorizacao
+* Por Area Interna
+
+TESTES OBRIGATÓRIOS
+
+Criar ou ajustar testes conforme a arquitetura escolhida.
+
+Se houver Apex Service/Invocable, cobrir:
+
+1. Pausar Área Interna Custom aberta.
+2. Retomar Área Interna Custom pausada.
+3. Impedir pausa de registro Standard.
+4. Impedir retomada de registro Standard.
+5. Impedir pausa de Área Interna concluída.
+6. Impedir pausa de Área Interna cancelada, se status existir.
+7. Impedir retomada de Área Interna não pausada.
+8. Impedir pausa duplicada.
+9. Acumular tempo pausado, se houver campo existente.
+10. Bulk com múltiplas Áreas Internas.
+11. Nenhum teste usa campos removidos no 16B.
+12. Sem SeeAllData=true.
+13. Sem System.assert.
+14. Usar Assert.areEqual quando aplicável.
+15. Sem hardcoded Id.
+
+Se a implementação for somente Flow:
+
+* Documentar validação manual/deploy do Flow.
+* Criar teste Apex apenas se houver Apex Invocable/Service.
+* Documentar cenários validados na evidência.
+
+EVIDÊNCIAS OBRIGATÓRIAS
+
+Criar README_EVIDENCIAS.md contendo:
+
+1. Objetivo do pacote.
+2. Arquivos alterados/criados.
+3. Flows de Case/AreaParticipante analisados.
+4. Services/classes analisados.
+5. Campos existentes de pausa/retomada encontrados.
+6. Decisão arquitetural tomada.
+7. Justificativa: Flow puro, Flow + Apex Invocable, Service existente, Trigger Handler ou outro padrão.
+8. Confirmação de que não foi criada automação paralela desnecessária.
+9. Critério usado para pausar.
+10. Critério usado para retomar.
+11. Confirmação de que Standard não é pausado/retomado.
+12. Confirmação de que apenas Área Interna Custom é afetada.
+13. Confirmação de que campos removidos no 16B não foram usados/recriados.
+14. Testes executados.
+15. Resultado do dry-run, se executado.
+16. UTF-8 sem BOM.
+17. Ausência de mojibake.
+18. Próximo pacote recomendado.
+
+Criar pasta evidencias/ com:
+
+* 01_inventario_automacoes_case_area_participante.md
+* 02_inventario_campos_pausa_retomada.md
+* 03_inventario_status_area_participante.md
+* 04_decisao_arquitetural_flow_apex_service.md
+* 05_criterio_pausa.md
+* 06_criterio_retomada.md
+* 07_validacao_standard_nao_afetado.md
+* 08_validacao_custom_area_interna_afetada.md
+* 09_validacao_campos_removidos_16b.md
+* 10_validacao_testes.md
+* 11_validacao_utf8_sem_bom.md
+* 12_validacao_sem_mojibake.md
+* 13_checklist_final_prompt.md
+* 14_pendencias_proximos_pacotes.md
+
+PACKAGE.XML
+
+Gerar package.xml mínimo e sem wildcard.
+
+Incluir somente membros realmente criados ou alterados.
+
+FORMATO DO DELTA
+
+Criar pasta:
+
+delta_area_participante_pausa_retomada/
+
+Estrutura sugerida:
+
+delta_area_participante_pausa_retomada/
+├── package.xml
+├── README_EVIDENCIAS.md
+├── evidencias/
+├── flows/
+│   └── incluir somente se Flow for alterado/criado
+├── classes/
+│   └── incluir somente se Apex for criado/alterado
+└── objects/
+└── incluir somente se houver metadata estritamente necessário e previamente justificado
+
+CRITÉRIOS DE ACEITE
+
+A entrega será considerada correta quando:
+
+1. Área Interna Custom aberta puder ser pausada.
+2. Área Interna Custom pausada puder ser retomada.
+3. Registro Standard não puder ser pausado nem retomado.
+4. Registro concluído/cancelado não puder ser pausado.
+5. Registro não pausado não puder ser retomado.
+6. Tempo pausado for acumulado se houver campo existente.
+7. Regra for bulk safe.
+8. Arquitetura Flow-first for avaliada e respeitada.
+9. Nenhum campo novo for criado sem confirmação.
+10. Nenhum campo removido no 16B for usado.
+11. Nenhuma funcionalidade fora de escopo for alterada.
+12. Delta estiver isolado em delta_area_participante_pausa_retomada.
+
+CHECKLIST FINAL OBRIGATÓRIO ANTES DE RESPONDER QUE ESTÁ PRONTO
+
+Antes de finalizar e dizer que o pacote está pronto, releia integralmente este prompt e valide item a item se tudo foi executado.
+
+Obrigatório criar evidência:
+
+evidencias/13_checklist_final_prompt.md
+
+Essa evidência deve conter uma checklist objetiva confirmando:
+
+1. Objetivo do pacote atendido.
+2. Arquitetura Flow-first avaliada.
+3. Flows existentes analisados.
+4. Services existentes analisados.
+5. Decisão entre Flow, Flow + Apex Invocable, Service existente ou Trigger documentada.
+6. Fora do escopo respeitado.
+7. Nenhum campo removido no 16B foi usado/recriado.
+8. Nenhum valor antigo de EscopoRegra__c foi usado.
+9. Regra implementada somente para Área Interna Custom.
+10. Registros Standard não são pausados/retomados.
+11. Campos novos não foram criados sem confirmação.
+12. Testes obrigatórios foram executados ou justificativa documentada.
+13. package.xml mínimo e sem wildcard.
+14. UTF-8 sem BOM.
+15. Sem mojibake.
+16. Nenhum artefato extra foi incluído no delta.
+17. O prompt foi relido antes da finalização.
+
+Se algum item não tiver sido executado, não diga que está pronto. Documente a pendência e pare.
+
+SAÍDA ESPERADA
+
+Ao final, informar:
+
+1. Caminho do delta.
+2. Arquivos criados/alterados.
+3. Flows analisados.
+4. Services/classes analisados.
+5. Campos de pausa/retomada encontrados.
+6. Decisão arquitetural tomada.
+7. Se usou Flow, Flow + Apex Invocable, Service existente ou Trigger.
+8. Onde a regra foi implementada.
+9. Como a pausa funciona.
+10. Como a retomada funciona.
+11. Testes executados.
+12. Resultado do dry-run, se executado.
+13. Confirmação de que Standard não é afetado.
+14. Confirmação de que Custom Área Interna é afetada.
+15. Confirmação de que o checklist final do prompt foi executado.
