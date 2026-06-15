@@ -3,7 +3,8 @@ private class AreaParticipanteServiceTest {
     private static void enableBhBypass() {
         AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
         BusinessHoursResolverService.injectedByName.clear();
-        BusinessHoursResolverService.injectedByName.put('Tecon Salvador', (Id) '01m000000000001AAA');
+        List<BusinessHours> bhs = [SELECT Id FROM BusinessHours WHERE IsActive = true LIMIT 1];
+        if (!bhs.isEmpty()) { BusinessHoursResolverService.injectedByName.put('Tecon Salvador', bhs[0].Id); }
     }
 
     @IsTest
@@ -141,7 +142,8 @@ private class AreaParticipanteServiceTest {
     static void testAddParticipationCriaCamposCorretos() {
         AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
         BusinessHoursResolverService.injectedByName.clear();
-        BusinessHoursResolverService.injectedByName.put('Tecon Salvador', (Id) '01m000000000001AAA');
+        List<BusinessHours> bhs141 = [SELECT Id FROM BusinessHours WHERE IsActive = true LIMIT 1];
+        if (!bhs141.isEmpty()) { BusinessHoursResolverService.injectedByName.put('Tecon Salvador', bhs141[0].Id); }
 
         List<String> areas = AreaParticipanteTestDataFactory.commonAreaValues();
         Case c = AreaParticipanteTestDataFactory.createCase(areas[0], null);
@@ -422,5 +424,254 @@ private class AreaParticipanteServiceTest {
         Assert.areEqual(true, closeRes.success);
         Assert.areEqual(false, closeRes.etapaAtualizada);
         Assert.areEqual('Cancelado', updatedCase.EtapaAtendimento__c);
+    }
+
+    @IsTest
+    static void testPauseManualCustomAreaSuccess() {
+        enableBhBypass();
+        Id areaId = createOpenManualCustomArea();
+
+        AreaParticipanteDTO.PauseResumeRequestDTO req = new AreaParticipanteDTO.PauseResumeRequestDTO();
+        req.areaParticipanteId = areaId;
+
+        Test.startTest();
+        AreaParticipanteDTO.PauseResumeResponseDTO res = AreaParticipanteService.pauseParticipation(req);
+        Test.stopTest();
+
+        AreaParticipante__c saved = [
+            SELECT DataHoraInicioPausa__c, StatusAtuacao__c, StatusAtuacaoAnteriorPausa__c, StatusSLA__c
+            FROM AreaParticipante__c
+            WHERE Id = :areaId
+        ];
+        Assert.areEqual(true, res.success);
+        Assert.isNotNull(saved.DataHoraInicioPausa__c, 'A pausa deve registrar inicio.');
+        Assert.areEqual(AreaParticipanteSLAHelper.STATUS_ATUACAO_ABERTA, saved.StatusAtuacao__c);
+        Assert.areEqual(AreaParticipanteSLAHelper.STATUS_ATUACAO_ABERTA, saved.StatusAtuacaoAnteriorPausa__c);
+        Assert.areEqual(AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO, saved.StatusSLA__c);
+    }
+
+    @IsTest
+    static void testResumeManualCustomAreaAccumulatesPausedTime() {
+        enableBhBypass();
+        Id areaId = createOpenManualCustomArea();
+
+        AreaParticipanteDTO.PauseResumeRequestDTO req = new AreaParticipanteDTO.PauseResumeRequestDTO();
+        req.areaParticipanteId = areaId;
+        AreaParticipanteService.pauseParticipation(req);
+
+        update new AreaParticipante__c(
+            Id = areaId,
+            DataHoraInicioPausa__c = System.now().addMinutes(-30),
+            StatusSLA__c = AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO
+        );
+
+        Test.startTest();
+        AreaParticipanteDTO.PauseResumeResponseDTO res = AreaParticipanteService.resumeParticipation(req);
+        Test.stopTest();
+
+        AreaParticipante__c saved = [
+            SELECT DataHoraInicioPausa__c, TempoPausadoMinutos__c, StatusSLA__c
+            FROM AreaParticipante__c
+            WHERE Id = :areaId
+        ];
+        Assert.areEqual(true, res.success);
+        Assert.areEqual(null, saved.DataHoraInicioPausa__c);
+        Assert.areEqual(30, saved.TempoPausadoMinutos__c);
+        Assert.areEqual(AreaParticipanteSLAHelper.STATUS_SLA_DENTRO_PRAZO, saved.StatusSLA__c);
+    }
+
+    @IsTest
+    static void testPauseRejectsStandardArea() {
+        enableBhBypass();
+        List<String> areas = AreaParticipanteTestDataFactory.commonAreaValues();
+        Case c = AreaParticipanteTestDataFactory.createCase(areas[0], null);
+        AreaParticipante__c standardArea = new AreaParticipante__c(
+            Caso__c = c.Id,
+            AreaAtendimento__c = areas[0],
+            TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
+            OrigemSLA__c = AreaParticipanteSLAHelper.ORIGEM_SLA_STANDARD,
+            StatusAtuacao__c = AreaParticipanteSLAHelper.STATUS_ATUACAO_ABERTA,
+            DataHoraInicio__c = System.now()
+        );
+        insert standardArea;
+
+        AreaParticipanteDTO.PauseResumeRequestDTO req = new AreaParticipanteDTO.PauseResumeRequestDTO();
+        req.areaParticipanteId = standardArea.Id;
+
+        try {
+            AreaParticipanteService.pauseParticipation(req);
+            Assert.fail('Standard nao deve ser pausado.');
+        } catch (AreaParticipanteService.FunctionalException ex) {
+            Assert.areEqual('NOT_CUSTOM_INTERNAL_AREA', ex.code);
+        }
+    }
+
+    @IsTest
+    static void testResumeRejectsStandardArea() {
+        enableBhBypass();
+        List<String> areas = AreaParticipanteTestDataFactory.commonAreaValues();
+        Case c = AreaParticipanteTestDataFactory.createCase(areas[0], null);
+        AreaParticipante__c standardArea = new AreaParticipante__c(
+            Caso__c = c.Id,
+            AreaAtendimento__c = areas[0],
+            TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
+            OrigemSLA__c = AreaParticipanteSLAHelper.ORIGEM_SLA_STANDARD,
+            StatusAtuacao__c = AreaParticipanteSLAHelper.STATUS_ATUACAO_ABERTA,
+            StatusSLA__c = AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO,
+            DataHoraInicioPausa__c = System.now().addMinutes(-5),
+            DataHoraInicio__c = System.now().addHours(-1)
+        );
+        insert standardArea;
+
+        AreaParticipanteDTO.PauseResumeRequestDTO req = new AreaParticipanteDTO.PauseResumeRequestDTO();
+        req.areaParticipanteId = standardArea.Id;
+
+        try {
+            AreaParticipanteService.resumeParticipation(req);
+            Assert.fail('Standard nao deve ser retomado.');
+        } catch (AreaParticipanteService.FunctionalException ex) {
+            Assert.areEqual('NOT_CUSTOM_INTERNAL_AREA', ex.code);
+        }
+    }
+
+    @IsTest
+    static void testPauseRejectsClosedAndCanceledArea() {
+        enableBhBypass();
+        List<Id> areaIds = createOpenManualCustomAreas(2);
+        if (areaIds.size() < 2) return;
+        Id closedId = areaIds[0];
+        Id canceledId = areaIds[1];
+        update new List<AreaParticipante__c>{
+            new AreaParticipante__c(Id = closedId, StatusAtuacao__c = AreaParticipanteSLAHelper.STATUS_ATUACAO_CONCLUIDA, DataHoraFim__c = System.now()),
+            new AreaParticipante__c(Id = canceledId, StatusAtuacao__c = AreaParticipanteSLAHelper.STATUS_ATUACAO_CANCELADA)
+        };
+
+        assertPauseFails(closedId, 'ALREADY_CLOSED');
+        assertPauseFails(canceledId, 'ALREADY_CANCELED');
+    }
+
+    @IsTest
+    static void testResumeRejectsNotPausedAndPauseRejectsDuplicate() {
+        enableBhBypass();
+        Id areaId = createOpenManualCustomArea();
+
+        AreaParticipanteDTO.PauseResumeRequestDTO req = new AreaParticipanteDTO.PauseResumeRequestDTO();
+        req.areaParticipanteId = areaId;
+        try {
+            AreaParticipanteService.resumeParticipation(req);
+            Assert.fail('Area nao pausada nao deve ser retomada.');
+        } catch (AreaParticipanteService.FunctionalException ex) {
+            Assert.areEqual('NOT_PAUSED', ex.code);
+        }
+
+        AreaParticipanteService.pauseParticipation(req);
+        try {
+            AreaParticipanteService.pauseParticipation(req);
+            Assert.fail('Pausa duplicada nao deve ser aceita.');
+        } catch (AreaParticipanteService.FunctionalException ex) {
+            Assert.areEqual('ALREADY_PAUSED', ex.code);
+        }
+    }
+
+    @IsTest
+    static void testPauseResumeRowsBulk() {
+        enableBhBypass();
+        List<Id> areaIds = createOpenManualCustomAreas(2);
+        if (areaIds.size() < 2) return;
+        Id areaOneId = areaIds[0];
+        Id areaTwoId = areaIds[1];
+        List<AreaParticipante__c> rows = AreaParticipanteSelector.getAreasByIds(new Set<Id>{ areaOneId, areaTwoId });
+
+        Test.startTest();
+        AreaParticipanteService.pauseRows(rows, System.now());
+        for (AreaParticipante__c row : rows) {
+            row.DataHoraInicioPausa__c = System.now().addMinutes(-10);
+            row.StatusSLA__c = AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO;
+        }
+        AreaParticipanteService.resumeRows(rows, System.now());
+        Test.stopTest();
+
+        List<AreaParticipante__c> savedRows = [
+            SELECT DataHoraInicioPausa__c, TempoPausadoMinutos__c
+            FROM AreaParticipante__c
+            WHERE Id IN :new Set<Id>{ areaOneId, areaTwoId }
+        ];
+        Assert.areEqual(2, savedRows.size());
+        for (AreaParticipante__c row : savedRows) {
+            Assert.areEqual(null, row.DataHoraInicioPausa__c);
+            Assert.areEqual(10, row.TempoPausadoMinutos__c);
+        }
+    }
+
+    @IsTest
+    static void testResumeOverdueAreaKeepsVencidoStatus() {
+        enableBhBypass();
+        Id areaId = createOpenManualCustomArea();
+
+        // Force area into overdue state: deadline 2 hours in the past
+        Datetime now = System.now();
+        update new AreaParticipante__c(
+            Id = areaId,
+            DataHoraPrazo__c = now.addHours(-2),
+            StatusSLA__c = AreaParticipanteSLAHelper.STATUS_SLA_VENCIDO,
+            ViolouSLA__c = true
+        );
+
+        AreaParticipanteDTO.PauseResumeRequestDTO req = new AreaParticipanteDTO.PauseResumeRequestDTO();
+        req.areaParticipanteId = areaId;
+        AreaParticipanteService.pauseParticipation(req);
+
+        // Backdate pause start to 30 minutes ago; resume extends deadline by 30 min (still 90 min in the past)
+        update new AreaParticipante__c(
+            Id = areaId,
+            DataHoraInicioPausa__c = now.addMinutes(-30),
+            StatusSLA__c = AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO
+        );
+
+        Test.startTest();
+        AreaParticipanteDTO.PauseResumeResponseDTO res = AreaParticipanteService.resumeParticipation(req);
+        Test.stopTest();
+
+        AreaParticipante__c saved = [
+            SELECT DataHoraInicioPausa__c, TempoPausadoMinutos__c, StatusSLA__c, DataHoraPrazo__c
+            FROM AreaParticipante__c
+            WHERE Id = :areaId
+        ];
+        Assert.areEqual(true, res.success);
+        Assert.areEqual(null, saved.DataHoraInicioPausa__c);
+        Assert.areEqual(30, saved.TempoPausadoMinutos__c);
+        // Extended deadline is still ~90 min in the past; calculateCacheBulk must set Vencido, not Dentro do Prazo
+        Assert.areEqual(AreaParticipanteSLAHelper.STATUS_SLA_VENCIDO, saved.StatusSLA__c);
+    }
+
+    private static Id createOpenManualCustomArea() {
+        return createOpenManualCustomAreas(1)[0];
+    }
+
+    private static List<Id> createOpenManualCustomAreas(Integer count) {
+        List<String> areas = AreaParticipanteTestDataFactory.commonAreaValues();
+        String area1 = areas[0];
+        String area2 = areas.size() > 1 ? areas[1] : null;
+        Case c = AreaParticipanteTestDataFactory.createCase(area1, count > 1 ? area2 : null);
+        List<Id> out = new List<Id>();
+        for (Integer i = 0; i < count && i < areas.size(); i++) {
+            AreaParticipanteDTO.AddRequestDTO addReq = new AreaParticipanteDTO.AddRequestDTO();
+            addReq.caseId = c.Id;
+            addReq.area = areas[i];
+            addReq.comentarioSolicitacao = 'Pausa retomada manual ' + String.valueOf(i);
+            out.add(AreaParticipanteService.addParticipation(addReq).areaParticipanteId);
+        }
+        return out;
+    }
+
+    private static void assertPauseFails(Id areaId, String expectedCode) {
+        AreaParticipanteDTO.PauseResumeRequestDTO req = new AreaParticipanteDTO.PauseResumeRequestDTO();
+        req.areaParticipanteId = areaId;
+        try {
+            AreaParticipanteService.pauseParticipation(req);
+            Assert.fail('Pausa deveria falhar.');
+        } catch (AreaParticipanteService.FunctionalException ex) {
+            Assert.areEqual(expectedCode, ex.code);
+        }
     }
 }

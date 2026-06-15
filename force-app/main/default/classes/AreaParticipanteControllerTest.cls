@@ -3,7 +3,8 @@ private class AreaParticipanteControllerTest {
     private static void enableBhBypass() {
         AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
         BusinessHoursResolverService.injectedByName.clear();
-        BusinessHoursResolverService.injectedByName.put('Tecon Salvador', (Id) '01m000000000001AAA');
+        List<BusinessHours> bhs = [SELECT Id FROM BusinessHours WHERE IsActive = true LIMIT 1];
+        if (!bhs.isEmpty()) { BusinessHoursResolverService.injectedByName.put('Tecon Salvador', bhs[0].Id); }
     }
 
     @IsTest
@@ -121,12 +122,86 @@ private class AreaParticipanteControllerTest {
     }
 
     @IsTest
+    static void testPauseAndResumeParticipationSuccess() {
+        enableBhBypass();
+        List<String> areas = AreaParticipanteTestDataFactory.commonAreaValues();
+        String area1 = areas[0];
+        Case c = AreaParticipanteTestDataFactory.createCase(area1, null);
+
+        AreaParticipanteDTO.AddRequestDTO addReq = new AreaParticipanteDTO.AddRequestDTO();
+        addReq.caseId = c.Id;
+        addReq.area = area1;
+        addReq.comentarioSolicitacao = 'Solicitacao pausa controller';
+        AreaParticipanteDTO.AddResponseDTO addRes = AreaParticipanteController.addParticipation(addReq);
+
+        AreaParticipanteDTO.PauseResumeRequestDTO req = new AreaParticipanteDTO.PauseResumeRequestDTO();
+        req.areaParticipanteId = addRes.areaParticipanteId;
+
+        Test.startTest();
+        AreaParticipanteDTO.PauseResumeResponseDTO pauseRes = AreaParticipanteController.pauseParticipation(req);
+        update new AreaParticipante__c(
+            Id = addRes.areaParticipanteId,
+            DataHoraInicioPausa__c = System.now().addMinutes(-5),
+            StatusSLA__c = AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO
+        );
+        AreaParticipanteDTO.PauseResumeResponseDTO resumeRes = AreaParticipanteController.resumeParticipation(req);
+        Test.stopTest();
+
+        Assert.areEqual(true, pauseRes.success);
+        Assert.areEqual(true, resumeRes.success);
+        Assert.areEqual(addRes.areaParticipanteId, resumeRes.areaParticipanteId);
+    }
+
+    @IsTest
+    static void testPauseResumeFunctionalExceptions() {
+        Boolean pauseThrew = false;
+        try {
+            AreaParticipanteController.pauseParticipation(null);
+        } catch (AuraHandledException ex) {
+            pauseThrew = true;
+        }
+        Assert.isTrue(pauseThrew);
+
+        Boolean resumeThrew = false;
+        try {
+            AreaParticipanteController.resumeParticipation(null);
+        } catch (AuraHandledException ex) {
+            resumeThrew = true;
+        }
+        Assert.isTrue(resumeThrew);
+    }
+
+    @IsTest
+    static void testPauseResumeUnexpectedExceptions() {
+        AreaParticipanteController.testException = new IllegalArgumentException('forced');
+        Boolean pauseThrew = false;
+        Test.startTest();
+        try {
+            AreaParticipanteController.pauseParticipation(new AreaParticipanteDTO.PauseResumeRequestDTO());
+        } catch (AuraHandledException ex) {
+            pauseThrew = true;
+        }
+
+        Boolean resumeThrew = false;
+        try {
+            AreaParticipanteController.resumeParticipation(new AreaParticipanteDTO.PauseResumeRequestDTO());
+        } catch (AuraHandledException ex) {
+            resumeThrew = true;
+        }
+        Test.stopTest();
+        AreaParticipanteController.testException = null;
+
+        Assert.isTrue(pauseThrew);
+        Assert.isTrue(resumeThrew);
+    }
+
+    @IsTest
     static void testGetPanelDataUnexpectedException() {
         AreaParticipanteController.testException = new IllegalArgumentException('forced');
         Boolean threw = false;
         try {
             Test.startTest();
-            AreaParticipanteController.getPanelData('500000000000001AAA');
+            AreaParticipanteController.getPanelData(UserInfo.getUserId());
             Test.stopTest();
         } catch (AuraHandledException ex) { threw = true; }
         AreaParticipanteController.testException = null;
@@ -152,7 +227,7 @@ private class AreaParticipanteControllerTest {
         Boolean threw = false;
         try {
             Test.startTest();
-            AreaParticipanteController.getParticipationDetails('500000000000002AAA');
+            AreaParticipanteController.getParticipationDetails(UserInfo.getUserId());
             Test.stopTest();
         } catch (AuraHandledException ex) { threw = true; }
         AreaParticipanteController.testException = null;

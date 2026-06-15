@@ -23,4 +23,4 @@
 - [x] Hardcoded Id removido (3 ocorrencias substituidas por SOQL real).
 - [x] Novo teste de retomada de area vencida adicionado (`testResumeOverdueAreaKeepsVencidoStatus`).
 - [x] `package.xml` versao corrigida para `66.0`.
-- [x] Novo dry-run executado: Job `0Afbe00000AAAGTCA5`, Succeeded, 40/40 testes (hardcoded Ids 500* removidos, evidencias 07/08 padronizadas).
+- [x] Novo dry-run executado: Job `0Afbe00000AAAJhCAP`, Succeeded, 40/40 testes (delta sincronizado com force-app, todos hardcoded Ids removidos).

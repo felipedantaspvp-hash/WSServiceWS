@@ -21,7 +21,7 @@
 - Hardcoded Ids `'500000000000001AAA'` e `'500000000000002AAA'` removidos de `AreaParticipanteControllerTest.cls` (testes de excecao inesperada); substituidos por `UserInfo.getUserId()` (Id nunca e usado pois `testException` dispara antes de qualquer query).
 - Job Ids inconsistentes em evidencias 07 e 08 padronizados para `0Afbe00000AA2h8CAD`.
 
-## Dry-run final (Claude)
+## Dry-run rodada 2 (Claude)
 
 - Org: `WILSON_SERVICE`
 - Job: `0Afbe00000AAAGTCA5`
@@ -29,3 +29,17 @@
 - Test level: `RunSpecifiedTests`
 - Testes: `AreaParticipanteServiceTest`, `AreaParticipanteControllerTest`
 - Resultado: 40/40 testes, 0 falhas
+
+## Sincronizacao delta ↔ force-app (Claude)
+
+- `AreaParticipanteControllerTest` do force-app tinha 3 testes adicionais nao presentes no delta; copiado como base e correcoes de Id reaplicadas; propagado de volta ao force-app.
+- `AreaParticipanteServiceTest` ja estava completo no delta (incluindo `testResumeOverdueAreaKeepsVencidoStatus`); propagado ao force-app.
+
+## Dry-run rodada 3 (Claude)
+
+- Org: `WILSON_SERVICE`
+- Job: `0Afbe00000AAAJhCAP`
+- Status: `Succeeded`
+- Test level: `RunSpecifiedTests`
+- Testes: `AreaParticipanteServiceTest`, `AreaParticipanteControllerTest`
+- Resultado: 40/40 testes, 0 falhas (16 controller + 24 service)
