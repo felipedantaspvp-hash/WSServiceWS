@@ -25,6 +25,16 @@
 - Resultado: 16/16 testes, 0 falhas
 - Dry-run: 3 componentes validados (DTO, Service, ServiceTest)
 
+## Deploy real
+
+- Org: `WILSON_SERVICE`
+- Job: `0Afbe00000AAHcvCAH`
+- Status: `Succeeded`
+- Test level: `RunSpecifiedTests`
+- Testes: `GestaoSLAHealthCheckServiceTest`
+- Resultado: 16/16 testes, 0 falhas
+- Componentes: 3/3 criados (GestaoSLAHealthCheckDTO, GestaoSLAHealthCheckService, GestaoSLAHealthCheckServiceTest)
+
 ## Regras seguidas
 
 - `Assert.areEqual` em todos os asserts (sem `System.assert`)

@@ -26,3 +26,4 @@
 - [x] Nenhum artefato extra incluido no delta.
 - [x] `with sharing` no service.
 - [x] Dry-run executado — Job `0Afbe00000AAH8HCAX`, Succeeded, 16/16 testes.
+- [x] Deploy real executado — Job `0Afbe00000AAHcvCAH`, Succeeded, 16/16 testes, 3/3 componentes criados.
