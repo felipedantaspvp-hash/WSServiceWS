@@ -11,7 +11,7 @@ Expor no LWC `caseAreasParticipantesPanel` as acoes de pausar e retomar Area Int
 - `force-app/main/default/lwc/caseAreasParticipantesPanel/caseAreasParticipantesPanel.js`
 - `force-app/main/default/lwc/caseAreasParticipantesPanel/caseAreasParticipantesPanel.html`
 - `force-app/main/default/lwc/caseAreasParticipantesPanel/caseAreasParticipantesPanel.css`
-- `force-app/main/default/lwc/caseAreasParticipantesPanel/__tests__/caseAreasParticipantesPanel.test.js`
+- `delta_area_participante_pausa_retomada_ux/tests/lwc/caseAreasParticipantesPanel/caseAreasParticipantesPanel.test.js`
 
 ## Metodos Apex reutilizados
 
@@ -43,7 +43,7 @@ O DTO foi alterado neste pacote para expor `canPause` e `canResume`. Essas flags
 ## Testes executados
 
 - `node --check force-app/main/default/lwc/caseAreasParticipantesPanel/caseAreasParticipantesPanel.js`: passou.
-- `node --check force-app/main/default/lwc/caseAreasParticipantesPanel/__tests__/caseAreasParticipantesPanel.test.js`: passou.
+- `node --check delta_area_participante_pausa_retomada_ux/tests/lwc/caseAreasParticipantesPanel/caseAreasParticipantesPanel.test.js`: passou.
 - Jest LWC: criado, mas nao executado localmente porque `node_modules` nao existe e `sfdx-lwc-jest` nao esta instalado/cacheado.
 
 O arquivo Jest foi incluido no delta como artefato de apoio em `tests/lwc/caseAreasParticipantesPanel/caseAreasParticipantesPanel.test.js`.

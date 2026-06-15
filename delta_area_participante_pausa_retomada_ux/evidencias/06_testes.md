@@ -2,8 +2,7 @@
 
 ## Criados
 
-- `force-app/main/default/lwc/caseAreasParticipantesPanel/__tests__/caseAreasParticipantesPanel.test.js`
-- `delta_area_participante_pausa_retomada_ux/tests/lwc/caseAreasParticipantesPanel/caseAreasParticipantesPanel.test.js` (artefato de apoio no delta)
+- `delta_area_participante_pausa_retomada_ux/tests/lwc/caseAreasParticipantesPanel/caseAreasParticipantesPanel.test.js`
 
 Cobertura prevista:
 
@@ -17,7 +16,7 @@ Cobertura prevista:
 ## Executados
 
 - `node --check force-app/main/default/lwc/caseAreasParticipantesPanel/caseAreasParticipantesPanel.js`: passou.
-- `node --check force-app/main/default/lwc/caseAreasParticipantesPanel/__tests__/caseAreasParticipantesPanel.test.js`: passou.
+- `node --check delta_area_participante_pausa_retomada_ux/tests/lwc/caseAreasParticipantesPanel/caseAreasParticipantesPanel.test.js`: passou.
 - Dry-run `0Afbe00000AAAd3CAH`: `Succeeded`, `RunSpecifiedTests`, 40/40 testes, 0 falhas.
 
 ## Limitacao local
