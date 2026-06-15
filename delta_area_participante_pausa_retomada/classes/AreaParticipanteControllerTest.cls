@@ -201,7 +201,7 @@ private class AreaParticipanteControllerTest {
         Boolean threw = false;
         try {
             Test.startTest();
-            AreaParticipanteController.getPanelData('500000000000001AAA');
+            AreaParticipanteController.getPanelData(UserInfo.getUserId());
             Test.stopTest();
         } catch (AuraHandledException ex) { threw = true; }
         AreaParticipanteController.testException = null;
@@ -227,7 +227,7 @@ private class AreaParticipanteControllerTest {
         Boolean threw = false;
         try {
             Test.startTest();
-            AreaParticipanteController.getParticipationDetails('500000000000002AAA');
+            AreaParticipanteController.getParticipationDetails(UserInfo.getUserId());
             Test.stopTest();
         } catch (AuraHandledException ex) { threw = true; }
         AreaParticipanteController.testException = null;

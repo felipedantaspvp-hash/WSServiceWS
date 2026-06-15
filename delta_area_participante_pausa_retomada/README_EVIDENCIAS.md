@@ -79,7 +79,7 @@ Nao foram usados nem recriados: `Origem__c`, `VigenciaInicio__c`, `VigenciaFim__
 
 Dry-run anterior (Codex) `0Afbe00000AA5NGCA1`: `Succeeded`, 39/39 testes.
 
-Apos ajustes pos-Codex (Claude) `0Afbe00000AA2h8CAD`: `Succeeded`, 40/40 testes (hardcoded Id removido, +1 teste overdue, package.xml 66.0).
+Apos ajustes pos-Codex (Claude) `0Afbe00000AAAGTCA5`: `Succeeded`, 40/40 testes (todos hardcoded Ids removidos, +1 teste overdue, package.xml 66.0, evidencias 07/08 padronizadas).
 
 ## Code Analyzer
 
