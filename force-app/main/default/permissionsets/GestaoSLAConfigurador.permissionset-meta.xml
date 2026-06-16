@@ -17,6 +17,11 @@
         <name>GerenciarRegrasSLA</name>
     </customPermissions>
     <description>Permission Set funcional para acesso configurador da futura Gestão de SLA.</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Categorizacao__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Gestão SLA - Configurador</label>
     <tabSettings>

@@ -155,7 +155,7 @@ public inherited sharing class CaseCreationService {
 
         Map<String, String> values = new Map<String, String>();
         values.put('RecordTypeId', String.valueOf(request.categorization.recordTypeId));
-        values.put('UnidadeNegocio__c', CaseCreationHelper.normalizeBusinessUnitForCase(request.categorization.unidadeNegocio));
+        values.put('UnidadeNegocio__c', CaseCreationSelector.resolveCanonicalBusinessUnit(request.categorization.unidadeNegocio));
         if (matchedCategorization != null) {
             values.put('Categorizacao__c', String.valueOf(matchedCategorization.Id));
         }

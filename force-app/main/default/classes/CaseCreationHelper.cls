@@ -30,11 +30,12 @@ public inherited sharing class CaseCreationHelper {
 
     public static String normalizeBusinessUnitForCase(String businessUnitName) {
         if (String.isBlank(businessUnitName)) return null;
-        String normalized = normalizeText(businessUnitName);
-        if (normalized.contains('salvador')) return 'Tecon Salvador';
-        if (normalized.contains('riogrande')) return 'Tecon Rio Grande';
-        if (normalized.contains('centrologistico') || normalized.contains('logistica')) return 'Centro Logístico';
-        if (normalized.contains('rebocadores')) return 'Rebocadores';
+        String normalizedInput = normalizeText(businessUnitName);
+        for (Schema.PicklistEntry pe : Case.UnidadeNegocio__c.getDescribe().getPicklistValues()) {
+            String normalizedPe = normalizeText(pe.getValue());
+            if (normalizedPe == normalizedInput) return pe.getValue();
+            if (!String.isBlank(normalizedInput) && normalizedPe.contains(normalizedInput)) return pe.getValue();
+        }
         return businessUnitName.trim();
     }
 

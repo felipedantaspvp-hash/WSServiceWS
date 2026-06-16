@@ -131,14 +131,16 @@ public inherited sharing class CaseCreationSelector {
         if (!String.isBlank(canonical)) out.add(canonical);
 
         String normalized = CaseCreationHelper.normalizeText(canonical);
-        if (normalized == 'teconsalvador') {
+        if (normalized.contains('salvador')) {
             out.add('Salvador');
             out.add('Atendimento Salvador');
-        } else if (normalized == 'teconriogrande') {
+            out.add('Tecon Salvador');
+        } else if (normalized.contains('riogrande')) {
             out.add('Rio Grande');
             out.add('RioGrande');
             out.add('Atendimento Rio Grande');
             out.add('Atendimento Tecon Rio Grande');
+            out.add('Tecon Rio Grande');
         }
         return out;
     }

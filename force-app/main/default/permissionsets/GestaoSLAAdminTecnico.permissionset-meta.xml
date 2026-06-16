@@ -211,6 +211,11 @@
         <field>MarcoSLA__c.UsaOrigem__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Categorizacao__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Gestão SLA - Admin Técnico</label>
     <objectPermissions>

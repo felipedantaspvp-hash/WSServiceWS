@@ -784,11 +784,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>AreaParticipante__c.TipoAtuacao__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>AreaParticipante__c.ViolouSLA__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -863,9 +858,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Case.Categorizacao__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -2449,11 +2444,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>RegrasSLACategorizacao__c.Origem__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>RegrasSLACategorizacao__c.TempoAlta__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2470,16 +2460,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>RegrasSLACategorizacao__c.TipoAreaParticipante__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>RegrasSLACategorizacao__c.VigenciaFim__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>RegrasSLACategorizacao__c.VigenciaInicio__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
