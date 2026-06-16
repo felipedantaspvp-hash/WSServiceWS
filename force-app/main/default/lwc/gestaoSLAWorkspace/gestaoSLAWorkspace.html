@@ -785,10 +785,10 @@
                                     <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
                                         <thead>
                                             <tr class="slds-line-height_reset">
-                                                <th class="area-interna-col-area">{labels.ruleColInternalArea}</th>
-                                                <th class="area-interna-col-time">{labels.rulePriorityHighMin}</th>
-                                                <th class="area-interna-col-time">{labels.rulePriorityMediumMin}</th>
-                                                <th class="area-interna-col-time">{labels.rulePriorityLowMin}</th>
+                                                <th class="area-interna-col-area area-interna-th-clickable" ondblclick={handleReplicateFirstRow} title="Duplo clique: replica toda a primeira linha para todas as áreas">{labels.ruleColInternalArea}</th>
+                                                <th class="area-interna-col-time area-interna-th-clickable" data-field="tempoAlta" ondblclick={handleReplicateColumn} title="Duplo clique: replica o valor da primeira área para todas">{labels.rulePriorityHighMin}</th>
+                                                <th class="area-interna-col-time area-interna-th-clickable" data-field="tempoMedia" ondblclick={handleReplicateColumn} title="Duplo clique: replica o valor da primeira área para todas">{labels.rulePriorityMediumMin}</th>
+                                                <th class="area-interna-col-time area-interna-th-clickable" data-field="tempoBaixa" ondblclick={handleReplicateColumn} title="Duplo clique: replica o valor da primeira área para todas">{labels.rulePriorityLowMin}</th>
                                             </tr>
                                         </thead>
                                         <tbody>

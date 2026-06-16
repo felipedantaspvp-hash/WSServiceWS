@@ -1004,6 +1004,25 @@ export default class GestaoSLAWorkspace extends LightningElement {
         );
     }
 
+    handleReplicateColumn(event) {
+        const field = event.currentTarget?.dataset?.field;
+        if (!field || this.areasInternasRows.length === 0) return;
+        const sourceValue = this.areasInternasRows[0][field];
+        if (sourceValue === null || sourceValue === undefined) return;
+        this.areasInternasRows = this.areasInternasRows.map((row) => ({ ...row, [field]: sourceValue }));
+    }
+
+    handleReplicateFirstRow() {
+        if (this.areasInternasRows.length === 0) return;
+        const { tempoAlta, tempoMedia, tempoBaixa } = this.areasInternasRows[0];
+        this.areasInternasRows = this.areasInternasRows.map((row) => ({
+            ...row,
+            tempoAlta,
+            tempoMedia,
+            tempoBaixa
+        }));
+    }
+
     async handleSaveRegra() {
         if (!this.permissions.canManageRules) return;
 

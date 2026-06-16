@@ -264,6 +264,15 @@
     font-weight: 600;
 }
 
+.area-interna-th-clickable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.area-interna-th-clickable:hover {
+    background-color: #f3f3f3;
+}
+
 .area-interna-col-time {
     width: 20%;
     white-space: normal;
