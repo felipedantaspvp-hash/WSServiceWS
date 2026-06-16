@@ -266,6 +266,8 @@
 
 .area-interna-col-time {
     width: 20%;
+    white-space: normal;
+    word-break: break-word;
 }
 
 .table-scroll {
