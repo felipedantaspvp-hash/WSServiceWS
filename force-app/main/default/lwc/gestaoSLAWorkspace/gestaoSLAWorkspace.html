@@ -745,7 +745,7 @@
                                         required
                                     ></lightning-combobox>
                                 </template>
-                                <template if:false={isCreateAreaInterna}>
+                                <template if:false={showAreaInternaBulkTable}>
                                     <template if:true={isTipoAreaInterna}>
                                         <lightning-input
                                             type="text"
@@ -780,7 +780,7 @@
                                     ></lightning-input>
                                 </template>
                             </div>
-                            <template if:true={isCreateAreaInterna}>
+                            <template if:true={showAreaInternaBulkTable}>
                                 <div class="slds-m-top_small area-interna-bulk-table">
                                     <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
                                         <thead>

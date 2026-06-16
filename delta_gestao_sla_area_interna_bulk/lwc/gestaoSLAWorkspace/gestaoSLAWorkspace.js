@@ -226,6 +226,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
         ativo: true
     };
     @track areasInternasRows = [];
+    @track showAreaInternaBulkTable = false;
     @track activeTab = TAB_CATEGORIAS;
 
     @track searchTerm = '';
@@ -691,10 +692,6 @@ export default class GestaoSLAWorkspace extends LightningElement {
         return this.regraForm?.escopoRegra === RULE_SCOPE_AREA_INTERNA;
     }
 
-    get isCreateAreaInterna() {
-        return this.isRegraModalCreate && this.isTipoAreaInterna;
-    }
-
     get prioridadeCategoriaOptions() {
         return [
             { label: this.labels.categoryNoPriority, value: '' },
@@ -925,6 +922,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
             ativo: true
         };
         this.areasInternasRows = [];
+        this.showAreaInternaBulkTable = false;
         this.showRegraModal = true;
     }
 
@@ -952,6 +950,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
         this.showRegraModal = false;
         this.savingRegra = false;
         this.areasInternasRows = [];
+        this.showAreaInternaBulkTable = false;
     }
 
     handleRegraInputChange(event) {
@@ -966,11 +965,13 @@ export default class GestaoSLAWorkspace extends LightningElement {
             if (value !== RULE_SCOPE_AREA_INTERNA) {
                 nextForm.areaAtendimento = '';
                 this.areasInternasRows = [];
+                this.showAreaInternaBulkTable = false;
             }
             if (value !== RULE_SCOPE_ATENDIMENTO) {
                 nextForm.marcoSLAId = '';
             }
-            if (value === RULE_SCOPE_AREA_INTERNA && this.isRegraModalCreate) {
+            if (value === RULE_SCOPE_AREA_INTERNA && this.regraModalMode === 'create') {
+                this.showAreaInternaBulkTable = true;
                 this.loadAreasInternas();
             }
         }
@@ -1006,7 +1007,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
     async handleSaveRegra() {
         if (!this.permissions.canManageRules) return;
 
-        if (this.isCreateAreaInterna) {
+        if (this.showAreaInternaBulkTable) {
             if (!this.regraForm.categorizacaoId) {
                 this.showToast(this.labels.commonError, this.labels.errorRuleCategoryRequired, 'error');
                 return;
