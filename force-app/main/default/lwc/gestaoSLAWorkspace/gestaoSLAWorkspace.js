@@ -128,7 +128,6 @@ import toastRuleDeactivatedLabel from '@salesforce/label/c.GestaoSLA_ToastRuleDe
 import errorDeactivateRuleLabel from '@salesforce/label/c.GestaoSLA_ErrorDeactivateRule';
 import confirmDeactivateRuleLabel from '@salesforce/label/c.GestaoSLA_ConfirmDeactivateRule';
 import confirmDeactivateCategoryLabel from '@salesforce/label/c.GestaoSLA_ConfirmDeactivateCategory';
-import placeholderFutureFeatureLabel from '@salesforce/label/c.GestaoSLA_PlaceholderFutureFeature';
 import errorLoadInactiveManagementsLabel from '@salesforce/label/c.GestaoSLA_ErrorLoadInactiveManagements';
 import errorSelectInactiveManagementLabel from '@salesforce/label/c.GestaoSLA_ErrorSelectInactiveManagement';
 import toastManagementReactivatedLabel from '@salesforce/label/c.GestaoSLA_ToastManagementReactivated';
@@ -226,6 +225,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
         ativo: true
     };
     @track areasInternasRows = [];
+    @track areasInternasPicklist = [];
     @track showAreaInternaBulkTable = false;
     @track activeTab = TAB_CATEGORIAS;
 
@@ -236,7 +236,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
     @track regrasFiltroCategorizacaoId = 'Todos';
     @track regrasFiltroMarcoSLAId = 'Todos';
     @track regrasFiltroEscopo = 'Todos';
-    @track regrasFiltroAreaAtendimento = '';
+    @track regrasFiltroAreaAtendimento = 'Todos';
     @track regrasFiltroAtivo = 'Todos';
     @track regrasCategorizacaoContextLabel = '';
     @track loadingRegras = false;
@@ -414,7 +414,6 @@ export default class GestaoSLAWorkspace extends LightningElement {
         errorDeactivateRule: errorDeactivateRuleLabel,
         confirmDeactivateRule: confirmDeactivateRuleLabel,
         confirmDeactivateCategory: confirmDeactivateCategoryLabel,
-        placeholderFutureFeature: placeholderFutureFeatureLabel,
         errorLoadInactiveManagements: errorLoadInactiveManagementsLabel,
         errorSelectInactiveManagement: errorSelectInactiveManagementLabel,
         toastManagementReactivated: toastManagementReactivatedLabel,
@@ -442,7 +441,8 @@ export default class GestaoSLAWorkspace extends LightningElement {
         this.accessDenied = false;
         this.noGestao = false;
         try {
-            const bootstrap = await getBootstrap();
+            const [bootstrap, areasPicklist] = await Promise.all([getBootstrap(), getAreasInternas().catch(() => [])]);
+            this.areasInternasPicklist = areasPicklist || [];
             this.permissions = { ...(bootstrap?.permissions || this.permissions) };
             this.unidadeNegocioOptions = (bootstrap?.unidadeNegocioOptions || []).map((value) => ({
                 label: value,
@@ -496,6 +496,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
             ...row,
             prioridadeBadgeClass: this.getPriorityClass(row.prioridadeSugerida),
             ativoLabel: row.ativo ? this.labels.categoryStatusOptionActive : this.labels.categoryStatusOptionInactive,
+            ativoClass: row.ativo ? 'status-badge status-active' : 'status-badge status-inactive',
             totalRegrasLabel: `${row.totalRegrasAtivas || 0} ${this.labels.categoryRulesCountSuffix}`
         }));
         this.filteredCategorias = [...this.categorias];
@@ -521,7 +522,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
                 categorizacaoId: this.regrasFiltroCategorizacaoId === 'Todos' ? null : this.regrasFiltroCategorizacaoId,
                 marcoSLAId: this.regrasFiltroMarcoSLAId === 'Todos' ? null : this.regrasFiltroMarcoSLAId,
                 escopo: this.regrasFiltroEscopo === 'Todos' ? null : this.regrasFiltroEscopo,
-                areaAtendimento: this.regrasFiltroAreaAtendimento || null,
+                areaAtendimento: this.regrasFiltroAreaAtendimento === 'Todos' ? null : this.regrasFiltroAreaAtendimento || null,
                 ativo: this.regrasFiltroAtivo === 'Todos' ? null : this.regrasFiltroAtivo === 'Ativo'
             });
             this.permissions = { ...(result?.permissions || this.permissions) };
@@ -530,7 +531,8 @@ export default class GestaoSLAWorkspace extends LightningElement {
                 tempoBaixaLabel: this.formatMinutes(row.tempoBaixa),
                 tempoMediaLabel: this.formatMinutes(row.tempoMedia),
                 tempoAltaLabel: this.formatMinutes(row.tempoAlta),
-                ativoLabel: row.ativo ? this.labels.categoryStatusOptionActive : this.labels.categoryStatusOptionInactive
+                ativoLabel: row.ativo ? this.labels.categoryStatusOptionActive : this.labels.categoryStatusOptionInactive,
+                ativoClass: row.ativo ? 'status-badge status-active' : 'status-badge status-inactive'
             }));
         } catch (error) {
             this.showToast(this.labels.commonError, this.reduceError(error) || this.labels.errorLoadRules, 'error');
@@ -663,6 +665,17 @@ export default class GestaoSLAWorkspace extends LightningElement {
             { label: RULE_SCOPE_ATENDIMENTO, value: RULE_SCOPE_ATENDIMENTO },
             { label: RULE_SCOPE_AREA_INTERNA, value: RULE_SCOPE_AREA_INTERNA }
         ];
+    }
+
+    get regrasFiltroAreaAtendimentoOptions() {
+        return [
+            { label: this.labels.ruleFilterScopeAll, value: 'Todos' },
+            ...(this.areasInternasPicklist || []).map((a) => ({ label: a, value: a }))
+        ];
+    }
+
+    get statusClass() {
+        return this.gestao?.ativo ? 'status-badge status-active' : 'status-badge status-inactive';
     }
 
     get regraEscopoOptions() {
@@ -1163,10 +1176,6 @@ export default class GestaoSLAWorkspace extends LightningElement {
     handleLastPage() {
         this.currentPage = this.totalPages;
         this.applyPagination();
-    }
-
-    handlePlaceholderAction() {
-        this.showToast(this.labels.commonInfo, this.labels.placeholderFutureFeature, 'info');
     }
 
     openCreateModal() {
@@ -1703,7 +1712,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
         this.regrasFiltroCategorizacaoId = 'Todos';
         this.regrasFiltroMarcoSLAId = 'Todos';
         this.regrasFiltroEscopo = 'Todos';
-        this.regrasFiltroAreaAtendimento = '';
+        this.regrasFiltroAreaAtendimento = 'Todos';
         this.regrasFiltroAtivo = 'Todos';
         this.regrasCategorizacaoContextLabel = '';
     }

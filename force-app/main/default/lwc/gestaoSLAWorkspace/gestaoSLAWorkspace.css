@@ -264,6 +264,25 @@
     font-weight: 600;
 }
 
+.status-badge {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 0.18rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.status-active {
+    background-color: #d4edda;
+    color: #1a5c2a;
+}
+
+.status-inactive {
+    background-color: #f8d7da;
+    color: #7a1c24;
+}
+
 .area-interna-th-clickable {
     cursor: pointer;
     user-select: none;

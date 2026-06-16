@@ -96,7 +96,7 @@
                             </div>
                             <div>
                                 <p class="detail-label">{labels.categoryStatusField}</p>
-                                <lightning-badge label={statusLabel}></lightning-badge>
+                                <span class={statusClass}>{statusLabel}</span>
                             </div>
                             <template if:true={canShowTechnical}>
                                 <div>
@@ -123,15 +123,6 @@
                                     label={labels.gestaoEditButton}
                                     variant="neutral"
                                     onclick={openEditModal}
-                                ></lightning-button>
-                            </template>
-                            <template if:true={canShowTechnical}>
-                                <lightning-button
-                                    label={labels.gestaoEditSettingsButton}
-                                    variant="brand-outline"
-                                    data-action="editarConfiguracoes"
-                                    onclick={handlePlaceholderAction}
-                                    class="slds-m-left_small"
                                 ></lightning-button>
                             </template>
                         </div>
@@ -208,7 +199,7 @@
                                                         <td>{row.assunto}</td>
                                                         <td>{row.subassunto}</td>
                                                         <td><span class={row.prioridadeBadgeClass}>{row.prioridadeSugerida}</span></td>
-                                                        <td><lightning-badge label={row.ativoLabel}></lightning-badge></td>
+                                                        <td><span class={row.ativoClass}>{row.ativoLabel}</span></td>
                                                         <td>{row.totalRegrasLabel}</td>
                                                         <td>
                                                             <lightning-button-menu
@@ -334,13 +325,12 @@
                                         options={regrasEscopoOptions}
                                         onchange={handleRegraFilterChange}
                                     ></lightning-combobox>
-                                    <lightning-input
+                                    <lightning-combobox
                                         name="regrasFiltroAreaAtendimento"
-                                        type="text"
-                                        placeholder={labels.ruleInternalAreaPlaceholder}
                                         value={regrasFiltroAreaAtendimento}
+                                        options={regrasFiltroAreaAtendimentoOptions}
                                         onchange={handleRegraFilterChange}
-                                    ></lightning-input>
+                                    ></lightning-combobox>
                                     <lightning-combobox
                                         name="regrasFiltroAtivo"
                                         value={regrasFiltroAtivo}
@@ -380,7 +370,7 @@
                                                         <td>{row.tempoBaixaLabel}</td>
                                                         <td>{row.tempoMediaLabel}</td>
                                                         <td>{row.tempoAltaLabel}</td>
-                                                        <td><lightning-badge label={row.ativoLabel}></lightning-badge></td>
+                                                        <td><span class={row.ativoClass}>{row.ativoLabel}</span></td>
                                                         <td>
                                                             <template if:true={permissions.canManageRules}>
                                                                 <lightning-button-menu

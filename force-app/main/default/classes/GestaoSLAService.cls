@@ -199,7 +199,7 @@ public inherited sharing class GestaoSLAService {
             ORDER BY MarcoSLA__r.Ordem__c, Categorizacao__r.Name, AreaAtendimento__c
         ]) {
             if (categorizacaoId != null && row.Categorizacao__c != categorizacaoId) continue;
-            if (marcoSLAId != null && row.MarcoSLA__c != marcoSLAId) continue;
+            if (marcoSLAId != null && row.MarcoSLA__c != null && row.MarcoSLA__c != marcoSLAId) continue;
             if (ativo != null && row.Ativo__c != ativo) continue;
             if (!String.isBlank(normalizedEscopo) && GestaoSLAHelper.normalizeText(row.EscopoRegra__c) != normalizedEscopo) continue;
             if (!String.isBlank(normalizedArea) && GestaoSLAHelper.normalizeText(row.AreaAtendimento__c) != normalizedArea) continue;
