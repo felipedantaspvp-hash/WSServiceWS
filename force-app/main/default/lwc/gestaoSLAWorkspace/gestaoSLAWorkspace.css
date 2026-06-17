@@ -238,10 +238,15 @@
 }
 
 .regras-filters-row {
-    display: grid;
-    grid-template-columns: minmax(190px, 1fr) minmax(170px, 1fr) 170px minmax(150px, 1fr) 150px 150px auto;
+    display: flex;
+    flex-wrap: wrap;
     gap: 0.6rem;
-    align-items: end;
+    align-items: flex-end;
+}
+
+.regras-filters-row lightning-combobox {
+    flex: 1 1 160px;
+    min-width: 140px;
 }
 
 .regra-form-grid {
