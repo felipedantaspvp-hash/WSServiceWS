@@ -669,9 +669,13 @@ export default class GestaoSLAWorkspace extends LightningElement {
 
     get regrasFiltroAreaAtendimentoOptions() {
         return [
-            { label: this.labels.ruleFilterScopeAll, value: 'Todos' },
+            { label: this.labels.ruleFilterCategorizacaoAll, value: 'Todos' },
             ...(this.areasInternasPicklist || []).map((a) => ({ label: a, value: a }))
         ];
+    }
+
+    get showAreaInternasFilter() {
+        return this.regrasFiltroEscopo === RULE_SCOPE_AREA_INTERNA;
     }
 
     get statusClass() {
@@ -906,6 +910,9 @@ export default class GestaoSLAWorkspace extends LightningElement {
         this[field] = event.detail?.value ?? event.target?.value ?? '';
         if (field === 'regrasFiltroCategorizacaoId' && this.regrasFiltroCategorizacaoId === 'Todos') {
             this.regrasCategorizacaoContextLabel = '';
+        }
+        if (field === 'regrasFiltroEscopo' && this[field] !== RULE_SCOPE_AREA_INTERNA) {
+            this.regrasFiltroAreaAtendimento = 'Todos';
         }
     }
 

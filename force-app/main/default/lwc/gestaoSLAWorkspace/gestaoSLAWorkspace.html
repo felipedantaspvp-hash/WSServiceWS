@@ -325,12 +325,17 @@
                                         options={regrasEscopoOptions}
                                         onchange={handleRegraFilterChange}
                                     ></lightning-combobox>
-                                    <lightning-combobox
-                                        name="regrasFiltroAreaAtendimento"
-                                        value={regrasFiltroAreaAtendimento}
-                                        options={regrasFiltroAreaAtendimentoOptions}
-                                        onchange={handleRegraFilterChange}
-                                    ></lightning-combobox>
+                                    <div>
+                                        <template if:true={showAreaInternasFilter}>
+                                            <lightning-combobox
+                                                label={labels.ruleColInternalArea}
+                                                name="regrasFiltroAreaAtendimento"
+                                                value={regrasFiltroAreaAtendimento}
+                                                options={regrasFiltroAreaAtendimentoOptions}
+                                                onchange={handleRegraFilterChange}
+                                            ></lightning-combobox>
+                                        </template>
+                                    </div>
                                     <lightning-combobox
                                         name="regrasFiltroAtivo"
                                         value={regrasFiltroAtivo}
