@@ -127,14 +127,14 @@ public inherited sharing class AreaParticipanteMilestoneSyncService {
         if (cm.StartDate != null && cm.TargetDate != null) {
             Long totalMs = cm.TargetDate.getTime() - cm.StartDate.getTime();
             if (totalMs > 0) {
-                slaTotal = Decimal.valueOf(totalMs / 60000L).setScale(2);
+                slaTotal = (Decimal.valueOf(totalMs) / 60000).setScale(2);
                 Datetime refEnd = (isConcluido && cm.CompletionDate != null)
                     ? cm.CompletionDate : Datetime.now();
                 Long elapsedMs = Math.max(0L, Math.min(
                     refEnd.getTime() - cm.StartDate.getTime(), totalMs));
-                elapsed   = Decimal.valueOf(elapsedMs / 60000L).setScale(2);
+                elapsed   = (Decimal.valueOf(elapsedMs) / 60000).setScale(2);
                 remaining = slaTotal > elapsed ? slaTotal - elapsed : Decimal.valueOf(0);
-                percentual = (elapsed / slaTotal * 100).setScale(2);
+                percentual = slaTotal > 0 ? (elapsed / slaTotal * 100).setScale(2) : Decimal.valueOf(0);
             }
         }
 

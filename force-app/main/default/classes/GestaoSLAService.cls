@@ -7,11 +7,11 @@ public inherited sharing class GestaoSLAService {
         GestaoSLADTO.BootstrapResponse response = new GestaoSLADTO.BootstrapResponse();
         response.permissions = perms;
         response.gestoes = new List<GestaoSLADTO.GestaoResumo>();
-        response.unidadeNegocioOptions = getActivePicklistValues(GestaoSLA__c.UnidadeNegocio__c);
-        response.tipoCasoOptions = getActivePicklistValues(Categorizacao__c.TipoCaso__c);
-        response.categoriaPicklistOptions = getActivePicklistValues(Categorizacao__c.Categoria__c);
-        response.assuntoOptions = getActivePicklistValues(Categorizacao__c.Assunto__c);
-        response.subassuntoOptions = getActivePicklistValues(Categorizacao__c.Subassunto__c);
+        response.unidadeNegocioOptions = getActivePicklistOptions(GestaoSLA__c.UnidadeNegocio__c);
+        response.tipoCasoOptions = getActivePicklistOptions(Categorizacao__c.TipoCaso__c);
+        response.categoriaPicklistOptions = getActivePicklistOptions(Categorizacao__c.Categoria__c);
+        response.assuntoOptions = getActivePicklistOptions(Categorizacao__c.Assunto__c);
+        response.subassuntoOptions = getActivePicklistOptions(Categorizacao__c.Subassunto__c);
 
         for (GestaoSLA__c row : [
             SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
@@ -1042,6 +1042,18 @@ public inherited sharing class GestaoSLAService {
             }
         }
         return values;
+    }
+
+    private static List<GestaoSLADTO.PicklistOptionDTO> getActivePicklistOptions(Schema.SObjectField fieldRef) {
+        List<GestaoSLADTO.PicklistOptionDTO> options = new List<GestaoSLADTO.PicklistOptionDTO>();
+        for (Schema.PicklistEntry entry : fieldRef.getDescribe().getPicklistValues()) {
+            if (entry == null || !entry.isActive()) continue;
+            GestaoSLADTO.PicklistOptionDTO opt = new GestaoSLADTO.PicklistOptionDTO();
+            opt.label = entry.getLabel();
+            opt.value = entry.getValue();
+            options.add(opt);
+        }
+        return options;
     }
 
     private static void validateCategoriaRequest(GestaoSLADTO.CategoriaRequest request, Boolean isUpdate) {

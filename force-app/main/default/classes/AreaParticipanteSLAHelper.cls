@@ -19,6 +19,8 @@ public inherited sharing class AreaParticipanteSLAHelper {
     public static final String STATUS_SLA_CONCLUIDO = 'Concluído';
     public static final String STATUS_SLA_CANCELADO = 'Cancelado';
     public static final String ETAPA_AGUARDANDO_CLIENTE = 'Aguardando Cliente';
+    public static final String ETAPA_EM_ACOMPANHAMENTO = 'Em Acompanhamento';
+    public static final Set<String> ETAPAS_PAUSA_SLA = new Set<String>{ ETAPA_AGUARDANDO_CLIENTE, ETAPA_EM_ACOMPANHAMENTO };
     public static final String ORIGEM_SLA_CUSTOM    = 'Custom';
     public static final String ORIGEM_SLA_STANDARD  = 'Standard';
     public static final String ORIGEM_REGRA_QUALQUER = 'Qualquer';

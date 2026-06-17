@@ -64,7 +64,7 @@ public inherited sharing class AreaParticipanteService {
 
         Datetime nextDeadline;
         for (AreaParticipante__c row : areas) {
-            AreaParticipanteDTO.AreaItemDTO item = toItem(row, nowRef, out.canManage);
+            AreaParticipanteDTO.AreaItemDTO item = toItem(row, nowRef, out.canManage, caseRow.IsStopped == true);
             out.items.add(item);
             if (item.isConcluida) out.totalConcluidas++;
             if (item.isAberta || item.isVencida) out.totalAbertas++;
@@ -515,8 +515,16 @@ public inherited sharing class AreaParticipanteService {
         AreaParticipante__c row = AreaParticipanteSelector.getAreaById(areaParticipanteId);
         if (row == null) throwFunctional('AREA_NOT_FOUND', msg('Área participante não encontrada ou sem acesso.', 'Participant area not found or no access.'));
 
+        AreaParticipanteSLAService.calculateCache(row);
+
+        Boolean caseIsStopped = false;
+        if (row.Caso__c != null) {
+            List<Case> caseRows = [SELECT IsStopped FROM Case WHERE Id = :row.Caso__c LIMIT 1];
+            caseIsStopped = !caseRows.isEmpty() && caseRows[0].IsStopped == true;
+        }
+
         AreaParticipanteDTO.DetailDTO out = new AreaParticipanteDTO.DetailDTO();
-        out.item = toItem(row, System.now(), false);
+        out.item = toItem(row, System.now(), false, caseIsStopped);
         out.warnings = new List<String>();
         return out;
     }
@@ -656,7 +664,7 @@ public inherited sharing class AreaParticipanteService {
         return row.DataHoraInicioPausa__c != null || row.StatusSLA__c == AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO;
     }
 
-    private static AreaParticipanteDTO.AreaItemDTO toItem(AreaParticipante__c row, Datetime nowRef, Boolean canManage) {
+    private static AreaParticipanteDTO.AreaItemDTO toItem(AreaParticipante__c row, Datetime nowRef, Boolean canManage, Boolean caseIsStopped) {
         AreaParticipanteDTO.AreaItemDTO item = new AreaParticipanteDTO.AreaItemDTO();
         item.id = row.Id;
         item.area = (String) row.get(AREA_FIELD);
@@ -687,6 +695,11 @@ public inherited sharing class AreaParticipanteService {
         item.nomeMarco = row.NomeMarco__c;
         item.caseMilestoneId = row.CaseMilestoneId__c;
         item.isStandard = AreaParticipanteSLAHelper.ORIGEM_SLA_STANDARD.equals(row.OrigemSLA__c);
+        if (item.isStandard && caseIsStopped == true && !item.isConcluida && !item.isCancelada) {
+            item.statusSLA = AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO;
+            item.isVencida = false;
+            item.isAberta = true;
+        }
         item.canClose = canManage && (item.isAberta || item.isVencida) && !item.isStandard;
         item.canPause = canPause(row, canManage);
         item.canResume = canResume(row, canManage);

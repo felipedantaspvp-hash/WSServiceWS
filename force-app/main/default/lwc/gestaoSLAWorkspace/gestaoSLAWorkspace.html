@@ -192,10 +192,10 @@
                                             <tbody>
                                                 <template for:each={pagedCategorias} for:item="row">
                                                     <tr key={row.id}>
-                                                        <td>{row.tipoCaso}</td>
-                                                        <td>{row.categoria}</td>
-                                                        <td>{row.assunto}</td>
-                                                        <td>{row.subassunto}</td>
+                                                        <td>{row.tipoCasoLabel}</td>
+                                                        <td>{row.categoriaLabel}</td>
+                                                        <td>{row.assuntoLabel}</td>
+                                                        <td>{row.subassuntoLabel}</td>
                                                         <td><span class={row.prioridadeBadgeClass}>{row.prioridadeSugerida}</span></td>
                                                         <td><span class={row.ativoClass}>{row.ativoLabel}</span></td>
                                                         <td>{row.totalRegrasLabel}</td>
@@ -886,10 +886,10 @@
                                                             variant="label-hidden"
                                                         ></lightning-input>
                                                     </td>
-                                                    <td>{row.tipoCaso}</td>
-                                                    <td>{row.categoria}</td>
-                                                    <td>{row.assunto}</td>
-                                                    <td>{row.subassunto}</td>
+                                                    <td>{row.tipoCasoLabel}</td>
+                                                    <td>{row.categoriaLabel}</td>
+                                                    <td>{row.assuntoLabel}</td>
+                                                    <td>{row.subassuntoLabel}</td>
                                                 </tr>
                                             </template>
                                         </tbody>

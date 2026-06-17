@@ -66,6 +66,7 @@ export default class CaseAreasParticipantesPanel extends LightningElement {
               cancel: 'Cancel',
               confirmClose: 'Confirm Closing',
               detailTitle: 'Participation Details',
+              back: '← Back',
               status: 'Status',
               closeModal: 'Close',
               error: 'Error',
@@ -86,7 +87,8 @@ export default class CaseAreasParticipantesPanel extends LightningElement {
               addSelected: 'Selected',
               next: 'Next',
               back: 'Back',
-              refresh: 'Refresh'
+              refresh: 'Refresh',
+              completedOn: 'Completed on'
           }
         : {
               title: 'Áreas Participantes',
@@ -127,6 +129,7 @@ export default class CaseAreasParticipantesPanel extends LightningElement {
               cancel: 'Cancelar',
               confirmClose: 'Confirmar Encerramento',
               detailTitle: 'Detalhes da Participação',
+              back: '← Voltar',
               status: 'Status',
               closeModal: 'Fechar',
               error: 'Erro',
@@ -147,7 +150,8 @@ export default class CaseAreasParticipantesPanel extends LightningElement {
               addSelected: 'Selecionadas',
               next: 'Próximo',
               back: 'Voltar',
-              refresh: 'Atualizar'
+              refresh: 'Atualizar',
+              completedOn: 'Concluída em'
           };
 
     connectedCallback() {
@@ -184,40 +188,28 @@ export default class CaseAreasParticipantesPanel extends LightningElement {
             const rankA = this.getStatusRank(a);
             const rankB = this.getStatusRank(b);
             if (rankA !== rankB) return rankA - rankB;
+            const isTotalA = (a?.isStandard && (a?.nomeMarco || '') === 'Tempo Total de Atendimento') ? 1 : 0;
+            const isTotalB = (b?.isStandard && (b?.nomeMarco || '') === 'Tempo Total de Atendimento') ? 1 : 0;
+            if (isTotalA !== isTotalB) return isTotalA - isTotalB;
             const dateA = a?.dataHoraInicio ? new Date(a.dataHoraInicio).getTime() : Number.MAX_SAFE_INTEGER;
             const dateB = b?.dataHoraInicio ? new Date(b.dataHoraInicio).getTime() : Number.MAX_SAFE_INTEGER;
             return dateA - dateB;
         });
         return items.map((item) => {
             const tone = this.getTone(item);
-            const statusTone = this.getStatusTone(item);
+            const deadlineText = this.formatDateTime(item?.dataHoraPrazo);
             const value = Number(item.percentualDecorrido || 0);
             const pct = Math.max(0, Math.min(100, value));
-            const startText = this.formatDateTime(item?.dataHoraInicio);
-            const deadlineText = this.formatDateTime(item?.dataHoraPrazo);
-            const elapsedLabel = this.buildElapsedLabel(item, pct);
-            const classificationPills = this.buildClassificationPills(item);
             return {
                 ...item,
                 areaTypePillLabel: item.isStandard ? 'Atendimento' : this.labels.internalArea,
                 areaDisplayLabel: item.isStandard ? (item.nomeMarco || '-') : item.areaLabel,
-                cardClass: `slds-box slds-m-bottom_small area-item ${tone}`,
-                statusClass: `status-pill ${statusTone}`,
-                classificationPills,
-                hasClassificationPills: classificationPills.length > 0,
+                cardClass: `slds-box slds-m-bottom_xx-small area-item-compact ${tone}`,
                 progressBarClass: `progress-bar ${tone === 'cancelled' ? 'done' : tone}`,
                 progressStyle: `width: ${pct}%`,
                 showProgress: item?.percentualDecorrido !== null && item?.percentualDecorrido !== undefined,
-                elapsedLabel,
-                startText,
-                deadlineText,
-                requestText: (item?.comentarioSolicitacao || '').trim() || '-',
-                statusSLAText: item?.statusSLA || '-',
-                tempoSLAText: this.formatMinutes(item?.tempoSLAMinutos),
-                tempoConsumidoText: this.formatMinutes(item?.tempoConsumidoMinutos),
-                tempoRestanteText: this.formatMinutes(item?.tempoRestanteMinutos),
-                tempoPausadoText: this.formatMinutes(item?.tempoPausadoMinutos),
-                sequenciaText: this.formatSequence(item?.sequenciaAcionamento)
+                statusLine: this.buildStatusLine(item, tone, deadlineText),
+                statusLineClass: `compact-status-line status-${tone}`
             };
         });
     }
@@ -331,15 +323,26 @@ export default class CaseAreasParticipantesPanel extends LightningElement {
         return `${this.labels.elapsed}: ${elapsedPretty} / ${totalPretty} (${Math.round(pct)}%)`;
     }
 
-    formatMinutes(value) {
+    formatMinutes(value, withSeconds = false) {
         if (value === null || value === undefined || value === '') return '-';
         const num = Number(value);
         if (Number.isNaN(num)) return '-';
         const sign = num < 0 ? '-' : '';
+        if (withSeconds) {
+            const totalSec = Math.abs(Math.round(num * 60));
+            const h = Math.floor(totalSec / 3600);
+            const m = Math.floor((totalSec % 3600) / 60);
+            const s = totalSec % 60;
+            const parts = [];
+            if (h > 0) parts.push(`${h}h`);
+            parts.push(`${String(m).padStart(2, '0')}m`);
+            parts.push(`${String(s).padStart(2, '0')}s`);
+            return `${sign}${parts.join(' ')}`;
+        }
         const total = Math.abs(Math.round(num));
         const hours = Math.floor(total / 60);
         const minutes = total % 60;
-        return `${sign}${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m (${num} min)`;
+        return `${sign}${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m`;
     }
 
     formatSequence(value) {
@@ -397,6 +400,27 @@ export default class CaseAreasParticipantesPanel extends LightningElement {
         return pills;
     }
 
+    buildStatusLine(item, tone, deadlineText) {
+        if (tone === 'done') {
+            const endText = this.formatDateTime(item?.dataHoraFim);
+            return (this.isEnglish ? 'Completed: ' : 'Concluída: ') + endText;
+        }
+        if (tone === 'cancelled') return this.isEnglish ? 'Cancelled' : 'Cancelada';
+        if (tone === 'paused') return this.isEnglish ? 'Paused' : 'Pausada';
+        if (tone === 'overdue') {
+            const deadlineMs = item?.dataHoraPrazo ? new Date(item.dataHoraPrazo).getTime() : null;
+            if (deadlineMs) {
+                const overdueMs = Math.max(0, Date.now() - deadlineMs);
+                return (this.isEnglish ? 'Overdue by ' : 'Vencida há ') + this.msToPretty(overdueMs);
+            }
+            return this.isEnglish ? 'Overdue' : 'Vencida';
+        }
+        if (deadlineText && deadlineText !== '-') {
+            return (this.isEnglish ? 'Deadline: ' : 'Prazo: ') + deadlineText;
+        }
+        return '';
+    }
+
     msToPretty(ms) {
         const totalMinutes = Math.floor(ms / 60000);
         const hours = Math.floor(totalMinutes / 60);
@@ -409,11 +433,26 @@ export default class CaseAreasParticipantesPanel extends LightningElement {
         this.openCloseModalById(itemId);
     }
 
+    handleCloseIcon(event) {
+        event.stopPropagation();
+        this.openCloseModalById(event.currentTarget.dataset.id);
+    }
+
     async handlePauseAction(event) {
         await this.runPauseResumeAction(event.currentTarget.dataset.id, pauseParticipation, this.labels.pauseSuccess);
     }
 
     async handleResumeAction(event) {
+        await this.runPauseResumeAction(event.currentTarget.dataset.id, resumeParticipation, this.labels.resumeSuccess);
+    }
+
+    async handlePauseIcon(event) {
+        event.stopPropagation();
+        await this.runPauseResumeAction(event.currentTarget.dataset.id, pauseParticipation, this.labels.pauseSuccess);
+    }
+
+    async handleResumeIcon(event) {
+        event.stopPropagation();
         await this.runPauseResumeAction(event.currentTarget.dataset.id, resumeParticipation, this.labels.resumeSuccess);
     }
 
@@ -451,14 +490,54 @@ export default class CaseAreasParticipantesPanel extends LightningElement {
     }
 
     async handleViewDetails(event) {
-        const itemId = event.currentTarget.dataset.id;
+        event.stopPropagation();
+        await this.openDetailById(event.currentTarget.dataset.id);
+    }
+
+    async handleCardClick(event) {
+        if (this.showDetailModal || this.showCloseModal || this.showAddModal) return;
+        await this.openDetailById(event.currentTarget.dataset.id);
+    }
+
+    async openDetailById(itemId) {
+        if (!itemId) return;
         try {
             const detail = await getParticipationDetails({ areaParticipanteId: itemId });
-            this.selectedItem = detail?.item;
+            const raw = detail?.item;
+            if (raw) {
+                const tone = this.getTone(raw);
+                const deadlineText = this.formatDateTime(raw.dataHoraPrazo);
+                this.selectedItem = {
+                    ...raw,
+                    areaTypePillLabel: raw.isStandard ? 'Atendimento' : this.labels.internalArea,
+                    areaDisplayLabel: raw.isStandard ? (raw.nomeMarco || '-') : raw.areaLabel,
+                    startText: this.formatDateTime(raw.dataHoraInicio),
+                    deadlineText,
+                    endText: this.formatDateTime(raw.dataHoraFim),
+                    tempoSLAText: this.formatMinutes(raw.tempoSLAMinutos, true),
+                    tempoConsumidoText: this.formatMinutes(raw.tempoConsumidoMinutos, true),
+                    tempoRestanteText: this.formatMinutes(raw.tempoRestanteMinutos, true),
+                    tempoPausadoText: this.formatMinutes(raw.tempoPausadoMinutos, true),
+                    sequenciaText: this.formatSequence(raw.sequenciaAcionamento),
+                    requestText: (raw.comentarioSolicitacao || '').trim() || '-',
+                    statusLine: this.buildStatusLine(raw, tone, deadlineText),
+                    statusLineClass: `compact-status-line status-${tone}`
+                };
+            }
             this.showDetailModal = true;
         } catch (error) {
             this.showToast(this.labels.error, this.getErrorMessage(error), 'error');
         }
+    }
+
+    stopDetailPropagation(event) {
+        event.stopPropagation();
+    }
+
+    closeDetailModal(event) {
+        if (event) event.stopPropagation();
+        this.showDetailModal = false;
+        this.selectedItem = null;
     }
 
     closeModal() {

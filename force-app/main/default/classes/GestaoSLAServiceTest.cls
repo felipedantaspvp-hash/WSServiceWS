@@ -232,10 +232,10 @@ private class GestaoSLAServiceTest {
         GestaoSLAHelper.clearPermissionOverrides();
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
 
-        GestaoSLADTO.CategoriasResponse all = GestaoSLAService.getCategorias(g1.Id, null, null, null, null);
+        GestaoSLADTO.CategoriasResponse all = GestaoSLAService.getCategorias(g1.Id, null, null, null, null, null);
         Assert.areEqual(1, all.categorias.size());
 
-        GestaoSLADTO.CategoriasResponse filtered = GestaoSLAService.getCategorias(g1.Id, 'Cadastro', null, null, true);
+        GestaoSLADTO.CategoriasResponse filtered = GestaoSLAService.getCategorias(g1.Id, 'Cadastro', null, null, null, true);
         Assert.areEqual(1, filtered.categorias.size());
         Assert.areEqual(c1.Id, filtered.categorias[0].id);
         Assert.areEqual(1, filtered.categorias[0].totalRegrasAtivas);

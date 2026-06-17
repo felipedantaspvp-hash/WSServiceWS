@@ -148,7 +148,7 @@ public inherited sharing class AreaParticipanteSLAService {
 
         for (AreaParticipante__c a : rows){
             if (a.DataHoraInicio__c == null || a.TempoSLAMinutos__c == null || a.TempoSLAMinutos__c <= 0) continue;
-            if (a.DataHoraInicioPausa__c != null || a.StatusSLA__c == AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO) {
+            if (a.DataHoraInicioPausa__c != null) {
                 a.StatusSLA__c = AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO;
                 continue;
             }
@@ -162,15 +162,15 @@ public inherited sharing class AreaParticipanteSLAService {
             Long usefulMs = useBypassBusinessHoursInTests()
                 ? endRef.getTime() - a.DataHoraInicio__c.getTime()
                 : BusinessHours.diff(bhId, a.DataHoraInicio__c, endRef);
-            Long usefulMin = Math.max(0, usefulMs / (60L * 1000L));
-            Long pausedMin = a.TempoPausadoMinutos__c == null ? 0L : a.TempoPausadoMinutos__c.longValue();
-            Long consumedMin = Math.max(0, usefulMin - pausedMin);
+            Long pausedMs = (a.TempoPausadoMinutos__c == null ? 0L : a.TempoPausadoMinutos__c.longValue()) * 60000L;
+            Long consumedMs = Math.max(0, usefulMs - pausedMs);
+            Long totalSlaMs = a.TempoSLAMinutos__c.longValue() * 60000L;
+            Long remainingMs = Math.max(0, totalSlaMs - consumedMs);
 
-            a.TempoConsumidoMinutos__c = Decimal.valueOf(consumedMin);
-            Long totalSla = a.TempoSLAMinutos__c.longValue();
-            a.TempoRestanteMinutos__c = Decimal.valueOf(totalSla - consumedMin);
+            a.TempoConsumidoMinutos__c = (Decimal.valueOf(consumedMs) / 60000).setScale(6);
+            a.TempoRestanteMinutos__c = (Decimal.valueOf(remainingMs) / 60000).setScale(6);
 
-            Decimal pct = (Decimal.valueOf(consumedMin) / a.TempoSLAMinutos__c) * 100;
+            Decimal pct = (a.TempoConsumidoMinutos__c / a.TempoSLAMinutos__c) * 100;
             if (pct < 0) pct = 0;
             if (pct > 100) pct = 100;
             a.PercentualDecorrido__c = pct.setScale(2);

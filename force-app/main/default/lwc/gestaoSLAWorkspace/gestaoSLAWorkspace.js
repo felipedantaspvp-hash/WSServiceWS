@@ -453,14 +453,11 @@ export default class GestaoSLAWorkspace extends LightningElement {
             const [bootstrap, areasPicklist] = await Promise.all([getBootstrap(), getAreasInternas().catch(() => [])]);
             this.areasInternasPicklist = areasPicklist || [];
             this.permissions = { ...(bootstrap?.permissions || this.permissions) };
-            this.unidadeNegocioOptions = (bootstrap?.unidadeNegocioOptions || []).map((value) => ({
-                label: value,
-                value
-            }));
-            this.tipoCasoPicklistOptions = this.toComboboxOptions(bootstrap?.tipoCasoOptions || []);
-            this.categoriaPicklistOptions = this.toComboboxOptions(bootstrap?.categoriaPicklistOptions || []);
-            this.assuntoPicklistOptions = this.toComboboxOptions(bootstrap?.assuntoOptions || []);
-            this.subassuntoPicklistOptions = this.toComboboxOptions(bootstrap?.subassuntoOptions || []);
+            this.unidadeNegocioOptions = bootstrap?.unidadeNegocioOptions || [];
+            this.tipoCasoPicklistOptions = bootstrap?.tipoCasoOptions || [];
+            this.categoriaPicklistOptions = bootstrap?.categoriaPicklistOptions || [];
+            this.assuntoPicklistOptions = bootstrap?.assuntoOptions || [];
+            this.subassuntoPicklistOptions = bootstrap?.subassuntoOptions || [];
             if (!this.permissions.canAccessGestaoSLA) {
                 this.accessDenied = true;
                 return;
@@ -504,6 +501,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
         this.permissions = { ...(result?.permissions || this.permissions) };
         this.categorias = (result?.categorias || []).map((row) => ({
             ...row,
+            ...this.withCategoryLabels(row),
             prioridadeBadgeClass: this.getPriorityClass(row.prioridadeSugerida),
             ativoLabel: row.ativo ? this.labels.categoryStatusOptionActive : this.labels.categoryStatusOptionInactive,
             ativoClass: row.ativo ? 'status-badge status-active' : 'status-badge status-inactive',
@@ -600,22 +598,42 @@ export default class GestaoSLAWorkspace extends LightningElement {
         return PAGE_SIZE_OPTIONS;
     }
 
+    buildLabelLookup(picklistOptions) {
+        return new Map((picklistOptions || []).map((o) => [o.value, o.label]));
+    }
+
+    withCategoryLabels(row) {
+        const tipoCasoLabelByValue = this.buildLabelLookup(this.tipoCasoPicklistOptions);
+        const categoriaLabelByValue = this.buildLabelLookup(this.categoriaPicklistOptions);
+        const assuntoLabelByValue = this.buildLabelLookup(this.assuntoPicklistOptions);
+        const subassuntoLabelByValue = this.buildLabelLookup(this.subassuntoPicklistOptions);
+        return {
+            tipoCasoLabel: tipoCasoLabelByValue.get(row.tipoCaso) || row.tipoCaso,
+            categoriaLabel: categoriaLabelByValue.get(row.categoria) || row.categoria,
+            assuntoLabel: assuntoLabelByValue.get(row.assunto) || row.assunto,
+            subassuntoLabel: subassuntoLabelByValue.get(row.subassunto) || row.subassunto
+        };
+    }
+
     get tipoCasoOptions() {
+        const labelByValue = this.buildLabelLookup(this.tipoCasoPicklistOptions);
         const values = Array.from(new Set((this.categorias || []).map((c) => c.tipoCaso).filter((v) => !!v)))
-            .sort((a, b) => a.localeCompare(b, 'pt-BR', { sensitivity: 'base' }));
-        return [{ label: this.labels.categoryFilterCaseTypeAll, value: 'Todos' }, ...values.map((v) => ({ label: v, value: v }))];
+            .sort((a, b) => (labelByValue.get(a) || a).localeCompare(labelByValue.get(b) || b, 'pt-BR', { sensitivity: 'base' }));
+        return [{ label: this.labels.categoryFilterCaseTypeAll, value: 'Todos' }, ...values.map((v) => ({ label: labelByValue.get(v) || v, value: v }))];
     }
 
     get categoriaOptions() {
+        const labelByValue = this.buildLabelLookup(this.categoriaPicklistOptions);
         const values = Array.from(new Set((this.categorias || []).map((c) => c.categoria).filter((v) => !!v)))
-            .sort((a, b) => a.localeCompare(b, 'pt-BR', { sensitivity: 'base' }));
-        return [{ label: this.labels.categoryFilterCategoryAll, value: 'Todos' }, ...values.map((v) => ({ label: v, value: v }))];
+            .sort((a, b) => (labelByValue.get(a) || a).localeCompare(labelByValue.get(b) || b, 'pt-BR', { sensitivity: 'base' }));
+        return [{ label: this.labels.categoryFilterCategoryAll, value: 'Todos' }, ...values.map((v) => ({ label: labelByValue.get(v) || v, value: v }))];
     }
 
     get assuntoOptions() {
+        const labelByValue = this.buildLabelLookup(this.assuntoPicklistOptions);
         const values = Array.from(new Set((this.categorias || []).map((c) => c.assunto).filter((v) => !!v)))
-            .sort((a, b) => a.localeCompare(b, 'pt-BR', { sensitivity: 'base' }));
-        return [{ label: this.labels.categoryFilterSubjectAll, value: 'Todos' }, ...values.map((v) => ({ label: v, value: v }))];
+            .sort((a, b) => (labelByValue.get(a) || a).localeCompare(labelByValue.get(b) || b, 'pt-BR', { sensitivity: 'base' }));
+        return [{ label: this.labels.categoryFilterSubjectAll, value: 'Todos' }, ...values.map((v) => ({ label: labelByValue.get(v) || v, value: v }))];
     }
 
     get categoriaTipoCasoOptions() {
@@ -1406,6 +1424,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
             this.permissions = { ...(result?.permissions || this.permissions) };
             this.inactiveCategorias = (result?.categoriasInativas || []).map((c) => ({
                 ...c,
+                ...this.withCategoryLabels(c),
                 selected: false
             }));
         } catch (error) {
@@ -1587,12 +1606,6 @@ export default class GestaoSLAWorkspace extends LightningElement {
 
     showToast(title, message, variant) {
         this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
-    }
-
-    toComboboxOptions(values) {
-        return (values || [])
-            .filter((value) => value !== null && value !== undefined && value !== '')
-            .map((value) => ({ label: value, value }));
     }
 
     withCurrentComboboxValue(options, currentValue) {

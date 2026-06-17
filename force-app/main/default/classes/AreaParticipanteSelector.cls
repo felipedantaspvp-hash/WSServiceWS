@@ -14,7 +14,7 @@ public inherited sharing class AreaParticipanteSelector {
         if (testCase != null) return testCase;
         List<Case> rows = [
             SELECT Id, CaseNumber, OwnerId, Status, Categorizacao__c, Categorizacao__r.GestaoSLA__c, Priority, Origin,
-                AreasParticipantes__c, AreasParticipantesSLA__c, EtapaAtendimento__c
+                AreasParticipantes__c, AreasParticipantesSLA__c, EtapaAtendimento__c, IsStopped
             FROM Case
             WHERE Id = :caseId
             LIMIT 1

@@ -125,14 +125,19 @@ public inherited sharing class GestaoSLADTO {
         @AuraEnabled public Boolean ativo { get; set; }
     }
 
+    public class PicklistOptionDTO {
+        @AuraEnabled public String label { get; set; }
+        @AuraEnabled public String value { get; set; }
+    }
+
     public class BootstrapResponse {
         @AuraEnabled public PermissionInfo permissions;
         @AuraEnabled public List<GestaoResumo> gestoes;
-        @AuraEnabled public List<String> unidadeNegocioOptions;
-        @AuraEnabled public List<String> tipoCasoOptions;
-        @AuraEnabled public List<String> categoriaPicklistOptions;
-        @AuraEnabled public List<String> assuntoOptions;
-        @AuraEnabled public List<String> subassuntoOptions;
+        @AuraEnabled public List<PicklistOptionDTO> unidadeNegocioOptions;
+        @AuraEnabled public List<PicklistOptionDTO> tipoCasoOptions;
+        @AuraEnabled public List<PicklistOptionDTO> categoriaPicklistOptions;
+        @AuraEnabled public List<PicklistOptionDTO> assuntoOptions;
+        @AuraEnabled public List<PicklistOptionDTO> subassuntoOptions;
     }
 
     public class GestaoDetailResponse {

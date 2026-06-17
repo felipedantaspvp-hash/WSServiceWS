@@ -17,8 +17,8 @@ public inherited sharing class CaseAreaParticipantePauseService {
             for (Id idCase : newMap.keySet()){
                 Case n = newMap.get(idCase);
                 Case o = oldMap.get(idCase);
-                Boolean nowWait = n.EtapaAtendimento__c == AreaParticipanteSLAHelper.ETAPA_AGUARDANDO_CLIENTE;
-                Boolean wasWait = o != null && o.EtapaAtendimento__c == AreaParticipanteSLAHelper.ETAPA_AGUARDANDO_CLIENTE;
+                Boolean nowWait = AreaParticipanteSLAHelper.ETAPAS_PAUSA_SLA.contains(n.EtapaAtendimento__c);
+                Boolean wasWait = o != null && AreaParticipanteSLAHelper.ETAPAS_PAUSA_SLA.contains(o.EtapaAtendimento__c);
                 if (nowWait && !wasWait) entered.add(idCase);
                 if (!nowWait && wasWait) exited.add(idCase);
             }
@@ -43,11 +43,11 @@ public inherited sharing class CaseAreaParticipantePauseService {
                     updates.add(a);
                 }
 
-                // Registra início da pausa nos marcos nativos para rastreamento
+                // Pausa os Milestones nativos do Entitlement Process (stop the clock) e registra o marcador de rastreamento
                 if (!(Test.isRunningTest() && bypassCaseMilestoneDmlInTests)) {
                     Datetime pauseStart = System.now();
                     for (Id caseId : entered) {
-                        caseUpdates.add(new Case(Id = caseId, DataHoraPausaMilestone__c = pauseStart));
+                        caseUpdates.add(new Case(Id = caseId, IsStopped = true, DataHoraPausaMilestone__c = pauseStart));
                     }
                 }
             }
@@ -95,10 +95,10 @@ public inherited sharing class CaseAreaParticipantePauseService {
                     updates.add(a);
                 }
 
-                // Limpa o marcador de pausa dos marcos nativos
+                // Retoma os Milestones nativos do Entitlement Process e limpa o marcador de pausa
                 if (!(Test.isRunningTest() && bypassCaseMilestoneDmlInTests)) {
                     for (Id caseId : exited) {
-                        caseUpdates.add(new Case(Id = caseId, DataHoraPausaMilestone__c = null));
+                        caseUpdates.add(new Case(Id = caseId, IsStopped = false, DataHoraPausaMilestone__c = null));
                     }
                 }
             }
