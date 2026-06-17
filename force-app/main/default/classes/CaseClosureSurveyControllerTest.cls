@@ -1,3 +1,10 @@
+/**
+ * @description       : Testes unitários de CaseClosureSurveyController.
+ * @author            : Triscal
+ * @group             : Case Closure Survey
+ * @last modified on  : 06-17-2026
+ * @last modified by  : Marllon Nascimento
+ **/
 @IsTest
 private class CaseClosureSurveyControllerTest {
     @IsTest
@@ -9,13 +16,16 @@ private class CaseClosureSurveyControllerTest {
         );
         insert contact;
 
+        Categorizacao__c categorizacao = createCentroLogisticoCategorization();
+
         Case c = new Case(
             Subject = 'Atendimento controller',
             Status = 'Aberto',
             Origin = 'Telefone',
             UnidadeNegocio__c = 'Centro Logístico',
             ContactId = contact.Id,
-            SuppliedEmail = contact.Email
+            SuppliedEmail = contact.Email,
+            Categorizacao__c = categorizacao.Id
         );
         insert c;
 
@@ -64,13 +74,16 @@ private class CaseClosureSurveyControllerTest {
         );
         insert contact;
 
+        Categorizacao__c categorizacao = createCentroLogisticoCategorization();
+
         Case c = new Case(
             Subject = 'Atendimento erro controller',
             Status = 'Aberto',
             Origin = 'Email',
             UnidadeNegocio__c = 'Centro Logístico',
             ContactId = contact.Id,
-            SuppliedEmail = contact.Email
+            SuppliedEmail = contact.Email,
+            Categorizacao__c = categorizacao.Id
         );
         insert c;
 
@@ -84,5 +97,19 @@ private class CaseClosureSurveyControllerTest {
         CaseClosureSurveyController.forceUnexpectedErrorForTest = false;
 
         Assert.areEqual('Erro inesperado ao encerrar o Caso.', response.errorMessage);
+    }
+
+    private static Categorizacao__c createCentroLogisticoCategorization() {
+        Categorizacao__c categorizacao = CategorizacaoTestDataFactory.base(false, false);
+        categorizacao.RecordTypeId = [
+            SELECT Id
+            FROM RecordType
+            WHERE SObjectType = 'Categorizacao__c'
+              AND DeveloperName = 'AtendimentoCentroLogistico'
+            LIMIT 1
+        ].Id;
+        categorizacao.UnidadeNegocios__c = 'Centro Logístico';
+        insert categorizacao;
+        return categorizacao;
     }
 }

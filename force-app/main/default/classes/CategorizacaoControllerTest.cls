@@ -1,3 +1,10 @@
+/**
+ * @description       : Testes unitários de CategorizacaoController.
+ * @author            : Triscal
+ * @group             : Categorização
+ * @last modified on  : 06-12-2026
+ * @last modified by  : Jean Duarte
+ **/
 @IsTest
 private class CategorizacaoControllerTest {
     private static RecordType currentRt() {

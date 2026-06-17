@@ -1,3 +1,10 @@
+/**
+ * @description       : Controller Apex expondo endpoints @AuraEnabled para o módulo LightningSelfRegister. Delega toda lógica ao LightningSelfRegisterService.
+ * @author            : Triscal
+ * @group             : Triscal
+ * @last modified on  : 06-17-2026
+ * @last modified by  : Jean Duarte
+ **/
 global class LightningSelfRegisterController {
 
     public LightningSelfRegisterController() {

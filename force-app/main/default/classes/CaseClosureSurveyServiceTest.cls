@@ -1,5 +1,14 @@
+/**
+ * @description       : Testes unitários de CaseClosureSurveyService.
+ * @author            : Triscal
+ * @group             : Case Closure Survey
+ * @last modified on  : 06-17-2026
+ * @last modified by  : Marllon Nascimento
+ **/
 @IsTest
 private class CaseClosureSurveyServiceTest {
+    private static Map<String, Id> categorizationIdByBusinessUnit = new Map<String, Id>();
+
     @IsTest
     static void alwaysModeDoesNotShowQuestionAndMarksSurvey() {
         Case c = createCase('Centro Logístico', 'cliente.always@example.com');
@@ -94,6 +103,25 @@ private class CaseClosureSurveyServiceTest {
     }
 
     @IsTest
+    static void closeCaseBlocksUncategorizedCase() {
+        Case c = createUncategorizedCase('Centro Logístico', 'cliente.sem.categoria@example.com');
+        setupConfig('Centro Logístico', 'NEVER', false, false, false, null);
+
+        CaseClosureSurveyDTO context = CaseClosureSurveyService.getClosureContext(c.Id);
+        Assert.areEqual(false, context.isCategorized);
+        Assert.areEqual('Categorize o caso antes de encerrá-lo.', context.categorizationBlockMessage);
+
+        try {
+            CaseClosureSurveyService.closeCase(buildRequest(c.Id, false));
+            Assert.fail('Deveria bloquear encerramento de caso sem categorização.');
+        } catch (CaseClosureSurveyService.FunctionalException ex) {
+            Assert.areEqual('Categorize o caso antes de encerrá-lo.', ex.getMessage());
+        }
+
+        AtendimentoConfigService.clearTestSurveyConfigs();
+    }
+
+    @IsTest
     static void internalDomainBlocksSurveyEligibility() {
         Case c = createCase('Centro Logístico', 'usuario@wilsonsons.com.br');
         setupConfig('Centro Logístico', 'ALWAYS', false, false, true, 'wilsonsons.com.br');
@@ -178,6 +206,39 @@ private class CaseClosureSurveyServiceTest {
     }
 
     private static Case createCase(String businessUnit, String email) {
+        Case c = createUncategorizedCase(businessUnit, email);
+        c.Categorizacao__c = getOrCreateCategorizationId(businessUnit);
+        update c;
+        return c;
+    }
+
+    private static Id getOrCreateCategorizationId(String businessUnit) {
+        if (categorizationIdByBusinessUnit.containsKey(businessUnit)) {
+            return categorizationIdByBusinessUnit.get(businessUnit);
+        }
+
+        Categorizacao__c categorizacao = CategorizacaoTestDataFactory.base(false, false);
+        categorizacao.RecordTypeId = getCategorizationRecordTypeId(businessUnit);
+        categorizacao.UnidadeNegocios__c = businessUnit;
+        insert categorizacao;
+        categorizationIdByBusinessUnit.put(businessUnit, categorizacao.Id);
+        return categorizacao.Id;
+    }
+
+    private static Id getCategorizationRecordTypeId(String businessUnit) {
+        String developerName = businessUnit == 'Rebocadores'
+            ? 'AtendimentoRebocadores'
+            : 'AtendimentoCentroLogistico';
+        return [
+            SELECT Id
+            FROM RecordType
+            WHERE SObjectType = 'Categorizacao__c'
+              AND DeveloperName = :developerName
+            LIMIT 1
+        ].Id;
+    }
+
+    private static Case createUncategorizedCase(String businessUnit, String email) {
         Contact contact = new Contact(LastName = 'Cliente Pesquisa', Email = email, Phone = '11999990000');
         insert contact;
 

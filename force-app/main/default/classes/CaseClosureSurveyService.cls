@@ -9,6 +9,7 @@ public inherited sharing class CaseClosureSurveyService {
     public class FunctionalException extends Exception { public String code; }
 
     private static final String CLOSED_STATUS = 'Fechado';
+    private static final String REQUIRED_CATEGORIZATION_MESSAGE = 'Categorize o caso antes de encerrá-lo.';
 
     /**
      * @description Retorna contexto da tela de encerramento.
@@ -38,6 +39,7 @@ public inherited sharing class CaseClosureSurveyService {
         Case c = getCaseById(request.caseId);
         if (c == null) throwFunctional('CASE_NOT_FOUND', 'Caso não encontrado.');
         if (c.IsClosed) throwFunctional('CASE_ALREADY_CLOSED', 'Este caso já está fechado.');
+        validateCaseCategorization(c);
 
         AtendimentoConfigDTO config = AtendimentoConfigService.getSurveyConfigByBusinessUnit(c.UnidadeNegocio__c);
         CaseClosureSurveyDTO context = buildContext(c, config);
@@ -87,6 +89,8 @@ public inherited sharing class CaseClosureSurveyService {
         dto.surveyAlreadySentMessage = showDaily
             ? CaseClosureSurveyHelper.buildDailySurveyMessage(receivedToday, dto.allowSameDaySurvey)
             : null;
+        dto.isCategorized = c.Categorizacao__c != null;
+        dto.categorizationBlockMessage = dto.isCategorized == true ? null : REQUIRED_CATEGORIZATION_MESSAGE;
         dto.closureStatus = CLOSED_STATUS;
         dto.closureReason = c.MotivoEncerramento__c;
         dto.closureComment = c.ComentarioEncerramento__c;
@@ -117,11 +121,18 @@ public inherited sharing class CaseClosureSurveyService {
         if (String.isBlank(request.closureSolution)) throwFunctional('REQUIRED_CLOSURE_SOLUTION', 'Solução do caso é obrigatória.');
     }
 
+    private static void validateCaseCategorization(Case c) {
+        if (c.Categorizacao__c == null) {
+            throwFunctional('REQUIRED_CASE_CATEGORIZATION', REQUIRED_CATEGORIZATION_MESSAGE);
+        }
+    }
+
     private static Case getCaseById(Id caseId) {
         List<Case> rows = [
             SELECT Id, CaseNumber, Status, IsClosed, UnidadeNegocio__c, Origin, ContactId, Contact.Email,
                    ContactEmail, SuppliedEmail, MotivoEncerramento__c, ComentarioEncerramento__c,
-                   SolucaoCaso__c, EnviarPesquisaSatisfacao__c, PesquisaEnviada__c, DataHoraEnvioPesquisa__c
+                   SolucaoCaso__c, EnviarPesquisaSatisfacao__c, PesquisaEnviada__c, DataHoraEnvioPesquisa__c,
+                   Categorizacao__c
             FROM Case
             WHERE Id = :caseId
             LIMIT 1

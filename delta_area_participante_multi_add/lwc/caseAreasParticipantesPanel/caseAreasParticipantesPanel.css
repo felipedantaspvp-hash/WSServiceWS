@@ -1,0 +1,215 @@
+.summary-box {
+    background: #f3f3f3;
+    border: 1px solid #dddbda;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+}
+
+.summary-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #032d60;
+}
+
+.summary-text {
+    font-size: 0.82rem;
+    margin-top: 0.15rem;
+}
+
+.summary-row {
+    margin-top: 0.15rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+}
+
+.summary-actions {
+    flex-shrink: 0;
+}
+
+.list-wrap {
+    max-height: 34rem;
+    overflow-y: auto;
+}
+
+.group-header {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    cursor: pointer;
+    color: #032d60;
+    font-weight: 700;
+    font-size: 0.78rem;
+    margin-bottom: 0.35rem;
+}
+
+.group-count {
+    color: #5f5c57;
+    font-weight: 600;
+}
+
+.area-item {
+    border-left: 5px solid #dddbda;
+    border-radius: 0.45rem;
+}
+
+.area-item.open {
+    border-left-color: #0176d3;
+}
+
+.area-item.overdue {
+    border-left-color: #ba0517;
+}
+
+.area-item.paused {
+    border-left-color: #5f5c57;
+}
+
+.area-item.done {
+    border-left-color: #2e844a;
+}
+
+.area-item.cancelled {
+    border-left-color: #747474;
+}
+
+.card-title {
+    max-width: 75%;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+}
+
+.area-type-pill {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 0.12rem 0.48rem;
+    font-size: 0.67rem;
+    font-weight: 700;
+    color: #5c3e00;
+    background: #fff4ce;
+    border: 1px solid #e6cf95;
+}
+
+.area-pill {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 0.16rem 0.6rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #032d60;
+    background: #eef4ff;
+    border: 1px solid #b0c4df;
+}
+
+.pill-group {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.status-pill {
+    border-radius: 999px;
+    padding: 0.12rem 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border: 1px solid transparent;
+}
+
+.status-pill.open {
+    color: #014486;
+    background: #eef4ff;
+    border-color: #b0c4df;
+}
+
+.status-pill.overdue {
+    color: #8e030f;
+    background: #ffe9ea;
+    border-color: #f5b6bc;
+}
+
+.status-pill.done {
+    color: #1c6b36;
+    background: #ebf9ef;
+    border-color: #9fdbb0;
+}
+
+.status-pill.paused {
+    color: #3e3e3c;
+    background: #f3f3f3;
+    border-color: #d8dde6;
+}
+
+.status-pill.cancelled {
+    color: #3e3e3c;
+    background: #f3f3f3;
+    border-color: #d8dde6;
+}
+
+.status-pill.violated {
+    color: #8e030f;
+    background: #ffe9ea;
+    border-color: #f5b6bc;
+}
+
+.progress-track {
+    width: 100%;
+    background: #ecebea;
+    border-radius: 999px;
+    height: 0.38rem;
+}
+
+.progress-bar {
+    height: 0.38rem;
+    border-radius: 999px;
+}
+
+.progress-bar.open {
+    background: #0176d3;
+}
+
+.progress-bar.overdue {
+    background: #ba0517;
+}
+
+.progress-bar.paused {
+    background: #5f5c57;
+}
+
+.progress-bar.done {
+    background: #2e844a;
+}
+
+.meta-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #3e3e3c;
+}
+
+.meta-value {
+    font-size: 0.76rem;
+    margin-left: 0.2rem;
+}
+
+.request-text {
+    font-size: 0.8rem;
+    color: #181818;
+}
+
+.actions-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}

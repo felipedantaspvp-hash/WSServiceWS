@@ -1,3 +1,10 @@
+/**
+ * @description       : Testes unitários de CaseCreationController.
+ * @author            : Triscal
+ * @group             : Case Creation
+ * @last modified on  : 06-11-2026
+ * @last modified by  : Jean Duarte
+ **/
 @IsTest
 private class CaseCreationControllerTest {
     @TestSetup

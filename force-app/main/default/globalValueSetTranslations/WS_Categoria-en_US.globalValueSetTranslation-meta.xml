@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSetTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <valueTranslation>
+        <masterLabel>Acompanhamento de Serviço - AG/REDEX</masterLabel>
+        <translation>Service Monitoring - AG/REDEX</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Agendamento</masterLabel>
+        <translation>Scheduling</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Apoio Aduaneiro</masterLabel>
+        <translation>Customs Support</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Atendimento</masterLabel>
+        <translation>Customer Service</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Atualização Cadastral</masterLabel>
+        <translation>Registration Update</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Cadastro de Cliente</masterLabel>
+        <translation>Customer Registration</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Clearance / Embarque</masterLabel>
+        <translation>Clearance / Embarkation</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Comercial</masterLabel>
+        <translation>Commercial</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Depot / Vazios</masterLabel>
+        <translation>Depot / Empty Containers</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Descontos e Negociações</masterLabel>
+        <translation>Discounts and Negotiations</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Desembaraço / Embarque</masterLabel>
+        <translation>Customs Clearance / Embarkation</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Documentação</masterLabel>
+        <translation>Documentation</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dúvidas sobre nome da embarcação</masterLabel>
+        <translation>Vessel Name Inquiries</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Faturamento</masterLabel>
+        <translation>Billing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Fatuamento</masterLabel>
+        <translation>Billing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Financeiro</masterLabel>
+        <translation>Financial</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Inatividade</masterLabel>
+        <translation>Inactivity</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Integração de Cliente</masterLabel>
+        <translation>Customer Integration</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Inteligência de Mercado</masterLabel>
+        <translation>Market Intelligence</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Marketing</masterLabel>
+        <translation>Marketing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Não se Aplica</masterLabel>
+        <translation>Not Applicable</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Operação</masterLabel>
+        <translation>Operations</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Operacional - pátio</masterLabel>
+        <translation>Yard Operations</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Operacional – Pátio</masterLabel>
+        <translation>Yard Operations</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Pátio de Vazios</masterLabel>
+        <translation>Empty Container Yard</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Planejamento Operacional Alfandegado</masterLabel>
+        <translation>Bonded Warehouse Operational Planning</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Portal do Cliente</masterLabel>
+        <translation>Customer Portal</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Portal Logistico</masterLabel>
+        <translation>Logistics Portal</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Portal Logístico</masterLabel>
+        <translation>Logistics Portal</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Programação de Serviço</masterLabel>
+        <translation>Service Scheduling</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Proposta</masterLabel>
+        <translation>Proposal</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>RH</masterLabel>
+        <translation>Human Resources</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Serviços especificos</masterLabel>
+        <translation>Specific Services</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Serviços específicos</masterLabel>
+        <translation>Specific Services</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Sistema</masterLabel>
+        <translation>System</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>SMS</masterLabel>
+        <translation>SMS</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitação</masterLabel>
+        <translation>Request</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Transporte</masterLabel>
+        <translation>Transportation</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Acesso ao Porto</masterLabel>
+        <translation>Port Access</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Direcionamento de Carga</masterLabel>
+        <translation>Cargo Routing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Processos Aduaneiros</masterLabel>
+        <translation>Customs Processes</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Serviços de Armazém</masterLabel>
+        <translation>Warehouse Services</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>App Meu Tecon</masterLabel>
+        <translation>My Tecon App</translation>
+    </valueTranslation>
+</GlobalValueSetTranslation>

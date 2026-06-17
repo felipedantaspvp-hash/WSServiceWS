@@ -1,3 +1,10 @@
+/**
+ * @description       : Funções utilitárias e helpers para o módulo AtendimentoContextResolver.
+ * @author            : Triscal
+ * @group             : Atendimento
+ * @last modified on  : 06-11-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class AtendimentoContextResolverHelper {
     public static final String CHANNEL_WHATSAPP = 'WHATSAPP';
     public static final String CHANNEL_CHAT = 'CHAT';

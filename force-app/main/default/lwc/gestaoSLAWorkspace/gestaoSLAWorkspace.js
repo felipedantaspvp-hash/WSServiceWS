@@ -180,6 +180,7 @@ const RULE_SCOPE_ATENDIMENTO = 'Atendimento';
 const RULE_SCOPE_AREA_INTERNA = 'Area Interna';
 
 export default class GestaoSLAWorkspace extends LightningElement {
+    _sessionVersion = Date.now();
     @track loading = true;
     @track hasError = false;
     @track errorMessage = '';
@@ -576,7 +577,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
         if (!sanitized) {
             return '';
         }
-        return `/resource/${sanitized}`;
+        return `/resource/${sanitized}?v=${this._sessionVersion}`;
     }
 
     get statusLabel() {

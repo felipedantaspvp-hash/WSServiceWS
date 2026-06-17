@@ -1,12 +1,29 @@
+/**
+ * @description       : Serviço de negócio para o módulo CaseCreation. Contém lógica de validação e DML, seguindo arquitetura Triscal.
+ * @author            : Triscal
+ * @group             : Case Creation
+ * @last modified on  : 06-15-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class CaseCreationService {
     public class FunctionalException extends Exception { public String code; }
 
+    /**
+     * @description Lança FunctionalException com código de erro para tratamento pelo Controller.
+     * @param code Código de erro (ex: 'CRUD_DENIED', 'NO_RECORD_TYPE').
+     * @param message Mensagem legível pelo usuário.
+     **/
     public static void throwFunctional(String code, String message) {
         FunctionalException ex = new FunctionalException(message);
         ex.code = code;
         throw ex;
     }
 
+    /**
+     * @description Carrega contexto inicial para criação de Case: verifica permissões, retorna record types
+     *              disponíveis para o usuário e unidade de negócio padrão.
+     * @return InitialContextDTO com userId, record types e unidade de negócio padrão.
+     **/
     public static CaseCreationDTO.InitialContextDTO getInitialContext() {
         if (!Schema.sObjectType.Case.isCreateable()) throwFunctional('CRUD_DENIED', 'Usuário sem permissão para criar Case.');
 
@@ -46,6 +63,12 @@ public inherited sharing class CaseCreationService {
         return out;
     }
 
+    /**
+     * @description Retorna opções da árvore de categorização filtradas pela seleção atual do usuário.
+     *              Percorre categorizações ativas e retorna próximo nível de opções baseado em TipoCaso/Categoria/Assunto já selecionados.
+     * @param request CategorizationRequestDTO com recordType, unidadeNegocio e valores selecionados até o momento.
+     * @return TreeOptionsDTO com listas de opções para TipoCaso, Categoria, Assunto e Subassunto.
+     **/
     public static CaseCreationDTO.TreeOptionsDTO getTreeOptions(CaseCreationDTO.CategorizationRequestDTO request) {
         validateCategorizationBase(request);
         List<Categorizacao__c> rows = CaseCreationSelector.getActiveCategorizacoes(request.recordTypeDeveloperName, request.unidadeNegocio);
@@ -84,6 +107,12 @@ public inherited sharing class CaseCreationService {
         return out;
     }
 
+    /**
+     * @description Resolve seleção completa de categorização e retorna fila parametrizada se houver,
+     *              indicando se a fila é read-only por configuração da categorização.
+     * @param request CategorizationRequestDTO com seleção completa (tipoCaso + categoria + assunto + subassunto).
+     * @return ResolveSelectionResponseDTO com fila sugerida e flag de leitura apenas.
+     **/
     public static CaseCreationDTO.ResolveSelectionResponseDTO resolveCategorizationSelection(CaseCreationDTO.CategorizationRequestDTO request) {
         validateCategorizationBase(request);
         validateCategorizationPath(request);
@@ -122,6 +151,12 @@ public inherited sharing class CaseCreationService {
         return out;
     }
 
+    /**
+     * @description Retorna filas de Case habilitadas para o record type e unidade de negócio, filtradas por token de configuração.
+     * @param recordTypeDeveloperName DeveloperName do RecordType selecionado.
+     * @param unidadeNegocio Unidade de negócio para filtrar a configuração.
+     * @return Lista de QueueOptionDTO com id, name e developerName das filas elegíveis.
+     **/
     public static List<CaseCreationDTO.QueueOptionDTO> getAvailableQueues(String recordTypeDeveloperName, String unidadeNegocio) {
         CaseCreationSelector.UnidadeConfig c = CaseCreationSelector.findConfigForCaseRecordType(recordTypeDeveloperName, unidadeNegocio);
         if (c == null || c.ativo != true || !CaseCreationHelper.sameNormalizedValue(c.unidadeNegocio, unidadeNegocio)) {
@@ -143,6 +178,12 @@ public inherited sharing class CaseCreationService {
         return out;
     }
 
+    /**
+     * @description Constrói valores padrão para o formulário de criação de Case com base na categorização e destino selecionados.
+     *              Consulta regra de SLA ativa, resolve entitlement process, business hours e fila sugerida.
+     * @param request BuildDefaultValuesRequestDTO com seleção de categorização e informações de destino.
+     * @return BuildDefaultValuesResponseDTO com mapa de valores padrão, fila, SLA e warnings.
+     **/
     public static CaseCreationDTO.BuildDefaultValuesResponseDTO buildDefaultValues(CaseCreationDTO.BuildDefaultValuesRequestDTO request) {
         if (!Schema.sObjectType.Case.isCreateable()) throwFunctional('CRUD_DENIED', 'Usuário sem permissão para criar Case.');
         if (request == null || request.categorization == null || request.destination == null) throwFunctional('INVALID_REQUEST', 'Dados de categorização/destino são obrigatórios.');

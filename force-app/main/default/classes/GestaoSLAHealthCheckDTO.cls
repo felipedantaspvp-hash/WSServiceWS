@@ -1,3 +1,10 @@
+/**
+ * @description       : DTOs de transferência de dados para o módulo GestaoSLAHealthCheck. Contém classes de request/response para operações do módulo.
+ * @author            : Triscal
+ * @group             : Gestão de SLA
+ * @last modified on  : 06-15-2026
+ * @last modified by  : Jean Duarte
+ **/
 public class GestaoSLAHealthCheckDTO {
 
     public class HealthCheckResult {

@@ -18,6 +18,8 @@ public inherited sharing class CaseClosureSurveyDTO {
     @AuraEnabled public Boolean customerAlreadyReceivedSurveyToday { get; set; }
     @AuraEnabled public Boolean allowSameDaySurvey { get; set; }
     @AuraEnabled public String surveyAlreadySentMessage { get; set; }
+    @AuraEnabled public Boolean isCategorized { get; set; }
+    @AuraEnabled public String categorizationBlockMessage { get; set; }
     @AuraEnabled public String closureStatus { get; set; }
     @AuraEnabled public String closureReason { get; set; }
     @AuraEnabled public String closureComment { get; set; }

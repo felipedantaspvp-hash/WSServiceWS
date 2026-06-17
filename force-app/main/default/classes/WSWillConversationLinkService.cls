@@ -1,3 +1,10 @@
+/**
+ * @description       : Serviço de negócio para o módulo WSWillConversationLink. Contém lógica de validação e DML, seguindo arquitetura Triscal.
+ * @author            : Triscal
+ * @group             : WSWill
+ * @last modified on  : 06-12-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class WSWillConversationLinkService {
     @TestVisible static Map<Id, Case> testCaseById;
     @TestVisible static Map<Id, MessagingSession> testMessagingById;

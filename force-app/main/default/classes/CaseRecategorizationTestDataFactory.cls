@@ -1,3 +1,10 @@
+/**
+ * @description       : Factory de dados de teste para o módulo CaseRecategorization. Cria registros e objetos relacionados para uso em testes.
+ * @author            : Triscal
+ * @group             : Case Recategorização
+ * @last modified on  : 06-11-2026
+ * @last modified by  : Jean Duarte
+ **/
 @IsTest
 public inherited sharing class CaseRecategorizationTestDataFactory {
     public static Case buildCase(Id recordTypeId, String unidade, String tipo, String categoria, String assunto, String subassunto, String status) {

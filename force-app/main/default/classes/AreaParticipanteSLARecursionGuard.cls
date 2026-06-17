@@ -1,3 +1,10 @@
+/**
+ * @description       : Guarda de recursão para o módulo AreaParticipante. Previne reprocessamento recursivo em triggers e serviços de SLA.
+ * @author            : Triscal
+ * @group             : Área Participante
+ * @last modified on  : 06-11-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class AreaParticipanteSLARecursionGuard {
     private static Set<String> keys = new Set<String>();
 

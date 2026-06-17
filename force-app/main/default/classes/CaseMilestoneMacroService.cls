@@ -1,3 +1,10 @@
+/**
+ * @description       : Serviço de negócio para o módulo CaseMilestoneMacro. Contém lógica de validação e DML, seguindo arquitetura Triscal.
+ * @author            : Triscal
+ * @group             : Case Milestone
+ * @last modified on  : 06-13-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class CaseMilestoneMacroService {
     private static final String ETAPA_CONCLUIDO = 'Concluído';
     private static final String ETAPA_CANCELADO = 'Cancelado';

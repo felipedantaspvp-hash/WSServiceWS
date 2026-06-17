@@ -1,4 +1,11 @@
 /**
+ * @description       : Handler do trigger do objeto CaseAfterInsert__c. Delega operações aos serviços correspondentes.
+ * @author            : Triscal
+ * @group             : Case
+ * @last modified on  : 06-16-2026
+ * @last modified by  : Jean Duarte
+ **/
+/**
  * CaseAfterInsertTriggerHandler
  *
  * Handles after-insert logic for Case records that are NOT covered by

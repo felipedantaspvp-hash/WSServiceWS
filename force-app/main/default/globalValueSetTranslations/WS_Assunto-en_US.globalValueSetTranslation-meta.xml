@@ -1,0 +1,903 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSetTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <valueTranslation>
+        <masterLabel>2ª via de fatura</masterLabel>
+        <translation>Duplicate Invoice</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Acesso</masterLabel>
+        <translation>Access</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Acesso ao terminal</masterLabel>
+        <translation>Terminal Access</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Acesso Codeba</masterLabel>
+        <translation>Codeba Access</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Acompanhamento de DAT</masterLabel>
+        <translation>DAT Tracking</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Acompanhar divergências de agendamento</masterLabel>
+        <translation>Scheduling Discrepancy Follow-up</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Acompanhar veiculo sem agendamento</masterLabel>
+        <translation>Unscheduled Vehicle Follow-up</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Acompanhar veículo sem agendamento</masterLabel>
+        <translation>Unscheduled Vehicle Follow-up</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Agendamento</masterLabel>
+        <translation>Scheduling</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Agendamento de container</masterLabel>
+        <translation>Container Scheduling</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Agendamentos</masterLabel>
+        <translation>Scheduling</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Agendar visita presencial</masterLabel>
+        <translation>Schedule On-site Visit</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Aguardando documentação solicitada ao cliente</masterLabel>
+        <translation>Awaiting Customer Documentation</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Ajustes de OS</masterLabel>
+        <translation>Work Order Adjustments</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Análise Crítica</masterLabel>
+        <translation>Critical Analysis</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Antecipação de agendamento</masterLabel>
+        <translation>Scheduling Advancement</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Aprovar cadastro</masterLabel>
+        <translation>Approve Registration</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Armazéns</masterLabel>
+        <translation>Warehouses</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Atraso de chegada de carga</masterLabel>
+        <translation>Cargo Arrival Delay</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Atraso na Entrega Carga Siscomex</masterLabel>
+        <translation>Cargo Delivery Delay - Siscomex</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Atraso na entrega de carga Siscomex</masterLabel>
+        <translation>Cargo Delivery Delay - Siscomex</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Atraso na negociação comercial</masterLabel>
+        <translation>Commercial Negotiation Delay</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Atraso no faturamento</masterLabel>
+        <translation>Billing Delay</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Atraso ou Erro na Lib. Doc.</masterLabel>
+        <translation>Document Release Error or Delay</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Atraso ou erro na liberação documental</masterLabel>
+        <translation>Document Release Error or Delay</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Atraso ou erro na presença de carga</masterLabel>
+        <translation>Cargo Presence Error or Delay</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Atraso ou erro na realização do serviço</masterLabel>
+        <translation>Service Execution Error or Delay</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Atraso ou Erro no Serviço</masterLabel>
+        <translation>Service Error or Delay</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Atualização Cadastral</masterLabel>
+        <translation>Registration Update</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Atualizar JDA com agendamentos</masterLabel>
+        <translation>Update JDA with Schedules</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Avaria</masterLabel>
+        <translation>Damage</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Averbação</masterLabel>
+        <translation>Endorsement</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Boleto</masterLabel>
+        <translation>Payment Slip</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Cadastrar empresas e clientes</masterLabel>
+        <translation>Register Companies and Customers</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Cadastro</masterLabel>
+        <translation>Registration</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Cadastro de Proposta</masterLabel>
+        <translation>Proposal Registration</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Cadastro Pessoa Física</masterLabel>
+        <translation>Individual Registration</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Cadastro Pessoa Juridica</masterLabel>
+        <translation>Company Registration</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Cadastro Pessoa Jurídica</masterLabel>
+        <translation>Company Registration</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Cargas perigosas / Especiais</masterLabel>
+        <translation>Hazardous / Special Cargo</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Carregamento / Levante</masterLabel>
+        <translation>Loading / Unstuffing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>carta de indisponibilidade</masterLabel>
+        <translation>Unavailability Letter</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Carta Protesto</masterLabel>
+        <translation>Protest Letter</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Comunicados</masterLabel>
+        <translation>Announcements</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Comunicar programação</masterLabel>
+        <translation>Communicate Schedule</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Confirmar liberação de carga</masterLabel>
+        <translation>Confirm Cargo Release</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Confirmar liberação do MAPA</masterLabel>
+        <translation>Confirm MAPA Clearance</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Confirmar prazo de vencimento</masterLabel>
+        <translation>Confirm Due Date</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Conformidade</masterLabel>
+        <translation>Compliance</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Contas a pagar</masterLabel>
+        <translation>Accounts Payable</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Contestação de Demonstrativos</masterLabel>
+        <translation>Statement Dispute</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Contestação de demonstrativos ou fatura</masterLabel>
+        <translation>Invoice / Statement Dispute</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Conversa externa</masterLabel>
+        <translation>External Communication</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>CTE</masterLabel>
+        <translation>CTE (Transport Document)</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Currículo</masterLabel>
+        <translation>Resume / CV</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dados comerciais</masterLabel>
+        <translation>Commercial Data</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dados do recinto</masterLabel>
+        <translation>Terminal Data</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dados SAS</masterLabel>
+        <translation>SAS Data</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dados Sefaz</masterLabel>
+        <translation>SEFAZ Data</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Demandas</masterLabel>
+        <translation>Requests</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Descarga Sem Cadastro</masterLabel>
+        <translation>Discharge Without Registration</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Desembaraço</masterLabel>
+        <translation>Customs Clearance</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Desistência de embarque</masterLabel>
+        <translation>Shipment Cancellation</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Desova Consolidada</masterLabel>
+        <translation>Consolidated Unstuffing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Desova consolidado</masterLabel>
+        <translation>Consolidated Unstuffing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>DESOVA CROSS DOCKING</masterLabel>
+        <translation>Cross-Docking Unstuffing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>DESOVA FREE TIME</masterLabel>
+        <translation>Free Time Unstuffing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Devolução</masterLabel>
+        <translation>Return</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Direcionamento de Recintos</masterLabel>
+        <translation>Terminal Routing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Direcionamento de Tecon</masterLabel>
+        <translation>Tecon Routing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Direcionamento de Tezon</masterLabel>
+        <translation>Tezon Routing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Diversos</masterLabel>
+        <translation>Miscellaneous</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>DTA / DTC</masterLabel>
+        <translation>DTA / DTC</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>DTA/DTC</masterLabel>
+        <translation>DTA/DTC</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dúvidas de usabilidade</masterLabel>
+        <translation>Usability Questions</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Duvidas diversas</masterLabel>
+        <translation>General Inquiries</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dúvidas diversas</masterLabel>
+        <translation>General Inquiries</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dúvidas DUIMP</masterLabel>
+        <translation>DUIMP Inquiries</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dúvidas sobre fatura</masterLabel>
+        <translation>Invoice Inquiries</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dúvidas sobre Pedido de Compra (PO)</masterLabel>
+        <translation>Purchase Order (PO) Inquiries</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dúvidas sobre porto local</masterLabel>
+        <translation>Local Port Inquiries</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dúvidas sobre propostas</masterLabel>
+        <translation>Proposal Inquiries</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dúvidas sobre quantidade de rebocadores empregados</masterLabel>
+        <translation>Tugboat Count Inquiries</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dúvidas sobre responsável</masterLabel>
+        <translation>Responsible Party Inquiries</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dúvidas sobre tarifa de câmbio</masterLabel>
+        <translation>Exchange Rate Tariff Inquiries</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>E-mail indesejado</masterLabel>
+        <translation>Spam Email</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>E-mail recebimento de faturas</masterLabel>
+        <translation>Invoice Receipt Email</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Elaborar romaneio e lista de embalagem</masterLabel>
+        <translation>Prepare Packing List and Bill of Lading</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Elaborar romaneio e packing</masterLabel>
+        <translation>Prepare Packing List</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Embarque indevido</masterLabel>
+        <translation>Unauthorized Shipment</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Encaminhamento</masterLabel>
+        <translation>Forwarding</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Encaminhar CDA (Certificado Deposito Aduaneiro)</masterLabel>
+        <translation>Forward CDA (Bonded Warehouse Certificate)</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Encaminhar dados do recebimento - Alfandegado</masterLabel>
+        <translation>Forward Bonded Warehouse Receipt Data</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Encaminhar dados do recebimento - CD</masterLabel>
+        <translation>Forward Distribution Center Receipt Data</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Encaminhar foto de avaria</masterLabel>
+        <translation>Forward Damage Photos</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Encaminhar pedido de cotação / Nova operação / Projeto</masterLabel>
+        <translation>Forward Quotation Request / New Operation / Project</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Encaminhar TFA (termo de Falta e Avaria)</masterLabel>
+        <translation>Forward TFA (Shortage and Damage Report)</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Entrada Antecipada</masterLabel>
+        <translation>Early Entry</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Enviar comprovante de entrega</masterLabel>
+        <translation>Send Delivery Proof</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Enviar comprovante de pesagem</masterLabel>
+        <translation>Send Weighing Certificate</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Enviar relatório de paletização</masterLabel>
+        <translation>Send Palletization Report</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Enviar ticket de pesagem</masterLabel>
+        <translation>Send Weighing Ticket</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Envio de DRAFT</masterLabel>
+        <translation>Send Draft</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Envio de minuta</masterLabel>
+        <translation>Send Draft Document</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Envio de nota de retorno</masterLabel>
+        <translation>Send Return Note</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Envio de sequencia de pilha</masterLabel>
+        <translation>Send Stack Sequence</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Envio de sequência de pilha</masterLabel>
+        <translation>Send Stack Sequence</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Erro / Indisponibilidade</masterLabel>
+        <translation>Error / Unavailability</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Erro ao faturar responsável incorreto</masterLabel>
+        <translation>Billing Error - Wrong Responsible Party</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Erro na Concessão de Desconto</masterLabel>
+        <translation>Discount Granting Error</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Erro na concessão de desconto ou isenções</masterLabel>
+        <translation>Discount / Exemption Granting Error</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Erro nas regras comerciais</masterLabel>
+        <translation>Commercial Rules Error</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Erro no boleto</masterLabel>
+        <translation>Payment Slip Error</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Erro no envio da fatura para endereço incorreto</masterLabel>
+        <translation>Invoice Sent to Wrong Address</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Erro no lançamento da manobra</masterLabel>
+        <translation>Maneuver Entry Error</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Erro no nome da embarcação</masterLabel>
+        <translation>Vessel Name Error</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Erro ou atraso atualização cadastral</masterLabel>
+        <translation>Registration Update Error or Delay</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Erro ou Atraso na Atualização</masterLabel>
+        <translation>Update Error or Delay</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Erro ou Atraso no Cadastro</masterLabel>
+        <translation>Registration Error or Delay</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Erro ou atraso no cadastro de cliente</masterLabel>
+        <translation>Customer Registration Error or Delay</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Erro/indisponibilidade Portal</masterLabel>
+        <translation>Portal Error / Unavailability</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Esclarecimento sobre manobras</masterLabel>
+        <translation>Maneuver Clarification</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Excesso de Peso</masterLabel>
+        <translation>Overweight</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Expedição manual</masterLabel>
+        <translation>Manual Dispatch</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Falha de Recebimento</masterLabel>
+        <translation>Receipt Failure</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Falha na gestão de vigência</masterLabel>
+        <translation>Validity Management Failure</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Falha na recepção de carga no CCT</masterLabel>
+        <translation>Cargo Receipt Failure at CCT</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Falta de liberação da manobra/fila</masterLabel>
+        <translation>Maneuver / Queue Release Failure</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Fatura</masterLabel>
+        <translation>Invoice</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Fatura ou prévia</masterLabel>
+        <translation>Invoice or Draft Invoice</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Faturamento incorreto</masterLabel>
+        <translation>Incorrect Billing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Faturas</masterLabel>
+        <translation>Invoices</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Fluxo de devolução de baú interno</masterLabel>
+        <translation>Internal Container Return Flow</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Fora do horário de atendimento</masterLabel>
+        <translation>Outside Business Hours</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>FOTOGRAFIA</masterLabel>
+        <translation>Photography</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Gerenciamento de programação de Exportação</masterLabel>
+        <translation>Export Schedule Management</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Gerenciar planilhas de etiquetagem</masterLabel>
+        <translation>Manage Labeling Spreadsheets</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Gerenciar planilhas de etiquetaquem</masterLabel>
+        <translation>Manage Labeling Spreadsheets</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Gerenciar recebimento de carga</masterLabel>
+        <translation>Manage Cargo Receipt</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Horário da manobra</masterLabel>
+        <translation>Maneuver Time</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Incluir DTA no MAPA</masterLabel>
+        <translation>Include DTA in MAPA</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Informar status de remoção de carga</masterLabel>
+        <translation>Report Cargo Removal Status</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Informativo</masterLabel>
+        <translation>Information Notice</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Instruções sobre os Processos</masterLabel>
+        <translation>Process Instructions</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Instruções sobre os processos do Terminal</masterLabel>
+        <translation>Terminal Process Instructions</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Lacre</masterLabel>
+        <translation>Seal</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Lançar serviços e custos adicionais no ECM</masterLabel>
+        <translation>Record Additional Services and Costs in ECM</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Levante / abertura de OS manual</masterLabel>
+        <translation>Loading / Manual Work Order Opening</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Levante / Abertura OS Manual</masterLabel>
+        <translation>Loading / Manual Work Order Opening</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Liberação de Booking</masterLabel>
+        <translation>Booking Release</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Liberação de Booking / carga solta</masterLabel>
+        <translation>Booking Release / Break Bulk</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Liberação de comprovante de pagamento</masterLabel>
+        <translation>Release of Payment Proof</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Liberar janela extra</masterLabel>
+        <translation>Release Extra Slot</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Ligação muda</masterLabel>
+        <translation>Silent Call</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Marketing externo</masterLabel>
+        <translation>External Marketing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Marketing interno</masterLabel>
+        <translation>Internal Marketing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Morosidade nos Serviços</masterLabel>
+        <translation>Service Delays</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Morosidade nos serviços de vazios</masterLabel>
+        <translation>Delays in Empty Container Services</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Morosidade nos serviços do Depot</masterLabel>
+        <translation>Delays in Depot Services</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Navio</masterLabel>
+        <translation>Vessel</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Navios</masterLabel>
+        <translation>Vessels</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Nota Fiscal</masterLabel>
+        <translation>Tax Invoice (NF)</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Notificação automática</masterLabel>
+        <translation>Automatic Notification</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Notificação Carga em Abandono</masterLabel>
+        <translation>Abandoned Cargo Notification</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Novo acesso e alterações</masterLabel>
+        <translation>New Access and Changes</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Novo Cadastro</masterLabel>
+        <translation>New Registration</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Particularidade de faturamento não acatada</masterLabel>
+        <translation>Unacknowledged Billing Requirement</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Particularidade Não Acatada</masterLabel>
+        <translation>Unacknowledged Requirement</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Particularidades de faturamento</masterLabel>
+        <translation>Billing Requirements</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Pátio</masterLabel>
+        <translation>Yard</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Pedido de Compra (PO) / Minuta</masterLabel>
+        <translation>Purchase Order (PO) / Draft</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Pendências na Liberação Doc.</masterLabel>
+        <translation>Documentation Release Pending Issues</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Perda de embarque</masterLabel>
+        <translation>Missed Shipment</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Pesagem</masterLabel>
+        <translation>Weighing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Pesagem e VGM</masterLabel>
+        <translation>Weighing and VGM</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Petição</masterLabel>
+        <translation>Petition</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Plano de estufagem e instrução de embarque</masterLabel>
+        <translation>Stuffing Plan and Shipping Instructions</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Portal Sister</masterLabel>
+        <translation>Sister Portal</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Portão</masterLabel>
+        <translation>Gate</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Porto local</masterLabel>
+        <translation>Local Port</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Presença de carga</masterLabel>
+        <translation>Cargo Presence</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Prioridade</masterLabel>
+        <translation>Priority</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Prioridade no Faturamento</masterLabel>
+        <translation>Billing Priority</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Programação</masterLabel>
+        <translation>Scheduling</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Programação de AG</masterLabel>
+        <translation>AG Scheduling</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Programação de BUFFER</masterLabel>
+        <translation>Buffer Scheduling</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Programação de desova - AG e Redex</masterLabel>
+        <translation>Unstuffing Schedule - AG and Redex</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Programação de REDEX</masterLabel>
+        <translation>REDEX Scheduling</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Programação hora extra</masterLabel>
+        <translation>Overtime Scheduling</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Programação retirada porto</masterLabel>
+        <translation>Port Pickup Scheduling</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Proposta Comercial</masterLabel>
+        <translation>Commercial Proposal</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Proposta comercial / Cadastro</masterLabel>
+        <translation>Commercial Proposal / Registration</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Quantidade de rebocadores empregados</masterLabel>
+        <translation>Number of Employed Tugboats</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Rastreio de veículo</masterLabel>
+        <translation>Vehicle Tracking</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Realizar acompanhamento (modelo distinto)</masterLabel>
+        <translation>Conduct Follow-up (Distinct Model)</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Recepção de NF</masterLabel>
+        <translation>Tax Invoice Receipt</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Recepção de planilha de peso</masterLabel>
+        <translation>Weight Spreadsheet Receipt</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Recepção e desembaraço de DUE</masterLabel>
+        <translation>DUE Receipt and Customs Clearance</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Reclamação formal do cliente</masterLabel>
+        <translation>Formal Customer Complaint</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Relações de débitos em aberto</masterLabel>
+        <translation>Outstanding Debt Summary</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Relatorios</masterLabel>
+        <translation>Reports</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Relatórios</masterLabel>
+        <translation>Reports</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Reserva</masterLabel>
+        <translation>Reservation</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Sem retorno do cliente</masterLabel>
+        <translation>No Customer Response</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Serviço de fumigação</masterLabel>
+        <translation>Fumigation Service</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitação de alteração de vencimento</masterLabel>
+        <translation>Due Date Change Request</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitação de atualização de e-mail</masterLabel>
+        <translation>Email Update Request</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitação de conversão de moeda</masterLabel>
+        <translation>Currency Conversion Request</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitação de desconto/concessão</masterLabel>
+        <translation>Discount / Concession Request</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitação de Proposta</masterLabel>
+        <translation>Proposal Request</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitação para faturar</masterLabel>
+        <translation>Billing Request</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitar assinatura de carta protesto</masterLabel>
+        <translation>Request Protest Letter Signature</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitar assinatura de comprovante de entrega</masterLabel>
+        <translation>Request Delivery Proof Signature</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitar documentos ou retificação documental</masterLabel>
+        <translation>Request Documents or Document Rectification</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitar integração</masterLabel>
+        <translation>Request Integration</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitar lista de embalagem para despachante</masterLabel>
+        <translation>Request Packing List for Customs Broker</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitar packing list para despachante</masterLabel>
+        <translation>Request Packing List for Customs Broker</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitar repesagem de carga</masterLabel>
+        <translation>Request Cargo Reweighing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitar separação de carga entreposto</masterLabel>
+        <translation>Request Bonded Warehouse Cargo Separation</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Tratativa entre terceiros</masterLabel>
+        <translation>Third-Party Negotiations</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Tratativas Entre Terceiros</masterLabel>
+        <translation>Third-Party Negotiations</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Usabilidade</masterLabel>
+        <translation>Usability</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Valores/Serviços</masterLabel>
+        <translation>Rates / Services</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>VISTORIA</masterLabel>
+        <translation>Survey / Inspection</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>WS Acesso</masterLabel>
+        <translation>WS Access</translation>
+    </valueTranslation>
+</GlobalValueSetTranslation>

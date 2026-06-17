@@ -1,3 +1,10 @@
+/**
+ * @description       : Funções utilitárias e helpers para o módulo CaseRecategorization.
+ * @author            : Triscal
+ * @group             : Case Recategorização
+ * @last modified on  : 06-11-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class CaseRecategorizationHelper {
     public static Boolean isBlank(String value) {
         return String.isBlank(value);

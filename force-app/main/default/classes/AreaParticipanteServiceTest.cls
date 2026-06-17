@@ -1,3 +1,10 @@
+/**
+ * @description       : Testes unitários de AreaParticipanteService.
+ * @author            : Triscal
+ * @group             : Área Participante
+ * @last modified on  : 06-15-2026
+ * @last modified by  : Jean Duarte
+ **/
 @IsTest
 private class AreaParticipanteServiceTest {
     private static void enableBhBypass() {

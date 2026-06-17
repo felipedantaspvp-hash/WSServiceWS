@@ -1,3 +1,10 @@
+/**
+ * @description       : Classe de suporte para o módulo Case Milestone.
+ * @author            : Triscal
+ * @group             : Case Milestone
+ * @last modified on  : 06-14-2026
+ * @last modified by  : Jean Duarte
+ **/
 global inherited sharing class CaseMilestoneTriggerTimeCalculator implements Support.MilestoneTriggerTimeCalculator {
     @TestVisible private static final Integer DEFAULT_FALLBACK_MINUTES = 1;
     @TestVisible private static final String FONTE_TEMPO_GESTAO = 'GestaoSLA';

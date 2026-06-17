@@ -1,3 +1,10 @@
+/**
+ * @description       : Testes unitários de CategorizacaoTrigger.
+ * @author            : Triscal
+ * @group             : Categorização
+ * @last modified on  : 06-11-2026
+ * @last modified by  : Jean Duarte
+ **/
 @IsTest
 private class CategorizacaoTriggerTest {
     @IsTest

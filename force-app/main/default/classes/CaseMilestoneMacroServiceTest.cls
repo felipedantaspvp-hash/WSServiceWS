@@ -1,3 +1,10 @@
+/**
+ * @description       : Testes unitários de CaseMilestoneMacroService.
+ * @author            : Triscal
+ * @group             : Case Milestone
+ * @last modified on  : 06-13-2026
+ * @last modified by  : Jean Duarte
+ **/
 @IsTest
 private class CaseMilestoneMacroServiceTest {
     private static final Id FAKE_ID_1 = '500000000000001AAA';

@@ -1,3 +1,10 @@
+/**
+ * @description       : Testes unitários de CaseCreationSelector.
+ * @author            : Triscal
+ * @group             : Case Creation
+ * @last modified on  : 06-12-2026
+ * @last modified by  : Jean Duarte
+ **/
 @IsTest
 private class CaseCreationSelectorTest {
     @IsTest

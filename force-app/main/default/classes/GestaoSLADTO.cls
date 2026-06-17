@@ -1,3 +1,10 @@
+/**
+ * @description       : DTOs de transferência de dados para o módulo GestaoSLA. Contém classes de request/response para operações do módulo.
+ * @author            : Triscal
+ * @group             : Gestão de SLA
+ * @last modified on  : 06-17-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class GestaoSLADTO {
     public class CreateGestaoRequest {
         @AuraEnabled public String name { get; set; }

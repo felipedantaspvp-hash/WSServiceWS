@@ -1,3 +1,10 @@
+/**
+ * @description       : Testes unitários de WS_EmailToCaseConfigService.
+ * @author            : Triscal
+ * @group             : Mensageria
+ * @last modified on  : 06-12-2026
+ * @last modified by  : Jean Duarte
+ **/
 @IsTest
 private class WS_EmailToCaseConfigServiceTest {
     @IsTest

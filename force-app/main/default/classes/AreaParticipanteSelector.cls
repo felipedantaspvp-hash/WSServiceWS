@@ -1,3 +1,10 @@
+/**
+ * @description       : Selector de consultas SOQL para o módulo AreaParticipante. Centraliza queries com security enforced, sem lógica de negócio.
+ * @author            : Triscal
+ * @group             : Área Participante
+ * @last modified on  : 06-15-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class AreaParticipanteSelector {
     @TestVisible private static List<AreaParticipante__c> testAreas;
     @TestVisible private static Case testCase;

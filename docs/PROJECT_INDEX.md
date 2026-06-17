@@ -40,11 +40,13 @@ Sistema externo / SObject / Metadata
 
 | Artefato | Caminho | Responsabilidade | Chama |
 |---|---|---|---|
+| AreaParticipanteController | force-app/main/default/classes/AreaParticipanteController.cls | Expõe endpoints @AuraEnabled para AreaParticipante__c: getPanelDataFresh, addParticipation, addParticipationBulk, closeParticipation, pauseParticipation, resumeParticipation, getParticipationDetails. Sem lógica de negócio. | AreaParticipanteService |
 
 ## Services
 
 | Artefato | Caminho | Responsabilidade | Chamado por |
 |---|---|---|---|
+| AreaParticipanteService | force-app/main/default/classes/AreaParticipanteService.cls | Lógica de negócio de AreaParticipante__c: adição unitária (addParticipation) e bulk (addParticipationBulk), encerramento, pausa, retomada e leitura de painel. Valida CRUD/FLS, regras SLA, unicidade de ciclo aberto. | AreaParticipanteSLAService, AreaParticipanteSelector, BusinessHoursResolverService |
 | CaseAreaParticipantePauseService | force-app/main/default/classes/CaseAreaParticipantePauseService.cls | Pausa/retoma AreaParticipante interna ao entrar/sair de "Aguardando Cliente"; registra DataHoraPausaMilestone__c no Case para rastreamento de pausa dos marcos nativos. | CaseTriggerHandler.afterUpdate |
 | CaseMilestoneMacroService | force-app/main/default/classes/CaseMilestoneMacroService.cls | Fecha marcos SLA não-SLA Total em qualquer transição de EtapaAtendimento__c; fecha SLA Total na conclusão/cancelamento do Case. | CaseTriggerHandler.afterUpdate |
 | AreaParticipanteMilestoneSyncService | force-app/main/default/classes/AreaParticipanteMilestoneSyncService.cls | Espelha CaseMilestones para AreaParticipante__c (OrigemSLA__c='Standard'); idempotência via CaseMilestoneId__c; preserva Custom. Pacote 19. | AreaParticipanteMilestoneSyncBatch, CaseMilestoneSyncQueueable |
@@ -52,6 +54,16 @@ Sistema externo / SObject / Metadata
 | CaseMilestoneSyncQueueable | force-app/main/default/classes/CaseMilestoneSyncQueueable.cls | Queueable que chama AreaParticipanteMilestoneSyncService.syncByCaseIds(); executa fora da transação para aguardar CaseMilestones do EntitlementProcess. Pacote 24A. | CaseAfterInsertTriggerHandler |
 | AreaParticipanteMilestoneSyncBatch | force-app/main/default/classes/AreaParticipanteMilestoneSyncBatch.cls | Apex Batch que processa Cases em lote de 200 chamando syncByCaseIds; suporta filtro por Set<Id> ou QueryLocator global. Pacote 19. | AreaParticipanteMilestoneSyncScheduler |
 | AreaParticipanteMilestoneSyncScheduler | force-app/main/default/classes/AreaParticipanteMilestoneSyncScheduler.cls | Schedulable que agenda AreaParticipanteMilestoneSyncBatch periodicamente (ex: daily às 02h). Pacote 19. | — |
+
+## Selectors
+
+| Artefato | Caminho | SObjects cobertos | Chamado por |
+|---|---|---|---|
+| AreaParticipanteSelector | force-app/main/default/classes/AreaParticipanteSelector.cls | AreaParticipante__c | AreaParticipanteService |
+| GestaoSLASelector | force-app/main/default/classes/GestaoSLASelector.cls | GestaoSLA__c, Categorizacao__c, MarcoSLA__c, RegrasSLACategorizacao__c — 26 métodos estáticos | GestaoSLAService |
+| CaseSurveyDispatchSelector | force-app/main/default/classes/CaseSurveyDispatchSelector.cls | Case, SurveySubject, Survey, EmailTemplate, OrgWideEmailAddress, Network | CaseSurveyDispatchService |
+| WSWillCaseCreationSelector | force-app/main/default/classes/WSWillCaseCreationSelector.cls | Contact, MessagingSession, MessagingEndUser, Case, QueueSobject — 6 métodos; corrige SOQL-in-loop do insert de Cases | WSWillCaseCreationService |
+| AtendimentoContextResolverSelector | force-app/main/default/classes/AtendimentoContextResolverSelector.cls | Contact, Account, TCO_ChannelRouting__mdt — 3 métodos estáticos; SOQLs dinâmicos (ConversationGateway, fetchContactsByEndUser) permanecem no Service por necessidade de schema runtime | AtendimentoContextResolverService |
 
 ## ServiceAgents / Integrações
 
@@ -62,12 +74,13 @@ Sistema externo / SObject / Metadata
 
 | Artefato | Caminho | Uso |
 |---|---|---|
+| AreaParticipanteDTO | force-app/main/default/classes/AreaParticipanteDTO.cls | DTOs do módulo AreaParticipante: PanelDTO, AreaItemDTO, AddRequestDTO, AddBulkRequestDTO/ItemDTO/ResponseDTO, CloseRequestDTO/ResponseDTO, PauseResumeRequestDTO/ResponseDTO, DetailDTO. |
 
 ## LWCs
 
 | Componente | Caminho | Apex usado | Responsabilidade |
 |---|---|---|---|
-| caseAreasParticipantesPanel | force-app/main/default/lwc/caseAreasParticipantesPanel/ | AreaParticipanteController (getPanelDataFresh, addParticipation, closeParticipation, getParticipationDetails) | Painel de Áreas Participantes na LP_Atendimento_Salvador (tela real do Case): lista agrupada Aberto/Concluído, aciona e conclui participações, modal de detalhes, bilíngue PT+EN, exibe dados SLA; canManage do backend controla visibilidade do Add. |
+| caseAreasParticipantesPanel | force-app/main/default/lwc/caseAreasParticipantesPanel/ | AreaParticipanteController (getPanelDataFresh, addParticipationBulk, closeParticipation, pauseParticipation, resumeParticipation, getParticipationDetails) | Painel de Áreas Participantes na LP_Atendimento_Salvador: lista agrupada Aberto/Concluído, modal wizard 2 passos (dual-listbox de seleção + comentário por área) para adicionar múltiplas áreas, encerramento, pausa/retomada, detalhes, bilíngue PT+EN, SLA. |
 | gestaoSLAWorkspace | force-app/main/default/lwc/gestaoSLAWorkspace/ | GestaoSLAController | Workspace administrativo de GestaoSLA — gerencia Categorias e Regras SLA; usado em AppPage/Tab. |
 
 ## Flows

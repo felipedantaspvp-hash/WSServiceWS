@@ -1,3 +1,10 @@
+/**
+ * @description       : Testes unitários de CaseRecategorizationService.
+ * @author            : Triscal
+ * @group             : Case Recategorização
+ * @last modified on  : 06-11-2026
+ * @last modified by  : Jean Duarte
+ **/
 @IsTest
 private class CaseRecategorizationServiceTest {
     private static final String DEFAULT_QUEUE_TOKEN_SALVADOR = 'TSV_';

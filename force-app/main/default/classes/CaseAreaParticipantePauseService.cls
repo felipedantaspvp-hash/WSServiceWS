@@ -1,3 +1,10 @@
+/**
+ * @description       : Serviço de negócio para o módulo CaseAreaParticipantePause. Contém lógica de validação e DML, seguindo arquitetura Triscal.
+ * @author            : Triscal
+ * @group             : Área Participante
+ * @last modified on  : 06-13-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class CaseAreaParticipantePauseService {
     @TestVisible public static Boolean bypassBusinessHoursMathForTests = false;
     @TestVisible public static Boolean bypassCaseMilestoneDmlInTests = false;

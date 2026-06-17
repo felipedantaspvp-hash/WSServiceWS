@@ -1,3 +1,10 @@
+/**
+ * @description       : Serviço de negócio para o módulo WSWillCaseCreation. Contém lógica de validação e DML, seguindo arquitetura Triscal.
+ * @author            : Triscal
+ * @group             : WSWill
+ * @last modified on  : 06-12-2026
+ * @last modified by  : Marllon Nascimento
+ **/
 public inherited sharing class WSWillCaseCreationService {
     @TestVisible static Map<Id, MessagingSession> testMessagingById;
     @TestVisible static Map<Id, MessagingEndUser> testEndUserById;
@@ -50,19 +57,13 @@ public inherited sharing class WSWillCaseCreationService {
             if (req.endUserId != null) endUserIds.add(req.endUserId);
         }
 
-        Map<Id, Contact> contactById = contactIds.isEmpty() ? new Map<Id, Contact>() : new Map<Id, Contact>([
-            SELECT Id, AccountId, Name, Email, Phone, Idioma__c
-            FROM Contact
-            WHERE Id IN :contactIds
-        ]);
+        Map<Id, Contact> contactById = contactIds.isEmpty()
+            ? new Map<Id, Contact>()
+            : WSWillCaseCreationSelector.selectContactsByIds(contactIds);
 
         Map<String, Contact> contactByEmail = new Map<String, Contact>();
         if (!emails.isEmpty()) {
-            for (Contact c : [
-                SELECT Id, AccountId, Name, Email, Phone, Idioma__c
-                FROM Contact
-                WHERE Email IN :emails
-            ]) {
+            for (Contact c : WSWillCaseCreationSelector.selectContactsByEmails(emails)) {
                 if (!String.isBlank(c.Email)) {
                     contactByEmail.put(c.Email.trim().toLowerCase(), c);
                 }
@@ -83,11 +84,7 @@ public inherited sharing class WSWillCaseCreationService {
             if (Test.isRunningTest() && testMessagingById != null) {
                 messagingById.putAll(testMessagingById);
             } else {
-                messagingById = new Map<Id, MessagingSession>([
-                    SELECT Id, EndUserContactId, MessagingEndUserId, CaseId
-                    FROM MessagingSession
-                    WHERE Id IN :messagingSessionIds
-                ]);
+                messagingById = WSWillCaseCreationSelector.selectMessagingSessionsByIds(messagingSessionIds);
             }
         }
 
@@ -102,11 +99,7 @@ public inherited sharing class WSWillCaseCreationService {
             if (Test.isRunningTest() && testEndUserById != null) {
                 endUserById.putAll(testEndUserById);
             } else {
-                endUserById = new Map<Id, MessagingEndUser>([
-                    SELECT Id, ContactId, AccountId, Name, Language
-                    FROM MessagingEndUser
-                    WHERE Id IN :allEndUserIds
-                ]);
+                endUserById = WSWillCaseCreationSelector.selectMessagingEndUsersByIds(allEndUserIds);
             }
         }
 
@@ -122,11 +115,7 @@ public inherited sharing class WSWillCaseCreationService {
             }
         }
         if (!additionalContactIds.isEmpty()) {
-            for (Contact c : [
-                SELECT Id, AccountId, Name, Email, Phone, Idioma__c
-                FROM Contact
-                WHERE Id IN :additionalContactIds
-            ]) {
+            for (Contact c : WSWillCaseCreationSelector.selectContactsByIds(additionalContactIds).values()) {
                 contactById.put(c.Id, c);
                 if (!String.isBlank(c.Email)) {
                     contactByEmail.put(c.Email.trim().toLowerCase(), c);
@@ -363,17 +352,21 @@ public inherited sharing class WSWillCaseCreationService {
 
         if (!casesToInsert.isEmpty()) {
             Database.SaveResult[] caseResults = Database.insert(casesToInsert, false);
+
+            Set<Id> insertedCaseIds = new Set<Id>();
+            for (Database.SaveResult sr : caseResults) {
+                if (sr.isSuccess()) insertedCaseIds.add(sr.getId());
+            }
+            Map<Id, Case> createdCasesById = insertedCaseIds.isEmpty()
+                ? new Map<Id, Case>()
+                : WSWillCaseCreationSelector.selectCasesById(insertedCaseIds);
+
             for (Integer i = 0; i < caseItems.size(); i++) {
                 WorkItem item = caseItems[i];
                 Database.SaveResult sr = caseResults[i];
                 if (sr.isSuccess()) {
                     item.pendingCase.Id = sr.getId();
-                    Case createdCase = [
-                        SELECT Id, CaseNumber
-                        FROM Case
-                        WHERE Id = :sr.getId()
-                        LIMIT 1
-                    ];
+                    Case createdCase = createdCasesById.get(sr.getId());
                     item.res.success = true;
                     item.res.caseId = createdCase.Id;
                     item.res.caseNumber = createdCase.CaseNumber;
@@ -589,12 +582,7 @@ public inherited sharing class WSWillCaseCreationService {
         QueueLookupResult out = new QueueLookupResult();
         if (developerNames == null || developerNames.isEmpty()) return out;
 
-        for (QueueSobject queueObject : [
-            SELECT QueueId, Queue.DeveloperName
-            FROM QueueSobject
-            WHERE SobjectType = 'Case'
-            ORDER BY Queue.DeveloperName
-        ]) {
+        for (QueueSobject queueObject : WSWillCaseCreationSelector.selectCaseQueuesBySobjectType()) {
             if (queueObject.Queue == null || String.isBlank(queueObject.Queue.DeveloperName)) continue;
 
             String developerName = queueObject.Queue.DeveloperName;

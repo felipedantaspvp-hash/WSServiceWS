@@ -1,3 +1,10 @@
+/**
+ * @description       : Handler do trigger do objeto Case__c. Delega operações aos serviços correspondentes.
+ * @author            : Triscal
+ * @group             : Case
+ * @last modified on  : 06-16-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class CaseTriggerHandler {
     @TestVisible private static Map<Id, Integer> injectedBlockersByCase = new Map<Id, Integer>();
 

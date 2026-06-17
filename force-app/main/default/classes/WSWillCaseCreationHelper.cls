@@ -1,3 +1,10 @@
+/**
+ * @description       : Funções utilitárias e helpers para o módulo WSWillCaseCreation.
+ * @author            : Triscal
+ * @group             : WSWill
+ * @last modified on  : 06-11-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class WSWillCaseCreationHelper {
     public static String normalizeLanguageForCase(String lang) {
         String normalized = WSWillContextResolverHelper.normalizePreferredLanguage(lang);

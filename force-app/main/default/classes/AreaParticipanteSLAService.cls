@@ -1,3 +1,10 @@
+/**
+ * @description       : Serviço de gestão de SLA para o módulo AreaParticipante. Gerencia cálculo de prazo, status e atualização de marcos.
+ * @author            : Triscal
+ * @group             : Área Participante
+ * @last modified on  : 06-17-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class AreaParticipanteSLAService {
     public class FunctionalException extends Exception {}
     @TestVisible public static Boolean bypassBusinessHoursMathForTests = false;
@@ -37,6 +44,10 @@ public inherited sharing class AreaParticipanteSLAService {
                 a.RegraSLACategorizacao__c = rule.Id;
                 a.TempoSLAMinutos__c = resolvedMinutes;
                 if (a.DataHoraInicio__c == null) a.DataHoraInicio__c = System.now();
+                if (String.isBlank(rule.BusinessHoursName__c)) {
+                    a.addError('A regra de SLA ativa para essa área não possui Horário Comercial configurado. Configure o campo BusinessHoursName na regra e tente novamente.');
+                    continue;
+                }
                 Id bhId = BusinessHoursResolverService.resolveActiveByName(rule.BusinessHoursName__c);
                 Long prazoMs = AreaParticipanteSLAHelper.toMs(resolvedMinutes);
                 a.DataHoraPrazo__c = useBypassBusinessHoursInTests()

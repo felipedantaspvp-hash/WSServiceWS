@@ -16,5 +16,16 @@
         <members>GestaoSLA_ToastRuleActivated</members>
         <name>CustomLabel</name>
     </types>
+    <types>
+        <members>Categorizacao__c-en_US</members>
+        <name>CustomObjectTranslation</name>
+    </types>
+    <types>
+        <members>WS_Tipo_de_Caso-en_US</members>
+        <members>WS_Categoria-en_US</members>
+        <members>WS_Assunto-en_US</members>
+        <members>WS_Subassunto-en_US</members>
+        <name>GlobalValueSetTranslation</name>
+    </types>
     <version>66.0</version>
 </Package>

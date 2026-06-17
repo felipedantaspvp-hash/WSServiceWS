@@ -1,3 +1,10 @@
+/**
+ * @description       : Serviço de negócio para o módulo MessagingContext. Contém lógica de validação e DML, seguindo arquitetura Triscal.
+ * @author            : Triscal
+ * @group             : Mensageria
+ * @last modified on  : 06-12-2026
+ * @last modified by  : Marllon Nascimento
+ **/
 public inherited sharing class MessagingContextService {
     public interface ConversationGateway {
         Map<Id, SObject> fetchByIds(String objectApiName, Set<Id> ids, Set<String> fieldsToRead);

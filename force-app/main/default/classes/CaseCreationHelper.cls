@@ -1,3 +1,10 @@
+/**
+ * @description       : Funções utilitárias e helpers para o módulo CaseCreation.
+ * @author            : Triscal
+ * @group             : Case Creation
+ * @last modified on  : 06-15-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class CaseCreationHelper {
     public static String normalizeKey(String value) {
         if (String.isBlank(value)) return '';

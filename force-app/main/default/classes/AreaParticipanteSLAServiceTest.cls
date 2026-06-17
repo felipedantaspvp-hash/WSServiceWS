@@ -1,3 +1,10 @@
+/**
+ * @description       : Testes unitários de AreaParticipanteSLAService.
+ * @author            : Triscal
+ * @group             : Área Participante
+ * @last modified on  : 06-14-2026
+ * @last modified by  : Jean Duarte
+ **/
 @IsTest
 private class AreaParticipanteSLAServiceTest {
     private static void enableDeterministicBusinessHoursMath() {

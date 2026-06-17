@@ -1,3 +1,10 @@
+/**
+ * @description       : Selector de consultas SOQL para o módulo CaseCreation. Centraliza queries com security enforced, sem lógica de negócio.
+ * @author            : Triscal
+ * @group             : Case Creation
+ * @last modified on  : 06-15-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class CaseCreationSelector {
     public class UnidadeConfig {
         public String recordTypeDeveloperName;

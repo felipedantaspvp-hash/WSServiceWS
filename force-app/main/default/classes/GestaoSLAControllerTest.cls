@@ -1,3 +1,10 @@
+/**
+ * @description       : Testes unitários de GestaoSLAController.
+ * @author            : Triscal
+ * @group             : Gestão de SLA
+ * @last modified on  : 06-13-2026
+ * @last modified by  : Jean Duarte
+ **/
 @IsTest
 private class GestaoSLAControllerTest {
     private static GestaoSLA__c createGestao() {

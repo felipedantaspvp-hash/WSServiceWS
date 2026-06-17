@@ -1,3 +1,10 @@
+/**
+ * @description       : Testes unitários de AreaParticipanteSLAHelper.
+ * @author            : Triscal
+ * @group             : Área Participante
+ * @last modified on  : 06-11-2026
+ * @last modified by  : Jean Duarte
+ **/
 @IsTest
 private class AreaParticipanteSLAHelperTest {
     @IsTest

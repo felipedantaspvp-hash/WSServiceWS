@@ -1,5 +1,14 @@
+/**
+ * @description       : Serviço de negócio para o módulo RegrasSLACategorizacao. Contém lógica de validação e DML, seguindo arquitetura Triscal.
+ * @author            : Triscal
+ * @group             : Regras de SLA
+ * @last modified on  : 06-17-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class RegrasSLACategorizacaoService {
     public static void beforeSave(List<RegrasSLACategorizacao__c> rows){
+        inheritBusinessHoursFromGestaoSLA(rows);
+
         Set<String> hashes = new Set<String>();
         Set<Id> ids = new Set<Id>();
         for (RegrasSLACategorizacao__c r : rows){
@@ -20,6 +29,24 @@ public inherited sharing class RegrasSLACategorizacaoService {
             if (existing.containsKey(r.ChaveUnicaHash__c)) r.addError('Ja existe regra ativa para essa combinacao.');
             if (local.contains(r.ChaveUnicaHash__c)) r.addError('Duplicidade de regra ativa no mesmo lote.');
             local.add(r.ChaveUnicaHash__c);
+        }
+    }
+
+    private static void inheritBusinessHoursFromGestaoSLA(List<RegrasSLACategorizacao__c> rows) {
+        Set<Id> gestaoIds = new Set<Id>();
+        for (RegrasSLACategorizacao__c r : rows) {
+            if (r.GestaoSLA__c != null) gestaoIds.add(r.GestaoSLA__c);
+        }
+        if (gestaoIds.isEmpty()) return;
+
+        Map<Id, GestaoSLA__c> gestaoById = new Map<Id, GestaoSLA__c>(
+            [SELECT Id, BusinessHoursName__c FROM GestaoSLA__c WHERE Id IN :gestaoIds]
+        );
+        for (RegrasSLACategorizacao__c r : rows) {
+            GestaoSLA__c g = gestaoById.get(r.GestaoSLA__c);
+            if (g != null && !String.isBlank(g.BusinessHoursName__c)) {
+                r.BusinessHoursName__c = g.BusinessHoursName__c;
+            }
         }
     }
 

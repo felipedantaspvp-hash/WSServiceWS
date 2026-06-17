@@ -1,3 +1,10 @@
+/**
+ * @description       : Testes unitários de WSWillContextResolver.
+ * @author            : Triscal
+ * @group             : WSWill
+ * @last modified on  : 06-12-2026
+ * @last modified by  : Jean Duarte
+ **/
 @IsTest
 private class WSWillContextResolverTest {
     private static final Id SESSION_ID = Id.valueOf('0Mw000000000001');

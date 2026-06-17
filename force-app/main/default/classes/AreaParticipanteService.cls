@@ -1,3 +1,13 @@
+/**
+ * @description       : Service responsável pela lógica de negócio de AreaParticipante__c:
+ *                      adição (unitária e bulk), encerramento, pausa, retomada e leitura de painel.
+ *                      Coordena cálculo de SLA, validação de regras, atualização de campos do Case
+ *                      e integridade de ciclos abertos.
+ * @author            : Triscal
+ * @group             : Área Participante
+ * @last modified on  : 06-17-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class AreaParticipanteService {
     public class FunctionalException extends Exception {
         public String code;
@@ -21,6 +31,12 @@ public inherited sharing class AreaParticipanteService {
         return isEnglish() ? en : pt;
     }
 
+    /**
+     * @description Retorna dados do painel de áreas participantes para um Case.
+     *              Agrega itens de AreaParticipante__c, calcula tempos de SLA, contadores e opções de área disponíveis.
+     * @param caseId Id do Case pai.
+     * @return PanelDTO com lista de itens, opções disponíveis, contadores e próximo prazo.
+     **/
     public static AreaParticipanteDTO.PanelDTO getPanelData(Id caseId) {
         validateReadPermissions();
         if (caseId == null) throwFunctional('REQUIRED_CASE_ID', msg('Caso não encontrado ou sem acesso.', 'Case not found or no access.'));
@@ -74,6 +90,12 @@ public inherited sharing class AreaParticipanteService {
         return out;
     }
 
+    /**
+     * @description Adiciona uma única área participante a um Case, criando AreaParticipante__c e atualizando
+     *              campos multipicklist e EtapaAtendimento__c do Case. Valida permissões, unicidade e regra de SLA ativa.
+     * @param request AddRequestDTO com caseId, área, prazo opcional e comentário de solicitação.
+     * @return AddResponseDTO com id do novo registro e campos multipicklist atualizados do Case.
+     **/
     public static AreaParticipanteDTO.AddResponseDTO addParticipation(AreaParticipanteDTO.AddRequestDTO request) {
         validateAddPermissions();
         if (request == null || request.caseId == null) throwFunctional('REQUIRED_CASE_ID', msg('Caso não encontrado ou sem acesso.', 'Case not found or no access.'));
@@ -158,6 +180,105 @@ public inherited sharing class AreaParticipanteService {
         return out;
     }
 
+    /**
+     * @description Adiciona múltiplas áreas participantes a um Case em uma única operação DML.
+     *              Valida permissões, unicidade de área, existência de regra de SLA ativa e comentário obrigatório
+     *              por área antes de inserir. Atualiza campos multipicklist e EtapaAtendimento__c do Case ao final.
+     * @param request AddBulkRequestDTO contendo caseId e lista de AddBulkItemDTO (área + comentário).
+     * @return AddBulkResponseDTO com sucesso, contagem de registros inseridos e mensagem localizada.
+     **/
+    public static AreaParticipanteDTO.AddBulkResponseDTO addParticipationBulk(AreaParticipanteDTO.AddBulkRequestDTO request) {
+        validateAddPermissions();
+        if (request == null || request.caseId == null) throwFunctional('REQUIRED_CASE_ID', msg('Caso não encontrado ou sem acesso.', 'Case not found or no access.'));
+        if (request.items == null || request.items.isEmpty()) throwFunctional('REQUIRED_ITEMS', msg('Informe ao menos uma área participante.', 'Provide at least one participant area.'));
+
+        Case caseRow = AreaParticipanteSelector.getCaseById(request.caseId);
+        if (caseRow == null) throwFunctional('CASE_NOT_FOUND', msg('Caso não encontrado ou sem acesso.', 'Case not found or no access.'));
+
+        Map<String, String> normalizedToCanonical = new Map<String, String>();
+        for (Schema.PicklistEntry pe : Case.AreasParticipantesSLA__c.getDescribe().getPicklistValues()) {
+            if (pe.isActive()) normalizedToCanonical.put(AreaParticipanteHelper.normalizeText(pe.getValue()), pe.getValue());
+        }
+
+        Set<String> eligibleAreas = AreaParticipanteSelector.getEligibleAreaValuesForCase(caseRow);
+
+        List<AreaParticipante__c> existingAreas = AreaParticipanteSelector.getAreasByCase(request.caseId);
+        Set<String> occupiedNormalized = new Set<String>();
+        Datetime nowRef = System.now();
+        for (AreaParticipante__c ea : existingAreas) {
+            if (AreaParticipanteHelper.isAbertaOuAndamento(ea.StatusAtuacao__c) || AreaParticipanteHelper.isOverdue(ea.DataHoraPrazo__c, nowRef, ea.StatusAtuacao__c)) {
+                occupiedNormalized.add(AreaParticipanteHelper.normalizeText((String) ea.get(AREA_FIELD)));
+            }
+        }
+
+        List<AreaParticipante__c> toInsert = new List<AreaParticipante__c>();
+        Set<String> addedNormalized = new Set<String>();
+
+        for (AreaParticipanteDTO.AddBulkItemDTO item : request.items) {
+            if (String.isBlank(item.area)) throwFunctional('REQUIRED_AREA', msg('Informe a área participante.', 'Provide the participant area.'));
+            if (String.isBlank(item.comentarioSolicitacao)) throwFunctional('REQUIRED_REQUEST_COMMENT', msg('Informe o comentário de solicitação.', 'Provide the request comment.'));
+
+            String normalizedItem = AreaParticipanteHelper.normalizeText(item.area);
+            String selectedArea = normalizedToCanonical.get(normalizedItem);
+            if (selectedArea == null) throwFunctional('INVALID_AREA', msg('Área participante inválida: ' + item.area, 'Invalid participant area: ' + item.area));
+            if (!eligibleAreas.contains(selectedArea)) {
+                throwFunctional('SLA_RULE_NOT_FOUND', msg(
+                    'Não existe regra de SLA ativa para a área: ' + selectedArea,
+                    'No active SLA rule for area: ' + selectedArea
+                ));
+            }
+            String normalizedSelected = AreaParticipanteHelper.normalizeText(selectedArea);
+            if (occupiedNormalized.contains(normalizedSelected)) {
+                throwFunctional('DUPLICATE_OPEN_AREA', msg('Já existe participação ativa para a área: ' + selectedArea, 'An active participation already exists for area: ' + selectedArea));
+            }
+            if (addedNormalized.contains(normalizedSelected)) {
+                throwFunctional('DUPLICATE_IN_REQUEST', msg('Área duplicada na solicitação: ' + selectedArea, 'Duplicate area in request: ' + selectedArea));
+            }
+            addedNormalized.add(normalizedSelected);
+
+            AreaParticipante__c row = new AreaParticipante__c();
+            row.Caso__c = request.caseId;
+            row.put(AREA_FIELD, selectedArea);
+            row.TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA;
+            row.OrigemAtuacao__c = 'Manual';
+            row.StatusAtuacao__c = AreaParticipanteHelper.resolveOpenStatusValue();
+            row.DataHoraInicio__c = nowRef;
+            row.ComentarioSolicitacao__c = item.comentarioSolicitacao;
+            if (AreaParticipante__c.Solicitante__c.getDescribe().isCreateable()) row.Solicitante__c = UserInfo.getUserId();
+            toInsert.add(row);
+
+            caseRow.AreasParticipantesSLA__c = AreaParticipanteHelper.addValue(caseRow.AreasParticipantesSLA__c, selectedArea);
+            caseRow.AreasParticipantes__c = AreaParticipanteHelper.addValue(caseRow.AreasParticipantes__c, selectedArea);
+        }
+
+        if (Case.EtapaAtendimento__c.getDescribe().isUpdateable()) {
+            String etapaNorm = AreaParticipanteHelper.normalizeText(caseRow.EtapaAtendimento__c);
+            String statusNorm = AreaParticipanteHelper.normalizeText(caseRow.Status);
+            Boolean isTerminal = statusNorm.contains('fechad') || etapaNorm.contains('conclu') || etapaNorm.contains('cancel');
+            if (!isTerminal) caseRow.EtapaAtendimento__c = 'Aguardando Área Interna';
+        }
+
+        try {
+            insert toInsert;
+            update caseRow;
+        } catch (DmlException ex) {
+            String message = ex.getNumDml() > 0 ? ex.getDmlMessage(0) : ex.getMessage();
+            throwFunctional('DML_ERROR', String.isBlank(message) ? msg('Não foi possível adicionar as participações.', 'Could not add participations.') : message);
+        }
+
+        AreaParticipanteDTO.AddBulkResponseDTO out = new AreaParticipanteDTO.AddBulkResponseDTO();
+        out.success = true;
+        out.count = toInsert.size();
+        out.message = msg(toInsert.size() + ' área(s) participante(s) adicionada(s) com sucesso.', toInsert.size() + ' participant area(s) added successfully.');
+        return out;
+    }
+
+    /**
+     * @description Encerra a participação de uma área, atualizando status, DataHoraFim__c, comentário e solução de retorno.
+     *              Remove a área dos campos multipicklist do Case e atualiza EtapaAtendimento__c se aplicável.
+     * @param request CloseRequestDTO com id da área, comentário e solução de retorno obrigatórios.
+     * @return CloseResponseDTO com área removida, áreas restantes e nova etapa de atendimento.
+     **/
     public static AreaParticipanteDTO.CloseResponseDTO closeParticipation(AreaParticipanteDTO.CloseRequestDTO request) {
         validateUpdatePermissions();
         if (request == null || request.areaParticipanteId == null) throwFunctional('REQUIRED_AREA_ID', msg('Área participante não encontrada ou sem acesso.', 'Participant area not found or no access.'));
@@ -251,6 +372,12 @@ public inherited sharing class AreaParticipanteService {
         return out;
     }
 
+    /**
+     * @description Pausa o cronômetro de SLA de uma área participante do tipo Área Interna Custom.
+     *              Registra DataHoraInicioPausa__c e atualiza StatusSLA__c para Pausado.
+     * @param request PauseResumeRequestDTO com o id da área participante a pausar.
+     * @return PauseResumeResponseDTO com novo status e horário de início de pausa.
+     **/
     public static AreaParticipanteDTO.PauseResumeResponseDTO pauseParticipation(AreaParticipanteDTO.PauseResumeRequestDTO request) {
         validatePauseResumePermissions();
         if (request == null || request.areaParticipanteId == null) {
@@ -267,6 +394,12 @@ public inherited sharing class AreaParticipanteService {
         return toPauseResumeResponse(row, msg('Participação pausada com sucesso.', 'Participation paused successfully.'));
     }
 
+    /**
+     * @description Retoma o cronômetro de SLA de uma área participante pausada.
+     *              Calcula tempo pausado em minutos usando BusinessHours e extende DataHoraPrazo__c proporcionalmente.
+     * @param request PauseResumeRequestDTO com o id da área participante a retomar.
+     * @return PauseResumeResponseDTO com novo status e tempo pausado acumulado.
+     **/
     public static AreaParticipanteDTO.PauseResumeResponseDTO resumeParticipation(AreaParticipanteDTO.PauseResumeRequestDTO request) {
         validatePauseResumePermissions();
         if (request == null || request.areaParticipanteId == null) {
@@ -371,6 +504,11 @@ public inherited sharing class AreaParticipanteService {
         return out;
     }
 
+    /**
+     * @description Retorna detalhes completos de uma área participante específica, incluindo tempos de SLA calculados.
+     * @param areaParticipanteId Id do registro AreaParticipante__c.
+     * @return DetailDTO com item completo (campos, tempos, status) e lista de warnings.
+     **/
     public static AreaParticipanteDTO.DetailDTO getParticipationDetails(Id areaParticipanteId) {
         validateReadPermissions();
         if (areaParticipanteId == null) throwFunctional('REQUIRED_AREA_ID', msg('Área participante não encontrada ou sem acesso.', 'Participant area not found or no access.'));

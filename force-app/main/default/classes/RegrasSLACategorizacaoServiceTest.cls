@@ -1,3 +1,10 @@
+/**
+ * @description       : Testes unitários de RegrasSLACategorizacaoService.
+ * @author            : Triscal
+ * @group             : Regras de SLA
+ * @last modified on  : 06-17-2026
+ * @last modified by  : Jean Duarte
+ **/
 @IsTest
 private class RegrasSLACategorizacaoServiceTest {
     private static GestaoSLA__c createGestao() {
@@ -100,6 +107,35 @@ private class RegrasSLACategorizacaoServiceTest {
         Boolean failedSemTempo = false;
         try { insert semTempo; } catch (DmlException ex) { failedSemTempo = true; }
         Assert.areEqual(true, failedSemTempo);
+    }
+
+    @IsTest
+    static void testBusinessHoursHerdadoDaGestaoSLANoInsert() {
+        Categorizacao__c categ = createCategorizacao();
+        GestaoSLA__c g = createGestao();
+        MarcoSLA__c m = createMarco(g.Id);
+
+        RegrasSLACategorizacao__c r = novoBase(categ.Id, g.Id, m.Id, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
+        insert r;
+
+        RegrasSLACategorizacao__c inserted = [SELECT BusinessHoursName__c FROM RegrasSLACategorizacao__c WHERE Id = :r.Id];
+        Assert.areEqual('Atendimento Salvador', inserted.BusinessHoursName__c, 'BusinessHoursName__c deve ser herdado da GestaoSLA');
+    }
+
+    @IsTest
+    static void testBusinessHoursHerdadoDaGestaoSLANoUpdate() {
+        Categorizacao__c categ = createCategorizacao();
+        GestaoSLA__c g = createGestao();
+        MarcoSLA__c m = createMarco(g.Id);
+
+        RegrasSLACategorizacao__c r = novoBase(categ.Id, g.Id, m.Id, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
+        insert r;
+
+        r.BusinessHoursName__c = null;
+        update r;
+
+        RegrasSLACategorizacao__c updated = [SELECT BusinessHoursName__c FROM RegrasSLACategorizacao__c WHERE Id = :r.Id];
+        Assert.areEqual('Atendimento Salvador', updated.BusinessHoursName__c, 'BusinessHoursName__c deve ser restaurado da GestaoSLA no update');
     }
 
     @IsTest

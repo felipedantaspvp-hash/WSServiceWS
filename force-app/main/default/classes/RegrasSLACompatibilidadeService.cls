@@ -1,3 +1,10 @@
+/**
+ * @description       : Serviço de negócio para o módulo RegrasSLACompatibilidade. Contém lógica de validação e DML, seguindo arquitetura Triscal.
+ * @author            : Triscal
+ * @group             : Regras de SLA
+ * @last modified on  : 06-14-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class RegrasSLACompatibilidadeService {
     public class CompatibilidadeException extends Exception {}
 

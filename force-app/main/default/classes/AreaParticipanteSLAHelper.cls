@@ -1,3 +1,10 @@
+/**
+ * @description       : Funções auxiliares de cálculo e validação de SLA para o módulo AreaParticipante.
+ * @author            : Triscal
+ * @group             : Área Participante
+ * @last modified on  : 06-14-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class AreaParticipanteSLAHelper {
     public static final String TIPO_AREA_INTERNA = 'Área Interna';
     public static final String STATUS_ATUACAO_ABERTA = 'Aberta';

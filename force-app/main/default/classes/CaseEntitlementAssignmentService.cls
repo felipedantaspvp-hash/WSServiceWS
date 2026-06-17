@@ -1,3 +1,10 @@
+/**
+ * @description       : Serviço de negócio para o módulo CaseEntitlementAssignment. Contém lógica de validação e DML, seguindo arquitetura Triscal.
+ * @author            : Triscal
+ * @group             : Case Entitlement
+ * @last modified on  : 06-12-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class CaseEntitlementAssignmentService {
     private static final String UNIDADE_SALVADOR = 'Atendimento Tecon Salvador';
     private static final String ENTITLEMENT_NAME = 'Atendimento Salvador';

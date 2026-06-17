@@ -1,3 +1,10 @@
+/**
+ * @description       : Testes unitários de RegrasSLACategorizacaoSelector.
+ * @author            : Triscal
+ * @group             : Regras de SLA
+ * @last modified on  : 06-14-2026
+ * @last modified by  : Jean Duarte
+ **/
 @IsTest
 private class RegrasSLACategorizacaoSelectorTest {
     private static Categorizacao__c createCategorizacao() {

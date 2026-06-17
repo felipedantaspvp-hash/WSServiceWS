@@ -1,3 +1,10 @@
+/**
+ * @description       : DTOs de transferência de dados para o módulo CaseRecategorization. Contém classes de request/response para operações do módulo.
+ * @author            : Triscal
+ * @group             : Case Recategorização
+ * @last modified on  : 06-11-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class CaseRecategorizationDTO {
     public class ErrorInfo {
         @AuraEnabled public String code { get; set; }

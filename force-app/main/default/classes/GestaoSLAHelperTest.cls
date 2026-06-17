@@ -1,3 +1,10 @@
+/**
+ * @description       : Testes unitários de GestaoSLAHelper.
+ * @author            : Triscal
+ * @group             : Gestão de SLA
+ * @last modified on  : 06-11-2026
+ * @last modified by  : Jean Duarte
+ **/
 @IsTest
 private class GestaoSLAHelperTest {
     @IsTest

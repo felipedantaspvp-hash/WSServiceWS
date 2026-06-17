@@ -1,3 +1,10 @@
+/**
+ * @description       : Serviço de sincronização de marcos (milestones) para o módulo AreaParticipante. Atualiza CaseMilestone em resposta a mudanças de SLA.
+ * @author            : Triscal
+ * @group             : Área Participante
+ * @last modified on  : 06-16-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class AreaParticipanteMilestoneSyncService {
 
     private static final String ORIGEM_STANDARD = AreaParticipanteSLAHelper.ORIGEM_SLA_STANDARD;

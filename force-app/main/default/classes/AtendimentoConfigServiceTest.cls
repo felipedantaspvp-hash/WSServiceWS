@@ -1,3 +1,10 @@
+/**
+ * @description       : Testes unitários de AtendimentoConfigService.
+ * @author            : Triscal
+ * @group             : Atendimento
+ * @last modified on  : 06-12-2026
+ * @last modified by  : Marllon Nascimento
+ **/
 @IsTest
 private class AtendimentoConfigServiceTest {
     @IsTest
