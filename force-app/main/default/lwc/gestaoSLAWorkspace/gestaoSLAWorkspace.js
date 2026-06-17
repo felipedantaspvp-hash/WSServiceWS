@@ -897,19 +897,22 @@ export default class GestaoSLAWorkspace extends LightningElement {
         }
     }
 
-    handleFilterTipoCaso(event) {
+    async handleFilterTipoCaso(event) {
         this.filtroTipoCaso = event.detail.value;
+        await this.handleApplyFilters();
     }
 
-    handleFilterCategoria(event) {
+    async handleFilterCategoria(event) {
         this.filtroCategoria = event.detail.value;
+        await this.handleApplyFilters();
     }
 
-    handleFilterAtivo(event) {
+    async handleFilterAtivo(event) {
         this.filtroAtivo = event.detail.value;
+        await this.handleApplyFilters();
     }
 
-    handleRegraFilterChange(event) {
+    async handleRegraFilterChange(event) {
         const field = event.target?.name;
         if (!field) return;
         this[field] = event.detail?.value ?? event.target?.value ?? '';
@@ -919,6 +922,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
         if (field === 'regrasFiltroEscopo' && this[field] !== RULE_SCOPE_AREA_INTERNA) {
             this.regrasFiltroAreaAtendimento = 'Todos';
         }
+        await this.loadRegrasSLA(this.selectedGestaoSLAId);
     }
 
     async handleApplyRegrasFilters() {

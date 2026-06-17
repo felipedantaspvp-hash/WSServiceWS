@@ -177,10 +177,10 @@
 }
 
 .filters-row {
-    display: grid;
-    grid-template-columns: minmax(220px, 1fr) 190px 190px 150px auto;
+    display: flex;
+    flex-wrap: wrap;
     gap: 0.6rem;
-    align-items: end;
+    align-items: flex-end;
 }
 
 .regras-header-row {
@@ -435,11 +435,15 @@
         grid-template-columns: 1fr;
     }
 
-    .filters-row {
-        grid-template-columns: 1fr;
+    .filters-row lightning-combobox,
+    .filters-row lightning-input {
+        flex: 1 1 100%;
     }
 
-    .regras-filters-row,
+    .regras-filters-row lightning-combobox {
+        flex: 1 1 100%;
+    }
+
     .regra-form-grid,
     .global-times-grid {
         grid-template-columns: 1fr;

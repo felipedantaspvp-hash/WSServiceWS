@@ -171,7 +171,6 @@
                                     <lightning-combobox value={filtroTipoCaso} options={tipoCasoOptions} onchange={handleFilterTipoCaso}></lightning-combobox>
                                     <lightning-combobox value={filtroCategoria} options={categoriaOptions} onchange={handleFilterCategoria}></lightning-combobox>
                                     <lightning-combobox value={filtroAtivo} options={ativoOptions} onchange={handleFilterAtivo}></lightning-combobox>
-                                    <lightning-button label={labels.categoryFilterButton} variant="neutral" onclick={handleApplyFilters}></lightning-button>
                                 </div>
 
                                 <template if:true={hasCategorias}>
@@ -340,7 +339,6 @@
                                         options={ativoOptions}
                                         onchange={handleRegraFilterChange}
                                     ></lightning-combobox>
-                                    <lightning-button label={labels.categoryFilterButton} variant="neutral" onclick={handleApplyRegrasFilters}></lightning-button>
                                 </div>
 
                                 <template if:true={loadingRegras}>
