@@ -145,6 +145,14 @@
         <value>Category: All</value>
     </labels>
     <labels>
+        <fullName>GestaoSLA_CategoryFilterSubjectAll</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category all subject option</shortDescription>
+        <value>Subject: All</value>
+    </labels>
+    <labels>
         <fullName>GestaoSLA_CategoryFilterStatusAll</fullName>
         <categories>GestaoSLA</categories>
         <language>en_US</language>

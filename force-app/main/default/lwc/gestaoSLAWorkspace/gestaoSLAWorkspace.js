@@ -25,6 +25,7 @@ import categoryPaginationLastLabel from '@salesforce/label/c.GestaoSLA_CategoryP
 import categoryEmptyStateLabel from '@salesforce/label/c.GestaoSLA_CategoryEmptyState';
 import categoryFilterCaseTypeAllLabel from '@salesforce/label/c.GestaoSLA_CategoryFilterCaseTypeAll';
 import categoryFilterCategoryAllLabel from '@salesforce/label/c.GestaoSLA_CategoryFilterCategoryAll';
+import categoryFilterSubjectAllLabel from '@salesforce/label/c.GestaoSLA_CategoryFilterSubjectAll';
 import categoryFilterStatusAllLabel from '@salesforce/label/c.GestaoSLA_CategoryFilterStatusAll';
 import categoryStatusOptionActiveLabel from '@salesforce/label/c.GestaoSLA_CategoryStatusOptionActive';
 import categoryStatusOptionInactiveLabel from '@salesforce/label/c.GestaoSLA_CategoryStatusOptionInactive';
@@ -235,6 +236,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
     @track searchTerm = '';
     @track filtroTipoCaso = 'Todos';
     @track filtroCategoria = 'Todos';
+    @track filtroAssunto = 'Todos';
     @track filtroAtivo = 'Ativo';
     @track regrasFiltroCategorizacaoId = 'Todos';
     @track regrasFiltroMarcoSLAId = 'Todos';
@@ -314,6 +316,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
         categoryEmptyState: categoryEmptyStateLabel,
         categoryFilterCaseTypeAll: categoryFilterCaseTypeAllLabel,
         categoryFilterCategoryAll: categoryFilterCategoryAllLabel,
+        categoryFilterSubjectAll: categoryFilterSubjectAllLabel,
         categoryFilterStatusAll: categoryFilterStatusAllLabel,
         categoryStatusOptionActive: categoryStatusOptionActiveLabel,
         categoryStatusOptionInactive: categoryStatusOptionInactiveLabel,
@@ -494,6 +497,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
             searchTerm: this.searchTerm || null,
             tipoCaso: this.filtroTipoCaso === 'Todos' ? null : this.filtroTipoCaso,
             categoria: this.filtroCategoria === 'Todos' ? null : this.filtroCategoria,
+            assunto: this.filtroAssunto === 'Todos' ? null : this.filtroAssunto,
             ativo: this.filtroAtivo === 'Todos' ? null : this.filtroAtivo === 'Ativo'
         });
         this.permissions = { ...(result?.permissions || this.permissions) };
@@ -605,6 +609,12 @@ export default class GestaoSLAWorkspace extends LightningElement {
         const values = Array.from(new Set((this.categorias || []).map((c) => c.categoria).filter((v) => !!v)))
             .sort((a, b) => a.localeCompare(b, 'pt-BR', { sensitivity: 'base' }));
         return [{ label: this.labels.categoryFilterCategoryAll, value: 'Todos' }, ...values.map((v) => ({ label: v, value: v }))];
+    }
+
+    get assuntoOptions() {
+        const values = Array.from(new Set((this.categorias || []).map((c) => c.assunto).filter((v) => !!v)))
+            .sort((a, b) => a.localeCompare(b, 'pt-BR', { sensitivity: 'base' }));
+        return [{ label: this.labels.categoryFilterSubjectAll, value: 'Todos' }, ...values.map((v) => ({ label: v, value: v }))];
     }
 
     get categoriaTipoCasoOptions() {
@@ -905,6 +915,11 @@ export default class GestaoSLAWorkspace extends LightningElement {
 
     async handleFilterCategoria(event) {
         this.filtroCategoria = event.detail.value;
+        await this.handleApplyFilters();
+    }
+
+    async handleFilterAssunto(event) {
+        this.filtroAssunto = event.detail.value;
         await this.handleApplyFilters();
     }
 

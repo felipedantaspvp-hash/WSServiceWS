@@ -18,9 +18,9 @@ public inherited sharing class GestaoSLAController {
     }
 
     @AuraEnabled(cacheable=true)
-    public static GestaoSLADTO.CategoriasResponse getCategorias(Id gestaoSLAId, String searchTerm, String tipoCaso, String categoria, Boolean ativo) {
+    public static GestaoSLADTO.CategoriasResponse getCategorias(Id gestaoSLAId, String searchTerm, String tipoCaso, String categoria, String assunto, Boolean ativo) {
         try {
-            return GestaoSLAService.getCategorias(gestaoSLAId, searchTerm, tipoCaso, categoria, ativo);
+            return GestaoSLAService.getCategorias(gestaoSLAId, searchTerm, tipoCaso, categoria, assunto, ativo);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }

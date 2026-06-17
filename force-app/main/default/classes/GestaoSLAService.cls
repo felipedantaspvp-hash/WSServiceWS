@@ -75,6 +75,7 @@ public inherited sharing class GestaoSLAService {
         String searchTerm,
         String tipoCaso,
         String categoria,
+        String assunto,
         Boolean ativo
     ) {
         GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
@@ -106,6 +107,7 @@ public inherited sharing class GestaoSLAService {
         String normalizedSearch = GestaoSLAHelper.normalizeText(searchTerm);
         String normalizedTipoCaso = GestaoSLAHelper.normalizeText(tipoCaso);
         String normalizedCategoria = GestaoSLAHelper.normalizeText(categoria);
+        String normalizedAssunto = GestaoSLAHelper.normalizeText(assunto);
 
         GestaoSLADTO.CategoriasResponse response = new GestaoSLADTO.CategoriasResponse();
         response.permissions = perms;
@@ -121,6 +123,7 @@ public inherited sharing class GestaoSLAService {
             }
             if (!String.isBlank(normalizedTipoCaso) && GestaoSLAHelper.normalizeText(row.TipoCaso__c) != normalizedTipoCaso) continue;
             if (!String.isBlank(normalizedCategoria) && GestaoSLAHelper.normalizeText(row.Categoria__c) != normalizedCategoria) continue;
+            if (!String.isBlank(normalizedAssunto) && GestaoSLAHelper.normalizeText(row.Assunto__c) != normalizedAssunto) continue;
             if (ativo != null && row.Ativo__c != ativo) continue;
 
             GestaoSLADTO.CategoriaResumo dto = new GestaoSLADTO.CategoriaResumo();
