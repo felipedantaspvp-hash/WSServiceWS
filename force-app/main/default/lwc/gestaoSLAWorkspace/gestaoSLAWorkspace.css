@@ -183,6 +183,14 @@
     align-items: flex-end;
 }
 
+.filters-row lightning-input {
+    flex: 3 1 220px;
+}
+
+.filters-row lightning-combobox {
+    flex: 1 1 140px;
+}
+
 .regras-header-row {
     display: flex;
     justify-content: space-between;
