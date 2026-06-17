@@ -686,7 +686,8 @@ public inherited sharing class AreaParticipanteService {
         item.solucaoRetorno = row.SolucaoTomada__c;
         item.nomeMarco = row.NomeMarco__c;
         item.caseMilestoneId = row.CaseMilestoneId__c;
-        item.canClose = canManage && (item.isAberta || item.isVencida);
+        item.isStandard = AreaParticipanteSLAHelper.ORIGEM_SLA_STANDARD.equals(row.OrigemSLA__c);
+        item.canClose = canManage && (item.isAberta || item.isVencida) && !item.isStandard;
         item.canPause = canPause(row, canManage);
         item.canResume = canResume(row, canManage);
         item.canCancel = false;

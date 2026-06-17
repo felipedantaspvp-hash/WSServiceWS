@@ -199,6 +199,8 @@ export default class CaseAreasParticipantesPanel extends LightningElement {
             const classificationPills = this.buildClassificationPills(item);
             return {
                 ...item,
+                areaTypePillLabel: item.isStandard ? 'Atendimento' : this.labels.internalArea,
+                areaDisplayLabel: item.isStandard ? (item.nomeMarco || '-') : item.areaLabel,
                 cardClass: `slds-box slds-m-bottom_small area-item ${tone}`,
                 statusClass: `status-pill ${statusTone}`,
                 classificationPills,
