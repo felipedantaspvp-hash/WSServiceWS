@@ -9,5 +9,10 @@
         <members>gestaoSLAWorkspace</members>
         <name>LightningComponentBundle</name>
     </types>
+    <types>
+        <members>GestaoSLA_ActivateRule</members>
+        <members>GestaoSLA_ToastRuleActivated</members>
+        <name>CustomLabel</name>
+    </types>
     <version>66.0</version>
 </Package>

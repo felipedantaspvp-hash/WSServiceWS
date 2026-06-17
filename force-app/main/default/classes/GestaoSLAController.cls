@@ -159,6 +159,15 @@ public inherited sharing class GestaoSLAController {
         }
     }
 
+    @AuraEnabled
+    public static GestaoSLADTO.RegraSLAResumo activateRegraSLA(Id regraSLAId) {
+        try {
+            return GestaoSLAService.activateRegraSLA(regraSLAId);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            throw new AuraHandledException(ex.getMessage());
+        }
+    }
+
     @AuraEnabled(cacheable=true)
     public static List<String> getAreasInternas() {
         try {

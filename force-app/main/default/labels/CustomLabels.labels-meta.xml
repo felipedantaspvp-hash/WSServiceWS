@@ -17,6 +17,14 @@
         <value>Access Denied</value>
     </labels>
     <labels>
+        <fullName>GestaoSLA_ActivateRule</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Activate SLA rule menu item</shortDescription>
+        <value>Activate</value>
+    </labels>
+    <labels>
         <fullName>GestaoSLA_ApplicationEmailNew</fullName>
         <categories>GestaoSLA</categories>
         <language>en_US</language>
@@ -1167,6 +1175,14 @@
         <protected>false</protected>
         <shortDescription>SLA rule deactivated success toast</shortDescription>
         <value>SLA rule deactivated successfully.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ToastRuleActivated</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SLA rule activated success toast</shortDescription>
+        <value>SLA rule activated successfully.</value>
     </labels>
     <labels>
         <fullName>GestaoSLA_ToastRuleUpdated</fullName>

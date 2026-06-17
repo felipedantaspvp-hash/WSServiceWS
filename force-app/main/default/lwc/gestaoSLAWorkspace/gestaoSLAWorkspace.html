@@ -376,7 +376,7 @@
                                                         <td>{row.tempoMediaLabel}</td>
                                                         <td>{row.tempoAltaLabel}</td>
                                                         <td><span class={row.ativoClass}>{row.ativoLabel}</span></td>
-                                                        <td>
+                                                                        <td>
                                                             <template if:true={permissions.canManageRules}>
                                                                 <lightning-button-menu
                                                                     icon-name="utility:down"
@@ -391,11 +391,20 @@
                                                                         label={labels.categoryEdit}
                                                                         prefix-icon-name="utility:edit"
                                                                     ></lightning-menu-item>
-                                                                    <lightning-menu-item
-                                                                        value="deactivate"
-                                                                        label={labels.categoryDeactivate}
-                                                                        prefix-icon-name="utility:clear"
-                                                                    ></lightning-menu-item>
+                                                                    <template if:true={row.ativo}>
+                                                                        <lightning-menu-item
+                                                                            value="deactivate"
+                                                                            label={labels.categoryDeactivate}
+                                                                            prefix-icon-name="utility:clear"
+                                                                        ></lightning-menu-item>
+                                                                    </template>
+                                                                    <template if:false={row.ativo}>
+                                                                        <lightning-menu-item
+                                                                            value="activate"
+                                                                            label={labels.activateRule}
+                                                                            prefix-icon-name="utility:check"
+                                                                        ></lightning-menu-item>
+                                                                    </template>
                                                                 </lightning-button-menu>
                                                             </template>
                                                         </td>

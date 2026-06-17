@@ -127,6 +127,8 @@ import toastRuleUpdatedLabel from '@salesforce/label/c.GestaoSLA_ToastRuleUpdate
 import toastRuleDeactivatedLabel from '@salesforce/label/c.GestaoSLA_ToastRuleDeactivated';
 import errorDeactivateRuleLabel from '@salesforce/label/c.GestaoSLA_ErrorDeactivateRule';
 import confirmDeactivateRuleLabel from '@salesforce/label/c.GestaoSLA_ConfirmDeactivateRule';
+import activateRuleLabel from '@salesforce/label/c.GestaoSLA_ActivateRule';
+import toastRuleActivatedLabel from '@salesforce/label/c.GestaoSLA_ToastRuleActivated';
 import confirmDeactivateCategoryLabel from '@salesforce/label/c.GestaoSLA_ConfirmDeactivateCategory';
 import errorLoadInactiveManagementsLabel from '@salesforce/label/c.GestaoSLA_ErrorLoadInactiveManagements';
 import errorSelectInactiveManagementLabel from '@salesforce/label/c.GestaoSLA_ErrorSelectInactiveManagement';
@@ -150,6 +152,7 @@ import getRegrasSLA from '@salesforce/apex/GestaoSLAController.getRegrasSLA';
 import createRegraSLA from '@salesforce/apex/GestaoSLAController.createRegraSLA';
 import updateRegraSLA from '@salesforce/apex/GestaoSLAController.updateRegraSLA';
 import deactivateRegraSLA from '@salesforce/apex/GestaoSLAController.deactivateRegraSLA';
+import activateRegraSLA from '@salesforce/apex/GestaoSLAController.activateRegraSLA';
 import getAreasInternas from '@salesforce/apex/GestaoSLAController.getAreasInternas';
 import createRegrasSLABulk from '@salesforce/apex/GestaoSLAController.createRegrasSLABulk';
 import getInactiveGestoes from '@salesforce/apex/GestaoSLAController.getInactiveGestoes';
@@ -413,6 +416,8 @@ export default class GestaoSLAWorkspace extends LightningElement {
         toastRuleDeactivated: toastRuleDeactivatedLabel,
         errorDeactivateRule: errorDeactivateRuleLabel,
         confirmDeactivateRule: confirmDeactivateRuleLabel,
+        activateRule: activateRuleLabel,
+        toastRuleActivated: toastRuleActivatedLabel,
         confirmDeactivateCategory: confirmDeactivateCategoryLabel,
         errorLoadInactiveManagements: errorLoadInactiveManagementsLabel,
         errorSelectInactiveManagement: errorSelectInactiveManagementLabel,
@@ -1348,6 +1353,25 @@ export default class GestaoSLAWorkspace extends LightningElement {
             this.openEditRegraModal(syntheticEvent);
         } else if (action === 'deactivate') {
             this.handleDeactivateRegra(syntheticEvent);
+        } else if (action === 'activate') {
+            this.handleActivateRegra(syntheticEvent);
+        }
+    }
+
+    async handleActivateRegra(event) {
+        if (!this.permissions.canManageRules) return;
+        const regraId = event.currentTarget?.dataset?.id;
+        if (!regraId) return;
+        try {
+            await activateRegraSLA({ regraSLAId: regraId });
+            this.showToast(this.labels.commonSuccess, this.labels.toastRuleActivated, 'success');
+            await Promise.all([
+                this.loadGestaoDetail(this.selectedGestaoSLAId),
+                this.loadCategorias(this.selectedGestaoSLAId),
+                this.loadRegrasSLA(this.selectedGestaoSLAId)
+            ]);
+        } catch (error) {
+            this.showToast(this.labels.commonError, this.reduceError(error) || this.labels.errorDeactivateRule, 'error');
         }
     }
 

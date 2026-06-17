@@ -300,6 +300,30 @@ public inherited sharing class GestaoSLAService {
         return loadRegraResumoById(row.Id);
     }
 
+    public static GestaoSLADTO.RegraSLAResumo activateRegraSLA(Id regraSLAId) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        ensureCanManageRules(perms);
+        if (regraSLAId == null) {
+            throw new FunctionalException('Regra de SLA não encontrada.');
+        }
+
+        List<RegrasSLACategorizacao__c> rows = [
+            SELECT Id, Ativo__c
+            FROM RegrasSLACategorizacao__c
+            WHERE Id = :regraSLAId
+            LIMIT 1
+        ];
+        if (rows.isEmpty()) {
+            throw new FunctionalException('Regra de SLA não encontrada.');
+        }
+
+        RegrasSLACategorizacao__c row = rows[0];
+        row.Ativo__c = true;
+        update row;
+        return loadRegraResumoById(row.Id);
+    }
+
     public static List<String> getAreasInternas() {
         GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
         ensureCanAccess(perms);
