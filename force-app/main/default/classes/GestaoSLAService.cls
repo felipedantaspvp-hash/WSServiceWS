@@ -48,6 +48,16 @@ public inherited sharing class GestaoSLAService {
         Integer totalCategorias = [SELECT Count() FROM Categorizacao__c WHERE GestaoSLA__c = :gestaoSLAId];
         Integer totalMarcosAtivos = [SELECT Count() FROM MarcoSLA__c WHERE GestaoSLA__c = :gestaoSLAId AND Ativo__c = true];
         Integer totalRegrasAtivas = [SELECT Count() FROM RegrasSLACategorizacao__c WHERE GestaoSLA__c = :gestaoSLAId AND Ativo__c = true];
+        List<AggregateResult> areasResult = [
+            SELECT AreaAtendimento__c
+            FROM RegrasSLACategorizacao__c
+            WHERE GestaoSLA__c = :gestaoSLAId
+              AND EscopoRegra__c = :RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA
+              AND Ativo__c = true
+              AND AreaAtendimento__c != null
+            GROUP BY AreaAtendimento__c
+        ];
+        Integer totalAreasInternas = areasResult.size();
 
         GestaoSLADTO.GestaoDetailResponse response = new GestaoSLADTO.GestaoDetailResponse();
         response.permissions = perms;
@@ -56,6 +66,7 @@ public inherited sharing class GestaoSLAService {
         response.summary.totalCategorias = totalCategorias;
         response.summary.totalMarcosAtivos = totalMarcosAtivos;
         response.summary.totalRegrasAtivas = totalRegrasAtivas;
+        response.summary.totalAreasInternas = totalAreasInternas;
         return response;
     }
 

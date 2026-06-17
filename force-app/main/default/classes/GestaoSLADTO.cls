@@ -35,6 +35,7 @@ public inherited sharing class GestaoSLADTO {
         @AuraEnabled public Integer totalCategorias;
         @AuraEnabled public Integer totalMarcosAtivos;
         @AuraEnabled public Integer totalRegrasAtivas;
+        @AuraEnabled public Integer totalAreasInternas;
     }
 
     public class GestaoResumo {

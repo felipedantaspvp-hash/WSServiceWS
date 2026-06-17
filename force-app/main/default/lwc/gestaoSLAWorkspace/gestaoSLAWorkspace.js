@@ -775,7 +775,8 @@ export default class GestaoSLAWorkspace extends LightningElement {
     }
 
     get totalAreasInternasLabel() {
-        return '--';
+        const total = this.summary?.totalAreasInternas;
+        return total === null || total === undefined ? '--' : String(total);
     }
 
     get totalPages() {
