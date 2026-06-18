@@ -1,10 +1,3 @@
-/**
- * @description       : Testes unitários de AreaParticipanteMilestoneSyncBatch.
- * @author            : Triscal
- * @group             : Área Participante
- * @last modified on  : 06-14-2026
- * @last modified by  : Jean Duarte
- **/
 @IsTest
 private class AreaParticipanteMilestoneSyncBatchTest {
 

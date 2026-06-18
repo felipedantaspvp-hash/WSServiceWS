@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Towage_tugsys_commercial_group</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT(ISPICKVAL(Segmentacao_Especifica_Rebocadores__c, &quot;Broker&quot;)) &amp;&amp; TEXT($User.Area_Negocio__c) == &quot;Rebocadores&quot; &amp;&amp;  ISNULL(Id_Tugsys_Commercial_Group__c)</errorConditionFormula>
+    <errorDisplayField>Id_Tugsys_Commercial_Group__c</errorDisplayField>
+    <errorMessage>Id Tugsys Commercial Group is required</errorMessage>
+</ValidationRule>

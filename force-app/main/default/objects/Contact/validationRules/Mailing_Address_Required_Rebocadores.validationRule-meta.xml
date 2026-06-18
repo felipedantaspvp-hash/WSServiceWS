@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mailing_Address_Required_Rebocadores</fullName>
+    <active>true</active>
+    <description>Campo Endereço obrigatório para contatos criados por Rebocadores.</description>
+    <errorConditionFormula>AND(NOT(BypassValidationsFromBot__c),
+ISBLANK( MailingCity ) &amp;&amp; ISBLANK( MailingCountry ) &amp;&amp; ISBLANK( MailingState ) &amp;&amp; ISBLANK( MailingStreet ) &amp;&amp; ISPICKVAL( Owner.Area_Negocio__c , &quot;Rebocadores&quot;)
+)</errorConditionFormula>
+    <errorDisplayField>MailingStreet</errorDisplayField>
+    <errorMessage>O preenchimento das informações do endereço é obrigatório.</errorMessage>
+</ValidationRule>

@@ -1,10 +1,3 @@
-/**
- * @description       : Funções utilitárias e helpers para o módulo RegrasSLACategorizacao.
- * @author            : Triscal
- * @group             : Regras de SLA
- * @last modified on  : 06-14-2026
- * @last modified by  : Jean Duarte
- **/
 public inherited sharing class RegrasSLACategorizacaoHelper {
     public static String normalize(String v){ return String.isBlank(v) ? 'null' : v.trim().toLowerCase(); }
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SegmentacaoEspecObrigatorioAgencia</fullName>
+    <active>false</active>
+    <description>O campo seguimentação específica deve ser obrigatório para usuários de agência</description>
+    <errorConditionFormula>AND(NOT(BypassValidationsFromBot__c),
+(ISPICKVAL(Segmentacao_Especifica_Agencia__c,&apos;&apos;) || ISPICKVAL( Comercial_Responsavel_Agencia__c,&apos;&apos;))  &amp;&amp;  ISPICKVAL($User.Area_Negocio__c, &apos;Agência&apos;)
+)</errorConditionFormula>
+    <errorMessage>O campo segumentação específica e comercial  responsável devem ser preechidos obrigatoriamente.</errorMessage>
+</ValidationRule>

@@ -1,11 +1,4 @@
 /**
- * @description       : Classe de suporte para o módulo Case Milestone.
- * @author            : Triscal
- * @group             : Case Milestone
- * @last modified on  : 06-16-2026
- * @last modified by  : Jean Duarte
- **/
-/**
  * CaseMilestoneSyncQueueable
  *
  * Queueable job that syncs CaseMilestone records to AreaParticipante__c Standard

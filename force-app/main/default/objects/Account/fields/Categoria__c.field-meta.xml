@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Categoria__c</fullName>
+    <defaultValue>&quot;-&quot;</defaultValue>
+    <description>Campo criado a pedido da Agência para categorizar seus clientes</description>
+    <label>Categoria</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Clientes - Customers</fullName>
+                <default>false</default>
+                <label>Clientes - Customers</label>
+            </value>
+            <value>
+                <fullName>Clientes - Prospects</fullName>
+                <default>false</default>
+                <label>Clientes - Prospects</label>
+            </value>
+            <value>
+                <fullName>Clientes - Targets</fullName>
+                <default>false</default>
+                <label>Clientes - Targets</label>
+            </value>
+            <value>
+                <fullName>Não Cliente - Broker</fullName>
+                <default>false</default>
+                <label>Não Cliente - Broker</label>
+            </value>
+            <value>
+                <fullName>Não Cliente - Agência</fullName>
+                <default>false</default>
+                <label>Não Cliente - Agência</label>
+            </value>
+            <value>
+                <fullName>Não Cliente - Freight Forwarder</fullName>
+                <default>false</default>
+                <label>Não Cliente - Freight Forwarder</label>
+            </value>
+            <value>
+                <fullName>Não Cliente - Outros</fullName>
+                <default>false</default>
+                <label>Não Cliente - Outros</label>
+            </value>
+            <value>
+                <fullName>-</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>-</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

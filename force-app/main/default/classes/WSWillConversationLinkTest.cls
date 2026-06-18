@@ -1,10 +1,3 @@
-/**
- * @description       : Testes unitários de WSWillConversationLink.
- * @author            : Triscal
- * @group             : WSWill
- * @last modified on  : 06-12-2026
- * @last modified by  : Jean Duarte
- **/
 @IsTest
 private class WSWillConversationLinkTest {
     private static final Id FAKE_MESSAGING_ID = Id.valueOf('0Mw000000000001');

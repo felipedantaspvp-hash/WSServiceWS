@@ -1,10 +1,3 @@
-/**
- * @description       : Testes unitários de CaseCreationService.
- * @author            : Triscal
- * @group             : Case Creation
- * @last modified on  : 06-11-2026
- * @last modified by  : Jean Duarte
- **/
 @IsTest
 private class CaseCreationServiceTest {
     @TestSetup

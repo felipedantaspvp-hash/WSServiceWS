@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Gerente_Conta_Tecon_Rio_Grande__c</fullName>
+    <label>Gerente de Conta</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Daiana Valin</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Daiana Valin</label>
+            </value>
+            <value>
+                <fullName>Débora Barboza</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Débora Barboza</label>
+            </value>
+            <value>
+                <fullName>Luciane Vincenzi</fullName>
+                <default>false</default>
+                <label>Luciane Vincenzi</label>
+            </value>
+            <value>
+                <fullName>Marina Vidal</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Marina Vidal</label>
+            </value>
+            <value>
+                <fullName>Osvaldo Prestes</fullName>
+                <default>false</default>
+                <label>Osvaldo Prestes</label>
+            </value>
+            <value>
+                <fullName>Richard Almeida</fullName>
+                <default>false</default>
+                <label>Richard Almeida</label>
+            </value>
+            <value>
+                <fullName>Rodrigo Brunetto</fullName>
+                <default>false</default>
+                <label>Rodrigo Brunetto</label>
+            </value>
+            <value>
+                <fullName>Rodrigo Velho</fullName>
+                <default>false</default>
+                <label>Rodrigo Velho</label>
+            </value>
+            <value>
+                <fullName>Samuel Pereira</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Samuel Pereira</label>
+            </value>
+            <value>
+                <fullName>Thiago Novais</fullName>
+                <default>false</default>
+                <label>Thiago Novais</label>
+            </value>
+            <value>
+                <fullName>Treice Grunberg</fullName>
+                <default>false</default>
+                <label>Treice Grunberg</label>
+            </value>
+            <value>
+                <fullName>Victor Licastro</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Victor Licastro</label>
+            </value>
+            <value>
+                <fullName>Vinicius Barros</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Vinicius Barros</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

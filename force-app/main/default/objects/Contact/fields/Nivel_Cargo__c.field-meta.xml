@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Nivel_Cargo__c</fullName>
+    <label>Nível do Cargo</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Analista</fullName>
+                <default>false</default>
+                <label>Analista</label>
+            </value>
+            <value>
+                <fullName>Assistente</fullName>
+                <default>false</default>
+                <label>Assistente</label>
+            </value>
+            <value>
+                <fullName>Coordenador</fullName>
+                <default>false</default>
+                <label>Coordenador</label>
+            </value>
+            <value>
+                <fullName>Diretor</fullName>
+                <default>false</default>
+                <label>Diretor</label>
+            </value>
+            <value>
+                <fullName>Dono / Sócio</fullName>
+                <default>false</default>
+                <label>Dono / Sócio</label>
+            </value>
+            <value>
+                <fullName>Gerente</fullName>
+                <default>false</default>
+                <label>Gerente</label>
+            </value>
+            <value>
+                <fullName>Membro do Conselho</fullName>
+                <default>false</default>
+                <label>Membro do Conselho</label>
+            </value>
+            <value>
+                <fullName>Presidente</fullName>
+                <default>false</default>
+                <label>Presidente</label>
+            </value>
+            <value>
+                <fullName>Vice-presidente / Superintendente</fullName>
+                <default>false</default>
+                <label>Vice-presidente / Superintendente</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

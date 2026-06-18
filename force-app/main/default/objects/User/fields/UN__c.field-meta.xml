@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UN__c</fullName>
+    <label>UN</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Plataforma SE</fullName>
+                <default>false</default>
+                <label>Plataforma SE</label>
+            </value>
+            <value>
+                <fullName>Plataforma NE</fullName>
+                <default>false</default>
+                <label>Plataforma NE</label>
+            </value>
+            <value>
+                <fullName>Tecon Salvador</fullName>
+                <default>false</default>
+                <label>Tecon Salvador</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

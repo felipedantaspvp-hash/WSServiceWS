@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Valida_unidade_operacional</fullName>
+    <active>false</active>
+    <errorConditionFormula>TEXT(Type) == &quot;Unidade Operacional&quot; &amp;&amp;
+ISBLANK(ParentId)</errorConditionFormula>
+    <errorDisplayField>ParentId</errorDisplayField>
+    <errorMessage>Para Contas do tipo unidade operacional deve ser informada a Conta Pai</errorMessage>
+</ValidationRule>

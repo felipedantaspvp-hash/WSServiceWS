@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Segmentacao_obrigatoria_TeconSSA</fullName>
+    <active>false</active>
+    <description>Todo usuário de Tecon SSA precisa preencher o campo &apos;segmentação específica salvador&apos;</description>
+    <errorConditionFormula>CONTAINS($UserRole.Name, &quot;Tecon Salvador&quot;) &amp;&amp; ISBLANK(TEXT(  Segmentacao_Especifica_Tecon_Salvador__c ))</errorConditionFormula>
+    <errorMessage>Campo &quot;Segmentação específica Tecon Salvador&quot; é de preenchimento obrigatório</errorMessage>
+</ValidationRule>

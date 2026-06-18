@@ -1,10 +1,3 @@
-/**
- * @description       : Factory de dados de teste para o módulo AreaParticipante. Cria registros e objetos relacionados para uso em testes.
- * @author            : Triscal
- * @group             : Área Participante
- * @last modified on  : 06-14-2026
- * @last modified by  : Jean Duarte
- **/
 @IsTest
 public inherited sharing class AreaParticipanteTestDataFactory {
     private static final String AREA_FIELD = 'AreaAtendimento__c';

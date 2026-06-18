@@ -1,10 +1,3 @@
-/**
- * @description       : Testes unitários de CategorizacaoService.
- * @author            : Triscal
- * @group             : Categorização
- * @last modified on  : 06-14-2026
- * @last modified by  : Jean Duarte
- **/
 @IsTest
 private class CategorizacaoServiceTest {
     private static String unidadeFromRt(String rtDevName) {

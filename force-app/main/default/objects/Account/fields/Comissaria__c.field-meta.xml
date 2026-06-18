@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Comissaria__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Campo destinado a identificar se essa conta é uma comissária.</description>
+    <inlineHelpText>Marque o checkbox caso esta conta seja uma comissária!</inlineHelpText>
+    <label>Comissária</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

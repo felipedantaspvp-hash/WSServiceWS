@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Startup</fullName>
+    <active>true</active>
+    <label>Startup</label>
+    <picklistValues>
+        <picklist>AccountSource</picklist>
+        <values>
+            <fullName>Agency</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BID</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Broker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Campanha</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Indicação Externa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Indicação Interna</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inteligência de Mercado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lead</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Line Up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manutenção de Contrato</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Notícia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prospecção Ativa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ramper</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Site</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação do Cliente</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Area_de_Negocio__c</picklist>
+        <values>
+            <fullName>Agencia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bases_de_Apoio_Offshore</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Estaleiro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Logistica_Plataforma_SE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rebocadores</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tecon_Rio_Grande</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tecon_Salvador</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wsut</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Categoria__c</picklist>
+        <values>
+            <fullName>Clientes - Customers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Clientes - Prospects</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Clientes - Targets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Não Cliente - Agência</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Não Cliente - Broker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Não Cliente - Freight Forwarder</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Não Cliente - Outros</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Category__c</picklist>
+        <values>
+            <fullName>Open Innovation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strategic Fit</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Concorrente_Negocios_WS__c</picklist>
+        <values>
+            <fullName>Agencia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Brasco</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Estaleiros</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Logística</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Logística%2C Novos Negócios%2C Tecon Salvador</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Novos Negócios</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rebocadores</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tecon Rio Grande</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tecon Salvador</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Due_Date_Restriction__c</picklist>
+        <values>
+            <fullName>15 days</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20 days</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7 days</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Advanced</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Gerente_Conta_Tecon_Rio_Grande__c</picklist>
+        <values>
+            <fullName>Rodrigo Brunetto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rodrigo Velho</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Thiago Novais</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Gerente_da_Conta_Tecon_Salvador__c</picklist>
+        <values>
+            <fullName>Bruno Souza</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cléo Maryan Rodriguez</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Karoline Torres</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Maicon Silva Sousa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mayron Kaneko</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Patricia Muiños</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Renata Silva</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Robert Castro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vanessa Queiroz</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Hub__c</picklist>
+        <values>
+            <fullName>100Open Startup</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cubo Itau</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fábrica de Startups</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Píer71</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Startup Wharf</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>theDOCK</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Industry</picklist>
+        <values>
+            <fullName>Alimentos_Bebidas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Celulose%2C papel e produtos de papel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Comercio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Construcao</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Energia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Equipamentos de informatica Eletroeletronico</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manufaturados</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Maquinas%2C aparelhos e materiais eletricos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Maquinas_Equipamentos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partes e Peças</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Produtos Cosmeticos%2C de perfumaria e higiene</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Produtos Diversos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Produtos Texteis</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Produtos de metal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Produtos de minerais e nao-metalicos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Produtos farmoquimicos e farmaceuticos %28Life Science%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Químico</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Servicos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tecnologia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trading%2FAg%2E Carga%2FArmador%2FP%2EF%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transporte e Logística</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>veiculos automotores</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Key_Account_Rebocadores_Shadow__c</picklist>
+        <values>
+            <fullName>Elisio Dourado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Joanna Xiang</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ligia Cardoso</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Luis Lauande</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marcio Servinsckis</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marina Braga</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prospecção</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Raphael Laguna</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Thalita Sá</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Key_Account_Rebocadores__c</picklist>
+        <values>
+            <fullName>Elisio Dourado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Joanna Xiang</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ligia Cardoso</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Luis Lauande</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marcio Servinsckis</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marina Braga</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prospecção</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Raphael Laguna</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Thalita Sá</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Line_Up_Type_Account__c</picklist>
+        <values>
+            <fullName>AQ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SO</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Nivel_de_Conta__c</picklist>
+        <values>
+            <fullName>A Desenvolver</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Grande Cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Médio Cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pequeno Cliente</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Ownership</picklist>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Subsidiary</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Rating</picklist>
+        <values>
+            <fullName>Cold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hot</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warm</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Segmenta_Especifica_Brasco__c</picklist>
+        <values>
+            <fullName>OSC - Armador</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OSC - Outros</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oil Company</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Petrobrás</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Segmenta_Especifica_Logistica__c</picklist>
+        <values>
+            <fullName>Outros</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Segmenta_Wilson__c</picklist>
+        <values>
+            <fullName>Armador Liner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Armador Tramp</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Embarcador Carga Não Conteinerizada</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Embarcador Contêiner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Estaleiro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Intermediário de Carga</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recebedor Carga Não Conteinerizada</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Óleo %26 Gás</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Segmenta_o_espec_fica_agencia__c</picklist>
+        <values>
+            <fullName>Armador</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aço</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Açúcar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Carvão</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Celulose</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fertilizantes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Grãos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Liquidos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Madeira</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Minério</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quimicos</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Segmentacao_Especifica_Rebocadores__c</picklist>
+        <values>
+            <fullName>Agência</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Interfaturamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Liner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outros</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Petrobrás</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tramp com Contrato</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tramp sem Contrato</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Segmentacao_Especifica_Tecon_Salvador__c</picklist>
+        <values>
+            <fullName>Agente de Carga</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Armador</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Armador Break Bulk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cabotagem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Comissaria de Despacho</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exportador</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Importador</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outros</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transportadora</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Segmentacao_Pricing_Tecon_Rio_Grande__c</picklist>
+        <values>
+            <fullName>Agente de Carga</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cargas Diferenciadas %28NCC e Cargas de Projeto%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cliente Grande</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cliente Pequeno</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cliente a Desenvolver</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Despachante</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Key Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NVOCC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transportadora</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Ativa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Duplicada</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inativa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nova</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>TipoFuncionalConta__c</picklist>
+        <values>
+            <fullName>Conta Unidade Operacional</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Grupo Econômico</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Tipo_Cliente_Tecon_Rio_Grande__c</picklist>
+        <values>
+            <fullName>Armador</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cabotagem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cliente Armexp</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cliente Armimp</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cliente Reefer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Despachante</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exportador</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Importador</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parceiro Estratégico</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parceiro Institucional</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transportadora</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Hub_Startup</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Startup</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unidade Operacional</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>grupo economico</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>UNs_Faturadas__c</picklist>
+        <values>
+            <fullName>Agencia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bases_de_Apoio_Offshore</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Estaleiro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Logistica_Plataforma_SE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rebocadores</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tecon_Rio_Grande</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tecon_Salvador</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wsut</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

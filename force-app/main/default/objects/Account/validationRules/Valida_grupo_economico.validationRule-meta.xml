@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Valida_grupo_economico</fullName>
+    <active>false</active>
+    <errorConditionFormula>TEXT(Type) == &quot;Grupo_Economico&quot; &amp;&amp; (!ISBLANK(ParentId))</errorConditionFormula>
+    <errorDisplayField>ParentId</errorDisplayField>
+    <errorMessage>Conta do tipo grupo econômico não pode ter Conta Pai</errorMessage>
+</ValidationRule>

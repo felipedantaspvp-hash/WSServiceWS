@@ -1,10 +1,3 @@
-/**
- * @description       : Funções utilitárias e helpers para o módulo WSWillCaseLookup.
- * @author            : Triscal
- * @group             : WSWill
- * @last modified on  : 06-11-2026
- * @last modified by  : Jean Duarte
- **/
 public inherited sharing class WSWillCaseLookupHelper {
     public static String normalizeCaseNumber(String caseNumber) {
         if (String.isBlank(caseNumber)) return null;

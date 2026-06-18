@@ -1,10 +1,3 @@
-/**
- * @description       : Testes unitários de CaseMilestoneSyncQueueable.
- * @author            : Triscal
- * @group             : Case Milestone
- * @last modified on  : 06-16-2026
- * @last modified by  : Jean Duarte
- **/
 @IsTest
 private class CaseMilestoneSyncQueueableTest {
 

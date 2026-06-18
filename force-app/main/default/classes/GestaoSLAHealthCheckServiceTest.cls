@@ -1,10 +1,3 @@
-/**
- * @description       : Testes unitários de GestaoSLAHealthCheckService.
- * @author            : Triscal
- * @group             : Gestão de SLA
- * @last modified on  : 06-15-2026
- * @last modified by  : Jean Duarte
- **/
 @IsTest
 private class GestaoSLAHealthCheckServiceTest {
 

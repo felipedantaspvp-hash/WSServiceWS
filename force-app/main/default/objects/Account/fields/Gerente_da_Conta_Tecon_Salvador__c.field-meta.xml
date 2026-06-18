@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Gerente_da_Conta_Tecon_Salvador__c</fullName>
+    <label>Gerente de Conta</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Bruno Souza</fullName>
+                <default>false</default>
+                <label>Bruno Souza</label>
+            </value>
+            <value>
+                <fullName>Cléo Maryan Rodriguez</fullName>
+                <default>false</default>
+                <label>Cléo Maryan Rodriguez</label>
+            </value>
+            <value>
+                <fullName>Karoline Torres</fullName>
+                <default>false</default>
+                <label>Karoline Torres</label>
+            </value>
+            <value>
+                <fullName>Maicon Silva Sousa</fullName>
+                <default>false</default>
+                <label>Maicon Silva Sousa</label>
+            </value>
+            <value>
+                <fullName>Mayron Kaneko</fullName>
+                <default>false</default>
+                <label>Mayron Kaneko</label>
+            </value>
+            <value>
+                <fullName>Patricia Muiños</fullName>
+                <default>false</default>
+                <label>Patricia Muiños</label>
+            </value>
+            <value>
+                <fullName>Renata Silva</fullName>
+                <default>false</default>
+                <label>Renata Silva</label>
+            </value>
+            <value>
+                <fullName>Robert Castro</fullName>
+                <default>false</default>
+                <label>Robert Castro</label>
+            </value>
+            <value>
+                <fullName>Vanessa Queiroz</fullName>
+                <default>false</default>
+                <label>Vanessa Queiroz</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

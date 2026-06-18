@@ -1,10 +1,3 @@
-/**
- * @description       : Factory de dados de teste para o módulo Categorizacao. Cria registros e objetos relacionados para uso em testes.
- * @author            : Triscal
- * @group             : Categorização
- * @last modified on  : 06-12-2026
- * @last modified by  : Jean Duarte
- **/
 @IsTest
 public inherited sharing class CategorizacaoTestDataFactory {
     private static String unidadeFromRecordType(String rtDevName) {

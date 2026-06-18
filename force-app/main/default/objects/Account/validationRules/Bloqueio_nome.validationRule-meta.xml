@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bloqueio_nome</fullName>
+    <active>true</active>
+    <errorConditionFormula>Bloqueado__c &amp;&amp;
+TEXT(Status__c) == &quot;Ativa&quot; 
+&amp;&amp; ISCHANGED(Name)
+&amp;&amp;  $Profile.Id != &quot;00e1N000001ixhp&quot;</errorConditionFormula>
+    <errorDisplayField>Name</errorDisplayField>
+    <errorMessage>Nome de uma conta ativa só pode ser alterado após aprovação</errorMessage>
+</ValidationRule>

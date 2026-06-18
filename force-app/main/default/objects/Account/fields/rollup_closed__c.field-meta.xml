@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>rollup_closed__c</fullName>
+    <label>rollup closed</label>
+    <summaryFilterItems>
+        <field>Opportunity.CloseDate</field>
+        <operation>greaterOrEqual</operation>
+        <value>1/1/2021</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Opportunity.RecordTypeId</field>
+        <operation>equals</operation>
+        <value>Agência</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Opportunity.AccountId</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

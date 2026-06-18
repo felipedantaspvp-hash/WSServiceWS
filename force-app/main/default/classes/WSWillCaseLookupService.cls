@@ -1,10 +1,3 @@
-/**
- * @description       : Serviço de negócio para o módulo WSWillCaseLookup. Contém lógica de validação e DML, seguindo arquitetura Triscal.
- * @author            : Triscal
- * @group             : WSWill
- * @last modified on  : 06-11-2026
- * @last modified by  : Jean Duarte
- **/
 public inherited sharing class WSWillCaseLookupService {
     public static List<WSWillCaseLookupDTO.Response> lookup(List<WSWillCaseLookupDTO.Request> requests) {
         List<WSWillCaseLookupDTO.Response> out = new List<WSWillCaseLookupDTO.Response>();

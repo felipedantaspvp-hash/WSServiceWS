@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tipo_Cliente_Tecon_Rio_Grande__c</fullName>
+    <inlineHelpText>Para selecionar mais de uma opção utilizar a tecla ctrl</inlineHelpText>
+    <label>Tipo de Cliente</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Armador</fullName>
+                <default>false</default>
+                <label>Armador</label>
+            </value>
+            <value>
+                <fullName>Cabotagem</fullName>
+                <default>false</default>
+                <label>Cabotagem</label>
+            </value>
+            <value>
+                <fullName>Exportador</fullName>
+                <default>false</default>
+                <label>Exportador</label>
+            </value>
+            <value>
+                <fullName>Importador</fullName>
+                <default>false</default>
+                <label>Importador</label>
+            </value>
+            <value>
+                <fullName>Parceiro Estratégico</fullName>
+                <default>false</default>
+                <label>Parceiro Estratégico</label>
+            </value>
+            <value>
+                <fullName>Parceiro Institucional</fullName>
+                <default>false</default>
+                <label>Parceiro Institucional</label>
+            </value>
+            <value>
+                <fullName>Transportadora</fullName>
+                <default>false</default>
+                <label>Transportadora</label>
+            </value>
+            <value>
+                <fullName>Despachante</fullName>
+                <default>false</default>
+                <label>Despachante</label>
+            </value>
+            <value>
+                <fullName>Cliente Reefer</fullName>
+                <default>false</default>
+                <label>Cliente Reefer</label>
+            </value>
+            <value>
+                <fullName>Cliente Armexp</fullName>
+                <default>false</default>
+                <label>Cliente Armexp</label>
+            </value>
+            <value>
+                <fullName>Cliente Armimp</fullName>
+                <default>false</default>
+                <label>Cliente Armimp</label>
+            </value>
+            <value>
+                <fullName>Exportador, Importador</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Exportador, Importador</label>
+            </value>
+            <value>
+                <fullName>Exportador, Importador, Cabotagem</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Exportador, Importador, Cabotagem</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

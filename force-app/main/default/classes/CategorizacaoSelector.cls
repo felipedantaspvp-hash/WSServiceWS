@@ -1,10 +1,3 @@
-/**
- * @description       : Selector de consultas SOQL para o módulo Categorizacao. Centraliza queries com security enforced, sem lógica de negócio.
- * @author            : Triscal
- * @group             : Categorização
- * @last modified on  : 06-14-2026
- * @last modified by  : Jean Duarte
- **/
 public inherited sharing class CategorizacaoSelector {
     public class UnidadeConfig {
         public String recordTypeDeveloperName;

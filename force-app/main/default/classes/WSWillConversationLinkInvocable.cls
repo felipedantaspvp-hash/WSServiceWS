@@ -1,10 +1,3 @@
-/**
- * @description       : Classe de suporte para o módulo WSWill.
- * @author            : Triscal
- * @group             : WSWill
- * @last modified on  : 06-11-2026
- * @last modified by  : Jean Duarte
- **/
 public inherited sharing class WSWillConversationLinkInvocable {
     @InvocableMethod(label='WS Will - Vincular Case à Conversa')
     public static List<WSWillConversationLinkDTO.Response> link(List<WSWillConversationLinkDTO.Request> requests) {

@@ -1,10 +1,3 @@
-/**
- * @description       : Testes unitários de FlowRoutingErrorEmailInvocable.
- * @author            : Triscal
- * @group             : Flow
- * @last modified on  : 06-11-2026
- * @last modified by  : Jean Duarte
- **/
 @IsTest
 private class FlowRoutingErrorEmailInvocableTest {
     @IsTest

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GlobalValueSetTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <valueTranslation>
+        <masterLabel>Acesso ao Porto</masterLabel>
+        <translation>Port Access</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Acompanhamento de Serviço - AG/REDEX</masterLabel>
         <translation>Service Monitoring - AG/REDEX</translation>
     </valueTranslation>
@@ -11,6 +15,10 @@
     <valueTranslation>
         <masterLabel>Apoio Aduaneiro</masterLabel>
         <translation>Customs Support</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>App Meu Tecon</masterLabel>
+        <translation>My Tecon App</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Atendimento</masterLabel>
@@ -33,6 +41,10 @@
         <translation>Commercial</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Commercial</masterLabel>
+        <translation>Commercial</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Depot / Vazios</masterLabel>
         <translation>Depot / Empty Containers</translation>
     </valueTranslation>
@@ -45,8 +57,16 @@
         <translation>Customs Clearance / Embarkation</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Direcionamento de Carga</masterLabel>
+        <translation>Cargo Routing</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Documentação</masterLabel>
         <translation>Documentation</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Doubts about the vessel&apos;s name</masterLabel>
+        <translation>Doubts about the vessel&apos;s name</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Dúvidas sobre nome da embarcação</masterLabel>
@@ -57,11 +77,11 @@
         <translation>Billing</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Fatuamento</masterLabel>
-        <translation>Billing</translation>
+        <masterLabel>Financeiro</masterLabel>
+        <translation>Financial</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Financeiro</masterLabel>
+        <masterLabel>Financial</masterLabel>
         <translation>Financial</translation>
     </valueTranslation>
     <valueTranslation>
@@ -85,8 +105,8 @@
         <translation>Not Applicable</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Operação</masterLabel>
-        <translation>Operations</translation>
+        <masterLabel>Onboarding</masterLabel>
+        <translation>Onboarding</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Operacional - pátio</masterLabel>
@@ -97,16 +117,16 @@
         <translation>Yard Operations</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Pátio de Vazios</masterLabel>
-        <translation>Empty Container Yard</translation>
+        <masterLabel>Operational</masterLabel>
+        <translation>Operational</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Operação</masterLabel>
+        <translation>Operations</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Planejamento Operacional Alfandegado</masterLabel>
         <translation>Bonded Warehouse Operational Planning</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Portal do Cliente</masterLabel>
-        <translation>Customer Portal</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Portal Logistico</masterLabel>
@@ -117,6 +137,14 @@
         <translation>Logistics Portal</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Portal do Cliente</masterLabel>
+        <translation>Customer Portal</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Processos Aduaneiros</masterLabel>
+        <translation>Customs Processes</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Programação de Serviço</masterLabel>
         <translation>Service Scheduling</translation>
     </valueTranslation>
@@ -125,8 +153,28 @@
         <translation>Proposal</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Pátio de Vazios</masterLabel>
+        <translation>Empty Container Yard</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>QSMS</masterLabel>
+        <translation>QHSE</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>RH</masterLabel>
         <translation>Human Resources</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>SMS</masterLabel>
+        <translation>SMS</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Santa Clara</masterLabel>
+        <translation>Santa Clara</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Serviços de Armazém</masterLabel>
+        <translation>Warehouse Services</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Serviços especificos</masterLabel>
@@ -141,35 +189,11 @@
         <translation>System</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>SMS</masterLabel>
-        <translation>SMS</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Solicitação</masterLabel>
         <translation>Request</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Transporte</masterLabel>
         <translation>Transportation</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Acesso ao Porto</masterLabel>
-        <translation>Port Access</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Direcionamento de Carga</masterLabel>
-        <translation>Cargo Routing</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Processos Aduaneiros</masterLabel>
-        <translation>Customs Processes</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Serviços de Armazém</masterLabel>
-        <translation>Warehouse Services</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>App Meu Tecon</masterLabel>
-        <translation>My Tecon App</translation>
     </valueTranslation>
 </GlobalValueSetTranslation>

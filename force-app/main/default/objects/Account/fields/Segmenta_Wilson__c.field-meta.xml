@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Segmenta_Wilson__c</fullName>
+    <label>Segmentação Wilson</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Armador Liner</fullName>
+                <default>false</default>
+                <label>Armador Liner</label>
+            </value>
+            <value>
+                <fullName>Armador Tramp</fullName>
+                <default>false</default>
+                <label>Armador Tramp</label>
+            </value>
+            <value>
+                <fullName>Embarcador Carga Não Conteinerizada</fullName>
+                <default>false</default>
+                <label>Embarcador Carga Não Conteinerizada</label>
+            </value>
+            <value>
+                <fullName>Embarcador Contêiner</fullName>
+                <default>false</default>
+                <label>Embarcador Contêiner</label>
+            </value>
+            <value>
+                <fullName>Estaleiro</fullName>
+                <default>false</default>
+                <label>Estaleiro</label>
+            </value>
+            <value>
+                <fullName>Intermediário de Carga</fullName>
+                <default>false</default>
+                <label>Intermediário de Carga</label>
+            </value>
+            <value>
+                <fullName>Óleo &amp; Gás</fullName>
+                <default>false</default>
+                <label>Óleo &amp; Gás</label>
+            </value>
+            <value>
+                <fullName>Recebedor Carga Não Conteinerizada</fullName>
+                <default>false</default>
+                <label>Recebedor Carga Não Conteinerizada</label>
+            </value>
+            <value>
+                <fullName>Outro</fullName>
+                <default>false</default>
+                <label>Outro</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

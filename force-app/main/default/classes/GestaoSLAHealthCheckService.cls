@@ -1,10 +1,3 @@
-/**
- * @description       : Serviço de negócio para o módulo GestaoSLAHealthCheck. Contém lógica de validação e DML, seguindo arquitetura Triscal.
- * @author            : Triscal
- * @group             : Gestão de SLA
- * @last modified on  : 06-15-2026
- * @last modified by  : Jean Duarte
- **/
 public with sharing class GestaoSLAHealthCheckService {
 
     private static final Integer DEFAULT_MAX_RECORDS = 200;

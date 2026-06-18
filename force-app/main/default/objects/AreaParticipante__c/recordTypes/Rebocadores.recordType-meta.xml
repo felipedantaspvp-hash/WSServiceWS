@@ -161,23 +161,12 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>SLA Total</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Tratamento Primário</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Área Interna</fullName>
             <default>true</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>TipoAtuacao__c</picklist>
-        <values>
-            <fullName>Retorno ao Cliente</fullName>
-            <default>false</default>
         </values>
     </picklistValues>
 </RecordType>

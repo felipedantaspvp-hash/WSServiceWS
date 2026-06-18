@@ -1,10 +1,3 @@
-/**
- * @description       : Classe de suporte para o módulo WSWill.
- * @author            : Triscal
- * @group             : WSWill
- * @last modified on  : 06-12-2026
- * @last modified by  : Marllon Nascimento
- **/
 public inherited sharing class WSWillContactLanguageInvocable {
     @TestVisible private static Map<Id, SObject> testSessionById;
     @TestVisible private static Map<Id, SObject> testEndUserById;

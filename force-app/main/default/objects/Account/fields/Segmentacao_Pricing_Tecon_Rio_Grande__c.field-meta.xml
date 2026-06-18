@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Segmentacao_Pricing_Tecon_Rio_Grande__c</fullName>
+    <label>Segmentação Pricing</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Agente de Carga</fullName>
+                <default>false</default>
+                <label>Agente de Carga</label>
+            </value>
+            <value>
+                <fullName>Cargas Diferenciadas (NCC e Cargas de Projeto)</fullName>
+                <default>false</default>
+                <label>Cargas Diferenciadas (NCC e Cargas de Projeto)</label>
+            </value>
+            <value>
+                <fullName>Cliente a Desenvolver</fullName>
+                <default>false</default>
+                <label>Cliente a Desenvolver</label>
+            </value>
+            <value>
+                <fullName>Cliente Grande</fullName>
+                <default>false</default>
+                <label>Cliente Grande</label>
+            </value>
+            <value>
+                <fullName>Cliente Pequeno</fullName>
+                <default>false</default>
+                <label>Cliente Pequeno</label>
+            </value>
+            <value>
+                <fullName>Despachante</fullName>
+                <default>false</default>
+                <label>Despachante</label>
+            </value>
+            <value>
+                <fullName>NVOCC</fullName>
+                <default>false</default>
+                <label>NVOCC</label>
+            </value>
+            <value>
+                <fullName>Transportadora</fullName>
+                <default>false</default>
+                <label>Transportadora</label>
+            </value>
+            <value>
+                <fullName>Key Account</fullName>
+                <default>false</default>
+                <label>Key Account</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

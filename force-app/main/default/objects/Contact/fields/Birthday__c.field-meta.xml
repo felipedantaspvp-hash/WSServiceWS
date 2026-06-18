@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Birthday__c</fullName>
+    <description>Dia/mês de aniversário</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Day/month of birth</inlineHelpText>
+    <label>Birthday</label>
+    <length>5</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

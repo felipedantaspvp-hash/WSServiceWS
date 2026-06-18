@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type_Obrigatorio</fullName>
+    <active>false</active>
+    <errorConditionFormula>TEXT(Type) == null</errorConditionFormula>
+    <errorDisplayField>Type</errorDisplayField>
+    <errorMessage>Tipo é obrigatório</errorMessage>
+</ValidationRule>

@@ -1,10 +1,3 @@
-/**
- * @description       : Testes unitários de CaseSurveyDispatchService.
- * @author            : Triscal
- * @group             : Case
- * @last modified on  : 06-17-2026
- * @last modified by  : Jean Duarte
- **/
 @IsTest
 private class CaseSurveyDispatchServiceTest {
     @IsTest
@@ -16,9 +9,8 @@ private class CaseSurveyDispatchServiceTest {
         CaseSurveyDispatchService.testOrgWideEmailIdsByAddress = new Map<String, Id>{ 'eu@marl2on.com' => '0D2000000000001AAA' };
         CaseSurveyDispatchService.testNetworkIdsByUrlPathPrefix = new Map<String, Id>{ 'pesquisaws' => '0DB000000000001AAA' };
         CaseSurveyDispatchService.testCasesWithSurveySubject = new Set<Id>();
-        CaseSurveyDispatchService.skipInvitationInsertForTest = true;
-        CaseSurveyDispatchService.testInvitationId = '0Ki000000000001AAA';
-        CaseSurveyDispatchServiceAgent.skipEmailForTest = true;
+        CaseSurveyDispatchServiceAgent.skipDmlAndEmailForTest = true;
+        CaseSurveyDispatchServiceAgent.testInvitationId = '0Ki000000000001AAA';
 
         Test.startTest();
         List<CaseSurveyDispatchDTO.Response> responses = CaseSurveyDispatchService.dispatch(new List<CaseSurveyDispatchDTO.Request>{ request(c.Id) });
@@ -40,7 +32,7 @@ private class CaseSurveyDispatchServiceTest {
         CaseSurveyDispatchService.testTemplateIdsByDeveloperName = new Map<String, Id>{ 'Atend_Close_Test_PT' => '00X000000000002AAA' };
         CaseSurveyDispatchService.testOrgWideEmailIdsByAddress = new Map<String, Id>{ 'eu@marl2on.com' => '0D2000000000001AAA' };
         CaseSurveyDispatchService.testCasesWithSurveySubject = new Set<Id>();
-        CaseSurveyDispatchServiceAgent.skipEmailForTest = true;
+        CaseSurveyDispatchServiceAgent.skipDmlAndEmailForTest = true;
         update new Case(Id = c.Id, EnviarPesquisaSatisfacao__c = false);
 
         Test.startTest();
@@ -96,9 +88,8 @@ private class CaseSurveyDispatchServiceTest {
         CaseSurveyDispatchService.testOrgWideEmailIdsByAddress = new Map<String, Id>{ 'eu@marl2on.com' => '0D2000000000001AAA' };
         CaseSurveyDispatchService.testNetworkIdsByUrlPathPrefix = new Map<String, Id>{ 'pesquisaws' => '0DB000000000001AAA' };
         CaseSurveyDispatchService.testCasesWithSurveySubject = new Set<Id>();
-        CaseSurveyDispatchService.skipInvitationInsertForTest = true;
-        CaseSurveyDispatchService.testInvitationId = '0Ki000000000001AAA';
-        CaseSurveyDispatchServiceAgent.skipEmailForTest = true;
+        CaseSurveyDispatchServiceAgent.skipDmlAndEmailForTest = true;
+        CaseSurveyDispatchServiceAgent.testInvitationId = '0Ki000000000001AAA';
         CaseSurveyDispatchServiceAgent.testEmailErrorsByIndex = new Map<Integer, String>{ 0 => 'INVALID_ID_FIELD: SaveAsActivity is not allowed.' };
 
         Test.startTest();
@@ -123,18 +114,17 @@ private class CaseSurveyDispatchServiceTest {
         CaseSurveyDispatchService.testOrgWideEmailIdsByAddress = new Map<String, Id>{ 'eu@marl2on.com' => '0D2000000000001AAA' };
         CaseSurveyDispatchService.testNetworkIdsByUrlPathPrefix = new Map<String, Id>{ 'pesquisaws' => '0DB000000000001AAA' };
         CaseSurveyDispatchService.testCasesWithSurveySubject = new Set<Id>();
-        CaseSurveyDispatchService.skipInvitationInsertForTest = true;
-        CaseSurveyDispatchService.testInvitationId = '0Ki000000000001AAA';
-        CaseSurveyDispatchServiceAgent.skipEmailForTest = true;
+        CaseSurveyDispatchServiceAgent.skipDmlAndEmailForTest = true;
+        CaseSurveyDispatchServiceAgent.testInvitationId = '0Ki000000000001AAA';
 
         Test.startTest();
         CaseSurveyDispatchService.dispatch(new List<CaseSurveyDispatchDTO.Request>{ request(c.Id) });
         Test.stopTest();
 
-        Assert.areEqual(1, CaseSurveyDispatchService.preparedInvitationsForTest.size());
-        Assert.areEqual(null, CaseSurveyDispatchService.preparedInvitationsForTest[0].ParticipantId);
-        Assert.areEqual(true, CaseSurveyDispatchService.preparedInvitationsForTest[0].OptionsAllowGuestUserResponse);
-        Assert.areEqual((Id) '0DB000000000001AAA', CaseSurveyDispatchService.preparedInvitationsForTest[0].CommunityId);
+        Assert.areEqual(1, CaseSurveyDispatchServiceAgent.preparedInvitationsForTest.size());
+        Assert.areEqual(null, CaseSurveyDispatchServiceAgent.preparedInvitationsForTest[0].ParticipantId);
+        Assert.areEqual(true, CaseSurveyDispatchServiceAgent.preparedInvitationsForTest[0].OptionsAllowGuestUserResponse);
+        Assert.areEqual((Id) '0DB000000000001AAA', CaseSurveyDispatchServiceAgent.preparedInvitationsForTest[0].CommunityId);
         clearInjections();
     }
 
@@ -147,9 +137,8 @@ private class CaseSurveyDispatchServiceTest {
         CaseSurveyDispatchService.testOrgWideEmailIdsByAddress = new Map<String, Id>{ 'eu@marl2on.com' => '0D2000000000001AAA' };
         CaseSurveyDispatchService.testNetworkIdsByUrlPathPrefix = new Map<String, Id>{ 'pesquisaws' => '0DB000000000001AAA' };
         CaseSurveyDispatchService.testCasesWithSurveySubject = new Set<Id>();
-        CaseSurveyDispatchService.skipInvitationInsertForTest = true;
-        CaseSurveyDispatchService.testInvitationId = '0Ki000000000001AAA';
-        CaseSurveyDispatchServiceAgent.skipEmailForTest = true;
+        CaseSurveyDispatchServiceAgent.skipDmlAndEmailForTest = true;
+        CaseSurveyDispatchServiceAgent.testInvitationId = '0Ki000000000001AAA';
 
         Test.startTest();
         List<CaseSurveyDispatchDTO.Response> responses = CaseSurveyDispatchService.dispatch(new List<CaseSurveyDispatchDTO.Request>{ request(c.Id) });
@@ -168,7 +157,7 @@ private class CaseSurveyDispatchServiceTest {
         CaseSurveyDispatchService.testTemplateIdsByDeveloperName = new Map<String, Id>{ 'Atend_Close_Test_EN' => '00X000000000005AAA' };
         CaseSurveyDispatchService.testOrgWideEmailIdsByAddress = new Map<String, Id>{ 'eu@marl2on.com' => '0D2000000000001AAA' };
         CaseSurveyDispatchService.testCasesWithSurveySubject = new Set<Id>();
-        CaseSurveyDispatchServiceAgent.skipEmailForTest = true;
+        CaseSurveyDispatchServiceAgent.skipDmlAndEmailForTest = true;
         update new Case(Id = c.Id, EnviarPesquisaSatisfacao__c = false);
 
         Test.startTest();
@@ -247,10 +236,9 @@ private class CaseSurveyDispatchServiceTest {
         CaseSurveyDispatchService.testOrgWideEmailIdsByAddress = null;
         CaseSurveyDispatchService.testNetworkIdsByUrlPathPrefix = null;
         CaseSurveyDispatchService.testCasesWithSurveySubject = null;
-        CaseSurveyDispatchService.skipInvitationInsertForTest = false;
-        CaseSurveyDispatchService.testInvitationId = null;
-        CaseSurveyDispatchService.preparedInvitationsForTest = null;
-        CaseSurveyDispatchServiceAgent.skipEmailForTest = false;
+        CaseSurveyDispatchServiceAgent.skipDmlAndEmailForTest = false;
+        CaseSurveyDispatchServiceAgent.testInvitationId = null;
         CaseSurveyDispatchServiceAgent.testEmailErrorsByIndex = null;
+        CaseSurveyDispatchServiceAgent.preparedInvitationsForTest = null;
     }
 }

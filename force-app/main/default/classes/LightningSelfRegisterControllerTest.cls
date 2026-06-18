@@ -1,10 +1,3 @@
-/**
- * @description       : Testes unitários de LightningSelfRegisterController.
- * @author            : Triscal
- * @group             : Triscal
- * @last modified on  : 06-17-2026
- * @last modified by  : Jean Duarte
- **/
 @IsTest(SeeAllData = true)
 public with sharing class LightningSelfRegisterControllerTest {
 

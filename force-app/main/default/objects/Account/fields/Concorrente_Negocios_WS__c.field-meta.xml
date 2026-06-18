@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Concorrente_Negocios_WS__c</fullName>
+    <label>Concorrente nos Negócios WS</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Agencia</fullName>
+                <default>false</default>
+                <label>Agencia</label>
+            </value>
+            <value>
+                <fullName>Brasco</fullName>
+                <default>false</default>
+                <label>Brasco</label>
+            </value>
+            <value>
+                <fullName>Estaleiros</fullName>
+                <default>false</default>
+                <label>Estaleiros</label>
+            </value>
+            <value>
+                <fullName>Logística</fullName>
+                <default>false</default>
+                <label>Logística</label>
+            </value>
+            <value>
+                <fullName>Novos Negócios</fullName>
+                <default>false</default>
+                <label>Novos Negócios</label>
+            </value>
+            <value>
+                <fullName>Rebocadores</fullName>
+                <default>false</default>
+                <label>Rebocadores</label>
+            </value>
+            <value>
+                <fullName>Tecon Rio Grande</fullName>
+                <default>false</default>
+                <label>Tecon Rio Grande</label>
+            </value>
+            <value>
+                <fullName>Tecon Salvador</fullName>
+                <default>false</default>
+                <label>Tecon Salvador</label>
+            </value>
+            <value>
+                <fullName>Logística, Novos Negócios, Tecon Salvador</fullName>
+                <default>false</default>
+                <label>Logística, Novos Negócios, Tecon Salvador</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

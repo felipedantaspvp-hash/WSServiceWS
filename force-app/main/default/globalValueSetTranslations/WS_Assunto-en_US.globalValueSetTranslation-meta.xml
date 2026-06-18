@@ -9,12 +9,12 @@
         <translation>Access</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Acesso ao terminal</masterLabel>
-        <translation>Terminal Access</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Acesso Codeba</masterLabel>
         <translation>Codeba Access</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Acesso ao terminal</masterLabel>
+        <translation>Terminal Access</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Acompanhamento de DAT</masterLabel>
@@ -57,12 +57,16 @@
         <translation>Work Order Adjustments</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Análise Crítica</masterLabel>
-        <translation>Critical Analysis</translation>
+        <masterLabel>Amount of employed tugboats</masterLabel>
+        <translation>Amount of employed tugboats</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Antecipação de agendamento</masterLabel>
         <translation>Scheduling Advancement</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Análise Crítica</masterLabel>
+        <translation>Critical Analysis</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Aprovar cadastro</masterLabel>
@@ -97,6 +101,10 @@
         <translation>Document Release Error or Delay</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Atraso ou Erro no Serviço</masterLabel>
+        <translation>Service Error or Delay</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Atraso ou erro na liberação documental</masterLabel>
         <translation>Document Release Error or Delay</translation>
     </valueTranslation>
@@ -109,16 +117,12 @@
         <translation>Service Execution Error or Delay</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Atraso ou Erro no Serviço</masterLabel>
-        <translation>Service Error or Delay</translation>
+        <masterLabel>Atualizar JDA com agendamentos</masterLabel>
+        <translation>Update JDA with Schedules</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Atualização Cadastral</masterLabel>
         <translation>Registration Update</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Atualizar JDA com agendamentos</masterLabel>
-        <translation>Update JDA with Schedules</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Avaria</masterLabel>
@@ -133,16 +137,20 @@
         <translation>Payment Slip</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Booking</masterLabel>
+        <translation>Booking</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>CTE</masterLabel>
+        <translation>CTE (Transport Document)</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Cadastrar empresas e clientes</masterLabel>
         <translation>Register Companies and Customers</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Cadastro</masterLabel>
         <translation>Registration</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Cadastro de Proposta</masterLabel>
-        <translation>Proposal Registration</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Cadastro Pessoa Física</masterLabel>
@@ -157,6 +165,10 @@
         <translation>Company Registration</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Cadastro de Proposta</masterLabel>
+        <translation>Proposal Registration</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Cargas perigosas / Especiais</masterLabel>
         <translation>Hazardous / Special Cargo</translation>
     </valueTranslation>
@@ -165,12 +177,20 @@
         <translation>Loading / Unstuffing</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>carta de indisponibilidade</masterLabel>
-        <translation>Unavailability Letter</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Carta Protesto</masterLabel>
         <translation>Protest Letter</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Clarification about maneuvers</masterLabel>
+        <translation>Clarification about maneuvers</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Commercial Data</masterLabel>
+        <translation>Commercial Data</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Compliance</masterLabel>
+        <translation>Compliance</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Comunicados</masterLabel>
@@ -213,20 +233,28 @@
         <translation>External Communication</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>CTE</masterLabel>
-        <translation>CTE (Transport Document)</translation>
+        <masterLabel>Currency conversion request</masterLabel>
+        <translation>Currency conversion request</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Currículo</masterLabel>
         <translation>Resume / CV</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Dados comerciais</masterLabel>
-        <translation>Commercial Data</translation>
+        <masterLabel>DESOVA CROSS DOCKING</masterLabel>
+        <translation>Cross-Docking Unstuffing</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Dados do recinto</masterLabel>
-        <translation>Terminal Data</translation>
+        <masterLabel>DESOVA FREE TIME</masterLabel>
+        <translation>Free Time Unstuffing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>DTA / DTC</masterLabel>
+        <translation>DTA / DTC</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>DTA/DTC</masterLabel>
+        <translation>DTA/DTC</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Dados SAS</masterLabel>
@@ -237,8 +265,24 @@
         <translation>SEFAZ Data</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Dados comerciais</masterLabel>
+        <translation>Commercial Data</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dados do recinto</masterLabel>
+        <translation>Terminal Data</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Delay in commercial negotiation</masterLabel>
+        <translation>Delay in commercial negotiation</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Demandas</masterLabel>
         <translation>Requests</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Demurrage</masterLabel>
+        <translation><!-- Demurrage --></translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Descarga Sem Cadastro</masterLabel>
@@ -261,14 +305,6 @@
         <translation>Consolidated Unstuffing</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>DESOVA CROSS DOCKING</masterLabel>
-        <translation>Cross-Docking Unstuffing</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>DESOVA FREE TIME</masterLabel>
-        <translation>Free Time Unstuffing</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Devolução</masterLabel>
         <translation>Return</translation>
     </valueTranslation>
@@ -289,23 +325,35 @@
         <translation>Miscellaneous</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>DTA / DTC</masterLabel>
-        <translation>DTA / DTC</translation>
+        <masterLabel>Doubts about PO</masterLabel>
+        <translation>Doubts about PO</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>DTA/DTC</masterLabel>
-        <translation>DTA/DTC</translation>
+        <masterLabel>Doubts about currency change tariff</masterLabel>
+        <translation>Doubts about currency change tariff</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Dúvidas de usabilidade</masterLabel>
-        <translation>Usability Questions</translation>
+        <masterLabel>Doubts about invoice</masterLabel>
+        <translation>Doubts about invoice</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Doubts about local port</masterLabel>
+        <translation>Doubts about local port</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Doubts about the responsible owner</masterLabel>
+        <translation>Doubts about the responsible owner</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Doubts about the vessel&apos;s name</masterLabel>
+        <translation><!-- Doubts about the vessel&apos;s name --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Doubts on the amount of employed tugboats</masterLabel>
+        <translation>Doubts on the amount of employed tugboats</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Duvidas diversas</masterLabel>
-        <translation>General Inquiries</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Dúvidas diversas</masterLabel>
         <translation>General Inquiries</translation>
     </valueTranslation>
     <valueTranslation>
@@ -313,12 +361,20 @@
         <translation>DUIMP Inquiries</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Dúvidas sobre fatura</masterLabel>
-        <translation>Invoice Inquiries</translation>
+        <masterLabel>Dúvidas de usabilidade</masterLabel>
+        <translation>Usability Questions</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dúvidas diversas</masterLabel>
+        <translation>General Inquiries</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Dúvidas sobre Pedido de Compra (PO)</masterLabel>
         <translation>Purchase Order (PO) Inquiries</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dúvidas sobre fatura</masterLabel>
+        <translation>Invoice Inquiries</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Dúvidas sobre porto local</masterLabel>
@@ -349,6 +405,14 @@
         <translation>Invoice Receipt Email</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>E-mail update request</masterLabel>
+        <translation>E-mail update request</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>EDI</masterLabel>
+        <translation>EDI</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Elaborar romaneio e lista de embalagem</masterLabel>
         <translation>Prepare Packing List and Bill of Lading</translation>
     </valueTranslation>
@@ -369,6 +433,10 @@
         <translation>Forward CDA (Bonded Warehouse Certificate)</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Encaminhar TFA (termo de Falta e Avaria)</masterLabel>
+        <translation>Forward TFA (Shortage and Damage Report)</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Encaminhar dados do recebimento - Alfandegado</masterLabel>
         <translation>Forward Bonded Warehouse Receipt Data</translation>
     </valueTranslation>
@@ -383,10 +451,6 @@
     <valueTranslation>
         <masterLabel>Encaminhar pedido de cotação / Nova operação / Projeto</masterLabel>
         <translation>Forward Quotation Request / New Operation / Project</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Encaminhar TFA (termo de Falta e Avaria)</masterLabel>
-        <translation>Forward TFA (Shortage and Damage Report)</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Entrada Antecipada</masterLabel>
@@ -465,10 +529,6 @@
         <translation>Vessel Name Error</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Erro ou atraso atualização cadastral</masterLabel>
-        <translation>Registration Update Error or Delay</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Erro ou Atraso na Atualização</masterLabel>
         <translation>Update Error or Delay</translation>
     </valueTranslation>
@@ -477,12 +537,24 @@
         <translation>Registration Error or Delay</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Erro ou atraso atualização cadastral</masterLabel>
+        <translation>Registration Update Error or Delay</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Erro ou atraso no cadastro de cliente</masterLabel>
         <translation>Customer Registration Error or Delay</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Erro/indisponibilidade Portal</masterLabel>
         <translation>Portal Error / Unavailability</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Error launching the maneuver</masterLabel>
+        <translation>Error launching the maneuver</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Error naming the vessel</masterLabel>
+        <translation>Error naming the vessel</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Esclarecimento sobre manobras</masterLabel>
@@ -495,6 +567,10 @@
     <valueTranslation>
         <masterLabel>Expedição manual</masterLabel>
         <translation>Manual Dispatch</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>FOTOGRAFIA</masterLabel>
+        <translation>Photography</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Falha de Recebimento</masterLabel>
@@ -537,8 +613,12 @@
         <translation>Outside Business Hours</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>FOTOGRAFIA</masterLabel>
-        <translation>Photography</translation>
+        <masterLabel>Formal customer complaint</masterLabel>
+        <translation>Formal customer complaint</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Gate</masterLabel>
+        <translation>Gate</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Gerenciamento de programação de Exportação</masterLabel>
@@ -581,6 +661,14 @@
         <translation>Terminal Process Instructions</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Invoice</masterLabel>
+        <translation>Invoice</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Lack of release of maneuver/tail</masterLabel>
+        <translation>Lack of release of maneuver/tail</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Lacre</masterLabel>
         <translation>Seal</translation>
     </valueTranslation>
@@ -589,12 +677,16 @@
         <translation>Record Additional Services and Costs in ECM</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Levante / Abertura OS Manual</masterLabel>
+        <translation>Loading / Manual Work Order Opening</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Levante / abertura de OS manual</masterLabel>
         <translation>Loading / Manual Work Order Opening</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Levante / Abertura OS Manual</masterLabel>
-        <translation>Loading / Manual Work Order Opening</translation>
+        <masterLabel>Liberar janela extra</masterLabel>
+        <translation>Release Extra Slot</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Liberação de Booking</masterLabel>
@@ -609,12 +701,12 @@
         <translation>Release of Payment Proof</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Liberar janela extra</masterLabel>
-        <translation>Release Extra Slot</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Ligação muda</masterLabel>
         <translation>Silent Call</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Local port</masterLabel>
+        <translation>Local port</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Marketing externo</masterLabel>
@@ -623,6 +715,18 @@
     <valueTranslation>
         <masterLabel>Marketing interno</masterLabel>
         <translation>Internal Marketing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Mistake of commercial rules</masterLabel>
+        <translation>Mistake of commercial rules</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Mistake to bill the wrong owner</masterLabel>
+        <translation>Mistake to bill the wrong owner</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Mistake to send the invoice (wrong address)</masterLabel>
+        <translation>Mistake to send the invoice (wrong address)</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Morosidade nos Serviços</masterLabel>
@@ -649,36 +753,36 @@
         <translation>Tax Invoice (NF)</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Notificação automática</masterLabel>
-        <translation>Automatic Notification</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Notificação Carga em Abandono</masterLabel>
         <translation>Abandoned Cargo Notification</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Novo acesso e alterações</masterLabel>
-        <translation>New Access and Changes</translation>
+        <masterLabel>Notificação automática</masterLabel>
+        <translation>Automatic Notification</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Novo Cadastro</masterLabel>
         <translation>New Registration</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Particularidade de faturamento não acatada</masterLabel>
-        <translation>Unacknowledged Billing Requirement</translation>
+        <masterLabel>Novo acesso e alterações</masterLabel>
+        <translation>New Access and Changes</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>PO / Draft</masterLabel>
+        <translation>PO / Draft</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Particularidade Não Acatada</masterLabel>
         <translation>Unacknowledged Requirement</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Particularidades de faturamento</masterLabel>
-        <translation>Billing Requirements</translation>
+        <masterLabel>Particularidade de faturamento não acatada</masterLabel>
+        <translation>Unacknowledged Billing Requirement</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Pátio</masterLabel>
-        <translation>Yard</translation>
+        <masterLabel>Particularidades de faturamento</masterLabel>
+        <translation>Billing Requirements</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Pedido de Compra (PO) / Minuta</masterLabel>
@@ -713,12 +817,12 @@
         <translation>Sister Portal</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Portão</masterLabel>
-        <translation>Gate</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Porto local</masterLabel>
         <translation>Local Port</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Portão</masterLabel>
+        <translation>Gate</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Presença de carga</masterLabel>
@@ -745,12 +849,12 @@
         <translation>Buffer Scheduling</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Programação de desova - AG e Redex</masterLabel>
-        <translation>Unstuffing Schedule - AG and Redex</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Programação de REDEX</masterLabel>
         <translation>REDEX Scheduling</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Programação de desova - AG e Redex</masterLabel>
+        <translation>Unstuffing Schedule - AG and Redex</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Programação hora extra</masterLabel>
@@ -767,6 +871,10 @@
     <valueTranslation>
         <masterLabel>Proposta comercial / Cadastro</masterLabel>
         <translation>Commercial Proposal / Registration</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Pátio</masterLabel>
+        <translation>Yard</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Quantidade de rebocadores empregados</masterLabel>
@@ -797,16 +905,20 @@
         <translation>Formal Customer Complaint</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Relações de débitos em aberto</masterLabel>
-        <translation>Outstanding Debt Summary</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Relatorios</masterLabel>
         <translation>Reports</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Relatórios</masterLabel>
         <translation>Reports</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Relações de débitos em aberto</masterLabel>
+        <translation>Outstanding Debt Summary</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Request to change the due date</masterLabel>
+        <translation>Request to change the due date</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Reserva</masterLabel>
@@ -819,30 +931,6 @@
     <valueTranslation>
         <masterLabel>Serviço de fumigação</masterLabel>
         <translation>Fumigation Service</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Solicitação de alteração de vencimento</masterLabel>
-        <translation>Due Date Change Request</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Solicitação de atualização de e-mail</masterLabel>
-        <translation>Email Update Request</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Solicitação de conversão de moeda</masterLabel>
-        <translation>Currency Conversion Request</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Solicitação de desconto/concessão</masterLabel>
-        <translation>Discount / Concession Request</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Solicitação de Proposta</masterLabel>
-        <translation>Proposal Request</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Solicitação para faturar</masterLabel>
-        <translation>Billing Request</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Solicitar assinatura de carta protesto</masterLabel>
@@ -877,6 +965,42 @@
         <translation>Request Bonded Warehouse Cargo Separation</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Solicitação de Proposta</masterLabel>
+        <translation>Proposal Request</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitação de alteração de vencimento</masterLabel>
+        <translation>Due Date Change Request</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitação de atualização de e-mail</masterLabel>
+        <translation>Email Update Request</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitação de conversão de moeda</masterLabel>
+        <translation>Currency Conversion Request</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitação de desconto/concessão</masterLabel>
+        <translation>Discount / Concession Request</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitação para faturar</masterLabel>
+        <translation>Billing Request</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Spam</masterLabel>
+        <translation>Spam</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Teconline</masterLabel>
+        <translation>Teconline</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Time of the maneuver</masterLabel>
+        <translation>Time of the maneuver</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Tratativa entre terceiros</masterLabel>
         <translation>Third-Party Negotiations</translation>
     </valueTranslation>
@@ -889,15 +1013,23 @@
         <translation>Usability</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Valores/Serviços</masterLabel>
-        <translation>Rates / Services</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>VISTORIA</masterLabel>
         <translation>Survey / Inspection</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Valores/Serviços</masterLabel>
+        <translation>Rates / Services</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>WS Acesso</masterLabel>
         <translation>WS Access</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Waiting for documentation requested by the customer</masterLabel>
+        <translation>Waiting for documentation requested by the customer</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>carta de indisponibilidade</masterLabel>
+        <translation>Unavailability Letter</translation>
     </valueTranslation>
 </GlobalValueSetTranslation>

@@ -1,10 +1,3 @@
-/**
- * @description       : Batch Apex de sincronização de marcos (milestones) para o módulo AreaParticipante. Recalcula CaseMilestone após alterações de SLA.
- * @author            : Triscal
- * @group             : Área Participante
- * @last modified on  : 06-14-2026
- * @last modified by  : Jean Duarte
- **/
 public inherited sharing class AreaParticipanteMilestoneSyncBatch implements Database.Batchable<SObject> {
 
     private final Set<Id> caseIds;

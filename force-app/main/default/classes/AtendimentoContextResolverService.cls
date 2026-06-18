@@ -1,10 +1,3 @@
-/**
- * @description       : Serviço de negócio para o módulo AtendimentoContextResolver. Contém lógica de validação e DML, seguindo arquitetura Triscal.
- * @author            : Triscal
- * @group             : Atendimento
- * @last modified on  : 06-11-2026
- * @last modified by  : Jean Duarte
- **/
 public inherited sharing class AtendimentoContextResolverService {
     public class FunctionalException extends Exception { public String code; }
 
@@ -310,7 +303,11 @@ public inherited sharing class AtendimentoContextResolverService {
     private static Map<Id, Contact> fetchContactsById(Set<Id> ids) {
         Map<Id, Contact> out = new Map<Id, Contact>();
         if (ids == null || ids.isEmpty()) return out;
-        for (Contact row : AtendimentoContextResolverSelector.selectContactsByIds(ids)) {
+        for (Contact row : [
+            SELECT Id, Name, AccountId, Email, Phone, MobilePhone
+            FROM Contact
+            WHERE Id IN :ids
+        ]) {
             out.put(row.Id, row);
         }
         return out;
@@ -325,7 +322,7 @@ public inherited sharing class AtendimentoContextResolverService {
         Map<Id, Account> out = new Map<Id, Account>();
         if (accountIds.isEmpty()) return out;
 
-        for (Account row : AtendimentoContextResolverSelector.selectAccountsByIds(accountIds)) {
+        for (Account row : [SELECT Id, Name FROM Account WHERE Id IN :accountIds]) {
             out.put(row.Id, row);
         }
         return out;
@@ -388,7 +385,11 @@ public inherited sharing class AtendimentoContextResolverService {
             return activeChannelRoutesOverride;
         }
         if (!AtendimentoContextResolverHelper.canQueryObject('TCO_ChannelRouting__mdt')) return new List<TCO_ChannelRouting__mdt>();
-        return AtendimentoContextResolverSelector.selectActiveChannelRoutes();
+        return [
+            SELECT TCF_ChannelType__c, TCF_ChannelIdentifier__c, TCF_BusinessUnit__c, TCF_IsActive__c
+            FROM TCO_ChannelRouting__mdt
+            WHERE TCF_IsActive__c = true
+        ];
     }
 
     private static void applyUnexpectedError(AtendimentoContextResolverDTO.Response response) {

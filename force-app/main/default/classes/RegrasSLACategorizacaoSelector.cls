@@ -1,10 +1,3 @@
-/**
- * @description       : Selector de consultas SOQL para o módulo RegrasSLACategorizacao. Centraliza queries com security enforced, sem lógica de negócio.
- * @author            : Triscal
- * @group             : Regras de SLA
- * @last modified on  : 06-14-2026
- * @last modified by  : Jean Duarte
- **/
 public inherited sharing class RegrasSLACategorizacaoSelector {
     public static Map<String, RegrasSLACategorizacao__c> getActiveByKey(Set<String> keys, Set<Id> ignoreIds){
         Map<String, RegrasSLACategorizacao__c> out = new Map<String, RegrasSLACategorizacao__c>();

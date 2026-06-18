@@ -1,10 +1,3 @@
-/**
- * @description       : Funções utilitárias e helpers para o módulo AreaParticipante.
- * @author            : Triscal
- * @group             : Área Participante
- * @last modified on  : 06-11-2026
- * @last modified by  : Jean Duarte
- **/
 public inherited sharing class AreaParticipanteHelper {
     private static Boolean isEnglish() {
         String lang = UserInfo.getLanguage();

@@ -1,10 +1,3 @@
-/**
- * @description       : DTOs de transferência de dados para o módulo WSWillCaseCreation. Contém classes de request/response para operações do módulo.
- * @author            : Triscal
- * @group             : WSWill
- * @last modified on  : 06-11-2026
- * @last modified by  : Jean Duarte
- **/
 public inherited sharing class WSWillCaseCreationDTO {
     public class Request {
         @InvocableVariable(label='Business Unit Name')

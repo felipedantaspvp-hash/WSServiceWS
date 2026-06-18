@@ -142,6 +142,32 @@
         </rules>
     </decisions>
     <decisions>
+        <name>ContatoWhatsAppExiste</name>
+        <label>Contato WhatsApp Existe</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>RoutingAction</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Não Existe</defaultConnectorLabel>
+        <rules>
+            <name>Existe_Contato_WhatsApp</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>ContatoWhatsApp</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>AtualizaContatoWhatsApp</targetReference>
+            </connector>
+            <label>Existe Contato WhatsApp</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Origem</name>
         <label>Origem</label>
         <locationX>0</locationX>
@@ -165,9 +191,29 @@
             </connector>
             <label>Chat</label>
         </rules>
+        <rules>
+            <name>WhatsApp</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>MessagingSession.ChannelName</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>WhatsApp</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MessagingUserWhatsApp</targetReference>
+            </connector>
+            <label>WhatsApp</label>
+        </rules>
     </decisions>
     <description>Routes each message to an enhanced bot. You can customize the flow with business and routing rules.</description>
     <environments>Default</environments>
+    <formulas>
+        <name>TelefoneWhatsAppSemDDI</name>
+        <dataType>String</dataType>
+        <expression>IF(LEN({!MessagingUserWhatsApp.MessagingPlatformKey}) &gt; 2, RIGHT({!MessagingUserWhatsApp.MessagingPlatformKey}, LEN({!MessagingUserWhatsApp.MessagingPlatformKey}) - 2), {!MessagingUserWhatsApp.MessagingPlatformKey})</expression>
+    </formulas>
     <interviewLabel>Route to Will Smoke {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Route to Will Smoke</label>
     <processMetadataValues>
@@ -255,6 +301,27 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>ContatoWhatsApp</name>
+        <label>Contato WhatsApp</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>ContatoWhatsAppExiste</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>MobilePhone</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>TelefoneWhatsAppSemDDI</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>MessagingSession</name>
         <label>MessagingSession</label>
         <locationX>0</locationX>
@@ -273,6 +340,27 @@
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>MessagingSession</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>MessagingUserWhatsApp</name>
+        <label>Messaging User WhatsApp</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>ContatoWhatsApp</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>MessagingSession.MessagingEndUserId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>MessagingEndUser</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
@@ -347,6 +435,36 @@
             <field>Phone__c</field>
             <value>
                 <elementReference>varEmail</elementReference>
+            </value>
+        </inputAssignments>
+        <object>MessagingEndUser</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>AtualizaContatoWhatsApp</name>
+        <label>Atualiza Contato WhatsApp</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>RoutingAction</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>MessagingSession.MessagingEndUserId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>ContactId</field>
+            <value>
+                <elementReference>ContatoWhatsApp.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Language</field>
+            <value>
+                <elementReference>ContatoWhatsApp.Idioma__c</elementReference>
             </value>
         </inputAssignments>
         <object>MessagingEndUser</object>

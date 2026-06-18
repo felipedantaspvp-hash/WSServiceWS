@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Campo_Status</fullName>
+    <active>false</active>
+    <description>Somente usuário PowerUser, Gestor ou Administrador possuem permissão de criar/alterar Contato com status diferente de Nova.</description>
+    <errorConditionFormula>AND(NOT(BypassValidationsFromBot__c),
+IF(
+$Profile.Name == &quot;Vendedor&quot; &amp;&amp; ((ISCHANGED(Status__c))||(ISNEW()&amp;&amp; TEXT(Status__c) != &quot;Novo&quot;)), TRUE , FALSE
+)
+)</errorConditionFormula>
+    <errorDisplayField>Status__c</errorDisplayField>
+    <errorMessage>Somente usuário PowerUser, Gestor ou Administrador possuem permissão de criar/alterar Contato com status diferente de Nova.</errorMessage>
+</ValidationRule>

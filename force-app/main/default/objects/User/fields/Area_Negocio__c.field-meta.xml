@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Area_Negocio__c</fullName>
+    <label>Área de Negócio</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Agência</fullName>
+                <default>false</default>
+                <label>Agência</label>
+            </value>
+            <value>
+                <fullName>Bases_de_apoio_offshore</fullName>
+                <default>false</default>
+                <label>Bases de Apoio Offshore</label>
+            </value>
+            <value>
+                <fullName>Estaleiro</fullName>
+                <default>false</default>
+                <label>Estaleiro</label>
+            </value>
+            <value>
+                <fullName>Logística - Plataforma NE</fullName>
+                <default>false</default>
+                <label>Logística - Plataforma NE</label>
+            </value>
+            <value>
+                <fullName>Logística - Plataforma SE</fullName>
+                <default>false</default>
+                <label>Logística - Plataforma SE</label>
+            </value>
+            <value>
+                <fullName>Tecon Rio Grande</fullName>
+                <default>false</default>
+                <label>Tecon Rio Grande</label>
+            </value>
+            <value>
+                <fullName>Tecon Salvador</fullName>
+                <default>false</default>
+                <label>Tecon Salvador</label>
+            </value>
+            <value>
+                <fullName>Rebocadores</fullName>
+                <default>false</default>
+                <label>Rebocadores</label>
+            </value>
+            <value>
+                <fullName>WSUT</fullName>
+                <default>false</default>
+                <label>WSUT</label>
+            </value>
+            <value>
+                <fullName>Novos Negócios</fullName>
+                <default>false</default>
+                <label>Novos Negócios</label>
+            </value>
+            <value>
+                <fullName>Argonáutica</fullName>
+                <default>false</default>
+                <label>Argonáutica</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

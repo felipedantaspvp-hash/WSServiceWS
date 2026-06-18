@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <label>Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Ativa</fullName>
+                <default>false</default>
+                <label>Ativa</label>
+            </value>
+            <value>
+                <fullName>Duplicada</fullName>
+                <default>false</default>
+                <label>Duplicada</label>
+            </value>
+            <value>
+                <fullName>Inativa</fullName>
+                <default>false</default>
+                <label>Inativa</label>
+            </value>
+            <value>
+                <fullName>Nova</fullName>
+                <default>true</default>
+                <label>Nova</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

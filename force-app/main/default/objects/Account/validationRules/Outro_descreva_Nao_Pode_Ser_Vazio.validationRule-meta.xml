@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Outro_descreva_Nao_Pode_Ser_Vazio</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ ISPICKVAL(Segmenta_Especifica_Logistica__c, &quot;Outro&quot;),
+ ISBLANK(Outro_descreva__c)
+)</errorConditionFormula>
+    <errorDisplayField>Outro_descreva__c</errorDisplayField>
+    <errorMessage>Caso o campo Segmentação Específica for igual a &quot;Outro&quot; o campo &quot;Outro (descreva)&quot; é de preenchimento obrigatório. Favor preencher o campo &quot;Outro (descreva)&quot;.</errorMessage>
+</ValidationRule>

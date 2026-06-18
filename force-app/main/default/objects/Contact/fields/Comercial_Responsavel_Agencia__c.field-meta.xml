@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Comercial_Responsavel_Agencia__c</fullName>
+    <label>Comercial Responsável</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Ana Clara Teixedo</fullName>
+                <default>false</default>
+                <label>Ana Clara Teixedo</label>
+            </value>
+            <value>
+                <fullName>Camila Reis</fullName>
+                <default>false</default>
+                <label>Camila Reis</label>
+            </value>
+            <value>
+                <fullName>Carolina Andrade</fullName>
+                <default>false</default>
+                <label>Carolina Andrade</label>
+            </value>
+            <value>
+                <fullName>Diego Alvarez</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Diego Alvarez</label>
+            </value>
+            <value>
+                <fullName>Emanuel Andrade</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Emanuel Andrade</label>
+            </value>
+            <value>
+                <fullName>Fernanda Perazza</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Fernanda Perazza</label>
+            </value>
+            <value>
+                <fullName>George Tsamis</fullName>
+                <default>false</default>
+                <label>George Tsamis</label>
+            </value>
+            <value>
+                <fullName>Isabella Pereira</fullName>
+                <default>false</default>
+                <label>Isabella Pereira</label>
+            </value>
+            <value>
+                <fullName>Iully Ferreira</fullName>
+                <default>false</default>
+                <label>Iully Ferreira</label>
+            </value>
+            <value>
+                <fullName>Joanna Xiang</fullName>
+                <default>false</default>
+                <label>Joanna Xiang</label>
+            </value>
+            <value>
+                <fullName>Jorge Coutinho</fullName>
+                <default>false</default>
+                <label>Jorge Coutinho</label>
+            </value>
+            <value>
+                <fullName>Livia Nobrega</fullName>
+                <default>false</default>
+                <label>Livia Nobrega</label>
+            </value>
+            <value>
+                <fullName>Lorena Gomes</fullName>
+                <default>false</default>
+                <label>Lorena Gomes</label>
+            </value>
+            <value>
+                <fullName>Luiz Maluza</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Luiz Maluza</label>
+            </value>
+            <value>
+                <fullName>Maria Eduarda Rodrigues</fullName>
+                <default>false</default>
+                <label>Maria Eduarda Rodrigues</label>
+            </value>
+            <value>
+                <fullName>Marina Braga</fullName>
+                <default>false</default>
+                <label>Marina Braga</label>
+            </value>
+            <value>
+                <fullName>Michel de Kok</fullName>
+                <default>false</default>
+                <label>Michel de Kok</label>
+            </value>
+            <value>
+                <fullName>Natália Bley</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Natália Bley</label>
+            </value>
+            <value>
+                <fullName>Ramon Amaral</fullName>
+                <default>false</default>
+                <label>Ramon Amaral</label>
+            </value>
+            <value>
+                <fullName>Renan Queiroz</fullName>
+                <default>false</default>
+                <label>Renan Queiroz</label>
+            </value>
+            <value>
+                <fullName>Silvia Rosa</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Silvia Rosa</label>
+            </value>
+            <value>
+                <fullName>Stephanie Pires</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Stephanie Pires</label>
+            </value>
+            <value>
+                <fullName>Tássia Lima</fullName>
+                <default>false</default>
+                <label>Tássia Lima</label>
+            </value>
+            <value>
+                <fullName>Thalita de Sá</fullName>
+                <default>false</default>
+                <label>Thalita de Sá</label>
+            </value>
+            <value>
+                <fullName>Thiago Pierry</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Thiago Pierry</label>
+            </value>
+            <value>
+                <fullName>Thomas Psarras</fullName>
+                <default>false</default>
+                <label>Thomas Psarras</label>
+            </value>
+            <value>
+                <fullName>Úrsula Schmitz</fullName>
+                <default>false</default>
+                <label>Úrsula Schmitz</label>
+            </value>
+            <value>
+                <fullName>Victor Barbosa</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Victor Barbosa</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

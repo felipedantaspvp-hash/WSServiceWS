@@ -53,7 +53,7 @@
             <operation>equals</operation>
             <value>Aguardando atendimento</value>
         </milestoneCriteriaFilterItems>
-        <milestoneName>Primeira Resposta (Fila N2)</milestoneName>
+        <milestoneName>Primeira Resposta %28Fila N2%29</milestoneName>
         <minutesCustomClass>CaseMilestoneTriggerTimeCalculator</minutesCustomClass>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>

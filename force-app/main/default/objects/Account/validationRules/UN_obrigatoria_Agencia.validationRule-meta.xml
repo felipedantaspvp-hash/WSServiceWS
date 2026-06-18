@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UN_obrigatoria_Agencia</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISBLANK(Area_de_Negocio__c) &amp;&amp; TEXT($User.Area_Negocio__c) == &quot;Agência&quot;</errorConditionFormula>
+    <errorDisplayField>Area_de_Negocio__c</errorDisplayField>
+    <errorMessage>Área de Negócio deve ser informada na conta!</errorMessage>
+</ValidationRule>

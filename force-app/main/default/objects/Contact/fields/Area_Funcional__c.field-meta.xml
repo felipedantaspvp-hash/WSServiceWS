@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Area_Funcional__c</fullName>
+    <label>Área Funcional</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Administrativo / Financeiro</fullName>
+                <default>false</default>
+                <label>Administrativo / Financeiro</label>
+            </value>
+            <value>
+                <fullName>Comercial / Vendas</fullName>
+                <default>false</default>
+                <label>Comercial / Vendas</label>
+            </value>
+            <value>
+                <fullName>Comércio Exterior</fullName>
+                <default>false</default>
+                <label>Comércio Exterior</label>
+            </value>
+            <value>
+                <fullName>Compras / Suprimentos</fullName>
+                <default>false</default>
+                <label>Compras / Suprimentos</label>
+            </value>
+            <value>
+                <fullName>Engenharia</fullName>
+                <default>false</default>
+                <label>Engenharia</label>
+            </value>
+            <value>
+                <fullName>Fiscalização / Auditoria</fullName>
+                <default>false</default>
+                <label>Fiscalização / Auditoria</label>
+            </value>
+            <value>
+                <fullName>Jurídico</fullName>
+                <default>false</default>
+                <label>Jurídico</label>
+            </value>
+            <value>
+                <fullName>Logística</fullName>
+                <default>false</default>
+                <label>Logística</label>
+            </value>
+            <value>
+                <fullName>Manutenção</fullName>
+                <default>false</default>
+                <label>Manutenção</label>
+            </value>
+            <value>
+                <fullName>Marketing</fullName>
+                <default>false</default>
+                <label>Marketing</label>
+            </value>
+            <value>
+                <fullName>Novos Negócios</fullName>
+                <default>false</default>
+                <label>Novos Negócios</label>
+            </value>
+            <value>
+                <fullName>Operações</fullName>
+                <default>false</default>
+                <label>Operações</label>
+            </value>
+            <value>
+                <fullName>Planejamento / Estratégico</fullName>
+                <default>false</default>
+                <label>Planejamento / Estratégico</label>
+            </value>
+            <value>
+                <fullName>Projetos</fullName>
+                <default>false</default>
+                <label>Projetos</label>
+            </value>
+            <value>
+                <fullName>Recursos Humanos</fullName>
+                <default>false</default>
+                <label>Recursos Humanos</label>
+            </value>
+            <value>
+                <fullName>Relacionamento Cliente / Pós-Venda</fullName>
+                <default>false</default>
+                <label>Relacionamento Cliente / Pós-Venda</label>
+            </value>
+            <value>
+                <fullName>SMS</fullName>
+                <default>false</default>
+                <label>SMS</label>
+            </value>
+            <value>
+                <fullName>Tecnologia da Informação</fullName>
+                <default>false</default>
+                <label>Tecnologia da Informação</label>
+            </value>
+            <value>
+                <fullName>Outro</fullName>
+                <default>false</default>
+                <label>Outro</label>
+            </value>
+            <value>
+                <fullName>TI</fullName>
+                <default>false</default>
+                <label>TI</label>
+            </value>
+            <value>
+                <fullName>Operacional</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Operacional</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

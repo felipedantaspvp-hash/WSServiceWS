@@ -1,10 +1,3 @@
-/**
- * @description       : Controller Apex expondo endpoints @AuraEnabled para o módulo LightningForgotPassword. Delega toda lógica ao LightningForgotPasswordService.
- * @author            : Triscal
- * @group             : Triscal
- * @last modified on  : 06-17-2026
- * @last modified by  : Jean Duarte
- **/
 global class LightningForgotPasswordController {
 
     public LightningForgotPasswordController() {

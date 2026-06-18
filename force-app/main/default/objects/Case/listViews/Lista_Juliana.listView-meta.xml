@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lista_Juliana</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.SUBJECT</field>
+        <operation>contains</operation>
+        <value>Stepan,envirotainer,megh,RKN,RAP,MZA,sunchemical,agile,agilemed,lehvoss,moldex,monsanto,merck,estaleiros,sapoti,aqia,sherwin,sncz,valspar,dyno,JRF,UNY GIFT,lumini,vauxx,lice,20 comercial,tapuzim,locatelli,lalique,maxihost,AGROTÓXICO,JTI</value>
+    </filters>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.AtendimentoCentroLogistico</value>
+    </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>notContain</operation>
+        <value>cobrança automática</value>
+    </filters>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Closed</value>
+    </filters>
+    <label>Lista Juliana</label>
+    <sharedTo>
+        <group>Logistica_SE</group>
+    </sharedTo>
+</ListView>

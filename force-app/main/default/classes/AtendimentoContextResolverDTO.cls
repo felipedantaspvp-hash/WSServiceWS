@@ -1,10 +1,3 @@
-/**
- * @description       : DTOs de transferência de dados para o módulo AtendimentoContextResolver. Contém classes de request/response para operações do módulo.
- * @author            : Triscal
- * @group             : Atendimento
- * @last modified on  : 06-11-2026
- * @last modified by  : Jean Duarte
- **/
 public inherited sharing class AtendimentoContextResolverDTO {
     public class Request {
         @InvocableVariable(label='Routable Id')

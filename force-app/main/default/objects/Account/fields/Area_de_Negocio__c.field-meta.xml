@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Area_de_Negocio__c</fullName>
+    <inlineHelpText>Favor adicionar o nome da sua Unidade de Negócio, caso seja um cliente para a mesma.</inlineHelpText>
+    <label>Área de Negócio</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>AreasNegocio</valueSetName>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

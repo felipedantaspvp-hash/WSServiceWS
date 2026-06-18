@@ -1,10 +1,3 @@
-/**
- * @description       : Testes unitários de CaseRecategorizationController.
- * @author            : Triscal
- * @group             : Case Recategorização
- * @last modified on  : 06-12-2026
- * @last modified by  : Jean Duarte
- **/
 @IsTest
 private class CaseRecategorizationControllerTest {
     private static RecordType anyCaseRt() {

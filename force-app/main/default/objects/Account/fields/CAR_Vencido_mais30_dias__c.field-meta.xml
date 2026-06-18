@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CAR_Vencido_mais30_dias__c</fullName>
+    <description>Input dado pelo financeiro do CAR vencido a mais de 30 dias na data de atualização</description>
+    <label>CAR Vencido (&gt;30 dias)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Currency</type>
+</CustomField>

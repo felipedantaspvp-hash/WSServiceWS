@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Segmenta_Especifica_Logistica__c</fullName>
+    <label>Segmentação Específica Logística</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Agente de Carga</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Agente de Carga</label>
+            </value>
+            <value>
+                <fullName>Ambev</fullName>
+                <default>false</default>
+                <label>Ambev</label>
+            </value>
+            <value>
+                <fullName>Automotivo</fullName>
+                <default>false</default>
+                <label>Automotivo</label>
+            </value>
+            <value>
+                <fullName>Bebidas/Alimentos</fullName>
+                <default>false</default>
+                <label>Bebidas/Alimentos</label>
+            </value>
+            <value>
+                <fullName>Bens de Consumo/Varejo</fullName>
+                <default>false</default>
+                <label>Bens de Consumo/Varejo</label>
+            </value>
+            <value>
+                <fullName>Bens Industriais</fullName>
+                <default>false</default>
+                <label>Bens Industriais</label>
+            </value>
+            <value>
+                <fullName>Comissária de Despacho</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Comissária de Despacho</label>
+            </value>
+            <value>
+                <fullName>Construção</fullName>
+                <default>false</default>
+                <label>Construção</label>
+            </value>
+            <value>
+                <fullName>Cosméticos/Perfumaria</fullName>
+                <default>false</default>
+                <label>Cosméticos/Perfumaria</label>
+            </value>
+            <value>
+                <fullName>Embarcador</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Embarcador</label>
+            </value>
+            <value>
+                <fullName>Energia/Solar</fullName>
+                <default>false</default>
+                <label>Energia/Solar</label>
+            </value>
+            <value>
+                <fullName>Exportador</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Exportador</label>
+            </value>
+            <value>
+                <fullName>Importador</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Importador</label>
+            </value>
+            <value>
+                <fullName>Indústria</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Indústria</label>
+            </value>
+            <value>
+                <fullName>Life Science</fullName>
+                <default>false</default>
+                <label>Life Science</label>
+            </value>
+            <value>
+                <fullName>Lifestyle</fullName>
+                <default>false</default>
+                <label>Lifestyle</label>
+            </value>
+            <value>
+                <fullName>Maquinário</fullName>
+                <default>false</default>
+                <label>Maquinário</label>
+            </value>
+            <value>
+                <fullName>Outros</fullName>
+                <default>false</default>
+                <label>Outros</label>
+            </value>
+            <value>
+                <fullName>Partes e Peças</fullName>
+                <default>false</default>
+                <label>Partes e Peças</label>
+            </value>
+            <value>
+                <fullName>Químico</fullName>
+                <default>false</default>
+                <label>Químico</label>
+            </value>
+            <value>
+                <fullName>Tecnologia/Elet. Eletrônico</fullName>
+                <default>false</default>
+                <label>Tecnologia/Elet. Eletrônico</label>
+            </value>
+            <value>
+                <fullName>Trading</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Trading</label>
+            </value>
+            <value>
+                <fullName>Trading/Ag. Carga/Armador/P.F.</fullName>
+                <default>false</default>
+                <label>Trading/Ag. Carga/Armador/P.F.</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

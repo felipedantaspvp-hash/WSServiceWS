@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Endereco_preenchido_se_for_TCRG</fullName>
+    <active>false</active>
+    <errorConditionFormula>AND(NOT(BypassValidationsFromBot__c),
+AND(CONTAINS($UserRole.Name, &quot;Rio Grande&quot;), AND(ISBLANK( MailingStreet), ISBLANK(MailingPostalCode)))
+)</errorConditionFormula>
+    <errorMessage>Favor preencha o endereço.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ContratoCancelado__c</fullName>
+    <description>Conta sem contratos em andamento</description>
+    <label>Contrato Cancelado</label>
+    <summaryFilterItems>
+        <field>Opportunity.StageName</field>
+        <operation>equals</operation>
+        <value>Fechamento da Oportunidade - Perdida</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Opportunity.Contract_Status__c</field>
+        <operation>equals</operation>
+        <value>Canceled</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Opportunity.Contract_Status__c</field>
+        <operation>notContain</operation>
+        <value>Contract in Force</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Opportunity.Tipo_Contrato__c</field>
+        <operation>equals</operation>
+        <value>Commercial Agreement, Regular</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Opportunity.RecordTypeId</field>
+        <operation>equals</operation>
+        <value>Rebocadores</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Opportunity.AccountId</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

@@ -1,10 +1,3 @@
-/**
- * @description       : Testes unitários de CaseAreaParticipantePauseService.
- * @author            : Triscal
- * @group             : Área Participante
- * @last modified on  : 06-14-2026
- * @last modified by  : Jean Duarte
- **/
 @IsTest
 private class CaseAreaParticipantePauseServiceTest {
     private static Categorizacao__c createCategorizacao() {

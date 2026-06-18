@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GlobalValueSetTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <valueTranslation>
-        <masterLabel>"Cobrar de" indevido</masterLabel>
-        <translation>Incorrect "Bill To" Assignment</translation>
+        <masterLabel>&quot;Cobrar de&quot; indevido</masterLabel>
+        <translation>Incorrect &quot;Bill To&quot; Assignment</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>(pesagem, desova, VGM e outros)</masterLabel>
         <translation>(Weighing, Unstuffing, VGM and Others)</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>-</masterLabel>
+        <translation>-</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Acesso indisponível</masterLabel>
@@ -21,16 +25,24 @@
         <translation>Customer Follow-up</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Acompanhamento de processo IMP</masterLabel>
-        <translation>Import Process Monitoring</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Acompanhamento Processo IMP</masterLabel>
         <translation>Import Process Monitoring</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Agência informou moeda incorreta</masterLabel>
-        <translation>Agency Reported Wrong Currency</translation>
+        <masterLabel>Acompanhamento de processo IMP</masterLabel>
+        <translation>Import Process Monitoring</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Agency informed the wrong currency</masterLabel>
+        <translation>Agency informed the wrong currency</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Agendamento Manual / OS / Levante</masterLabel>
+        <translation>Manual Scheduling / Work Order / Loading</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Agendamento de Serviços e AC</masterLabel>
+        <translation>Service and A/C Scheduling</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Agendamento de container</masterLabel>
@@ -41,20 +53,20 @@
         <translation>Container Scheduling</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Agendamento de Serviços e AC</masterLabel>
-        <translation>Service and A/C Scheduling</translation>
+        <masterLabel>Agreed Tariff</masterLabel>
+        <translation>Agreed Tariff</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Agendamento Manual / OS / Levante</masterLabel>
-        <translation>Manual Scheduling / Work Order / Loading</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Ajuste de Dados Incorretos</masterLabel>
-        <translation>Incorrect Data Correction</translation>
+        <masterLabel>Agência informou moeda incorreta</masterLabel>
+        <translation>Agency Reported Wrong Currency</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Ajuste Manual</masterLabel>
         <translation>Manual Adjustment</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Ajuste de Dados Incorretos</masterLabel>
+        <translation>Incorrect Data Correction</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Alteração</masterLabel>
@@ -65,12 +77,12 @@
         <translation>Schedule Change</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Alteração de 'Cobrar de'</masterLabel>
-        <translation>'Bill To' Change</translation>
+        <masterLabel>Alteração de &quot;cobrar de&quot;</masterLabel>
+        <translation>&quot;Bill To&quot; Change</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Alteração de "cobrar de"</masterLabel>
-        <translation>"Bill To" Change</translation>
+        <masterLabel>Alteração de &apos;Cobrar de&apos;</masterLabel>
+        <translation>&apos;Bill To&apos; Change</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Alteração de Free Time</masterLabel>
@@ -125,6 +137,10 @@
         <translation>Lot Storage and Transfer</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Assistance</masterLabel>
+        <translation>Assistance</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Assistência</masterLabel>
         <translation>Assistance</translation>
     </valueTranslation>
@@ -153,16 +169,16 @@
         <translation>Update</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Atualização de cadastro</masterLabel>
-        <translation>Registration Update</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Atualização de Deadline</masterLabel>
         <translation>Deadline Update</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Atualização de E-mail</masterLabel>
         <translation>Email Update</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Atualização de cadastro</masterLabel>
+        <translation>Registration Update</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Atualização de endereço da empresa (mesmo grupo)</masterLabel>
@@ -185,32 +201,52 @@
         <translation>Damage / Missing / Exchanged Volumes</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Avaria de Origem (Damage)</masterLabel>
-        <translation>Origin Damage</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Avaria Interna (Pátio)</masterLabel>
         <translation>Internal Damage (Yard)</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Avaria de Origem (Damage)</masterLabel>
+        <translation>Origin Damage</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Barcaça rígida</masterLabel>
         <translation>Stiff Barge</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Berthing/Unberthing</masterLabel>
+        <translation>Berthing/Unberthing</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Bloqueio Aduaneiro</masterLabel>
         <translation>Customs Block</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>CNPJ</masterLabel>
+        <translation>CNPJ (Tax ID)</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>CNPJ não vinculado à proposta</masterLabel>
+        <translation>CNPJ Not Linked to Proposal</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Cadastro / Acesso</masterLabel>
         <translation>Registration / Access</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Cadastro booking</masterLabel>
-        <translation>Booking Registration</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Cadastro CPF e dados</masterLabel>
         <translation>CPF and Personal Data Registration</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Cadastro Fornecedor</masterLabel>
+        <translation>Supplier Registration</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Cadastro Prévio</masterLabel>
+        <translation>Prior Registration</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Cadastro booking</masterLabel>
+        <translation>Booking Registration</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Cadastro de NCM</masterLabel>
@@ -221,16 +257,8 @@
         <translation>Registration and Information</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Cadastro Fornecedor</masterLabel>
-        <translation>Supplier Registration</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Cadastro imediato</masterLabel>
         <translation>Immediate Registration</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Cadastro Prévio</masterLabel>
-        <translation>Prior Registration</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Cadastro reserva</masterLabel>
@@ -245,12 +273,12 @@
         <translation>Cancellation</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Cancelamento de agendamento</masterLabel>
-        <translation>Scheduling Cancellation</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Cancelamento de Placa / Agendamento</masterLabel>
         <translation>License Plate / Scheduling Cancellation</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Cancelamento de agendamento</masterLabel>
+        <translation>Scheduling Cancellation</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Cancelamento de placa/agendamento</masterLabel>
@@ -269,6 +297,10 @@
         <translation>Protest Letter</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Client&apos;s request to separate the invoice</masterLabel>
+        <translation>Client&apos;s request to separate the invoice</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Cliente x Cliente</masterLabel>
         <translation>Customer vs. Customer</translation>
     </valueTranslation>
@@ -277,19 +309,11 @@
         <translation>Customer vs. Department</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>CNPJ</masterLabel>
-        <translation>CNPJ (Tax ID)</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>CNPJ não vinculado à proposta</masterLabel>
-        <translation>CNPJ Not Linked to Proposal</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Colocação / Remoção de etiqueta</masterLabel>
+        <masterLabel>Colocação / Remoção Label</masterLabel>
         <translation>Label Placement / Removal</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Colocação / Remoção Label</masterLabel>
+        <masterLabel>Colocação / Remoção de etiqueta</masterLabel>
         <translation>Label Placement / Removal</translation>
     </valueTranslation>
     <valueTranslation>
@@ -305,14 +329,6 @@
         <translation>Weighing Certificate</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Condições e termos - proposta clientes</masterLabel>
-        <translation>Terms and Conditions - Customer Proposal</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Condições e termos - Tabela Pública</masterLabel>
-        <translation>Terms and Conditions - Public Rate Table</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Condições e Termos – Proposta Clientes</masterLabel>
         <translation>Terms and Conditions – Customer Proposal</translation>
     </valueTranslation>
@@ -321,16 +337,24 @@
         <translation>Terms and Conditions – Public Rate Table</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Condições e termos - Tabela Pública</masterLabel>
+        <translation>Terms and Conditions - Public Rate Table</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Condições e termos - proposta clientes</masterLabel>
+        <translation>Terms and Conditions - Customer Proposal</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Conferência de Lacre</masterLabel>
         <translation>Seal Verification</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Confirmação de pagamento</masterLabel>
-        <translation>Payment Confirmation</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Confirmação de Posição</masterLabel>
         <translation>Position Confirmation</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Confirmação de pagamento</masterLabel>
+        <translation>Payment Confirmation</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Confirmação de recebimento das faturas</masterLabel>
@@ -365,16 +389,16 @@
         <translation>Container Query</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Consulta Reserva</masterLabel>
+        <translation>Booking Query</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Consulta de Disponibilidade de Janelas</masterLabel>
         <translation>Slot Availability Query</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Consulta de disponibilidades de janelas</masterLabel>
         <translation>Slot Availability Query</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Consulta Reserva</masterLabel>
-        <translation>Booking Query</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Consultas EXPO e CAB</masterLabel>
@@ -401,8 +425,20 @@
         <translation>NF Correction in SISCOMEX</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Credit Note</masterLabel>
+        <translation>Credit Note</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Criação</masterLabel>
         <translation>Creation</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Currency Tariff</masterLabel>
+        <translation>Currency Tariff</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Current DWT</masterLabel>
+        <translation>Current DWT</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Custo IMO e FLAT RACK</masterLabel>
@@ -413,12 +449,32 @@
         <translation>Vessel Operations Cost</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Customer delaying request</masterLabel>
+        <translation>Customer delaying request</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Custos de carga FCL</masterLabel>
         <translation>FCL Cargo Costs</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Custos de reefer</masterLabel>
         <translation>Reefer Costs</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>DSA / DUIMP Antecipada</masterLabel>
+        <translation>DSA / Early DUIMP</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>DUIMP Antecipada / DSA</masterLabel>
+        <translation>Early DUIMP / DSA</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>DUIMP Normal</masterLabel>
+        <translation>Standard DUIMP</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>DWT atual</masterLabel>
+        <translation>Current DWT</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Dados SAS</masterLabel>
@@ -431,6 +487,18 @@
     <valueTranslation>
         <masterLabel>Data de corte</masterLabel>
         <translation>Cut-off Date</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Data de pagamento</masterLabel>
+        <translation>Payment Date</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Delay sending the invoice</masterLabel>
+        <translation>Delay sending the invoice</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Delay updating customer request</masterLabel>
+        <translation>Delay updating customer request</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Descarga Sem Cadastro</masterLabel>
@@ -461,12 +529,24 @@
         <translation>Routings</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Dismissal - Operational</masterLabel>
+        <translation>Dismissal - Operational</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dismissal - Weather</masterLabel>
+        <translation>Dismissal - Weather</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Dispensa - Condições climáticas</masterLabel>
         <translation>Waiver - Weather Conditions</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Dispensa - Operacional</masterLabel>
         <translation>Waiver - Operational</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Divergência de Volume / Lacre</masterLabel>
+        <translation>Volume / Seal Discrepancy</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Divergência de dados</masterLabel>
@@ -477,10 +557,6 @@
         <translation>Seal Discrepancy</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Divergência de Volume / Lacre</masterLabel>
-        <translation>Volume / Seal Discrepancy</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Divergência de volume / lacre / Entrega</masterLabel>
         <translation>Volume / Seal / Delivery Discrepancy</translation>
     </valueTranslation>
@@ -489,20 +565,12 @@
         <translation>Documentation</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>DSA / DUIMP Antecipada</masterLabel>
-        <translation>DSA / Early DUIMP</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>DUIMP Antecipada / DSA</masterLabel>
-        <translation>Early DUIMP / DSA</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>DUIMP Normal</masterLabel>
-        <translation>Standard DUIMP</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Duplo Direcionamento</masterLabel>
         <translation>Double Routing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dúvidas Gerais</masterLabel>
+        <translation>General Inquiries</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Dúvidas agendamento</masterLabel>
@@ -513,24 +581,24 @@
         <translation>Registration Inquiries</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Dúvidas Gerais</masterLabel>
-        <translation>General Inquiries</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Dúvidas usabilidade</masterLabel>
         <translation>Usability Inquiries</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>DWT atual</masterLabel>
-        <translation>Current DWT</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>E-mail recebimento de faturas</masterLabel>
         <translation>Invoice Receipt Email</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>EDI</masterLabel>
+        <translation>EDI</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>EDI Nfe</masterLabel>
         <translation>EDI NF-e</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>EIR</masterLabel>
+        <translation>EIR</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Empurrar/puxar ao longo do cais</masterLabel>
@@ -553,20 +621,20 @@
         <translation>Send Booking List</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Envio de extrato de DUE</masterLabel>
-        <translation>Send DUE Statement</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Envio de Formas e Documentos de Vistoria</masterLabel>
         <translation>Send Survey Forms and Documents</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Envio de termos e documentos de vistoria</masterLabel>
-        <translation>Send Survey Terms and Documents</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Envio de Ticket de Pesagem</masterLabel>
         <translation>Send Weighing Ticket</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Envio de extrato de DUE</masterLabel>
+        <translation>Send DUE Statement</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Envio de termos e documentos de vistoria</masterLabel>
+        <translation>Send Survey Terms and Documents</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Envio ou reenvio da fatura ou prévia</masterLabel>
@@ -629,6 +697,18 @@
         <translation>Sister Portal Error</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Error for not following the client&apos;s request to send the invoice</masterLabel>
+        <translation>Error for not following the client&apos;s request to send the invoice</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Error in address company</masterLabel>
+        <translation>Error in address company</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Escort Tug</masterLabel>
+        <translation>Escort Tug</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Espelho de calculo / descrição de calculo</masterLabel>
         <translation>Calculation Breakdown / Description</translation>
     </valueTranslation>
@@ -643,6 +723,10 @@
     <valueTranslation>
         <masterLabel>Exclusão</masterLabel>
         <translation>Deletion</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Expiring Contract</masterLabel>
+        <translation>Expiring Contract</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Extensão de Prazo Cancelada Indevidamente</masterLabel>
@@ -673,16 +757,20 @@
         <translation>Open Invoices</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Fluxo DTA Marítimo</masterLabel>
+        <translation>Maritime DTA Flow</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Fluxo DTA Rodoviária</masterLabel>
+        <translation>Road DTA Flow</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Fluxo chegada/liberação - DTA Marítimo</masterLabel>
         <translation>Maritime DTA Arrival/Release Flow</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Fluxo chegada/liberação - DTA Rodoviária</masterLabel>
         <translation>Road DTA Arrival/Release Flow</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Fluxo de cancelamento de NF</masterLabel>
-        <translation>NF Cancellation Flow</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Fluxo de Devolução de Baú Interno</masterLabel>
@@ -697,12 +785,8 @@
         <translation>Seal Receipt Flow</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Fluxo DTA Marítimo</masterLabel>
-        <translation>Maritime DTA Flow</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Fluxo DTA Rodoviária</masterLabel>
-        <translation>Road DTA Flow</translation>
+        <masterLabel>Fluxo de cancelamento de NF</masterLabel>
+        <translation>NF Cancellation Flow</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Follow UP - clientes</masterLabel>
@@ -721,16 +805,20 @@
         <translation>Vessel Turning</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Gold</masterLabel>
+        <translation>Gold</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Grupo Econômico</masterLabel>
         <translation>Economic Group</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Identificação de Pagamentos</masterLabel>
-        <translation>Payment Identification</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Identificar pagamento da prévia</masterLabel>
         <translation>Identify Pre-Invoice Payment</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Identificação de Pagamentos</masterLabel>
+        <translation>Payment Identification</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Impostos</masterLabel>
@@ -745,6 +833,10 @@
         <translation>Routing Deactivation</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Inclusão de Navio (Portal)</masterLabel>
+        <translation>Vessel Inclusion (Portal)</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Inclusão de data de pagamento incorreta</masterLabel>
         <translation>Incorrect Payment Date Entry</translation>
     </valueTranslation>
@@ -753,12 +845,12 @@
         <translation>Incorrect Currency Entry</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Inclusão de Navio (Portal)</masterLabel>
-        <translation>Vessel Inclusion (Portal)</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Inclusão do Pedido de Compra (PO) incorreto</masterLabel>
         <translation>Incorrect Purchase Order (PO) Entry</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Incorrect automatic billing</masterLabel>
+        <translation>Incorrect automatic billing</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Indenização</masterLabel>
@@ -793,6 +885,18 @@
         <translation>General Information</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Insert of the wrong PO</masterLabel>
+        <translation>Insert of the wrong PO</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Insert of the wrong currency</masterLabel>
+        <translation>Insert of the wrong currency</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Insert of wrong payment date</masterLabel>
+        <translation>Insert of wrong payment date</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Instabilidade / Lentidão</masterLabel>
         <translation>Instability / Slowness</translation>
     </valueTranslation>
@@ -825,12 +929,20 @@
         <translation>DTC Pickup Slot</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>LAR</masterLabel>
+        <translation>LAR</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Lacres</masterLabel>
         <translation>Seals</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Layout inválido</masterLabel>
         <translation>Invalid Layout</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Liberar acesso ao portal</masterLabel>
+        <translation>Grant Portal Access</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Liberação Especial</masterLabel>
@@ -845,16 +957,16 @@
         <translation>Manual Release / Portal Gaps</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Liberar acesso ao portal</masterLabel>
-        <translation>Grant Portal Access</translation>
+        <masterLabel>Lista Navio</masterLabel>
+        <translation>Vessel List</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Lista de navio</masterLabel>
         <translation>Vessel List</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Lista Navio</masterLabel>
-        <translation>Vessel List</translation>
+        <masterLabel>MAPA / PCCE</masterLabel>
+        <translation><!-- MAPA / PCCE --></translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Medição / PO</masterLabel>
@@ -865,16 +977,48 @@
         <translation>Return Draft</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Mistake in a currency</masterLabel>
+        <translation>Mistake in a currency</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Mistake in application of taxes</masterLabel>
+        <translation>Mistake in application of taxes</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Mistake in insert of cut-off-date</masterLabel>
+        <translation>Mistake in insert of cut-off-date</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Mistake in insert of tarrifs</masterLabel>
+        <translation>Mistake in insert of tarrifs</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Mistake in tax application</masterLabel>
+        <translation>Mistake in tax application</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Mistake in validated contract</masterLabel>
+        <translation>Mistake in validated contract</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Mistake to choose the agreement</masterLabel>
+        <translation>Mistake to choose the agreement</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Mob/Demob</masterLabel>
+        <translation>Mob/Demob</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Mobilização/Desmobilização</masterLabel>
         <translation>Mobilization/Demobilization</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Módulo de Cargas de Projeto</masterLabel>
-        <translation>Project Cargo Module</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Monitoramento de Temperatura</masterLabel>
         <translation>Temperature Monitoring</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Mooring</masterLabel>
+        <translation>Mooring</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Morosidade</masterLabel>
@@ -901,6 +1045,10 @@
         <translation>Position Change</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Módulo de Cargas de Projeto</masterLabel>
+        <translation>Project Cargo Module</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>NF / SEFAZ</masterLabel>
         <translation>NF / SEFAZ</translation>
     </valueTranslation>
@@ -921,16 +1069,12 @@
         <translation>Credit Note</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Notificação de Avaria de Origem (Armazém)</masterLabel>
-        <translation>Origin Warehouse Damage Notification</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Notificação de Avaria Interna (Armazém)</masterLabel>
         <translation>Internal Warehouse Damage Notification</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Notificação de impactos (carro inadequado / cubagem)</masterLabel>
-        <translation>Impact Notification (Inadequate Vehicle / Cubage)</translation>
+        <masterLabel>Notificação de Avaria de Origem (Armazém)</masterLabel>
+        <translation>Origin Warehouse Damage Notification</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Notificação de Impactos (Carro Inadequado)</masterLabel>
@@ -941,16 +1085,20 @@
         <translation>MAPA / RFB / Other Survey Notification</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Notificação de impactos (carro inadequado / cubagem)</masterLabel>
+        <translation>Impact Notification (Inadequate Vehicle / Cubage)</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Nova Proposta / Lead</masterLabel>
+        <translation>New Proposal / Lead</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Nova proposta - Lead</masterLabel>
         <translation>New Proposal - Lead</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Nova proposta - potencial cliente</masterLabel>
         <translation>New Proposal - Potential Client</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Nova Proposta / Lead</masterLabel>
-        <translation>New Proposal / Lead</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Novo Acesso / Liberação</masterLabel>
@@ -969,24 +1117,32 @@
         <translation>Others</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>PO / Draft</masterLabel>
+        <translation>PO / Draft</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Parcelamento CAR</masterLabel>
         <translation>CAR Installment Plan</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Pedido de coleta de carga</masterLabel>
-        <translation>Cargo Collection Request</translation>
+        <masterLabel>Payment Date</masterLabel>
+        <translation>Payment Date</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Pedido de Compra (PO) / Minuta</masterLabel>
         <translation>Purchase Order (PO) / Draft</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Pedido de entrega de carga</masterLabel>
-        <translation>Cargo Delivery Request</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Pedido de Prioridade</masterLabel>
         <translation>Priority Request</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Pedido de coleta de carga</masterLabel>
+        <translation>Cargo Collection Request</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Pedido de entrega de carga</masterLabel>
+        <translation>Cargo Delivery Request</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Pedido de revisão de CTE</masterLabel>
@@ -1025,11 +1181,11 @@
         <translation>Invoice Sending Priority</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Prioridade para o posicionamento</masterLabel>
+        <masterLabel>Prioridade para Posicionamento</masterLabel>
         <translation>Positioning Priority</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Prioridade para Posicionamento</masterLabel>
+        <masterLabel>Prioridade para o posicionamento</masterLabel>
         <translation>Positioning Priority</translation>
     </valueTranslation>
     <valueTranslation>
@@ -1043,6 +1199,14 @@
     <valueTranslation>
         <masterLabel>Problemas relacionados ao boleto</masterLabel>
         <translation>Payment Slip Issues</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Problems regarding Boleto</masterLabel>
+        <translation>Problems regarding Boleto</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Problems with PO</masterLabel>
+        <translation>Problems with PO</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Procedimento operacionais</masterLabel>
@@ -1077,12 +1241,12 @@
         <translation>Vessel Scheduling</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Proposta não enviada ou enviada incorretamente</masterLabel>
-        <translation>Proposal Not Sent or Sent Incorrectly</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Proposta Vencida sem Renovação</masterLabel>
         <translation>Expired Proposal Without Renewal</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Proposta não enviada ou enviada incorretamente</masterLabel>
+        <translation>Proposal Not Sent or Sent Incorrectly</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Proposta vencida sem renovação, bloqueio ou cobrança em TP</masterLabel>
@@ -1109,6 +1273,10 @@
         <translation>Due Date Extension / Change</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Pushing/Pulling along the quay</masterLabel>
+        <translation>Pushing/Pulling along the quay</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Quebra de Lote</masterLabel>
         <translation>Lot Splitting</translation>
     </valueTranslation>
@@ -1129,16 +1297,16 @@
         <translation>DAT Receipt</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Redefinição de senha / acesso</masterLabel>
-        <translation>Password / Access Reset</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Redefinição de Senha / login</masterLabel>
         <translation>Password / Login Reset</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Redefinição de Senha/Login</masterLabel>
         <translation>Password/Login Reset</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Redefinição de senha / acesso</masterLabel>
+        <translation>Password / Access Reset</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Reembolso</masterLabel>
@@ -1165,28 +1333,28 @@
         <translation>Damage Registration</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Relatório de Carga Pátio</masterLabel>
-        <translation>Yard Cargo Report</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Relatorio de custos</masterLabel>
         <translation>Cost Report</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Relatório de custos</masterLabel>
-        <translation>Cost Report</translation>
+        <masterLabel>Relatório de Carga Pátio</masterLabel>
+        <translation>Yard Cargo Report</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Relatório de Divergência de Lacre e Avarias</masterLabel>
         <translation>Seal and Damage Discrepancy Report</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Relatório de estoque</masterLabel>
-        <translation>Inventory Report</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Relatório de Movimentações</masterLabel>
         <translation>Movement Report</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Relatório de custos</masterLabel>
+        <translation>Cost Report</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Relatório de estoque</masterLabel>
+        <translation>Inventory Report</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Relatório diversos</masterLabel>
@@ -1225,6 +1393,10 @@
         <translation>Balance</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Send to the wrong email</masterLabel>
+        <translation>Send to the wrong email</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Serviço Novo Não Incluído na Proposta</masterLabel>
         <translation>New Service Not Included in Proposal</translation>
     </valueTranslation>
@@ -1237,32 +1409,48 @@
         <translation>Responsible Department</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Shifting</masterLabel>
+        <translation>Shifting</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitar averbação de DUIMP</masterLabel>
+        <translation>Request DUIMP Endorsement</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitar averbação manual de DI</masterLabel>
+        <translation>Request Manual DI Endorsement</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Solicitação</masterLabel>
         <translation>Request</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Solicitação de boleto avulso</masterLabel>
-        <translation>Single Payment Slip Request</translation>
+        <masterLabel>Solicitação Manual (Portal Fechado)</masterLabel>
+        <translation>Manual Request (Portal Closed)</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Solicitação de CTE</masterLabel>
         <translation>CTE Request</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Solicitação de débitos</masterLabel>
-        <translation>Debt Statement Request</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Solicitação de LAR</masterLabel>
         <translation>LAR Request</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Solicitação de monitoramento de temperatura</masterLabel>
-        <translation>Temperature Monitoring Request</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Solicitação de Prioridade</masterLabel>
         <translation>Priority Request</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitação de boleto avulso</masterLabel>
+        <translation>Single Payment Slip Request</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitação de débitos</masterLabel>
+        <translation>Debt Statement Request</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Solicitação de monitoramento de temperatura</masterLabel>
+        <translation>Temperature Monitoring Request</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Solicitação de prioridade na liberação</masterLabel>
@@ -1289,27 +1477,19 @@
         <translation>Manual Request (Portal Closed)</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Solicitação Manual (Portal Fechado)</masterLabel>
-        <translation>Manual Request (Portal Closed)</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Solicitação para faturar</masterLabel>
         <translation>Billing Request</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Solicitar averbação de DUIMP</masterLabel>
-        <translation>Request DUIMP Endorsement</translation>
+        <masterLabel>Standby</masterLabel>
+        <translation>Standby</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Solicitar averbação manual de DI</masterLabel>
-        <translation>Request Manual DI Endorsement</translation>
+        <masterLabel>Status</masterLabel>
+        <translation>Status</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Status Aprovação</masterLabel>
-        <translation>Approval Status</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Status de aprovação</masterLabel>
         <translation>Approval Status</translation>
     </valueTranslation>
     <valueTranslation>
@@ -1319,6 +1499,10 @@
     <valueTranslation>
         <masterLabel>Status de Operação</masterLabel>
         <translation>Operation Status</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Status de aprovação</masterLabel>
+        <translation>Approval Status</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Status e Acompanhamento da Entrega</masterLabel>
@@ -1341,12 +1525,20 @@
         <translation>Exchange Rate Tariff</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Taxes</masterLabel>
+        <translation>Taxes</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Temas diversos</masterLabel>
         <translation>Various Topics</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Termo de Cobrança</masterLabel>
         <translation>Billing Agreement</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Ticket</masterLabel>
+        <translation>Ticket</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Ticket de Pesagem</masterLabel>
@@ -1361,8 +1553,20 @@
         <translation>Vessel Transfer / Update</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Turning the vessel</masterLabel>
+        <translation>Turning the vessel</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Updating the address company (same group)</masterLabel>
+        <translation>Updating the address company (same group)</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Vagas e Horários</masterLabel>
         <translation>Vacancies and Schedules</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Validation error</masterLabel>
+        <translation>Validation error</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Valor</masterLabel>

@@ -1,10 +1,3 @@
-/**
- * @description       : Testes unitários de RegrasSLACategorizacaoHelper.
- * @author            : Triscal
- * @group             : Regras de SLA
- * @last modified on  : 06-14-2026
- * @last modified by  : Jean Duarte
- **/
 @IsTest
 private class RegrasSLACategorizacaoHelperTest {
     private static GestaoSLA__c createGestao() {

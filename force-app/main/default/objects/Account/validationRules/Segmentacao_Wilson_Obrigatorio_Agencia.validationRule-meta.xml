@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Segmentacao_Wilson_Obrigatorio_Agencia</fullName>
+    <active>false</active>
+    <description>Campo &quot;Segmentação Wilson&quot; é de preenchimento obrigatório para usuários da Agência</description>
+    <errorConditionFormula>CONTAINS($UserRole.Name, &quot;Agência&quot;) &amp;&amp; ISBLANK(TEXT( Segmenta_o_espec_fica_agencia__c ))</errorConditionFormula>
+    <errorMessage>Campo &quot;Segmentação específica agência&quot; é de preenchimento obrigatório</errorMessage>
+</ValidationRule>

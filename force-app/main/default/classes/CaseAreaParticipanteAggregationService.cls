@@ -1,10 +1,3 @@
-/**
- * @description       : Serviço de negócio para o módulo CaseAreaParticipanteAggregation. Contém lógica de validação e DML, seguindo arquitetura Triscal.
- * @author            : Triscal
- * @group             : Área Participante
- * @last modified on  : 06-11-2026
- * @last modified by  : Jean Duarte
- **/
 public inherited sharing class CaseAreaParticipanteAggregationService {
     public static void refreshForCases(Set<Id> caseIds){
         if (caseIds == null || caseIds.isEmpty()) return;

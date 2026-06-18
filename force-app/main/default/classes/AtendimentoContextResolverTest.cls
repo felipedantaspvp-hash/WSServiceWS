@@ -1,10 +1,3 @@
-/**
- * @description       : Testes unitários de AtendimentoContextResolver.
- * @author            : Triscal
- * @group             : Atendimento
- * @last modified on  : 06-11-2026
- * @last modified by  : Jean Duarte
- **/
 @IsTest
 private class AtendimentoContextResolverTest {
     private class GatewayMock implements AtendimentoContextResolverService.ConversationGateway {

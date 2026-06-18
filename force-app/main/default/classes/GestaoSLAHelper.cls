@@ -1,10 +1,3 @@
-/**
- * @description       : Funções auxiliares de cálculo e validação de SLA para o módulo Gestao.
- * @author            : Triscal
- * @group             : Gestão de SLA
- * @last modified on  : 06-13-2026
- * @last modified by  : Jean Duarte
- **/
 public inherited sharing class GestaoSLAHelper {
     public static final String CP_ACESSAR_GESTAO_SLA = 'AcessarGestaoSLA';
     public static final String CP_GERENCIAR_CATEGORIAS = 'GerenciarCategoriasGestaoSLA';

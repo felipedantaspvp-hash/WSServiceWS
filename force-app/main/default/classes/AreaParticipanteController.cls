@@ -19,12 +19,6 @@ public inherited sharing class AreaParticipanteController {
         return isEnglish() ? en : pt;
     }
 
-    /**
-     * @description Retorna dados do painel de áreas participantes para um Case.
-     *              Inclui lista de itens, opções de área disponíveis e permissões do usuário.
-     * @param caseId Id do Case pai.
-     * @return PanelDTO com itens, opções e metadados do painel.
-     **/
     @AuraEnabled
     public static AreaParticipanteDTO.PanelDTO getPanelData(Id caseId) {
         try {
@@ -37,23 +31,11 @@ public inherited sharing class AreaParticipanteController {
         }
     }
 
-    /**
-     * @description Versão sem cache de getPanelData. Aceita refreshToken para forçar recarga do painel pelo LWC.
-     * @param caseId Id do Case pai.
-     * @param refreshToken Token aleatório para contornar cache do wire.
-     * @return PanelDTO atualizado com dados mais recentes.
-     **/
     @AuraEnabled
     public static AreaParticipanteDTO.PanelDTO getPanelDataFresh(Id caseId, String refreshToken) {
         return getPanelData(caseId);
     }
 
-    /**
-     * @description Encerra a participação de uma área, registrando comentário e solução de retorno.
-     *              Atualiza status, campos multipicklist e EtapaAtendimento__c do Case.
-     * @param request CloseRequestDTO com id da área, comentário e solução de retorno.
-     * @return CloseResponseDTO com sucesso, área removida e nova etapa de atendimento.
-     **/
     @AuraEnabled
     public static AreaParticipanteDTO.CloseResponseDTO closeParticipation(AreaParticipanteDTO.CloseRequestDTO request) {
         try {
@@ -66,11 +48,6 @@ public inherited sharing class AreaParticipanteController {
         }
     }
 
-    /**
-     * @description Pausa o cronômetro de SLA de uma área participante, registrando DataHoraInicioPausa__c.
-     * @param request PauseResumeRequestDTO com o id da área participante.
-     * @return PauseResumeResponseDTO com novo status e horário de início de pausa.
-     **/
     @AuraEnabled
     public static AreaParticipanteDTO.PauseResumeResponseDTO pauseParticipation(AreaParticipanteDTO.PauseResumeRequestDTO request) {
         try {
@@ -83,11 +60,6 @@ public inherited sharing class AreaParticipanteController {
         }
     }
 
-    /**
-     * @description Retoma o cronômetro de SLA de uma área participante pausada, acumulando tempo de pausa.
-     * @param request PauseResumeRequestDTO com o id da área participante.
-     * @return PauseResumeResponseDTO com novo status e tempo pausado acumulado.
-     **/
     @AuraEnabled
     public static AreaParticipanteDTO.PauseResumeResponseDTO resumeParticipation(AreaParticipanteDTO.PauseResumeRequestDTO request) {
         try {
@@ -100,11 +72,6 @@ public inherited sharing class AreaParticipanteController {
         }
     }
 
-    /**
-     * @description Retorna detalhes completos de uma área participante específica para exibição no painel.
-     * @param areaParticipanteId Id do registro AreaParticipante__c.
-     * @return DetailDTO com todos os campos do item incluindo tempos de SLA calculados.
-     **/
     @AuraEnabled(cacheable=true)
     public static AreaParticipanteDTO.DetailDTO getParticipationDetails(Id areaParticipanteId) {
         try {
@@ -117,12 +84,6 @@ public inherited sharing class AreaParticipanteController {
         }
     }
 
-    /**
-     * @description Adiciona uma única área participante a um Case com comentário de solicitação.
-     *              Valida permissões, unicidade e existência de regra de SLA antes de inserir.
-     * @param request AddRequestDTO com caseId, área e comentário de solicitação.
-     * @return AddResponseDTO com id do novo registro e campos multipicklist atualizados.
-     **/
     @AuraEnabled
     public static AreaParticipanteDTO.AddResponseDTO addParticipation(AreaParticipanteDTO.AddRequestDTO request) {
         try {

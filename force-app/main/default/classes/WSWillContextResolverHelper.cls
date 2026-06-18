@@ -1,10 +1,3 @@
-/**
- * @description       : Funções utilitárias e helpers para o módulo WSWillContextResolver.
- * @author            : Triscal
- * @group             : WSWill
- * @last modified on  : 06-11-2026
- * @last modified by  : Jean Duarte
- **/
 public inherited sharing class WSWillContextResolverHelper {
     public static String normalizePreferredLanguage(String rawValue) {
         if (String.isBlank(rawValue)) return null;

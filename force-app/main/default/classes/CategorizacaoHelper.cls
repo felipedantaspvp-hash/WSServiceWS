@@ -1,10 +1,3 @@
-/**
- * @description       : Funções utilitárias e helpers para o módulo Categorizacao.
- * @author            : Triscal
- * @group             : Categorização
- * @last modified on  : 06-11-2026
- * @last modified by  : Jean Duarte
- **/
 public inherited sharing class CategorizacaoHelper {
     public static final String SEP = '|';
 

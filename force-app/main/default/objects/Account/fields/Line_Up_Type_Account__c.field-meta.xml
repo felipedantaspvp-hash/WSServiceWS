@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Line_Up_Type_Account__c</fullName>
+    <defaultValue>&quot;OW&quot;</defaultValue>
+    <description>Campo de Rebocadores</description>
+    <label>Line Up Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AQ</fullName>
+                <default>false</default>
+                <label>AQ</label>
+            </value>
+            <value>
+                <fullName>OW</fullName>
+                <default>true</default>
+                <label>OW</label>
+            </value>
+            <value>
+                <fullName>SO</fullName>
+                <default>false</default>
+                <label>SO</label>
+            </value>
+            <value>
+                <fullName>CL</fullName>
+                <default>false</default>
+                <label>CL</label>
+            </value>
+            <value>
+                <fullName>NV</fullName>
+                <default>false</default>
+                <label>NV</label>
+            </value>
+            <value>
+                <fullName>MK</fullName>
+                <default>false</default>
+                <label>MK</label>
+            </value>
+            <value>
+                <fullName>OD</fullName>
+                <default>false</default>
+                <label>OD</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

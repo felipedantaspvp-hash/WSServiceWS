@@ -1,19 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fields>
-        <name>TipoCaso__c</name>
-        <label>Case Type</label>
-    </fields>
-    <fields>
-        <name>Categoria__c</name>
-        <label>Category</label>
-    </fields>
-    <fields>
-        <name>Assunto__c</name>
-        <label>Subject</label>
-    </fields>
-    <fields>
-        <name>Subassunto__c</name>
-        <label>Sub-subject</label>
-    </fields>
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- Categorização --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- Categorização --></value>
+    </caseValues>
+    <layouts>
+        <layout>Categorização Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel><!-- Categorização --></nameFieldLabel>
+    <recordTypes>
+        <description><!-- Record Type Centro Logístico - Categorizacao__c --></description>
+        <label><!-- Atendimento Centro Logístico --></label>
+        <name>AtendimentoCentroLogistico</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Record Type Rebocadores - Categorizacao__c --></description>
+        <label><!-- Atendimento Rebocadores --></label>
+        <name>AtendimentoRebocadores</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Record Type Rio Grande - Categorizacao__c --></description>
+        <label><!-- Atendimento Tecon Rio Grande --></label>
+        <name>AtendimentoTeconRioGrande</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Record Type Salvador - Categorizacao__c --></description>
+        <label><!-- Atendimento Tecon Salvador --></label>
+        <name>AtendimentoTeconSalvador</name>
+    </recordTypes>
+    <startsWith><!-- Consonant --></startsWith>
 </CustomObjectTranslation>

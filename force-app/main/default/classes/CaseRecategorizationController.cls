@@ -1,39 +1,16 @@
-/**
- * @description       : Controller Apex expondo endpoints @AuraEnabled para o módulo CaseRecategorization. Delega toda lógica ao CaseRecategorizationService.
- * @author            : Triscal
- * @group             : Case Recategorização
- * @last modified on  : 06-11-2026
- * @last modified by  : Jean Duarte
- **/
 public inherited sharing class CaseRecategorizationController {
     @TestVisible static Exception testException;
 
-    /**
-     * @description Retorna contexto de recategorização: categorização atual do Case e opções disponíveis.
-     * @param caseId Id do Case a ser recategorizado.
-     * @return CaseRecategorizationContextDTO com dados atuais e árvore de categorização disponível.
-     **/
     @AuraEnabled(cacheable=true)
     public static CaseRecategorizationDTO.CaseRecategorizationContextDTO getContext(Id caseId) {
         return CaseRecategorizationService.getContext(caseId);
     }
 
-    /**
-     * @description Retorna opções da árvore de categorização para o fluxo de recategorização.
-     * @param request TreeRequestDTO com nível e valores selecionados até o momento.
-     * @return TreeOptionsDTO com opções disponíveis para o próximo nível.
-     **/
     @AuraEnabled(cacheable=true)
     public static CaseRecategorizationDTO.TreeOptionsDTO getTreeOptions(CaseRecategorizationDTO.TreeRequestDTO request) {
         return CaseRecategorizationService.getTreeOptions(request);
     }
 
-    /**
-     * @description Executa a recategorização do Case, aplicando novas opções de categorização,
-     *              redistribuindo para fila e atualizando campos relevantes.
-     * @param request RecategorizationRequestDTO com caseId e nova seleção de categorização.
-     * @return RecategorizationResponseDTO com sucesso, caseId atualizado e warnings.
-     **/
     @AuraEnabled
     public static CaseRecategorizationDTO.RecategorizationResponseDTO recategorize(CaseRecategorizationDTO.RecategorizationRequestDTO request) {
         try {

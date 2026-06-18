@@ -1,10 +1,3 @@
-/**
- * @description       : Testes unitários de CaseEntitlementAssignmentService.
- * @author            : Triscal
- * @group             : Case Entitlement
- * @last modified on  : 06-12-2026
- * @last modified by  : Jean Duarte
- **/
 @IsTest
 private class CaseEntitlementAssignmentServiceTest {
     private static String configuredBusinessUnit() {

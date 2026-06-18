@@ -1,10 +1,3 @@
-/**
- * @description       : Testes unitários de WSWillContactLanguageInvocable.
- * @author            : Triscal
- * @group             : WSWill
- * @last modified on  : 06-12-2026
- * @last modified by  : Marllon Nascimento
- **/
 @IsTest
 private class WSWillContactLanguageInvocableTest {
     private static final Id SESSION_ID = Id.valueOf('0Mw000000000002');

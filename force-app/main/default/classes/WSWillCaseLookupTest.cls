@@ -1,10 +1,3 @@
-/**
- * @description       : Testes unitários de WSWillCaseLookup.
- * @author            : Triscal
- * @group             : WSWill
- * @last modified on  : 06-11-2026
- * @last modified by  : Jean Duarte
- **/
 @IsTest
 private class WSWillCaseLookupTest {
     @IsTest

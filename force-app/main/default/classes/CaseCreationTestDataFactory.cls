@@ -1,10 +1,3 @@
-/**
- * @description       : Factory de dados de teste para o módulo CaseCreation. Cria registros e objetos relacionados para uso em testes.
- * @author            : Triscal
- * @group             : Case Creation
- * @last modified on  : 06-11-2026
- * @last modified by  : Jean Duarte
- **/
 @IsTest
 public inherited sharing class CaseCreationTestDataFactory {
     public static RecordType anyCaseRt() {

@@ -1,10 +1,3 @@
-/**
- * @description       : Selector de consultas SOQL para o módulo CaseRecategorization. Centraliza queries com security enforced, sem lógica de negócio.
- * @author            : Triscal
- * @group             : Case Recategorização
- * @last modified on  : 06-11-2026
- * @last modified by  : Jean Duarte
- **/
 public inherited sharing class CaseRecategorizationSelector {
     @TestVisible private static List<Categorizacao__c> testCategorizacoes;
     @TestVisible private static Group testOwnerQueue;

@@ -1360,4 +1360,1126 @@
         <shortDescription>Button label to view reports from the SLA Management summary card.</shortDescription>
         <value>View reports</value>
     </labels>
+    <labels>
+        <fullName>Aba_Historico_Cliente</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Aba Quote Histórico Cliente</shortDescription>
+        <value>Client Background</value>
+    </labels>
+    <labels>
+        <fullName>Aba_Sugestao_Receita</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Aba Quote Sugestão Receita</shortDescription>
+        <value>Suggested income per DWT range</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_BannerBadgeSlaPausado</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Paused SLA badge</shortDescription>
+        <value>SLA paused</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_BannerDescricao</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Follow-up banner description</shortDescription>
+        <value>This Case is under follow-up due to an operational condition outside the service team&apos;s control.</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_BannerTitulo</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Follow-up banner title</shortDescription>
+        <value>Case under follow-up</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_BotaoCancelar</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start follow-up cancel button</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_BotaoConfirmar</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start follow-up confirm button</shortDescription>
+        <value>Confirm Follow-up</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_BotaoRetomar</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Resume service button</shortDescription>
+        <value>Resume Service</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_Carregando</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Follow-up loading alternative text</shortDescription>
+        <value>Starting follow-up</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_CarregandoRetomada</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Resume loading alternative text</shortDescription>
+        <value>Resuming service</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ComentarioEntradaLabel</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start comment field label</shortDescription>
+        <value>Start Comment</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ComentarioSaidaLabel</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Resume comment field label</shortDescription>
+        <value>Resume comment</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ComentarioSaidaObrigatorio</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Required resume comment error</shortDescription>
+        <value>Enter the resume comment.</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ErroAcaoAtivaNaoEncontrada</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Active pause action not found error</shortDescription>
+        <value>No active pause action was found for this Case.</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ErroCarregarDados</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Follow-up data load error</shortDescription>
+        <value>Could not load follow-up information.</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ErroCasoFechado</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Closed Case follow-up error</shortDescription>
+        <value>Closed or canceled Cases cannot be moved to follow-up.</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ErroCasoNaoEncontrado</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case not found error</shortDescription>
+        <value>Case was not found.</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ErroCasoNaoEstaEmAcompanhamento</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case not under follow-up error</shortDescription>
+        <value>This Case is not under follow-up.</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ErroCasoObrigatorio</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Required Case id error</shortDescription>
+        <value>Case was not provided.</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ErroComentarioObrigatorio</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Required start comment error</shortDescription>
+        <value>Enter the start comment.</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ErroEtapaAnteriorNaoEncontrada</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Missing previous stage error</shortDescription>
+        <value>Service could not be resumed because the previous stage was not found.</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ErroInesperado</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unexpected follow-up error</shortDescription>
+        <value>An unexpected error occurred while starting follow-up.</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ErroJaEmAcompanhamento</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case already in follow-up error</shortDescription>
+        <value>This Case is already in follow-up.</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ErroMotivoObrigatorio</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Required follow-up reason error</shortDescription>
+        <value>Enter the follow-up reason.</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ErroPermissao</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Follow-up permission error</shortDescription>
+        <value>You do not have permission to start follow-up for this Case.</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ErroRetomarTitulo</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Resume service error title</shortDescription>
+        <value>Could not resume service</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ErroSalvar</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Follow-up save error</shortDescription>
+        <value>Could not save the follow-up pause information.</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ErroSlaJaPausado</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case SLA already paused error</shortDescription>
+        <value>The SLA for this Case is already paused.</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ErroTitulo</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Follow-up error toast title</shortDescription>
+        <value>Could not start follow-up</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_EtapaAguardandoAreaInterna</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Waiting for internal area stage display label</shortDescription>
+        <value>Waiting for Internal Area</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_EtapaAguardandoAtendimento</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Waiting for service stage display label</shortDescription>
+        <value>Waiting for Service</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_EtapaAguardandoCliente</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Waiting for customer stage display label</shortDescription>
+        <value>Waiting for Customer</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_EtapaCancelado</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Canceled stage display label</shortDescription>
+        <value>Canceled</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_EtapaConcluido</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Completed stage display label</shortDescription>
+        <value>Completed</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_EtapaEmAcompanhamento</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Under follow-up stage display label</shortDescription>
+        <value>Under Follow-up</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_EtapaEmAtendimento</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>In service stage display label</shortDescription>
+        <value>In Service</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_EtapaEmTriagem</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>In triage stage display label</shortDescription>
+        <value>In Triage</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_EtapaNovo</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New stage display label</shortDescription>
+        <value>New</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_EtapaPreparandoRetornoCliente</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Preparing customer response stage display label</shortDescription>
+        <value>Preparing Customer Response</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_LabelComentarioEntrada</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start comment label</shortDescription>
+        <value>Start comment</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_LabelDataInicio</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start date label</shortDescription>
+        <value>Start</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_LabelEtapaAnterior</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Previous stage label</shortDescription>
+        <value>Previous stage</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_LabelMotivo</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reason label</shortDescription>
+        <value>Reason</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_LabelUsuarioInicio</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Owner label</shortDescription>
+        <value>Owner</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_MensagemEntrada</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start follow-up explanatory message</shortDescription>
+        <value>When confirmed, the Case will move to Follow-up and the SLA will be paused.</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_ModalRetomarTitulo</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Resume service modal title</shortDescription>
+        <value>Resume Service</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_MotivoAguardandoCliente</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Waiting for customer reason display label</shortDescription>
+        <value>Waiting for Customer</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_MotivoAguardandoDocumentacao</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Waiting for documentation reason display label</shortDescription>
+        <value>Waiting for Documentation</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_MotivoAguardandoMovimentacaoOperacional</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Waiting for operational movement reason display label</shortDescription>
+        <value>Waiting for Operational Movement</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_MotivoAguardandoTerceiro</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Waiting for third party reason display label</shortDescription>
+        <value>Waiting for Third Party</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_MotivoLabel</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Follow-up reason field label</shortDescription>
+        <value>Follow-up Reason</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_MotivoOperacaoExterna</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>External operation reason display label</shortDescription>
+        <value>External Operation</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_MotivoOutro</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Other reason display label</shortDescription>
+        <value>Other</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_Sucesso</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Follow-up success message</shortDescription>
+        <value>Case moved to follow-up successfully.</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_SucessoRetomada</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Resume success message</shortDescription>
+        <value>Service resumed successfully.</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_SucessoTitulo</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Follow-up success toast title</shortDescription>
+        <value>Follow-up started</value>
+    </labels>
+    <labels>
+        <fullName>Acao_Acompanhamento_TituloEntrada</fullName>
+        <categories>AcaoAcompanhamento</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start follow-up quick action title</shortDescription>
+        <value>Start Follow-up</value>
+    </labels>
+    <labels>
+        <fullName>Draft_Contract_Note</fullName>
+        <categories>Draft Contract</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Draft Contract Note</shortDescription>
+        <value>Note 1: use indexes 17, 18 and 19 only when paying to an agency in Brazil. When paying by issuing an invoice with a foreign exchange contract, do not use it.</value>
+    </labels>
+    <labels>
+        <fullName>Draft_Contract_Note_2</fullName>
+        <categories>Draft Contract</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Draft Contract Note 2</shortDescription>
+        <value>Note 2: Use index 7.1 only when the client is not Brazilian.</value>
+    </labels>
+    <labels>
+        <fullName>LbAdd</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbAdd</shortDescription>
+        <value>Add</value>
+    </labels>
+    <labels>
+        <fullName>LbCancel</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbCancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>LbDescription</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbDescription</shortDescription>
+        <value>Description</value>
+    </labels>
+    <labels>
+        <fullName>LbDiscount</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbDiscount</shortDescription>
+        <value>Discount %</value>
+    </labels>
+    <labels>
+        <fullName>LbDiscountPrice</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbDiscountPrice</shortDescription>
+        <value>Discount Price</value>
+    </labels>
+    <labels>
+        <fullName>LbDivision</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbDivision</shortDescription>
+        <value>Commercial Division</value>
+    </labels>
+    <labels>
+        <fullName>LbDwtRangeName</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbDwtRangeName</shortDescription>
+        <value>Dwt Range Name</value>
+    </labels>
+    <labels>
+        <fullName>LbFormatTextEmail</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbFormatTextEmail</shortDescription>
+        <value>Text E-Mail</value>
+    </labels>
+    <labels>
+        <fullName>LbGenericRemarks</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbGenericRemarks</shortDescription>
+        <value>Generic Remarks</value>
+    </labels>
+    <labels>
+        <fullName>LbHeadModal</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbHeadModal</shortDescription>
+        <value>Quotation Information</value>
+    </labels>
+    <labels>
+        <fullName>LbInsertRemarkText</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbInsertRemarkText</shortDescription>
+        <value>Insert remark text</value>
+    </labels>
+    <labels>
+        <fullName>LbInsertedSuccess</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbInsertedSuccess</shortDescription>
+        <value>Information entered successfully</value>
+    </labels>
+    <labels>
+        <fullName>LbMainServices</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbMainServices</shortDescription>
+        <value>Main Services</value>
+    </labels>
+    <labels>
+        <fullName>LbMsgDwtNotFound</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbMsgDwtNotFound</shortDescription>
+        <value>Sorry, DWT track not found for this Port / Division.</value>
+    </labels>
+    <labels>
+        <fullName>LbMsgError1</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbMsgError1</shortDescription>
+        <value>Consider the allowed values ​​between 0 (0%) and 1 (100%).</value>
+    </labels>
+    <labels>
+        <fullName>LbMsgError2</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbMsgError2</shortDescription>
+        <value>Fill in the value correctly, it cannot be negative</value>
+    </labels>
+    <labels>
+        <fullName>LbMsgError3</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbMsgError3</shortDescription>
+        <value>Fill only the% discount or the discounted amount.</value>
+    </labels>
+    <labels>
+        <fullName>LbMsgError4</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbMsgError4</shortDescription>
+        <value>Fill only the amount with a discount or% discount.</value>
+    </labels>
+    <labels>
+        <fullName>LbMsgError5</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbMsgError5</shortDescription>
+        <value>Please fill in the DWT name and the value range</value>
+    </labels>
+    <labels>
+        <fullName>LbMsgError6</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbMsgError6</shortDescription>
+        <value>Please enter at least 1 port / division for each vessel.</value>
+    </labels>
+    <labels>
+        <fullName>LbMsgErrorCheck</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbMsgErrorCheck</shortDescription>
+        <value>Please check if any errors were found.</value>
+    </labels>
+    <labels>
+        <fullName>LbMsgErrorFound</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbMsgErrorFound</shortDescription>
+        <value>error (s) check the indicated line.</value>
+    </labels>
+    <labels>
+        <fullName>LbMsgErrorQuantityMainServices</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbMsgErrorQuantityMainServices</shortDescription>
+        <value>You must select at least one primary service</value>
+    </labels>
+    <labels>
+        <fullName>LbMsgErrorQuantityVessels</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbMsgErrorQuantityVessels</shortDescription>
+        <value>Please fill the number of ships.</value>
+    </labels>
+    <labels>
+        <fullName>LbMsgPortInserted</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbMsgPortInserted</shortDescription>
+        <value>Port / Division successfully inserted</value>
+    </labels>
+    <labels>
+        <fullName>LbMsgPortRemoved</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbMsgPortRemoved</shortDescription>
+        <value>Port / Division successfully removed</value>
+    </labels>
+    <labels>
+        <fullName>LbMsgValuesUpdate</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbMsgValuesUpdate</shortDescription>
+        <value>Value(s) updated successfully</value>
+    </labels>
+    <labels>
+        <fullName>LbMsgValurRemark</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbMsgValurRemark</shortDescription>
+        <value>Please fill in the text correctly before inserting the remark</value>
+    </labels>
+    <labels>
+        <fullName>LbNext</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbNext</shortDescription>
+        <value>Next</value>
+    </labels>
+    <labels>
+        <fullName>LbNumberOfShips</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbNumberOfShips</shortDescription>
+        <value>Number of ships</value>
+    </labels>
+    <labels>
+        <fullName>LbPDFResult</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbPDFResult</shortDescription>
+        <value>Your quote information has been successfully inserted into the PDF.</value>
+    </labels>
+    <labels>
+        <fullName>LbPDFTitle</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbPDFTitle</shortDescription>
+        <value>PDF successfully created</value>
+    </labels>
+    <labels>
+        <fullName>LbPdfInformation</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbPdfInformation</shortDescription>
+        <value>PDF Information</value>
+    </labels>
+    <labels>
+        <fullName>LbPort</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbPort</shortDescription>
+        <value>Port</value>
+    </labels>
+    <labels>
+        <fullName>LbPrevious</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbPrevious</shortDescription>
+        <value>Previous</value>
+    </labels>
+    <labels>
+        <fullName>LbPrice</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbPrice</shortDescription>
+        <value>Price</value>
+    </labels>
+    <labels>
+        <fullName>LbQuotationInformation</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbQuotationInformation</shortDescription>
+        <value>Quotation information</value>
+    </labels>
+    <labels>
+        <fullName>LbQuoteAdd</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbQuoteAdd</shortDescription>
+        <value>Add Quote Information</value>
+    </labels>
+    <labels>
+        <fullName>LbRange</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbRange</shortDescription>
+        <value>Range</value>
+    </labels>
+    <labels>
+        <fullName>LbRemarks</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbRemarks</shortDescription>
+        <value>Specific Remarks</value>
+    </labels>
+    <labels>
+        <fullName>LbSave</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbSave</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>LbSecondaryServices</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbSecondaryServices</shortDescription>
+        <value>Secondary Services</value>
+    </labels>
+    <labels>
+        <fullName>LbVessel</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbVessel</shortDescription>
+        <value>Vessel</value>
+    </labels>
+    <labels>
+        <fullName>LbVesselsName</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LbVesselsName</shortDescription>
+        <value>Vessel&apos;s Name</value>
+    </labels>
+    <labels>
+        <fullName>LblQuoteTextTemplate</fullName>
+        <categories>Quote</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LblQuoteTextTemplate</shortDescription>
+        <value>Quote Text Template</value>
+    </labels>
+    <labels>
+        <fullName>NotSupportedMessage</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>NotSupportedMessage</shortDescription>
+        <value>Unable to access a field called</value>
+    </labels>
+    <labels>
+        <fullName>PricebookTabelaBRL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Pricebook Tabela BRL</shortDescription>
+        <value>Table BRL</value>
+    </labels>
+    <labels>
+        <fullName>fsc_AccessLevel</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AccessLevel</shortDescription>
+        <value>Access Level</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Back</fullName>
+        <categories>Buttons,Filters,Title</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Back</shortDescription>
+        <value>Back</value>
+    </labels>
+    <labels>
+        <fullName>fsc_ButtonIsNotSupportedMessage</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ButtonIsNotSupportedMessage</shortDescription>
+        <value>Following buttons are note supported:</value>
+    </labels>
+    <labels>
+        <fullName>fsc_ConditionLogicHelpText</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ConditionLogicHelpText</shortDescription>
+        <value>Use parentheses, AND, OR, and NOT to customize the logic. For example, if you enter “(1 AND 2 AND 3) OR 4”, the flow evaluates whether the first three conditions are true or only the fourth condition is true.</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Delete</fullName>
+        <categories>labels, buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Delete</shortDescription>
+        <value>Delete</value>
+    </labels>
+    <labels>
+        <fullName>fsc_FieldIsNotSupportedMessage</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>FieldIsNotSupportedMessage</shortDescription>
+        <value>Following fields are not supported:</value>
+    </labels>
+    <labels>
+        <fullName>fsc_FieldTypeNotSuportedMessage</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>fsc_FieldTypeNotSuportedMessage</shortDescription>
+        <value>You provided an unsupported value for the DataTypeFilter input on Object and Field Picker. Currently the only supported value is ’picklist’</value>
+    </labels>
+    <labels>
+        <fullName>fsc_For</fullName>
+        <categories>Buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>For</shortDescription>
+        <value>For</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Key_Label</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Key Label</shortDescription>
+        <value>Key</value>
+    </labels>
+    <labels>
+        <fullName>fsc_LackingPermissions</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LackingPermissions</shortDescription>
+        <value>You don\&apos;t have the proper permissions for ths action</value>
+    </labels>
+    <labels>
+        <fullName>fsc_ManagerEmptyMessage</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ManagerEmptyMessage</shortDescription>
+        <value>&quot;Manager APEX Class&quot; can not be empty</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Manual_Reference_Allowed</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ComboBox Placeholder Txxt</shortDescription>
+        <value>Manual reference allowed</value>
+    </labels>
+    <labels>
+        <fullName>fsc_MultipleGroupsForRole</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MultipleGroupsForRole</shortDescription>
+        <value>There are multiple groups for that role</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Name</fullName>
+        <categories>quicklinks, Labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Name</shortDescription>
+        <value>Name</value>
+    </labels>
+    <labels>
+        <fullName>fsc_NonePicklistValueLabel</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>NonePicklistValueLabel</shortDescription>
+        <value>-- None --</value>
+    </labels>
+    <labels>
+        <fullName>fsc_OWDReadWrite</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>OWDReadWrite</shortDescription>
+        <value>Sharing Settings must be private or public read/write to enable manual sharing</value>
+    </labels>
+    <labels>
+        <fullName>fsc_OwnerAdminModify</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>OwnerAdminModify</shortDescription>
+        <value>Only the record owner or administrators can modify permissions</value>
+    </labels>
+    <labels>
+        <fullName>fsc_PublicGroups</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PublicGroups</shortDescription>
+        <value>Public Groups</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Queues</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Queues</shortDescription>
+        <value>Queues</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Read</fullName>
+        <categories>labels, buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Read</shortDescription>
+        <value>Read</value>
+    </labels>
+    <labels>
+        <fullName>fsc_ReadWrite</fullName>
+        <categories>labels, buttons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ReadWrite</shortDescription>
+        <value>Read / Write</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Reason</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reason</shortDescription>
+        <value>Reason</value>
+    </labels>
+    <labels>
+        <fullName>fsc_RelatedUsers</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>RelatedUsers</shortDescription>
+        <value>Related Users</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Roles</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Roles</shortDescription>
+        <value>Roles</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Search</fullName>
+        <categories>Actions,Buttons,quicklinks</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Search in</shortDescription>
+        <value>Search in</value>
+    </labels>
+    <labels>
+        <fullName>fsc_SearchFor</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SearchFor</shortDescription>
+        <value>For</value>
+    </labels>
+    <labels>
+        <fullName>fsc_SetAccessLevel</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SetAccessLevel</shortDescription>
+        <value>Set Access Level</value>
+    </labels>
+    <labels>
+        <fullName>fsc_SupportedAddCapabilitiesEmptyMessage</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SupportedAddCapabilitiesEmptyMessage</shortDescription>
+        <value>&quot;Add Capabilities&quot; can not be empty</value>
+    </labels>
+    <labels>
+        <fullName>fsc_SupportedButtonsEmptyMessage</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SupportedButtonsEmptyMessage</shortDescription>
+        <value>&quot;Supported Buttons&quot; can not be empty</value>
+    </labels>
+    <labels>
+        <fullName>fsc_SupportedEditCapabilitiesEmptyMessage</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SupportedEditCapabilitiesEmptyMessage</shortDescription>
+        <value>&quot;Edit Capabilities&quot; can not be empty</value>
+    </labels>
+    <labels>
+        <fullName>fsc_TooManyResultsMessage</fullName>
+        <categories>messages</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>TooManyResultsMessage</shortDescription>
+        <value>Your search found more than 200 results.  Keep typing to make it more specific</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Type</fullName>
+        <categories>Buttons,Filters,Title</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Type</shortDescription>
+        <value>Type</value>
+    </labels>
+    <labels>
+        <fullName>fsc_UserOrGroup</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>UserOrGroup</shortDescription>
+        <value>User Or Group</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Users</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Users</shortDescription>
+        <value>Users</value>
+    </labels>
+    <labels>
+        <fullName>fsc_Value_Label</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Value Label</shortDescription>
+        <value>Value</value>
+    </labels>
 </CustomLabels>

@@ -1,18 +1,6 @@
-/**
- * @description       : Serviço de negócio para o módulo Categorizacao. Contém lógica de validação e DML, seguindo arquitetura Triscal.
- * @author            : Triscal
- * @group             : Categorização
- * @last modified on  : 06-14-2026
- * @last modified by  : Jean Duarte
- **/
 public inherited sharing class CategorizacaoService {
     public class FunctionalException extends Exception { public String code; }
 
-    /**
-     * @description Hook de before insert/update. Valida e normaliza registros de Categorizacao__c antes do DML,
-     *              incluindo validação de hash de unicidade por unidade de negócio.
-     * @param records Lista de registros Categorizacao__c a validar.
-     **/
     public static void beforeSave(List<Categorizacao__c> records) {
         if (records == null || records.isEmpty()) return;
 
@@ -49,12 +37,6 @@ public inherited sharing class CategorizacaoService {
         }
     }
 
-    /**
-     * @description Persiste uma categorização (insert ou update) e suas regras de SLA associadas.
-     *              Aplica beforeSave para validação, executa DML e retorna a view atualizada.
-     * @param req Request com campos da categorização e lista de regras de SLA.
-     * @return Response com sucesso, mensagem e view do registro salvo.
-     **/
     public static CategorizacaoDTO.Response save(CategorizacaoDTO.Request req) {
         Categorizacao__c existing;
         if (req != null && req.id != null) {
@@ -98,10 +80,6 @@ public inherited sharing class CategorizacaoService {
         return response;
     }
 
-    /**
-     * @description Retorna record types de Categorizacao__c disponíveis e acessíveis ao usuário corrente.
-     * @return Lista de RecordTypeOption com id, developerName e label.
-     **/
     public static List<CategorizacaoDTO.RecordTypeOption> getAvailableRecordTypes() {
         List<CategorizacaoDTO.RecordTypeOption> out = new List<CategorizacaoDTO.RecordTypeOption>();
         Map<Id, Schema.RecordTypeInfo> infos = Categorizacao__c.SObjectType.getDescribe().getRecordTypeInfosById();
@@ -115,11 +93,6 @@ public inherited sharing class CategorizacaoService {
         return out;
     }
 
-    /**
-     * @description Retorna mapa de picklists relevantes de Categorizacao__c: TipoCaso, Categoria, Assunto,
-     *              Subassunto e Prioridade. Usado para popular selects no LWC.
-     * @return Map de nome do campo para lista de PicklistOption (label/value).
-     **/
     public static Map<String, List<CategorizacaoDTO.PicklistOption>> getPicklists() {
         Map<String, List<CategorizacaoDTO.PicklistOption>> out = new Map<String, List<CategorizacaoDTO.PicklistOption>>();
         out.put('TipoCaso__c', CategorizacaoHelper.toPicklistOptions(Categorizacao__c.TipoCaso__c.getDescribe().getPicklistValues()));
@@ -130,11 +103,6 @@ public inherited sharing class CategorizacaoService {
         return out;
     }
 
-    /**
-     * @description Retorna todos os campos picklist do objeto Case ordenados por label.
-     *              Usado para configurar distribuição de Cases por valor de campo.
-     * @return Lista de CasePicklistField com apiName, label e valores disponíveis.
-     **/
     public static List<CategorizacaoDTO.CasePicklistField> getCasePicklistFields() {
         List<CategorizacaoDTO.CasePicklistField> out = new List<CategorizacaoDTO.CasePicklistField>();
         Map<String, Schema.SObjectField> fields = Case.SObjectType.getDescribe().fields.getMap();
@@ -156,11 +124,6 @@ public inherited sharing class CategorizacaoService {
         }
     }
 
-    /**
-     * @description Retorna filas de Case disponíveis para uma unidade de negócio, filtradas por prefixo configurado.
-     * @param unidadeNegocio Valor de UnidadeNegocios__c para filtrar filas compatíveis.
-     * @return Lista de QueueOption com id, name e developerName.
-     **/
     public static List<CategorizacaoDTO.QueueOption> getQueues(String unidadeNegocio) {
         String prefix;
         for (CategorizacaoSelector.UnidadeConfig cfg : CategorizacaoSelector.getUnidadeConfigsByRecordTypeDeveloperName().values()) {
@@ -175,12 +138,6 @@ public inherited sharing class CategorizacaoService {
         return out;
     }
 
-    /**
-     * @description Retorna estado inicial completo para criação ou edição de uma categorização.
-     *              Inclui record types, picklists, campos de Case, regras de SLA e (se recordId informado) o registro existente.
-     * @param recordId Id opcional de Categorizacao__c existente para modo edição. Null para criação.
-     * @return InitialState com todas as opções de formulário e (se edição) dados atuais do registro.
-     **/
     public static CategorizacaoDTO.InitialState getInitialState(Id recordId) {
         CategorizacaoDTO.InitialState state = new CategorizacaoDTO.InitialState();
         state.availableRecordTypes = getAvailableRecordTypes();
@@ -270,19 +227,10 @@ public inherited sharing class CategorizacaoService {
         if (!toUpsert.isEmpty()) upsert toUpsert;
     }
 
-    /**
-     * @description Verifica se o usuário corrente pode visualizar campos técnicos de resumo (ChaveNatural__c, Hash).
-     * @return true se o usuário tiver acesso de leitura a ambos os campos técnicos.
-     **/
     public static Boolean canViewTechnicalSummary() {
         return Categorizacao__c.ChaveNatural__c.getDescribe().isAccessible() && Categorizacao__c.ChaveNaturalHash__c.getDescribe().isAccessible();
     }
 
-    /**
-     * @description Lança FunctionalException com código e mensagem codificados para extração pelo Controller.
-     * @param code Código de erro (ex: 'VALIDATION_ERROR', 'CRUD_DENIED').
-     * @param message Mensagem legível pelo usuário.
-     **/
     public static void throwFunctional(String code, String message) {
         FunctionalException ex = new FunctionalException(code + '::' + message);
         ex.code = code;
