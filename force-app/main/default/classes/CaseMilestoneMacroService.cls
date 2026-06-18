@@ -63,11 +63,12 @@ public inherited sharing class CaseMilestoneMacroService {
         }
         if (!toUpdate.isEmpty()) {
             update toUpdate;
-            // Sincroniza todos os Milestones do Case (não só os que concluímos), pois o
-            // motor do Entitlement Process pode iniciar o próximo Milestone automaticamente
-            // como efeito colateral da conclusão, na mesma transação.
-            AreaParticipanteMilestoneSyncService.syncByCaseIds(allCaseIds);
         }
+        // Sincroniza todos os Milestones do Case mesmo sem ter completado nenhum:
+        // o próprio critério de entrada da transição de etapa pode iniciar um novo
+        // Milestone diretamente no motor do Entitlement Process, sem depender de uma
+        // conclusão explícita feita por este código.
+        AreaParticipanteMilestoneSyncService.syncByCaseIds(allCaseIds);
     }
 
     private static Boolean isIn(String value, Set<String> allowed) {

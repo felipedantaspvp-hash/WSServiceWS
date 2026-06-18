@@ -17,6 +17,18 @@ import categorySlaRulesLabel from '@salesforce/label/c.GestaoSLA_CategorySlaRule
 import categoryActionsLabel from '@salesforce/label/c.GestaoSLA_CategoryActions';
 import categoryEditLabel from '@salesforce/label/c.GestaoSLA_CategoryEdit';
 import categoryDeactivateLabel from '@salesforce/label/c.GestaoSLA_CategoryDeactivate';
+import categoryDeleteLabel from '@salesforce/label/c.GestaoSLA_CategoryDelete';
+import ruleDeleteLabel from '@salesforce/label/c.GestaoSLA_RuleDelete';
+import gestaoDeleteButtonLabel from '@salesforce/label/c.GestaoSLA_DeleteButton';
+import confirmDeleteCategoryLabel from '@salesforce/label/c.GestaoSLA_ConfirmDeleteCategory';
+import confirmDeleteRuleLabel from '@salesforce/label/c.GestaoSLA_ConfirmDeleteRule';
+import confirmDeleteGestaoLabel from '@salesforce/label/c.GestaoSLA_ConfirmDeleteGestao';
+import errorDeleteCategoryLabel from '@salesforce/label/c.GestaoSLA_ErrorDeleteCategory';
+import errorDeleteRuleLabel from '@salesforce/label/c.GestaoSLA_ErrorDeleteRule';
+import errorDeleteGestaoLabel from '@salesforce/label/c.GestaoSLA_ErrorDeleteGestao';
+import toastCategoryDeletedLabel from '@salesforce/label/c.GestaoSLA_ToastCategoryDeleted';
+import toastRuleDeletedLabel from '@salesforce/label/c.GestaoSLA_ToastRuleDeleted';
+import toastGestaoDeletedLabel from '@salesforce/label/c.GestaoSLA_ToastGestaoDeleted';
 import categoryConfigureSlaLabel from '@salesforce/label/c.GestaoSLA_CategoryConfigureSla';
 import categoryPaginationFirstLabel from '@salesforce/label/c.GestaoSLA_CategoryPaginationFirst';
 import categoryPaginationPreviousLabel from '@salesforce/label/c.GestaoSLA_CategoryPaginationPrevious';
@@ -124,6 +136,7 @@ import errorSwitchManagementLabel from '@salesforce/label/c.GestaoSLA_ErrorSwitc
 import errorLoadRulesLabel from '@salesforce/label/c.GestaoSLA_ErrorLoadRules';
 import errorSaveRuleLabel from '@salesforce/label/c.GestaoSLA_ErrorSaveRule';
 import toastRuleCreatedLabel from '@salesforce/label/c.GestaoSLA_ToastRuleCreated';
+import toastRuleBulkSavedLabel from '@salesforce/label/c.GestaoSLA_ToastRuleBulkSaved';
 import toastRuleUpdatedLabel from '@salesforce/label/c.GestaoSLA_ToastRuleUpdated';
 import toastRuleDeactivatedLabel from '@salesforce/label/c.GestaoSLA_ToastRuleDeactivated';
 import errorDeactivateRuleLabel from '@salesforce/label/c.GestaoSLA_ErrorDeactivateRule';
@@ -165,6 +178,10 @@ import updateCategoria from '@salesforce/apex/GestaoSLAController.updateCategori
 import deactivateCategoria from '@salesforce/apex/GestaoSLAController.deactivateCategoria';
 import getInactiveCategorias from '@salesforce/apex/GestaoSLAController.getInactiveCategorias';
 import reactivateCategoria from '@salesforce/apex/GestaoSLAController.reactivateCategoria';
+import deleteGestaoSLA from '@salesforce/apex/GestaoSLAController.deleteGestaoSLA';
+import deleteCategoria from '@salesforce/apex/GestaoSLAController.deleteCategoria';
+import deleteRegraSLA from '@salesforce/apex/GestaoSLAController.deleteRegraSLA';
+import deleteRegrasSLABulk from '@salesforce/apex/GestaoSLAController.deleteRegrasSLABulk';
 
 const TAB_CATEGORIAS = 'categorias';
 const TAB_REGRAS = 'regras';
@@ -309,6 +326,18 @@ export default class GestaoSLAWorkspace extends LightningElement {
         categoryActions: categoryActionsLabel,
         categoryEdit: categoryEditLabel,
         categoryDeactivate: categoryDeactivateLabel,
+        categoryDelete: categoryDeleteLabel,
+        ruleDelete: ruleDeleteLabel,
+        gestaoDeleteButton: gestaoDeleteButtonLabel,
+        confirmDeleteCategory: confirmDeleteCategoryLabel,
+        confirmDeleteRule: confirmDeleteRuleLabel,
+        confirmDeleteGestao: confirmDeleteGestaoLabel,
+        errorDeleteCategory: errorDeleteCategoryLabel,
+        errorDeleteRule: errorDeleteRuleLabel,
+        errorDeleteGestao: errorDeleteGestaoLabel,
+        toastCategoryDeleted: toastCategoryDeletedLabel,
+        toastRuleDeleted: toastRuleDeletedLabel,
+        toastGestaoDeleted: toastGestaoDeletedLabel,
         categoryConfigureSla: categoryConfigureSlaLabel,
         categoryPaginationFirst: categoryPaginationFirstLabel,
         categoryPaginationPrevious: categoryPaginationPreviousLabel,
@@ -416,6 +445,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
         errorLoadRules: errorLoadRulesLabel,
         errorSaveRule: errorSaveRuleLabel,
         toastRuleCreated: toastRuleCreatedLabel,
+        toastRuleBulkSaved: toastRuleBulkSavedLabel,
         toastRuleUpdated: toastRuleUpdatedLabel,
         toastRuleDeactivated: toastRuleDeactivatedLabel,
         errorDeactivateRule: errorDeactivateRuleLabel,
@@ -1007,6 +1037,13 @@ export default class GestaoSLAWorkspace extends LightningElement {
             tempoAlta: row.tempoAlta ?? null,
             ativo: row.ativo === true
         };
+        if (this.regraForm.escopoRegra === RULE_SCOPE_AREA_INTERNA) {
+            this.showAreaInternaBulkTable = true;
+            this.loadAreasInternas(this.regraForm.categorizacaoId);
+        } else {
+            this.showAreaInternaBulkTable = false;
+            this.areasInternasRows = [];
+        }
         this.showRegraModal = true;
     }
 
@@ -1036,22 +1073,43 @@ export default class GestaoSLAWorkspace extends LightningElement {
             }
             if (value === RULE_SCOPE_AREA_INTERNA && this.regraModalMode === 'create') {
                 this.showAreaInternaBulkTable = true;
-                this.loadAreasInternas();
+                this.loadAreasInternas(nextForm.categorizacaoId);
             }
+        }
+        if (field === 'categorizacaoId' && this.showAreaInternaBulkTable) {
+            this.loadAreasInternas(value);
         }
         this.regraForm = nextForm;
     }
 
-    async loadAreasInternas() {
-        if (this.areasInternasRows.length > 0) return;
+    async loadAreasInternas(categorizacaoId) {
         try {
-            const areas = await getAreasInternas();
-            this.areasInternasRows = (areas || []).map((area) => ({
-                area,
-                tempoAlta: null,
-                tempoMedia: null,
-                tempoBaixa: null
-            }));
+            const [areas, existingResponse] = await Promise.all([
+                getAreasInternas(),
+                categorizacaoId
+                    ? getRegrasSLA({
+                          gestaoSLAId: this.selectedGestaoSLAId,
+                          categorizacaoId,
+                          marcoSLAId: null,
+                          escopo: RULE_SCOPE_AREA_INTERNA,
+                          areaAtendimento: null,
+                          ativo: true
+                      })
+                    : Promise.resolve(null)
+            ]);
+            const existingByArea = new Map(
+                (existingResponse?.regras || []).map((r) => [r.areaAtendimento, r])
+            );
+            this.areasInternasRows = (areas || []).map((area) => {
+                const existing = existingByArea.get(area);
+                return {
+                    area,
+                    existingId: existing?.id ?? null,
+                    tempoAlta: existing?.tempoAlta ?? null,
+                    tempoMedia: existing?.tempoMedia ?? null,
+                    tempoBaixa: existing?.tempoBaixa ?? null
+                };
+            });
         } catch (error) {
             this.showToast(this.labels.commonError, this.reduceError(error) || this.labels.errorLoadRules, 'error');
         }
@@ -1065,6 +1123,14 @@ export default class GestaoSLAWorkspace extends LightningElement {
         const value = rawValue === null || rawValue === '' ? null : Number(rawValue);
         this.areasInternasRows = this.areasInternasRows.map((row) =>
             row.area === area ? { ...row, [field]: value } : row
+        );
+    }
+
+    handleCopyRowPriorityHigh(event) {
+        const area = event.currentTarget?.dataset?.area;
+        if (!area) return;
+        this.areasInternasRows = this.areasInternasRows.map((row) =>
+            row.area === area ? { ...row, tempoMedia: row.tempoAlta, tempoBaixa: row.tempoAlta } : row
         );
     }
 
@@ -1095,10 +1161,12 @@ export default class GestaoSLAWorkspace extends LightningElement {
                 this.showToast(this.labels.commonError, this.labels.errorRuleCategoryRequired, 'error');
                 return;
             }
-            const filledRows = (this.areasInternasRows || []).filter(
-                (row) => row.tempoAlta || row.tempoMedia || row.tempoBaixa
+            const allRows = this.areasInternasRows || [];
+            const filledRows = allRows.filter((row) => row.tempoAlta || row.tempoMedia || row.tempoBaixa);
+            const clearedRows = allRows.filter(
+                (row) => row.existingId && !row.tempoAlta && !row.tempoMedia && !row.tempoBaixa
             );
-            if (filledRows.length === 0) {
+            if (filledRows.length === 0 && clearedRows.length === 0) {
                 this.showToast(this.labels.commonError, this.labels.errorRuleAtLeastOneTime, 'error');
                 return;
             }
@@ -1124,8 +1192,13 @@ export default class GestaoSLAWorkspace extends LightningElement {
                     tempoAlta: row.tempoAlta ? Number(row.tempoAlta) : null,
                     ativo: true
                 }));
-                await createRegrasSLABulk({ requests });
-                this.showToast(this.labels.commonSuccess, this.labels.toastRuleCreated, 'success');
+                const tasks = [];
+                if (requests.length > 0) tasks.push(createRegrasSLABulk({ requests }));
+                if (clearedRows.length > 0) {
+                    tasks.push(deleteRegrasSLABulk({ regraIds: clearedRows.map((row) => row.existingId) }));
+                }
+                await Promise.all(tasks);
+                this.showToast(this.labels.commonSuccess, this.labels.toastRuleBulkSaved, 'success');
                 await Promise.all([
                     this.loadGestaoDetail(this.selectedGestaoSLAId),
                     this.loadCategorias(this.selectedGestaoSLAId),
@@ -1359,6 +1432,57 @@ export default class GestaoSLAWorkspace extends LightningElement {
         }
     }
 
+    async handleDeleteCategoria(event) {
+        if (!this.permissions.canAdminTechnicalSettings) return;
+        const categoriaId = event.currentTarget?.dataset?.id;
+        if (!categoriaId) return;
+        const confirmed = window.confirm(this.labels.confirmDeleteCategory);
+        if (!confirmed) return;
+        try {
+            await deleteCategoria({ categoriaId });
+            this.showToast(this.labels.commonSuccess, this.labels.toastCategoryDeleted, 'success');
+            await Promise.all([
+                this.loadGestaoDetail(this.selectedGestaoSLAId),
+                this.loadCategorias(this.selectedGestaoSLAId),
+                this.loadRegrasSLA(this.selectedGestaoSLAId)
+            ]);
+        } catch (error) {
+            this.showToast(this.labels.commonError, this.reduceError(error) || this.labels.errorDeleteCategory, 'error');
+        }
+    }
+
+    async handleDeleteRegra(event) {
+        if (!this.permissions.canAdminTechnicalSettings) return;
+        const regraId = event.currentTarget?.dataset?.id;
+        if (!regraId) return;
+        const confirmed = window.confirm(this.labels.confirmDeleteRule);
+        if (!confirmed) return;
+        try {
+            await deleteRegraSLA({ regraSLAId: regraId });
+            this.showToast(this.labels.commonSuccess, this.labels.toastRuleDeleted, 'success');
+            await Promise.all([
+                this.loadGestaoDetail(this.selectedGestaoSLAId),
+                this.loadCategorias(this.selectedGestaoSLAId),
+                this.loadRegrasSLA(this.selectedGestaoSLAId)
+            ]);
+        } catch (error) {
+            this.showToast(this.labels.commonError, this.reduceError(error) || this.labels.errorDeleteRule, 'error');
+        }
+    }
+
+    async handleDeleteGestao() {
+        if (!this.permissions.canAdminTechnicalSettings || !this.selectedGestaoSLAId) return;
+        const confirmed = window.confirm(this.labels.confirmDeleteGestao);
+        if (!confirmed) return;
+        try {
+            await deleteGestaoSLA({ gestaoSLAId: this.selectedGestaoSLAId });
+            this.showToast(this.labels.commonSuccess, this.labels.toastGestaoDeleted, 'success');
+            await this.initialize();
+        } catch (error) {
+            this.showToast(this.labels.commonError, this.reduceError(error) || this.labels.errorDeleteGestao, 'error');
+        }
+    }
+
     async handleConfigurarSLAFromCategoria(event) {
         if (!this.permissions.canManageRules) return;
         const categoriaId = event.currentTarget?.dataset?.id;
@@ -1381,6 +1505,8 @@ export default class GestaoSLAWorkspace extends LightningElement {
             this.handleDeactivateCategoria(syntheticEvent);
         } else if (action === 'configure-sla') {
             this.handleConfigurarSLAFromCategoria(syntheticEvent);
+        } else if (action === 'delete') {
+            this.handleDeleteCategoria(syntheticEvent);
         }
     }
 
@@ -1394,6 +1520,8 @@ export default class GestaoSLAWorkspace extends LightningElement {
             this.handleDeactivateRegra(syntheticEvent);
         } else if (action === 'activate') {
             this.handleActivateRegra(syntheticEvent);
+        } else if (action === 'delete') {
+            this.handleDeleteRegra(syntheticEvent);
         }
     }
 

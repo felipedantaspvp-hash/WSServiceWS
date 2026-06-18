@@ -2,17 +2,17 @@
 <EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
     <SObjectType>Case</SObjectType>
     <active>true</active>
-    <businessHours>Atendimento Rebocadores</businessHours>
-    <description>Processo macro de SLA para Atendimento Rebocadores.</description>
+    <businessHours>Atendimento Salvador</businessHours>
+    <description>Processo macro de SLA para Atendimento Salvador.</description>
     <entryStartDateField>Case.CreatedDate</entryStartDateField>
     <exitCriteriaFilterItems>
         <field>Case.IsClosed</field>
         <operation>equals</operation>
         <value>true</value>
     </exitCriteriaFilterItems>
-    <isVersionDefault>true</isVersionDefault>
+    <isVersionDefault>false</isVersionDefault>
     <milestones>
-        <businessHours>Atendimento Rebocadores</businessHours>
+        <businessHours>Atendimento Salvador</businessHours>
         <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
@@ -29,7 +29,7 @@
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <milestones>
-        <businessHours>Atendimento Rebocadores</businessHours>
+        <businessHours>Atendimento Salvador</businessHours>
         <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
@@ -46,7 +46,7 @@
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <milestones>
-        <businessHours>Atendimento Rebocadores</businessHours>
+        <businessHours>Atendimento Salvador</businessHours>
         <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
@@ -58,7 +58,7 @@
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <milestones>
-        <businessHours>Atendimento Rebocadores</businessHours>
+        <businessHours>Atendimento Salvador</businessHours>
         <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
@@ -70,7 +70,7 @@
         <useCriteriaStartTime>true</useCriteriaStartTime>
     </milestones>
     <milestones>
-        <businessHours>Atendimento Rebocadores</businessHours>
+        <businessHours>Atendimento Salvador</businessHours>
         <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
@@ -82,7 +82,7 @@
         <useCriteriaStartTime>true</useCriteriaStartTime>
     </milestones>
     <milestones>
-        <businessHours>Atendimento Rebocadores</businessHours>
+        <businessHours>Atendimento Salvador</businessHours>
         <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
@@ -94,7 +94,7 @@
         <useCriteriaStartTime>true</useCriteriaStartTime>
     </milestones>
     <milestones>
-        <businessHours>Atendimento Rebocadores</businessHours>
+        <businessHours>Atendimento Salvador</businessHours>
         <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.IsClosed</field>
@@ -105,7 +105,7 @@
         <minutesCustomClass>CaseMilestoneTriggerTimeCalculator</minutesCustomClass>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
-    <name>Atendimento Rebocadores</name>
-    <versionMaster>552be000007Gh0A</versionMaster>
-    <versionNumber>2</versionNumber>
+    <name>Atendimento Salvador</name>
+    <versionMaster>552be0000077kbZ</versionMaster>
+    <versionNumber>3</versionNumber>
 </EntitlementProcess>

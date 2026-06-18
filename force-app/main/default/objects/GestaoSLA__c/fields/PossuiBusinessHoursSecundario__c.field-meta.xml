@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PossuiBusinessHoursSecundario__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indica se esta Gestão de SLA opera com um segundo Business Hours, para atendimento em outra região/fuso horário (ex: Rebocadores com equipe na China).</description>
+    <inlineHelpText>Marque se esta Gestão de SLA precisa de um segundo Business Hours para uma região de atendimento diferente.</inlineHelpText>
+    <label>Duplo Business Hours?</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

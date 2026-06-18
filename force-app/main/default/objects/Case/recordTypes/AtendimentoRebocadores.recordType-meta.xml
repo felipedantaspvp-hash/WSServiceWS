@@ -1,0 +1,2056 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AtendimentoRebocadores</fullName>
+    <active>true</active>
+    <businessProcess>Atendimento Rebocadores</businessProcess>
+    <label>Atendimento Rebocadores</label>
+    <picklistValues>
+        <picklist>AcaoPosCategorizacao__c</picklist>
+        <values>
+            <fullName>Assumir</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Distribuir</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Encerrar</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>AreasAtendimentoAtivas__c</picklist>
+        <values>
+            <fullName>A definir</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>AreasParticipantesSLA__c</picklist>
+        <values>
+            <fullName>Apoio Aduaneiro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Armazenagem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atendimento Backoffice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atendimento China</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadastro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Comercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Compliance Operacional</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Conciliação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contabilidade</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contas a Receber</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contêineres %2F Vazios</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Faturamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financeiro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Liberação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operações</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operações AG %2F Programação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operações Reefer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Segurança Patrimonial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transporte</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>AreasParticipantes__c</picklist>
+        <values>
+            <fullName>Apoio Aduaneiro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Armazenagem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atendimento Backoffice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atendimento China</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadastro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Comercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Compliance Operacional</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Conciliação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contabilidade</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contas a Receber</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contêineres %2F Vazios</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Faturamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financeiro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Liberação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operações</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operações AG %2F Programação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operações Reefer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Segurança Patrimonial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transporte</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Assunto__c</picklist>
+        <values>
+            <fullName>2ª via de fatura</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Acesso</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Acompanhamento de DAT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Acompanhar divergências de agendamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Acompanhar veículo sem agendamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agendamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agendamentos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agendar visita presencial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aguardando documentação solicitada ao cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ajustes de OS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Antecipação de agendamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aprovar cadastro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Armazéns</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atraso de chegada de carga</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atraso na negociação comercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atraso no faturamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atualizar JDA com agendamentos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Avaria</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Averbação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Boleto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CTE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadastrar empresas e clientes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadastro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadastro Pessoa Física</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadastro Pessoa Jurídica</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadastro de Proposta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cargas perigosas %2F Especiais</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Carta Protesto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Comunicados</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Comunicar programação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirmar liberação de carga</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirmar liberação do MAPA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirmar prazo de vencimento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Conformidade</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contas a pagar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contestação de demonstrativos ou fatura</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Conversa externa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Currículo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dados SAS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dados Sefaz</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dados comerciais</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dados do recinto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Demandas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desembaraço</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Diversos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dúvidas de usabilidade</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dúvidas diversas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dúvidas sobre Pedido de Compra %28PO%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dúvidas sobre fatura</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dúvidas sobre porto local</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dúvidas sobre propostas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dúvidas sobre quantidade de rebocadores empregados</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dúvidas sobre responsável</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dúvidas sobre tarifa de câmbio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>E-mail indesejado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>E-mail recebimento de faturas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EDI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Elaborar romaneio e lista de embalagem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Encaminhamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Encaminhar CDA %28Certificado Deposito Aduaneiro%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Encaminhar TFA %28termo de Falta e Avaria%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Encaminhar dados do recebimento - Alfandegado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Encaminhar dados do recebimento - CD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Encaminhar foto de avaria</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Encaminhar pedido de cotação %2F Nova operação %2F Projeto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enviar comprovante de entrega</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enviar comprovante de pesagem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enviar relatório de paletização</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Envio de minuta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Envio de nota de retorno</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Envio de sequência de pilha</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro ao faturar responsável incorreto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro na concessão de desconto ou isenções</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro nas regras comerciais</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro no boleto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro no envio da fatura para endereço incorreto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro no lançamento da manobra</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro no nome da embarcação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro ou atraso atualização cadastral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro ou atraso no cadastro de cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro%2Findisponibilidade Portal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Esclarecimento sobre manobras</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Expedição manual</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Falha de Recebimento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Falha na gestão de vigência</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Falta de liberação da manobra%2Ffila</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fatura</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fatura ou prévia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Faturamento incorreto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Faturas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fora do horário de atendimento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gerenciamento de programação de Exportação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gerenciar planilhas de etiquetagem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gerenciar recebimento de carga</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Horário da manobra</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incluir DTA no MAPA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Informar status de remoção de carga</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Informativo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Instruções sobre os processos do Terminal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lançar serviços e custos adicionais no ECM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Liberar janela extra</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ligação muda</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing externo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing interno</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Morosidade nos serviços de vazios</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Navio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nota Fiscal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Notificação automática</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Novo Cadastro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Particularidade de faturamento não acatada</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Particularidades de faturamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pedido de Compra %28PO%29 %2F Minuta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pesagem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Petição</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Plano de estufagem e instrução de embarque</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Portal Sister</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Porto local</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Portão</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Presença de carga</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prioridade</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Programação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Programação de AG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Programação de BUFFER</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Programação de REDEX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Programação de desova - AG e Redex</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Programação hora extra</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Programação retirada porto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proposta Comercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proposta comercial %2F Cadastro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pátio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quantidade de rebocadores empregados</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rastreio de veículo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Realizar acompanhamento %28modelo distinto%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recepção de NF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recepção de planilha de peso</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recepção e desembaraço de DUE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reclamação formal do cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Relatórios</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Relações de débitos em aberto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reserva</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sem retorno do cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Serviço de fumigação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitar assinatura de carta protesto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitar assinatura de comprovante de entrega</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitar documentos ou retificação documental</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitar integração</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitar lista de embalagem para despachante</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitar repesagem de carga</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitar separação de carga entreposto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação de Proposta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação de alteração de vencimento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação de atualização de e-mail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação de conversão de moeda</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação de desconto%2Fconcessão</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação para faturar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Teconline</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tratativa entre terceiros</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Valores%2FServiços</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WS Acesso</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Categoria__c</picklist>
+        <values>
+            <fullName>Acompanhamento de Serviço - AG%2FREDEX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agendamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Apoio Aduaneiro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atendimento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atualização Cadastral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadastro de Cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Comercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Descontos e Negociações</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desembaraço %2F Embarque</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Documentação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dúvidas sobre nome da embarcação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Faturamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financeiro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inatividade</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Integração de Cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inteligência de Mercado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Não se Aplica</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operacional - pátio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Planejamento Operacional Alfandegado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Portal Logístico</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Portal do Cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Programação de Serviço</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proposta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pátio de Vazios</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QSMS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SMS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Santa Clara</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Serviços específicos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sistema</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transporte</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>EtapaAtendimento__c</picklist>
+        <values>
+            <fullName>Aguardando Cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aguardando atendimento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aguardando Área Interna</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Concluído</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Em Acompanhamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Em Atendimento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Em Triagem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Novo</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Preparando Retorno ao Cliente</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IdiomaAtendimento__c</picklist>
+        <values>
+            <fullName>Espanhol</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inglês</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Português</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Modalidade__c</picklist>
+        <values>
+            <fullName>A definir</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>MotivoAcompanhamento__c</picklist>
+        <values>
+            <fullName>Aguardando cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aguardando documentação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aguardando movimentação operacional</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aguardando terceiro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operação externa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outro</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>MotivoEncerramento__c</picklist>
+        <values>
+            <fullName>A definir</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>OrigemDistribuicao__c</picklist>
+        <values>
+            <fullName>Agendamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bot</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Categorização</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Formulário</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rota de E-mail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seleção Manual</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Origin</picklist>
+        <values>
+            <fullName>Bot</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manual</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recorrente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Telefone</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Priority</picklist>
+        <values>
+            <fullName>High</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ProcedenciaReclamacao__c</picklist>
+        <values>
+            <fullName>A definir</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Improcedente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcialmente Procedente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Procedente</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason</picklist>
+        <values>
+            <fullName>Complex functionality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing problem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Instructions not clear</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New problem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>User didn%27t attend training</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Subassunto__c</picklist>
+        <values>
+            <fullName>%22Cobrar de%22 indevido</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>-</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Acesso indisponível</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Acionamento do CAR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Acompanhamento - clientes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agendamento de contêiner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agência informou moeda incorreta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Alteração</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Alteração da Programação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Alteração de %22cobrar de%22</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Alteração de tempo livre ou outros</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Alterações</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Amarração</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Análise de avaria %28evidências%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aprovação de Agendamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Assistência</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atracação%2FDesatracação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atraso do cliente na solicitação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atraso na atualização da solicitação do cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atraso no envio da fatura</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atualização</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atualização de E-mail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atualização de cadastro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atualização de endereço da empresa %28mesmo grupo%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Avaria Interna %28Pátio%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Barcaça rígida</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CNPJ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CNPJ não vinculado à proposta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadastro Fornecedor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadastro Prévio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadastro imediato</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadastro reserva</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadastro%2Facesso</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelamento de agendamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cargas Aceitas%2F Não Aceitas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cliente x Cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cliente x Departamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Colocação %2F Remoção de etiqueta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Compensação de Pagamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Comprovante</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Comprovante de pesagem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Condições e termos - Tabela Pública</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Condições e termos - proposta clientes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirmação de Posição</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirmação de pagamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirmação de recebimento das faturas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirmação de vínculo comercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirmação ou alteração de e-mails</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consulta Contêiner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consulta Reserva</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consultas EXPO e CAB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contato preditivo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contestação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contrato a vencer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Correção de NF no SISCOMEX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Criação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DWT atual</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data de corte</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data de pagamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Descontos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Descontos e Isenções</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Detalhamento de Pendências</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dispensa - Condições climáticas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dispensa - Operacional</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Divergência de dados</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Documentação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dúvidas agendamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dúvidas de Cadastro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dúvidas usabilidade</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EDI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EDI Nfe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EIR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Empurrar%2Fpuxar ao longo do cais</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Entrega Antecipada</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enviar foto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Envio de extrato de DUE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Envio ou reenvio da fatura ou prévia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Envio para e-mail incorreto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro de validação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro em contrato validado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro em moeda</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro na aplicação de impostos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro na escolha do acordo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro na inclusão da data de corte</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro na inclusão de tarifas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro no Agendamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro no endereço da empresa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro no orçamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro por não seguir solicitação do cliente no envio da fatura</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro portal Sister</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Espelho de cálculo %2F descrição de cálculo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Espera</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exclusão</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extensão de prazo não formalizada %E2%80%94 cancelada indevidamente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Falha de envio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Falha de recebimento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Falha no cadastro do cliente no SAP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Faturamento automático incorreto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Faturas em aberto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fluxo de cancelamento de NF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Formato inválido</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Giro da embarcação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Grupo Econômico</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Identificar pagamento da prévia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Identificação de Pagamentos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Impostos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Impostos ou normas de aplicação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inclusão de data de pagamento incorreta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inclusão de moeda incorreta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inclusão do Pedido de Compra %28PO%29 incorreto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Indenização</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Indisponibilidade ou quebra de equipamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Informação inconsistente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Informações</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Instabilidade %2F Lentidão</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Integração com erro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Isenção %2F Revisão de fatura</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Isenção de Juros</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Isenção de multas e juros</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Isenções</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LAR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lacres</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Liberar acesso ao portal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Liberação Especial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Liberação Especial %2F Janelas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lista de navio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medição %2F PO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobilização%2FDesmobilização</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Morosidade</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Morosidade no cadastro da proposta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Morosidade ou erro no atendimento operacional</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mudança de posição</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nomenclatura</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nota de crédito</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nova proposta - potencial cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Novo Acesso %2F Liberação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Orçamento e Faturas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ouro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outros</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcelamento CAR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pedido de Compra %28PO%29 %2F Minuta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pedido de coleta de carga</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pedido de entrega de carga</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pedido de revisão de CTE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Portal do cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Portal fora do ar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Previsão de Emissão</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prioridade no envio das faturas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Problemas com Pedido de Compra %28PO%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Problemas relacionados ao boleto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Procedimentos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Procedimentos operacionais</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Processos aduaneiros</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Programação de Navios</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proposta não enviada ou enviada incorretamente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proposta vencida sem renovação%2C bloqueio ou cobrança em TP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Propostas e faturamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prorrogação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prorrogação de Proposta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prorrogação%2F alteração de vencimento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rebocador de escolta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recepção %2F Entrega Manual %28Falha ou Erro%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recepção de DAT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Redefinição de senha %2F acesso</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reembolso</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reembolso %2F estorno</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reenvio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reenvio de Boleto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reenvio de Nota Fiscal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Registro de avaria</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Relatório de Movimentações</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Relatório de custos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Relatório de estoque</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Relatório personalizado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Relatórios diversos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Renovação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resetar senha</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retificação documental</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retirar pontuação de atraso</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reunião com cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Saldo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Serviço novo não incluído na proposta %28Facilidades Administrativas %2F outros %29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Setor Responsável</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitar averbação de DUIMP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitar averbação manual de DI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação de CTE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação de boleto avulso</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação de débitos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação de proposta comercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação de status do transporte</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação de vistoria</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação do cliente para separar a fatura</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação para faturar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Status</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Status de Atendimento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Status de Operação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Status de aprovação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tarifa acordada</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tarifa de câmbio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Temas diversos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Todos os fluxos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vagas e Horários</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Valor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vinculação de Acesso</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vinculação e renovação de Proposta</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>TipoCaso__c</picklist>
+        <values>
+            <fullName>Atendimento ao Cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Elogio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incidente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Informação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Notificação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reclamação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>UnidadeNegocio__c</picklist>
+        <values>
+            <fullName>Centro Logístico</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Rebocadores</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

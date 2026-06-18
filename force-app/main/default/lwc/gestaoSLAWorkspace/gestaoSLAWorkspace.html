@@ -125,6 +125,14 @@
                                     onclick={openEditModal}
                                 ></lightning-button>
                             </template>
+                            <template if:true={permissions.canAdminTechnicalSettings}>
+                                <lightning-button
+                                    class="slds-m-left_x-small"
+                                    label={labels.gestaoDeleteButton}
+                                    variant="destructive"
+                                    onclick={handleDeleteGestao}
+                                ></lightning-button>
+                            </template>
                         </div>
                     </div>
                 </section>
@@ -226,6 +234,13 @@
                                                                     prefix-icon-name="utility:settings"
                                                                     disabled={disableManageRules}
                                                                 ></lightning-menu-item>
+                                                                <template if:true={permissions.canAdminTechnicalSettings}>
+                                                                    <lightning-menu-item
+                                                                        value="delete"
+                                                                        label={labels.categoryDelete}
+                                                                        prefix-icon-name="utility:delete"
+                                                                    ></lightning-menu-item>
+                                                                </template>
                                                             </lightning-button-menu>
                                                         </td>
                                                     </tr>
@@ -398,6 +413,13 @@
                                                                             value="activate"
                                                                             label={labels.activateRule}
                                                                             prefix-icon-name="utility:check"
+                                                                        ></lightning-menu-item>
+                                                                    </template>
+                                                                    <template if:true={permissions.canAdminTechnicalSettings}>
+                                                                        <lightning-menu-item
+                                                                            value="delete"
+                                                                            label={labels.ruleDelete}
+                                                                            prefix-icon-name="utility:delete"
                                                                         ></lightning-menu-item>
                                                                     </template>
                                                                 </lightning-button-menu>
@@ -793,7 +815,12 @@
                                         <tbody>
                                             <template for:each={areasInternasRows} for:item="row">
                                                 <tr key={row.area}>
-                                                    <td class="area-interna-col-area">
+                                                    <td
+                                                        class="area-interna-col-area area-interna-th-clickable"
+                                                        data-area={row.area}
+                                                        ondblclick={handleCopyRowPriorityHigh}
+                                                        title="Duplo clique: copia o valor de Priority High para Medium e Low desta área"
+                                                    >
                                                         <span class="slds-truncate">{row.area}</span>
                                                     </td>
                                                     <td class="area-interna-col-time">

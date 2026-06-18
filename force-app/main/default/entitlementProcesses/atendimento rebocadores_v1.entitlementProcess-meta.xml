@@ -10,7 +10,7 @@
         <operation>equals</operation>
         <value>true</value>
     </exitCriteriaFilterItems>
-    <isVersionDefault>true</isVersionDefault>
+    <isVersionDefault>false</isVersionDefault>
     <milestones>
         <businessHours>Atendimento Rebocadores</businessHours>
         <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
@@ -97,6 +97,18 @@
         <businessHours>Atendimento Rebocadores</businessHours>
         <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
+            <field>Case.EtapaAtendimento__c</field>
+            <operation>equals</operation>
+            <value>Em Acompanhamento</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Acompanhamento</milestoneName>
+        <minutesCustomClass>CaseMilestoneTriggerTimeCalculator</minutesCustomClass>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Atendimento Rebocadores</businessHours>
+        <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
+        <milestoneCriteriaFilterItems>
             <field>Case.IsClosed</field>
             <operation>equals</operation>
             <value>false</value>
@@ -107,5 +119,5 @@
     </milestones>
     <name>Atendimento Rebocadores</name>
     <versionMaster>552be000007Gh0A</versionMaster>
-    <versionNumber>2</versionNumber>
+    <versionNumber>1</versionNumber>
 </EntitlementProcess>

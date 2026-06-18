@@ -54,6 +54,7 @@ public inherited sharing class CaseTriggerHandler {
         CaseAreaParticipantePauseService.handleEtapaChanges(newMap, oldMap);
         CaseMilestoneMacroService.completeByStageTransition(newMap, oldMap);
         syncMilestonesOnEntitlementAssignment(newMap, oldMap);
+        AreaParticipanteRegiaoAtendimentoService.handleOwnerChange(newMap, oldMap);
     }
 
     // Fires when an EntitlementProcess assigns milestones to a Case for the first time.

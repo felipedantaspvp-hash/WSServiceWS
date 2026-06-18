@@ -40,11 +40,16 @@ public inherited sharing class RegrasSLACategorizacaoService {
         if (gestaoIds.isEmpty()) return;
 
         Map<Id, GestaoSLA__c> gestaoById = new Map<Id, GestaoSLA__c>(
-            [SELECT Id, BusinessHoursName__c FROM GestaoSLA__c WHERE Id IN :gestaoIds]
+            [SELECT Id, BusinessHoursName__c, BusinessHoursSecundarioName__c FROM GestaoSLA__c WHERE Id IN :gestaoIds]
         );
         for (RegrasSLACategorizacao__c r : rows) {
             GestaoSLA__c g = gestaoById.get(r.GestaoSLA__c);
-            if (g != null && !String.isBlank(g.BusinessHoursName__c)) {
+            if (g == null) continue;
+            if (r.UsaBusinessHoursSecundario__c == true) {
+                if (!String.isBlank(g.BusinessHoursSecundarioName__c)) {
+                    r.BusinessHoursName__c = g.BusinessHoursSecundarioName__c;
+                }
+            } else if (!String.isBlank(g.BusinessHoursName__c)) {
                 r.BusinessHoursName__c = g.BusinessHoursName__c;
             }
         }

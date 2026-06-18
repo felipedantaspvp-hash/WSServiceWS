@@ -10,9 +10,10 @@
         <operation>equals</operation>
         <value>true</value>
     </exitCriteriaFilterItems>
-    <isVersionDefault>true</isVersionDefault>
+    <isVersionDefault>false</isVersionDefault>
     <milestones>
         <businessHours>Atendimento Salvador</businessHours>
+        <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
             <operation>equals</operation>
@@ -29,6 +30,7 @@
     </milestones>
     <milestones>
         <businessHours>Atendimento Salvador</businessHours>
+        <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
             <operation>equals</operation>
@@ -45,6 +47,7 @@
     </milestones>
     <milestones>
         <businessHours>Atendimento Salvador</businessHours>
+        <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
             <operation>equals</operation>
@@ -56,6 +59,7 @@
     </milestones>
     <milestones>
         <businessHours>Atendimento Salvador</businessHours>
+        <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
             <operation>equals</operation>
@@ -67,6 +71,7 @@
     </milestones>
     <milestones>
         <businessHours>Atendimento Salvador</businessHours>
+        <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
             <operation>equals</operation>
@@ -78,6 +83,7 @@
     </milestones>
     <milestones>
         <businessHours>Atendimento Salvador</businessHours>
+        <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
             <operation>equals</operation>
@@ -89,6 +95,7 @@
     </milestones>
     <milestones>
         <businessHours>Atendimento Salvador</businessHours>
+        <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.EtapaAtendimento__c</field>
             <operation>equals</operation>
@@ -100,6 +107,7 @@
     </milestones>
     <milestones>
         <businessHours>Atendimento Salvador</businessHours>
+        <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
         <milestoneCriteriaFilterItems>
             <field>Case.IsClosed</field>
             <operation>equals</operation>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BusinessHoursSecundarioName__c</fullName>
+    <description>Nome do Business Hours secundário usado pela Região de Atendimento Secundária desta Gestão de SLA.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Nome exato do registro de Business Hours cadastrado no Setup para a região secundária.</inlineHelpText>
+    <label>Nome do Business Hours Secundário</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

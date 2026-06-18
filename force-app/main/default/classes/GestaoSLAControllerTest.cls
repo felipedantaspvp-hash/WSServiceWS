@@ -92,7 +92,7 @@ private class GestaoSLAControllerTest {
         GestaoSLADTO.GestaoDetailResponse d = GestaoSLAController.getGestaoDetail(g.Id);
         Assert.areEqual(g.Id, d.gestao.id);
 
-        GestaoSLADTO.CategoriasResponse c = GestaoSLAController.getCategorias(g.Id, null, null, null, null);
+        GestaoSLADTO.CategoriasResponse c = GestaoSLAController.getCategorias(g.Id, null, null, null, null, null);
         Assert.areEqual(true, c.categorias != null);
 
         GestaoSLADTO.MarcosResponse m = GestaoSLAController.getMarcos(g.Id);
@@ -128,7 +128,7 @@ private class GestaoSLAControllerTest {
 
         Boolean failedCategorias = false;
         try {
-            GestaoSLAController.getCategorias(g.Id, null, null, null, null);
+            GestaoSLAController.getCategorias(g.Id, null, null, null, null, null);
         } catch (AuraHandledException ex) {
             failedCategorias = true;
             Assert.areEqual(true, String.isNotBlank(ex.getMessage()));

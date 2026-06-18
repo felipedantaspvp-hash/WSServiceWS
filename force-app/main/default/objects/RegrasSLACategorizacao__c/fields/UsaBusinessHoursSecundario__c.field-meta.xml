@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UsaBusinessHoursSecundario__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Quando marcado, esta Regra de SLA de Área Interna herda o Business Hours Secundário da Gestão de SLA (RegiaoAtendimentoSecundaria__c/BusinessHoursSecundarioName__c), em vez do Business Hours padrão.</description>
+    <inlineHelpText>Marque para que esta regra use o Business Hours da região de atendimento secundária da Gestão de SLA.</inlineHelpText>
+    <label>Usa Business Hours Secundário</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

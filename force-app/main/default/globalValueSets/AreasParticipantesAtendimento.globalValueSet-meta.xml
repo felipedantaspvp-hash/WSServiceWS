@@ -95,6 +95,11 @@
         <default>false</default>
         <label>Atendimento Backoffice</label>
     </customValue>
+    <customValue>
+        <fullName>Atendimento China</fullName>
+        <default>false</default>
+        <label>Atendimento China</label>
+    </customValue>
     <description>Lista global para definir as áreas participantes do processo de atendimento</description>
     <masterLabel>Areas Participantes Atendimento</masterLabel>
     <sorted>false</sorted>

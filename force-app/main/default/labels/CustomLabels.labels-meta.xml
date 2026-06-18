@@ -25,6 +25,14 @@
         <value>Activate</value>
     </labels>
     <labels>
+        <fullName>GestaoSLA_RuleDelete</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Delete SLA rule menu item</shortDescription>
+        <value>Delete</value>
+    </labels>
+    <labels>
         <fullName>GestaoSLA_ApplicationEmailNew</fullName>
         <categories>GestaoSLA</categories>
         <language>en_US</language>
@@ -103,6 +111,14 @@
         <protected>false</protected>
         <shortDescription>Category deactivate action</shortDescription>
         <value>Deactivate</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryDelete</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category delete action</shortDescription>
+        <value>Delete</value>
     </labels>
     <labels>
         <fullName>GestaoSLA_CategoryEdit</fullName>
@@ -473,6 +489,14 @@
         <value>Are you sure you want to deactivate this categorization?</value>
     </labels>
     <labels>
+        <fullName>GestaoSLA_ConfirmDeleteCategory</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Confirm delete categorization dialog message</shortDescription>
+        <value>This will permanently delete this categorization and its SLA rules. This action cannot be undone. Continue?</value>
+    </labels>
+    <labels>
         <fullName>GestaoSLA_ConfirmDeactivateRule</fullName>
         <categories>GestaoSLA</categories>
         <language>en_US</language>
@@ -481,12 +505,36 @@
         <value>Are you sure you want to deactivate this SLA rule?</value>
     </labels>
     <labels>
+        <fullName>GestaoSLA_ConfirmDeleteRule</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Confirm delete SLA rule dialog message</shortDescription>
+        <value>This will permanently delete this SLA rule. This action cannot be undone. Continue?</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ConfirmDeleteGestao</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Confirm delete Gestão de SLA dialog message</shortDescription>
+        <value>This will permanently delete this SLA Management record. This action cannot be undone. Continue?</value>
+    </labels>
+    <labels>
         <fullName>GestaoSLA_EditButton</fullName>
         <categories>GestaoSLA</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Button label to edit the selected SLA Management record.</shortDescription>
         <value>Edit SLA Management</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_DeleteButton</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Button label to delete the selected SLA Management record.</shortDescription>
+        <value>Delete SLA Management</value>
     </labels>
     <labels>
         <fullName>GestaoSLA_EditSettingsButton</fullName>
@@ -521,12 +569,36 @@
         <value>Error deactivating categorization.</value>
     </labels>
     <labels>
+        <fullName>GestaoSLA_ErrorDeleteCategory</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category delete error message</shortDescription>
+        <value>Error deleting categorization.</value>
+    </labels>
+    <labels>
         <fullName>GestaoSLA_ErrorDeactivateRule</fullName>
         <categories>GestaoSLA</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Error deactivating SLA rule message</shortDescription>
         <value>Error deactivating SLA rule.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorDeleteRule</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error deleting SLA rule message</shortDescription>
+        <value>Error deleting SLA rule.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorDeleteGestao</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error deleting Gestão de SLA message</shortDescription>
+        <value>Error deleting SLA Management record.</value>
     </labels>
     <labels>
         <fullName>GestaoSLA_ErrorLoadCategories</fullName>
@@ -1129,6 +1201,14 @@
         <value>Categorization deactivated successfully.</value>
     </labels>
     <labels>
+        <fullName>GestaoSLA_ToastCategoryDeleted</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category deleted success toast</shortDescription>
+        <value>Categorization deleted successfully.</value>
+    </labels>
+    <labels>
         <fullName>GestaoSLA_ToastCategoryReactivated</fullName>
         <categories>GestaoSLA</categories>
         <language>en_US</language>
@@ -1177,12 +1257,36 @@
         <value>SLA rule created successfully.</value>
     </labels>
     <labels>
+        <fullName>GestaoSLA_ToastRuleBulkSaved</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Internal area SLA rules bulk saved success toast</shortDescription>
+        <value>SLA rules saved successfully.</value>
+    </labels>
+    <labels>
         <fullName>GestaoSLA_ToastRuleDeactivated</fullName>
         <categories>GestaoSLA</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>SLA rule deactivated success toast</shortDescription>
         <value>SLA rule deactivated successfully.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ToastRuleDeleted</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SLA rule deleted success toast</shortDescription>
+        <value>SLA rule deleted successfully.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ToastGestaoDeleted</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Gestão de SLA deleted success toast</shortDescription>
+        <value>SLA Management record deleted successfully.</value>
     </labels>
     <labels>
         <fullName>GestaoSLA_ToastRuleActivated</fullName>

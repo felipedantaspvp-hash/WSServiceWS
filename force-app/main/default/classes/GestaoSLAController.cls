@@ -163,6 +163,58 @@ public inherited sharing class GestaoSLAController {
     }
 
     /**
+     * @description Exclui definitivamente uma Gestão de SLA. Restrito ao Admin Técnico.
+     * @param gestaoSLAId Id da GestaoSLA__c a excluir.
+     **/
+    @AuraEnabled
+    public static void deleteGestaoSLA(Id gestaoSLAId) {
+        try {
+            GestaoSLAService.deleteGestaoSLA(gestaoSLAId);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            throw new AuraHandledException(ex.getMessage());
+        }
+    }
+
+    /**
+     * @description Exclui definitivamente uma Categorização. Restrito ao Admin Técnico.
+     * @param categoriaId Id da Categorizacao__c a excluir.
+     **/
+    @AuraEnabled
+    public static void deleteCategoria(Id categoriaId) {
+        try {
+            GestaoSLAService.deleteCategoria(categoriaId);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            throw new AuraHandledException(ex.getMessage());
+        }
+    }
+
+    /**
+     * @description Exclui definitivamente uma Regra de SLA. Restrito ao Admin Técnico.
+     * @param regraSLAId Id da RegrasSLACategorizacao__c a excluir.
+     **/
+    @AuraEnabled
+    public static void deleteRegraSLA(Id regraSLAId) {
+        try {
+            GestaoSLAService.deleteRegraSLA(regraSLAId);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            throw new AuraHandledException(ex.getMessage());
+        }
+    }
+
+    /**
+     * @description Exclui em lote Regras de SLA de Área Interna cujos tempos foram limpos na grid.
+     * @param regraIds Ids das RegrasSLACategorizacao__c a excluir.
+     **/
+    @AuraEnabled
+    public static void deleteRegrasSLABulk(List<Id> regraIds) {
+        try {
+            GestaoSLAService.deleteRegrasSLABulk(regraIds);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            throw new AuraHandledException(ex.getMessage());
+        }
+    }
+
+    /**
      * @description Cria uma nova categorização (Categorizacao__c) vinculada a uma Gestão de SLA.
      * @param request CategoriaRequest com dados da nova categorização.
      * @return CategoriaResumo com id e campos resumidos do registro criado.

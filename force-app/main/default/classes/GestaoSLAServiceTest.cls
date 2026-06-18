@@ -1093,4 +1093,160 @@ private class GestaoSLAServiceTest {
         Assert.areEqual(true, dupFailed);
     }
 
+    @IsTest
+    static void testCreateRegrasSLABulkUpsertsExistingArea() {
+        GestaoSLA__c g = createGestao('BULK_UPSERT', true);
+        Categorizacao__c c = createCategoria(g.Id, 'BULK_UPSERT', true);
+        List<String> areas = AreaParticipanteTestDataFactory.commonAreaValues();
+        String area1 = areas[0];
+        String area2 = areas[1];
+
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, true);
+
+        GestaoSLADTO.RegraSLARequest req1 = new GestaoSLADTO.RegraSLARequest();
+        req1.gestaoSLAId = g.Id;
+        req1.categorizacaoId = c.Id;
+        req1.areaAtendimento = area1;
+        req1.tempoBaixa = 10;
+        req1.tempoMedia = 20;
+        req1.tempoAlta = 30;
+
+        List<GestaoSLADTO.RegraSLAResumo> firstBatch = GestaoSLAService.createRegrasSLABulk(
+            new List<GestaoSLADTO.RegraSLARequest>{ req1 }
+        );
+        Assert.areEqual(1, firstBatch.size());
+        Id existingRuleId = firstBatch[0].id;
+
+        GestaoSLADTO.RegraSLARequest req1Updated = new GestaoSLADTO.RegraSLARequest();
+        req1Updated.gestaoSLAId = g.Id;
+        req1Updated.categorizacaoId = c.Id;
+        req1Updated.areaAtendimento = area1;
+        req1Updated.tempoBaixa = 11;
+        req1Updated.tempoMedia = 22;
+        req1Updated.tempoAlta = 33;
+
+        GestaoSLADTO.RegraSLARequest req2New = new GestaoSLADTO.RegraSLARequest();
+        req2New.gestaoSLAId = g.Id;
+        req2New.categorizacaoId = c.Id;
+        req2New.areaAtendimento = area2;
+        req2New.tempoBaixa = 10;
+        req2New.tempoMedia = 20;
+        req2New.tempoAlta = 30;
+
+        List<GestaoSLADTO.RegraSLAResumo> secondBatch = GestaoSLAService.createRegrasSLABulk(
+            new List<GestaoSLADTO.RegraSLARequest>{ req1Updated, req2New }
+        );
+        Assert.areEqual(2, secondBatch.size());
+
+        Assert.areEqual(1, [SELECT COUNT() FROM RegrasSLACategorizacao__c WHERE Categorizacao__c = :c.Id AND AreaAtendimento__c = :area1]);
+        RegrasSLACategorizacao__c updated = [SELECT Id, TempoBaixa__c, TempoMedia__c, TempoAlta__c FROM RegrasSLACategorizacao__c WHERE Id = :existingRuleId];
+        Assert.areEqual(existingRuleId, updated.Id);
+        Assert.areEqual(33, updated.TempoAlta__c);
+
+        Assert.areEqual(1, [SELECT COUNT() FROM RegrasSLACategorizacao__c WHERE Categorizacao__c = :c.Id AND AreaAtendimento__c = :area2]);
+    }
+
+    @IsTest
+    static void testDeleteRegrasSLABulkOnlyRequiresManageRules() {
+        GestaoSLA__c g = createGestao('BULK_DEL', true);
+        Categorizacao__c c = createCategoria(g.Id, 'BULK_DEL', true);
+        MarcoSLA__c m = createMarco(g.Id, 'Marco BulkDel', 1, true);
+        createRegra(g.Id, m.Id, c.Id, true);
+        RegrasSLACategorizacao__c regra = [SELECT Id FROM RegrasSLACategorizacao__c WHERE Categorizacao__c = :c.Id LIMIT 1];
+
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, false);
+
+        Boolean blocked = false;
+        try {
+            GestaoSLAService.deleteRegrasSLABulk(new List<Id>{ regra.Id });
+        } catch (GestaoSLAService.FunctionalException ex) {
+            blocked = true;
+        }
+        Assert.areEqual(true, blocked);
+        Assert.areEqual(1, [SELECT COUNT() FROM RegrasSLACategorizacao__c WHERE Id = :regra.Id]);
+
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, true);
+        GestaoSLAService.deleteRegrasSLABulk(new List<Id>{ regra.Id });
+        Assert.areEqual(0, [SELECT COUNT() FROM RegrasSLACategorizacao__c WHERE Id = :regra.Id]);
+    }
+
+    @IsTest
+    static void testDeleteRegraSLARequiresAdminTechnicalSettings() {
+        GestaoSLA__c g = createGestao('DelRegra', true);
+        Categorizacao__c c = createCategoria(g.Id, 'DelRegra', true);
+        MarcoSLA__c m = createMarco(g.Id, 'Marco DelRegra', 1, true);
+        createRegra(g.Id, m.Id, c.Id, true);
+        RegrasSLACategorizacao__c regra = [SELECT Id FROM RegrasSLACategorizacao__c WHERE Categorizacao__c = :c.Id LIMIT 1];
+
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, false);
+
+        Boolean blocked = false;
+        try {
+            GestaoSLAService.deleteRegraSLA(regra.Id);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            blocked = true;
+        }
+        Assert.areEqual(true, blocked);
+        Assert.areEqual(1, [SELECT COUNT() FROM RegrasSLACategorizacao__c WHERE Id = :regra.Id]);
+
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
+        GestaoSLAService.deleteRegraSLA(regra.Id);
+        Assert.areEqual(0, [SELECT COUNT() FROM RegrasSLACategorizacao__c WHERE Id = :regra.Id]);
+    }
+
+    @IsTest
+    static void testDeleteCategoriaCascadesRegrasSLA() {
+        GestaoSLA__c g = createGestao('DelCateg', true);
+        Categorizacao__c c = createCategoria(g.Id, 'DelCateg', true);
+        MarcoSLA__c m = createMarco(g.Id, 'Marco DelCateg', 1, true);
+        createRegra(g.Id, m.Id, c.Id, true);
+
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
+
+        GestaoSLAService.deleteCategoria(c.Id);
+
+        Assert.areEqual(0, [SELECT COUNT() FROM Categorizacao__c WHERE Id = :c.Id]);
+        Assert.areEqual(0, [SELECT COUNT() FROM RegrasSLACategorizacao__c WHERE Categorizacao__c = :c.Id]);
+    }
+
+    @IsTest
+    static void testDeleteGestaoSLABlockedWhileCategoriasLinked() {
+        GestaoSLA__c g = createGestao('DelGestao', true);
+        createCategoria(g.Id, 'DelGestaoCateg', true);
+
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
+
+        Boolean blocked = false;
+        try {
+            GestaoSLAService.deleteGestaoSLA(g.Id);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            blocked = true;
+            Assert.areEqual(true, ex.getMessage().contains('Categorizações vinculadas'));
+        }
+        Assert.areEqual(true, blocked);
+        Assert.areEqual(1, [SELECT COUNT() FROM GestaoSLA__c WHERE Id = :g.Id]);
+    }
+
+    @IsTest
+    static void testDeleteGestaoSLASucceedsWithoutCategorias() {
+        GestaoSLA__c g = createGestao('DelGestaoSolo', true);
+
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
+
+        GestaoSLAService.deleteGestaoSLA(g.Id);
+        Assert.areEqual(0, [SELECT COUNT() FROM GestaoSLA__c WHERE Id = :g.Id]);
+    }
+
 }

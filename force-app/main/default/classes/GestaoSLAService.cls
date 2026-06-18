@@ -366,19 +366,21 @@ public inherited sharing class GestaoSLAService {
             }
         }
 
-        Set<String> existingAreas = new Set<String>();
+        Map<String, RegrasSLACategorizacao__c> existingByArea = new Map<String, RegrasSLACategorizacao__c>();
         for (RegrasSLACategorizacao__c r : [
-            SELECT AreaAtendimento__c
+            SELECT Id, AreaAtendimento__c, TempoBaixa__c, TempoMedia__c, TempoAlta__c
             FROM RegrasSLACategorizacao__c
             WHERE GestaoSLA__c = :gestaoSLAId
               AND Categorizacao__c = :categorizacaoId
               AND EscopoRegra__c = :RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA
               AND Ativo__c = true
         ]) {
-            existingAreas.add(normalizeOptionalText(r.AreaAtendimento__c));
+            existingByArea.put(normalizeOptionalText(r.AreaAtendimento__c), r);
         }
 
         List<RegrasSLACategorizacao__c> toInsert = new List<RegrasSLACategorizacao__c>();
+        List<RegrasSLACategorizacao__c> toUpdate = new List<RegrasSLACategorizacao__c>();
+        Set<String> processedAreas = new Set<String>();
 
         for (GestaoSLADTO.RegraSLARequest request : requests) {
             request.escopoRegra = RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA;
@@ -388,28 +390,38 @@ public inherited sharing class GestaoSLAService {
             validateRegraSLARequest(request, false);
 
             String normalizedArea = normalizeOptionalText(request.areaAtendimento);
-            if (existingAreas.contains(normalizedArea)) {
-                throw new FunctionalException('Já existe uma regra ativa para a área: ' + request.areaAtendimento);
+            if (processedAreas.contains(normalizedArea)) {
+                throw new FunctionalException('Área duplicada na mesma requisição: ' + request.areaAtendimento);
             }
-            existingAreas.add(normalizedArea);
+            processedAreas.add(normalizedArea);
 
-            toInsert.add(new RegrasSLACategorizacao__c(
-                GestaoSLA__c = gestaoSLAId,
-                Categorizacao__c = categorizacaoId,
-                MarcoSLA__c = null,
-                EscopoRegra__c = RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA,
-                AreaAtendimento__c = normalizedArea,
-                TempoBaixa__c = request.tempoBaixa,
-                TempoMedia__c = request.tempoMedia,
-                TempoAlta__c = request.tempoAlta,
-                Ativo__c = true
-            ));
+            RegrasSLACategorizacao__c existing = existingByArea.get(normalizedArea);
+            if (existing != null) {
+                existing.TempoBaixa__c = request.tempoBaixa;
+                existing.TempoMedia__c = request.tempoMedia;
+                existing.TempoAlta__c = request.tempoAlta;
+                toUpdate.add(existing);
+            } else {
+                toInsert.add(new RegrasSLACategorizacao__c(
+                    GestaoSLA__c = gestaoSLAId,
+                    Categorizacao__c = categorizacaoId,
+                    MarcoSLA__c = null,
+                    EscopoRegra__c = RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA,
+                    AreaAtendimento__c = normalizedArea,
+                    TempoBaixa__c = request.tempoBaixa,
+                    TempoMedia__c = request.tempoMedia,
+                    TempoAlta__c = request.tempoAlta,
+                    Ativo__c = true
+                ));
+            }
         }
 
-        insert toInsert;
+        if (!toInsert.isEmpty()) insert toInsert;
+        if (!toUpdate.isEmpty()) update toUpdate;
 
-        Set<Id> insertedIds = new Set<Id>();
-        for (RegrasSLACategorizacao__c r : toInsert) insertedIds.add(r.Id);
+        Set<Id> affectedIds = new Set<Id>();
+        for (RegrasSLACategorizacao__c r : toInsert) affectedIds.add(r.Id);
+        for (RegrasSLACategorizacao__c r : toUpdate) affectedIds.add(r.Id);
 
         List<GestaoSLADTO.RegraSLAResumo> results = new List<GestaoSLADTO.RegraSLAResumo>();
         for (RegrasSLACategorizacao__c r : [
@@ -419,7 +431,7 @@ public inherited sharing class GestaoSLAService {
                    EscopoRegra__c, AreaAtendimento__c,
                    TempoBaixa__c, TempoMedia__c, TempoAlta__c, Ativo__c
             FROM RegrasSLACategorizacao__c
-            WHERE Id IN :insertedIds
+            WHERE Id IN :affectedIds
             ORDER BY AreaAtendimento__c
         ]) {
             results.add(toRegraSLAResumo(r));
@@ -856,6 +868,108 @@ public inherited sharing class GestaoSLAService {
         if (perms == null || perms.canManageRules != true) {
             throw new FunctionalException('Você não possui permissão para gerenciar regras de SLA.');
         }
+    }
+
+    private static void ensureCanDelete(GestaoSLADTO.PermissionInfo perms) {
+        if (perms == null || perms.canAdminTechnicalSettings != true) {
+            throw new FunctionalException('Você não possui permissão para excluir registros de Gestão de SLA.');
+        }
+    }
+
+    /**
+     * @description Exclui definitivamente uma Regra de SLA. Restrito ao Admin Técnico.
+     * @param regraSLAId Id da RegrasSLACategorizacao__c a excluir.
+     **/
+    public static void deleteRegraSLA(Id regraSLAId) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        ensureCanDelete(perms);
+        if (regraSLAId == null) {
+            throw new FunctionalException('Regra de SLA não informada.');
+        }
+        if (!Schema.sObjectType.RegrasSLACategorizacao__c.isDeletable()) {
+            throw new FunctionalException('Você não possui permissão (FLS/CRUD) para excluir Regras de SLA.');
+        }
+
+        List<RegrasSLACategorizacao__c> rows = [SELECT Id FROM RegrasSLACategorizacao__c WHERE Id = :regraSLAId LIMIT 1];
+        if (rows.isEmpty()) {
+            throw new FunctionalException('Regra de SLA não encontrada.');
+        }
+        delete rows[0];
+    }
+
+    /**
+     * @description Exclui definitivamente um conjunto de Regras de SLA de Área Interna como
+     *              consequência de limpar os campos de tempo na grid de edição em lote. Usa a
+     *              mesma permissão de gerenciamento de regras (não exige Admin Técnico), pois é
+     *              parte do fluxo normal de edição da grid.
+     * @param regraIds Ids das RegrasSLACategorizacao__c a excluir.
+     **/
+    public static void deleteRegrasSLABulk(List<Id> regraIds) {
+        if (regraIds == null || regraIds.isEmpty()) return;
+
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        ensureCanManageRules(perms);
+        if (!Schema.sObjectType.RegrasSLACategorizacao__c.isDeletable()) {
+            throw new FunctionalException('Você não possui permissão (FLS/CRUD) para excluir Regras de SLA.');
+        }
+
+        List<RegrasSLACategorizacao__c> rows = [SELECT Id FROM RegrasSLACategorizacao__c WHERE Id IN :regraIds];
+        if (!rows.isEmpty()) delete rows;
+    }
+
+    /**
+     * @description Exclui definitivamente uma Categorização e, por master-detail, suas Regras de SLA filhas.
+     *              Restrito ao Admin Técnico.
+     * @param categoriaId Id da Categorizacao__c a excluir.
+     **/
+    public static void deleteCategoria(Id categoriaId) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        ensureCanDelete(perms);
+        if (categoriaId == null) {
+            throw new FunctionalException('Categorização não informada.');
+        }
+        if (!Schema.sObjectType.Categorizacao__c.isDeletable()) {
+            throw new FunctionalException('Você não possui permissão (FLS/CRUD) para excluir Categorizações.');
+        }
+
+        List<Categorizacao__c> rows = [SELECT Id FROM Categorizacao__c WHERE Id = :categoriaId LIMIT 1];
+        if (rows.isEmpty()) {
+            throw new FunctionalException('Categorização não encontrada.');
+        }
+        delete rows[0];
+    }
+
+    /**
+     * @description Exclui definitivamente uma Gestão de SLA. Bloqueia a exclusão se ainda existirem
+     *              Categorizações vinculadas, para evitar órfãos (o relacionamento é Lookup, não cascade).
+     *              Restrito ao Admin Técnico.
+     * @param gestaoSLAId Id da GestaoSLA__c a excluir.
+     **/
+    public static void deleteGestaoSLA(Id gestaoSLAId) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        ensureCanDelete(perms);
+        if (gestaoSLAId == null) {
+            throw new FunctionalException('Gestão de SLA não informada.');
+        }
+        if (!Schema.sObjectType.GestaoSLA__c.isDeletable()) {
+            throw new FunctionalException('Você não possui permissão (FLS/CRUD) para excluir Gestões de SLA.');
+        }
+
+        List<GestaoSLA__c> rows = [SELECT Id FROM GestaoSLA__c WHERE Id = :gestaoSLAId LIMIT 1];
+        if (rows.isEmpty()) {
+            throw new FunctionalException('Gestão de SLA não encontrada.');
+        }
+
+        Integer categoriasVinculadas = [SELECT COUNT() FROM Categorizacao__c WHERE GestaoSLA__c = :gestaoSLAId];
+        if (categoriasVinculadas > 0) {
+            throw new FunctionalException('Não é possível excluir: existem Categorizações vinculadas a esta Gestão de SLA. Exclua ou reatribua as categorizações antes.');
+        }
+
+        delete rows[0];
     }
 
     private static GestaoSLA__c loadGestaoOrThrow(Id gestaoSLAId) {
