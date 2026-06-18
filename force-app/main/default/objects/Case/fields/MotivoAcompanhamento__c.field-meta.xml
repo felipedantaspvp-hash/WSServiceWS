@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MotivoAcompanhamento__c</fullName>
+    <description>Registra o motivo da entrada controlada do Case em acompanhamento com pausa de SLA.</description>
+    <inlineHelpText>Selecione o motivo operacional para colocar o Case em acompanhamento.</inlineHelpText>
+    <label>Motivo do Acompanhamento</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Operação externa</fullName>
+                <default>false</default>
+                <label>Operação externa</label>
+            </value>
+            <value>
+                <fullName>Aguardando cliente</fullName>
+                <default>false</default>
+                <label>Aguardando cliente</label>
+            </value>
+            <value>
+                <fullName>Aguardando terceiro</fullName>
+                <default>false</default>
+                <label>Aguardando terceiro</label>
+            </value>
+            <value>
+                <fullName>Aguardando movimentação operacional</fullName>
+                <default>false</default>
+                <label>Aguardando movimentação operacional</label>
+            </value>
+            <value>
+                <fullName>Aguardando documentação</fullName>
+                <default>false</default>
+                <label>Aguardando documentação</label>
+            </value>
+            <value>
+                <fullName>Outro</fullName>
+                <default>false</default>
+                <label>Outro</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

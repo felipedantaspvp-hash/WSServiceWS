@@ -1,0 +1,110 @@
+<template>
+    <template if:true={shouldRender}>
+        <section class="followup-banner slds-box slds-theme_default slds-m-bottom_medium" aria-live="polite">
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text={labels.loading}></lightning-spinner>
+            </template>
+
+            <template if:true={errorMessage}>
+                <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                    <span class="slds-assistive-text">{labels.errorTitle}</span>
+                    <lightning-icon icon-name="utility:error" size="x-small" variant="inverse"></lightning-icon>
+                    <h2 class="slds-m-left_x-small">{errorMessage}</h2>
+                </div>
+            </template>
+
+            <template if:true={showContent}>
+                <div class="slds-grid slds-wrap slds-gutters_x-small slds-grid_vertical-align-center">
+                    <div class="slds-col slds-grow">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-gutters_x-small">
+                            <div class="slds-col slds-grow-none">
+                                <lightning-icon icon-name="utility:warning" size="x-small" alternative-text={labels.title}></lightning-icon>
+                            </div>
+                            <div class="slds-col slds-grow-none">
+                                <h2 class="slds-text-heading_small followup-title">{labels.title}</h2>
+                            </div>
+                            <div class="slds-col slds-grow-none">
+                                <lightning-badge label={labels.badge}></lightning-badge>
+                            </div>
+                        </div>
+                        <p class="slds-text-body_small slds-m-top_xx-small followup-description">{labels.description}</p>
+                    </div>
+                    <div class="slds-col slds-grow-none followup-action">
+                        <lightning-button
+                            variant="brand"
+                            label={labels.resume}
+                            onclick={openResumeModal}
+                            disabled={isLoading}>
+                        </lightning-button>
+                    </div>
+                    <dl class="slds-col slds-size_1-of-1 followup-details slds-grid slds-wrap slds-gutters_x-small">
+                        <template for:each={detailItems} for:item="item">
+                            <div key={item.key} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-5">
+                                <dt class="slds-text-title_caps followup-label">{item.label}</dt>
+                                <dd class="slds-truncate followup-value" title={item.value}>{item.value}</dd>
+                            </div>
+                        </template>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-5">
+                            <dt class="slds-text-title_caps followup-label">{labels.startDate}</dt>
+                            <dd class="followup-value">
+                                <lightning-formatted-date-time
+                                    value={data.dataInicio}
+                                    year="numeric"
+                                    month="2-digit"
+                                    day="2-digit"
+                                    hour="2-digit"
+                                    minute="2-digit">
+                                </lightning-formatted-date-time>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </template>
+        </section>
+    </template>
+
+    <template if:true={isResumeModalOpen}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="resume-modal-heading" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning-button-icon
+                        class="slds-modal__close slds-button slds-button_icon"
+                        icon-name="utility:close"
+                        variant="bare"
+                        alternative-text={labels.cancel}
+                        onclick={closeResumeModal}
+                        disabled={isLoading}>
+                    </lightning-button-icon>
+                    <h2 id="resume-modal-heading" class="slds-modal__title slds-hyphenate">{labels.modalTitle}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <template if:true={isLoading}>
+                        <lightning-spinner alternative-text={labels.loadingResume}></lightning-spinner>
+                    </template>
+                    <lightning-textarea
+                        label={labels.resumeComment}
+                        value={comentarioSaida}
+                        onchange={handleResumeCommentChange}
+                        message-when-value-missing={labels.resumeCommentRequired}
+                        required>
+                    </lightning-textarea>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                        label={labels.cancel}
+                        onclick={closeResumeModal}
+                        disabled={isLoading}>
+                    </lightning-button>
+                    <lightning-button
+                        class="slds-m-left_x-small"
+                        variant="brand"
+                        label={labels.resume}
+                        onclick={handleResume}
+                        disabled={isLoading}>
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Relaciona a ação operacional ao Case de atendimento.</description>
+    <inlineHelpText>Informe o Case associado a esta ação operacional.</inlineHelpText>
+    <label>Caso</label>
+    <referenceTo>Case</referenceTo>
+    <relationshipLabel>Ações</relationshipLabel>
+    <relationshipName>Acoes</relationshipName>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

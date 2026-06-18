@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UsuarioInicioAcompanhamento__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Usuário que colocou o Case em acompanhamento.</description>
+    <inlineHelpText>Usuário preenchido automaticamente ao iniciar acompanhamento.</inlineHelpText>
+    <label>Usuário de Início do Acompanhamento</label>
+    <referenceTo>User</referenceTo>
+    <relationshipLabel>Cases em Acompanhamento Iniciados</relationshipLabel>
+    <relationshipName>CasesAcompanhamentoIniciados</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -9,6 +9,7 @@ public inherited sharing class CaseSurveyDispatchHelper {
     public static final String STATUS_SKIPPED = 'SKIPPED';
     public static final String STATUS_SENT = 'SENT';
     public static final String STATUS_CASE_CLOSURE_SENT = 'CASE_CLOSURE_SENT';
+    public static final String STATUS_CASE_OPENING_SENT = 'CASE_OPENING_SENT';
     public static final String STATUS_ERROR = 'ERROR';
 
     public static Set<Id> extractCaseIds(List<CaseSurveyDispatchDTO.Request> requests) {
@@ -51,6 +52,14 @@ public inherited sharing class CaseSurveyDispatchHelper {
             return config.caseClosureTemplateDeveloperNameEN;
         }
         return config.caseClosureTemplateDeveloperName;
+    }
+
+    public static String chooseCaseOpeningTemplateDeveloperName(AtendimentoConfigDTO config, String language) {
+        if (config == null) return null;
+        if (isEnglish(language) && !String.isBlank(config.caseOpeningTemplateDeveloperNameEN)) {
+            return config.caseOpeningTemplateDeveloperNameEN;
+        }
+        return config.caseOpeningTemplateDeveloperName;
     }
 
     public static String resolveLanguage(Case c, AtendimentoConfigDTO config) {

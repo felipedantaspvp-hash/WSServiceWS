@@ -4,20 +4,6 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>hideUpdateButton</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>variant</name>
-                    <value>linear</value>
-                </componentInstanceProperties>
-                <componentName>runtime_sales_pathassistant:pathAssistant</componentName>
-                <identifier>runtime_sales_pathassistant_pathAssistant</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
@@ -27,10 +13,41 @@
                             <value>Case.Recategorizar_Caso</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Case.Encerrar_Caso_Com_Pesquisa</value>
+                            <value>Case.Colocar_em_Acompanhamento</value>
+                            <visibilityRule>
+                                <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.Status}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Fechado</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Cancelado</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.EtapaAtendimento__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Em Acompanhamento</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>Global.NewTask</value>
+                            <value>Case.Encerrar_Caso_Com_Pesquisa</value>
+                            <visibilityRule>
+                                <booleanFilter>1 OR 2</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.Status}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Fechado</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Cancelado</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -48,7 +65,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>hideChatterActions</name>
-                    <value>false</value>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>hideSlackAction</name>
@@ -60,6 +77,20 @@
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
                 <identifier>force_highlightsPanel</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>hideUpdateButton</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>variant</name>
+                    <value>linear</value>
+                </componentInstanceProperties>
+                <componentName>runtime_sales_pathassistant:pathAssistant</componentName>
+                <identifier>runtime_sales_pathassistant_pathAssistant</identifier>
             </componentInstance>
         </itemInstances>
         <name>header</name>
@@ -152,10 +183,10 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.TipoCaso__c</fieldItem>
-                <identifier>RecordTipoCaso_cField</identifier>
+                <fieldItem>Record.UnidadeNegocio__c</fieldItem>
+                <identifier>RecordUnidadeNegocio_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -164,8 +195,8 @@
                     <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Assunto__c</fieldItem>
-                <identifier>RecordAssunto_cField</identifier>
+                <fieldItem>Record.TipoCaso__c</fieldItem>
+                <identifier>RecordTipoCaso_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-94951607-f036-4ac5-ad09-fa2c784ccbd9</name>
@@ -176,7 +207,17 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Assunto__c</fieldItem>
+                <identifier>RecordAssunto_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Categoria__c</fieldItem>
                 <identifier>RecordCategoria_cField</identifier>
@@ -230,16 +271,6 @@
                 <identifier>RecordOriginField</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.EtapaAtendimento__c</fieldItem>
-                <identifier>RecordEtapaAtendimento_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-e386ddc7-63dd-48a8-bc05-bfd7f6e21141</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -252,6 +283,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Priority</fieldItem>
                 <identifier>RecordPriorityField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EtapaAtendimento__c</fieldItem>
+                <identifier>RecordEtapaAtendimento_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-08173715-5429-4b9a-a7e0-b294a2211943</name>
@@ -288,28 +329,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Subject</fieldItem>
-                <identifier>RecordSubjectField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.Description</fieldItem>
                 <identifier>RecordDescriptionField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Comments</fieldItem>
-                <identifier>RecordCommentsField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-5997186b-f90d-4b60-bd2e-80148eca120f</name>
@@ -486,6 +507,12 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>caseAcompanhamentoBanner</componentName>
+                <identifier>c_caseAcompanhamentoBanner</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
                     <value>Facet-7034aca1-0502-4886-ab84-08c3ef6c7add</value>
@@ -609,7 +636,7 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentName>support:milestones</componentName>
-                <identifier>support_milestones</identifier>
+                <identifier>support_milestones2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -620,33 +647,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListApiName</name>
-                    <value>OpenActivities</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>NONE</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>rowsToDisplay</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showActionBar</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer2</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>parentFieldApiName</name>
-                    <value>Case.Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListApiName</name>
-                    <value>MessagingSessions</value>
+                    <value>CaseComments</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListComponentOverride</name>

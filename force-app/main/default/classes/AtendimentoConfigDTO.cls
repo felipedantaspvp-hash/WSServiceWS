@@ -21,6 +21,9 @@ public inherited sharing class AtendimentoConfigDTO {
     @AuraEnabled public String emailTemplateDeveloperNameEN { get; set; }
     @AuraEnabled public String caseClosureTemplateDeveloperName { get; set; }
     @AuraEnabled public String caseClosureTemplateDeveloperNameEN { get; set; }
+    @AuraEnabled public Boolean sendCaseOpeningEmail { get; set; }
+    @AuraEnabled public String caseOpeningTemplateDeveloperName { get; set; }
+    @AuraEnabled public String caseOpeningTemplateDeveloperNameEN { get; set; }
     @AuraEnabled public String orgWideEmailAddress { get; set; }
     @AuraEnabled public String surveyCommunityUrlPathPrefix { get; set; }
     @AuraEnabled public String brandLogoResourceName { get; set; }

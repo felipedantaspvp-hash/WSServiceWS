@@ -98,6 +98,9 @@ public inherited sharing class AtendimentoConfigService {
         dto.emailTemplateDeveloperNameEN = row.EmailTemplateDeveloperNameEN__c;
         dto.caseClosureTemplateDeveloperName = row.CaseClosureTemplateDeveloperName__c;
         dto.caseClosureTemplateDeveloperNameEN = row.CaseClosureTemplateDeveloperNameEN__c;
+        dto.sendCaseOpeningEmail = row.SendCaseOpeningEmail__c;
+        dto.caseOpeningTemplateDeveloperName = row.CaseOpeningTemplateDeveloperName__c;
+        dto.caseOpeningTemplateDeveloperNameEN = row.CaseOpeningTemplateDeveloperNameEN__c;
         dto.orgWideEmailAddress = row.OrgWideEmailAddress__c;
         dto.surveyCommunityUrlPathPrefix = row.SurveyCommunityUrlPathPrefix__c;
         dto.brandLogoResourceName = row.BrandLogoResourceName__c;
@@ -136,6 +139,9 @@ public inherited sharing class AtendimentoConfigService {
         dto.emailTemplateDeveloperNameEN = source.emailTemplateDeveloperNameEN;
         dto.caseClosureTemplateDeveloperName = source.caseClosureTemplateDeveloperName;
         dto.caseClosureTemplateDeveloperNameEN = source.caseClosureTemplateDeveloperNameEN;
+        dto.sendCaseOpeningEmail = source.sendCaseOpeningEmail == true;
+        dto.caseOpeningTemplateDeveloperName = source.caseOpeningTemplateDeveloperName;
+        dto.caseOpeningTemplateDeveloperNameEN = source.caseOpeningTemplateDeveloperNameEN;
         dto.orgWideEmailAddress = source.orgWideEmailAddress;
         dto.surveyCommunityUrlPathPrefix = source.surveyCommunityUrlPathPrefix;
         dto.brandLogoResourceName = source.brandLogoResourceName;

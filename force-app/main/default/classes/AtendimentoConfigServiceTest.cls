@@ -1,10 +1,3 @@
-/**
- * @description       : Testes unitários de AtendimentoConfigService.
- * @author            : Triscal
- * @group             : Atendimento
- * @last modified on  : 06-12-2026
- * @last modified by  : Marllon Nascimento
- **/
 @IsTest
 private class AtendimentoConfigServiceTest {
     @IsTest
@@ -20,6 +13,9 @@ private class AtendimentoConfigServiceTest {
         Assert.areEqual(true, result.verifyDailySurvey);
         Assert.areEqual('Atend_Close_Test', result.caseClosureTemplateDeveloperName);
         Assert.areEqual('Atend_Close_Test_EN', result.caseClosureTemplateDeveloperNameEN);
+        Assert.areEqual(true, result.sendCaseOpeningEmail);
+        Assert.areEqual('Atend_Open_Test', result.caseOpeningTemplateDeveloperName);
+        Assert.areEqual('Atend_Open_Test_EN', result.caseOpeningTemplateDeveloperNameEN);
 
         AtendimentoConfigService.clearTestSurveyConfigs();
     }
@@ -63,6 +59,9 @@ private class AtendimentoConfigServiceTest {
         Assert.areEqual('Atend_Survey_Email_CentroLogistico', result.emailTemplateDeveloperName);
         Assert.areEqual('Atend_Close_CL_PT', result.caseClosureTemplateDeveloperName);
         Assert.areEqual('Atend_Close_CL_EN', result.caseClosureTemplateDeveloperNameEN);
+        Assert.areEqual(true, result.sendCaseOpeningEmail);
+        Assert.areEqual('Atend_Open_CL_PT', result.caseOpeningTemplateDeveloperName);
+        Assert.areEqual('Atend_Open_CL_EN', result.caseOpeningTemplateDeveloperNameEN);
         Assert.areEqual('logoWSemail', result.brandLogoResourceName);
     }
 
@@ -83,6 +82,9 @@ private class AtendimentoConfigServiceTest {
         config.emailTemplateDeveloperNameEN = 'Atend_Survey_Email_Teste_EN';
         config.caseClosureTemplateDeveloperName = 'Atend_Close_Test';
         config.caseClosureTemplateDeveloperNameEN = 'Atend_Close_Test_EN';
+        config.sendCaseOpeningEmail = true;
+        config.caseOpeningTemplateDeveloperName = 'Atend_Open_Test';
+        config.caseOpeningTemplateDeveloperNameEN = 'Atend_Open_Test_EN';
         config.brandLogoResourceName = 'WILSON_SONS_LOGO_RESOURCE_NAME';
         config.brandPrimaryColor = 'WILSON_SONS_PRIMARY_COLOR';
         config.brandSecondaryColor = 'WILSON_SONS_SECONDARY_COLOR';

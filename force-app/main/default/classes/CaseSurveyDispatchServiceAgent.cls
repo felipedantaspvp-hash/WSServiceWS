@@ -76,6 +76,7 @@ public inherited sharing class CaseSurveyDispatchServiceAgent {
                 message.setOrgWideEmailAddressId(envelope.orgWideEmailAddressId);
             }
             message.setSaveAsActivity(false);
+            message.setUseSignature(false);
             messages.add(message);
         }
         Messaging.SendEmailResult[] emailResults = new Messaging.SendEmailResult[]{};
@@ -144,6 +145,7 @@ public inherited sharing class CaseSurveyDispatchServiceAgent {
                 message.setOrgWideEmailAddressId(envelope.orgWideEmailAddressId);
             }
             message.setSaveAsActivity(false);
+            message.setUseSignature(false);
             messages.add(message);
         }
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UsuarioInicio__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Usuário que iniciou a ação operacional.</description>
+    <inlineHelpText>Usuário responsável pelo início da ação operacional.</inlineHelpText>
+    <label>Usuário de Início</label>
+    <referenceTo>User</referenceTo>
+    <relationshipLabel>Ações Iniciadas</relationshipLabel>
+    <relationshipName>AcoesIniciadas</relationshipName>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

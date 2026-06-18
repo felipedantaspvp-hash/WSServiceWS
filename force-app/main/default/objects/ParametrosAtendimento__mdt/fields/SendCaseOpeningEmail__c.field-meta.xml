@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SendCaseOpeningEmail__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Controla se a unidade envia e-mail transacional de abertura quando o Case é criado com contato preenchido.</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Enviar E-mail de Abertura do Case</label>
+    <type>Checkbox</type>
+</CustomField>

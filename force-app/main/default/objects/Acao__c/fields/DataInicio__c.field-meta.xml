@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DataInicio__c</fullName>
+    <description>Registra a data e hora de início da ação operacional.</description>
+    <inlineHelpText>Data e hora em que a ação operacional foi iniciada.</inlineHelpText>
+    <label>Data/Hora de Início</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

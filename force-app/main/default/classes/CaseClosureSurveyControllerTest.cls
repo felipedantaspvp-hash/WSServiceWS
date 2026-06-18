@@ -1,10 +1,3 @@
-/**
- * @description       : Testes unitários de CaseClosureSurveyController.
- * @author            : Triscal
- * @group             : Case Closure Survey
- * @last modified on  : 06-17-2026
- * @last modified by  : Marllon Nascimento
- **/
 @IsTest
 private class CaseClosureSurveyControllerTest {
     @IsTest

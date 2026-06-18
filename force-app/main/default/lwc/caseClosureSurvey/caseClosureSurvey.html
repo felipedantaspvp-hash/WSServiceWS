@@ -1,0 +1,92 @@
+<template>
+    <lightning-quick-action-panel header="Encerrar Caso">
+        <div class="slds-p-around_medium">
+            <template if:true={loading}>
+                <lightning-spinner alternative-text="Carregando"></lightning-spinner>
+            </template>
+
+            <template if:false={loading}>
+                <template if:true={context}>
+                    <template if:true={isClosureBlocked}>
+                        <div class="slds-box slds-theme_warning slds-m-bottom_medium">
+                            <p>{context.categorizationBlockMessage}</p>
+                        </div>
+                    </template>
+
+                    <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <lightning-input label="Número do Caso" value={context.caseNumber} disabled></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <lightning-input label="Unidade de Negócio" value={context.businessUnit} disabled></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <lightning-input label="Canal" value={context.channel} disabled></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <lightning-input label="Status de Encerramento" value={context.closureStatus} disabled></lightning-input>
+                        </div>
+                    </div>
+
+                    <h3 class="slds-text-title_bold slds-m-bottom_small">Dados de Encerramento</h3>
+                    <lightning-input
+                        class="slds-m-bottom_small"
+                        label="Motivo de Encerramento"
+                        value={model.closureReason}
+                        data-field="closureReason"
+                        onchange={handleChange}
+                        required>
+                    </lightning-input>
+                    <lightning-textarea
+                        class="slds-m-bottom_small"
+                        label="Solução do Caso"
+                        value={model.closureSolution}
+                        data-field="closureSolution"
+                        onchange={handleChange}
+                        required>
+                    </lightning-textarea>
+                    <lightning-textarea
+                        label="Comentário de Encerramento"
+                        value={model.closureComment}
+                        data-field="closureComment"
+                        onchange={handleChange}>
+                    </lightning-textarea>
+
+                    <template if:true={showSurveyInfo}>
+                        <div class="slds-box slds-theme_info slds-m-top_medium">
+                            <p>A pesquisa de satisfação será enviada conforme regra da unidade de negócio.</p>
+                        </div>
+                    </template>
+
+                    <template if:true={context.showSurveyQuestion}>
+                        <h3 class="slds-text-title_bold slds-m-top_medium slds-m-bottom_small">Pesquisa de Satisfação</h3>
+                        <lightning-radio-group
+                            label="Deseja enviar pesquisa de satisfação para este cliente?"
+                            options={surveyOptions}
+                            value={sendSurveyValue}
+                            type="radio"
+                            onchange={handleSurveyChange}>
+                        </lightning-radio-group>
+
+                        <template if:true={context.showDailySurveyIndicator}>
+                            <div class="slds-box slds-theme_default slds-m-top_small">
+                                <p>{context.surveyAlreadySentMessage}</p>
+                            </div>
+                        </template>
+                    </template>
+                </template>
+            </template>
+        </div>
+
+        <div slot="footer" class="slds-grid slds-grid_align-end slds-gutters_x-small">
+            <lightning-button label="Cancelar" onclick={cancel}></lightning-button>
+            <lightning-button
+                class="slds-m-left_x-small"
+                variant="brand"
+                label="Encerrar"
+                onclick={submit}
+                disabled={disableSubmit}>
+            </lightning-button>
+        </div>
+    </lightning-quick-action-panel>
+</template>
