@@ -39,6 +39,7 @@ public inherited sharing class AtendimentoConfigDTO {
     @AuraEnabled public String defaultQueueDeveloperName { get; set; }
     @AuraEnabled public String queueDeveloperNamePrefix { get; set; }
     @AuraEnabled public String messagingChannelDeveloperName { get; set; }
+    @AuraEnabled public String whatsAppChannelDeveloperName { get; set; }
     @AuraEnabled public String messagingChannelType { get; set; }
     @AuraEnabled public String messagingTargetQueueDeveloperName { get; set; }
     @AuraEnabled public String messagingFallbackQueueDeveloperName { get; set; }

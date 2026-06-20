@@ -1,0 +1,215 @@
+<template>
+    <lightning-card title={labels.title} icon-name="standard:account">
+        <div slot="actions">
+            <lightning-button label={labels.newSchedule} variant="brand" onclick={handleNew} disabled={loading}></lightning-button>
+        </div>
+
+        <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+            <template if:true={loading}>
+                <lightning-spinner alternative-text={labels.loadingSchedules}></lightning-spinner>
+            </template>
+
+            <template if:true={accountName}>
+                <p class="slds-text-body_small slds-m-bottom_medium">{accountName}</p>
+            </template>
+
+            <template if:false={hasSchedules}>
+                <div class="empty-state slds-text-align_center slds-p-vertical_large">
+                    <lightning-icon icon-name="utility:event" size="small"></lightning-icon>
+                    <p class="slds-m-top_small">{labels.emptyState}</p>
+                </div>
+            </template>
+
+            <template if:true={hasSchedules}>
+                <div class="schedule-list" role="list">
+                    <template for:each={scheduleCards} for:item="schedule">
+                        <article key={schedule.id} class="schedule-card" role="listitem">
+                            <div class="schedule-card__header">
+                                <div class="schedule-card__identity">
+                                    <div class="schedule-card__title">
+                                        <div class="field-label">{labels.scheduleNumber}</div>
+                                        <div class="schedule-card__number">{schedule.name}</div>
+                                    </div>
+                                    <span class={schedule.statusClass}>{schedule.statusLabel}</span>
+                                </div>
+                                <div class="schedule-card__actions">
+                                    <lightning-button-icon
+                                        icon-name="utility:edit"
+                                        variant="border-filled"
+                                        alternative-text={labels.edit}
+                                        title={labels.edit}
+                                        data-id={schedule.id}
+                                        data-action="edit"
+                                        onclick={handleScheduleAction}
+                                    ></lightning-button-icon>
+                                    <lightning-button-icon
+                                        icon-name={schedule.toggleIconName}
+                                        variant="border-filled"
+                                        alternative-text={schedule.toggleLabel}
+                                        title={schedule.toggleLabel}
+                                        data-id={schedule.id}
+                                        data-action="toggle"
+                                        onclick={handleScheduleAction}
+                                    ></lightning-button-icon>
+                                </div>
+                            </div>
+
+                            <div class="schedule-card__body">
+                                <section class="schedule-card__section schedule-card__section_main">
+                                    <div class="field-label">{labels.businessUnit}</div>
+                                    <div class="field-value field-value_strong">{schedule.displayUnidadeNegocio}</div>
+                                </section>
+
+                                <section class="schedule-card__section schedule-card__section_main">
+                                    <div class="field-label">{labels.category}</div>
+                                    <div class="field-value field-value_strong">{schedule.displayCategoria}</div>
+                                </section>
+
+                                <section class="schedule-card__section">
+                                    <div class="field-label">{labels.caseType}</div>
+                                    <div class="field-value">{schedule.displayTipoCaso}</div>
+                                </section>
+
+                                <template if:true={schedule.hasAssunto}>
+                                    <section class="schedule-card__section">
+                                        <div class="field-label">{labels.subject}</div>
+                                        <div class="field-value">{schedule.displayAssunto}</div>
+                                    </section>
+                                </template>
+
+                                <template if:true={schedule.hasSubassunto}>
+                                    <section class="schedule-card__section">
+                                        <div class="field-label">{labels.subsubject}</div>
+                                        <div class="field-value">{schedule.displaySubassunto}</div>
+                                    </section>
+                                </template>
+                            </div>
+
+                            <div class="schedule-card__meta">
+                                <div class="meta-item">
+                                    <lightning-icon icon-name="utility:repeat" size="xx-small"></lightning-icon>
+                                    <span class="meta-item__label">{labels.frequency}</span>
+                                    <span class="meta-item__value">{schedule.displayFrequencia}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <lightning-icon icon-name="utility:clock" size="xx-small"></lightning-icon>
+                                    <span class="meta-item__label">{labels.executionTime}</span>
+                                    <span class="meta-item__value">{schedule.horarioExecucao}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <lightning-icon icon-name="utility:event" size="xx-small"></lightning-icon>
+                                    <span class="meta-item__label">{labels.startDate}</span>
+                                    <span class="meta-item__value">
+                                        <lightning-formatted-date-time value={schedule.dataInicio}></lightning-formatted-date-time>
+                                    </span>
+                                </div>
+                                <div class="meta-item meta-item_owner">
+                                    <lightning-icon icon-name="utility:user" size="xx-small"></lightning-icon>
+                                    <span class="meta-item__label">{labels.owner}</span>
+                                    <span class="meta-item__value">{schedule.ownerDisplay}</span>
+                                </div>
+                            </div>
+
+                            <template if:true={schedule.hasLastError}>
+                                <div class="schedule-card__error">
+                                    <lightning-icon icon-name="utility:warning" size="xx-small"></lightning-icon>
+                                    <div>
+                                        <div class="field-label">{labels.lastError}</div>
+                                        <div class="field-value">{schedule.ultimoErroExecucao}</div>
+                                    </div>
+                                </div>
+                            </template>
+                        </article>
+                    </template>
+                </div>
+            </template>
+
+            <template if:true={showForm}>
+                <section class="form-panel slds-m-top_medium">
+                    <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center slds-m-bottom_small">
+                        <h2 class="slds-text-heading_small">{formTitle}</h2>
+                        <lightning-button-icon icon-name="utility:close" alternative-text={labels.close} title={labels.close} onclick={handleCancel}></lightning-button-icon>
+                    </div>
+
+                    <div class="section-title">{labels.serviceData}</div>
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning-combobox
+                                data-form-field
+                                name="recordTypeId"
+                                label={labels.businessUnit}
+                                value={form.categorization.recordTypeId}
+                                options={recordTypeOptions}
+                                onchange={handleRecordTypeChange}
+                                required
+                            ></lightning-combobox>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning-input label={labels.selectedBusinessUnit} value={form.categorization.unidadeNegocio} disabled></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning-combobox data-form-field name="tipoCaso" label={labels.caseType} value={form.categorization.tipoCaso} options={tipoOptions} onchange={handleCategorizationChange} disabled={disableTipoCaso} required></lightning-combobox>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning-combobox data-form-field name="categoria" label={labels.category} value={form.categorization.categoria} options={categoriaOptions} onchange={handleCategorizationChange} disabled={disableCategoria} required></lightning-combobox>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning-combobox data-form-field name="assunto" label={labels.subject} value={form.categorization.assunto} options={assuntoOptions} onchange={handleCategorizationChange} disabled={disableAssunto}></lightning-combobox>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning-combobox data-form-field name="subassunto" label={labels.subsubject} value={form.categorization.subassunto} options={subassuntoOptions} onchange={handleCategorizationChange} disabled={disableSubassunto}></lightning-combobox>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1">
+                            <lightning-textarea data-form-field name="descricaoAtividade" label={labels.activityDescription} value={form.descricaoAtividade} onchange={handleFormChange} required></lightning-textarea>
+                        </div>
+                    </div>
+
+                    <div class="section-title slds-m-top_medium">{labels.recurrence}</div>
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-3">
+                            <lightning-combobox data-form-field name="frequencia" label={labels.frequency} value={form.frequencia} options={frequenciaOptions} onchange={handleFormChange} required></lightning-combobox>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-3">
+                            <lightning-input data-form-field type="time" name="horarioExecucao" label={labels.executionTime} value={form.horarioExecucao} onchange={handleFormChange} required></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-3">
+                            <lightning-input data-form-field type="date" name="dataInicio" label={labels.startDate} value={form.dataInicio} onchange={handleFormChange} required></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning-input type="checkbox" name="pularFimDeSemana" label={labels.skipWeekends} checked={form.pularFimDeSemana} onchange={handleCheckboxChange}></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning-input type="checkbox" name="ativo" label={labels.active} checked={form.ativo} onchange={handleCheckboxChange}></lightning-input>
+                        </div>
+                    </div>
+
+                    <div class="section-title slds-m-top_medium">{labels.responsible}</div>
+                    <template if:true={resolvedQueue}>
+                        <lightning-input label={labels.suggestedQueue} value={resolvedQueueLabel} disabled></lightning-input>
+                    </template>
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning-combobox data-form-field name="ownerType" label={labels.ownerType} value={form.ownerType} options={ownerTypeOptions} onchange={handleOwnerTypeChange} disabled={hasResolvedQueue} required></lightning-combobox>
+                        </div>
+                        <template if:true={showUserOwner}>
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                <lightning-input type="search" label={labels.searchActiveUser} value={userSearchTerm} onchange={handleUserSearch}></lightning-input>
+                                <lightning-combobox data-form-field name="ownerUserId" label={labels.user} value={form.ownerUserId} options={userOptions} onchange={handleUserChange} required></lightning-combobox>
+                            </div>
+                        </template>
+                        <template if:true={showQueueOwner}>
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                <lightning-combobox data-form-field name="ownerQueueDeveloperName" label={labels.queue} value={form.ownerQueueDeveloperName} options={queueOptions} onchange={handleQueueChange} disabled={hasResolvedQueue} required></lightning-combobox>
+                            </div>
+                        </template>
+                    </div>
+
+                    <div class="slds-m-top_medium slds-grid slds-gutters_small slds-grid_align-end">
+                        <lightning-button label={labels.cancel} onclick={handleCancel}></lightning-button>
+                        <lightning-button label={labels.save} variant="brand" onclick={handleSave} disabled={saving}></lightning-button>
+                    </div>
+                </section>
+            </template>
+        </div>
+    </lightning-card>
+</template>

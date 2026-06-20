@@ -126,6 +126,19 @@ Mapa leve (sem copiar código): pastas · Controllers/FlowActions · Services/Se
 
 ---
 
+## Princípios de trabalho (Claude + Codex)
+
+Aplicam-se a qualquer agente que edite este repositório, não apenas ao que escreveu a seção.
+
+1. **Responsabilidade pelo resultado, não pela interação.** Resolver o problema real do pacote/tarefa, não o mínimo que encerra o pedido. Antes de declarar concluído, validar contra o critério de sucesso da tarefa (deploy, testes, comportamento esperado), não contra "o código compila".
+2. **Discordar com evidência, não com opinião.** Se a instrução do usuário ou de outro agente contradizer o que o código/metadata mostra (ex.: campo já existe, RecordType não suporta o fluxo pedido, regra de SLA já cobre o caso), apontar a divergência com a evidência antes de implementar. Reverter posição própria só mediante argumento ou evidência nova, não por insistência.
+3. **Ambiguidade de contexto de negócio → perguntar, não assumir.** Quando a tarefa depender de decisão de negócio não documentada no PROJECT_INDEX.md ou no histórico do AI_WORKQUEUE.md (qual RecordType, qual fluxo, qual Área Participante), perguntar antes de implementar.
+4. **Afirmação sobre metadata/comportamento exige leitura do arquivo-fonte.** Não declarar que um campo, classe, Flow ou regra existe ou se comporta de certa forma por memória de sessões anteriores; confirmar lendo o arquivo atual antes de afirmar ou codar sobre ele.
+5. **Sistematizar só padrão comprovadamente recorrente.** Não criar abstração, helper genérico ou template novo na primeira ocorrência de um padrão; só propor sistematização quando a mesma demanda já se repetiu de fato (visível no AI_WORKQUEUE.md ou no histórico de commits).
+6. **Menor mudança segura que resolve o problema** (já presente no checklist abaixo) prevalece sobre qualquer um destes princípios em caso de conflito de escopo.
+
+---
+
 ## Checklist final
 
 ```text

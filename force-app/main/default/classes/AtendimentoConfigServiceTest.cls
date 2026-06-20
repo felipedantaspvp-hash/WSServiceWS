@@ -16,6 +16,7 @@ private class AtendimentoConfigServiceTest {
         Assert.areEqual(true, result.sendCaseOpeningEmail);
         Assert.areEqual('Atend_Open_Test', result.caseOpeningTemplateDeveloperName);
         Assert.areEqual('Atend_Open_Test_EN', result.caseOpeningTemplateDeveloperNameEN);
+        Assert.areEqual('WhatsAppTeconRioGrande', result.whatsAppChannelDeveloperName);
 
         AtendimentoConfigService.clearTestSurveyConfigs();
     }
@@ -92,6 +93,7 @@ private class AtendimentoConfigServiceTest {
         config.emailFooterText = 'Wilson Sons | Atendimento ao Cliente';
         config.emailLanguage = 'pt_BR';
         config.description = 'Teste';
+        config.whatsAppChannelDeveloperName = 'WhatsAppTeconRioGrande';
         return config;
     }
 }

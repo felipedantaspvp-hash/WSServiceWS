@@ -236,16 +236,21 @@ public inherited sharing class MessagingContextService {
         }
 
         for (AtendimentoConfigDTO row : AtendimentoConfigService.getActiveConfigs()) {
-            ChannelConfig cfg = new ChannelConfig();
-            cfg.channelDeveloperName = String.isBlank(row.messagingChannelDeveloperName) ? row.developerName : row.messagingChannelDeveloperName;
-            cfg.businessUnit = row.businessUnit;
-            cfg.channelType = row.messagingChannelType;
-            cfg.targetQueueDeveloperName = row.messagingTargetQueueDeveloperName;
-            cfg.fallbackQueueDeveloperName = row.messagingFallbackQueueDeveloperName;
-            cfg.isActive = row.isActive;
-            if (String.isBlank(cfg.channelDeveloperName)) continue;
-            out.put(MessagingContextHelper.normalizeKey(cfg.channelDeveloperName), cfg);
+            putConfig(out, row, String.isBlank(row.messagingChannelDeveloperName) ? row.developerName : row.messagingChannelDeveloperName, row.messagingChannelType);
+            putConfig(out, row, row.whatsAppChannelDeveloperName, 'WhatsApp');
         }
         return out;
+    }
+
+    private static void putConfig(Map<String, ChannelConfig> configsByDeveloperName, AtendimentoConfigDTO row, String channelDeveloperName, String channelType) {
+        if (configsByDeveloperName == null || row == null || String.isBlank(channelDeveloperName)) return;
+        ChannelConfig cfg = new ChannelConfig();
+        cfg.channelDeveloperName = channelDeveloperName;
+        cfg.businessUnit = row.businessUnit;
+        cfg.channelType = channelType;
+        cfg.targetQueueDeveloperName = row.messagingTargetQueueDeveloperName;
+        cfg.fallbackQueueDeveloperName = row.messagingFallbackQueueDeveloperName;
+        cfg.isActive = row.isActive;
+        configsByDeveloperName.put(MessagingContextHelper.normalizeKey(cfg.channelDeveloperName), cfg);
     }
 }

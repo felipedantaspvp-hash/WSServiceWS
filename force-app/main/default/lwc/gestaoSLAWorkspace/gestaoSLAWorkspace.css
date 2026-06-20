@@ -263,6 +263,16 @@
     gap: 0.75rem;
 }
 
+.area-interna-help-box {
+    font-size: 0.78rem;
+}
+
+.area-interna-help-title {
+    font-weight: 700;
+    color: #032d60;
+    margin-bottom: 0.35rem;
+}
+
 .area-interna-bulk-table {
     overflow-x: auto;
 }

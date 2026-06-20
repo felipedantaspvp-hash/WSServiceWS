@@ -6,6 +6,8 @@
  * @last modified by Jean Duarte
  **/
 public inherited sharing class WSWillContextResolverService {
+    private static final Integer BRAZIL_COUNTRY_CODE_LENGTH = 2;
+
     @TestVisible private static Map<Id, SObject> testMessagingById;
     @TestVisible private static Map<Id, SObject> testEndUserById;
     @TestVisible private static Map<Id, SObject> testLiveChatById;
@@ -38,7 +40,7 @@ public inherited sharing class WSWillContextResolverService {
         Map<Id, SObject> messagingById = Test.isRunningTest() && testMessagingById != null ? testMessagingById : fetchByIds(
             'MessagingSession',
             messagingSessionIds,
-            new Set<String>{ 'Id', 'ContactId', 'EndUserContactId', 'MessagingEndUserId', 'MessagingChannelId', 'ChannelType', 'ChannelKey' }
+            new Set<String>{ 'Id', 'ContactId', 'EndUserContactId', 'MessagingEndUserId', 'MessagingChannelId', 'ChannelName', 'ChannelType', 'ChannelKey' }
         );
         Set<Id> messagingChannelIds = new Set<Id>();
         for (SObject row : messagingById.values()) {
@@ -62,7 +64,7 @@ public inherited sharing class WSWillContextResolverService {
         Map<Id, SObject> endUserById = Test.isRunningTest() && testEndUserById != null ? testEndUserById : fetchByIds(
             'MessagingEndUser',
             endUserIds,
-            new Set<String>{ 'Id', 'ContactId', 'AccountId' }
+            new Set<String>{ 'Id', 'ContactId', 'AccountId', 'MessagingPlatformKey', 'Language' }
         );
 
         Set<Id> allContactIds = new Set<Id>();
@@ -79,6 +81,10 @@ public inherited sharing class WSWillContextResolverService {
         for (SObject row : endUserById.values()) {
             Id c = getIdSafe(row, 'ContactId');
             if (c != null) allContactIds.add(c);
+        }
+        Map<Id, Contact> contactByEndUserPlatformKey = fetchContactsByEndUserPlatformKey(endUserById);
+        for (Contact c : contactByEndUserPlatformKey.values()) {
+            allContactIds.add(c.Id);
         }
 
         Map<Id, Contact> contactById = fetchContacts(allContactIds);
@@ -108,6 +114,10 @@ public inherited sharing class WSWillContextResolverService {
                 if (endUserId == null) endUserId = sessionEndUserId;
                 res.conversationContactId = getIdSafe(messaging, 'ContactId');
                 if (res.conversationContactId == null) res.conversationContactId = getIdSafe(messaging, 'EndUserContactId');
+                if (normalizedChannelType == AtendimentoContextResolverHelper.CHANNEL_UNKNOWN) {
+                    normalizedChannelType = AtendimentoContextResolverHelper.normalizeChannelType(String.valueOf(messaging.get('ChannelType')));
+                    res.channelName = AtendimentoContextResolverHelper.channelDisplayName(normalizedChannelType);
+                }
             } else if (liveChat != null) {
                 res.conversationContactId = getIdSafe(liveChat, 'ContactId');
             }
@@ -116,6 +126,9 @@ public inherited sharing class WSWillContextResolverService {
             Id resolvedContactId = null;
             if (resolvedContactId == null && res.conversationContactId != null) resolvedContactId = res.conversationContactId;
             if (resolvedContactId == null && endUser != null) resolvedContactId = getIdSafe(endUser, 'ContactId');
+            if (resolvedContactId == null && normalizedChannelType == AtendimentoContextResolverHelper.CHANNEL_WHATSAPP && contactByEndUserPlatformKey.containsKey(endUserId)) {
+                resolvedContactId = contactByEndUserPlatformKey.get(endUserId).Id;
+            }
             if (res.conversationContactId == null && resolvedContactId != null) res.conversationContactId = resolvedContactId;
 
             if (resolvedContactId != null && contactById.containsKey(resolvedContactId)) {
@@ -131,22 +144,22 @@ public inherited sharing class WSWillContextResolverService {
             String language = res.contactId == null
                 ? null
                 : WSWillContextResolverHelper.normalizePreferredLanguage(contactById.get(res.contactId).Idioma__c);
+            if (String.isBlank(language) && endUser != null) {
+                language = WSWillContextResolverHelper.normalizePreferredLanguage(getStringSafe(endUser, 'Language'));
+            }
             res.preferredLanguage = language;
             res.shouldAskLanguage = String.isBlank(language);
 
             String channelIdentifier;
             if (messaging != null) {
+                channelIdentifier = getStringSafe(messaging, 'ChannelName');
                 Id messagingChannelId = getIdSafe(messaging, 'MessagingChannelId');
-                if (messagingChannelId != null && messagingChannelById.containsKey(messagingChannelId)) {
+                if (String.isBlank(channelIdentifier) && messagingChannelId != null && messagingChannelById.containsKey(messagingChannelId)) {
                     channelIdentifier = getStringSafe(messagingChannelById.get(messagingChannelId), 'DeveloperName');
                     if (String.isBlank(channelIdentifier)) channelIdentifier = getStringSafe(messagingChannelById.get(messagingChannelId), 'MasterLabel');
                 }
                 if (String.isBlank(channelIdentifier)) channelIdentifier = String.valueOf(messaging.get('ChannelKey'));
                 if (String.isBlank(channelIdentifier)) channelIdentifier = String.valueOf(messaging.get('MessagingChannelId'));
-                if (normalizedChannelType == AtendimentoContextResolverHelper.CHANNEL_UNKNOWN) {
-                    normalizedChannelType = AtendimentoContextResolverHelper.normalizeChannelType(String.valueOf(messaging.get('ChannelType')));
-                    res.channelName = AtendimentoContextResolverHelper.channelDisplayName(normalizedChannelType);
-                }
             } else if (liveChat != null) {
                 channelIdentifier = String.valueOf(liveChat.get('LiveChatDeploymentId'));
             }
@@ -201,6 +214,50 @@ public inherited sharing class WSWillContextResolverService {
             out.put(row.Id, row);
         }
         return out;
+    }
+
+    private static Map<Id, Contact> fetchContactsByEndUserPlatformKey(Map<Id, SObject> endUserById) {
+        Map<Id, Contact> out = new Map<Id, Contact>();
+        if (endUserById == null || endUserById.isEmpty()) return out;
+
+        Map<String, Id> endUserIdByMobile = new Map<String, Id>();
+        Set<String> mobilePhones = new Set<String>();
+        for (Id endUserId : endUserById.keySet()) {
+            String mobilePhone = mobileWithoutCountryCodeFromPlatformKey(getStringSafe(endUserById.get(endUserId), 'MessagingPlatformKey'));
+            if (String.isBlank(mobilePhone)) continue;
+            endUserIdByMobile.put(mobilePhone, endUserId);
+            mobilePhones.add(mobilePhone);
+        }
+        if (mobilePhones.isEmpty()) return out;
+        if (!Schema.sObjectType.Contact.isAccessible()) return out;
+
+        Map<String, Contact> contactByMobile = new Map<String, Contact>();
+        for (Contact row : [
+            SELECT Id, Name, AccountId, Idioma__c, MobilePhone
+            FROM Contact
+            WHERE MobilePhone IN :mobilePhones
+            ORDER BY LastModifiedDate DESC
+        ]) {
+            if (!contactByMobile.containsKey(row.MobilePhone)) {
+                contactByMobile.put(row.MobilePhone, row);
+            }
+        }
+
+        for (String mobilePhone : endUserIdByMobile.keySet()) {
+            Contact matchedContact = contactByMobile.get(mobilePhone);
+            if (matchedContact != null) {
+                out.put(endUserIdByMobile.get(mobilePhone), matchedContact);
+            }
+        }
+        return out;
+    }
+
+    @TestVisible
+    private static String mobileWithoutCountryCodeFromPlatformKey(String rawValue) {
+        if (String.isBlank(rawValue)) return null;
+        String digits = rawValue.replaceAll('[^0-9]', '');
+        if (digits.length() <= BRAZIL_COUNTRY_CODE_LENGTH) return digits;
+        return digits.substring(BRAZIL_COUNTRY_CODE_LENGTH);
     }
 
     private static Map<Id, Account> fetchAccounts(List<Contact> contacts) {
@@ -311,18 +368,45 @@ public inherited sharing class WSWillContextResolverService {
             if (row == null || row.isActive != true || String.isBlank(row.businessUnit)) continue;
             if (fallbackConfig == null) fallbackConfig = row;
 
-            String rowDeveloperName = AtendimentoContextResolverHelper.normalizeKey(row.messagingChannelDeveloperName);
-            String rowType = AtendimentoContextResolverHelper.normalizeKey(row.messagingChannelType);
+            String rowDeveloperName = AtendimentoContextResolverHelper.normalizeKey(primaryChannelDeveloperName(normalizedType, row));
+            String rowConfigName = AtendimentoContextResolverHelper.normalizeKey(row.developerName);
+            String rowBusinessUnit = AtendimentoContextResolverHelper.normalizeKey(row.businessUnit);
+            String rowMasterLabel = AtendimentoContextResolverHelper.normalizeKey(row.masterLabel);
 
-            if (!String.isBlank(normalizedIdentifier) && (rowDeveloperName == normalizedIdentifier || AtendimentoContextResolverHelper.normalizeKey(row.developerName) == normalizedIdentifier)) {
+            if (matchesChannelIdentifier(normalizedIdentifier, rowDeveloperName)
+                || matchesChannelIdentifier(normalizedIdentifier, rowConfigName)
+                || matchesChannelIdentifier(normalizedIdentifier, rowBusinessUnit)
+                || matchesChannelIdentifier(normalizedIdentifier, rowMasterLabel)) {
                 return row.businessUnit;
             }
+        }
+
+        for (AtendimentoConfigDTO row : rows) {
+            if (row == null || row.isActive != true || String.isBlank(row.businessUnit)) continue;
+
+            String rowType = AtendimentoContextResolverHelper.normalizeKey(row.messagingChannelType);
             if (!String.isBlank(normalizedType) && !String.isBlank(rowType) && (rowType == normalizedType || rowType.contains(normalizedType) || normalizedType.contains(rowType))) {
                 return row.businessUnit;
             }
         }
 
+        if (normalizedType == AtendimentoContextResolverHelper.normalizeKey(AtendimentoContextResolverHelper.CHANNEL_WHATSAPP)) {
+            return null;
+        }
         return fallbackConfig == null ? null : fallbackConfig.businessUnit;
+    }
+
+    private static String primaryChannelDeveloperName(String normalizedType, AtendimentoConfigDTO row) {
+        if (row == null) return null;
+        String normalizedWhatsAppType = AtendimentoContextResolverHelper.normalizeKey(AtendimentoContextResolverHelper.CHANNEL_WHATSAPP);
+        return normalizedType == normalizedWhatsAppType ? row.whatsAppChannelDeveloperName : row.messagingChannelDeveloperName;
+    }
+
+    private static Boolean matchesChannelIdentifier(String normalizedIdentifier, String normalizedCandidate) {
+        if (String.isBlank(normalizedIdentifier) || String.isBlank(normalizedCandidate)) return false;
+        return normalizedIdentifier == normalizedCandidate
+            || normalizedIdentifier.contains(normalizedCandidate)
+            || normalizedCandidate.contains(normalizedIdentifier);
     }
 
     private static List<AtendimentoConfigDTO> fetchActiveAtendimentoParams() {

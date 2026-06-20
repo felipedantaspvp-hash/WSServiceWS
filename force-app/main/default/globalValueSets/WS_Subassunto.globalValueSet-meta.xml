@@ -6,11 +6,6 @@
         <label>&quot;Cobrar de&quot; indevido</label>
     </customValue>
     <customValue>
-        <fullName>-</fullName>
-        <default>false</default>
-        <label>-</label>
-    </customValue>
-    <customValue>
         <fullName>Acesso indisponível</fullName>
         <default>false</default>
         <label>Acesso indisponível</label>
@@ -26,14 +21,39 @@
         <label>Acompanhamento - clientes</label>
     </customValue>
     <customValue>
-        <fullName>Agendamento de contêiner</fullName>
+        <fullName>Acompanhamento de processo IMP</fullName>
         <default>false</default>
-        <label>Agendamento de contêiner</label>
+        <label>Acompanhamento de processo IMP</label>
     </customValue>
     <customValue>
         <fullName>Agência informou moeda incorreta</fullName>
         <default>false</default>
         <label>Agência informou moeda incorreta</label>
+    </customValue>
+    <customValue>
+        <fullName>Agendamento de contêiner</fullName>
+        <default>false</default>
+        <label>Agendamento de contêiner</label>
+    </customValue>
+    <customValue>
+        <fullName>Agendamento de Serviços e AC</fullName>
+        <default>false</default>
+        <label>Agendamento de Serviços e AC</label>
+    </customValue>
+    <customValue>
+        <fullName>Agendamento Manual / OS / Levante</fullName>
+        <default>false</default>
+        <label>Agendamento Manual / OS / Levante</label>
+    </customValue>
+    <customValue>
+        <fullName>Ajuste de Dados Incorretos</fullName>
+        <default>false</default>
+        <label>Ajuste de Dados Incorretos</label>
+    </customValue>
+    <customValue>
+        <fullName>Ajuste Manual</fullName>
+        <default>false</default>
+        <label>Ajuste Manual</label>
     </customValue>
     <customValue>
         <fullName>Alteração</fullName>
@@ -46,19 +66,29 @@
         <label>Alteração da Programação</label>
     </customValue>
     <customValue>
-        <fullName>Alteração de &quot;cobrar de&quot;</fullName>
+        <fullName>Alteração de &apos;Cobrar de&apos;</fullName>
         <default>false</default>
-        <label>Alteração de &quot;cobrar de&quot;</label>
+        <label>Alteração de &apos;Cobrar de&apos;</label>
     </customValue>
     <customValue>
-        <fullName>Alteração de tempo livre ou outros</fullName>
+        <fullName>Alteração de Free Time</fullName>
         <default>false</default>
-        <label>Alteração de tempo livre ou outros</label>
+        <label>Alteração de Free Time</label>
+    </customValue>
+    <customValue>
+        <fullName>Alteração de free time ou outros</fullName>
+        <default>false</default>
+        <label>Alteração de free time ou outros</label>
     </customValue>
     <customValue>
         <fullName>Alterações</fullName>
         <default>false</default>
         <label>Alterações</label>
+    </customValue>
+    <customValue>
+        <fullName>Alterações de agendamento</fullName>
+        <default>false</default>
+        <label>Alterações de agendamento</label>
     </customValue>
     <customValue>
         <fullName>Amarração</fullName>
@@ -71,9 +101,29 @@
         <label>Análise de avaria (evidências)</label>
     </customValue>
     <customValue>
+        <fullName>Análise de demurrage</fullName>
+        <default>false</default>
+        <label>Análise de demurrage</label>
+    </customValue>
+    <customValue>
         <fullName>Aprovação de Agendamento</fullName>
         <default>false</default>
         <label>Aprovação de Agendamento</label>
+    </customValue>
+    <customValue>
+        <fullName>Armazenagem de Cabotagem – Free Time</fullName>
+        <default>false</default>
+        <label>Armazenagem de Cabotagem – Free Time</label>
+    </customValue>
+    <customValue>
+        <fullName>Armazenagem de importação</fullName>
+        <default>false</default>
+        <label>Armazenagem de importação</label>
+    </customValue>
+    <customValue>
+        <fullName>Armazenagem e transferência de lote</fullName>
+        <default>false</default>
+        <label>Armazenagem e transferência de lote</label>
     </customValue>
     <customValue>
         <fullName>Assistência</fullName>
@@ -89,6 +139,11 @@
         <fullName>Atraso do cliente na solicitação</fullName>
         <default>false</default>
         <label>Atraso do cliente na solicitação</label>
+    </customValue>
+    <customValue>
+        <fullName>Atraso na aprovação da NCM</fullName>
+        <default>false</default>
+        <label>Atraso na aprovação da NCM</label>
     </customValue>
     <customValue>
         <fullName>Atraso na atualização da solicitação do cliente</fullName>
@@ -111,6 +166,11 @@
         <label>Atualização de cadastro</label>
     </customValue>
     <customValue>
+        <fullName>Atualização de Deadline</fullName>
+        <default>false</default>
+        <label>Atualização de Deadline</label>
+    </customValue>
+    <customValue>
         <fullName>Atualização de E-mail</fullName>
         <default>false</default>
         <label>Atualização de E-mail</label>
@@ -121,6 +181,26 @@
         <label>Atualização de endereço da empresa (mesmo grupo)</label>
     </customValue>
     <customValue>
+        <fullName>Aumento de janelas</fullName>
+        <default>false</default>
+        <label>Aumento de janelas</label>
+    </customValue>
+    <customValue>
+        <fullName>Ausência de CTDA / Erro na Liberação DTC</fullName>
+        <default>false</default>
+        <label>Ausência de CTDA / Erro na Liberação DTC</label>
+    </customValue>
+    <customValue>
+        <fullName>Avaria / falta / troca de volumes</fullName>
+        <default>false</default>
+        <label>Avaria / falta / troca de volumes</label>
+    </customValue>
+    <customValue>
+        <fullName>Avaria de Origem (Damage)</fullName>
+        <default>false</default>
+        <label>Avaria de Origem (Damage)</label>
+    </customValue>
+    <customValue>
         <fullName>Avaria Interna (Pátio)</fullName>
         <default>false</default>
         <label>Avaria Interna (Pátio)</label>
@@ -129,6 +209,36 @@
         <fullName>Barcaça rígida</fullName>
         <default>false</default>
         <label>Barcaça rígida</label>
+    </customValue>
+    <customValue>
+        <fullName>Bloqueio Aduaneiro</fullName>
+        <default>false</default>
+        <label>Bloqueio Aduaneiro</label>
+    </customValue>
+    <customValue>
+        <fullName>Cadastro / Acesso</fullName>
+        <default>false</default>
+        <label>Cadastro / Acesso</label>
+    </customValue>
+    <customValue>
+        <fullName>Cadastro booking</fullName>
+        <default>false</default>
+        <label>Cadastro booking</label>
+    </customValue>
+    <customValue>
+        <fullName>Cadastro CPF e dados</fullName>
+        <default>false</default>
+        <label>Cadastro CPF e dados</label>
+    </customValue>
+    <customValue>
+        <fullName>Cadastro de NCM</fullName>
+        <default>false</default>
+        <label>Cadastro de NCM</label>
+    </customValue>
+    <customValue>
+        <fullName>Cadastro e Informações</fullName>
+        <default>false</default>
+        <label>Cadastro e Informações</label>
     </customValue>
     <customValue>
         <fullName>Cadastro Fornecedor</fullName>
@@ -151,11 +261,6 @@
         <label>Cadastro reserva</label>
     </customValue>
     <customValue>
-        <fullName>Cadastro/acesso</fullName>
-        <default>false</default>
-        <label>Cadastro/acesso</label>
-    </customValue>
-    <customValue>
         <fullName>Cancelamento</fullName>
         <default>false</default>
         <label>Cancelamento</label>
@@ -166,9 +271,24 @@
         <label>Cancelamento de agendamento</label>
     </customValue>
     <customValue>
+        <fullName>Cancelamento de Placa / Agendamento</fullName>
+        <default>false</default>
+        <label>Cancelamento de Placa / Agendamento</label>
+    </customValue>
+    <customValue>
         <fullName>Cargas Aceitas/ Não Aceitas</fullName>
         <default>false</default>
         <label>Cargas Aceitas/ Não Aceitas</label>
+    </customValue>
+    <customValue>
+        <fullName>Carregamento incorreto</fullName>
+        <default>false</default>
+        <label>Carregamento incorreto</label>
+    </customValue>
+    <customValue>
+        <fullName>Carta Protesto</fullName>
+        <default>false</default>
+        <label>Carta Protesto</label>
     </customValue>
     <customValue>
         <fullName>Cliente x Cliente</fullName>
@@ -191,9 +311,9 @@
         <label>CNPJ não vinculado à proposta</label>
     </customValue>
     <customValue>
-        <fullName>Colocação / Remoção de etiqueta</fullName>
+        <fullName>Colocação / Remoção Label</fullName>
         <default>false</default>
-        <label>Colocação / Remoção de etiqueta</label>
+        <label>Colocação / Remoção Label</label>
     </customValue>
     <customValue>
         <fullName>Compensação de Pagamento</fullName>
@@ -211,14 +331,19 @@
         <label>Comprovante de pesagem</label>
     </customValue>
     <customValue>
-        <fullName>Condições e termos - proposta clientes</fullName>
+        <fullName>Condições e Termos – Proposta Clientes</fullName>
         <default>false</default>
-        <label>Condições e termos - proposta clientes</label>
+        <label>Condições e Termos – Proposta Clientes</label>
     </customValue>
     <customValue>
-        <fullName>Condições e termos - Tabela Pública</fullName>
+        <fullName>Condições e Termos – Tabela Pública</fullName>
         <default>false</default>
-        <label>Condições e termos - Tabela Pública</label>
+        <label>Condições e Termos – Tabela Pública</label>
+    </customValue>
+    <customValue>
+        <fullName>Conferência de Lacre</fullName>
+        <default>false</default>
+        <label>Conferência de Lacre</label>
     </customValue>
     <customValue>
         <fullName>Confirmação de pagamento</fullName>
@@ -246,9 +371,19 @@
         <label>Confirmação ou alteração de e-mails</label>
     </customValue>
     <customValue>
+        <fullName>Consulta Booking</fullName>
+        <default>false</default>
+        <label>Consulta Booking</label>
+    </customValue>
+    <customValue>
         <fullName>Consulta Contêiner</fullName>
         <default>false</default>
         <label>Consulta Contêiner</label>
+    </customValue>
+    <customValue>
+        <fullName>Consulta de Disponibilidade de Janelas</fullName>
+        <default>false</default>
+        <label>Consulta de Disponibilidade de Janelas</label>
     </customValue>
     <customValue>
         <fullName>Consulta Reserva</fullName>
@@ -259,6 +394,11 @@
         <fullName>Consultas EXPO e CAB</fullName>
         <default>false</default>
         <label>Consultas EXPO e CAB</label>
+    </customValue>
+    <customValue>
+        <fullName>Container Sem Lacre</fullName>
+        <default>false</default>
+        <label>Container Sem Lacre</label>
     </customValue>
     <customValue>
         <fullName>Contato preditivo</fullName>
@@ -286,6 +426,41 @@
         <label>Criação</label>
     </customValue>
     <customValue>
+        <fullName>Custo IMO e FLAT RACK</fullName>
+        <default>false</default>
+        <label>Custo IMO e FLAT RACK</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer delaying request</fullName>
+        <default>false</default>
+        <label>Customer delaying request</label>
+    </customValue>
+    <customValue>
+        <fullName>Custo operações de navios</fullName>
+        <default>false</default>
+        <label>Custo operações de navios</label>
+    </customValue>
+    <customValue>
+        <fullName>Custos de carga FCL</fullName>
+        <default>false</default>
+        <label>Custos de carga FCL</label>
+    </customValue>
+    <customValue>
+        <fullName>Custos de reefer</fullName>
+        <default>false</default>
+        <label>Custos de reefer</label>
+    </customValue>
+    <customValue>
+        <fullName>Dados SAS</fullName>
+        <default>false</default>
+        <label>Dados SAS</label>
+    </customValue>
+    <customValue>
+        <fullName>Dados Sefaz</fullName>
+        <default>false</default>
+        <label>Dados Sefaz</label>
+    </customValue>
+    <customValue>
         <fullName>Data de corte</fullName>
         <default>false</default>
         <label>Data de corte</label>
@@ -294,6 +469,11 @@
         <fullName>Data de pagamento</fullName>
         <default>false</default>
         <label>Data de pagamento</label>
+    </customValue>
+    <customValue>
+        <fullName>Descarga Sem Cadastro</fullName>
+        <default>false</default>
+        <label>Descarga Sem Cadastro</label>
     </customValue>
     <customValue>
         <fullName>Descontos</fullName>
@@ -311,6 +491,21 @@
         <label>Detalhamento de Pendências</label>
     </customValue>
     <customValue>
+        <fullName>Devolução de Vazios</fullName>
+        <default>false</default>
+        <label>Devolução de Vazios</label>
+    </customValue>
+    <customValue>
+        <fullName>Dia de porta</fullName>
+        <default>false</default>
+        <label>Dia de porta</label>
+    </customValue>
+    <customValue>
+        <fullName>Direcionamentos</fullName>
+        <default>false</default>
+        <label>Direcionamentos</label>
+    </customValue>
+    <customValue>
         <fullName>Dispensa - Condições climáticas</fullName>
         <default>false</default>
         <label>Dispensa - Condições climáticas</label>
@@ -326,14 +521,39 @@
         <label>Divergência de dados</label>
     </customValue>
     <customValue>
+        <fullName>Divergência de lacre</fullName>
+        <default>false</default>
+        <label>Divergência de lacre</label>
+    </customValue>
+    <customValue>
+        <fullName>Divergência de Volume / Lacre</fullName>
+        <default>false</default>
+        <label>Divergência de Volume / Lacre</label>
+    </customValue>
+    <customValue>
+        <fullName>Divergência de volume / lacre / Entrega</fullName>
+        <default>false</default>
+        <label>Divergência de volume / lacre / Entrega</label>
+    </customValue>
+    <customValue>
         <fullName>Documentação</fullName>
         <default>false</default>
         <label>Documentação</label>
     </customValue>
     <customValue>
-        <fullName>DWT atual</fullName>
+        <fullName>DUIMP Antecipada / DSA</fullName>
         <default>false</default>
-        <label>DWT atual</label>
+        <label>DUIMP Antecipada / DSA</label>
+    </customValue>
+    <customValue>
+        <fullName>DUIMP Normal</fullName>
+        <default>false</default>
+        <label>DUIMP Normal</label>
+    </customValue>
+    <customValue>
+        <fullName>Duplo Direcionamento</fullName>
+        <default>false</default>
+        <label>Duplo Direcionamento</label>
     </customValue>
     <customValue>
         <fullName>Dúvidas agendamento</fullName>
@@ -346,9 +566,19 @@
         <label>Dúvidas de Cadastro</label>
     </customValue>
     <customValue>
+        <fullName>Dúvidas Gerais</fullName>
+        <default>false</default>
+        <label>Dúvidas Gerais</label>
+    </customValue>
+    <customValue>
         <fullName>Dúvidas usabilidade</fullName>
         <default>false</default>
         <label>Dúvidas usabilidade</label>
+    </customValue>
+    <customValue>
+        <fullName>DWT atual</fullName>
+        <default>false</default>
+        <label>DWT atual</label>
     </customValue>
     <customValue>
         <fullName>EDI</fullName>
@@ -366,6 +596,11 @@
         <label>EIR</label>
     </customValue>
     <customValue>
+        <fullName>E-mail recebimento de faturas</fullName>
+        <default>false</default>
+        <label>E-mail recebimento de faturas</label>
+    </customValue>
+    <customValue>
         <fullName>Empurrar/puxar ao longo do cais</fullName>
         <default>false</default>
         <label>Empurrar/puxar ao longo do cais</label>
@@ -376,14 +611,39 @@
         <label>Entrega Antecipada</label>
     </customValue>
     <customValue>
+        <fullName>Entreposto</fullName>
+        <default>false</default>
+        <label>Entreposto</label>
+    </customValue>
+    <customValue>
         <fullName>Enviar foto</fullName>
         <default>false</default>
         <label>Enviar foto</label>
     </customValue>
     <customValue>
+        <fullName>Envio de Booking List</fullName>
+        <default>false</default>
+        <label>Envio de Booking List</label>
+    </customValue>
+    <customValue>
         <fullName>Envio de extrato de DUE</fullName>
         <default>false</default>
         <label>Envio de extrato de DUE</label>
+    </customValue>
+    <customValue>
+        <fullName>Envio de Formas e Documentos de Vistoria</fullName>
+        <default>false</default>
+        <label>Envio de Formas e Documentos de Vistoria</label>
+    </customValue>
+    <customValue>
+        <fullName>Envio de termos e documentos de vistoria</fullName>
+        <default>false</default>
+        <label>Envio de termos e documentos de vistoria</label>
+    </customValue>
+    <customValue>
+        <fullName>Envio de Ticket de Pesagem</fullName>
+        <default>false</default>
+        <label>Envio de Ticket de Pesagem</label>
     </customValue>
     <customValue>
         <fullName>Envio ou reenvio da fatura ou prévia</fullName>
@@ -394,6 +654,11 @@
         <fullName>Envio para e-mail incorreto</fullName>
         <default>false</default>
         <label>Envio para e-mail incorreto</label>
+    </customValue>
+    <customValue>
+        <fullName>Erro de sistema</fullName>
+        <default>false</default>
+        <label>Erro de sistema</label>
     </customValue>
     <customValue>
         <fullName>Erro de validação</fullName>
@@ -471,6 +736,11 @@
         <label>Exclusão</label>
     </customValue>
     <customValue>
+        <fullName>Extensão de Prazo Cancelada Indevidamente</fullName>
+        <default>false</default>
+        <label>Extensão de Prazo Cancelada Indevidamente</label>
+    </customValue>
+    <customValue>
         <fullName>Extensão de prazo não formalizada — cancelada indevidamente</fullName>
         <default>false</default>
         <label>Extensão de prazo não formalizada — cancelada indevidamente</label>
@@ -501,9 +771,49 @@
         <label>Faturas em aberto</label>
     </customValue>
     <customValue>
+        <fullName>Fluxo chegada/liberação - DTA Marítimo</fullName>
+        <default>false</default>
+        <label>Fluxo chegada/liberação - DTA Marítimo</label>
+    </customValue>
+    <customValue>
+        <fullName>Fluxo chegada/liberação - DTA Rodoviária</fullName>
+        <default>false</default>
+        <label>Fluxo chegada/liberação - DTA Rodoviária</label>
+    </customValue>
+    <customValue>
         <fullName>Fluxo de cancelamento de NF</fullName>
         <default>false</default>
         <label>Fluxo de cancelamento de NF</label>
+    </customValue>
+    <customValue>
+        <fullName>Fluxo de Devolução de Baú Interno</fullName>
+        <default>false</default>
+        <label>Fluxo de Devolução de Baú Interno</label>
+    </customValue>
+    <customValue>
+        <fullName>Fluxo de Devolução de Vazio Externo</fullName>
+        <default>false</default>
+        <label>Fluxo de Devolução de Vazio Externo</label>
+    </customValue>
+    <customValue>
+        <fullName>Fluxo de Recebimento de Lacre</fullName>
+        <default>false</default>
+        <label>Fluxo de Recebimento de Lacre</label>
+    </customValue>
+    <customValue>
+        <fullName>Fluxo DTA Marítimo</fullName>
+        <default>false</default>
+        <label>Fluxo DTA Marítimo</label>
+    </customValue>
+    <customValue>
+        <fullName>Fluxo DTA Rodoviária</fullName>
+        <default>false</default>
+        <label>Fluxo DTA Rodoviária</label>
+    </customValue>
+    <customValue>
+        <fullName>Follow UP - clientes</fullName>
+        <default>false</default>
+        <label>Follow UP - clientes</label>
     </customValue>
     <customValue>
         <fullName>Formato inválido</fullName>
@@ -521,14 +831,14 @@
         <label>Grupo Econômico</label>
     </customValue>
     <customValue>
-        <fullName>Identificar pagamento da prévia</fullName>
-        <default>false</default>
-        <label>Identificar pagamento da prévia</label>
-    </customValue>
-    <customValue>
         <fullName>Identificação de Pagamentos</fullName>
         <default>false</default>
         <label>Identificação de Pagamentos</label>
+    </customValue>
+    <customValue>
+        <fullName>Identificar pagamento da prévia</fullName>
+        <default>false</default>
+        <label>Identificar pagamento da prévia</label>
     </customValue>
     <customValue>
         <fullName>Impostos</fullName>
@@ -541,6 +851,11 @@
         <label>Impostos ou normas de aplicação</label>
     </customValue>
     <customValue>
+        <fullName>Inativação de Direcionamento</fullName>
+        <default>false</default>
+        <label>Inativação de Direcionamento</label>
+    </customValue>
+    <customValue>
         <fullName>Inclusão de data de pagamento incorreta</fullName>
         <default>false</default>
         <label>Inclusão de data de pagamento incorreta</label>
@@ -551,6 +866,11 @@
         <label>Inclusão de moeda incorreta</label>
     </customValue>
     <customValue>
+        <fullName>Inclusão de Navio (Portal)</fullName>
+        <default>false</default>
+        <label>Inclusão de Navio (Portal)</label>
+    </customValue>
+    <customValue>
         <fullName>Inclusão do Pedido de Compra (PO) incorreto</fullName>
         <default>false</default>
         <label>Inclusão do Pedido de Compra (PO) incorreto</label>
@@ -559,6 +879,21 @@
         <fullName>Indenização</fullName>
         <default>false</default>
         <label>Indenização</label>
+    </customValue>
+    <customValue>
+        <fullName>Indisponibilidade de gate</fullName>
+        <default>false</default>
+        <label>Indisponibilidade de gate</label>
+    </customValue>
+    <customValue>
+        <fullName>Indisponibilidade de janela</fullName>
+        <default>false</default>
+        <label>Indisponibilidade de janela</label>
+    </customValue>
+    <customValue>
+        <fullName>Indisponibilidade do Gate</fullName>
+        <default>false</default>
+        <label>Indisponibilidade do Gate</label>
     </customValue>
     <customValue>
         <fullName>Indisponibilidade ou quebra de equipamento</fullName>
@@ -576,9 +911,19 @@
         <label>Informações</label>
     </customValue>
     <customValue>
+        <fullName>Informações Gerais</fullName>
+        <default>false</default>
+        <label>Informações Gerais</label>
+    </customValue>
+    <customValue>
         <fullName>Instabilidade / Lentidão</fullName>
         <default>false</default>
         <label>Instabilidade / Lentidão</label>
+    </customValue>
+    <customValue>
+        <fullName>Instruções e Acompanhamento do Serviço</fullName>
+        <default>false</default>
+        <label>Instruções e Acompanhamento do Serviço</label>
     </customValue>
     <customValue>
         <fullName>Integração com erro</fullName>
@@ -606,6 +951,11 @@
         <label>Isenções</label>
     </customValue>
     <customValue>
+        <fullName>Janela de retirada DTC</fullName>
+        <default>false</default>
+        <label>Janela de retirada DTC</label>
+    </customValue>
+    <customValue>
         <fullName>Lacres</fullName>
         <default>false</default>
         <label>Lacres</label>
@@ -616,9 +966,9 @@
         <label>LAR</label>
     </customValue>
     <customValue>
-        <fullName>Liberar acesso ao portal</fullName>
+        <fullName>Layout inválido</fullName>
         <default>false</default>
-        <label>Liberar acesso ao portal</label>
+        <label>Layout inválido</label>
     </customValue>
     <customValue>
         <fullName>Liberação Especial</fullName>
@@ -631,9 +981,24 @@
         <label>Liberação Especial / Janelas</label>
     </customValue>
     <customValue>
+        <fullName>Liberação Manual / Gaps Portal</fullName>
+        <default>false</default>
+        <label>Liberação Manual / Gaps Portal</label>
+    </customValue>
+    <customValue>
+        <fullName>Liberar acesso ao portal</fullName>
+        <default>false</default>
+        <label>Liberar acesso ao portal</label>
+    </customValue>
+    <customValue>
         <fullName>Lista de navio</fullName>
         <default>false</default>
         <label>Lista de navio</label>
+    </customValue>
+    <customValue>
+        <fullName>MAPA / PCCE</fullName>
+        <default>false</default>
+        <label>MAPA / PCCE</label>
     </customValue>
     <customValue>
         <fullName>Medição / PO</fullName>
@@ -641,9 +1006,24 @@
         <label>Medição / PO</label>
     </customValue>
     <customValue>
+        <fullName>Minuta de Devolução</fullName>
+        <default>false</default>
+        <label>Minuta de Devolução</label>
+    </customValue>
+    <customValue>
         <fullName>Mobilização/Desmobilização</fullName>
         <default>false</default>
         <label>Mobilização/Desmobilização</label>
+    </customValue>
+    <customValue>
+        <fullName>Módulo de Cargas de Projeto</fullName>
+        <default>false</default>
+        <label>Módulo de Cargas de Projeto</label>
+    </customValue>
+    <customValue>
+        <fullName>Monitoramento de Temperatura</fullName>
+        <default>false</default>
+        <label>Monitoramento de Temperatura</label>
     </customValue>
     <customValue>
         <fullName>Morosidade</fullName>
@@ -661,9 +1041,19 @@
         <label>Morosidade ou erro no atendimento operacional</label>
     </customValue>
     <customValue>
+        <fullName>Motorista Bloqueado</fullName>
+        <default>false</default>
+        <label>Motorista Bloqueado</label>
+    </customValue>
+    <customValue>
         <fullName>Mudança de posição</fullName>
         <default>false</default>
         <label>Mudança de posição</label>
+    </customValue>
+    <customValue>
+        <fullName>NF / SEFAZ</fullName>
+        <default>false</default>
+        <label>NF / SEFAZ</label>
     </customValue>
     <customValue>
         <fullName>Nomenclatura</fullName>
@@ -671,9 +1061,44 @@
         <label>Nomenclatura</label>
     </customValue>
     <customValue>
+        <fullName>Normas e Processos</fullName>
+        <default>false</default>
+        <label>Normas e Processos</label>
+    </customValue>
+    <customValue>
         <fullName>Nota de crédito</fullName>
         <default>false</default>
         <label>Nota de crédito</label>
+    </customValue>
+    <customValue>
+        <fullName>Notificação de Avaria de Origem (Armazém)</fullName>
+        <default>false</default>
+        <label>Notificação de Avaria de Origem (Armazém)</label>
+    </customValue>
+    <customValue>
+        <fullName>Notificação de Avaria Interna (Armazém)</fullName>
+        <default>false</default>
+        <label>Notificação de Avaria Interna (Armazém)</label>
+    </customValue>
+    <customValue>
+        <fullName>Notificação de impactos (carro inadequado / cubagem)</fullName>
+        <default>false</default>
+        <label>Notificação de impactos (carro inadequado / cubagem)</label>
+    </customValue>
+    <customValue>
+        <fullName>Notificação de Impactos (Carro Inadequado)</fullName>
+        <default>false</default>
+        <label>Notificação de Impactos (Carro Inadequado)</label>
+    </customValue>
+    <customValue>
+        <fullName>Notificação de Vistoria MAPA / RFB / Outros</fullName>
+        <default>false</default>
+        <label>Notificação de Vistoria MAPA / RFB / Outros</label>
+    </customValue>
+    <customValue>
+        <fullName>Nova proposta - Lead</fullName>
+        <default>false</default>
+        <label>Nova proposta - Lead</label>
     </customValue>
     <customValue>
         <fullName>Nova proposta - potencial cliente</fullName>
@@ -721,9 +1146,34 @@
         <label>Pedido de entrega de carga</label>
     </customValue>
     <customValue>
+        <fullName>Pedido de Prioridade</fullName>
+        <default>false</default>
+        <label>Pedido de Prioridade</label>
+    </customValue>
+    <customValue>
         <fullName>Pedido de revisão de CTE</fullName>
         <default>false</default>
         <label>Pedido de revisão de CTE</label>
+    </customValue>
+    <customValue>
+        <fullName>Pendência Financeira</fullName>
+        <default>false</default>
+        <label>Pendência Financeira</label>
+    </customValue>
+    <customValue>
+        <fullName>Pendências no Direcionamento</fullName>
+        <default>false</default>
+        <label>Pendências no Direcionamento</label>
+    </customValue>
+    <customValue>
+        <fullName>Pesagem, Desova, VGM e Outros</fullName>
+        <default>false</default>
+        <label>Pesagem, Desova, VGM e Outros</label>
+    </customValue>
+    <customValue>
+        <fullName>PO / Draft</fullName>
+        <default>false</default>
+        <label>PO / Draft</label>
     </customValue>
     <customValue>
         <fullName>Portal do cliente</fullName>
@@ -741,9 +1191,24 @@
         <label>Previsão de Emissão</label>
     </customValue>
     <customValue>
+        <fullName>Prioridade na Presença de Carga</fullName>
+        <default>false</default>
+        <label>Prioridade na Presença de Carga</label>
+    </customValue>
+    <customValue>
         <fullName>Prioridade no envio das faturas</fullName>
         <default>false</default>
         <label>Prioridade no envio das faturas</label>
+    </customValue>
+    <customValue>
+        <fullName>Prioridade para Posicionamento</fullName>
+        <default>false</default>
+        <label>Prioridade para Posicionamento</label>
+    </customValue>
+    <customValue>
+        <fullName>Prioridade presença de carga</fullName>
+        <default>false</default>
+        <label>Prioridade presença de carga</label>
     </customValue>
     <customValue>
         <fullName>Problemas com Pedido de Compra (PO)</fullName>
@@ -761,9 +1226,19 @@
         <label>Procedimentos</label>
     </customValue>
     <customValue>
+        <fullName>Procedimentos e custos</fullName>
+        <default>false</default>
+        <label>Procedimentos e custos</label>
+    </customValue>
+    <customValue>
         <fullName>Procedimentos operacionais</fullName>
         <default>false</default>
         <label>Procedimentos operacionais</label>
+    </customValue>
+    <customValue>
+        <fullName>Processo não contemplado no Portal</fullName>
+        <default>false</default>
+        <label>Processo não contemplado no Portal</label>
     </customValue>
     <customValue>
         <fullName>Processos aduaneiros</fullName>
@@ -781,14 +1256,19 @@
         <label>Proposta não enviada ou enviada incorretamente</label>
     </customValue>
     <customValue>
-        <fullName>Proposta vencida sem renovação, bloqueio ou cobrança em TP</fullName>
-        <default>false</default>
-        <label>Proposta vencida sem renovação, bloqueio ou cobrança em TP</label>
-    </customValue>
-    <customValue>
         <fullName>Propostas e faturamento</fullName>
         <default>false</default>
         <label>Propostas e faturamento</label>
+    </customValue>
+    <customValue>
+        <fullName>Proposta Vencida sem Renovação</fullName>
+        <default>false</default>
+        <label>Proposta Vencida sem Renovação</label>
+    </customValue>
+    <customValue>
+        <fullName>Proposta vencida sem renovação, bloqueio ou cobrança em TP</fullName>
+        <default>false</default>
+        <label>Proposta vencida sem renovação, bloqueio ou cobrança em TP</label>
     </customValue>
     <customValue>
         <fullName>Prorrogação</fullName>
@@ -796,14 +1276,19 @@
         <label>Prorrogação</label>
     </customValue>
     <customValue>
+        <fullName>Prorrogação / Alteração de Vencimento</fullName>
+        <default>false</default>
+        <label>Prorrogação / Alteração de Vencimento</label>
+    </customValue>
+    <customValue>
         <fullName>Prorrogação de Proposta</fullName>
         <default>false</default>
         <label>Prorrogação de Proposta</label>
     </customValue>
     <customValue>
-        <fullName>Prorrogação/ alteração de vencimento</fullName>
+        <fullName>Quebra de Lote</fullName>
         <default>false</default>
-        <label>Prorrogação/ alteração de vencimento</label>
+        <label>Quebra de Lote</label>
     </customValue>
     <customValue>
         <fullName>Rebocador de escolta</fullName>
@@ -816,6 +1301,11 @@
         <label>Recepção / Entrega Manual (Falha ou Erro)</label>
     </customValue>
     <customValue>
+        <fullName>Recepção / Entrega Manual (Gap ou Erro)</fullName>
+        <default>false</default>
+        <label>Recepção / Entrega Manual (Gap ou Erro)</label>
+    </customValue>
+    <customValue>
         <fullName>Recepção de DAT</fullName>
         <default>false</default>
         <label>Recepção de DAT</label>
@@ -824,6 +1314,11 @@
         <fullName>Redefinição de senha / acesso</fullName>
         <default>false</default>
         <label>Redefinição de senha / acesso</label>
+    </customValue>
+    <customValue>
+        <fullName>Redefinição de Senha / login</fullName>
+        <default>false</default>
+        <label>Redefinição de Senha / login</label>
     </customValue>
     <customValue>
         <fullName>Reembolso</fullName>
@@ -856,9 +1351,19 @@
         <label>Registro de avaria</label>
     </customValue>
     <customValue>
+        <fullName>Relatório de Carga Pátio</fullName>
+        <default>false</default>
+        <label>Relatório de Carga Pátio</label>
+    </customValue>
+    <customValue>
         <fullName>Relatório de custos</fullName>
         <default>false</default>
         <label>Relatório de custos</label>
+    </customValue>
+    <customValue>
+        <fullName>Relatório de Divergência de Lacre e Avarias</fullName>
+        <default>false</default>
+        <label>Relatório de Divergência de Lacre e Avarias</label>
     </customValue>
     <customValue>
         <fullName>Relatório de estoque</fullName>
@@ -869,6 +1374,11 @@
         <fullName>Relatório de Movimentações</fullName>
         <default>false</default>
         <label>Relatório de Movimentações</label>
+    </customValue>
+    <customValue>
+        <fullName>Relatório diversos</fullName>
+        <default>false</default>
+        <label>Relatório diversos</label>
     </customValue>
     <customValue>
         <fullName>Relatório personalizado</fullName>
@@ -911,6 +1421,11 @@
         <label>Saldo</label>
     </customValue>
     <customValue>
+        <fullName>Serviço Novo Não Incluído na Proposta</fullName>
+        <default>false</default>
+        <label>Serviço Novo Não Incluído na Proposta</label>
+    </customValue>
+    <customValue>
         <fullName>Serviço novo não incluído na proposta (Facilidades Administrativas / outros )</fullName>
         <default>false</default>
         <label>Serviço novo não incluído na proposta (Facilidades Administrativas / outros )</label>
@@ -919,16 +1434,6 @@
         <fullName>Setor Responsável</fullName>
         <default>false</default>
         <label>Setor Responsável</label>
-    </customValue>
-    <customValue>
-        <fullName>Solicitar averbação de DUIMP</fullName>
-        <default>false</default>
-        <label>Solicitar averbação de DUIMP</label>
-    </customValue>
-    <customValue>
-        <fullName>Solicitar averbação manual de DI</fullName>
-        <default>false</default>
-        <label>Solicitar averbação manual de DI</label>
     </customValue>
     <customValue>
         <fullName>Solicitação</fullName>
@@ -951,6 +1456,26 @@
         <label>Solicitação de débitos</label>
     </customValue>
     <customValue>
+        <fullName>Solicitação de LAR</fullName>
+        <default>false</default>
+        <label>Solicitação de LAR</label>
+    </customValue>
+    <customValue>
+        <fullName>Solicitação de monitoramento de temperatura</fullName>
+        <default>false</default>
+        <label>Solicitação de monitoramento de temperatura</label>
+    </customValue>
+    <customValue>
+        <fullName>Solicitação de Prioridade</fullName>
+        <default>false</default>
+        <label>Solicitação de Prioridade</label>
+    </customValue>
+    <customValue>
+        <fullName>Solicitação de prioridade na liberação</fullName>
+        <default>false</default>
+        <label>Solicitação de prioridade na liberação</label>
+    </customValue>
+    <customValue>
         <fullName>Solicitação de proposta comercial</fullName>
         <default>false</default>
         <label>Solicitação de proposta comercial</label>
@@ -971,9 +1496,24 @@
         <label>Solicitação do cliente para separar a fatura</label>
     </customValue>
     <customValue>
+        <fullName>Solicitação Manual (Portal Fechado)</fullName>
+        <default>false</default>
+        <label>Solicitação Manual (Portal Fechado)</label>
+    </customValue>
+    <customValue>
         <fullName>Solicitação para faturar</fullName>
         <default>false</default>
         <label>Solicitação para faturar</label>
+    </customValue>
+    <customValue>
+        <fullName>Solicitar averbação de DUIMP</fullName>
+        <default>false</default>
+        <label>Solicitar averbação de DUIMP</label>
+    </customValue>
+    <customValue>
+        <fullName>Solicitar averbação manual de DI</fullName>
+        <default>false</default>
+        <label>Solicitar averbação manual de DI</label>
     </customValue>
     <customValue>
         <fullName>Status</fullName>
@@ -996,6 +1536,21 @@
         <label>Status de Operação</label>
     </customValue>
     <customValue>
+        <fullName>Status e Acompanhamento da Entrega</fullName>
+        <default>false</default>
+        <label>Status e Acompanhamento da Entrega</label>
+    </customValue>
+    <customValue>
+        <fullName>Status e acompanhamento da entrega ou coleta</fullName>
+        <default>false</default>
+        <label>Status e acompanhamento da entrega ou coleta</label>
+    </customValue>
+    <customValue>
+        <fullName>Stiff Barcaça</fullName>
+        <default>false</default>
+        <label>Stiff Barcaça</label>
+    </customValue>
+    <customValue>
         <fullName>Tarifa acordada</fullName>
         <default>false</default>
         <label>Tarifa acordada</label>
@@ -1006,14 +1561,39 @@
         <label>Tarifa de câmbio</label>
     </customValue>
     <customValue>
+        <fullName>Taxes</fullName>
+        <default>false</default>
+        <label>Taxes</label>
+    </customValue>
+    <customValue>
         <fullName>Temas diversos</fullName>
         <default>false</default>
         <label>Temas diversos</label>
     </customValue>
     <customValue>
+        <fullName>Termo de Cobrança</fullName>
+        <default>false</default>
+        <label>Termo de Cobrança</label>
+    </customValue>
+    <customValue>
+        <fullName>Ticket</fullName>
+        <default>false</default>
+        <label>Ticket</label>
+    </customValue>
+    <customValue>
+        <fullName>Ticket de Pesagem</fullName>
+        <default>false</default>
+        <label>Ticket de Pesagem</label>
+    </customValue>
+    <customValue>
         <fullName>Todos os fluxos</fullName>
         <default>false</default>
         <label>Todos os fluxos</label>
+    </customValue>
+    <customValue>
+        <fullName>Transferência / Atualização de Navio</fullName>
+        <default>false</default>
+        <label>Transferência / Atualização de Navio</label>
     </customValue>
     <customValue>
         <fullName>Vagas e Horários</fullName>
@@ -1035,946 +1615,6 @@
         <default>false</default>
         <label>Vinculação e renovação de Proposta</label>
     </customValue>
-    <customValue>
-        <fullName>Agendamento de container</fullName>
-        <default>false</default>
-        <label>Agendamento de container</label>
-    </customValue>
-    <customValue>
-        <fullName>Alteração de free time ou outros</fullName>
-        <default>false</default>
-        <label>Alteração de free time ou outros</label>
-    </customValue>
-    <customValue>
-        <fullName>Colocação / Remoção Label</fullName>
-        <default>false</default>
-        <label>Colocação / Remoção Label</label>
-    </customValue>
-    <customValue>
-        <fullName>Consulta Booking</fullName>
-        <default>false</default>
-        <label>Consulta Booking</label>
-    </customValue>
-    <customValue>
-        <fullName>Consulta Cntr</fullName>
-        <default>false</default>
-        <label>Consulta Cntr</label>
-    </customValue>
-    <customValue>
-        <fullName>Follow UP - clientes</fullName>
-        <default>false</default>
-        <label>Follow UP - clientes</label>
-    </customValue>
-    <customValue>
-        <fullName>Gold</fullName>
-        <default>false</default>
-        <label>Gold</label>
-    </customValue>
-    <customValue>
-        <fullName>Layout inválido</fullName>
-        <default>false</default>
-        <label>Layout inválido</label>
-    </customValue>
-    <customValue>
-        <fullName>Lista Navio</fullName>
-        <default>false</default>
-        <label>Lista Navio</label>
-    </customValue>
-    <customValue>
-        <fullName>Nova proposta - Lead</fullName>
-        <default>false</default>
-        <label>Nova proposta - Lead</label>
-    </customValue>
-    <customValue>
-        <fullName>Redefinição de Senha / login</fullName>
-        <default>false</default>
-        <label>Redefinição de Senha / login</label>
-    </customValue>
-    <customValue>
-        <fullName>Status Aprovação</fullName>
-        <default>false</default>
-        <label>Status Aprovação</label>
-    </customValue>
-    <customValue>
-        <fullName>Stiff Barcaça</fullName>
-        <default>false</default>
-        <label>Stiff Barcaça</label>
-    </customValue>
-    <customValue>
-        <fullName>Ticket</fullName>
-        <default>false</default>
-        <label>Ticket</label>
-    </customValue>
-    <customValue>
-        <fullName>Ticket de Pesagem</fullName>
-        <default>false</default>
-        <label>Ticket de Pesagem</label>
-    </customValue>
-    <customValue>
-        <fullName>PO / Draft</fullName>
-        <default>false</default>
-        <label>PO / Draft</label>
-    </customValue>
-    <customValue>
-        <fullName>Recepção / Entrega Manual (Gap ou Erro)</fullName>
-        <default>false</default>
-        <label>Recepção / Entrega Manual (Gap ou Erro)</label>
-    </customValue>
-    <customValue>
-        <fullName>Cadastro booking</fullName>
-        <default>false</default>
-        <label>Cadastro booking</label>
-    </customValue>
-    <customValue>
-        <fullName>Procedimento operacionais</fullName>
-        <default>false</default>
-        <label>Procedimento operacionais</label>
-    </customValue>
-    <customValue>
-        <fullName>Confirmação de vinculo comercial</fullName>
-        <default>false</default>
-        <label>Confirmação de vinculo comercial</label>
-    </customValue>
-    <customValue>
-        <fullName>Confirmação ou alteração de emails</fullName>
-        <default>false</default>
-        <label>Confirmação ou alteração de emails</label>
-    </customValue>
-    <customValue>
-        <fullName>Espelho de calculo / descrição de calculo</fullName>
-        <default>false</default>
-        <label>Espelho de calculo / descrição de calculo</label>
-    </customValue>
-    <customValue>
-        <fullName>Relatório diversos</fullName>
-        <default>false</default>
-        <label>Relatório diversos</label>
-    </customValue>
-    <customValue>
-        <fullName>Relatorio de custos</fullName>
-        <default>false</default>
-        <label>Relatorio de custos</label>
-    </customValue>
-    <customValue>
-        <fullName>Agency informed the wrong currency</fullName>
-        <default>false</default>
-        <label>Agency informed the wrong currency</label>
-    </customValue>
-    <customValue>
-        <fullName>Agreed Tariff</fullName>
-        <default>false</default>
-        <label>Agreed Tariff</label>
-    </customValue>
-    <customValue>
-        <fullName>Assistance</fullName>
-        <default>false</default>
-        <label>Assistance</label>
-    </customValue>
-    <customValue>
-        <fullName>Berthing/Unberthing</fullName>
-        <default>false</default>
-        <label>Berthing/Unberthing</label>
-    </customValue>
-    <customValue>
-        <fullName>Client&apos;s request to separate the invoice</fullName>
-        <default>false</default>
-        <label>Client&apos;s request to separate the invoice</label>
-    </customValue>
-    <customValue>
-        <fullName>Credit Note</fullName>
-        <default>false</default>
-        <label>Credit Note</label>
-    </customValue>
-    <customValue>
-        <fullName>Currency Tariff</fullName>
-        <default>false</default>
-        <label>Currency Tariff</label>
-    </customValue>
-    <customValue>
-        <fullName>Current DWT</fullName>
-        <default>false</default>
-        <label>Current DWT</label>
-    </customValue>
-    <customValue>
-        <fullName>Customer delaying request</fullName>
-        <default>false</default>
-        <label>Customer delaying request</label>
-    </customValue>
-    <customValue>
-        <fullName>Delay sending the invoice</fullName>
-        <default>false</default>
-        <label>Delay sending the invoice</label>
-    </customValue>
-    <customValue>
-        <fullName>Delay updating customer request</fullName>
-        <default>false</default>
-        <label>Delay updating customer request</label>
-    </customValue>
-    <customValue>
-        <fullName>Dismissal - Operational</fullName>
-        <default>false</default>
-        <label>Dismissal - Operational</label>
-    </customValue>
-    <customValue>
-        <fullName>Dismissal - Weather</fullName>
-        <default>false</default>
-        <label>Dismissal - Weather</label>
-    </customValue>
-    <customValue>
-        <fullName>Error for not following the client&apos;s request to send the invoice</fullName>
-        <default>false</default>
-        <label>Error for not following the client&apos;s request to send the invoice</label>
-    </customValue>
-    <customValue>
-        <fullName>Error in address company</fullName>
-        <default>false</default>
-        <label>Error in address company</label>
-    </customValue>
-    <customValue>
-        <fullName>Escort Tug</fullName>
-        <default>false</default>
-        <label>Escort Tug</label>
-    </customValue>
-    <customValue>
-        <fullName>Expiring Contract</fullName>
-        <default>false</default>
-        <label>Expiring Contract</label>
-    </customValue>
-    <customValue>
-        <fullName>Incorrect automatic billing</fullName>
-        <default>false</default>
-        <label>Incorrect automatic billing</label>
-    </customValue>
-    <customValue>
-        <fullName>Insert of the wrong PO</fullName>
-        <default>false</default>
-        <label>Insert of the wrong PO</label>
-    </customValue>
-    <customValue>
-        <fullName>Insert of the wrong currency</fullName>
-        <default>false</default>
-        <label>Insert of the wrong currency</label>
-    </customValue>
-    <customValue>
-        <fullName>Insert of wrong payment date</fullName>
-        <default>false</default>
-        <label>Insert of wrong payment date</label>
-    </customValue>
-    <customValue>
-        <fullName>Mistake in a currency</fullName>
-        <default>false</default>
-        <label>Mistake in a currency</label>
-    </customValue>
-    <customValue>
-        <fullName>Mistake in application of taxes</fullName>
-        <default>false</default>
-        <label>Mistake in application of taxes</label>
-    </customValue>
-    <customValue>
-        <fullName>Mistake in insert of cut-off-date</fullName>
-        <default>false</default>
-        <label>Mistake in insert of cut-off-date</label>
-    </customValue>
-    <customValue>
-        <fullName>Mistake in insert of tarrifs</fullName>
-        <default>false</default>
-        <label>Mistake in insert of tarrifs</label>
-    </customValue>
-    <customValue>
-        <fullName>Mistake in tax application</fullName>
-        <default>false</default>
-        <label>Mistake in tax application</label>
-    </customValue>
-    <customValue>
-        <fullName>Mistake in validated contract</fullName>
-        <default>false</default>
-        <label>Mistake in validated contract</label>
-    </customValue>
-    <customValue>
-        <fullName>Mistake to choose the agreement</fullName>
-        <default>false</default>
-        <label>Mistake to choose the agreement</label>
-    </customValue>
-    <customValue>
-        <fullName>Mob/Demob</fullName>
-        <default>false</default>
-        <label>Mob/Demob</label>
-    </customValue>
-    <customValue>
-        <fullName>Mooring</fullName>
-        <default>false</default>
-        <label>Mooring</label>
-    </customValue>
-    <customValue>
-        <fullName>Payment Date</fullName>
-        <default>false</default>
-        <label>Payment Date</label>
-    </customValue>
-    <customValue>
-        <fullName>Problems regarding Boleto</fullName>
-        <default>false</default>
-        <label>Problems regarding Boleto</label>
-    </customValue>
-    <customValue>
-        <fullName>Problems with PO</fullName>
-        <default>false</default>
-        <label>Problems with PO</label>
-    </customValue>
-    <customValue>
-        <fullName>Pushing/Pulling along the quay</fullName>
-        <default>false</default>
-        <label>Pushing/Pulling along the quay</label>
-    </customValue>
-    <customValue>
-        <fullName>Send to the wrong email</fullName>
-        <default>false</default>
-        <label>Send to the wrong email</label>
-    </customValue>
-    <customValue>
-        <fullName>Shifting</fullName>
-        <default>false</default>
-        <label>Shifting</label>
-    </customValue>
-    <customValue>
-        <fullName>Standby</fullName>
-        <default>false</default>
-        <label>Standby</label>
-    </customValue>
-    <customValue>
-        <fullName>Taxes</fullName>
-        <default>false</default>
-        <label>Taxes</label>
-    </customValue>
-    <customValue>
-        <fullName>Turning the vessel</fullName>
-        <default>false</default>
-        <label>Turning the vessel</label>
-    </customValue>
-    <customValue>
-        <fullName>Updating the address company (same group)</fullName>
-        <default>false</default>
-        <label>Updating the address company (same group)</label>
-    </customValue>
-    <customValue>
-        <fullName>Validation error</fullName>
-        <default>false</default>
-        <label>Validation error</label>
-    </customValue>
-    <customValue>
-        <fullName>(pesagem, desova, VGM e outros)</fullName>
-        <default>false</default>
-        <label>(pesagem, desova, VGM e outros)</label>
-    </customValue>
-    <customValue>
-        <fullName>Acompanhamento de processo IMP</fullName>
-        <default>false</default>
-        <label>Acompanhamento de processo IMP</label>
-    </customValue>
-    <customValue>
-        <fullName>Agendamento Manual / OS / Levante</fullName>
-        <default>false</default>
-        <label>Agendamento Manual / OS / Levante</label>
-    </customValue>
-    <customValue>
-        <fullName>Agendamento de Serviços e AC</fullName>
-        <default>false</default>
-        <label>Agendamento de Serviços e AC</label>
-    </customValue>
-    <customValue>
-        <fullName>Ajuste Manual</fullName>
-        <default>false</default>
-        <label>Ajuste Manual</label>
-    </customValue>
-    <customValue>
-        <fullName>Ajuste de Dados Incorretos</fullName>
-        <default>false</default>
-        <label>Ajuste de Dados Incorretos</label>
-    </customValue>
-    <customValue>
-        <fullName>Alterações de agendamento</fullName>
-        <default>false</default>
-        <label>Alterações de agendamento</label>
-    </customValue>
-    <customValue>
-        <fullName>Análise de demurrage</fullName>
-        <default>false</default>
-        <label>Análise de demurrage</label>
-    </customValue>
-    <customValue>
-        <fullName>Armazenagem de Cabotagem - free time</fullName>
-        <default>false</default>
-        <label>Armazenagem de Cabotagem - free time</label>
-    </customValue>
-    <customValue>
-        <fullName>Armazenagem de importação</fullName>
-        <default>false</default>
-        <label>Armazenagem de importação</label>
-    </customValue>
-    <customValue>
-        <fullName>Armazenagem e transferência de lote</fullName>
-        <default>false</default>
-        <label>Armazenagem e transferência de lote</label>
-    </customValue>
-    <customValue>
-        <fullName>Atraso na aprovação da NCM</fullName>
-        <default>false</default>
-        <label>Atraso na aprovação da NCM</label>
-    </customValue>
-    <customValue>
-        <fullName>Atualização de Deadline</fullName>
-        <default>false</default>
-        <label>Atualização de Deadline</label>
-    </customValue>
-    <customValue>
-        <fullName>Aumento de janelas</fullName>
-        <default>false</default>
-        <label>Aumento de janelas</label>
-    </customValue>
-    <customValue>
-        <fullName>Ausência de CTDA/ ERRO NA LIBERAÇÃO DTC</fullName>
-        <default>false</default>
-        <label>Ausência de CTDA/ ERRO NA LIBERAÇÃO DTC</label>
-    </customValue>
-    <customValue>
-        <fullName>Avaria / falta / troca de volumes</fullName>
-        <default>false</default>
-        <label>Avaria / falta / troca de volumes</label>
-    </customValue>
-    <customValue>
-        <fullName>Avaria de Origem (Damage)</fullName>
-        <default>false</default>
-        <label>Avaria de Origem (Damage)</label>
-    </customValue>
-    <customValue>
-        <fullName>Bloqueio Aduaneiro</fullName>
-        <default>false</default>
-        <label>Bloqueio Aduaneiro</label>
-    </customValue>
-    <customValue>
-        <fullName>Cadastro de NCM</fullName>
-        <default>false</default>
-        <label>Cadastro de NCM</label>
-    </customValue>
-    <customValue>
-        <fullName>Cadastro e Informações</fullName>
-        <default>false</default>
-        <label>Cadastro e Informações</label>
-    </customValue>
-    <customValue>
-        <fullName>Cancelamento de placa/agendamento</fullName>
-        <default>false</default>
-        <label>Cancelamento de placa/agendamento</label>
-    </customValue>
-    <customValue>
-        <fullName>Carregamento incorreto</fullName>
-        <default>false</default>
-        <label>Carregamento incorreto</label>
-    </customValue>
-    <customValue>
-        <fullName>Carta Protesto</fullName>
-        <default>false</default>
-        <label>Carta Protesto</label>
-    </customValue>
-    <customValue>
-        <fullName>Conferência de Lacre</fullName>
-        <default>false</default>
-        <label>Conferência de Lacre</label>
-    </customValue>
-    <customValue>
-        <fullName>Consulta de disponibilidades de janelas</fullName>
-        <default>false</default>
-        <label>Consulta de disponibilidades de janelas</label>
-    </customValue>
-    <customValue>
-        <fullName>Container Sem Lacre</fullName>
-        <default>false</default>
-        <label>Container Sem Lacre</label>
-    </customValue>
-    <customValue>
-        <fullName>Custo IMO e FLAT RACK</fullName>
-        <default>false</default>
-        <label>Custo IMO e FLAT RACK</label>
-    </customValue>
-    <customValue>
-        <fullName>Custos de carga FCL</fullName>
-        <default>false</default>
-        <label>Custos de carga FCL</label>
-    </customValue>
-    <customValue>
-        <fullName>Custos de reefer</fullName>
-        <default>false</default>
-        <label>Custos de reefer</label>
-    </customValue>
-    <customValue>
-        <fullName>DSA / DUIMP Antecipada</fullName>
-        <default>false</default>
-        <label>DSA / DUIMP Antecipada</label>
-    </customValue>
-    <customValue>
-        <fullName>DUIMP Antecipada / DSA</fullName>
-        <default>false</default>
-        <label>DUIMP Antecipada / DSA</label>
-    </customValue>
-    <customValue>
-        <fullName>DUIMP Normal</fullName>
-        <default>false</default>
-        <label>DUIMP Normal</label>
-    </customValue>
-    <customValue>
-        <fullName>Devolução de Vazios</fullName>
-        <default>false</default>
-        <label>Devolução de Vazios</label>
-    </customValue>
-    <customValue>
-        <fullName>Dia de porta</fullName>
-        <default>false</default>
-        <label>Dia de porta</label>
-    </customValue>
-    <customValue>
-        <fullName>Direcionamentos</fullName>
-        <default>false</default>
-        <label>Direcionamentos</label>
-    </customValue>
-    <customValue>
-        <fullName>Divergência de lacre</fullName>
-        <default>false</default>
-        <label>Divergência de lacre</label>
-    </customValue>
-    <customValue>
-        <fullName>Divergência de volume / lacre / Entrega</fullName>
-        <default>false</default>
-        <label>Divergência de volume / lacre / Entrega</label>
-    </customValue>
-    <customValue>
-        <fullName>Duplo Direcionamento</fullName>
-        <default>false</default>
-        <label>Duplo Direcionamento</label>
-    </customValue>
-    <customValue>
-        <fullName>Entreposto</fullName>
-        <default>false</default>
-        <label>Entreposto</label>
-    </customValue>
-    <customValue>
-        <fullName>Envio de Booking List</fullName>
-        <default>false</default>
-        <label>Envio de Booking List</label>
-    </customValue>
-    <customValue>
-        <fullName>Envio de Ticket de Pesagem</fullName>
-        <default>false</default>
-        <label>Envio de Ticket de Pesagem</label>
-    </customValue>
-    <customValue>
-        <fullName>Envio de termos e documentos de vistoria</fullName>
-        <default>false</default>
-        <label>Envio de termos e documentos de vistoria</label>
-    </customValue>
-    <customValue>
-        <fullName>Erro de sistema</fullName>
-        <default>false</default>
-        <label>Erro de sistema</label>
-    </customValue>
-    <customValue>
-        <fullName>Fluxo chegada/liberação - DTA Marítimo</fullName>
-        <default>false</default>
-        <label>Fluxo chegada/liberação - DTA Marítimo</label>
-    </customValue>
-    <customValue>
-        <fullName>Fluxo chegada/liberação - DTA Rodoviária</fullName>
-        <default>false</default>
-        <label>Fluxo chegada/liberação - DTA Rodoviária</label>
-    </customValue>
-    <customValue>
-        <fullName>Fluxo de Devolução de Vazio Externo</fullName>
-        <default>false</default>
-        <label>Fluxo de Devolução de Vazio Externo</label>
-    </customValue>
-    <customValue>
-        <fullName>Fluxo de Recebimento de Lacre</fullName>
-        <default>false</default>
-        <label>Fluxo de Recebimento de Lacre</label>
-    </customValue>
-    <customValue>
-        <fullName>Inativação de Direcionamento</fullName>
-        <default>false</default>
-        <label>Inativação de Direcionamento</label>
-    </customValue>
-    <customValue>
-        <fullName>Inclusão de Navio (Portal)</fullName>
-        <default>false</default>
-        <label>Inclusão de Navio (Portal)</label>
-    </customValue>
-    <customValue>
-        <fullName>Indisponibilidade de gate</fullName>
-        <default>false</default>
-        <label>Indisponibilidade de gate</label>
-    </customValue>
-    <customValue>
-        <fullName>Indisponibilidade de janela</fullName>
-        <default>false</default>
-        <label>Indisponibilidade de janela</label>
-    </customValue>
-    <customValue>
-        <fullName>Informações Gerais</fullName>
-        <default>false</default>
-        <label>Informações Gerais</label>
-    </customValue>
-    <customValue>
-        <fullName>Instruções e Acompanhamento do Serviço</fullName>
-        <default>false</default>
-        <label>Instruções e Acompanhamento do Serviço</label>
-    </customValue>
-    <customValue>
-        <fullName>Janela de retirada DTC</fullName>
-        <default>false</default>
-        <label>Janela de retirada DTC</label>
-    </customValue>
-    <customValue>
-        <fullName>Liberação Manual / Gaps Portal</fullName>
-        <default>false</default>
-        <label>Liberação Manual / Gaps Portal</label>
-    </customValue>
-    <customValue>
-        <fullName>MAPA / PCCE</fullName>
-        <default>false</default>
-        <label>MAPA / PCCE</label>
-    </customValue>
-    <customValue>
-        <fullName>Minuta de Devolução</fullName>
-        <default>false</default>
-        <label>Minuta de Devolução</label>
-    </customValue>
-    <customValue>
-        <fullName>Motorista Bloqueado</fullName>
-        <default>false</default>
-        <label>Motorista Bloqueado</label>
-    </customValue>
-    <customValue>
-        <fullName>Módulo de Cargas de Projeto</fullName>
-        <default>false</default>
-        <label>Módulo de Cargas de Projeto</label>
-    </customValue>
-    <customValue>
-        <fullName>NF / SEFAZ</fullName>
-        <default>false</default>
-        <label>NF / SEFAZ</label>
-    </customValue>
-    <customValue>
-        <fullName>Normas e Processos</fullName>
-        <default>false</default>
-        <label>Normas e Processos</label>
-    </customValue>
-    <customValue>
-        <fullName>Notificação de Avaria Interna (Armazém)</fullName>
-        <default>false</default>
-        <label>Notificação de Avaria Interna (Armazém)</label>
-    </customValue>
-    <customValue>
-        <fullName>Notificação de Avaria de Origem (Armazém)</fullName>
-        <default>false</default>
-        <label>Notificação de Avaria de Origem (Armazém)</label>
-    </customValue>
-    <customValue>
-        <fullName>Notificação de Vistoria MAPA / RFB / Outros</fullName>
-        <default>false</default>
-        <label>Notificação de Vistoria MAPA / RFB / Outros</label>
-    </customValue>
-    <customValue>
-        <fullName>Notificação de impactos (carro inadequado / cubagem)</fullName>
-        <default>false</default>
-        <label>Notificação de impactos (carro inadequado / cubagem)</label>
-    </customValue>
-    <customValue>
-        <fullName>Pedido de Prioridade</fullName>
-        <default>false</default>
-        <label>Pedido de Prioridade</label>
-    </customValue>
-    <customValue>
-        <fullName>Pendência Financeira</fullName>
-        <default>false</default>
-        <label>Pendência Financeira</label>
-    </customValue>
-    <customValue>
-        <fullName>Pendências no Direcionamento</fullName>
-        <default>false</default>
-        <label>Pendências no Direcionamento</label>
-    </customValue>
-    <customValue>
-        <fullName>Prioridade para o posicionamento</fullName>
-        <default>false</default>
-        <label>Prioridade para o posicionamento</label>
-    </customValue>
-    <customValue>
-        <fullName>Prioridade presença de carga</fullName>
-        <default>false</default>
-        <label>Prioridade presença de carga</label>
-    </customValue>
-    <customValue>
-        <fullName>Procedimentos e custos</fullName>
-        <default>false</default>
-        <label>Procedimentos e custos</label>
-    </customValue>
-    <customValue>
-        <fullName>Processo não contemplado no Portal</fullName>
-        <default>false</default>
-        <label>Processo não contemplado no Portal</label>
-    </customValue>
-    <customValue>
-        <fullName>Programação de Navio</fullName>
-        <default>false</default>
-        <label>Programação de Navio</label>
-    </customValue>
-    <customValue>
-        <fullName>Quebra de Lote</fullName>
-        <default>false</default>
-        <label>Quebra de Lote</label>
-    </customValue>
-    <customValue>
-        <fullName>Relatório de Carga Pátio</fullName>
-        <default>false</default>
-        <label>Relatório de Carga Pátio</label>
-    </customValue>
-    <customValue>
-        <fullName>Relatório de Divergência de Lacre e Avarias</fullName>
-        <default>false</default>
-        <label>Relatório de Divergência de Lacre e Avarias</label>
-    </customValue>
-    <customValue>
-        <fullName>Solicitação de LAR</fullName>
-        <default>false</default>
-        <label>Solicitação de LAR</label>
-    </customValue>
-    <customValue>
-        <fullName>Solicitação de Prioridade</fullName>
-        <default>false</default>
-        <label>Solicitação de Prioridade</label>
-    </customValue>
-    <customValue>
-        <fullName>Solicitação de monitoramento de temperatura</fullName>
-        <default>false</default>
-        <label>Solicitação de monitoramento de temperatura</label>
-    </customValue>
-    <customValue>
-        <fullName>Solicitação de prioridade na liberação</fullName>
-        <default>false</default>
-        <label>Solicitação de prioridade na liberação</label>
-    </customValue>
-    <customValue>
-        <fullName>Solicitação manual ( portal fechado)</fullName>
-        <default>false</default>
-        <label>Solicitação manual ( portal fechado)</label>
-    </customValue>
-    <customValue>
-        <fullName>Status e acompanhamento da entrega ou coleta</fullName>
-        <default>false</default>
-        <label>Status e acompanhamento da entrega ou coleta</label>
-    </customValue>
-    <customValue>
-        <fullName>Termo de Cobrança</fullName>
-        <default>false</default>
-        <label>Termo de Cobrança</label>
-    </customValue>
-    <customValue>
-        <fullName>Transferência / Atualização de Navio</fullName>
-        <default>false</default>
-        <label>Transferência / Atualização de Navio</label>
-    </customValue>
-    <customValue>
-        <fullName>Custo operações de navios</fullName>
-        <default>false</default>
-        <label>Custo operações de navios</label>
-    </customValue>
-    <customValue>
-        <fullName>Cadastro CPF e dados</fullName>
-        <default>false</default>
-        <label>Cadastro CPF e dados</label>
-    </customValue>
-    <customValue>
-        <fullName>Dúvidas Gerais</fullName>
-        <default>false</default>
-        <label>Dúvidas Gerais</label>
-    </customValue>
-    <customValue>
-        <fullName>Acompanhamento Processo IMP</fullName>
-        <default>false</default>
-        <label>Acompanhamento Processo IMP</label>
-    </customValue>
-    <customValue>
-        <fullName>Alteração de &apos;Cobrar de&apos;</fullName>
-        <default>false</default>
-        <label>Alteração de &apos;Cobrar de&apos;</label>
-    </customValue>
-    <customValue>
-        <fullName>Alteração de Free Time</fullName>
-        <default>false</default>
-        <label>Alteração de Free Time</label>
-    </customValue>
-    <customValue>
-        <fullName>Armazenagem de Cabotagem – Free Time</fullName>
-        <default>false</default>
-        <label>Armazenagem de Cabotagem – Free Time</label>
-    </customValue>
-    <customValue>
-        <fullName>Ausência de CTDA / Erro na Liberação DTC</fullName>
-        <default>false</default>
-        <label>Ausência de CTDA / Erro na Liberação DTC</label>
-    </customValue>
-    <customValue>
-        <fullName>Cadastro / Acesso</fullName>
-        <default>false</default>
-        <label>Cadastro / Acesso</label>
-    </customValue>
-    <customValue>
-        <fullName>Cancelamento de Placa / Agendamento</fullName>
-        <default>false</default>
-        <label>Cancelamento de Placa / Agendamento</label>
-    </customValue>
-    <customValue>
-        <fullName>Condições e Termos – Proposta Clientes</fullName>
-        <default>false</default>
-        <label>Condições e Termos – Proposta Clientes</label>
-    </customValue>
-    <customValue>
-        <fullName>Condições e Termos – Tabela Pública</fullName>
-        <default>false</default>
-        <label>Condições e Termos – Tabela Pública</label>
-    </customValue>
-    <customValue>
-        <fullName>Consulta de Disponibilidade de Janelas</fullName>
-        <default>false</default>
-        <label>Consulta de Disponibilidade de Janelas</label>
-    </customValue>
-    <customValue>
-        <fullName>Dados SAS</fullName>
-        <default>false</default>
-        <label>Dados SAS</label>
-    </customValue>
-    <customValue>
-        <fullName>Dados Sefaz</fullName>
-        <default>false</default>
-        <label>Dados Sefaz</label>
-    </customValue>
-    <customValue>
-        <fullName>Descarga Sem Cadastro</fullName>
-        <default>false</default>
-        <label>Descarga Sem Cadastro</label>
-    </customValue>
-    <customValue>
-        <fullName>Divergência de Volume / Lacre</fullName>
-        <default>false</default>
-        <label>Divergência de Volume / Lacre</label>
-    </customValue>
-    <customValue>
-        <fullName>E-mail recebimento de faturas</fullName>
-        <default>false</default>
-        <label>E-mail recebimento de faturas</label>
-    </customValue>
-    <customValue>
-        <fullName>Envio de Formas e Documentos de Vistoria</fullName>
-        <default>false</default>
-        <label>Envio de Formas e Documentos de Vistoria</label>
-    </customValue>
-    <customValue>
-        <fullName>Extensão de Prazo Cancelada Indevidamente</fullName>
-        <default>false</default>
-        <label>Extensão de Prazo Cancelada Indevidamente</label>
-    </customValue>
-    <customValue>
-        <fullName>Fluxo DTA Marítimo</fullName>
-        <default>false</default>
-        <label>Fluxo DTA Marítimo</label>
-    </customValue>
-    <customValue>
-        <fullName>Fluxo DTA Rodoviária</fullName>
-        <default>false</default>
-        <label>Fluxo DTA Rodoviária</label>
-    </customValue>
-    <customValue>
-        <fullName>Fluxo de Devolução de Baú Interno</fullName>
-        <default>false</default>
-        <label>Fluxo de Devolução de Baú Interno</label>
-    </customValue>
-    <customValue>
-        <fullName>Follow UP Clientes</fullName>
-        <default>false</default>
-        <label>Follow UP Clientes</label>
-    </customValue>
-    <customValue>
-        <fullName>Indisponibilidade do Gate</fullName>
-        <default>false</default>
-        <label>Indisponibilidade do Gate</label>
-    </customValue>
-    <customValue>
-        <fullName>Monitoramento de Temperatura</fullName>
-        <default>false</default>
-        <label>Monitoramento de Temperatura</label>
-    </customValue>
-    <customValue>
-        <fullName>Morosidade ou Erro no Atend. Operacional</fullName>
-        <default>false</default>
-        <label>Morosidade ou Erro no Atend. Operacional</label>
-    </customValue>
-    <customValue>
-        <fullName>NF / SERAZ</fullName>
-        <default>false</default>
-        <label>NF / SERAZ</label>
-    </customValue>
-    <customValue>
-        <fullName>Notificação de Impactos (Carro Inadequado)</fullName>
-        <default>false</default>
-        <label>Notificação de Impactos (Carro Inadequado)</label>
-    </customValue>
-    <customValue>
-        <fullName>Nova Proposta / Lead</fullName>
-        <default>false</default>
-        <label>Nova Proposta / Lead</label>
-    </customValue>
-    <customValue>
-        <fullName>Pesagem, Desova, VGM e Outros</fullName>
-        <default>false</default>
-        <label>Pesagem, Desova, VGM e Outros</label>
-    </customValue>
-    <customValue>
-        <fullName>Prioridade na Presença de Carga</fullName>
-        <default>false</default>
-        <label>Prioridade na Presença de Carga</label>
-    </customValue>
-    <customValue>
-        <fullName>Prioridade para Posicionamento</fullName>
-        <default>false</default>
-        <label>Prioridade para Posicionamento</label>
-    </customValue>
-    <customValue>
-        <fullName>Proposta Vencida sem Renovação</fullName>
-        <default>false</default>
-        <label>Proposta Vencida sem Renovação</label>
-    </customValue>
-    <customValue>
-        <fullName>Prorrogação / Alteração de Vencimento</fullName>
-        <default>false</default>
-        <label>Prorrogação / Alteração de Vencimento</label>
-    </customValue>
-    <customValue>
-        <fullName>Redefinição de Senha/Login</fullName>
-        <default>false</default>
-        <label>Redefinição de Senha/Login</label>
-    </customValue>
-    <customValue>
-        <fullName>Serviço Novo Não Incluído na Proposta</fullName>
-        <default>false</default>
-        <label>Serviço Novo Não Incluído na Proposta</label>
-    </customValue>
-    <customValue>
-        <fullName>Solicitação Manual (Portal Fechado)</fullName>
-        <default>false</default>
-        <label>Solicitação Manual (Portal Fechado)</label>
-    </customValue>
-    <customValue>
-        <fullName>Status e Acompanhamento da Entrega</fullName>
-        <default>false</default>
-        <label>Status e Acompanhamento da Entrega</label>
-    </customValue>
     <masterLabel>WS Subassunto</masterLabel>
-    <sorted>false</sorted>
+    <sorted>true</sorted>
 </GlobalValueSet>

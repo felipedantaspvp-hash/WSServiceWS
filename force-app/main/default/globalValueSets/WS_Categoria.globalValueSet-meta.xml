@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <customValue>
+        <fullName>Acesso ao Porto</fullName>
+        <default>false</default>
+        <label>Acesso ao Porto</label>
+    </customValue>
+    <customValue>
         <fullName>Acompanhamento de Serviço - AG/REDEX</fullName>
         <default>false</default>
         <label>Acompanhamento de Serviço - AG/REDEX</label>
@@ -14,6 +19,11 @@
         <fullName>Apoio Aduaneiro</fullName>
         <default>false</default>
         <label>Apoio Aduaneiro</label>
+    </customValue>
+    <customValue>
+        <fullName>App Meu Tecon</fullName>
+        <default>false</default>
+        <label>App Meu Tecon</label>
     </customValue>
     <customValue>
         <fullName>Atendimento</fullName>
@@ -41,11 +51,6 @@
         <label>Comercial</label>
     </customValue>
     <customValue>
-        <fullName>Commercial</fullName>
-        <default>false</default>
-        <label>Commercial</label>
-    </customValue>
-    <customValue>
         <fullName>Depot / Vazios</fullName>
         <default>false</default>
         <label>Depot / Vazios</label>
@@ -61,14 +66,14 @@
         <label>Desembaraço / Embarque</label>
     </customValue>
     <customValue>
+        <fullName>Direcionamento de Carga</fullName>
+        <default>false</default>
+        <label>Direcionamento de Carga</label>
+    </customValue>
+    <customValue>
         <fullName>Documentação</fullName>
         <default>false</default>
         <label>Documentação</label>
-    </customValue>
-    <customValue>
-        <fullName>Doubts about the vessel&apos;s name</fullName>
-        <default>false</default>
-        <label>Doubts about the vessel&apos;s name</label>
     </customValue>
     <customValue>
         <fullName>Dúvidas sobre nome da embarcação</fullName>
@@ -84,11 +89,6 @@
         <fullName>Financeiro</fullName>
         <default>false</default>
         <label>Financeiro</label>
-    </customValue>
-    <customValue>
-        <fullName>Financial</fullName>
-        <default>false</default>
-        <label>Financial</label>
     </customValue>
     <customValue>
         <fullName>Inatividade</fullName>
@@ -126,14 +126,9 @@
         <label>Operação</label>
     </customValue>
     <customValue>
-        <fullName>Operacional - pátio</fullName>
+        <fullName>Operacional – Pátio</fullName>
         <default>false</default>
-        <label>Operacional - pátio</label>
-    </customValue>
-    <customValue>
-        <fullName>Operational</fullName>
-        <default>false</default>
-        <label>Operational</label>
+        <label>Operacional – Pátio</label>
     </customValue>
     <customValue>
         <fullName>Pátio de Vazios</fullName>
@@ -151,14 +146,14 @@
         <label>Portal do Cliente</label>
     </customValue>
     <customValue>
-        <fullName>Portal Logistico</fullName>
-        <default>false</default>
-        <label>Portal Logistico</label>
-    </customValue>
-    <customValue>
         <fullName>Portal Logístico</fullName>
         <default>false</default>
         <label>Portal Logístico</label>
+    </customValue>
+    <customValue>
+        <fullName>Processos Aduaneiros</fullName>
+        <default>false</default>
+        <label>Processos Aduaneiros</label>
     </customValue>
     <customValue>
         <fullName>Programação de Serviço</fullName>
@@ -186,9 +181,9 @@
         <label>Santa Clara</label>
     </customValue>
     <customValue>
-        <fullName>Serviços especificos</fullName>
+        <fullName>Serviços de Armazém</fullName>
         <default>false</default>
-        <label>Serviços especificos</label>
+        <label>Serviços de Armazém</label>
     </customValue>
     <customValue>
         <fullName>Serviços específicos</fullName>
@@ -215,42 +210,6 @@
         <default>false</default>
         <label>Transporte</label>
     </customValue>
-    <customValue>
-        <fullName>Acesso ao Porto</fullName>
-        <default>false</default>
-        <label>Acesso ao Porto</label>
-    </customValue>
-    <customValue>
-        <fullName>Direcionamento de Carga</fullName>
-        <default>false</default>
-        <label>Direcionamento de Carga</label>
-    </customValue>
-    <customValue>
-        <fullName>Processos Aduaneiros</fullName>
-        <default>false</default>
-        <label>Processos Aduaneiros</label>
-    </customValue>
-    <customValue>
-        <fullName>Serviços de Armazém</fullName>
-        <default>false</default>
-        <label>Serviços de Armazém</label>
-    </customValue>
-    <customValue>
-        <fullName>App Meu Tecon</fullName>
-        <default>false</default>
-        <label>App Meu Tecon</label>
-    </customValue>
-    <customValue>
-        <fullName>Operacional – Pátio</fullName>
-        <default>false</default>
-        <label>Operacional – Pátio</label>
-    </customValue>
-    <customValue>
-        <fullName>Fatuamento</fullName>
-        <default>false</default>
-        <isActive>false</isActive>
-        <label>Fatuamento</label>
-    </customValue>
     <masterLabel>WS Categoria</masterLabel>
-    <sorted>false</sorted>
+    <sorted>true</sorted>
 </GlobalValueSet>

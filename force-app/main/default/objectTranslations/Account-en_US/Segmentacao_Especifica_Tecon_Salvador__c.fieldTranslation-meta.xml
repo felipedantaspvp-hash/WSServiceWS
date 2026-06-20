@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Segmentação Específica Tecon Salvador --></label>
+    <name>Segmentacao_Especifica_Tecon_Salvador__c</name>
+    <picklistValues>
+        <masterLabel>Agente de Carga</masterLabel>
+        <translation><!-- Agente de Carga --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Armador</masterLabel>
+        <translation><!-- Armador --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Armador Break Bulk</masterLabel>
+        <translation><!-- Armador Break Bulk --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cabotagem</masterLabel>
+        <translation><!-- Cabotagem --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Comissaria de Despacho</masterLabel>
+        <translation><!-- Comissaria de Despacho --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Exportador</masterLabel>
+        <translation><!-- Exportador --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Importador</masterLabel>
+        <translation><!-- Importador --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Outros</masterLabel>
+        <translation><!-- Outros --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Transportadora</masterLabel>
+        <translation><!-- Transportadora --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

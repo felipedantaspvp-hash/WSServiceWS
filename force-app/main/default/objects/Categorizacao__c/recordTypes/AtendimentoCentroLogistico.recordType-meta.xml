@@ -23,19 +23,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Acompanhar veiculo sem agendamento</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Acompanhar veículo sem agendamento</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Agendamento</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Agendamentos</fullName>
             <default>false</default>
         </values>
         <values>
@@ -143,15 +135,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Conformidade</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Contas a pagar</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Contestação de demonstrativos ou fatura</fullName>
             <default>false</default>
         </values>
         <values>
@@ -188,10 +172,6 @@
         </values>
         <values>
             <fullName>Diversos</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Duvidas diversas</fullName>
             <default>false</default>
         </values>
         <values>
@@ -259,7 +239,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Encaminhar TFA %28termo de Falta e Avaria%29</fullName>
+            <fullName>Encaminhar TFA %28Termo de Falta e Avaria%29</fullName>
             <default>false</default>
         </values>
         <values>
@@ -335,18 +315,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Erro ou atraso atualização cadastral</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Erro ou atraso no cadastro de cliente</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Erro%2Findisponibilidade Portal</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Esclarecimento sobre manobras</fullName>
             <default>false</default>
         </values>
@@ -379,10 +347,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Faturas</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Fora do horário de atendimento</fullName>
             <default>false</default>
         </values>
@@ -392,10 +356,6 @@
         </values>
         <values>
             <fullName>Gerenciar planilhas de etiquetagem</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Gerenciar planilhas de etiquetaquem</fullName>
             <default>false</default>
         </values>
         <values>
@@ -575,10 +535,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Relatorios</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Relatórios</fullName>
             <default>false</default>
         </values>
@@ -746,19 +702,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Operacional - pátio</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Operação</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Planejamento Operacional Alfandegado</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Portal Logistico</fullName>
             <default>false</default>
         </values>
         <values>
@@ -795,10 +743,6 @@
         </values>
         <values>
             <fullName>Santa Clara</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Serviços especificos</fullName>
             <default>false</default>
         </values>
         <values>
@@ -862,10 +806,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>-</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Acesso indisponível</fullName>
             <default>false</default>
         </values>
@@ -891,14 +831,6 @@
         </values>
         <values>
             <fullName>Alteração da Programação</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Alteração de %22cobrar de%22</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Alteração de tempo livre ou outros</fullName>
             <default>false</default>
         </values>
         <values>
@@ -986,10 +918,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Cadastro%2Facesso</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Cancelamento</fullName>
             <default>false</default>
         </values>
@@ -1010,10 +938,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Colocação %2F Remoção de etiqueta</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Compensação de Pagamento</fullName>
             <default>false</default>
         </values>
@@ -1023,14 +947,6 @@
         </values>
         <values>
             <fullName>Comprovante de pesagem</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Condições e termos - Tabela Pública</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Condições e termos - proposta clientes</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1046,19 +962,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Confirmação de vinculo comercial</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Confirmação de vínculo comercial</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Confirmação ou alteração de e-mails</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Confirmação ou alteração de emails</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1227,10 +1135,6 @@
         </values>
         <values>
             <fullName>Erro portal Sister</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Espelho de calculo %2F descrição de calculo</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1510,10 +1414,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Prorrogação%2F alteração de vencimento</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Rebocador de escolta</fullName>
             <default>false</default>
         </values>
@@ -1551,10 +1451,6 @@
         </values>
         <values>
             <fullName>Registro de avaria</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Relatorio de custos</fullName>
             <default>false</default>
         </values>
         <values>

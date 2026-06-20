@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>WSWillContextResolverService</members>
+        <members>WSWillContextResolverTest</members>
+        <members>AtendimentoConfigDTO</members>
+        <members>AtendimentoConfigService</members>
+        <members>AtendimentoConfigServiceTest</members>
+        <members>MessagingContextService</members>
+        <members>WSWillCaseCreationService</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>Route_to_Will_Smoke</members>
+        <members>WS_AgentWork_Assumir_Case_Transbordo</members>
+        <members>Route_from_Will</members>
+        <name>Flow</name>
+    </types>
+    <types>
+        <members>gestaoSLAWorkspace</members>
+        <name>LightningComponentBundle</name>
+    </types>
+    <types>
+        <members>ParametrosAtendimento__mdt</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Case.AtendimentoTeconSalvador</members>
+        <name>RecordType</name>
+    </types>
+    <version>67.0</version>
+</Package>

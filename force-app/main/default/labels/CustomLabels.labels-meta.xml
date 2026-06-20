@@ -897,6 +897,38 @@
         <value>Internal Area</value>
     </labels>
     <labels>
+        <fullName>GestaoSLA_AreaInternaHelpTitle</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Title of the double-click shortcuts help banner on Internal Area rules table</shortDescription>
+        <value>Quick fill tips</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_AreaInternaHelpReplicateRow</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Help: dblclick Internal Area header replicates first row</shortDescription>
+        <value>Double-click the &quot;Internal Area&quot; column header to copy the entire first row to all areas.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_AreaInternaHelpReplicateColumn</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Help: dblclick time column header replicates first row value</shortDescription>
+        <value>Double-click a time column header (High/Medium/Low) to copy the first area&apos;s value to that whole column.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_AreaInternaHelpCopyRowPriority</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Help: dblclick area name copies Priority High to Medium/Low</shortDescription>
+        <value>Double-click an area&apos;s name to copy its &quot;Priority High&quot; value into &quot;Priority Medium&quot; and &quot;Priority Low&quot; for that same row.</value>
+    </labels>
+    <labels>
         <fullName>GestaoSLA_RuleColMilestone</fullName>
         <categories>GestaoSLA</categories>
         <language>en_US</language>
@@ -2481,5 +2513,701 @@
         <protected>true</protected>
         <shortDescription>Value Label</shortDescription>
         <value>Value</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_AccountIdInvalid</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Invalid Account Id error</shortDescription>
+        <value>Invalid Account identifier.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_AccountNotFoundNoAccess</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Account not found error</shortDescription>
+        <value>Account not found or unavailable.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_AccountRequired</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Required Account error</shortDescription>
+        <value>Account is required.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_Activate</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Activate action label</shortDescription>
+        <value>Activate</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_Active</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Active status label</shortDescription>
+        <value>Active</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ActivityDescription</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Activity description field label</shortDescription>
+        <value>Activity description</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_BusinessUnit</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Business unit label</shortDescription>
+        <value>Business Unit</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_BusinessUnitRequired</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Business unit required error</shortDescription>
+        <value>Business Unit is required.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_Cancel</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel action label</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_CaseType</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case type label</shortDescription>
+        <value>Case Type</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_CaseTypeRequired</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case type required error</shortDescription>
+        <value>Case Type is required.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_CategorizationRequired</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Categorization required error</shortDescription>
+        <value>Categorization is required.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_Category</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category label</shortDescription>
+        <value>Category</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_CategoryRequired</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category required error</shortDescription>
+        <value>Category is required.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_Close</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Close action label</shortDescription>
+        <value>Close</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ConfirmActivate</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Confirm activate message</shortDescription>
+        <value>Do you want to activate this schedule?</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ConfirmDeactivate</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Confirm deactivate message</shortDescription>
+        <value>Do you want to deactivate this schedule?</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ConfirmStatusTitle</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Status confirmation title</shortDescription>
+        <value>Confirm change</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_CreatePermissionDenied</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Create permission denied error</shortDescription>
+        <value>You do not have permission to create Schedules.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_Deactivate</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Deactivate action label</shortDescription>
+        <value>Deactivate</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_DescriptionRequired</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description required error</shortDescription>
+        <value>Activity description is required.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_Edit</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Edit action label</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_EditPermissionDenied</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Edit permission denied error</shortDescription>
+        <value>You do not have permission to edit Schedules.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_EditSchedule</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Edit schedule title</shortDescription>
+        <value>Edit Schedule</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_EmptyState</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Empty state message</shortDescription>
+        <value>No schedules registered for this Account.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ErrorInitialLoadUnexpected</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unexpected initial load error</shortDescription>
+        <value>Unexpected error while loading Schedules.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ErrorQueueResolve</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Queue resolution error</shortDescription>
+        <value>Unable to resolve the categorization queue.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ErrorQueuesLoad</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Queue loading error</shortDescription>
+        <value>Unable to load queues.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ErrorSaveUnexpected</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unexpected save error</shortDescription>
+        <value>Unexpected error while saving the Schedule.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ErrorStatusUnexpected</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unexpected status update error</shortDescription>
+        <value>Unexpected error while updating the Schedule status.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ErrorTitle</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error toast title</shortDescription>
+        <value>Error</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ErrorTreeLoad</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Categorization loading error</shortDescription>
+        <value>Unable to load categorization.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ErrorUsersSearch</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>User search error</shortDescription>
+        <value>Unable to search users.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ExecutionTime</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Execution time label</shortDescription>
+        <value>Time</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_Frequency</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Frequency label</shortDescription>
+        <value>Frequency</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_FrequencyRequired</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Frequency required error</shortDescription>
+        <value>Frequency is required.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_Inactive</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Inactive status label</shortDescription>
+        <value>Inactive</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_InactiveUser</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Inactive user error</shortDescription>
+        <value>The selected user does not exist or is inactive.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_IndicatorActive</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Indicator active schedule status</shortDescription>
+        <value>Account has active scheduling</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_IndicatorInactive</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Indicator inactive schedule status</shortDescription>
+        <value>Account has only inactive scheduling</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_IndicatorNone</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Indicator no schedule status</shortDescription>
+        <value>No scheduling configured</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_IndicatorTitle</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Schedule indicator title</shortDescription>
+        <value>Case Scheduling</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_IndicatorUnavailable</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Schedule indicator unavailable status</shortDescription>
+        <value>Scheduling status unavailable</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_InvalidTime</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Invalid time error</shortDescription>
+        <value>Invalid time.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_LastError</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Last error column label</shortDescription>
+        <value>Last error</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_LoadingSchedules</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Loading spinner text</shortDescription>
+        <value>Loading schedules</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_NewSchedule</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New schedule button label</shortDescription>
+        <value>New Schedule</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_NewScheduleTitle</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New schedule form title</shortDescription>
+        <value>New Schedule</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_Owner</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Owner label</shortDescription>
+        <value>Owner</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_OwnerType</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Owner type label</shortDescription>
+        <value>Owner Type</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_OwnerTypeInvalid</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Invalid owner type error</shortDescription>
+        <value>Invalid Owner Type.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_OwnerTypeRequired</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Owner type required error</shortDescription>
+        <value>Owner Type is required.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_OwnerUserRequired</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Owner user required error</shortDescription>
+        <value>Owner user is required.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_Queue</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Queue label</shortDescription>
+        <value>Queue</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_QueueInvalidForBusinessUnit</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Invalid business unit queue error</shortDescription>
+        <value>Invalid queue for the selected Business Unit.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_QueueMustBeBlankForUser</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Queue must be blank for user error</shortDescription>
+        <value>Queue must be empty when the owner is a user.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_QueueNotFoundCase</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Queue not found for Case error</shortDescription>
+        <value>The selected queue does not exist or is not enabled for Case.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_QueueNotScheduleOwner</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Queue not enabled for schedule owner error</shortDescription>
+        <value>The selected queue is not enabled to own Schedules.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_QueueRequired</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Queue required error</shortDescription>
+        <value>Owner queue is required.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ReadPermissionDenied</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Read permission denied error</shortDescription>
+        <value>You do not have permission to view Schedules.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_Recurrence</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recurrence section label</shortDescription>
+        <value>Recurrence</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_RequestRequired</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Request required error</shortDescription>
+        <value>Schedule data is required.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_Responsible</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Responsible section label</shortDescription>
+        <value>Responsible</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_Save</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save action label</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_SaveFailed</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save failed error</shortDescription>
+        <value>Unable to save the Schedule.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ScheduleNotCurrentAccount</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Schedule account mismatch error</shortDescription>
+        <value>Schedule does not belong to the current Account.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ScheduleNotFoundNoAccess</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Schedule not found error</shortDescription>
+        <value>Schedule not found or unavailable.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ScheduleNumber</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Schedule number column label</shortDescription>
+        <value>Schedule No.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ScheduleRecordTypeNotFound</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Schedule Record Type not found error</shortDescription>
+        <value>Schedule Record Type not found for the selected Business Unit.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ScheduleRequired</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Schedule required error</shortDescription>
+        <value>Schedule is required.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ScheduleSaved</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Schedule saved toast message</shortDescription>
+        <value>Schedule saved.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_SearchActiveUser</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Search active user field label</shortDescription>
+        <value>Search active user</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_SelectedBusinessUnit</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Selected business unit field label</shortDescription>
+        <value>Selected unit</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_ServiceData</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Service data section label</shortDescription>
+        <value>Service Data</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_SkipWeekends</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Skip weekends checkbox label</shortDescription>
+        <value>Skip weekends</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_StartDate</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start date label</shortDescription>
+        <value>Start date</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_StartDateRequired</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start date required error</shortDescription>
+        <value>Start date is required.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_StatusUpdated</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Status updated toast message</shortDescription>
+        <value>Schedule status updated.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_Subject</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Subject label</shortDescription>
+        <value>Subject</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_Subsubject</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Subsubject label</shortDescription>
+        <value>Subsubject</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_SuccessTitle</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Success toast title</shortDescription>
+        <value>Success</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_SuggestedQueue</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Suggested queue field label</shortDescription>
+        <value>Queue suggested by categorization</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_TimeRequired</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Time required error</shortDescription>
+        <value>Time is required.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_Title</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Component title</shortDescription>
+        <value>Case Schedules</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_UnexpectedError</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unexpected fallback error</shortDescription>
+        <value>Unexpected error.</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_User</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>User label</shortDescription>
+        <value>User</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_UserMustBeBlankForQueue</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>User must be blank for queue error</shortDescription>
+        <value>User must be empty when the owner is a queue.</value>
     </labels>
 </CustomLabels>

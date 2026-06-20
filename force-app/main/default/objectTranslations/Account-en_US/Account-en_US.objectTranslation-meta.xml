@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <layouts>
+        <layout>Account Layout</layout>
+        <sections>
+            <label><!-- Bases de Apoio --></label>
+            <section>Bases de Apoio</section>
+        </sections>
+        <sections>
+            <label><!-- Concorrente --></label>
+            <section>Concorrente</section>
+        </sections>
+        <sections>
+            <label><!-- Descrição Armador --></label>
+            <section>Descrição Armador</section>
+        </sections>
+        <sections>
+            <label><!-- Logística --></label>
+            <section>Logística</section>
+        </sections>
+        <sections>
+            <label><!-- Tecon Rio Grande --></label>
+            <section>Tecon Rio Grande</section>
+        </sections>
+        <sections>
+            <label><!-- Tecon Salvador --></label>
+            <section>Tecon Salvador</section>
+        </sections>
+        <sections>
+            <label>Towage</label>
+            <section>Towage</section>
+        </sections>
+    </layouts>
+    <quickActions>
+        <label><!-- Child Account --></label>
+        <name>Child_Account</name>
+    </quickActions>
+    <quickActions>
+        <aspect>Master</aspect>
+        <label>Manage Case Schedules</label>
+        <name>Gerenciar_Agendamentos_Casos</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Criar nova oportunidade --></label>
+        <name>Oportunidade_ParaPreencher</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Update Account --></label>
+        <name>Update_Account</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Adobe Sign --></label>
+        <name>echosign_dev1__EchoSign_Account_Publisher_Action</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Add to Nurture List --></label>
+        <name>pi__Add_to_Nurture_List</name>
+    </quickActions>
+    <recordTypes>
+        <label><!-- Default --></label>
+        <name>Default</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Startup --></label>
+        <name>Startup</name>
+    </recordTypes>
+    <validationRules>
+        <errorMessage><!-- Endereço de uma conta ativa só pode ser alterada após aprovação! --></errorMessage>
+        <name>Bloqueio_Endereco</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Parent de uma conta ativa só pode ser alterada após aprovação! --></errorMessage>
+        <name>Bloqueio_Parent</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Nome de uma conta ativa só pode ser alterado após aprovação --></errorMessage>
+        <name>Bloqueio_nome</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Status de uma conta ativa só pode ser alterado após aprovação --></errorMessage>
+        <name>Bloqueio_status</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Somente usuário PowerUser, Gestor ou Administrador possuem permissão de criar/alterar Conta com status diferente de Nova. --></errorMessage>
+        <name>Campo_Status</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- CompanyId should be a numeric value --></errorMessage>
+        <name>LID__Check_CompanyId_Value</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- CompanyId should be a numeric value --></errorMessage>
+        <name>LID__Check_Company_Id_Value</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Caso o campo Segmentação Específica for igual a &quot;Outro&quot; o campo &quot;Outro (descreva)&quot; é de preenchimento obrigatório. Favor preencher o campo &quot;Outro (descreva)&quot;. --></errorMessage>
+        <name>Outro_descreva_Nao_Pode_Ser_Vazio</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Campo &quot;Segmentação específica agência&quot; é de preenchimento obrigatório --></errorMessage>
+        <name>Segmentacao_Wilson_Obrigatorio_Agencia</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Campo &quot;Segmentação específica Tecon Salvador&quot; é de preenchimento obrigatório --></errorMessage>
+        <name>Segmentacao_obrigatoria_TeconSSA</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Id Tugsys Commercial Group is required --></errorMessage>
+        <name>Towage_tugsys_commercial_group</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Tipo é obrigatório --></errorMessage>
+        <name>Type_Obrigatorio</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Área de Negócio deve ser informada na conta! --></errorMessage>
+        <name>UN_obrigatoria_Agencia</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Website inválido --></errorMessage>
+        <name>Valida_URL</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Conta do tipo grupo econômico não pode ter Conta Pai --></errorMessage>
+        <name>Valida_grupo_economico</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Para Contas do tipo unidade operacional deve ser informada a Conta Pai --></errorMessage>
+        <name>Valida_unidade_operacional</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- GoogleMaps --></label>
+        <name>GoogleMaps</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- GoogleNews --></label>
+        <name>GoogleNews</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- GoogleSearch --></label>
+        <name>GoogleSearch</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Mass_Delete_Records --></label>
+        <name>Mass_Delete_Records</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- dc3Check --></label>
+        <name>dupcheck__dc3Check</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- dc3Merge --></label>
+        <name>dupcheck__dc3Merge</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Send_to_EchoSign --></label>
+        <name>echosign_dev1__Send_to_EchoSign</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Send_Pardot_Emails --></label>
+        <name>pi__Send_Pardot_Emails</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Send_Single_Pardot_Email --></label>
+        <name>pi__Send_Single_Pardot_Email</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Send_To_Prospect_Insight --></label>
+        <name>pi__Send_To_Prospect_Insight</name>
+    </webLinks>
+</CustomObjectTranslation>

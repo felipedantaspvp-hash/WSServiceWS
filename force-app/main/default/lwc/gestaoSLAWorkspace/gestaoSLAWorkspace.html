@@ -802,6 +802,14 @@
                                 </template>
                             </div>
                             <template if:true={showAreaInternaBulkTable}>
+                                <div class="slds-m-top_small slds-box slds-theme_shade area-interna-help-box">
+                                    <p class="slds-text-title_caps area-interna-help-title">{labels.areaInternaHelpTitle}</p>
+                                    <ul class="slds-list_dotted">
+                                        <li>{labels.areaInternaHelpReplicateRow}</li>
+                                        <li>{labels.areaInternaHelpReplicateColumn}</li>
+                                        <li>{labels.areaInternaHelpCopyRowPriority}</li>
+                                    </ul>
+                                </div>
                                 <div class="slds-m-top_small area-interna-bulk-table">
                                     <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
                                         <thead>

@@ -1,0 +1,31 @@
+<template>
+    <lightning-card title={labels.indicatorTitle} icon-name="standard:event">
+        <div class="indicator slds-p-horizontal_medium slds-p-bottom_medium">
+            <template if:true={loading}>
+                <lightning-spinner alternative-text={labels.loadingSchedules} size="small"></lightning-spinner>
+            </template>
+
+            <template if:true={hasError}>
+                <div class="indicator-state indicator-state_neutral">
+                    <lightning-icon icon-name="utility:warning" size="small"></lightning-icon>
+                    <div>
+                        <div class="indicator-state__title">{labels.indicatorUnavailable}</div>
+                        <div class="indicator-state__detail">{errorMessage}</div>
+                    </div>
+                </div>
+            </template>
+
+            <template if:false={hasError}>
+                <template if:true={hasData}>
+                    <div class={stateClass}>
+                        <lightning-icon icon-name={stateIcon} size="small"></lightning-icon>
+                        <div class="indicator-state__content">
+                            <div class="indicator-state__title">{stateTitle}</div>
+                            <div class="indicator-state__detail">{countSummary}</div>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

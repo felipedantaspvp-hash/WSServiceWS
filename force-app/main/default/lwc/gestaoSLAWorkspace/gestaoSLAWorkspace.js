@@ -115,6 +115,10 @@ import ruleColCategorizationLabel from '@salesforce/label/c.GestaoSLA_RuleColCat
 import ruleColMilestoneLabel from '@salesforce/label/c.GestaoSLA_RuleColMilestone';
 import ruleColScopeLabel from '@salesforce/label/c.GestaoSLA_RuleColScope';
 import ruleColInternalAreaLabel from '@salesforce/label/c.GestaoSLA_RuleColInternalArea';
+import areaInternaHelpTitleLabel from '@salesforce/label/c.GestaoSLA_AreaInternaHelpTitle';
+import areaInternaHelpReplicateRowLabel from '@salesforce/label/c.GestaoSLA_AreaInternaHelpReplicateRow';
+import areaInternaHelpReplicateColumnLabel from '@salesforce/label/c.GestaoSLA_AreaInternaHelpReplicateColumn';
+import areaInternaHelpCopyRowPriorityLabel from '@salesforce/label/c.GestaoSLA_AreaInternaHelpCopyRowPriority';
 import ruleColTimeLowLabel from '@salesforce/label/c.GestaoSLA_RuleColTimeLow';
 import ruleColTimeMediumLabel from '@salesforce/label/c.GestaoSLA_RuleColTimeMedium';
 import ruleColTimeHighLabel from '@salesforce/label/c.GestaoSLA_RuleColTimeHigh';
@@ -424,6 +428,10 @@ export default class GestaoSLAWorkspace extends LightningElement {
         ruleColMilestone: ruleColMilestoneLabel,
         ruleColScope: ruleColScopeLabel,
         ruleColInternalArea: ruleColInternalAreaLabel,
+        areaInternaHelpTitle: areaInternaHelpTitleLabel,
+        areaInternaHelpReplicateRow: areaInternaHelpReplicateRowLabel,
+        areaInternaHelpReplicateColumn: areaInternaHelpReplicateColumnLabel,
+        areaInternaHelpCopyRowPriority: areaInternaHelpCopyRowPriorityLabel,
         ruleColTimeLow: ruleColTimeLowLabel,
         ruleColTimeMedium: ruleColTimeMediumLabel,
         ruleColTimeHigh: ruleColTimeHighLabel,

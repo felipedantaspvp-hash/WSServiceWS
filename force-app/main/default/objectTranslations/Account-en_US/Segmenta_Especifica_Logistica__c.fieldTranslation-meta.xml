@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Segmentação Específica Logística --></label>
+    <name>Segmenta_Especifica_Logistica__c</name>
+    <picklistValues>
+        <masterLabel>Ambev</masterLabel>
+        <translation><!-- Ambev --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Automotivo</masterLabel>
+        <translation><!-- Automotivo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Bebidas/Alimentos</masterLabel>
+        <translation><!-- Bebidas/Alimentos --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Bens Industriais</masterLabel>
+        <translation><!-- Bens Industriais --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Bens de Consumo/Varejo</masterLabel>
+        <translation><!-- Bens de Consumo/Varejo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Construção</masterLabel>
+        <translation><!-- Construção --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cosméticos/Perfumaria</masterLabel>
+        <translation><!-- Cosméticos/Perfumaria --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Energia/Solar</masterLabel>
+        <translation><!-- Energia/Solar --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Life Science</masterLabel>
+        <translation><!-- Life Science --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lifestyle</masterLabel>
+        <translation><!-- Lifestyle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Maquinário</masterLabel>
+        <translation><!-- Maquinário --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Outros</masterLabel>
+        <translation><!-- Outros --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Partes e Peças</masterLabel>
+        <translation><!-- Partes e Peças --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Químico</masterLabel>
+        <translation><!-- Químico --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tecnologia/Elet. Eletrônico</masterLabel>
+        <translation><!-- Tecnologia/Elet. Eletrônico --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Trading/Ag. Carga/Armador/P.F.</masterLabel>
+        <translation><!-- Trading/Ag. Carga/Armador/P.F. --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

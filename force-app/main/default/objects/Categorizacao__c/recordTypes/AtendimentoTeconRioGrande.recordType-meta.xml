@@ -43,10 +43,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Agendamentos</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Agendar visita presencial</fullName>
             <default>false</default>
         </values>
@@ -88,10 +84,6 @@
         </values>
         <values>
             <fullName>Atraso no faturamento</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Atraso ou Erro na Lib%2E Doc%2E</fullName>
             <default>false</default>
         </values>
         <values>
@@ -163,6 +155,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Carta de Indisponibilidade</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Comunicados</fullName>
             <default>false</default>
         </values>
@@ -183,19 +179,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Conformidade</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Contas a pagar</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Contestação de Demonstrativos</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Contestação de demonstrativos ou fatura</fullName>
+            <fullName>Contestação de Demonstrativos ou Fatura</fullName>
             <default>false</default>
         </values>
         <values>
@@ -204,18 +192,6 @@
         </values>
         <values>
             <fullName>Currículo</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>DESOVA CROSS DOCKING</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>DESOVA FREE TIME</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>DTA %2F DTC</fullName>
             <default>false</default>
         </values>
         <values>
@@ -255,15 +231,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Desova Cross Docking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desova Free Time</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Devolução</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Direcionamento de Recintos</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Direcionamento de Tezon</fullName>
             <default>false</default>
         </values>
         <values>
@@ -339,7 +319,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Encaminhar TFA %28termo de Falta e Avaria%29</fullName>
+            <fullName>Encaminhar TFA %28Termo de Falta e Avaria%29</fullName>
             <default>false</default>
         </values>
         <values>
@@ -431,18 +411,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Erro ou atraso atualização cadastral</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Erro ou atraso no cadastro de cliente</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Erro%2Findisponibilidade Portal</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Esclarecimento sobre manobras</fullName>
             <default>false</default>
         </values>
@@ -452,10 +420,6 @@
         </values>
         <values>
             <fullName>Expedição manual</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>FOTOGRAFIA</fullName>
             <default>false</default>
         </values>
         <values>
@@ -487,15 +451,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Faturas</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Fora do horário de atendimento</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Gate</fullName>
+            <fullName>Fotografia</fullName>
             <default>false</default>
         </values>
         <values>
@@ -576,10 +536,6 @@
         </values>
         <values>
             <fullName>Navio</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Navios</fullName>
             <default>false</default>
         </values>
         <values>
@@ -819,15 +775,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Tratativas Entre Terceiros</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Usabilidade</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>VISTORIA</fullName>
             <default>false</default>
         </values>
         <values>
@@ -835,11 +783,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>WS Acesso</fullName>
+            <fullName>Vistoria</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>carta de indisponibilidade</fullName>
+            <fullName>WS Acesso</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -943,10 +891,6 @@
         </values>
         <values>
             <fullName>Operacional %E2%80%93 Pátio</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Operacional - pátio</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1062,10 +1006,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>-</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Acesso indisponível</fullName>
             <default>false</default>
         </values>
@@ -1078,19 +1018,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Acompanhamento Processo IMP</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Agendamento Manual %2F OS %2F Levante</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Agendamento de Serviços e AC</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Agendamento de container</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1118,19 +1050,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Alteração de %22cobrar de%22</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Alteração de %27Cobrar de%27</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Alteração de Free Time</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Alteração de tempo livre ou outros</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1286,10 +1210,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Cadastro%2Facesso</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Cancelamento</fullName>
             <default>false</default>
         </values>
@@ -1322,10 +1242,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Colocação %2F Remoção de etiqueta</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Compensação de Pagamento</fullName>
             <default>false</default>
         </values>
@@ -1343,14 +1259,6 @@
         </values>
         <values>
             <fullName>Condições e Termos %E2%80%93 Tabela Pública</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Condições e termos - Tabela Pública</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Condições e termos - proposta clientes</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1427,10 +1335,6 @@
         </values>
         <values>
             <fullName>Custos de reefer</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>DSA %2F DUIMP Antecipada</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1706,10 +1610,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Follow UP Clientes</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Formato inválido</fullName>
             <default>false</default>
         </values>
@@ -1874,10 +1774,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Morosidade ou Erro no Atend%2E Operacional</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Morosidade ou erro no atendimento operacional</fullName>
             <default>false</default>
         </values>
@@ -1891,10 +1787,6 @@
         </values>
         <values>
             <fullName>Módulo de Cargas de Projeto</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>NF %2F SERAZ</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1923,10 +1815,6 @@
         </values>
         <values>
             <fullName>Notificação de Vistoria MAPA %2F RFB %2F Outros</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Nova Proposta %2F Lead</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2038,10 +1926,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Programação de Navio</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Programação de Navios</fullName>
             <default>false</default>
         </values>
@@ -2074,10 +1958,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Prorrogação%2F alteração de vencimento</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Quebra de Lote</fullName>
             <default>false</default>
         </values>
@@ -2095,10 +1975,6 @@
         </values>
         <values>
             <fullName>Recepção de DAT</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Redefinição de Senha%2FLogin</fullName>
             <default>false</default>
         </values>
         <values>

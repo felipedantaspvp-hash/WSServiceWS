@@ -97,6 +97,103 @@ private class WSWillContextResolverTest {
     }
 
     @IsTest
+    static void shouldResolveWhatsappContactAndLanguageFromMessagingPlatformKey() {
+        Account accountRow = new Account(Name = 'Conta WhatsApp');
+        insert accountRow;
+
+        Contact contactRow = new Contact(
+            LastName = 'Cliente WhatsApp',
+            AccountId = accountRow.Id,
+            MobilePhone = '21980792973',
+            Idioma__c = 'pt_BR'
+        );
+        insert contactRow;
+
+        WSWillContextResolverService.testMessagingById = new Map<Id, SObject>{
+            SESSION_ID => fakeSession(SESSION_ID, END_USER_ID, null, 'WhatsApp', 'WhatsAppTeconSalvador')
+        };
+        WSWillContextResolverService.testEndUserById = new Map<Id, SObject>{
+            END_USER_ID => fakeEndUser(END_USER_ID, null, '5521980792973')
+        };
+        WSWillContextResolverService.testLiveChatById = new Map<Id, SObject>();
+        WSWillContextResolverService.testRoutes = new List<TCO_ChannelRouting__mdt>();
+        WSWillContextResolverService.testAtendimentoParams = new List<AtendimentoConfigDTO>{
+            buildConfig('Centro Logístico', null, null, 'WS_CL_WebChat', 'WebChat', 'WhatsAppCentroLogistico'),
+            buildConfig('Tecon Salvador', null, null, 'WS_TSV_WebChat', 'WebChat', 'WhatsAppTeconSalvador')
+        };
+
+        WSWillContextResolverDTO.Request req = new WSWillContextResolverDTO.Request();
+        req.routableId = String.valueOf(SESSION_ID);
+
+        List<WSWillContextResolverDTO.Response> res = WSWillContextResolverService.resolve(
+            new List<WSWillContextResolverDTO.Request>{ req }
+        );
+
+        Assert.areEqual(contactRow.Id, res[0].contactId, 'WhatsApp should resolve contact by DDI+DDD+number platform key.');
+        Assert.areEqual(contactRow.Id, res[0].conversationContactId, 'Resolved contact should be returned as conversation contact.');
+        Assert.areEqual(accountRow.Id, res[0].accountId, 'Resolved contact account should be returned.');
+        Assert.areEqual('pt_BR', res[0].preferredLanguage, 'Resolved WhatsApp contact language should be reused.');
+        Assert.areEqual(false, res[0].shouldAskLanguage, 'Bot should not ask language when contact already has one.');
+        Assert.areEqual('WhatsApp', res[0].channelName, 'WhatsApp channel name should be preserved.');
+        Assert.areEqual('Tecon Salvador', res[0].businessUnitName, 'WhatsApp channel config should resolve business unit.');
+
+        WSWillContextResolverService.testAtendimentoParams = null;
+    }
+
+    @IsTest
+    static void shouldNotFallbackToFirstBusinessUnitWhenWhatsappChannelIsUnmapped() {
+        WSWillContextResolverService.testMessagingById = new Map<Id, SObject>{
+            SESSION_ID => fakeSession(SESSION_ID, END_USER_ID, null, 'WhatsApp', 'WhatsAppCanalNovo')
+        };
+        WSWillContextResolverService.testEndUserById = new Map<Id, SObject>{
+            END_USER_ID => fakeEndUser(END_USER_ID, null, '5521980792973')
+        };
+        WSWillContextResolverService.testLiveChatById = new Map<Id, SObject>();
+        WSWillContextResolverService.testRoutes = new List<TCO_ChannelRouting__mdt>();
+        WSWillContextResolverService.testAtendimentoParams = new List<AtendimentoConfigDTO>{
+            buildConfig('Centro Logístico', null, null, 'WS_CL_WebChat', 'WebChat'),
+            buildConfig('Tecon Salvador', null, null, 'WS_TSV_WebChat', 'WebChat')
+        };
+
+        WSWillContextResolverDTO.Request req = new WSWillContextResolverDTO.Request();
+        req.routableId = String.valueOf(SESSION_ID);
+
+        List<WSWillContextResolverDTO.Response> res = WSWillContextResolverService.resolve(
+            new List<WSWillContextResolverDTO.Request>{ req }
+        );
+
+        Assert.areEqual(null, res[0].businessUnitName, 'Unmapped WhatsApp channels must not fallback to the first active config.');
+        Assert.areEqual('UNRESOLVED', res[0].businessUnitSource);
+
+        WSWillContextResolverService.testAtendimentoParams = null;
+    }
+
+    @IsTest
+    static void shouldReuseEndUserLanguageWhenContactIsNotVisible() {
+        Id contactId = Id.valueOf('003000000000001');
+        WSWillContextResolverService.testMessagingById = new Map<Id, SObject>();
+        WSWillContextResolverService.testEndUserById = new Map<Id, SObject>{
+            END_USER_ID => fakeEndUser(END_USER_ID, contactId, null, 'pt_BR')
+        };
+        WSWillContextResolverService.testLiveChatById = new Map<Id, SObject>();
+        WSWillContextResolverService.testRoutes = new List<TCO_ChannelRouting__mdt>();
+        WSWillContextResolverService.testAtendimentoParams = new List<AtendimentoConfigDTO>();
+
+        WSWillContextResolverDTO.Request req = new WSWillContextResolverDTO.Request();
+        req.endUserId = String.valueOf(END_USER_ID);
+        req.channelType = 'WhatsApp';
+
+        List<WSWillContextResolverDTO.Response> res = WSWillContextResolverService.resolve(
+            new List<WSWillContextResolverDTO.Request>{ req }
+        );
+
+        Assert.areEqual('pt_BR', res[0].preferredLanguage, 'MessagingEndUser language should be reused when contact is not returned.');
+        Assert.areEqual(false, res[0].shouldAskLanguage, 'Bot should not ask language when MessagingEndUser already has one.');
+
+        WSWillContextResolverService.testAtendimentoParams = null;
+    }
+
+    @IsTest
     static void shouldExerciseRealFetchFallbacksWhenNoTestSeamIsProvided() {
         WSWillContextResolverService.testMessagingById = null;
         WSWillContextResolverService.testEndUserById = null;
@@ -280,6 +377,17 @@ private class WSWillContextResolverTest {
         String channelDeveloperName,
         String channelType
     ) {
+        return buildConfig(businessUnit, recordTypeDeveloperName, queueDeveloperName, channelDeveloperName, channelType, null);
+    }
+
+    private static AtendimentoConfigDTO buildConfig(
+        String businessUnit,
+        String recordTypeDeveloperName,
+        String queueDeveloperName,
+        String channelDeveloperName,
+        String channelType,
+        String whatsAppChannelDeveloperName
+    ) {
         AtendimentoConfigDTO config = new AtendimentoConfigDTO();
         config.businessUnit = businessUnit;
         config.masterLabel = businessUnit;
@@ -287,6 +395,7 @@ private class WSWillContextResolverTest {
         config.caseRecordTypeDeveloperName = recordTypeDeveloperName;
         config.defaultQueueDeveloperName = queueDeveloperName;
         config.messagingChannelDeveloperName = channelDeveloperName;
+        config.whatsAppChannelDeveloperName = whatsAppChannelDeveloperName;
         config.messagingChannelType = channelType;
         config.isActive = true;
         return config;
@@ -306,11 +415,21 @@ private class WSWillContextResolverTest {
     }
 
     private static SObject fakeEndUser(Id endUserId, Id contactId) {
+        return fakeEndUser(endUserId, contactId, null);
+    }
+
+    private static SObject fakeEndUser(Id endUserId, Id contactId, String messagingPlatformKey) {
+        return fakeEndUser(endUserId, contactId, messagingPlatformKey, null);
+    }
+
+    private static SObject fakeEndUser(Id endUserId, Id contactId, String messagingPlatformKey, String language) {
         Map<String, Object> payload = new Map<String, Object>{
             'attributes' => new Map<String, Object>{ 'type' => 'MessagingEndUser' },
             'Id' => String.valueOf(endUserId)
         };
         if (contactId != null) payload.put('ContactId', String.valueOf(contactId));
+        if (messagingPlatformKey != null) payload.put('MessagingPlatformKey', messagingPlatformKey);
+        if (language != null) payload.put('Language', language);
         return (SObject) JSON.deserialize(JSON.serialize(payload), SObject.class);
     }
 

@@ -577,7 +577,7 @@ public inherited sharing class WSWillCaseCreationService {
 
     private static Boolean matchesChannel(String normalizedChannel, AtendimentoConfigDTO cfg) {
         if (String.isBlank(normalizedChannel) || cfg == null) return false;
-        for (String candidate : new List<String>{ cfg.messagingChannelDeveloperName, cfg.developerName }) {
+        for (String candidate : new List<String>{ cfg.messagingChannelDeveloperName, cfg.whatsAppChannelDeveloperName, cfg.developerName }) {
             String normalizedCandidate = normalizeKey(candidate);
             if (String.isBlank(normalizedCandidate)) continue;
             if (normalizedChannel == normalizedCandidate) return true;

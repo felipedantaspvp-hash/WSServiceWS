@@ -104,7 +104,7 @@ global inherited sharing class CaseMilestoneTriggerTimeCalculator implements Sup
     private static MarcoSLA__c resolveMarco(Id gestaoId, String milestoneTypeName) {
         if (gestaoId == null || String.isBlank(milestoneTypeName)) return null;
         List<MarcoSLA__c> rows = [
-            SELECT Id, GestaoSLA__c, NomeMarco__c, MilestoneTypeName__c, FonteTempo__c, Ativo__c, UsaCategorizacao__c
+            SELECT Id, GestaoSLA__c, NomeMarco__c, MilestoneTypeName__c, FonteTempo__c, Ativo__c, UsaCategorizacao__c, TempoFallbackMinutos__c
             FROM MarcoSLA__c
             WHERE GestaoSLA__c = :gestaoId
               AND MilestoneTypeName__c = :milestoneTypeName
@@ -130,6 +130,8 @@ global inherited sharing class CaseMilestoneTriggerTimeCalculator implements Sup
     }
 
     private static Integer resolveTempoRegra(Case c, MarcoSLA__c marco, Date referenceDate) {
+        Integer marcoFallback = resolveMarcoFallback(marco);
+
         List<RegrasSLACategorizacao__c> rules = [
             SELECT Id, Ativo__c, GestaoSLA__c, MarcoSLA__c, EscopoRegra__c, Categorizacao__c,
                    TempoBaixa__c, TempoMedia__c, TempoAlta__c
@@ -142,14 +144,24 @@ global inherited sharing class CaseMilestoneTriggerTimeCalculator implements Sup
             LIMIT 1
         ];
 
-        if (rules.isEmpty()) return DEFAULT_FALLBACK_MINUTES;
+        if (rules.isEmpty()) return marcoFallback;
 
         try {
             Integer tempo = RegrasSLACompatibilidadeService.resolveTempoCompativel(rules[0], c.Priority);
-            return tempo == null || tempo <= 0 ? DEFAULT_FALLBACK_MINUTES : tempo;
+            return tempo == null || tempo <= 0 ? marcoFallback : tempo;
         } catch (Exception ex) {
+            return marcoFallback;
+        }
+    }
+
+    // Quando o Marco define um fallback próprio (TempoFallbackMinutos__c), ele é usado
+    // sempre que não houver Regra de SLA correspondente para a Categorização do Case
+    // (ex: Case ainda não categorizado). Em branco, mantém o fallback padrão do sistema.
+    private static Integer resolveMarcoFallback(MarcoSLA__c marco) {
+        if (marco.TempoFallbackMinutos__c == null || marco.TempoFallbackMinutos__c <= 0) {
             return DEFAULT_FALLBACK_MINUTES;
         }
+        return Integer.valueOf(String.valueOf(marco.TempoFallbackMinutos__c.setScale(0)));
     }
 
     private static String normalize(String input) {

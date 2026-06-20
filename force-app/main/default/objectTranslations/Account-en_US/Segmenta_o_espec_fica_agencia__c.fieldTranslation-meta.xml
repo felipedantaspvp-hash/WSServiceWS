@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Segmentação específica Agencia --></label>
+    <name>Segmenta_o_espec_fica_agencia__c</name>
+    <picklistValues>
+        <masterLabel>Armador</masterLabel>
+        <translation><!-- Armador --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Aço</masterLabel>
+        <translation><!-- Aço --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Açúcar</masterLabel>
+        <translation><!-- Açúcar --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carvão</masterLabel>
+        <translation><!-- Carvão --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Celulose</masterLabel>
+        <translation><!-- Celulose --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fertilizantes</masterLabel>
+        <translation><!-- Fertilizantes --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Grãos</masterLabel>
+        <translation><!-- Grãos --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Liquidos</masterLabel>
+        <translation><!-- Liquidos --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Madeira</masterLabel>
+        <translation><!-- Madeira --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Minério</masterLabel>
+        <translation><!-- Minério --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Nenhum</masterLabel>
+        <translation><!-- Nenhum --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quimicos</masterLabel>
+        <translation><!-- Quimicos --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

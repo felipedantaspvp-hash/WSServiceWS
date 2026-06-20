@@ -236,6 +236,44 @@
     </processMetadataValues>
     <processType>RoutingFlow</processType>
     <recordCreates>
+        <name>CriaAtividadeWhatsApp</name>
+        <label>Cria Atividade WhatsApp</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>RoutingAction</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Atualiza_Erro</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>WhatsApp Conversation</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhoId</field>
+            <value>
+                <elementReference>ContatoWhatsApp.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
         <name>CriaContato</name>
         <label>CriaContato</label>
         <locationX>0</locationX>
@@ -445,7 +483,7 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>RoutingAction</targetReference>
+            <targetReference>CriaAtividadeWhatsApp</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>

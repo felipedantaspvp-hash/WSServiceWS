@@ -211,10 +211,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Agendamentos</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Agendar visita presencial</fullName>
             <default>false</default>
         </values>
@@ -319,15 +315,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Conformidade</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Contas a pagar</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Contestação de demonstrativos ou fatura</fullName>
             <default>false</default>
         </values>
         <values>
@@ -427,7 +415,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Encaminhar TFA %28termo de Falta e Avaria%29</fullName>
+            <fullName>Encaminhar TFA %28Termo de Falta e Avaria%29</fullName>
             <default>false</default>
         </values>
         <values>
@@ -499,18 +487,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Erro ou atraso atualização cadastral</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Erro ou atraso no cadastro de cliente</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Erro%2Findisponibilidade Portal</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Esclarecimento sobre manobras</fullName>
             <default>false</default>
         </values>
@@ -540,10 +516,6 @@
         </values>
         <values>
             <fullName>Faturamento incorreto</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Faturas</fullName>
             <default>false</default>
         </values>
         <values>
@@ -898,10 +870,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Operacional - pátio</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Operação</fullName>
             <default>false</default>
         </values>
@@ -1171,10 +1139,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>-</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Acesso indisponível</fullName>
             <default>false</default>
         </values>
@@ -1200,14 +1164,6 @@
         </values>
         <values>
             <fullName>Alteração da Programação</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Alteração de %22cobrar de%22</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Alteração de tempo livre ou outros</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1295,10 +1251,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Cadastro%2Facesso</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Cancelamento</fullName>
             <default>false</default>
         </values>
@@ -1319,10 +1271,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Colocação %2F Remoção de etiqueta</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Compensação de Pagamento</fullName>
             <default>false</default>
         </values>
@@ -1332,14 +1280,6 @@
         </values>
         <values>
             <fullName>Comprovante de pesagem</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Condições e termos - Tabela Pública</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Condições e termos - proposta clientes</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1804,10 +1744,6 @@
         </values>
         <values>
             <fullName>Prorrogação de Proposta</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Prorrogação%2F alteração de vencimento</fullName>
             <default>false</default>
         </values>
         <values>

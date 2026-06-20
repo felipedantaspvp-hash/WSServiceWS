@@ -67,6 +67,10 @@ private class CaseMilestoneTriggerTimeCalculatorTest {
     }
 
     private static MarcoSLA__c createMarco(Id gestaoId, String milestoneName, String fonteTempo, Boolean ativo) {
+        return createMarco(gestaoId, milestoneName, fonteTempo, ativo, null);
+    }
+
+    private static MarcoSLA__c createMarco(Id gestaoId, String milestoneName, String fonteTempo, Boolean ativo, Integer tempoFallbackMinutos) {
         MarcoSLA__c m = new MarcoSLA__c(
             Name = milestoneName + ' ' + String.valueOf(Crypto.getRandomInteger()),
             GestaoSLA__c = gestaoId,
@@ -74,7 +78,8 @@ private class CaseMilestoneTriggerTimeCalculatorTest {
             MilestoneTypeName__c = milestoneName,
             FonteTempo__c = fonteTempo,
             TipoRecorrencia__c = 'NaoRecorrente',
-            Ativo__c = ativo
+            Ativo__c = ativo,
+            TempoFallbackMinutos__c = tempoFallbackMinutos
         );
         insert m;
         return m;
@@ -306,6 +311,30 @@ private class CaseMilestoneTriggerTimeCalculatorTest {
         createMarco(g1.Id, 'Triagem', CaseMilestoneTriggerTimeCalculator.FONTE_TEMPO_GESTAO, true);
 
         Integer minutes = CaseMilestoneTriggerTimeCalculator.calculateForCaseAndMilestoneName(c.Id, 'Triagem', Date.today());
+        Assert.areEqual(CaseMilestoneTriggerTimeCalculator.DEFAULT_FALLBACK_MINUTES, minutes);
+    }
+
+    @IsTest
+    static void testCaseSemCategorizacaoUsaFallbackDoMarco() {
+        GestaoSLA__c g = createGestao(20, 8);
+        Case c = createCase(null, 'High', 'Whatsapp', 'Novo');
+        c.UnidadeNegocio__c = g.UnidadeNegocio__c;
+        update c;
+        createMarco(g.Id, 'SLA Total', CaseMilestoneTriggerTimeCalculator.FONTE_TEMPO_REGRA, true, 45);
+
+        Integer minutes = CaseMilestoneTriggerTimeCalculator.calculateForCaseAndMilestoneName(c.Id, 'SLA Total', Date.today());
+        Assert.areEqual(45, minutes);
+    }
+
+    @IsTest
+    static void testCaseSemCategorizacaoSemFallbackNoMarcoUsaPadraoSistema() {
+        GestaoSLA__c g = createGestao(20, 8);
+        Case c = createCase(null, 'High', 'Whatsapp', 'Novo');
+        c.UnidadeNegocio__c = g.UnidadeNegocio__c;
+        update c;
+        createMarco(g.Id, 'SLA Total', CaseMilestoneTriggerTimeCalculator.FONTE_TEMPO_REGRA, true);
+
+        Integer minutes = CaseMilestoneTriggerTimeCalculator.calculateForCaseAndMilestoneName(c.Id, 'SLA Total', Date.today());
         Assert.areEqual(CaseMilestoneTriggerTimeCalculator.DEFAULT_FALLBACK_MINUTES, minutes);
     }
 

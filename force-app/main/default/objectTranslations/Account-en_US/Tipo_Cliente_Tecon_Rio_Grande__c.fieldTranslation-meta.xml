@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Para selecionar mais de uma opção utilizar a tecla ctrl --></help>
+    <label><!-- Tipo de Cliente --></label>
+    <name>Tipo_Cliente_Tecon_Rio_Grande__c</name>
+    <picklistValues>
+        <masterLabel>Armador</masterLabel>
+        <translation><!-- Armador --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cabotagem</masterLabel>
+        <translation><!-- Cabotagem --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cliente Armexp</masterLabel>
+        <translation><!-- Cliente Armexp --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cliente Armimp</masterLabel>
+        <translation><!-- Cliente Armimp --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cliente Reefer</masterLabel>
+        <translation><!-- Cliente Reefer --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Despachante</masterLabel>
+        <translation><!-- Despachante --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Exportador</masterLabel>
+        <translation><!-- Exportador --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Importador</masterLabel>
+        <translation><!-- Importador --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Parceiro Estratégico</masterLabel>
+        <translation><!-- Parceiro Estratégico --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Parceiro Institucional</masterLabel>
+        <translation><!-- Parceiro Institucional --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Transportadora</masterLabel>
+        <translation><!-- Transportadora --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

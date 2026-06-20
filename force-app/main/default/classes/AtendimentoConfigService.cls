@@ -114,6 +114,7 @@ public inherited sharing class AtendimentoConfigService {
         dto.defaultQueueDeveloperName = row.DefaultQueueDeveloperName__c;
         dto.queueDeveloperNamePrefix = row.QueueDeveloperNamePrefix__c;
         dto.messagingChannelDeveloperName = row.MessagingChannelDeveloperName__c;
+        dto.whatsAppChannelDeveloperName = row.WhatsAppChannelDeveloperName__c;
         dto.messagingChannelType = row.MessagingChannelType__c;
         dto.messagingTargetQueueDeveloperName = row.MessagingTargetQueueDeveloperName__c;
         dto.messagingFallbackQueueDeveloperName = row.MessagingFallbackQueueDeveloperName__c;
@@ -155,6 +156,7 @@ public inherited sharing class AtendimentoConfigService {
         dto.defaultQueueDeveloperName = source.defaultQueueDeveloperName;
         dto.queueDeveloperNamePrefix = source.queueDeveloperNamePrefix;
         dto.messagingChannelDeveloperName = source.messagingChannelDeveloperName;
+        dto.whatsAppChannelDeveloperName = source.whatsAppChannelDeveloperName;
         dto.messagingChannelType = source.messagingChannelType;
         dto.messagingTargetQueueDeveloperName = source.messagingTargetQueueDeveloperName;
         dto.messagingFallbackQueueDeveloperName = source.messagingFallbackQueueDeveloperName;

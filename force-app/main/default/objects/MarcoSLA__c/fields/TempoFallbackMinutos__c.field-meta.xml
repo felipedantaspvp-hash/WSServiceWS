@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TempoFallbackMinutos__c</fullName>
+    <description>Tempo (em minutos) usado por este Marco quando o cálculo via Regra de SLA não encontra uma Regra correspondente (ex: Case ainda sem Categorização). Se em branco, mantém o fallback padrão do sistema (1 minuto).</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Tempo de fallback (minutos) quando não há Regra de SLA para a Categorização do Case. Em branco = usa o padrão do sistema.</inlineHelpText>
+    <label>Tempo de Fallback (min)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>
