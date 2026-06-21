@@ -720,23 +720,30 @@
                                 required
                             ></lightning-combobox>
 
-                            <lightning-input
-                                type="toggle"
-                                label={labels.categoryDistributeToQueue}
-                                name="distribuirParaFila"
-                                checked={categoriaForm.distribuirParaFila}
-                                onchange={handleCategoriaInputChange}
-                                class="slds-m-top_medium"
-                            ></lightning-input>
+                            <div class="slds-grid slds-gutters slds-m-top_medium">
+                                <div class="slds-col">
+                                    <lightning-input
+                                        type="toggle"
+                                        label={labels.categoryDistributeToQueue}
+                                        name="distribuirParaFila"
+                                        checked={categoriaForm.distribuirParaFila}
+                                        onchange={handleCategoriaInputChange}
+                                    ></lightning-input>
+                                </div>
+                                <template if:true={showCategoriaDistribuicao}>
+                                    <div class="slds-col">
+                                        <lightning-input
+                                            type="toggle"
+                                            label={labels.categoryByCategorization}
+                                            name="porCategorizacao"
+                                            checked={categoriaForm.porCategorizacao}
+                                            onchange={handleCategoriaInputChange}
+                                        ></lightning-input>
+                                    </div>
+                                </template>
+                            </div>
 
                             <template if:true={showCategoriaDistribuicao}>
-                                <lightning-input
-                                    type="toggle"
-                                    label={labels.categoryByCategorization}
-                                    name="porCategorizacao"
-                                    checked={categoriaForm.porCategorizacao}
-                                    onchange={handleCategoriaInputChange}
-                                ></lightning-input>
                                 <lightning-combobox
                                     label={labels.categoryQueue}
                                     name="filaDeveloperName"
