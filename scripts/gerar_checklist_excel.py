@@ -180,7 +180,9 @@ add(3, F, "Exigir fila quando Distribuir para fila? = Sim e Por categorização?
 add(3, F, "Exigir campo, valor e fila quando a distribuição depender de picklist do Case", False, CONCLUIDO, "CategorizacaoService.validateAndNormalize (validação server-side, já existente) + UI required={categoriaCampoValorRequired}",
     "CORRIGIDO em 21/06 — mesma mecânica do item anterior; testes novos em GestaoSLAServiceTest cobrem os cenários de erro amigável (distribuir sem fila / distribuir por campo sem valor).")
 add(3, F, "Recalcular Chave Natural e Hash ao salvar", False, CONCLUIDO, "CategorizacaoService/Trigger", "Recálculo garantido server-side independentemente da origem da gravação (inclusive via Setup ou carga de dados).")
-add(3, F, "Validar responsividade e padrão visual SLDS", False, NAO_INICIADO, "", "")
+add(3, F, "Validar responsividade e padrão visual SLDS", False, CONCLUIDO,
+    "lwc/gestaoSLAWorkspace.html (modal Category) — só componentes base lightning-input/lightning-combobox/lightning-button (SLDS nativo); grid responsivo slds-grid slds-wrap slds-gutters + slds-size_1-of-1 slds-medium-size_1-of-2",
+    "CONCLUÍDO em 21/06 por revisão de código (sem validação visual em navegador real, que não está disponível para o agente nesta sessão): revisão identificou e corrigiu um problema real — os toggles 'Distribuir para fila?'/'Por categorização?' usavam slds-col sem classe de tamanho, o que os mantinha lado a lado sem empilhar em telas pequenas/app móvel. Corrigido para empilhar abaixo do breakpoint medium (768px) e ficar lado a lado a partir dele, seguindo o padrão de grid responsivo do SLDS. Deploy: 0Afbe00000ADtH3CAL. Demais campos do modal usam exclusivamente componentes base (lightning-combobox, lightning-input, lightning-button), que já são responsivos e aderentes ao SLDS por padrão.")
 
 # =====================================================================
 # EPIC 4 — JORNADA DO CASE
