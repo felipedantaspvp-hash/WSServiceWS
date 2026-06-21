@@ -108,14 +108,24 @@
                                     <p class="detail-value">{gestao.businessHoursName}</p>
                                 </div>
                             </template>
-                            <div>
-                                <p class="detail-label">{labels.gestaoTriageTime}</p>
-                                <p class="detail-value">{gestao.tempoTriagemMinutos} min</p>
-                            </div>
-                            <div>
-                                <p class="detail-label">{labels.gestaoChatResponseTime}</p>
-                                <p class="detail-value">{gestao.tempoRespostaChatMinutos} min</p>
-                            </div>
+                            <template if:true={gestao.usaTempoTriagem}>
+                                <div>
+                                    <p class="detail-label">{labels.gestaoTriageTime}</p>
+                                    <p class="detail-value">{gestao.tempoTriagemMinutos} min</p>
+                                </div>
+                            </template>
+                            <template if:true={gestao.usaTempoRespostaChat}>
+                                <div>
+                                    <p class="detail-label">{labels.gestaoChatResponseTime}</p>
+                                    <p class="detail-value">{gestao.tempoRespostaChatMinutos} min</p>
+                                </div>
+                            </template>
+                            <template if:true={gestao.usaTempoFilaEmail}>
+                                <div>
+                                    <p class="detail-label">{labels.gestaoEmailQueueTime}</p>
+                                    <p class="detail-value">{gestao.tempoFilaEmailMinutos} min</p>
+                                </div>
+                            </template>
                         </div>
                         <div class="header-actions">
                             <template if:true={canEditGestao}>
@@ -292,20 +302,33 @@
                                 </div>
 
                                 <div class="global-times-grid">
-                                    <article class="global-time-card">
-                                        <p class="detail-label">{labels.globalTime}</p>
-                                        <h4>{labels.milestoneTriageLabel}</h4>
-                                        <p class="global-time-value">{gestao.tempoTriagemMinutos} min</p>
-                                        <p>{labels.sourceManagementLabel}</p>
-                                        <p>{labels.applicationEmailNew}</p>
-                                    </article>
-                                    <article class="global-time-card">
-                                        <p class="detail-label">{labels.globalTime}</p>
-                                        <h4>{labels.milestoneChatResponseLabel}</h4>
-                                        <p class="global-time-value">{gestao.tempoRespostaChatMinutos} min</p>
-                                        <p>{labels.sourceManagementLabel}</p>
-                                        <p>{labels.applicationWhatsappChatNew}</p>
-                                    </article>
+                                    <template if:true={gestao.usaTempoTriagem}>
+                                        <article class="global-time-card">
+                                            <p class="detail-label">{labels.globalTime}</p>
+                                            <h4>{labels.milestoneTriageLabel}</h4>
+                                            <p class="global-time-value">{gestao.tempoTriagemMinutos} min</p>
+                                            <p>{labels.sourceManagementLabel}</p>
+                                            <p>{labels.applicationEmailNew}</p>
+                                        </article>
+                                    </template>
+                                    <template if:true={gestao.usaTempoRespostaChat}>
+                                        <article class="global-time-card">
+                                            <p class="detail-label">{labels.globalTime}</p>
+                                            <h4>{labels.milestoneChatResponseLabel}</h4>
+                                            <p class="global-time-value">{gestao.tempoRespostaChatMinutos} min</p>
+                                            <p>{labels.sourceManagementLabel}</p>
+                                            <p>{labels.applicationWhatsappChatNew}</p>
+                                        </article>
+                                    </template>
+                                    <template if:true={gestao.usaTempoFilaEmail}>
+                                        <article class="global-time-card">
+                                            <p class="detail-label">{labels.globalTime}</p>
+                                            <h4>{labels.milestoneEmailQueueLabel}</h4>
+                                            <p class="global-time-value">{gestao.tempoFilaEmailMinutos} min</p>
+                                            <p>{labels.sourceManagementLabel}</p>
+                                            <p>{labels.applicationEmailNew}</p>
+                                        </article>
+                                    </template>
                                 </div>
 
                                 <template if:true={hasRegrasCategorizacaoContext}>
@@ -535,38 +558,6 @@
                                 required
                             ></lightning-input>
                             <lightning-input
-                                lwc:ref="createTempoTriagemMinutos"
-                                type="number"
-                                label={labels.fieldTriageTimeMin}
-                                name="tempoTriagemMinutos"
-                                data-scope="create"
-                                data-field="tempoTriagemMinutos"
-                                value={createForm.tempoTriagemMinutos}
-                                oninput={handleCreateInputChange}
-                                onchange={handleCreateInputChange}
-                            ></lightning-input>
-                            <lightning-input
-                                lwc:ref="createTempoRespostaChatMinutos"
-                                type="number"
-                                label={labels.fieldChatResponseTimeMin}
-                                name="tempoRespostaChatMinutos"
-                                data-scope="create"
-                                data-field="tempoRespostaChatMinutos"
-                                value={createForm.tempoRespostaChatMinutos}
-                                oninput={handleCreateInputChange}
-                                onchange={handleCreateInputChange}
-                            ></lightning-input>
-                            <lightning-textarea
-                                lwc:ref="createDescricao"
-                                label={labels.fieldDescription}
-                                name="descricao"
-                                data-scope="create"
-                                data-field="descricao"
-                                value={createForm.descricao}
-                                oninput={handleCreateInputChange}
-                                onchange={handleCreateInputChange}
-                            ></lightning-textarea>
-                            <lightning-input
                                 lwc:ref="createStaticResourceName"
                                 label="Static Resource"
                                 name="staticResourceName"
@@ -576,6 +567,124 @@
                                 oninput={handleCreateInputChange}
                                 onchange={handleCreateInputChange}
                             ></lightning-input>
+
+                            <div class="slds-m-top_medium slds-m-bottom_x-small">
+                                <p class="slds-text-title_caps slds-text-color_weak">{labels.gestaoMarcosUnicosSectionTitle}</p>
+                            </div>
+                            <div class="slds-grid slds-wrap slds-gutters_x-small marco-unico-row">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <label class="slds-form-element__label marco-unico-label">{labels.usaTriageTime}</label>
+                                    <lightning-input
+                                        lwc:ref="createUsaTempoTriagem"
+                                        variant="label-hidden"
+                                        type="toggle"
+                                        label={labels.usaTriageTime}
+                                        name="usaTempoTriagem"
+                                        data-scope="create"
+                                        data-field="usaTempoTriagem"
+                                        checked={createForm.usaTempoTriagem}
+                                        onchange={handleCreateInputChange}
+                                    ></lightning-input>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 marco-unico-value-col">
+                                    <template if:true={createForm.usaTempoTriagem}>
+                                        <label class="slds-form-element__label marco-unico-label"><abbr class="slds-required" title="required">*</abbr>{labels.fieldTriageTimeMin}</label>
+                                        <lightning-input
+                                            lwc:ref="createTempoTriagemMinutos"
+                                            variant="label-hidden"
+                                            type="number"
+                                            label={labels.fieldTriageTimeMin}
+                                            name="tempoTriagemMinutos"
+                                            data-scope="create"
+                                            data-field="tempoTriagemMinutos"
+                                            value={createForm.tempoTriagemMinutos}
+                                            oninput={handleCreateInputChange}
+                                            onchange={handleCreateInputChange}
+                                            required
+                                        ></lightning-input>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-wrap slds-gutters_x-small marco-unico-row">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <label class="slds-form-element__label marco-unico-label">{labels.usaChatResponseTime}</label>
+                                    <lightning-input
+                                        lwc:ref="createUsaTempoRespostaChat"
+                                        variant="label-hidden"
+                                        type="toggle"
+                                        label={labels.usaChatResponseTime}
+                                        name="usaTempoRespostaChat"
+                                        data-scope="create"
+                                        data-field="usaTempoRespostaChat"
+                                        checked={createForm.usaTempoRespostaChat}
+                                        onchange={handleCreateInputChange}
+                                    ></lightning-input>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 marco-unico-value-col">
+                                    <template if:true={createForm.usaTempoRespostaChat}>
+                                        <label class="slds-form-element__label marco-unico-label"><abbr class="slds-required" title="required">*</abbr>{labels.fieldChatResponseTimeMin}</label>
+                                        <lightning-input
+                                            lwc:ref="createTempoRespostaChatMinutos"
+                                            variant="label-hidden"
+                                            type="number"
+                                            label={labels.fieldChatResponseTimeMin}
+                                            name="tempoRespostaChatMinutos"
+                                            data-scope="create"
+                                            data-field="tempoRespostaChatMinutos"
+                                            value={createForm.tempoRespostaChatMinutos}
+                                            oninput={handleCreateInputChange}
+                                            onchange={handleCreateInputChange}
+                                            required
+                                        ></lightning-input>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-wrap slds-gutters_x-small marco-unico-row">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <label class="slds-form-element__label marco-unico-label">{labels.usaEmailQueueTime}</label>
+                                    <lightning-input
+                                        lwc:ref="createUsaTempoFilaEmail"
+                                        variant="label-hidden"
+                                        type="toggle"
+                                        label={labels.usaEmailQueueTime}
+                                        name="usaTempoFilaEmail"
+                                        data-scope="create"
+                                        data-field="usaTempoFilaEmail"
+                                        checked={createForm.usaTempoFilaEmail}
+                                        onchange={handleCreateInputChange}
+                                    ></lightning-input>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 marco-unico-value-col">
+                                    <template if:true={createForm.usaTempoFilaEmail}>
+                                        <label class="slds-form-element__label marco-unico-label"><abbr class="slds-required" title="required">*</abbr>{labels.fieldEmailQueueTimeMin}</label>
+                                        <lightning-input
+                                            lwc:ref="createTempoFilaEmailMinutos"
+                                            variant="label-hidden"
+                                            type="number"
+                                            label={labels.fieldEmailQueueTimeMin}
+                                            name="tempoFilaEmailMinutos"
+                                            data-scope="create"
+                                            data-field="tempoFilaEmailMinutos"
+                                            value={createForm.tempoFilaEmailMinutos}
+                                            oninput={handleCreateInputChange}
+                                            onchange={handleCreateInputChange}
+                                            required
+                                        ></lightning-input>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <lightning-textarea
+                                lwc:ref="createDescricao"
+                                label={labels.fieldDescription}
+                                name="descricao"
+                                data-scope="create"
+                                data-field="descricao"
+                                value={createForm.descricao}
+                                oninput={handleCreateInputChange}
+                                onchange={handleCreateInputChange}
+                                class="slds-m-top_medium"
+                            ></lightning-textarea>
                             </div>
                         </div>
                         <footer class="slds-modal__footer">
@@ -602,12 +711,11 @@
                             <template if:true={savingEditGestao}>
                                 <lightning-spinner alternative-text={labels.spinnerSaving}></lightning-spinner>
                             </template>
-                            <lightning-input label={labels.fieldName} name="name" data-field="name" value={editForm.name} oninput={handleEditInputChange} onchange={handleEditInputChange} required></lightning-input>
-                            <lightning-combobox label={labels.categoryBusinessUnit} name="unidadeNegocio" data-field="unidadeNegocio" value={editForm.unidadeNegocio} options={unidadeNegocioOptions} oninput={handleEditInputChange} onchange={handleEditInputChange} required></lightning-combobox>
-                            <lightning-input label={labels.gestaoEntitlementProcess} name="entitlementProcessName" data-field="entitlementProcessName" value={editForm.entitlementProcessName} oninput={handleEditInputChange} onchange={handleEditInputChange} required></lightning-input>
-                            <lightning-input label={labels.gestaoBusinessHours} name="businessHoursName" data-field="businessHoursName" value={editForm.businessHoursName} oninput={handleEditInputChange} onchange={handleEditInputChange} required></lightning-input>
-                            <lightning-input type="number" label={labels.fieldTriageTimeMin} name="tempoTriagemMinutos" data-field="tempoTriagemMinutos" value={editForm.tempoTriagemMinutos} oninput={handleEditInputChange} onchange={handleEditInputChange} required={editTemposObrigatorios}></lightning-input>
-                            <lightning-input type="number" label={labels.fieldChatResponseTimeMin} name="tempoRespostaChatMinutos" data-field="tempoRespostaChatMinutos" value={editForm.tempoRespostaChatMinutos} oninput={handleEditInputChange} onchange={handleEditInputChange} required={editTemposObrigatorios}></lightning-input>
+                            <lightning-input label={labels.fieldName} name="name" data-field="name" value={editForm.name} oninput={handleEditInputChange} onchange={handleEditInputChange} disabled={isCamposEstruturaisReadOnly} required></lightning-input>
+                            <lightning-combobox label={labels.categoryBusinessUnit} name="unidadeNegocio" data-field="unidadeNegocio" value={editForm.unidadeNegocio} options={unidadeNegocioOptions} oninput={handleEditInputChange} onchange={handleEditInputChange} disabled={isCamposEstruturaisReadOnly} required></lightning-combobox>
+                            <lightning-input label={labels.gestaoEntitlementProcess} name="entitlementProcessName" data-field="entitlementProcessName" value={editForm.entitlementProcessName} oninput={handleEditInputChange} onchange={handleEditInputChange} disabled={isCamposEstruturaisReadOnly} required></lightning-input>
+                            <lightning-input label={labels.gestaoBusinessHours} name="businessHoursName" data-field="businessHoursName" value={editForm.businessHoursName} oninput={handleEditInputChange} onchange={handleEditInputChange} disabled={isCamposEstruturaisReadOnly} required></lightning-input>
+                            <lightning-input label="Static Resource" name="staticResourceName" data-field="staticResourceName" value={editForm.staticResourceName} oninput={handleEditInputChange} onchange={handleEditInputChange} disabled={isCamposEstruturaisReadOnly}></lightning-input>
                             <template if:true={canShowTechnical}>
                                 <lightning-combobox
                                     label={labels.categoryStatusField}
@@ -620,8 +728,48 @@
                                     required
                                 ></lightning-combobox>
                             </template>
-                            <lightning-textarea label={labels.fieldDescription} name="descricao" data-field="descricao" value={editForm.descricao} oninput={handleEditInputChange} onchange={handleEditInputChange}></lightning-textarea>
-                            <lightning-input label="Static Resource" name="staticResourceName" data-field="staticResourceName" value={editForm.staticResourceName} oninput={handleEditInputChange} onchange={handleEditInputChange}></lightning-input>
+
+                            <div class="slds-m-top_medium slds-m-bottom_x-small">
+                                <p class="slds-text-title_caps slds-text-color_weak">{labels.gestaoMarcosUnicosSectionTitle}</p>
+                            </div>
+                            <div class="slds-grid slds-wrap slds-gutters_x-small marco-unico-row">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <label class="slds-form-element__label marco-unico-label">{labels.usaTriageTime}</label>
+                                    <lightning-input variant="label-hidden" type="toggle" label={labels.usaTriageTime} name="usaTempoTriagem" data-field="usaTempoTriagem" checked={editForm.usaTempoTriagem} onchange={handleEditInputChange} disabled={isCamposEstruturaisReadOnly}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 marco-unico-value-col">
+                                    <template if:true={editForm.usaTempoTriagem}>
+                                        <label class="slds-form-element__label marco-unico-label"><abbr class="slds-required" title="required">*</abbr>{labels.fieldTriageTimeMin}</label>
+                                        <lightning-input variant="label-hidden" type="number" label={labels.fieldTriageTimeMin} name="tempoTriagemMinutos" data-field="tempoTriagemMinutos" value={editForm.tempoTriagemMinutos} oninput={handleEditInputChange} onchange={handleEditInputChange} required></lightning-input>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-wrap slds-gutters_x-small marco-unico-row">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <label class="slds-form-element__label marco-unico-label">{labels.usaChatResponseTime}</label>
+                                    <lightning-input variant="label-hidden" type="toggle" label={labels.usaChatResponseTime} name="usaTempoRespostaChat" data-field="usaTempoRespostaChat" checked={editForm.usaTempoRespostaChat} onchange={handleEditInputChange} disabled={isCamposEstruturaisReadOnly}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 marco-unico-value-col">
+                                    <template if:true={editForm.usaTempoRespostaChat}>
+                                        <label class="slds-form-element__label marco-unico-label"><abbr class="slds-required" title="required">*</abbr>{labels.fieldChatResponseTimeMin}</label>
+                                        <lightning-input variant="label-hidden" type="number" label={labels.fieldChatResponseTimeMin} name="tempoRespostaChatMinutos" data-field="tempoRespostaChatMinutos" value={editForm.tempoRespostaChatMinutos} oninput={handleEditInputChange} onchange={handleEditInputChange} required></lightning-input>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-wrap slds-gutters_x-small marco-unico-row">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <label class="slds-form-element__label marco-unico-label">{labels.usaEmailQueueTime}</label>
+                                    <lightning-input variant="label-hidden" type="toggle" label={labels.usaEmailQueueTime} name="usaTempoFilaEmail" data-field="usaTempoFilaEmail" checked={editForm.usaTempoFilaEmail} onchange={handleEditInputChange} disabled={isCamposEstruturaisReadOnly}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 marco-unico-value-col">
+                                    <template if:true={editForm.usaTempoFilaEmail}>
+                                        <label class="slds-form-element__label marco-unico-label"><abbr class="slds-required" title="required">*</abbr>{labels.fieldEmailQueueTimeMin}</label>
+                                        <lightning-input variant="label-hidden" type="number" label={labels.fieldEmailQueueTimeMin} name="tempoFilaEmailMinutos" data-field="tempoFilaEmailMinutos" value={editForm.tempoFilaEmailMinutos} oninput={handleEditInputChange} onchange={handleEditInputChange} required></lightning-input>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <lightning-textarea label={labels.fieldDescription} name="descricao" data-field="descricao" value={editForm.descricao} oninput={handleEditInputChange} onchange={handleEditInputChange} disabled={isCamposEstruturaisReadOnly} class="slds-m-top_medium"></lightning-textarea>
                         </div>
                         <footer class="slds-modal__footer">
                             <lightning-button label={labels.categoryModalCancel} onclick={closeEditModal}></lightning-button>

@@ -1920,6 +1920,10 @@ Before we begin, please choose your service language.</message>
         <name>GestaoSLA_BusinessHours</name>
     </customLabels>
     <customLabels>
+        <label><!-- Section title for the single-milestone toggles in create/edit SLA Management forms. --></label>
+        <name>GestaoSLA_MarcosUnicosSectionTitle</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Category actions column label --></label>
         <name>GestaoSLA_CategoryActions</name>
     </customLabels>
@@ -2142,6 +2146,30 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- Label for the chat response time field in the SLA Management workspace. --></label>
         <name>GestaoSLA_ChatResponseTime</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Label for the email queue time field in the SLA Management workspace. --></label>
+        <name>GestaoSLA_EmailQueueTime</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Toggle label asking whether this SLA Management uses the Triage Time milestone. --></label>
+        <name>GestaoSLA_UsaTriageTime</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Toggle for whether this SLA Management uses Chat Response Time. --></label>
+        <name>GestaoSLA_UsaChatResponseTime</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Toggle for whether this SLA Management uses Email Queue Time. --></label>
+        <name>GestaoSLA_UsaEmailQueueTime</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Email Queue milestone name label --></label>
+        <name>GestaoSLA_MilestoneEmailQueueLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Field label for email queue time (minutes) in create/edit forms. --></label>
+        <name>GestaoSLA_FieldEmailQueueTimeMin</name>
     </customLabels>
     <customLabels>
         <label><!-- Common error title --></label>

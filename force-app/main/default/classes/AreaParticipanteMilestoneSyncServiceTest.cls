@@ -77,11 +77,12 @@ private class AreaParticipanteMilestoneSyncServiceTest {
 
     @IsTest
     static void buildRecord_atendimentoN3_naoMapeado_tipoNull() {
-        // 'Atendimento N3' removed from map — Área Interna requires explicit business decision
+        // Decisão de negócio definitiva (21/06): Área Interna é sempre assistida, nunca automática.
+        // 'Atendimento N3' não está em TIPO_BY_MILESTONE de propósito.
         CaseMilestone cm = makeMock(fakeCmId(5), fakeCaseId(), 'Atendimento N3',
             Datetime.now().addHours(-1), Datetime.now().addHours(4), null, false, false, 60, 240);
         AreaParticipante__c r = AreaParticipanteMilestoneSyncService.buildRecord(cm, null);
-        Assert.isNull(r.TipoAreaParticipante__c, 'Atendimento N3 nao deve ter Tipo — nao mapeado');
+        Assert.isNull(r.TipoAreaParticipante__c, 'Atendimento N3 nao deve ter Tipo — Área Interna é sempre assistida (decisão definitiva)');
     }
 
     @IsTest
@@ -260,7 +261,11 @@ private class AreaParticipanteMilestoneSyncServiceTest {
 
     @IsTest
     static void syncByCaseIds_milestoneNaoMapeado_naoInsere() {
-        // 'Atendimento N3' is unmapped — syncInternal must skip it without error
+        // Cobre o item de checklist "Testar criação automática de Área Participante ao criar
+        // Case direto em etapa avançada": confirma que o Milestone nativo "Atendimento N3" —
+        // disparado pelo Entitlement Process mesmo quando o Case nasce direto em etapa de
+        // Área Interna — NUNCA gera Área Participante automaticamente. Decisão de negócio
+        // definitiva (21/06): Área Interna é sempre assistida (ação manual do atendente).
         Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(null, null);
         AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
 
@@ -274,7 +279,7 @@ private class AreaParticipanteMilestoneSyncServiceTest {
         Test.stopTest();
 
         Integer count = [SELECT COUNT() FROM AreaParticipante__c WHERE Caso__c = :c.Id AND OrigemSLA__c = 'Standard'];
-        Assert.areEqual(0, count, 'Milestone nao mapeado nao deve criar registro');
+        Assert.areEqual(0, count, 'Atendimento N3 (Área Interna) nunca cria Área Participante automaticamente — sempre assistida');
     }
 
     @IsTest

@@ -24,7 +24,8 @@ public inherited sharing class GestaoSLAService {
         List<GestaoSLA__c> gestaoRows = allowedUnidades == null
             ? [
                 SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
-                       TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, StaticResourceName__c,
+                       TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, TempoFilaEmailMinutos__c,
+                   UsaTempoTriagem__c, UsaTempoRespostaChat__c, UsaTempoFilaEmail__c, StaticResourceName__c,
                        Ativo__c, Descricao__c
                 FROM GestaoSLA__c
                 WHERE Ativo__c = true
@@ -32,7 +33,8 @@ public inherited sharing class GestaoSLAService {
             ]
             : [
                 SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
-                       TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, StaticResourceName__c,
+                       TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, TempoFilaEmailMinutos__c,
+                   UsaTempoTriagem__c, UsaTempoRespostaChat__c, UsaTempoFilaEmail__c, StaticResourceName__c,
                        Ativo__c, Descricao__c
                 FROM GestaoSLA__c
                 WHERE Ativo__c = true AND UnidadeNegocio__c IN :allowedUnidades
@@ -53,7 +55,8 @@ public inherited sharing class GestaoSLAService {
 
         List<GestaoSLA__c> rows = [
             SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
-                   TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, StaticResourceName__c,
+                   TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, TempoFilaEmailMinutos__c,
+                   UsaTempoTriagem__c, UsaTempoRespostaChat__c, UsaTempoFilaEmail__c, StaticResourceName__c,
                    Ativo__c, Descricao__c
             FROM GestaoSLA__c
             WHERE Id = :gestaoSLAId
@@ -705,7 +708,8 @@ public inherited sharing class GestaoSLAService {
 
         for (GestaoSLA__c row : [
             SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
-                   TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, StaticResourceName__c,
+                   TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, TempoFilaEmailMinutos__c,
+                   UsaTempoTriagem__c, UsaTempoRespostaChat__c, UsaTempoFilaEmail__c, StaticResourceName__c,
                    Ativo__c, Descricao__c
             FROM GestaoSLA__c
             WHERE Ativo__c = false
@@ -789,12 +793,9 @@ public inherited sharing class GestaoSLAService {
         if (String.isBlank(request.businessHoursName)) {
             throw new FunctionalException('Business Hours é obrigatório.');
         }
-        if (request.tempoTriagemMinutos != null && request.tempoTriagemMinutos <= 0) {
-            throw new FunctionalException('Tempo de Triagem deve ser maior que zero.');
-        }
-        if (request.tempoRespostaChatMinutos != null && request.tempoRespostaChatMinutos <= 0) {
-            throw new FunctionalException('Tempo de Resposta Chat deve ser maior que zero.');
-        }
+        validateTempoUnico('Triagem', request.usaTempoTriagem, request.tempoTriagemMinutos);
+        validateTempoUnico('Resposta Chat', request.usaTempoRespostaChat, request.tempoRespostaChatMinutos);
+        validateTempoUnico('Fila de Email', request.usaTempoFilaEmail, request.tempoFilaEmailMinutos);
 
         String unidade = request.unidadeNegocio.trim();
         String entitlementProcess = request.entitlementProcessName.trim();
@@ -819,30 +820,73 @@ public inherited sharing class GestaoSLAService {
             throw new FunctionalException('Já existe uma Gestão de SLA ativa para este Entitlement Process.');
         }
 
+        Boolean usaTriagem = request.usaTempoTriagem == true;
+        Boolean usaRespostaChat = request.usaTempoRespostaChat == true;
+        Boolean usaFilaEmail = request.usaTempoFilaEmail == true;
+
         GestaoSLA__c novaGestao = new GestaoSLA__c(
             Name = request.name.trim(),
             UnidadeNegocio__c = unidade,
             EntitlementProcessName__c = entitlementProcess,
             BusinessHoursName__c = request.businessHoursName.trim(),
-            TempoTriagemMinutos__c = request.tempoTriagemMinutos,
-            TempoRespostaChatMinutos__c = request.tempoRespostaChatMinutos,
+            UsaTempoTriagem__c = usaTriagem,
+            TempoTriagemMinutos__c = usaTriagem ? request.tempoTriagemMinutos : null,
+            UsaTempoRespostaChat__c = usaRespostaChat,
+            TempoRespostaChatMinutos__c = usaRespostaChat ? request.tempoRespostaChatMinutos : null,
+            UsaTempoFilaEmail__c = usaFilaEmail,
+            TempoFilaEmailMinutos__c = usaFilaEmail ? request.tempoFilaEmailMinutos : null,
             Descricao__c = String.isBlank(request.descricao) ? null : request.descricao.trim(),
             StaticResourceName__c = String.isBlank(request.staticResourceName) ? null : request.staticResourceName.trim(),
             Ativo__c = request.ativo == null ? true : request.ativo
         );
         insert novaGestao;
+        syncMarcosUnicos(novaGestao.Id, usaTriagem, usaRespostaChat, usaFilaEmail);
         return getGestaoDetail(novaGestao.Id);
     }
 
     public static GestaoSLADTO.GestaoDetailResponse updateGestaoSLA(GestaoSLADTO.UpdateGestaoRequest request) {
         GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
         ensureCanAccess(perms);
-        if (perms.canAdminTechnicalSettings != true) {
+        Boolean isAdmin = perms.canAdminTechnicalSettings == true;
+        Boolean isGestor = perms.canManageCategories == true;
+        if (!isAdmin && !isGestor) {
             throw new FunctionalException('Você não possui permissão para editar Gestão de SLA.');
         }
         if (request == null || request.id == null) {
             throw new FunctionalException('Gestão de SLA não informada.');
         }
+
+        List<GestaoSLA__c> rows = [
+            SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
+                   Descricao__c, StaticResourceName__c, Ativo__c,
+                   UsaTempoTriagem__c, UsaTempoRespostaChat__c, UsaTempoFilaEmail__c
+            FROM GestaoSLA__c
+            WHERE Id = :request.id
+            LIMIT 1
+        ];
+        if (rows.isEmpty()) {
+            throw new FunctionalException('Gestão de SLA não encontrada.');
+        }
+        GestaoSLA__c currentGestao = rows[0];
+        ensureUnidadeAllowed(currentGestao.UnidadeNegocio__c, resolveAllowedUnidades(perms));
+
+        // Gestor (GestaoSLAConfigurador / canManageCategories, não Admin Técnico) só edita os
+        // valores de tempo dos marcos já habilitados. Campos estruturais e os checkboxes
+        // "Usa Tempo de X?" são sempre preservados no valor atual, independentemente do que vier
+        // no request — defesa em profundidade, já que a UI também desabilita esses campos para ele.
+        if (!isAdmin) {
+            request.name = currentGestao.Name;
+            request.unidadeNegocio = currentGestao.UnidadeNegocio__c;
+            request.entitlementProcessName = currentGestao.EntitlementProcessName__c;
+            request.businessHoursName = currentGestao.BusinessHoursName__c;
+            request.descricao = currentGestao.Descricao__c;
+            request.staticResourceName = currentGestao.StaticResourceName__c;
+            request.ativo = currentGestao.Ativo__c;
+            request.usaTempoTriagem = currentGestao.UsaTempoTriagem__c;
+            request.usaTempoRespostaChat = currentGestao.UsaTempoRespostaChat__c;
+            request.usaTempoFilaEmail = currentGestao.UsaTempoFilaEmail__c;
+        }
+
         if (String.isBlank(request.name)) {
             throw new FunctionalException('Nome da Gestão de SLA é obrigatório.');
         }
@@ -856,35 +900,13 @@ public inherited sharing class GestaoSLAService {
             throw new FunctionalException('Business Hours é obrigatório.');
         }
 
-        Boolean isAdmin = perms.canAdminTechnicalSettings == true;
-        if (!isAdmin) {
-            if (request.tempoTriagemMinutos == null || request.tempoTriagemMinutos <= 0) {
-                throw new FunctionalException('Tempo de Triagem deve ser maior que zero.');
-            }
-            if (request.tempoRespostaChatMinutos == null || request.tempoRespostaChatMinutos <= 0) {
-                throw new FunctionalException('Tempo de Resposta Chat deve ser maior que zero.');
-            }
-        } else {
-            if (request.tempoTriagemMinutos != null && request.tempoTriagemMinutos <= 0) {
-                throw new FunctionalException('Tempo de Triagem deve ser maior que zero.');
-            }
-            if (request.tempoRespostaChatMinutos != null && request.tempoRespostaChatMinutos <= 0) {
-                throw new FunctionalException('Tempo de Resposta Chat deve ser maior que zero.');
-            }
-        }
-
-        List<GestaoSLA__c> rows = [SELECT Id, Ativo__c FROM GestaoSLA__c WHERE Id = :request.id LIMIT 1];
-        if (rows.isEmpty()) {
-            throw new FunctionalException('Gestão de SLA não encontrada.');
-        }
-        GestaoSLA__c currentGestao = rows[0];
+        validateTempoUnico('Triagem', request.usaTempoTriagem, request.tempoTriagemMinutos);
+        validateTempoUnico('Resposta Chat', request.usaTempoRespostaChat, request.tempoRespostaChatMinutos);
+        validateTempoUnico('Fila de Email', request.usaTempoFilaEmail, request.tempoFilaEmailMinutos);
 
         String unidade = request.unidadeNegocio.trim();
         String entitlementProcess = request.entitlementProcessName.trim();
         Boolean ativoFinal = request.ativo == null ? currentGestao.Ativo__c : request.ativo;
-        if (!isAdmin && request.ativo != null && request.ativo != currentGestao.Ativo__c) {
-            throw new FunctionalException('Você não possui permissão para alterar o Status da Gestão de SLA.');
-        }
 
         if (ativoFinal) {
             Integer duplicidadeUnidade = [
@@ -910,20 +932,91 @@ public inherited sharing class GestaoSLAService {
             }
         }
 
+        Boolean usaTriagem = request.usaTempoTriagem == true;
+        Boolean usaRespostaChat = request.usaTempoRespostaChat == true;
+        Boolean usaFilaEmail = request.usaTempoFilaEmail == true;
+
         GestaoSLA__c toUpdate = new GestaoSLA__c(
             Id = request.id,
             Name = request.name.trim(),
             UnidadeNegocio__c = unidade,
             EntitlementProcessName__c = entitlementProcess,
             BusinessHoursName__c = request.businessHoursName.trim(),
-            TempoTriagemMinutos__c = request.tempoTriagemMinutos,
-            TempoRespostaChatMinutos__c = request.tempoRespostaChatMinutos,
+            UsaTempoTriagem__c = usaTriagem,
+            TempoTriagemMinutos__c = usaTriagem ? request.tempoTriagemMinutos : null,
+            UsaTempoRespostaChat__c = usaRespostaChat,
+            TempoRespostaChatMinutos__c = usaRespostaChat ? request.tempoRespostaChatMinutos : null,
+            UsaTempoFilaEmail__c = usaFilaEmail,
+            TempoFilaEmailMinutos__c = usaFilaEmail ? request.tempoFilaEmailMinutos : null,
             Descricao__c = String.isBlank(request.descricao) ? null : request.descricao.trim(),
             StaticResourceName__c = String.isBlank(request.staticResourceName) ? null : request.staticResourceName.trim(),
             Ativo__c = ativoFinal
         );
         update toUpdate;
+        syncMarcosUnicos(request.id, usaTriagem, usaRespostaChat, usaFilaEmail);
         return getGestaoDetail(request.id);
+    }
+
+    /**
+     * @description Valida que o tempo único de um marco foi informado (>0) quando o marco está marcado como utilizado.
+     * Quando não utilizado, o valor é ignorado e o campo é limpo no momento da gravação.
+     * @param label Nome funcional do marco, usado na mensagem de erro.
+     * @param usa Flag "Usa Tempo de X?" vinda do request.
+     * @param tempo Valor de tempo (minutos) informado para o marco.
+     */
+    private static void validateTempoUnico(String label, Boolean usa, Integer tempo) {
+        if (usa == true && (tempo == null || tempo <= 0)) {
+            throw new FunctionalException('Tempo de ' + label + ' deve ser maior que zero quando "Usa Tempo de ' + label + '?" estiver marcado.');
+        }
+    }
+
+    /**
+     * @description Sincroniza os MarcoSLA__c de tempo único (Triagem, Resposta Chat, Fila Email) de uma Gestão de SLA
+     * com os checkboxes "Usa Tempo de X?" definidos pelo Admin na tela. Cria o marco quando ainda não existir,
+     * reativa quando estiver inativo, ou desativa quando deixar de ser utilizado — nunca exclui (preserva histórico
+     * de CaseMilestone). O motor (CaseMilestoneTriggerTimeCalculator) lê esses marcos por MilestoneTypeName__c,
+     * independente de como foram criados.
+     * @param gestaoId Id da Gestão de SLA afetada.
+     * @param usaTriagem Estado atual do checkbox de Triagem.
+     * @param usaRespostaChat Estado atual do checkbox de Resposta Chat.
+     * @param usaFilaEmail Estado atual do checkbox de Fila de Email.
+     */
+    private static void syncMarcosUnicos(Id gestaoId, Boolean usaTriagem, Boolean usaRespostaChat, Boolean usaFilaEmail) {
+        syncMarcoUnico(gestaoId, 'Triagem', usaTriagem, 1);
+        syncMarcoUnico(gestaoId, 'Resposta Chat', usaRespostaChat, 2);
+        syncMarcoUnico(gestaoId, 'Fila Email', usaFilaEmail, 3);
+    }
+
+    private static void syncMarcoUnico(Id gestaoId, String milestoneTypeName, Boolean usar, Integer ordem) {
+        List<MarcoSLA__c> existing = [
+            SELECT Id, Ativo__c
+            FROM MarcoSLA__c
+            WHERE GestaoSLA__c = :gestaoId
+              AND MilestoneTypeName__c = :milestoneTypeName
+            LIMIT 1
+        ];
+        if (usar == true) {
+            if (existing.isEmpty()) {
+                insert new MarcoSLA__c(
+                    Name = milestoneTypeName,
+                    GestaoSLA__c = gestaoId,
+                    NomeMarco__c = milestoneTypeName,
+                    MilestoneTypeName__c = milestoneTypeName,
+                    FonteTempo__c = 'GestaoSLA',
+                    Ordem__c = ordem,
+                    Recorrente__c = false,
+                    TipoRecorrencia__c = 'NaoRecorrente',
+                    UsaCategorizacao__c = false,
+                    UsaAreaInterna__c = false,
+                    UsaOrigem__c = false,
+                    Ativo__c = true
+                );
+            } else if (existing[0].Ativo__c != true) {
+                update new MarcoSLA__c(Id = existing[0].Id, Ativo__c = true);
+            }
+        } else if (!existing.isEmpty() && existing[0].Ativo__c == true) {
+            update new MarcoSLA__c(Id = existing[0].Id, Ativo__c = false);
+        }
     }
 
     /**
@@ -1414,8 +1507,12 @@ public inherited sharing class GestaoSLAService {
         dto.unidadeNegocio = row.UnidadeNegocio__c;
         dto.ativo = row.Ativo__c;
         dto.descricao = row.Descricao__c;
+        dto.usaTempoTriagem = row.UsaTempoTriagem__c == true;
         dto.tempoTriagemMinutos = row.TempoTriagemMinutos__c;
+        dto.usaTempoRespostaChat = row.UsaTempoRespostaChat__c == true;
         dto.tempoRespostaChatMinutos = row.TempoRespostaChatMinutos__c;
+        dto.usaTempoFilaEmail = row.UsaTempoFilaEmail__c == true;
+        dto.tempoFilaEmailMinutos = row.TempoFilaEmailMinutos__c;
         dto.staticResourceName = canAdminTechnicalSettings ? row.StaticResourceName__c : null;
         dto.entitlementProcessName = canAdminTechnicalSettings ? row.EntitlementProcessName__c : null;
         dto.businessHoursName = canAdminTechnicalSettings ? row.BusinessHoursName__c : null;

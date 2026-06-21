@@ -11,8 +11,12 @@ public inherited sharing class GestaoSLADTO {
         @AuraEnabled public String unidadeNegocio { get; set; }
         @AuraEnabled public String entitlementProcessName { get; set; }
         @AuraEnabled public String businessHoursName { get; set; }
+        @AuraEnabled public Boolean usaTempoTriagem { get; set; }
         @AuraEnabled public Integer tempoTriagemMinutos { get; set; }
+        @AuraEnabled public Boolean usaTempoRespostaChat { get; set; }
         @AuraEnabled public Integer tempoRespostaChatMinutos { get; set; }
+        @AuraEnabled public Boolean usaTempoFilaEmail { get; set; }
+        @AuraEnabled public Integer tempoFilaEmailMinutos { get; set; }
         @AuraEnabled public String descricao { get; set; }
         @AuraEnabled public String staticResourceName { get; set; }
         @AuraEnabled public Boolean ativo { get; set; }
@@ -24,8 +28,12 @@ public inherited sharing class GestaoSLADTO {
         @AuraEnabled public String unidadeNegocio { get; set; }
         @AuraEnabled public String entitlementProcessName { get; set; }
         @AuraEnabled public String businessHoursName { get; set; }
+        @AuraEnabled public Boolean usaTempoTriagem { get; set; }
         @AuraEnabled public Integer tempoTriagemMinutos { get; set; }
+        @AuraEnabled public Boolean usaTempoRespostaChat { get; set; }
         @AuraEnabled public Integer tempoRespostaChatMinutos { get; set; }
+        @AuraEnabled public Boolean usaTempoFilaEmail { get; set; }
+        @AuraEnabled public Integer tempoFilaEmailMinutos { get; set; }
         @AuraEnabled public String descricao { get; set; }
         @AuraEnabled public String staticResourceName { get; set; }
         @AuraEnabled public Boolean ativo { get; set; }
@@ -51,8 +59,12 @@ public inherited sharing class GestaoSLADTO {
         @AuraEnabled public String unidadeNegocio;
         @AuraEnabled public Boolean ativo;
         @AuraEnabled public String descricao;
+        @AuraEnabled public Boolean usaTempoTriagem;
         @AuraEnabled public Decimal tempoTriagemMinutos;
+        @AuraEnabled public Boolean usaTempoRespostaChat;
         @AuraEnabled public Decimal tempoRespostaChatMinutos;
+        @AuraEnabled public Boolean usaTempoFilaEmail;
+        @AuraEnabled public Decimal tempoFilaEmailMinutos;
         @AuraEnabled public String staticResourceName;
         @AuraEnabled public String entitlementProcessName;
         @AuraEnabled public String businessHoursName;

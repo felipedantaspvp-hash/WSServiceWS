@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UsaTempoTriagem__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indica se esta Gestão de SLA utiliza o marco único de Tempo de Triagem. Controla a exibição do campo na tela e a ativação automática do MarcoSLA__c correspondente.</description>
+    <externalId>false</externalId>
+    <label>Usa Tempo de Triagem?</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

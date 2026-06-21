@@ -104,8 +104,12 @@ private class GestaoSLAServiceTest {
         req.unidadeNegocio = unidade;
         req.entitlementProcessName = 'Entitlement ' + suffix;
         req.businessHoursName = 'BH ' + suffix;
+        req.usaTempoTriagem = true;
         req.tempoTriagemMinutos = 120;
+        req.usaTempoRespostaChat = true;
         req.tempoRespostaChatMinutos = 60;
+        req.usaTempoFilaEmail = false;
+        req.tempoFilaEmailMinutos = null;
         req.descricao = 'Descrição ' + suffix;
         req.staticResourceName = 'resource_' + suffix;
         req.ativo = true;
@@ -480,7 +484,9 @@ private class GestaoSLAServiceTest {
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
 
         GestaoSLADTO.CreateGestaoRequest req = buildCreateRequest('SEM_TEMPO');
+        req.usaTempoTriagem = false;
         req.tempoTriagemMinutos = null;
+        req.usaTempoRespostaChat = false;
         req.tempoRespostaChatMinutos = null;
 
         GestaoSLADTO.GestaoDetailResponse response = GestaoSLAService.createGestaoSLA(req);
@@ -583,12 +589,108 @@ private class GestaoSLAServiceTest {
     }
 
     @IsTest
-    static void testUpdateGestaoSLAConfiguradorSemAdminTecnicoBloqueado() {
-        GestaoSLA__c g = createGestao('EDIT_NON_ADMIN', true);
+    static void testCreateGestaoSLACriaMarcosUnicosConformeCheckboxes() {
         GestaoSLAHelper.clearPermissionOverrides();
         GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
-        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
+
+        GestaoSLADTO.CreateGestaoRequest req = buildCreateRequest('MARCOS');
+        req.usaTempoTriagem = true;
+        req.tempoTriagemMinutos = 30;
+        req.usaTempoRespostaChat = false;
+        req.tempoRespostaChatMinutos = null;
+        req.usaTempoFilaEmail = true;
+        req.tempoFilaEmailMinutos = 45;
+
+        GestaoSLADTO.GestaoDetailResponse response = GestaoSLAService.createGestaoSLA(req);
+
+        Map<String, MarcoSLA__c> marcosByName = new Map<String, MarcoSLA__c>();
+        for (MarcoSLA__c m : [SELECT MilestoneTypeName__c, Ativo__c, FonteTempo__c FROM MarcoSLA__c WHERE GestaoSLA__c = :response.gestao.id]) {
+            marcosByName.put(m.MilestoneTypeName__c, m);
+        }
+        Assert.areEqual(true, marcosByName.containsKey('Triagem'), 'Marco Triagem deveria ter sido criado.');
+        Assert.areEqual(true, marcosByName.get('Triagem').Ativo__c);
+        Assert.areEqual('GestaoSLA', marcosByName.get('Triagem').FonteTempo__c);
+        Assert.areEqual(false, marcosByName.containsKey('Resposta Chat'), 'Marco Resposta Chat não deveria ter sido criado quando não utilizado.');
+        Assert.areEqual(true, marcosByName.containsKey('Fila Email'), 'Marco Fila Email deveria ter sido criado.');
+        Assert.areEqual(true, marcosByName.get('Fila Email').Ativo__c);
+    }
+
+    @IsTest
+    static void testUpdateGestaoSLADesativaEReativaMarcoUnicoConformeCheckbox() {
+        GestaoSLA__c g = createGestao('MARCO_TOGGLE', true);
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
+
+        GestaoSLADTO.UpdateGestaoRequest req = new GestaoSLADTO.UpdateGestaoRequest();
+        req.id = g.Id;
+        req.name = g.Name;
+        req.unidadeNegocio = g.UnidadeNegocio__c;
+        req.entitlementProcessName = g.EntitlementProcessName__c;
+        req.businessHoursName = g.BusinessHoursName__c;
+        req.usaTempoTriagem = true;
+        req.tempoTriagemMinutos = 20;
+        req.ativo = true;
+
+        GestaoSLAService.updateGestaoSLA(req);
+        List<MarcoSLA__c> created = [SELECT Id, Ativo__c FROM MarcoSLA__c WHERE GestaoSLA__c = :g.Id AND MilestoneTypeName__c = 'Triagem'];
+        Assert.areEqual(1, created.size());
+        Assert.areEqual(true, created[0].Ativo__c);
+
+        req.usaTempoTriagem = false;
+        req.tempoTriagemMinutos = null;
+        GestaoSLAService.updateGestaoSLA(req);
+        List<MarcoSLA__c> afterDisable = [SELECT Id, Ativo__c FROM MarcoSLA__c WHERE GestaoSLA__c = :g.Id AND MilestoneTypeName__c = 'Triagem'];
+        Assert.areEqual(1, afterDisable.size(), 'Marco não deve ser excluído, apenas desativado.');
+        Assert.areEqual(false, afterDisable[0].Ativo__c);
+
+        req.usaTempoTriagem = true;
+        req.tempoTriagemMinutos = 15;
+        GestaoSLAService.updateGestaoSLA(req);
+        List<MarcoSLA__c> afterReenable = [SELECT Id, Ativo__c FROM MarcoSLA__c WHERE GestaoSLA__c = :g.Id AND MilestoneTypeName__c = 'Triagem'];
+        Assert.areEqual(1, afterReenable.size(), 'Marco existente deve ser reativado, não duplicado.');
+        Assert.areEqual(true, afterReenable[0].Ativo__c);
+    }
+
+    @IsTest
+    static void testUpdateGestaoSLABloqueiaTempoFilaEmailSemValorQuandoUtilizado() {
+        GestaoSLA__c g = createGestao('FILA_EMAIL_VALIDA', true);
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
+
+        GestaoSLADTO.UpdateGestaoRequest req = new GestaoSLADTO.UpdateGestaoRequest();
+        req.id = g.Id;
+        req.name = g.Name;
+        req.unidadeNegocio = g.UnidadeNegocio__c;
+        req.entitlementProcessName = g.EntitlementProcessName__c;
+        req.businessHoursName = g.BusinessHoursName__c;
+        req.usaTempoFilaEmail = true;
+        req.tempoFilaEmailMinutos = null;
+        req.ativo = true;
+
+        Boolean failed = false;
+        try {
+            GestaoSLAService.updateGestaoSLA(req);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            failed = true;
+            Assert.areEqual(true, ex.getMessage().contains('Fila de Email'));
+        }
+        Assert.areEqual(true, failed);
+    }
+
+    @IsTest
+    static void testUpdateGestaoSLASemNenhumaPermissaoDeEdicaoBloqueado() {
+        // Apenas AcessarGestaoSLA (leitura) — sem GerenciarCategorias (Gestor) nem Admin Técnico.
+        GestaoSLA__c g = createGestao('EDIT_NO_PERM', true);
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, false);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, false);
 
         GestaoSLADTO.UpdateGestaoRequest req = new GestaoSLADTO.UpdateGestaoRequest();
@@ -597,8 +699,6 @@ private class GestaoSLAServiceTest {
         req.unidadeNegocio = g.UnidadeNegocio__c;
         req.entitlementProcessName = g.EntitlementProcessName__c;
         req.businessHoursName = g.BusinessHoursName__c;
-        req.tempoTriagemMinutos = null;
-        req.tempoRespostaChatMinutos = null;
         req.ativo = true;
 
         Boolean failed = false;
@@ -609,6 +709,38 @@ private class GestaoSLAServiceTest {
             Assert.areEqual(true, ex.getMessage().contains('permissão para editar Gestão de SLA'));
         }
         Assert.areEqual(true, failed);
+    }
+
+    @IsTest
+    static void testUpdateGestaoSLAGestorPodeAlterarTempoDeMarcoJaHabilitado() {
+        // Gestor (GestaoSLAConfigurador / GerenciarCategorias) não é Admin Técnico, mas pode
+        // editar o valor de tempo de um marco que já está habilitado para a Gestão.
+        GestaoSLA__c g = createGestao('EDIT_GESTOR_TEMPO', true);
+        g.UsaTempoTriagem__c = true;
+        g.TempoTriagemMinutos__c = 10;
+        update g;
+
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, false);
+
+        GestaoSLADTO.UpdateGestaoRequest req = new GestaoSLADTO.UpdateGestaoRequest();
+        req.id = g.Id;
+        req.tempoTriagemMinutos = 99;
+        // Tenta também alterar campos estruturais — devem ser ignorados silenciosamente.
+        req.name = 'Nome Forjado Pelo Gestor';
+        req.ativo = false;
+        req.usaTempoRespostaChat = true;
+        req.tempoRespostaChatMinutos = 50;
+
+        GestaoSLADTO.GestaoDetailResponse response = GestaoSLAService.updateGestaoSLA(req);
+        Assert.areEqual(99, response.gestao.tempoTriagemMinutos, 'Gestor pode alterar o tempo de um marco já habilitado.');
+        Assert.areEqual(g.Name, response.gestao.name, 'Nome deve permanecer o original — Gestor não edita campo estrutural.');
+        Assert.areEqual(true, response.gestao.ativo, 'Status deve permanecer ativo — Gestor não edita Status.');
+        Assert.areEqual(false, response.gestao.usaTempoRespostaChat, 'Gestor não pode habilitar um novo marco único.');
+        Assert.areEqual(null, response.gestao.tempoRespostaChatMinutos, 'Tempo de marco não habilitado pelo Admin deve ficar nulo.');
     }
 
     @IsTest
@@ -639,7 +771,7 @@ private class GestaoSLAServiceTest {
     }
 
     @IsTest
-    static void testUpdateGestaoSLANonAdminNaoPodeAlterarStatus() {
+    static void testUpdateGestaoSLAGestorNaoPodeAlterarStatus() {
         GestaoSLA__c g = createGestao('EDIT_STATUS_NON_ADMIN', true);
         GestaoSLAHelper.clearPermissionOverrides();
         GestaoSLAHelper.setAllowedUnidadesOverride(null);
@@ -653,18 +785,10 @@ private class GestaoSLAServiceTest {
         req.unidadeNegocio = g.UnidadeNegocio__c;
         req.entitlementProcessName = g.EntitlementProcessName__c;
         req.businessHoursName = g.BusinessHoursName__c;
-        req.tempoTriagemMinutos = 10;
-        req.tempoRespostaChatMinutos = 20;
         req.ativo = false;
 
-        Boolean failed = false;
-        try {
-            GestaoSLAService.updateGestaoSLA(req);
-        } catch (Exception ex) {
-            failed = true;
-            Assert.areEqual(true, ex.getMessage().contains('permissão para editar Gestão de SLA'));
-        }
-        Assert.areEqual(true, failed);
+        GestaoSLADTO.GestaoDetailResponse response = GestaoSLAService.updateGestaoSLA(req);
+        Assert.areEqual(true, response.gestao.ativo, 'Gestor não pode alterar o Status — valor atual (ativo=true) deve ser preservado.');
     }
 
     @IsTest

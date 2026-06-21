@@ -729,6 +729,10 @@
         <name>GestaoSLA_BusinessHours</name>
     </customLabels>
     <customLabels>
+        <label>Marcos Únicos</label>
+        <name>GestaoSLA_MarcosUnicosSectionTitle</name>
+    </customLabels>
+    <customLabels>
         <label>Ações</label>
         <name>GestaoSLA_CategoryActions</name>
     </customLabels>
@@ -951,6 +955,30 @@
     <customLabels>
         <label>Tempo Resposta Chat</label>
         <name>GestaoSLA_ChatResponseTime</name>
+    </customLabels>
+    <customLabels>
+        <label>Tempo de Fila de Email</label>
+        <name>GestaoSLA_EmailQueueTime</name>
+    </customLabels>
+    <customLabels>
+        <label>Usa Tempo de Triagem?</label>
+        <name>GestaoSLA_UsaTriageTime</name>
+    </customLabels>
+    <customLabels>
+        <label>Usa Tempo de Resposta Chat?</label>
+        <name>GestaoSLA_UsaChatResponseTime</name>
+    </customLabels>
+    <customLabels>
+        <label>Usa Tempo de Fila de Email?</label>
+        <name>GestaoSLA_UsaEmailQueueTime</name>
+    </customLabels>
+    <customLabels>
+        <label>Fila de Email</label>
+        <name>GestaoSLA_MilestoneEmailQueueLabel</name>
+    </customLabels>
+    <customLabels>
+        <label>Tempo de Fila de Email em Minutos</label>
+        <name>GestaoSLA_FieldEmailQueueTimeMin</name>
     </customLabels>
     <customLabels>
         <label>Erro</label>

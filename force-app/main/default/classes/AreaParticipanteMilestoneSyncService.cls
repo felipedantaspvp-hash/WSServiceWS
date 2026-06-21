@@ -14,7 +14,10 @@ public inherited sharing class AreaParticipanteMilestoneSyncService {
     private static final String KEY_SLA_TOTAL        = 'sla total';
 
     // Normalized MilestoneType.Name → TipoAreaParticipante__c picklist value
-    // 'Atendimento N3' not mapped: Área Interna requires explicit business decision
+    // 'Atendimento N3' não é mapeado por decisão de negócio definitiva (21/06): Área Interna
+    // é sempre assistida — exige ação manual do atendente via AreaParticipanteController.addParticipation.
+    // Não há criação automática mesmo quando o Case nasce direto em etapa de Área Interna
+    // (ex.: Milestone "Atendimento N3" disparado pelo Entitlement Process na criação do Case).
     private static final Map<String, String> TIPO_BY_MILESTONE = new Map<String, String>{
         'triagem'                       => 'Categorização Inicial',
         'resposta chat'                 => 'Categorização Inicial',

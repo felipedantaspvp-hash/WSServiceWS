@@ -86,8 +86,13 @@ import gestaoEditButtonLabel from '@salesforce/label/c.GestaoSLA_EditButton';
 import gestaoEditSettingsButtonLabel from '@salesforce/label/c.GestaoSLA_EditSettingsButton';
 import gestaoEntitlementProcessLabel from '@salesforce/label/c.GestaoSLA_EntitlementProcess';
 import gestaoBusinessHoursLabel from '@salesforce/label/c.GestaoSLA_BusinessHours';
+import gestaoMarcosUnicosSectionTitleLabel from '@salesforce/label/c.GestaoSLA_MarcosUnicosSectionTitle';
 import gestaoTriageTimeLabel from '@salesforce/label/c.GestaoSLA_TriageTime';
 import gestaoChatResponseTimeLabel from '@salesforce/label/c.GestaoSLA_ChatResponseTime';
+import gestaoEmailQueueTimeLabel from '@salesforce/label/c.GestaoSLA_EmailQueueTime';
+import usaTriageTimeLabel from '@salesforce/label/c.GestaoSLA_UsaTriageTime';
+import usaChatResponseTimeLabel from '@salesforce/label/c.GestaoSLA_UsaChatResponseTime';
+import usaEmailQueueTimeLabel from '@salesforce/label/c.GestaoSLA_UsaEmailQueueTime';
 import gestaoSummaryTitleLabel from '@salesforce/label/c.GestaoSLA_SummaryTitle';
 import gestaoSummaryAvailableMilestonesLabel from '@salesforce/label/c.GestaoSLA_SummaryAvailableMilestones';
 import gestaoSummaryInternalAreasN3Label from '@salesforce/label/c.GestaoSLA_SummaryInternalAreasN3';
@@ -115,6 +120,7 @@ import sourceManagementLabelLabel from '@salesforce/label/c.GestaoSLA_SourceMana
 import applicationEmailNewLabel from '@salesforce/label/c.GestaoSLA_ApplicationEmailNew';
 import milestoneChatResponseLabelLabel from '@salesforce/label/c.GestaoSLA_MilestoneChatResponseLabel';
 import applicationWhatsappChatNewLabel from '@salesforce/label/c.GestaoSLA_ApplicationWhatsappChatNew';
+import milestoneEmailQueueLabelLabel from '@salesforce/label/c.GestaoSLA_MilestoneEmailQueueLabel';
 import rulesFilteredForLabel from '@salesforce/label/c.GestaoSLA_RulesFilteredFor';
 import rulesClearFilterLabel from '@salesforce/label/c.GestaoSLA_RulesClearFilter';
 import ruleInternalAreaPlaceholderLabel from '@salesforce/label/c.GestaoSLA_RuleInternalAreaPlaceholder';
@@ -136,6 +142,7 @@ import reactivateModalEmptyLabel from '@salesforce/label/c.GestaoSLA_ReactivateM
 import fieldNameLabel from '@salesforce/label/c.GestaoSLA_FieldName';
 import fieldTriageTimeMinLabel from '@salesforce/label/c.GestaoSLA_FieldTriageTimeMin';
 import fieldChatResponseTimeMinLabel from '@salesforce/label/c.GestaoSLA_FieldChatResponseTimeMin';
+import fieldEmailQueueTimeMinLabel from '@salesforce/label/c.GestaoSLA_FieldEmailQueueTimeMin';
 import fieldDescriptionLabel from '@salesforce/label/c.GestaoSLA_FieldDescription';
 import ruleFilterCategorizacaoAllLabel from '@salesforce/label/c.GestaoSLA_RuleFilterCategorizacaoAll';
 import ruleSelectCategorizationLabel from '@salesforce/label/c.GestaoSLA_RuleSelectCategorization';
@@ -311,8 +318,12 @@ export default class GestaoSLAWorkspace extends LightningElement {
         unidadeNegocio: '',
         entitlementProcessName: '',
         businessHoursName: '',
+        usaTempoTriagem: false,
         tempoTriagemMinutos: null,
+        usaTempoRespostaChat: false,
         tempoRespostaChatMinutos: null,
+        usaTempoFilaEmail: false,
+        tempoFilaEmailMinutos: null,
         descricao: '',
         staticResourceName: '',
         ativo: true
@@ -323,8 +334,12 @@ export default class GestaoSLAWorkspace extends LightningElement {
         unidadeNegocio: '',
         entitlementProcessName: '',
         businessHoursName: '',
+        usaTempoTriagem: false,
         tempoTriagemMinutos: null,
+        usaTempoRespostaChat: false,
         tempoRespostaChatMinutos: null,
+        usaTempoFilaEmail: false,
+        tempoFilaEmailMinutos: null,
         descricao: '',
         staticResourceName: '',
         ativo: true
@@ -416,7 +431,12 @@ export default class GestaoSLAWorkspace extends LightningElement {
         gestaoEditSettingsButton: gestaoEditSettingsButtonLabel,
         gestaoEntitlementProcess: gestaoEntitlementProcessLabel,
         gestaoBusinessHours: gestaoBusinessHoursLabel,
+        gestaoMarcosUnicosSectionTitle: gestaoMarcosUnicosSectionTitleLabel,
         gestaoTriageTime: gestaoTriageTimeLabel,
+        gestaoEmailQueueTime: gestaoEmailQueueTimeLabel,
+        usaTriageTime: usaTriageTimeLabel,
+        usaChatResponseTime: usaChatResponseTimeLabel,
+        usaEmailQueueTime: usaEmailQueueTimeLabel,
         gestaoChatResponseTime: gestaoChatResponseTimeLabel,
         gestaoSummaryTitle: gestaoSummaryTitleLabel,
         gestaoSummaryAvailableMilestones: gestaoSummaryAvailableMilestonesLabel,
@@ -445,6 +465,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
         applicationEmailNew: applicationEmailNewLabel,
         milestoneChatResponseLabel: milestoneChatResponseLabelLabel,
         applicationWhatsappChatNew: applicationWhatsappChatNewLabel,
+        milestoneEmailQueueLabel: milestoneEmailQueueLabelLabel,
         rulesFilteredFor: rulesFilteredForLabel,
         rulesClearFilter: rulesClearFilterLabel,
         ruleInternalAreaPlaceholder: ruleInternalAreaPlaceholderLabel,
@@ -466,6 +487,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
         fieldName: fieldNameLabel,
         fieldTriageTimeMin: fieldTriageTimeMinLabel,
         fieldChatResponseTimeMin: fieldChatResponseTimeMinLabel,
+        fieldEmailQueueTimeMin: fieldEmailQueueTimeMinLabel,
         fieldDescription: fieldDescriptionLabel,
         ruleFilterCategorizacaoAll: ruleFilterCategorizacaoAllLabel,
         ruleSelectCategorization: ruleSelectCategorizationLabel,
@@ -952,10 +974,14 @@ export default class GestaoSLAWorkspace extends LightningElement {
     }
 
     get canEditGestao() {
-        return this.permissions.canAdminTechnicalSettings === true;
+        return this.permissions.canAdminTechnicalSettings === true || this.permissions.canManageCategories === true;
     }
 
-    get editTemposObrigatorios() {
+    // Campos estruturais (Nome, Unidade, Entitlement Process, Business Hours, Status, Descrição,
+    // Static Resource) e os checkboxes "Usa Tempo de X?" só podem ser editados pelo Admin Técnico.
+    // O Gestor (GestaoSLAConfigurador / canManageCategories) só edita os valores de tempo dos
+    // marcos já habilitados — espelha a blindagem feita no servidor em GestaoSLAService.updateGestaoSLA.
+    get isCamposEstruturaisReadOnly() {
         return this.permissions.canAdminTechnicalSettings !== true;
     }
 
@@ -1341,8 +1367,12 @@ export default class GestaoSLAWorkspace extends LightningElement {
             unidadeNegocio: '',
             entitlementProcessName: '',
             businessHoursName: '',
+            usaTempoTriagem: false,
             tempoTriagemMinutos: null,
+            usaTempoRespostaChat: false,
             tempoRespostaChatMinutos: null,
+            usaTempoFilaEmail: false,
+            tempoFilaEmailMinutos: null,
             descricao: '',
             staticResourceName: '',
             ativo: true
@@ -1363,8 +1393,12 @@ export default class GestaoSLAWorkspace extends LightningElement {
             unidadeNegocio: this.gestao.unidadeNegocio || '',
             entitlementProcessName: this.gestao.entitlementProcessName || '',
             businessHoursName: this.gestao.businessHoursName || '',
+            usaTempoTriagem: this.gestao.usaTempoTriagem === true,
             tempoTriagemMinutos: this.gestao.tempoTriagemMinutos ?? null,
+            usaTempoRespostaChat: this.gestao.usaTempoRespostaChat === true,
             tempoRespostaChatMinutos: this.gestao.tempoRespostaChatMinutos ?? null,
+            usaTempoFilaEmail: this.gestao.usaTempoFilaEmail === true,
+            tempoFilaEmailMinutos: this.gestao.tempoFilaEmailMinutos ?? null,
             descricao: this.gestao.descricao || '',
             staticResourceName: this.gestao.staticResourceName || '',
             ativo: this.gestao.ativo === true
@@ -1765,23 +1799,37 @@ export default class GestaoSLAWorkspace extends LightningElement {
     handleCreateInputChange(event) {
         const field = event.target?.name || event.currentTarget?.name || event.currentTarget?.dataset?.field;
         if (!field) return;
-        let value = event.detail?.value ?? event.target?.value ?? event.currentTarget?.value;
-        if (field === 'tempoTriagemMinutos' || field === 'tempoRespostaChatMinutos') {
+        const isUsaToggle = field === 'usaTempoTriagem' || field === 'usaTempoRespostaChat' || field === 'usaTempoFilaEmail';
+        let value = isUsaToggle
+            ? event.target?.checked ?? event.currentTarget?.checked
+            : event.detail?.value ?? event.target?.value ?? event.currentTarget?.value;
+        if (field === 'tempoTriagemMinutos' || field === 'tempoRespostaChatMinutos' || field === 'tempoFilaEmailMinutos') {
             value = value === null || value === '' ? null : Number(value);
         }
         this.createForm = { ...this.createForm, [field]: value };
+        if (!value && isUsaToggle) {
+            const tempoFieldByUsa = { usaTempoTriagem: 'tempoTriagemMinutos', usaTempoRespostaChat: 'tempoRespostaChatMinutos', usaTempoFilaEmail: 'tempoFilaEmailMinutos' };
+            this.createForm = { ...this.createForm, [tempoFieldByUsa[field]]: null };
+        }
     }
 
     handleEditInputChange(event) {
         const field = event.target?.name || event.currentTarget?.name || event.currentTarget?.dataset?.field;
         if (!field) return;
-        let value = event.detail?.value ?? event.target?.value ?? event.currentTarget?.value;
-        if (field === 'tempoTriagemMinutos' || field === 'tempoRespostaChatMinutos') {
+        const isUsaToggle = field === 'usaTempoTriagem' || field === 'usaTempoRespostaChat' || field === 'usaTempoFilaEmail';
+        let value = isUsaToggle
+            ? event.target?.checked ?? event.currentTarget?.checked
+            : event.detail?.value ?? event.target?.value ?? event.currentTarget?.value;
+        if (field === 'tempoTriagemMinutos' || field === 'tempoRespostaChatMinutos' || field === 'tempoFilaEmailMinutos') {
             value = value === null || value === '' ? null : Number(value);
         } else if (field === 'ativo') {
             value = value === true || value === 'true';
         }
         this.editForm = { ...this.editForm, [field]: value };
+        if (!value && isUsaToggle) {
+            const tempoFieldByUsa = { usaTempoTriagem: 'tempoTriagemMinutos', usaTempoRespostaChat: 'tempoRespostaChatMinutos', usaTempoFilaEmail: 'tempoFilaEmailMinutos' };
+            this.editForm = { ...this.editForm, [tempoFieldByUsa[field]]: null };
+        }
     }
 
     async handleCreateGestao() {
@@ -1878,9 +1926,8 @@ export default class GestaoSLAWorkspace extends LightningElement {
             const fields = scope.querySelectorAll('lightning-input, lightning-textarea, lightning-combobox');
             fields.forEach((cmp) => {
                 const field = cmp?.dataset?.field;
-                if (field) {
-                    valuesByField[field] = cmp.value;
-                }
+                if (!field) return;
+                valuesByField[field] = cmp.type === 'toggle' || cmp.type === 'checkbox' ? cmp.checked : cmp.value;
             });
         }
         const toIntOrNull = (value) => (value === null || value === undefined || value === '' ? null : Number(value));
@@ -1889,8 +1936,12 @@ export default class GestaoSLAWorkspace extends LightningElement {
             unidadeNegocio: valuesByField.unidadeNegocio ?? this.createForm.unidadeNegocio,
             entitlementProcessName: valuesByField.entitlementProcessName ?? this.createForm.entitlementProcessName,
             businessHoursName: valuesByField.businessHoursName ?? this.createForm.businessHoursName,
+            usaTempoTriagem: valuesByField.usaTempoTriagem ?? this.createForm.usaTempoTriagem,
             tempoTriagemMinutos: toIntOrNull(valuesByField.tempoTriagemMinutos ?? this.createForm.tempoTriagemMinutos),
+            usaTempoRespostaChat: valuesByField.usaTempoRespostaChat ?? this.createForm.usaTempoRespostaChat,
             tempoRespostaChatMinutos: toIntOrNull(valuesByField.tempoRespostaChatMinutos ?? this.createForm.tempoRespostaChatMinutos),
+            usaTempoFilaEmail: valuesByField.usaTempoFilaEmail ?? this.createForm.usaTempoFilaEmail,
+            tempoFilaEmailMinutos: toIntOrNull(valuesByField.tempoFilaEmailMinutos ?? this.createForm.tempoFilaEmailMinutos),
             descricao: valuesByField.descricao ?? this.createForm.descricao,
             staticResourceName: valuesByField.staticResourceName ?? this.createForm.staticResourceName,
             ativo: true

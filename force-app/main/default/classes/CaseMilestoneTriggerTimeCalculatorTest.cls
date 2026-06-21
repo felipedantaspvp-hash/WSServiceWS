@@ -123,6 +123,48 @@ private class CaseMilestoneTriggerTimeCalculatorTest {
     }
 
     @IsTest
+    static void testFilaEmailUsaTempoGestaoSemPrioridadeECategorizacao() {
+        GestaoSLA__c g = new GestaoSLA__c(
+            Name = 'Gestao ' + String.valueOf(Crypto.getRandomInteger()),
+            UnidadeNegocio__c = anyUnidadeGestao(),
+            EntitlementProcessName__c = 'Atendimento Salvador',
+            BusinessHoursName__c = 'Atendimento Salvador',
+            UsaTempoFilaEmail__c = true,
+            TempoFilaEmailMinutos__c = 45,
+            Ativo__c = true
+        );
+        insert g;
+        Case c = createCase(null, 'High', 'Email', 'Novo');
+        c.UnidadeNegocio__c = g.UnidadeNegocio__c;
+        update c;
+        createMarco(g.Id, 'Fila Email', CaseMilestoneTriggerTimeCalculator.FONTE_TEMPO_GESTAO, true);
+
+        Integer minutes = CaseMilestoneTriggerTimeCalculator.calculateForCaseAndMilestoneName(c.Id, 'Fila Email', Date.today());
+        Assert.areEqual(45, minutes);
+    }
+
+    @IsTest
+    static void testFilaEmailSemValorUsaFallbackPadrao() {
+        GestaoSLA__c g = new GestaoSLA__c(
+            Name = 'Gestao ' + String.valueOf(Crypto.getRandomInteger()),
+            UnidadeNegocio__c = anyUnidadeGestao(),
+            EntitlementProcessName__c = 'Atendimento Salvador',
+            BusinessHoursName__c = 'Atendimento Salvador',
+            UsaTempoFilaEmail__c = false,
+            TempoFilaEmailMinutos__c = null,
+            Ativo__c = true
+        );
+        insert g;
+        Case c = createCase(null, 'High', 'Email', 'Novo');
+        c.UnidadeNegocio__c = g.UnidadeNegocio__c;
+        update c;
+        createMarco(g.Id, 'Fila Email', CaseMilestoneTriggerTimeCalculator.FONTE_TEMPO_GESTAO, true);
+
+        Integer minutes = CaseMilestoneTriggerTimeCalculator.calculateForCaseAndMilestoneName(c.Id, 'Fila Email', Date.today());
+        Assert.areEqual(1, minutes);
+    }
+
+    @IsTest
     static void testRespostaChatUsaTempoGestaoSemPrioridadeECategorizacao() {
         GestaoSLA__c g = createGestao(25, 9);
         Case c = createCase(null, 'Low', 'Web', 'Novo');

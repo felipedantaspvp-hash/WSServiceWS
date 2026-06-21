@@ -5,6 +5,23 @@
     background: #f6f8fb;
 }
 
+/* Linhas de marco único (Triagem/Resposta Chat/Fila de Email) nos formulários de
+   criação/edição de Gestão de SLA: toggle na coluna esquerda, valor (quando exibido)
+   sempre alinhado na mesma margem da coluna direita. */
+.marco-unico-row {
+    align-items: flex-start;
+}
+
+.marco-unico-value-col {
+    min-height: 2.75rem;
+}
+
+/* Label próprio (em vez do label nativo do lightning-input) para que o toggle e o campo de
+   número fiquem com a mesma estrutura/altura na linha e alinhem perfeitamente. */
+.marco-unico-label {
+    margin-bottom: 0.25rem;
+}
+
 .left-rail {
     background: linear-gradient(180deg, #0b5cab, #00396b);
 }

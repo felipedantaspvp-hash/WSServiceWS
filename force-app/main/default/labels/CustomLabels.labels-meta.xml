@@ -65,6 +65,14 @@
         <value>Business Hours</value>
     </labels>
     <labels>
+        <fullName>GestaoSLA_MarcosUnicosSectionTitle</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Section title for single-milestone toggles in SLA Management forms.</shortDescription>
+        <value>Single Milestones</value>
+    </labels>
+    <labels>
         <fullName>GestaoSLA_CategoryActions</fullName>
         <categories>GestaoSLA</categories>
         <language>en_US</language>
@@ -511,6 +519,54 @@
         <protected>false</protected>
         <shortDescription>Label for the chat response time field in the SLA Management workspace.</shortDescription>
         <value>Chat Response Time</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_EmailQueueTime</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Label for the email queue time field in the SLA Management workspace.</shortDescription>
+        <value>Email Queue Time</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_UsaTriageTime</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Toggle label asking whether this SLA Management uses the Triage Time milestone.</shortDescription>
+        <value>Uses Triage Time?</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_UsaChatResponseTime</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Toggle for whether this SLA Management uses Chat Response Time.</shortDescription>
+        <value>Uses Chat Response Time?</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_UsaEmailQueueTime</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Toggle for whether this SLA Management uses Email Queue Time.</shortDescription>
+        <value>Uses Email Queue Time?</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneEmailQueueLabel</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Email Queue milestone name label</shortDescription>
+        <value>Email Queue</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_FieldEmailQueueTimeMin</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Field label for email queue time (minutes) in create/edit forms.</shortDescription>
+        <value>Email Queue Time (minutes)</value>
     </labels>
     <labels>
         <fullName>GestaoSLA_CommonError</fullName>

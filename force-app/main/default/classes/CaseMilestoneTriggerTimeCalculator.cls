@@ -4,6 +4,7 @@ global inherited sharing class CaseMilestoneTriggerTimeCalculator implements Sup
     @TestVisible private static final String FONTE_TEMPO_REGRA = 'RegraSLA';
     @TestVisible private static final String MARCO_TRIAGEM = 'triagem';
     @TestVisible private static final String MARCO_RESPOSTA_CHAT = 'resposta chat';
+    @TestVisible private static final String MARCO_FILA_EMAIL = 'fila email';
 
     global Integer calculateMilestoneTriggerTime(String caseId, String milestoneTypeId) {
         if (String.isBlank(caseId) || String.isBlank(milestoneTypeId)) {
@@ -65,7 +66,7 @@ global inherited sharing class CaseMilestoneTriggerTimeCalculator implements Sup
     private static GestaoSLA__c resolveGestao(Case c) {
         if (c.Categorizacao__r != null && c.Categorizacao__r.GestaoSLA__c != null) {
             List<GestaoSLA__c> byId = [
-                SELECT Id, UnidadeNegocio__c, EntitlementProcessName__c, TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, Ativo__c
+                SELECT Id, UnidadeNegocio__c, EntitlementProcessName__c, TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, TempoFilaEmailMinutos__c, Ativo__c
                 FROM GestaoSLA__c
                 WHERE Id = :c.Categorizacao__r.GestaoSLA__c AND Ativo__c = true
                 LIMIT 1
@@ -75,7 +76,7 @@ global inherited sharing class CaseMilestoneTriggerTimeCalculator implements Sup
 
         if (!String.isBlank(c.UnidadeNegocio__c)) {
             List<GestaoSLA__c> byUnidade = [
-                SELECT Id, UnidadeNegocio__c, EntitlementProcessName__c, TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, Ativo__c
+                SELECT Id, UnidadeNegocio__c, EntitlementProcessName__c, TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, TempoFilaEmailMinutos__c, Ativo__c
                 FROM GestaoSLA__c
                 WHERE Ativo__c = true
                   AND UnidadeNegocio__c = :c.UnidadeNegocio__c
@@ -90,7 +91,7 @@ global inherited sharing class CaseMilestoneTriggerTimeCalculator implements Sup
             : null;
         if (!String.isBlank(slaProcessName)) {
             List<GestaoSLA__c> byEntitlement = [
-                SELECT Id, UnidadeNegocio__c, EntitlementProcessName__c, TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, Ativo__c
+                SELECT Id, UnidadeNegocio__c, EntitlementProcessName__c, TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, TempoFilaEmailMinutos__c, Ativo__c
                 FROM GestaoSLA__c
                 WHERE Ativo__c = true
                   AND EntitlementProcessName__c = :slaProcessName
@@ -122,6 +123,8 @@ global inherited sharing class CaseMilestoneTriggerTimeCalculator implements Sup
             tempo = gestao.TempoTriagemMinutos__c;
         } else if (marco.contains(MARCO_RESPOSTA_CHAT)) {
             tempo = gestao.TempoRespostaChatMinutos__c;
+        } else if (marco.contains(MARCO_FILA_EMAIL)) {
+            tempo = gestao.TempoFilaEmailMinutos__c;
         } else {
             return DEFAULT_FALLBACK_MINUTES;
         }

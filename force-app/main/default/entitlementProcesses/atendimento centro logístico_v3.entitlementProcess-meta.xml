@@ -10,7 +10,7 @@
         <operation>equals</operation>
         <value>true</value>
     </exitCriteriaFilterItems>
-    <isVersionDefault>false</isVersionDefault>
+    <isVersionDefault>true</isVersionDefault>
     <milestones>
         <businessHours>Atendimento Centro Logístico</businessHours>
         <isDisplayedOnLinkedEntity>false</isDisplayedOnLinkedEntity>
@@ -24,7 +24,7 @@
             <operation>equals</operation>
             <value>Email</value>
         </milestoneCriteriaFilterItems>
-        <milestoneName>Triagem</milestoneName>
+        <milestoneName>Fila Email</milestoneName>
         <minutesCustomClass>CaseMilestoneTriggerTimeCalculator</minutesCustomClass>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
@@ -107,5 +107,5 @@
     </milestones>
     <name>Atendimento Centro Logístico</name>
     <versionMaster>552be000007Gh09</versionMaster>
-    <versionNumber>2</versionNumber>
+    <versionNumber>3</versionNumber>
 </EntitlementProcess>
