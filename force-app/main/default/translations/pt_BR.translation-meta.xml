@@ -765,8 +765,8 @@
         <name>GestaoSLA_CategoryDistributeToQueue</name>
     </customLabels>
     <customLabels>
-        <label>Por categorização?</label>
-        <name>GestaoSLA_CategoryByCategorization</name>
+        <label>Por campo personalizado?</label>
+        <name>GestaoSLA_CategoryByCustomField</name>
     </customLabels>
     <customLabels>
         <label>Fila de Case</label>
@@ -1159,6 +1159,14 @@
     <customLabels>
         <label>Gestão de SLA</label>
         <name>GestaoSLA_Label</name>
+    </customLabels>
+    <customLabels>
+        <label>Fixar como favorita</label>
+        <name>GestaoSLA_PinButton</name>
+    </customLabels>
+    <customLabels>
+        <label>Remover favorita</label>
+        <name>GestaoSLA_UnpinButton</name>
     </customLabels>
     <customLabels>
         <label>Resposta Chat</label>

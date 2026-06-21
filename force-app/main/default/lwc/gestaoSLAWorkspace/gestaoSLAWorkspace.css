@@ -60,6 +60,10 @@
     min-width: 320px;
 }
 
+.gestao-switcher-pin {
+    margin-bottom: 0.1rem;
+}
+
 .header-card {
     display: grid;
     grid-template-columns: 42% 58%;

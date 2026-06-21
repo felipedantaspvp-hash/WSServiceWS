@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>PorCategorizacao__c</fullName>
-    <description>Indica se a distribuicao sera feita diretamente pela categorizacao.</description>
-    <label>Por Categorizacao</label>
+    <fullName>PorCampoCustomizado__c</fullName>
+    <description>Indica se, além da distribuição direta pela categorização, existe um critério extra de campo/valor do Case que precisa ser validado para a distribuição.</description>
+    <label>Por Campo Personalizado</label>
     <required>false</required>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

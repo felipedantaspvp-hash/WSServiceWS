@@ -103,7 +103,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Categorizacao__c.PorCategorizacao__c</field>
+        <field>Categorizacao__c.PorCampoCustomizado__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

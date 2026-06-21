@@ -882,7 +882,7 @@ private class GestaoSLAServiceTest {
         req.assunto = 'Cadastro';
         req.ativo = true;
         req.distribuirParaFila = true;
-        req.porCategorizacao = true;
+        req.porCampoCustomizado = false;
         // Fila intencionalmente omitida para validar a obrigatoriedade aplicada por
         // CategorizacaoTriggerHandler -> CategorizacaoService.beforeSave (item 6.3.5 da especificação).
 
@@ -911,7 +911,7 @@ private class GestaoSLAServiceTest {
         req.assunto = 'Cadastro';
         req.ativo = true;
         req.distribuirParaFila = true;
-        req.porCategorizacao = false;
+        req.porCampoCustomizado = true;
         req.campoDistribuicao = 'Origin';
         // Valor de distribuição intencionalmente omitido.
 

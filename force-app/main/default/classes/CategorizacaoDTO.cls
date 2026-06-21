@@ -42,7 +42,7 @@ public inherited sharing class CategorizacaoDTO {
         @AuraEnabled public String descricao;
         @AuraEnabled public String motivoInativacao;
         @AuraEnabled public Boolean distribuirParaFila;
-        @AuraEnabled public Boolean porCategorizacao;
+        @AuraEnabled public Boolean porCampoCustomizado;
         @AuraEnabled public String nomeFilaDistribuicao;
         @AuraEnabled public String filaDeveloperName;
         @AuraEnabled public String filaId;
@@ -103,7 +103,7 @@ public inherited sharing class CategorizacaoDTO {
         @AuraEnabled public String descricao { get; set; }
         @AuraEnabled public String motivoInativacao { get; set; }
         @AuraEnabled public Boolean distribuirParaFila { get; set; }
-        @AuraEnabled public Boolean porCategorizacao { get; set; }
+        @AuraEnabled public Boolean porCampoCustomizado { get; set; }
         @AuraEnabled public String filaDeveloperName { get; set; }
         @AuraEnabled public String campoDistribuicao { get; set; }
         @AuraEnabled public String valorDistribuicao { get; set; }

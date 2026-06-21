@@ -113,7 +113,7 @@ private class CategorizacaoControllerTest {
         req.subassunto = 'Alteração';
         req.ativo = true;
         req.distribuirParaFila = false;
-        req.porCategorizacao = false;
+        req.porCampoCustomizado = false;
 
         CategorizacaoDTO.Response response = CategorizacaoController.save(req);
         Assert.areEqual(true, response.success);

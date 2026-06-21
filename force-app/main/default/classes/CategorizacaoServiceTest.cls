@@ -109,7 +109,7 @@ private class CategorizacaoServiceTest {
             'Acompanhar veículo sem agendamento',
             'Agendamento',
             'Agendamento de container',
-            'Agendamentos'
+            'Agendar visita presencial'
         };
         for (Integer i = 0; i < 10; i++) {
             Categorizacao__c r = CategorizacaoTestDataFactory.base(false, false);
@@ -151,7 +151,7 @@ private class CategorizacaoServiceTest {
         req.subassunto = 'Alteração';
         req.ativo = true;
         req.distribuirParaFila = false;
-        req.porCategorizacao = false;
+        req.porCampoCustomizado = false;
 
         CategorizacaoDTO.Response res = CategorizacaoService.save(req);
         Assert.areEqual(true, res.success);

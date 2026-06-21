@@ -1,5 +1,7 @@
 import { LightningElement, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+
+const PINNED_GESTAO_STORAGE_KEY = 'gestaoSLAWorkspace.pinnedGestaoId';
 import categoryTabTitleLabel from '@salesforce/label/c.GestaoSLA_CategoryTabTitle';
 import categoryReactivateButtonLabel from '@salesforce/label/c.GestaoSLA_CategoryReactivateButton';
 import categoryNewButtonLabel from '@salesforce/label/c.GestaoSLA_CategoryNewButton';
@@ -19,7 +21,7 @@ import categoryEditLabel from '@salesforce/label/c.GestaoSLA_CategoryEdit';
 import categoryDeactivateLabel from '@salesforce/label/c.GestaoSLA_CategoryDeactivate';
 import categoryDeleteLabel from '@salesforce/label/c.GestaoSLA_CategoryDelete';
 import categoryDistributeToQueueLabel from '@salesforce/label/c.GestaoSLA_CategoryDistributeToQueue';
-import categoryByCategorizationLabel from '@salesforce/label/c.GestaoSLA_CategoryByCategorization';
+import categoryByCustomFieldLabel from '@salesforce/label/c.GestaoSLA_CategoryByCustomField';
 import categoryQueueLabel from '@salesforce/label/c.GestaoSLA_CategoryQueue';
 import categoryQueuePlaceholderLabel from '@salesforce/label/c.GestaoSLA_CategoryQueuePlaceholder';
 import categoryDistributionFieldLabel from '@salesforce/label/c.GestaoSLA_CategoryDistributionField';
@@ -80,6 +82,8 @@ import errorLoadInactiveCategoriesLabel from '@salesforce/label/c.GestaoSLA_Erro
 import errorSelectInactiveCategoryLabel from '@salesforce/label/c.GestaoSLA_ErrorSelectInactiveCategory';
 import errorReactivateCategoryLabel from '@salesforce/label/c.GestaoSLA_ErrorReactivateCategory';
 import gestaoLabelLabel from '@salesforce/label/c.GestaoSLA_Label';
+import gestaoPinButtonLabel from '@salesforce/label/c.GestaoSLA_PinButton';
+import gestaoUnpinButtonLabel from '@salesforce/label/c.GestaoSLA_UnpinButton';
 import gestaoNewButtonLabel from '@salesforce/label/c.GestaoSLA_NewButton';
 import gestaoReactivateButtonLabel from '@salesforce/label/c.GestaoSLA_ReactivateButton';
 import gestaoEditButtonLabel from '@salesforce/label/c.GestaoSLA_EditButton';
@@ -235,6 +239,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
     @track gestao = null;
     @track gestoes = [];
     @track selectedGestaoSLAId = null;
+    @track pinnedGestaoRefreshToken = 0;
     @track summary = null;
     @track marcos = [];
     @track regrasSLA = [];
@@ -253,7 +258,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
         prioridadeSugerida: '',
         ativo: true,
         distribuirParaFila: false,
-        porCategorizacao: false,
+        porCampoCustomizado: false,
         filaDeveloperName: '',
         campoDistribuicao: '',
         valorDistribuicao: ''
@@ -364,7 +369,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
         categoryDeactivate: categoryDeactivateLabel,
         categoryDelete: categoryDeleteLabel,
         categoryDistributeToQueue: categoryDistributeToQueueLabel,
-        categoryByCategorization: categoryByCategorizationLabel,
+        categoryByCustomField: categoryByCustomFieldLabel,
         categoryQueue: categoryQueueLabel,
         categoryQueuePlaceholder: categoryQueuePlaceholderLabel,
         categoryDistributionField: categoryDistributionFieldLabel,
@@ -425,6 +430,8 @@ export default class GestaoSLAWorkspace extends LightningElement {
         errorSelectInactiveCategory: errorSelectInactiveCategoryLabel,
         errorReactivateCategory: errorReactivateCategoryLabel,
         gestaoLabel: gestaoLabelLabel,
+        gestaoPinButton: gestaoPinButtonLabel,
+        gestaoUnpinButton: gestaoUnpinButtonLabel,
         gestaoNewButton: gestaoNewButtonLabel,
         gestaoReactivateButton: gestaoReactivateButtonLabel,
         gestaoEditButton: gestaoEditButtonLabel,
@@ -644,6 +651,52 @@ export default class GestaoSLAWorkspace extends LightningElement {
 
     get gestaoOptions() {
         return (this.gestoes || []).map((g) => ({ label: g.name, value: g.id }));
+    }
+
+    get isPinnedGestao() {
+        // Referencia pinnedGestaoRefreshToken só para registrar a dependência reativa do LWC —
+        // localStorage não é rastreável nativamente, então forçamos o recálculo via esse contador.
+        return this.pinnedGestaoRefreshToken >= 0 &&
+            !!this.selectedGestaoSLAId &&
+            this.selectedGestaoSLAId === this.getPinnedGestaoId();
+    }
+
+    get pinIconName() {
+        return this.isPinnedGestao ? 'utility:pinned' : 'utility:pin';
+    }
+
+    get pinIconVariant() {
+        return this.isPinnedGestao ? 'brand' : 'border-filled';
+    }
+
+    get pinButtonLabel() {
+        return this.isPinnedGestao ? this.labels.gestaoUnpinButton : this.labels.gestaoPinButton;
+    }
+
+    getPinnedGestaoId() {
+        try {
+            return window.localStorage.getItem(PINNED_GESTAO_STORAGE_KEY) || null;
+        } catch (error) {
+            return null;
+        }
+    }
+
+    setPinnedGestaoId(gestaoId) {
+        try {
+            if (gestaoId) {
+                window.localStorage.setItem(PINNED_GESTAO_STORAGE_KEY, gestaoId);
+            } else {
+                window.localStorage.removeItem(PINNED_GESTAO_STORAGE_KEY);
+            }
+        } catch (error) {
+            // localStorage indisponível (ex.: navegação privada) — favorito não persiste, sem impacto funcional.
+        }
+    }
+
+    togglePinGestao() {
+        if (!this.selectedGestaoSLAId) return;
+        this.setPinnedGestaoId(this.isPinnedGestao ? null : this.selectedGestaoSLAId);
+        this.pinnedGestaoRefreshToken = (this.pinnedGestaoRefreshToken || 0) + 1;
     }
 
     get hasHeaderStaticImage() {
@@ -1423,7 +1476,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
             prioridadeSugerida: '',
             ativo: true,
             distribuirParaFila: false,
-            porCategorizacao: false,
+            porCampoCustomizado: false,
             filaDeveloperName: '',
             campoDistribuicao: '',
             valorDistribuicao: ''
@@ -1447,7 +1500,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
             prioridadeSugerida: row.prioridadeSugerida || '',
             ativo: row.ativo === true,
             distribuirParaFila: row.distribuirParaFila === true,
-            porCategorizacao: row.porCategorizacao === true,
+            porCampoCustomizado: row.porCampoCustomizado === true,
             filaDeveloperName: row.filaDeveloperName || '',
             campoDistribuicao: row.campoDistribuicao || '',
             valorDistribuicao: row.valorDistribuicao || ''
@@ -1477,7 +1530,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
     handleCategoriaInputChange(event) {
         const field = event.target?.name;
         if (!field) return;
-        const isToggle = field === 'distribuirParaFila' || field === 'porCategorizacao';
+        const isToggle = field === 'distribuirParaFila' || field === 'porCampoCustomizado';
         let value = isToggle ? event.target?.checked : event.detail?.value ?? event.target?.value;
         if (field === 'ativo') {
             value = value === true || value === 'true';
@@ -1487,13 +1540,13 @@ export default class GestaoSLAWorkspace extends LightningElement {
         if (field === 'distribuirParaFila' && value === false) {
             this.categoriaForm = {
                 ...this.categoriaForm,
-                porCategorizacao: false,
+                porCampoCustomizado: false,
                 filaDeveloperName: '',
                 campoDistribuicao: '',
                 valorDistribuicao: ''
             };
         }
-        if (field === 'porCategorizacao' && value === true) {
+        if (field === 'porCampoCustomizado' && value === false) {
             this.categoriaForm = { ...this.categoriaForm, campoDistribuicao: '', valorDistribuicao: '' };
         }
         if (field === 'campoDistribuicao') {
@@ -1506,7 +1559,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
     }
 
     get showCategoriaCampoValor() {
-        return this.showCategoriaDistribuicao && this.categoriaForm?.porCategorizacao !== true;
+        return this.showCategoriaDistribuicao && this.categoriaForm?.porCampoCustomizado === true;
     }
 
     get categoriaFilaRequired() {
@@ -1535,16 +1588,16 @@ export default class GestaoSLAWorkspace extends LightningElement {
         this.savingCategoria = true;
         try {
             const distribuirParaFila = this.categoriaForm?.distribuirParaFila === true;
-            const porCategorizacao = distribuirParaFila && this.categoriaForm?.porCategorizacao === true;
+            const porCampoCustomizado = distribuirParaFila && this.categoriaForm?.porCampoCustomizado === true;
             const request = {
                 ...this.categoriaForm,
                 prioridadeSugerida: this.categoriaForm?.prioridadeSugerida ? this.categoriaForm.prioridadeSugerida : null,
                 gestaoSLAId: this.selectedGestaoSLAId,
                 distribuirParaFila,
-                porCategorizacao,
+                porCampoCustomizado,
                 filaDeveloperName: distribuirParaFila ? this.categoriaForm?.filaDeveloperName : null,
-                campoDistribuicao: distribuirParaFila && !porCategorizacao ? this.categoriaForm?.campoDistribuicao : null,
-                valorDistribuicao: distribuirParaFila && !porCategorizacao ? this.categoriaForm?.valorDistribuicao : null
+                campoDistribuicao: distribuirParaFila && porCampoCustomizado ? this.categoriaForm?.campoDistribuicao : null,
+                valorDistribuicao: distribuirParaFila && porCampoCustomizado ? this.categoriaForm?.valorDistribuicao : null
             };
             if (this.isCategoriaModalCreate) {
                 await createCategoria({ request });
@@ -1953,6 +2006,10 @@ export default class GestaoSLAWorkspace extends LightningElement {
     resolveSelectedGestaoId() {
         if (this.selectedGestaoSLAId && this.gestoes.some((g) => g.id === this.selectedGestaoSLAId)) {
             return this.selectedGestaoSLAId;
+        }
+        const pinnedId = this.getPinnedGestaoId();
+        if (pinnedId && this.gestoes.some((g) => g.id === pinnedId)) {
+            return pinnedId;
         }
         return this.gestoes[0]?.id || null;
     }

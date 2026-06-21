@@ -83,7 +83,7 @@ public inherited sharing class GestaoSLADTO {
         @AuraEnabled public Integer totalRegrasAtivas;
         // Distribuição para fila (espelha Categorizacao__c, conforme especificação 6.3.4/6.3.9).
         @AuraEnabled public Boolean distribuirParaFila;
-        @AuraEnabled public Boolean porCategorizacao;
+        @AuraEnabled public Boolean porCampoCustomizado;
         @AuraEnabled public String filaDeveloperName;
         @AuraEnabled public String nomeFilaDistribuicao;
         @AuraEnabled public String campoDistribuicao;
@@ -103,7 +103,7 @@ public inherited sharing class GestaoSLADTO {
         @AuraEnabled public Boolean ativo { get; set; }
         // Distribuição para fila — preenchidos pelo modal de Categoria do gestaoSLAWorkspace.
         @AuraEnabled public Boolean distribuirParaFila { get; set; }
-        @AuraEnabled public Boolean porCategorizacao { get; set; }
+        @AuraEnabled public Boolean porCampoCustomizado { get; set; }
         @AuraEnabled public String filaDeveloperName { get; set; }
         @AuraEnabled public String campoDistribuicao { get; set; }
         @AuraEnabled public String valorDistribuicao { get; set; }

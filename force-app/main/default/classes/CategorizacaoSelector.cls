@@ -18,7 +18,7 @@ public inherited sharing class CategorizacaoSelector {
     public static Categorizacao__c getById(Id id) {
         List<Categorizacao__c> rows = [
             SELECT Id, RecordTypeId, RecordType.DeveloperName, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c,
-                Subassunto__c, Prioridade__c, Ativo__c, Descricao__c, MotivoInativacao__c, DistribuirParaFila__c, PorCategorizacao__c,
+                Subassunto__c, Prioridade__c, Ativo__c, Descricao__c, MotivoInativacao__c, DistribuirParaFila__c, PorCampoCustomizado__c,
                 NomeFilaDistribuicao__c, FilaDeveloperName__c, FilaId__c, CampoDistribuicao__c, LabelCampoDistribuicao__c,
                 ValorDistribuicao__c, LabelValorDistribuicao__c, ChaveNatural__c, ChaveNaturalHash__c
             FROM Categorizacao__c WHERE Id = :id LIMIT 1
@@ -94,6 +94,7 @@ public inherited sharing class CategorizacaoSelector {
     public static List<QueueData> listCaseQueuesByPrefix(String prefix) {
         List<QueueData> out = new List<QueueData>();
         if (String.isBlank(prefix)) return out;
+        if (testQueuesByDevName != null) return testQueuesByDevName.values();
 
         Set<Id> queueIds = new Set<Id>();
         String pattern = '%' + prefix + '%';

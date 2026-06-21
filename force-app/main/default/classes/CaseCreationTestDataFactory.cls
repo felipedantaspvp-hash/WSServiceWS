@@ -17,6 +17,8 @@ public inherited sharing class CaseCreationTestDataFactory {
         return c;
     }
 
+    // Mantém a assinatura/semântica histórica do chamador: porCat=true significa "distribuição
+    // direta pela categorização, sem campo/valor extra" — o oposto do novo PorCampoCustomizado__c.
     public static Categorizacao__c catRow(Boolean distribuir, Boolean porCat, String filaDevName, Id rtId) {
         Categorizacao__c row = new Categorizacao__c();
         row.RecordTypeId = rtId;
@@ -27,7 +29,7 @@ public inherited sharing class CaseCreationTestDataFactory {
         row.Subassunto__c = 'Acesso indisponível';
         row.Ativo__c = true;
         row.DistribuirParaFila__c = distribuir ? 'Sim' : 'Não';
-        row.PorCategorizacao__c = porCat ? 'Sim' : 'Não';
+        row.PorCampoCustomizado__c = porCat ? 'Não' : 'Sim';
         row.FilaDeveloperName__c = filaDevName;
         return row;
     }

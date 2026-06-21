@@ -1940,7 +1940,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Categorizacao__c.PorCategorizacao__c</field>
+        <field>Categorizacao__c.PorCampoCustomizado__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>

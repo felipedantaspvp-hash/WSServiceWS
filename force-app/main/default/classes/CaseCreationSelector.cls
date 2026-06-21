@@ -113,7 +113,7 @@ public inherited sharing class CaseCreationSelector {
                 Subassunto__c, toLabel(Subassunto__c) SubassuntoLabel,
                 Prioridade__c,
                 RecordTypeId, UnidadeNegocios__c,
-                DistribuirParaFila__c, PorCategorizacao__c, FilaDeveloperName__c,
+                DistribuirParaFila__c, PorCampoCustomizado__c, FilaDeveloperName__c,
                 CampoDistribuicao__c, ValorDistribuicao__c
             FROM Categorizacao__c
             WHERE Ativo__c = true

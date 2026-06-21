@@ -58,7 +58,7 @@ public inherited sharing class CategorizacaoService {
             if (String.isBlank(req.descricao)) row.Descricao__c = existing.Descricao__c;
             if (String.isBlank(req.motivoInativacao)) row.MotivoInativacao__c = existing.MotivoInativacao__c;
             if (req.distribuirParaFila == null) row.DistribuirParaFila__c = existing.DistribuirParaFila__c;
-            if (req.porCategorizacao == null) row.PorCategorizacao__c = existing.PorCategorizacao__c;
+            if (req.porCampoCustomizado == null) row.PorCampoCustomizado__c = existing.PorCampoCustomizado__c;
             if (String.isBlank(req.filaDeveloperName)) row.FilaDeveloperName__c = existing.FilaDeveloperName__c;
             if (String.isBlank(req.campoDistribuicao)) row.CampoDistribuicao__c = existing.CampoDistribuicao__c;
             if (String.isBlank(req.valorDistribuicao)) row.ValorDistribuicao__c = existing.ValorDistribuicao__c;
@@ -172,7 +172,7 @@ public inherited sharing class CategorizacaoService {
             }
             state.registro.ativo = true;
             state.registro.distribuirParaFila = false;
-            state.registro.porCategorizacao = false;
+            state.registro.porCampoCustomizado = false;
         }
         return state;
     }
@@ -260,13 +260,13 @@ public inherited sharing class CategorizacaoService {
         }
 
         Boolean distribuir = CategorizacaoHelper.isTrueFlag(row.DistribuirParaFila__c);
-        Boolean porCat = CategorizacaoHelper.isTrueFlag(row.PorCategorizacao__c);
+        Boolean porCampoCustomizado = CategorizacaoHelper.isTrueFlag(row.PorCampoCustomizado__c);
 
         if (!distribuir) {
             clearDistribution(row, true, true);
         } else {
             row.DistribuirParaFila__c = 'Sim';
-            row.PorCategorizacao__c = porCat ? 'Sim' : 'Não';
+            row.PorCampoCustomizado__c = porCampoCustomizado ? 'Sim' : 'Não';
 
             if (String.isBlank(row.FilaDeveloperName__c)) row.addError('Fila é obrigatória.');
             CategorizacaoSelector.QueueData q = queueByDev.get(row.FilaDeveloperName__c);
@@ -280,7 +280,7 @@ public inherited sharing class CategorizacaoService {
                 row.FilaId__c = String.valueOf(q.id);
             }
 
-            if (porCat) {
+            if (!porCampoCustomizado) {
                 clearDistribution(row, false, false);
             } else {
                 if (String.isBlank(row.CampoDistribuicao__c)) row.addError('Campo de distribuição é obrigatório.');
@@ -317,8 +317,8 @@ public inherited sharing class CategorizacaoService {
         row.ChaveNaturalHash__c = CategorizacaoHelper.sha256Hex(key);
     }
 
-    private static void clearDistribution(Categorizacao__c row, Boolean clearQueue, Boolean clearPorCategorizacao) {
-        if (clearPorCategorizacao) row.PorCategorizacao__c = 'Não';
+    private static void clearDistribution(Categorizacao__c row, Boolean clearQueue, Boolean clearPorCampoCustomizado) {
+        if (clearPorCampoCustomizado) row.PorCampoCustomizado__c = 'Não';
         if (clearQueue) {
             row.DistribuirParaFila__c = 'Não';
             row.NomeFilaDistribuicao__c = null;

@@ -130,7 +130,7 @@ private class CaseRecategorizationServiceTest {
     }
 
     private static String subassuntoValue(Integer index) {
-        return index == 0 ? '-' : 'Alteração';
+        return index == 0 ? 'Acesso indisponível' : 'Alteração';
     }
 
     @IsTest
@@ -599,7 +599,7 @@ private class CaseRecategorizationServiceTest {
             true
         );
         row.DistribuirParaFila__c = 'Sim';
-        row.PorCategorizacao__c = 'Sim';
+        row.PorCampoCustomizado__c = 'Não';
         row.FilaDeveloperName__c = autoQueue.DeveloperName;
         CaseRecategorizationSelector.testCategorizacoes = new List<Categorizacao__c>{ row };
 

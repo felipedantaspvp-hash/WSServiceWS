@@ -974,7 +974,7 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>PorCategorizacao__c</picklist>
+        <picklist>PorCampoCustomizado__c</picklist>
         <values>
             <fullName>Não</fullName>
             <default>true</default>

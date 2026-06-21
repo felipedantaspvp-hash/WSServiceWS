@@ -53,6 +53,14 @@
                                     options={gestaoOptions}
                                     onchange={handleGestaoChange}
                                 ></lightning-combobox>
+                                <lightning-button-icon
+                                    class="gestao-switcher-pin"
+                                    icon-name={pinIconName}
+                                    variant={pinIconVariant}
+                                    alternative-text={pinButtonLabel}
+                                    title={pinButtonLabel}
+                                    onclick={togglePinGestao}
+                                ></lightning-button-icon>
                             </template>
                         </div>
                         <template if:true={canCreateGestao}>
@@ -869,7 +877,7 @@
                             ></lightning-combobox>
 
                             <div class="slds-grid slds-wrap slds-gutters slds-m-top_medium">
-                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div class="slds-col slds-size_1-of-1">
                                     <lightning-input
                                         type="toggle"
                                         label={labels.categoryDistributeToQueue}
@@ -878,21 +886,11 @@
                                         onchange={handleCategoriaInputChange}
                                     ></lightning-input>
                                 </div>
-                                <template if:true={showCategoriaDistribuicao}>
-                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-top_small slds-medium-m-top_none">
-                                        <lightning-input
-                                            type="toggle"
-                                            label={labels.categoryByCategorization}
-                                            name="porCategorizacao"
-                                            checked={categoriaForm.porCategorizacao}
-                                            onchange={handleCategoriaInputChange}
-                                        ></lightning-input>
-                                    </div>
-                                </template>
                             </div>
 
                             <template if:true={showCategoriaDistribuicao}>
                                 <lightning-combobox
+                                    class="slds-m-top_small"
                                     label={labels.categoryQueue}
                                     name="filaDeveloperName"
                                     value={categoriaForm.filaDeveloperName}
@@ -901,6 +899,14 @@
                                     onchange={handleCategoriaInputChange}
                                     required={categoriaFilaRequired}
                                 ></lightning-combobox>
+                                <lightning-input
+                                    class="slds-m-top_small"
+                                    type="toggle"
+                                    label={labels.categoryByCustomField}
+                                    name="porCampoCustomizado"
+                                    checked={categoriaForm.porCampoCustomizado}
+                                    onchange={handleCategoriaInputChange}
+                                ></lightning-input>
                             </template>
 
                             <template if:true={showCategoriaCampoValor}>

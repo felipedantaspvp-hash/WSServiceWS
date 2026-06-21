@@ -110,7 +110,7 @@ public inherited sharing class GestaoSLAService {
 
         List<Categorizacao__c> categoriasRows = [
             SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c,
-                   Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCategorizacao__c,
+                   Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCampoCustomizado__c,
                    FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c,
                    LabelCampoDistribuicao__c, LabelValorDistribuicao__c
             FROM Categorizacao__c
@@ -152,18 +152,8 @@ public inherited sharing class GestaoSLAService {
             if (!String.isBlank(normalizedAssunto) && GestaoSLAHelper.normalizeText(row.Assunto__c) != normalizedAssunto) continue;
             if (ativo != null && row.Ativo__c != ativo) continue;
 
-            GestaoSLADTO.CategoriaResumo dto = new GestaoSLADTO.CategoriaResumo();
-            dto.id = row.Id;
-            dto.name = row.Name;
-            dto.unidadeNegocio = row.UnidadeNegocios__c;
-            dto.tipoCaso = row.TipoCaso__c;
-            dto.categoria = row.Categoria__c;
-            dto.assunto = row.Assunto__c;
-            dto.subassunto = row.Subassunto__c;
-            dto.prioridadeSugerida = row.Prioridade__c;
-            dto.ativo = row.Ativo__c;
-            dto.totalRegrasAtivas = regrasAtivasByCateg.containsKey(row.Id) ? regrasAtivasByCateg.get(row.Id) : 0;
-            response.categorias.add(dto);
+            Integer totalRegrasAtivas = regrasAtivasByCateg.containsKey(row.Id) ? regrasAtivasByCateg.get(row.Id) : 0;
+            response.categorias.add(toCategoriaResumo(row, totalRegrasAtivas));
         }
 
         return response;
@@ -515,7 +505,7 @@ public inherited sharing class GestaoSLAService {
         validateCategoriaRequest(request, true);
 
         List<Categorizacao__c> rows = [
-            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCategorizacao__c, FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c, LabelCampoDistribuicao__c, LabelValorDistribuicao__c
+            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCampoCustomizado__c, FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c, LabelCampoDistribuicao__c, LabelValorDistribuicao__c
             FROM Categorizacao__c
             WHERE Id = :request.id
             LIMIT 1
@@ -573,16 +563,16 @@ public inherited sharing class GestaoSLAService {
         Boolean distribuir = request != null && request.distribuirParaFila == true;
         row.DistribuirParaFila__c = distribuir ? 'Sim' : 'Não';
         if (!distribuir) {
-            row.PorCategorizacao__c = 'Não';
+            row.PorCampoCustomizado__c = 'Não';
             row.FilaDeveloperName__c = null;
             row.CampoDistribuicao__c = null;
             row.ValorDistribuicao__c = null;
             return;
         }
-        Boolean porCategorizacao = request.porCategorizacao == true;
-        row.PorCategorizacao__c = porCategorizacao ? 'Sim' : 'Não';
+        Boolean porCampoCustomizado = request.porCampoCustomizado == true;
+        row.PorCampoCustomizado__c = porCampoCustomizado ? 'Sim' : 'Não';
         row.FilaDeveloperName__c = String.isBlank(request.filaDeveloperName) ? null : request.filaDeveloperName.trim();
-        if (porCategorizacao) {
+        if (!porCampoCustomizado) {
             row.CampoDistribuicao__c = null;
             row.ValorDistribuicao__c = null;
         } else {
@@ -594,7 +584,7 @@ public inherited sharing class GestaoSLAService {
     private static Categorizacao__c queryCategoriaById(Id categoriaId) {
         return [
             SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c,
-                   Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCategorizacao__c, FilaDeveloperName__c,
+                   Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCampoCustomizado__c, FilaDeveloperName__c,
                    NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c,
                    LabelCampoDistribuicao__c, LabelValorDistribuicao__c
             FROM Categorizacao__c
@@ -612,7 +602,7 @@ public inherited sharing class GestaoSLAService {
         }
 
         List<Categorizacao__c> rows = [
-            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCategorizacao__c, FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c, LabelCampoDistribuicao__c, LabelValorDistribuicao__c
+            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCampoCustomizado__c, FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c, LabelCampoDistribuicao__c, LabelValorDistribuicao__c
             FROM Categorizacao__c
             WHERE Id = :categoriaId
             LIMIT 1
@@ -645,7 +635,7 @@ public inherited sharing class GestaoSLAService {
         response.categoriasInativas = new List<GestaoSLADTO.CategoriaResumo>();
 
         for (Categorizacao__c row : [
-            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCategorizacao__c, FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c, LabelCampoDistribuicao__c, LabelValorDistribuicao__c
+            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCampoCustomizado__c, FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c, LabelCampoDistribuicao__c, LabelValorDistribuicao__c
             FROM Categorizacao__c
             WHERE GestaoSLA__c = :gestaoSLAId
               AND Ativo__c = false
@@ -666,7 +656,7 @@ public inherited sharing class GestaoSLAService {
         }
 
         List<Categorizacao__c> rows = [
-            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCategorizacao__c, FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c, LabelCampoDistribuicao__c, LabelValorDistribuicao__c
+            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCampoCustomizado__c, FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c, LabelCampoDistribuicao__c, LabelValorDistribuicao__c
             FROM Categorizacao__c
             WHERE Id = :categoriaId
             LIMIT 1
@@ -1449,7 +1439,7 @@ public inherited sharing class GestaoSLAService {
         dto.ativo = row.Ativo__c;
         dto.totalRegrasAtivas = totalRegrasAtivas;
         dto.distribuirParaFila = CategorizacaoHelper.isTrueFlag(row.DistribuirParaFila__c);
-        dto.porCategorizacao = CategorizacaoHelper.isTrueFlag(row.PorCategorizacao__c);
+        dto.porCampoCustomizado = CategorizacaoHelper.isTrueFlag(row.PorCampoCustomizado__c);
         dto.filaDeveloperName = row.FilaDeveloperName__c;
         dto.nomeFilaDistribuicao = row.NomeFilaDistribuicao__c;
         dto.campoDistribuicao = row.CampoDistribuicao__c;

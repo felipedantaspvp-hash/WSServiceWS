@@ -98,8 +98,8 @@ public inherited sharing class CaseCreationService {
                 Boolean distributeToQueue = CaseCreationHelper.isTrueFlag(row.DistribuirParaFila__c);
                 Boolean queueIsDefined = !String.isBlank(row.FilaDeveloperName__c);
                 Boolean noFieldDistribution = String.isBlank(row.CampoDistribuicao__c) && String.isBlank(row.ValorDistribuicao__c);
-                Boolean isCategorizationMode = CaseCreationHelper.isTrueFlag(row.PorCategorizacao__c);
-                if (distributeToQueue && queueIsDefined && (isCategorizationMode || noFieldDistribution)) {
+                Boolean usaCampoCustomizado = CaseCreationHelper.isTrueFlag(row.PorCampoCustomizado__c);
+                if (distributeToQueue && queueIsDefined && (!usaCampoCustomizado || noFieldDistribution)) {
                     chosen = row;
                     break;
                 }

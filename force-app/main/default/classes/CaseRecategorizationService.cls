@@ -283,7 +283,7 @@ public inherited sharing class CaseRecategorizationService {
         String queueDevName;
         if (CategorizacaoHelper.isTrueFlag(matchedCategorization.DistribuirParaFila__c)
             && !String.isBlank(matchedCategorization.FilaDeveloperName__c)
-            && (CategorizacaoHelper.isTrueFlag(matchedCategorization.PorCategorizacao__c)
+            && (!CategorizacaoHelper.isTrueFlag(matchedCategorization.PorCampoCustomizado__c)
                 || (String.isBlank(matchedCategorization.CampoDistribuicao__c) && String.isBlank(matchedCategorization.ValorDistribuicao__c)))) {
             queueDevName = matchedCategorization.FilaDeveloperName__c;
             c.OrigemDistribuicao__c = 'Categorização';

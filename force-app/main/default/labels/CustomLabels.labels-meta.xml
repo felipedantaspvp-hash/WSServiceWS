@@ -137,12 +137,12 @@
         <value>Distribute to queue?</value>
     </labels>
     <labels>
-        <fullName>GestaoSLA_CategoryByCategorization</fullName>
+        <fullName>GestaoSLA_CategoryByCustomField</fullName>
         <categories>GestaoSLA</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Category by categorization toggle label</shortDescription>
-        <value>By categorization?</value>
+        <shortDescription>Category by custom field toggle label</shortDescription>
+        <value>By custom field?</value>
     </labels>
     <labels>
         <fullName>GestaoSLA_CategoryQueue</fullName>
@@ -927,6 +927,22 @@
         <protected>false</protected>
         <shortDescription>Base label for the SLA Management workspace.</shortDescription>
         <value>SLA Management</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_PinButton</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Pin current SLA Management as favorite button label.</shortDescription>
+        <value>Pin as favorite</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_UnpinButton</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unpin current SLA Management favorite button label.</shortDescription>
+        <value>Unpin favorite</value>
     </labels>
     <labels>
         <fullName>GestaoSLA_MilestoneChatResponseLabel</fullName>

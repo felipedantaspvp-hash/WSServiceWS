@@ -11,6 +11,8 @@ public inherited sharing class CategorizacaoTestDataFactory {
         return [SELECT Id, DeveloperName FROM RecordType WHERE SObjectType = 'Categorizacao__c' LIMIT 1];
     }
 
+    // Mantém a assinatura/semântica histórica do chamador: porCat=true significa "distribuição
+    // direta pela categorização, sem campo/valor extra" — o oposto do novo PorCampoCustomizado__c.
     public static Categorizacao__c base(Boolean distribuir, Boolean porCat) {
         RecordType rt = getAnyRt();
         Categorizacao__c c = new Categorizacao__c();
@@ -22,7 +24,7 @@ public inherited sharing class CategorizacaoTestDataFactory {
         c.Subassunto__c = 'Alteração';
         c.Ativo__c = true;
         c.DistribuirParaFila__c = distribuir ? 'Sim' : 'Não';
-        c.PorCategorizacao__c = porCat ? 'Sim' : 'Não';
+        c.PorCampoCustomizado__c = porCat ? 'Não' : 'Sim';
         return c;
     }
 

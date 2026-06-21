@@ -44,7 +44,7 @@ public inherited sharing class CategorizacaoHelper {
 
         if (!isTrueFlag(row.DistribuirParaFila__c)) {
             parts.add('SEM_DISTRIBUICAO');
-        } else if (isTrueFlag(row.PorCategorizacao__c)) {
+        } else if (!isTrueFlag(row.PorCampoCustomizado__c)) {
             parts.add('POR_CATEGORIZACAO');
         } else {
             parts.add(normalizeKeyPart(row.CampoDistribuicao__c));
@@ -71,7 +71,7 @@ public inherited sharing class CategorizacaoHelper {
         row.Descricao__c = req.descricao;
         row.MotivoInativacao__c = req.motivoInativacao;
         row.DistribuirParaFila__c = boolToFlag(req.distribuirParaFila);
-        row.PorCategorizacao__c = boolToFlag(req.porCategorizacao);
+        row.PorCampoCustomizado__c = boolToFlag(req.porCampoCustomizado);
         row.FilaDeveloperName__c = req.filaDeveloperName;
         row.CampoDistribuicao__c = req.campoDistribuicao;
         row.ValorDistribuicao__c = req.valorDistribuicao;
@@ -93,7 +93,7 @@ public inherited sharing class CategorizacaoHelper {
         view.descricao = row.Descricao__c;
         view.motivoInativacao = row.MotivoInativacao__c;
         view.distribuirParaFila = isTrueFlag(row.DistribuirParaFila__c);
-        view.porCategorizacao = isTrueFlag(row.PorCategorizacao__c);
+        view.porCampoCustomizado = isTrueFlag(row.PorCampoCustomizado__c);
         view.nomeFilaDistribuicao = row.NomeFilaDistribuicao__c;
         view.filaDeveloperName = row.FilaDeveloperName__c;
         view.filaId = row.FilaId__c;

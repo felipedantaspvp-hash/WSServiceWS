@@ -1956,8 +1956,8 @@ Before we begin, please choose your service language.</message>
         <name>GestaoSLA_CategoryDistributeToQueue</name>
     </customLabels>
     <customLabels>
-        <label><!-- Category by categorization toggle label --></label>
-        <name>GestaoSLA_CategoryByCategorization</name>
+        <label><!-- Category by custom field toggle label --></label>
+        <name>GestaoSLA_CategoryByCustomField</name>
     </customLabels>
     <customLabels>
         <label><!-- Category queue combobox label --></label>
@@ -2350,6 +2350,14 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- Base label for the SLA Management workspace. --></label>
         <name>GestaoSLA_Label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Pin current SLA Management as favorite button label. --></label>
+        <name>GestaoSLA_PinButton</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Unpin current SLA Management favorite button label. --></label>
+        <name>GestaoSLA_UnpinButton</name>
     </customLabels>
     <customLabels>
         <label><!-- Chat Response milestone name label --></label>
