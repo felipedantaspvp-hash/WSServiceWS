@@ -148,26 +148,37 @@ add(3, F, "Validar quais categorizações exigem anexo obrigatório, valor finan
 # EPIC 3 (parte 4) — LWC DE MANUTENÇÃO DA CATEGORIZAÇÃO
 # =====================================================================
 F = "LWC de Manutenção da Categorização (categorizacaoManager)"
-add(3, F, "Criar LWC/tela de manutenção da árvore de categorização", False, PARCIAL,
+add(3, F, "Criar LWC/tela de manutenção da árvore de categorização", False, CONCLUIDO,
     "lwc/gestaoSLAWorkspace (aba 'Category') + GestaoSLAController.createCategoria/updateCategoria/deactivateCategoria/reactivateCategoria",
-    "Não existe um LWC chamado 'categorizacaoManager', mas a aba Category do gestaoSLAWorkspace cobre CRUD de Categorizacao__c (criar, editar, ativar/inativar) escopado por Unidade de Negócio via GestaoSLA__c. Cobre a manutenção básica da árvore; não cobre configuração de distribuição para fila (ver itens abaixo).")
+    "CONCLUÍDO em 21/06: a aba Category do gestaoSLAWorkspace agora cobre CRUD completo de Categorizacao__c (árvore + distribuição para fila), escopado por Unidade de Negócio via GestaoSLA__c e restrito por Record Type do usuário. O LWC legado 'categorizacaoManagerV2' (Aura override de New/Edit/View de Categorizacao__c, recuperado da Org) foi descontinuado: sua lógica de distribuição (campos picklist do Case, filas por unidade, show/hide condicional) foi portada para este modal, e o New/Edit/View de Categorizacao__c voltou ao padrão (actionOverrides removidos). Ver Deltas/delta_categorizacao_legacy_lwc_removal/ para a exclusão pendente de deploy na Org.")
 add(3, F, "Permitir modo criação e modo edição", False, CONCLUIDO,
     "GestaoSLAController.createCategoria / updateCategoria", "Implementado via gestaoSLAWorkspace, não via LWC dedicado da spec.")
-add(3, F, "Identificar Record Types disponíveis para o usuário", False, PARCIAL,
-    "GestaoSLA__c.UnidadeNegocio__c (escopo por GestaoSLA, não diretamente por Record Type do usuário)",
-    "O escopo de unidade é resolvido pelo registro GestaoSLA__c selecionado na tela, não pela leitura de Record Types disponíveis para o usuário logado como a especificação propõe.")
-add(3, F, "Preencher Unidade de Negócio automaticamente quando houver apenas uma opção", False, NAO_INICIADO, "", "Não confirmado em gestaoSLAWorkspace; o usuário escolhe o GestaoSLA/unidade manualmente na tela administrativa.")
-add(3, F, "Listar dinamicamente campos picklist do objeto Case (para distribuição)", False, NAO_INICIADO,
-    "GestaoSLAService.getActivePicklistOptions(Categorizacao__c.TipoCaso__c/...)",
-    "O método existente lista valores de picklist do próprio Categorizacao__c (árvore), não campos picklist do Case para configurar regra de distribuição — gap real confirmado.")
-add(3, F, "Listar dinamicamente valores da picklist selecionada (para distribuição)", False, NAO_INICIADO, "", "Mesmo gap do item anterior — sem tela para configurar CampoDistribuicao__c/ValorDistribuicao__c.")
-add(3, F, "Gravar API Name do campo e API Value do valor", False, NAO_INICIADO, "Categorizacao__c.CampoDistribuicao__c / ValorDistribuicao__c",
-    "Campos existem no objeto; CategoriaRequest do GestaoSLAController não os contempla — hoje só são preenchíveis via edição direta do registro no Setup ou carga de dados.")
-add(3, F, "Gravar labels funcionais para exibição e relatório", False, NAO_INICIADO, "Categorizacao__c.LabelCampoDistribuicao__c / LabelValorDistribuicao__c", "Mesmo gap: campos existem, sem tela de preenchimento assistido.")
-add(3, F, "Listar apenas filas de Case relacionadas à Unidade de Negócio", False, NAO_INICIADO, "", "Sem tela de seleção de fila; hoje a fila é preenchida manualmente no registro (FilaDeveloperName__c).")
-add(3, F, "Ocultar campos de fila quando Distribuir para fila? = Não", False, NAO_INICIADO, "", "Comportamento condicional de UI não existe fora da página padrão de edição do Setup.")
-add(3, F, "Exigir fila quando Distribuir para fila? = Sim e Por categorização? = Sim", False, PARCIAL, "CategorizacaoService (validação server-side)", "A validação de obrigatoriedade pode já existir no Service no momento do save; a experiência assistida em tela (mostrar/exigir campo) não existe.")
-add(3, F, "Exigir campo, valor e fila quando a distribuição depender de picklist do Case", False, PARCIAL, "CategorizacaoService (validação server-side)", "Mesma observação acima — validar se o Service já bloqueia salvar sem esses campos; UI assistida ainda não existe.")
+add(3, F, "Identificar Record Types disponíveis para o usuário", False, CONCLUIDO,
+    "GestaoSLAHelper.getAllowedUnidadesNegocio() (novo) + GestaoSLAService.resolveAllowedUnidades()/ensureUnidadeAllowed() (novos) aplicados em getBootstrap, getGestaoDetail, getCategorias, createCategoria, updateCategoria, deactivateCategoria, getInactiveCategorias e reactivateCategoria",
+    "CORRIGIDO em 20/06: gap de segurança identificado por leitura de código (usuário com a Custom Permission, via qualquer Permission Set, via/editava Categorizacao__c das 4 unidades, independente do Record Type de Case do seu perfil). Implementado: getAllowedUnidadesNegocio() deriva as unidades permitidas a partir de Schema.RecordTypeInfo.isAvailable() em Case + mapeamento ParametrosAtendimento__mdt.CaseRecordTypeDeveloperName__c->UnidadeNegocio__c (via AtendimentoConfigService, já usado por CaseCreationSelector). Admin Técnico (canAdminTechnicalSettings) mantém acesso irrestrito. Testes novos em GestaoSLAHelperTest e GestaoSLAServiceTest (bootstrap restrito, admin irrestrito, sem unidade disponível, createCategoria/getCategorias bloqueados para unidade não permitida). PENDENTE: deploy/teste em Org (sem sf CLI conectado nesta sessão) — rodar sf project deploy validate antes do merge.")
+add(3, F, "Preencher Unidade de Negócio automaticamente quando houver apenas uma opção", False, CONCLUIDO,
+    "GestaoSLADTO.BootstrapResponse.unidadeUnica (novo campo) + lwc/gestaoSLAWorkspace.resolveSelectedGestaoId() (já existente, sem alteração necessária)",
+    "CORRIGIDO em 20/06, decorrente do item anterior: o seletor de Gestão de SLA no LWC já era oculto para quem não é Admin Técnico (canShowTechnical) e resolveSelectedGestaoId() já auto-selecionava gestoes[0] — porém antes da correção esse 'gestoes[0]' podia ser de qualquer unidade, pois a lista não era filtrada. Com getBootstrap() agora retornando apenas as unidades permitidas, a auto-seleção passa a ser correta e segura sem qualquer alteração de LWC. Novo campo BootstrapResponse.unidadeUnica disponível para uso futuro no front-end (ex.: exibir texto 'Unidade: Salvador' fixo).")
+add(3, F, "Listar dinamicamente campos picklist do objeto Case (para distribuição)", False, CONCLUIDO,
+    "lwc/gestaoSLAWorkspace (modal Category) reaproveita CategorizacaoController.getCasePicklistFields() / CategorizacaoService.getCasePicklistFields() (describe de Case)",
+    "CORRIGIDO em 21/06: achado-chave — existia uma solução completa para isso em um componente Aura/LWC legado de override de New/Edit/View de Categorizacao__c (categorizacaoManagerOverride -> categorizacaoManagerV2, recuperado da Org WILSON_SERVICE), nunca antes auditado porque vivia em aura/ e não em lwc/lwc-padrão. Em vez de recriar, portamos a chamada: gestaoSLAWorkspace agora importa getCasePicklistFields do CategorizacaoController existente (sem duplicar lógica de describe).")
+add(3, F, "Listar dinamicamente valores da picklist selecionada (para distribuição)", False, CONCLUIDO,
+    "lwc/gestaoSLAWorkspace.categoriaCasePicklistValueOptions (getter, deriva do campo escolhido em casePicklistFieldsData)",
+    "CORRIGIDO em 21/06 — mesma fonte de dados do item anterior; os valores da picklist do campo selecionado vêm aninhados na resposta de getCasePicklistFields(), sem chamada adicional ao servidor.")
+add(3, F, "Gravar API Name do campo e API Value do valor", False, CONCLUIDO, "GestaoSLADTO.CategoriaRequest.campoDistribuicao/valorDistribuicao -> GestaoSLAService.applyDistribuicaoRequest() -> Categorizacao__c.CampoDistribuicao__c/ValorDistribuicao__c",
+    "CORRIGIDO em 21/06: GestaoSLAController.createCategoria/updateCategoria agora persistem esses campos a partir do modal de Categoria do gestaoSLAWorkspace.")
+add(3, F, "Gravar labels funcionais para exibição e relatório", False, CONCLUIDO, "Categorizacao__c.LabelCampoDistribuicao__c / LabelValorDistribuicao__c",
+    "CORRIGIDO em 21/06: preenchidos automaticamente pelo CategorizacaoTriggerHandler -> CategorizacaoService.beforeSave/validateAndNormalize (já existente, roda em qualquer insert/update, incluindo os feitos pelo GestaoSLAService) — não foi necessário duplicar essa lógica.")
+add(3, F, "Listar apenas filas de Case relacionadas à Unidade de Negócio", False, CONCLUIDO,
+    "lwc/gestaoSLAWorkspace reaproveita CategorizacaoController.getQueues(unidadeNegocio) / CategorizacaoService.getQueues(), escopado por this.gestao.unidadeNegocio",
+    "CORRIGIDO em 21/06, reaproveitando o mesmo método já existente e testado do módulo de Categorização legado.")
+add(3, F, "Ocultar campos de fila quando Distribuir para fila? = Não", False, CONCLUIDO,
+    "lwc/gestaoSLAWorkspace.html — template if:true={showCategoriaDistribuicao} / if:true={showCategoriaCampoValor}",
+    "CORRIGIDO em 21/06: replicado o mesmo padrão de show/hide do componente legado categorizacaoManagerV2 (showDistribuicao/showCampoValor).")
+add(3, F, "Exigir fila quando Distribuir para fila? = Sim e Por categorização? = Sim", False, CONCLUIDO, "CategorizacaoService.validateAndNormalize (validação server-side, já existente) + UI required={categoriaFilaRequired}",
+    "CORRIGIDO em 21/06: confirmado por leitura de código que a obrigatoriedade já era garantida no trigger (row.addError('Fila é obrigatória.')) independentemente da UI; GestaoSLAService.createCategoria/updateCategoria agora capturam o DmlException resultante e relançam como FunctionalException amigável (antes propagava stacktrace cru). A UI assistida (combobox de fila) foi adicionada ao modal.")
+add(3, F, "Exigir campo, valor e fila quando a distribuição depender de picklist do Case", False, CONCLUIDO, "CategorizacaoService.validateAndNormalize (validação server-side, já existente) + UI required={categoriaCampoValorRequired}",
+    "CORRIGIDO em 21/06 — mesma mecânica do item anterior; testes novos em GestaoSLAServiceTest cobrem os cenários de erro amigável (distribuir sem fila / distribuir por campo sem valor).")
 add(3, F, "Recalcular Chave Natural e Hash ao salvar", False, CONCLUIDO, "CategorizacaoService/Trigger", "Recálculo garantido server-side independentemente da origem da gravação (inclusive via Setup ou carga de dados).")
 add(3, F, "Validar responsividade e padrão visual SLDS", False, NAO_INICIADO, "", "")
 
@@ -175,20 +186,32 @@ add(3, F, "Validar responsividade e padrão visual SLDS", False, NAO_INICIADO, "
 # EPIC 4 — JORNADA DO CASE
 # =====================================================================
 F = "Jornada do Case"
-add(4, F, "Substituir o botão padrão New do Case por fluxo/tela customizada de categorização inicial", False, NAO_INICIADO, "",
-    "Não localizado override de New Action nem LWC equivalente a caseNewCategorization no repositório.")
-add(4, F, "Criar LWC caseNewCategorization", False, NAO_INICIADO, "lwc/", "Não encontrado. Existe apenas caseRecategorization (recategorização, não criação).")
-add(4, F, "Permitir seleção de Tipo de Caso, Categoria, Assunto e Subassunto antes da tela padrão", False, NAO_INICIADO, "", "")
-add(4, F, "Abrir a tela padrão de criação do Case com valores já preenchidos", False, NAO_INICIADO, "", "")
-add(4, F, "Implementar decisão Assumir", False, NAO_INICIADO, "Case.AcaoPosCategorizacao__c", "Campo de suporte existe; decisão completa (assumir/distribuir/encerrar) não confirmada em LWC.")
-add(4, F, "Implementar decisão Distribuir para fila", False, NAO_INICIADO, "Case.OrigemDistribuicao__c, DistribuicaoSolicitada__c", "")
-add(4, F, "Implementar decisão Encerrar na criação", False, NAO_INICIADO, "", "")
+add(4, F, "Substituir o botão padrão New do Case por fluxo/tela customizada de categorização inicial", False, NAO_INICIADO,
+    "objects/Case/Case.object-meta.xml (actionOverrides)",
+    "Confirmado: não há actionOverride para 'New' no Case nem Quick Action equivalente. O backend (CaseCreationController) já está pronto (ver item abaixo); falta apenas o componente de UI e o override do botão.")
+add(4, F, "Criar LWC/Controller para categorização inicial na criação do Case", False, PARCIAL,
+    "classes/CaseCreationController + CaseCreationService/Selector/Helper/DTO/TestDataFactory (+ Test)",
+    "Backend completo e testado (getInitialContext, getTreeOptions, resolveCategorizationSelection, getAvailableQueues, buildDefaultValues) — equivalente funcional ao caseNewCategorization da especificação. NÃO existe LWC consumidor nem override do botão New ainda; lwc/caseRecategorization reaproveita esse mesmo Controller para a tela de recategorização, mas a tela de CRIAÇÃO não tem front-end próprio.")
+add(4, F, "Permitir seleção de Tipo de Caso, Categoria, Assunto e Subassunto antes da tela padrão", False, PARCIAL,
+    "CaseCreationController.getTreeOptions / CaseCreationService.getTreeOptions", "Lógica de árvore dependente (cascata Tipo→Categoria→Assunto→Subassunto) implementada e testada no backend; falta o LWC consumidor.")
+add(4, F, "Abrir a tela padrão de criação do Case com valores já preenchidos", False, PARCIAL,
+    "CaseCreationService.buildDefaultValues", "Monta o mapa de valores default (RecordTypeId, UnidadeNegocio__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Priority, Origin, AccountId/ContactId/ParentId herdados) pronto para abrir a tela padrão; falta o LWC que chame esse método e faça a navegação para o New padrão com os valores.")
+add(4, F, "Implementar decisão Assumir", False, PARCIAL, "CaseCreationService.buildDefaultValues (action == 'ASSUMIR')",
+    "Implementado e testado no backend (CaseCreationServiceTest.testBuildDefaultsAssumir): define OwnerId=usuário atual, AcaoPosCategorizacao__c='Assumir', Status='Aberto', EtapaAtendimento__c='Em Atendimento'. Falta o LWC que exponha essa decisão ao usuário.")
+add(4, F, "Implementar decisão Distribuir para fila", False, PARCIAL, "CaseCreationService.buildDefaultValues (action == 'DISTRIBUIR')",
+    "Implementado e testado (testBuildDefaultsDistribuirManualWithAllowedQueue/...WithoutQueueFails): resolve fila parametrizada pela categorização (resolveCategorizationSelection) ou exige seleção manual entre filas da unidade (getAvailableQueues). Falta o LWC.")
+add(4, F, "Implementar decisão Encerrar na criação", False, PARCIAL, "CaseCreationService.buildDefaultValues (action == 'ENCERRAR')",
+    "Implementado e testado (testBuildDefaultsEncerrarNormalizesUnit): define OwnerId=usuário atual, Status='Fechado', EtapaAtendimento__c='Concluído'. Falta o LWC.")
 add(4, F, "Garantir que o Case mantenha cópia dos valores da árvore sem lookup obrigatório para Categorização", False, CONCLUIDO,
-    "Case.Categoria__c, Assunto__c, Subassunto__c, TipoCaso__c (cópia) + Case.Categorizacao__c (lookup opcional)", "")
-add(4, F, "Criar ação Recategorizar Caso", False, ANDAMENTO, "lwc/caseRecategorization (não comitado) + QuickAction Case.Recategorizar_Caso (não comitado)",
-    "Em working tree, ainda não commitado/revisado — registrar no AI_WORKQUEUE.md antes de seguir.")
-add(4, F, "Reaproveitar racional da categorização na recategorização", False, ANDAMENTO, "lwc/caseRecategorization", "")
-add(4, F, "Após recategorização, abrir tela padrão de edição para preenchimento dos campos dinâmicos", False, NAO_INICIADO, "", "Dynamic Forms não confirmadas.")
+    "Case.Categoria__c, Assunto__c, Subassunto__c, TipoCaso__c (cópia) + Case.Categorizacao__c (lookup opcional) + CaseCreationService preenche cópia e lookup quando há match", "")
+add(4, F, "Criar ação Recategorizar Caso", False, CONCLUIDO,
+    "lwc/caseRecategorization (Quick Action ScreenAction em Case) + classes/CaseRecategorizationController/Service/Selector/Helper/DTO/TestDataFactory (+ Test)",
+    "Suíte completa e testada (CaseRecategorizationServiceTest). Item da auditoria anterior estava incorreto ao classificar como 'não comitado' — a suíte de classes já está versionada; apenas reconfirmar se o LWC em si está commitado no branch atual (estava listado como ?? em sessão anterior — validar com 'git status').")
+add(4, F, "Reaproveitar racional da categorização na recategorização", False, CONCLUIDO,
+    "lwc/caseRecategorization importa CaseCreationController.resolveCategorizationSelection e CaseCreationController.getAvailableQueues diretamente",
+    "Reuso de código confirmado nos imports do componente — exatamente como pedido na especificação 5.5.4.")
+add(4, F, "Após recategorização, abrir tela padrão de edição para preenchimento dos campos dinâmicos", False, CONCLUIDO,
+    "lwc/caseRecategorization.js usa NavigationMixin para 'standard__recordPage' após CloseActionScreenEvent", "")
 add(4, F, "Manter botão Edit padrão do Case", False, CONCLUIDO, "", "Nenhuma evidência de override do Edit padrão.")
 add(4, F, "Configurar Dynamic Forms por unidade, tipo, categoria, assunto e subassunto", True, NAO_INICIADO, "", "Nenhum .flexipage com Dynamic Forms localizado; apenas 3 layouts estáticos no repo (AreaParticipante, Entitlement, ParametrosAtendimento).")
 add(4, F, "Configurar validações server-side para campos obrigatórios críticos", False, PARCIAL, "CategorizacaoService", "Validações na Categorização existem; validações de campos dinâmicos do Case não confirmadas.")
@@ -311,22 +334,32 @@ add(7, F, "Testar sincronização de CaseMilestone com Área Participante", Fals
 # =====================================================================
 F = "Casos Recorrentes / Agendamento"
 add(8, F, "Criar objeto Agendamento", False, CONCLUIDO, "objects/Agendamento__c (16 campos)", "")
-add(8, F, "Criar botão/action em Conta para gerenciar agendamentos", False, NAO_INICIADO, "", "Quick Action/Botão em Account não localizado no repositório.")
-add(8, F, "Criar LWC accountCaseScheduleManager", False, NAO_INICIADO, "lwc/", "Não encontrado no repositório.")
+add(8, F, "Criar botão/action em Conta para gerenciar agendamentos", False, CONCLUIDO,
+    "lwc/accountCaseScheduleManager (target lightning__RecordAction em Account) + Account.PermitirAgendamentoRecorrente__c",
+    "Correção de auditoria: item estava marcado como não localizado; o componente existe e está exposto como Quick Action (ScreenAction) e também como componente de RecordPage em Account.")
+add(8, F, "Criar LWC accountCaseScheduleManager", False, CONCLUIDO, "lwc/accountCaseScheduleManager + lwc/accountCaseScheduleIndicator",
+    "Correção de auditoria: ambos os componentes existem. accountCaseScheduleIndicator (não previsto na especificação original) parece ser um indicador complementar de status do agendamento na RecordPage da Account.")
 add(8, F, "Permitir múltiplos agendamentos por Conta", False, CONCLUIDO, "Agendamento__c.Conta__c (lookup, não master-detail único)", "")
 add(8, F, "Permitir seleção de categorização do Case recorrente", False, CONCLUIDO, "Agendamento__c.TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c", "")
 add(8, F, "Permitir descrição da atividade", False, CONCLUIDO, "Agendamento__c.DescricaoAtividade__c", "")
 add(8, F, "Permitir proprietário usuário ou fila", False, CONCLUIDO, "Agendamento__c.OwnerUser__c, OwnerQueueDeveloperName__c, OwnerType__c", "")
-add(8, F, "Permitir frequência diária/semanal/dias específicos/mensal/trimestral/anual", False, CONCLUIDO, "Agendamento__c.Frequencia__c", "Campo único de frequência; granularidade completa (ex: dias específicos da semana) não confirmada em metadado de picklist.")
+add(8, F, "Permitir frequência diária/semanal/dias específicos/mensal/trimestral/anual", False, PARCIAL, "Agendamento__c.Frequencia__c + CaseScheduleService.isEligibleToRun",
+    "Campo único de frequência; a lógica de elegibilidade (isEligibleToRun) existe e testada, mas não confirmamos nesta rodada se todas as granularidades da spec (ex: dias específicos da semana) estão cobertas pelos valores de picklist — validar matriz de valores de Frequencia__c.")
 add(8, F, "Permitir horário previsto e data de início", False, CONCLUIDO, "Agendamento__c.HorarioExecucao__c, DataInicio__c", "")
 add(8, F, "Não exigir data de fim", False, CONCLUIDO, "Agendamento__c (sem campo DataFim__c obrigatório)", "")
-add(8, F, "Criar Apex Scheduler", False, NAO_INICIADO, "classes/", "Nenhuma classe de Scheduler/Batch para Agendamento__c localizada — risco: objeto de dados existe mas motor de execução recorrente não foi encontrado no repositório.")
-add(8, F, "Criar service de cálculo de elegibilidade", False, NAO_INICIADO, "Agendamento__c.UltimoErroExecucao__c (campo de apoio existe)", "")
-add(8, F, "Não gerar Case em sábado/domingo", False, CONCLUIDO, "Agendamento__c.PularFimDeSemana__c", "Campo de controle existe; execução real depende do Scheduler (não localizado).")
-add(8, F, "Registrar última e próxima execução", False, PARCIAL, "Agendamento__c.UltimoErroExecucao__c", "Não há campos explícitos de ÚltimaExecução__c/PróximaExecução__c confirmados; revisar nomenclatura de campos.")
-add(8, F, "Registrar falhas em Log de Integração", False, NAO_INICIADO, "", "Depende do Scheduler, ainda não localizado.")
-add(8, F, "Testar agendamentos por Conta no Centro Logístico", True, NAO_INICIADO, "", "",
-    status_overrides={"Salvador": NA, "Rio Grande": NA, "Rebocadores": NA, "Centro Logístico": NAO_INICIADO})
+add(8, F, "Criar Apex Scheduler", False, CONCLUIDO, "classes/CaseScheduleScheduler (Schedulable) + classes/CaseScheduleBatch (Database.Batchable)",
+    "Correção de auditoria: item estava classificado como risco crítico ('motor de execução não encontrado'). O Scheduler agenda o Batch, que carrega Agendamento__c ativos e delega a CaseScheduleService.processSchedules — suíte completa com CaseScheduleSchedulerTest e CaseScheduleBatchTest.")
+add(8, F, "Criar service de cálculo de elegibilidade", False, CONCLUIDO, "classes/CaseScheduleService.isEligibleToRun + CaseScheduleServiceTest", "")
+add(8, F, "Não gerar Case em sábado/domingo", False, CONCLUIDO, "CaseScheduleService.isWeekend(today) combinado com Agendamento__c.PularFimDeSemana__c",
+    "Confirmado no código (linha ~91 de CaseScheduleService): 'if (schedule.PularFimDeSemana__c == true && isWeekend(today))' pula a execução.")
+add(8, F, "Registrar última e próxima execução", False, PARCIAL, "Agendamento__c.UltimoErroExecucao__c",
+    "Não há campos explícitos de ÚltimaExecução__c/PróximaExecução__c no objeto; o registro de erro existe (UltimoErroExecucao__c) mas não há rastro de 'última execução com sucesso' nem pré-cálculo de próxima execução — confirmar se isso é coberto de outra forma (ex: log de integração) antes de considerar gap real.")
+add(8, F, "Registrar falhas em Log de Integração", False, CONCLUIDO, "classes/CaseScheduleHelper.insertIntegrationLogs / buildErrorLog",
+    "Correção de auditoria: estava marcado como dependente do Scheduler 'não localizado'. CaseScheduleHelper monta e insere os logs de erro; chamado por CaseScheduleService.processSchedules.")
+add(8, F, "Testar agendamentos por Conta no Centro Logístico", True, PARCIAL,
+    "classes/CaseScheduleServiceTest, CaseScheduleBatchTest, CaseScheduleSchedulerTest",
+    "Cobertura de teste unitário existe para o motor de agendamento; teste de UAT real em sandbox com conta do Centro Logístico ainda pendente.",
+    status_overrides={"Salvador": NA, "Rio Grande": NA, "Rebocadores": NA, "Centro Logístico": PARCIAL})
 
 # =====================================================================
 # EPIC 9 — PESQUISA DE SATISFAÇÃO
@@ -382,9 +415,12 @@ add(11, F, "Configurar OWD de Case como privado", False, NAO_INICIADO, "", "Secu
 add(11, F, "Criar papéis por unidade de negócio", True, NAO_INICIADO, "roles/", OBS_ORG_ONLY)
 add(11, F, "Garantir hierarquia para supervisores da própria unidade", True, NAO_INICIADO, "", "")
 add(11, F, "Criar Permission Sets ou Permission Set Groups por unidade", True, NAO_INICIADO, "permissionsets/",
-    "Apenas 3 Permission Sets no repo: GestaoSLAConfigurador, GestaoSLAAdminTecnico, CaseAcompanhamentoOperador — nenhum nomeado 'Atendimento <Unidade>' conforme especificação 6.5.4.")
+    "Apenas 4 Permission Sets no repo: GestaoSLAConfigurador, GestaoSLAAdminTecnico, CaseAcompanhamentoOperador, AccountCaseScheduleOperador — nenhum nomeado 'Atendimento <Unidade>' conforme especificação 6.5.4.")
 add(11, F, "Criar Permission Set de Supervisor da Unidade", True, NAO_INICIADO, "permissionsets/", "")
 add(11, F, "Criar Permission Set de Administração/Governança", False, PARCIAL, "permissionsets/GestaoSLAAdminTecnico.permissionset-meta.xml", "Existe para o módulo de SLA; PS de governança geral da plataforma não confirmado.")
+add(11, F, "PROPOSTA (Jean Duarte, 20/06): Sanear o modelo de Permission Sets para 2 PS por Unidade de Negócio (Gestor, Atendente) + 1 PS global de Admin Técnico", False, NAO_INICIADO,
+    "permissionsets/ (estado atual: GestaoSLAConfigurador, GestaoSLAAdminTecnico, CaseAcompanhamentoOperador, AccountCaseScheduleOperador — todos globais, nenhum por unidade)",
+    "Modelo-alvo proposto pelo cliente: por Unidade de Negócio (Salvador, Rio Grande, Centro Logístico, Rebocadores), apenas 2 Permission Sets ativos — 'Gestor <Unidade>' (categorização, regras de SLA, agendamentos, supervisão) e 'Atendente <Unidade>' (operação do Case/Área Participante do dia a dia) — mais 1 Permission Set único e global 'Admin Técnico' para gestão do ecossistema de atendimento (Custom Metadata de rotas, EntitlementProcess, configurações técnicas, exclusões). Isso simplifica a segregação de acesso e elimina a sobreposição atual de PS técnicos por módulo (GestaoSLAConfigurador/AdminTecnico/CaseAcompanhamentoOperador/AccountCaseScheduleOperador) que hoje não diferencia unidade nem perfil operacional (gestor vs atendente). DESENHO PROPOSTO (pendente de validação e implementação): 1) Mapear cada Custom Permission/objeto/campo/fila hoje espalhado pelos 4 PS técnicos para as 2 personas (Gestor/Atendente) e o Admin Técnico; 2) Consolidar GestaoSLAConfigurador -> dividir entre Gestor <Unidade> (categorização/regras da própria unidade) e Admin Técnico (configuração técnica cross-unidade); 3) CaseAcompanhamentoOperador e AccountCaseScheduleOperador -> incorporar nas permissões de Atendente <Unidade> e Gestor <Unidade> respectivamente; 4) Usar Permission Set Groups por unidade para simplificar atribuição; 5) Validar que a restrição por Record Type implementada em GestaoSLAService (ver itens 'Identificar Record Types disponíveis' / 'Preencher Unidade automaticamente') seja a camada de defesa real — os PS por unidade continuam sendo a camada de concessão de acesso a funcionalidades, não de segregação por dados.")
 add(11, F, "Garantir que o App não seja usado como única barreira de segurança", False, NAO_INICIADO, "", "Depende da implementação efetiva de OWD/Sharing/Roles, que não foi confirmada no repositório local.")
 add(11, F, "Segregar acesso por papéis, filas, Record Types, objeto e campo", True, NAO_INICIADO, "", "")
 add(11, F, "Restringir campos sensíveis do Case", False, NAO_INICIADO, "", "")
@@ -466,8 +502,9 @@ add(14, F, "Testar Bot criando Case / consultando Case / transbordo para atenden
 add(14, F, "Testar Omni-Channel e capacidade / Omni Supervisor", True, NAO_INICIADO, "", OBS_ORG_ONLY)
 add(14, F, "Testar SLA e pausas", True, CONCLUIDO, "CaseAreaParticipantePauseService + AreaParticipanteSLAServiceTest", "Cobertura de testes automatizados confirmada; UAT formal com usuários pendente.")
 add(14, F, "Testar Área Participante Interna / fechamento / bloqueio com pendência", True, CONCLUIDO, "AreaParticipanteServiceTest, CaseTriggerHandlerTest (Pacote 20)", "")
-add(14, F, "Testar Caso recorrente", True, NAO_INICIADO, "", "Bloqueado: Apex Scheduler de Agendamento__c não localizado.",
-    status_overrides={"Salvador": NA, "Rio Grande": NA, "Rebocadores": NA, "Centro Logístico": NAO_INICIADO})
+add(14, F, "Testar Caso recorrente", True, PARCIAL, "CaseScheduleServiceTest, CaseScheduleBatchTest, CaseScheduleSchedulerTest",
+    "Motor de agendamento (CaseScheduleScheduler/Batch/Service/Helper) implementado e com cobertura unitária; falta apenas UAT em sandbox com conta real do Centro Logístico.",
+    status_overrides={"Salvador": NA, "Rio Grande": NA, "Rebocadores": NA, "Centro Logístico": PARCIAL})
 add(14, F, "Testar pesquisa de satisfação", True, PARCIAL, "CaseClosureSurveyController + testes", "")
 add(14, F, "Testar reclamação Salvador", True, NAO_INICIADO, "", "Bloqueado: automação de geração não localizada.",
     status_overrides={"Rio Grande": NA, "Centro Logístico": NA, "Rebocadores": NA})
@@ -661,18 +698,18 @@ def write_riscos_sheet(wb):
     ws.row_dimensions[1].height = 28
 
     riscos = [
-        ("Apex Scheduler de Agendamento__c não localizado",
-         "Casos recorrentes (Centro Logístico) não são gerados automaticamente — objeto de dados existe, motor de execução não.",
-         "Nenhuma classe Schedulable/Batch para Agendamento__c em force-app/main/default/classes",
-         "Confirmar na Org se o Scheduler foi implementado fora do force-app; senão, priorizar antes do go-live do Centro Logístico."),
+("Motor de Agendamento implementado, mas sem agendamento ativo do Scheduler confirmado",
+         "CaseScheduleScheduler/Batch/Service estão prontos e testados, mas não há evidência (em force-app) de que o Schedulable foi efetivamente agendado (System.schedule) em produção/sandbox.",
+         "classes/CaseScheduleScheduler, CaseScheduleBatch, CaseScheduleService/Helper + testes — agendamento do job (CRON) não é versionável em metadata",
+         "Validar diretamente na Org se o job está agendado (Setup > Scheduled Jobs); senão, agendar antes do go-live do Centro Logístico. Correção: auditoria anterior havia classificado esse módulo como 'não localizado' — estava errado, o motor existe e está testado."),
         ("Bot Salesforce não versionado",
          "Criação/consulta de Caso via WhatsApp/Chat e transbordo dependem do Bot.",
          "force-app/main/default/bots vazio",
          "Validar se o Bot existe só na Org (retrieve pendente) ou se ainda não foi construído."),
-        ("LWC caseNewCategorization (criação manual) não encontrado",
-         "Botão New do Case pode não estar substituído pela tela customizada de categorização inicial em nenhuma unidade.",
-         "Não localizado em lwc/; apenas caseRecategorization (edição) existe, ainda não comitado",
-         "Priorizar como item crítico de Jornada do Case antes da UAT."),
+        ("Front-end de criação manual de Case (tela de categorização inicial) não existe, apesar do backend pronto",
+         "Botão New do Case não está substituído pela tela customizada de categorização inicial em nenhuma unidade — usuário ainda cria Case pelo formulário padrão sem a árvore assistida.",
+         "classes/CaseCreationController/Service/Selector/Helper/DTO (completo e testado); nenhum LWC consumidor nem actionOverride 'New' em objects/Case/Case.object-meta.xml",
+         "Construir o LWC consumindo CaseCreationController.getInitialContext/getTreeOptions/buildDefaultValues e o override do botão New — é o único elo faltante da Jornada do Case. Correção: auditoria anterior classificou o módulo inteiro como 'não iniciado'; na verdade backend está pronto, falta só a tela."),
         ("Cobertura de testes do módulo Email-to-Case baixa (~3 testes / ~16 classes)",
          "Risco de regressão em um módulo crítico de entrada de Casos.",
          "WS_EmailToCaseServiceTest, WS_EmailToCaseConfigServiceTest, WS_EmailToCaseTestDataFactory",
@@ -691,7 +728,7 @@ def write_riscos_sheet(wb):
          "Confirmar se a automação está implementada via Flow não documentado; senão, construir."),
         ("Permission Sets por Unidade de Negócio não encontrados",
          "Segregação de acesso por área pode estar dependendo apenas de Profile/App, contrariando a diretriz de segurança do projeto.",
-         "Apenas GestaoSLAConfigurador, GestaoSLAAdminTecnico, CaseAcompanhamentoOperador em permissionsets/",
+         "Apenas GestaoSLAConfigurador, GestaoSLAAdminTecnico, CaseAcompanhamentoOperador, AccountCaseScheduleOperador em permissionsets/",
          "Criar Permission Sets/Groups por unidade conforme especificação 6.5.4 antes da homologação de segurança."),
         ("Dynamic Forms / Path de Etapa do Atendimento não confirmados",
          "Campos dinâmicos por categorização e visão de jornada operacional podem não estar implementados.",

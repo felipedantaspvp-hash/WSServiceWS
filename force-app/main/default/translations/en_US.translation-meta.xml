@@ -1948,6 +1948,38 @@ Before we begin, please choose your service language.</message>
         <name>GestaoSLA_CategoryDelete</name>
     </customLabels>
     <customLabels>
+        <label><!-- Category distribute to queue toggle label --></label>
+        <name>GestaoSLA_CategoryDistributeToQueue</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Category by categorization toggle label --></label>
+        <name>GestaoSLA_CategoryByCategorization</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Category queue combobox label --></label>
+        <name>GestaoSLA_CategoryQueue</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Category queue combobox placeholder --></label>
+        <name>GestaoSLA_CategoryQueuePlaceholder</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Category distribution field combobox label --></label>
+        <name>GestaoSLA_CategoryDistributionField</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Category distribution field combobox placeholder --></label>
+        <name>GestaoSLA_CategoryDistributionFieldPlaceholder</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Category distribution value combobox label --></label>
+        <name>GestaoSLA_CategoryDistributionValue</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Category distribution value combobox placeholder --></label>
+        <name>GestaoSLA_CategoryDistributionValuePlaceholder</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Category edit action --></label>
         <name>GestaoSLA_CategoryEdit</name>
     </customLabels>
@@ -26140,22 +26172,6 @@ Before we begin, please choose your service language.</message>
     </flowDefinitions>
     <flowDefinitions>
         <flows>
-            <customErrorMessages>
-                <developerName>Custom_Error_Message_1</developerName>
-                <field>ValorMinimoPeriodo__c</field>
-            </customErrorMessages>
-            <customErrorMessages>
-                <developerName>Custom_Error_Message_4</developerName>
-                <field>PercentualDoPeriodo__c</field>
-            </customErrorMessages>
-            <customErrorMessages>
-                <developerName>Custom_Error_Message_2</developerName>
-                <field>ValorDeCNTRPeriodo__c</field>
-            </customErrorMessages>
-            <customErrorMessages>
-                <developerName>Custom_Error_Message_3</developerName>
-                <field>ValorMinimoDiarioPorProcessoPeriodo__c</field>
-            </customErrorMessages>
             <textTemplates>
                 <name>TT_ListPrice_Consolidado</name>
             </textTemplates>

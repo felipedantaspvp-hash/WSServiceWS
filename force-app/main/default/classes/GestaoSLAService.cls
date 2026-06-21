@@ -3,6 +3,10 @@ public inherited sharing class GestaoSLAService {
     public static GestaoSLADTO.BootstrapResponse getBootstrap() {
         GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
         ensureCanAccess(perms);
+        Set<String> allowedUnidades = resolveAllowedUnidades(perms);
+        if (allowedUnidades != null && allowedUnidades.isEmpty()) {
+            throw new FunctionalException('Nenhuma Unidade de Negócio disponível para o seu usuário. Verifique o Record Type de Case atribuído ao seu perfil/permission set.');
+        }
 
         GestaoSLADTO.BootstrapResponse response = new GestaoSLADTO.BootstrapResponse();
         response.permissions = perms;
@@ -12,15 +16,29 @@ public inherited sharing class GestaoSLAService {
         response.categoriaPicklistOptions = getActivePicklistOptions(Categorizacao__c.Categoria__c);
         response.assuntoOptions = getActivePicklistOptions(Categorizacao__c.Assunto__c);
         response.subassuntoOptions = getActivePicklistOptions(Categorizacao__c.Subassunto__c);
+        response.unidadesDisponiveis = allowedUnidades == null ? null : new List<String>(allowedUnidades);
+        response.unidadeUnica = (allowedUnidades != null && allowedUnidades.size() == 1)
+            ? new List<String>(allowedUnidades)[0]
+            : null;
 
-        for (GestaoSLA__c row : [
-            SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
-                   TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, StaticResourceName__c,
-                   Ativo__c, Descricao__c
-            FROM GestaoSLA__c
-            WHERE Ativo__c = true
-            ORDER BY Name
-        ]) {
+        List<GestaoSLA__c> gestaoRows = allowedUnidades == null
+            ? [
+                SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
+                       TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, StaticResourceName__c,
+                       Ativo__c, Descricao__c
+                FROM GestaoSLA__c
+                WHERE Ativo__c = true
+                ORDER BY Name
+            ]
+            : [
+                SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
+                       TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, StaticResourceName__c,
+                       Ativo__c, Descricao__c
+                FROM GestaoSLA__c
+                WHERE Ativo__c = true AND UnidadeNegocio__c IN :allowedUnidades
+                ORDER BY Name
+            ];
+        for (GestaoSLA__c row : gestaoRows) {
             response.gestoes.add(toGestaoResumo(row, perms.canAdminTechnicalSettings));
         }
         return response;
@@ -44,6 +62,7 @@ public inherited sharing class GestaoSLAService {
         if (rows.isEmpty()) {
             throw new FunctionalException('Gestão de SLA não encontrada.');
         }
+        ensureUnidadeAllowed(rows[0].UnidadeNegocio__c, resolveAllowedUnidades(perms));
 
         Integer totalCategorias = [SELECT Count() FROM Categorizacao__c WHERE GestaoSLA__c = :gestaoSLAId];
         Integer totalMarcosAtivos = [SELECT Count() FROM MarcoSLA__c WHERE GestaoSLA__c = :gestaoSLAId AND Ativo__c = true];
@@ -83,10 +102,14 @@ public inherited sharing class GestaoSLAService {
         if (gestaoSLAId == null) {
             throw new FunctionalException('Gestão de SLA não informada.');
         }
+        GestaoSLA__c gestaoCtx = loadGestaoOrThrow(gestaoSLAId);
+        ensureUnidadeAllowed(gestaoCtx.UnidadeNegocio__c, resolveAllowedUnidades(perms));
 
         List<Categorizacao__c> categoriasRows = [
             SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c,
-                   Subassunto__c, Prioridade__c, Ativo__c
+                   Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCategorizacao__c,
+                   FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c,
+                   LabelCampoDistribuicao__c, LabelValorDistribuicao__c
             FROM Categorizacao__c
             WHERE GestaoSLA__c = :gestaoSLAId
             ORDER BY Name
@@ -446,6 +469,7 @@ public inherited sharing class GestaoSLAService {
         validateCategoriaRequest(request, false);
 
         GestaoSLA__c gestao = loadGestaoOrThrow(request.gestaoSLAId);
+        ensureUnidadeAllowed(gestao.UnidadeNegocio__c, resolveAllowedUnidades(perms));
         String prioridade = String.isBlank(request.prioridadeSugerida)
             ? null
             : normalizePrioridadeOrThrow(request.prioridadeSugerida);
@@ -469,8 +493,13 @@ public inherited sharing class GestaoSLAService {
             Prioridade__c = prioridade,
             Ativo__c = request.ativo == null ? true : request.ativo
         );
-        insert row;
-        return toCategoriaResumo(row, 0);
+        applyDistribuicaoRequest(row, request);
+        try {
+            insert row;
+        } catch (DmlException dmx) {
+            throw new FunctionalException(dmx.getDmlMessage(0));
+        }
+        return toCategoriaResumo(queryCategoriaById(row.Id), 0);
     }
 
     public static GestaoSLADTO.CategoriaResumo updateCategoria(GestaoSLADTO.CategoriaRequest request) {
@@ -483,7 +512,7 @@ public inherited sharing class GestaoSLAService {
         validateCategoriaRequest(request, true);
 
         List<Categorizacao__c> rows = [
-            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c
+            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCategorizacao__c, FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c, LabelCampoDistribuicao__c, LabelValorDistribuicao__c
             FROM Categorizacao__c
             WHERE Id = :request.id
             LIMIT 1
@@ -497,6 +526,7 @@ public inherited sharing class GestaoSLAService {
             throw new FunctionalException('Gestão de SLA não informada.');
         }
         GestaoSLA__c gestao = loadGestaoOrThrow(existing.GestaoSLA__c);
+        ensureUnidadeAllowed(gestao.UnidadeNegocio__c, resolveAllowedUnidades(perms));
         String prioridade = String.isBlank(request.prioridadeSugerida)
             ? null
             : normalizePrioridadeOrThrow(request.prioridadeSugerida);
@@ -519,8 +549,55 @@ public inherited sharing class GestaoSLAService {
         existing.Subassunto__c = subassunto;
         existing.Prioridade__c = prioridade;
         existing.Ativo__c = request.ativo == null ? existing.Ativo__c : request.ativo;
-        update existing;
-        return toCategoriaResumo(existing, 0);
+        applyDistribuicaoRequest(existing, request);
+        try {
+            update existing;
+        } catch (DmlException dmx) {
+            throw new FunctionalException(dmx.getDmlMessage(0));
+        }
+        return toCategoriaResumo(queryCategoriaById(existing.Id), 0);
+    }
+
+    /**
+     * @description Aplica os campos de distribuição (fila/campo/valor) ao registro de Categorizacao__c
+     * a partir do request da tela. As regras de obrigatoriedade (fila obrigatória, campo+valor obrigatórios
+     * quando não é por categorização) são validadas pelo CategorizacaoTriggerHandler -> CategorizacaoService.beforeSave,
+     * que roda em qualquer insert/update do objeto — não precisam ser duplicadas aqui.
+     * @param row Registro de Categorizacao__c a ser gravado (criação ou edição).
+     * @param request Dados de distribuição informados na tela de Gestão de SLA.
+     */
+    private static void applyDistribuicaoRequest(Categorizacao__c row, GestaoSLADTO.CategoriaRequest request) {
+        Boolean distribuir = request != null && request.distribuirParaFila == true;
+        row.DistribuirParaFila__c = distribuir ? 'Sim' : 'Não';
+        if (!distribuir) {
+            row.PorCategorizacao__c = 'Não';
+            row.FilaDeveloperName__c = null;
+            row.CampoDistribuicao__c = null;
+            row.ValorDistribuicao__c = null;
+            return;
+        }
+        Boolean porCategorizacao = request.porCategorizacao == true;
+        row.PorCategorizacao__c = porCategorizacao ? 'Sim' : 'Não';
+        row.FilaDeveloperName__c = String.isBlank(request.filaDeveloperName) ? null : request.filaDeveloperName.trim();
+        if (porCategorizacao) {
+            row.CampoDistribuicao__c = null;
+            row.ValorDistribuicao__c = null;
+        } else {
+            row.CampoDistribuicao__c = String.isBlank(request.campoDistribuicao) ? null : request.campoDistribuicao.trim();
+            row.ValorDistribuicao__c = String.isBlank(request.valorDistribuicao) ? null : request.valorDistribuicao.trim();
+        }
+    }
+
+    private static Categorizacao__c queryCategoriaById(Id categoriaId) {
+        return [
+            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c,
+                   Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCategorizacao__c, FilaDeveloperName__c,
+                   NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c,
+                   LabelCampoDistribuicao__c, LabelValorDistribuicao__c
+            FROM Categorizacao__c
+            WHERE Id = :categoriaId
+            LIMIT 1
+        ];
     }
 
     public static GestaoSLADTO.CategoriaResumo deactivateCategoria(Id categoriaId) {
@@ -532,7 +609,7 @@ public inherited sharing class GestaoSLAService {
         }
 
         List<Categorizacao__c> rows = [
-            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c
+            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCategorizacao__c, FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c, LabelCampoDistribuicao__c, LabelValorDistribuicao__c
             FROM Categorizacao__c
             WHERE Id = :categoriaId
             LIMIT 1
@@ -542,6 +619,8 @@ public inherited sharing class GestaoSLAService {
         }
 
         Categorizacao__c row = rows[0];
+        GestaoSLA__c gestaoCtxDeactivate = loadGestaoOrThrow(row.GestaoSLA__c);
+        ensureUnidadeAllowed(gestaoCtxDeactivate.UnidadeNegocio__c, resolveAllowedUnidades(perms));
         row.Ativo__c = false;
         row.MotivoInativacao__c = 'Inativação via Gestão de SLA';
         update row;
@@ -555,13 +634,15 @@ public inherited sharing class GestaoSLAService {
         if (gestaoSLAId == null) {
             throw new FunctionalException('Gestão de SLA não informada.');
         }
+        GestaoSLA__c gestaoCtxInactive = loadGestaoOrThrow(gestaoSLAId);
+        ensureUnidadeAllowed(gestaoCtxInactive.UnidadeNegocio__c, resolveAllowedUnidades(perms));
 
         GestaoSLADTO.InactiveCategoriasResponse response = new GestaoSLADTO.InactiveCategoriasResponse();
         response.permissions = perms;
         response.categoriasInativas = new List<GestaoSLADTO.CategoriaResumo>();
 
         for (Categorizacao__c row : [
-            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c
+            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCategorizacao__c, FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c, LabelCampoDistribuicao__c, LabelValorDistribuicao__c
             FROM Categorizacao__c
             WHERE GestaoSLA__c = :gestaoSLAId
               AND Ativo__c = false
@@ -582,7 +663,7 @@ public inherited sharing class GestaoSLAService {
         }
 
         List<Categorizacao__c> rows = [
-            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c
+            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCategorizacao__c, FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c, LabelCampoDistribuicao__c, LabelValorDistribuicao__c
             FROM Categorizacao__c
             WHERE Id = :categoriaId
             LIMIT 1
@@ -592,6 +673,8 @@ public inherited sharing class GestaoSLAService {
         }
 
         Categorizacao__c row = rows[0];
+        GestaoSLA__c gestaoCtxReactivate = loadGestaoOrThrow(row.GestaoSLA__c);
+        ensureUnidadeAllowed(gestaoCtxReactivate.UnidadeNegocio__c, resolveAllowedUnidades(perms));
         if (row.Ativo__c == true) {
             return toCategoriaResumo(row, 0);
         }
@@ -841,6 +924,35 @@ public inherited sharing class GestaoSLAService {
         );
         update toUpdate;
         return getGestaoDetail(request.id);
+    }
+
+    /**
+     * @description Resolve as Unidades de Negócio que o usuário corrente pode acessar na Gestão de SLA.
+     * Admin Técnico (canAdminTechnicalSettings) tem acesso irrestrito (retorna null).
+     * Demais usuários são restritos às unidades derivadas do Record Type de Case disponível para eles.
+     * @param perms Permissões já resolvidas do usuário corrente.
+     * @return Set de Unidades de Negócio permitidas, ou null se irrestrito.
+     */
+    private static Set<String> resolveAllowedUnidades(GestaoSLADTO.PermissionInfo perms) {
+        if (perms != null && perms.canAdminTechnicalSettings == true) {
+            return null;
+        }
+        return GestaoSLAHelper.getAllowedUnidadesNegocio();
+    }
+
+    /**
+     * @description Garante que a Unidade de Negócio de um registro está dentro do conjunto permitido
+     * para o usuário corrente. Não faz nada quando allowedUnidades é null (acesso irrestrito).
+     * @param unidadeNegocio Unidade de Negócio do registro sendo acessado/alterado.
+     * @param allowedUnidades Unidades permitidas para o usuário, ou null se irrestrito.
+     */
+    private static void ensureUnidadeAllowed(String unidadeNegocio, Set<String> allowedUnidades) {
+        if (allowedUnidades == null) {
+            return;
+        }
+        if (String.isBlank(unidadeNegocio) || !allowedUnidades.contains(unidadeNegocio)) {
+            throw new FunctionalException('Você não possui Record Type disponível para a Unidade de Negócio "' + unidadeNegocio + '".');
+        }
     }
 
     private static GestaoSLADTO.PermissionInfo buildPermissionInfo() {
@@ -1243,6 +1355,14 @@ public inherited sharing class GestaoSLAService {
         dto.prioridadeSugerida = row.Prioridade__c;
         dto.ativo = row.Ativo__c;
         dto.totalRegrasAtivas = totalRegrasAtivas;
+        dto.distribuirParaFila = CategorizacaoHelper.isTrueFlag(row.DistribuirParaFila__c);
+        dto.porCategorizacao = CategorizacaoHelper.isTrueFlag(row.PorCategorizacao__c);
+        dto.filaDeveloperName = row.FilaDeveloperName__c;
+        dto.nomeFilaDistribuicao = row.NomeFilaDistribuicao__c;
+        dto.campoDistribuicao = row.CampoDistribuicao__c;
+        dto.valorDistribuicao = row.ValorDistribuicao__c;
+        dto.labelCampoDistribuicao = row.LabelCampoDistribuicao__c;
+        dto.labelValorDistribuicao = row.LabelValorDistribuicao__c;
         return dto;
     }
 

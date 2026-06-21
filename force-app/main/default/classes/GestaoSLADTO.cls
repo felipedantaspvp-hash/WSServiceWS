@@ -69,6 +69,15 @@ public inherited sharing class GestaoSLADTO {
         @AuraEnabled public String prioridadeSugerida;
         @AuraEnabled public Boolean ativo;
         @AuraEnabled public Integer totalRegrasAtivas;
+        // Distribuição para fila (espelha Categorizacao__c, conforme especificação 6.3.4/6.3.9).
+        @AuraEnabled public Boolean distribuirParaFila;
+        @AuraEnabled public Boolean porCategorizacao;
+        @AuraEnabled public String filaDeveloperName;
+        @AuraEnabled public String nomeFilaDistribuicao;
+        @AuraEnabled public String campoDistribuicao;
+        @AuraEnabled public String valorDistribuicao;
+        @AuraEnabled public String labelCampoDistribuicao;
+        @AuraEnabled public String labelValorDistribuicao;
     }
 
     public class CategoriaRequest {
@@ -80,6 +89,12 @@ public inherited sharing class GestaoSLADTO {
         @AuraEnabled public String subassunto { get; set; }
         @AuraEnabled public String prioridadeSugerida { get; set; }
         @AuraEnabled public Boolean ativo { get; set; }
+        // Distribuição para fila — preenchidos pelo modal de Categoria do gestaoSLAWorkspace.
+        @AuraEnabled public Boolean distribuirParaFila { get; set; }
+        @AuraEnabled public Boolean porCategorizacao { get; set; }
+        @AuraEnabled public String filaDeveloperName { get; set; }
+        @AuraEnabled public String campoDistribuicao { get; set; }
+        @AuraEnabled public String valorDistribuicao { get; set; }
     }
 
     public class MarcoResumo {
@@ -138,6 +153,10 @@ public inherited sharing class GestaoSLADTO {
         @AuraEnabled public List<PicklistOptionDTO> categoriaPicklistOptions;
         @AuraEnabled public List<PicklistOptionDTO> assuntoOptions;
         @AuraEnabled public List<PicklistOptionDTO> subassuntoOptions;
+        // Unidades de Negócio que o usuário corrente pode ver, derivadas do Record Type de Case dele.
+        // Null = acesso irrestrito (ex.: Admin Técnico). Lista com 1 item = tela deve auto-selecionar e ocultar o seletor manual.
+        @AuraEnabled public List<String> unidadesDisponiveis;
+        @AuraEnabled public String unidadeUnica;
     }
 
     public class GestaoDetailResponse {

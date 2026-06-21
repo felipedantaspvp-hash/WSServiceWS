@@ -18,6 +18,14 @@ import categoryActionsLabel from '@salesforce/label/c.GestaoSLA_CategoryActions'
 import categoryEditLabel from '@salesforce/label/c.GestaoSLA_CategoryEdit';
 import categoryDeactivateLabel from '@salesforce/label/c.GestaoSLA_CategoryDeactivate';
 import categoryDeleteLabel from '@salesforce/label/c.GestaoSLA_CategoryDelete';
+import categoryDistributeToQueueLabel from '@salesforce/label/c.GestaoSLA_CategoryDistributeToQueue';
+import categoryByCategorizationLabel from '@salesforce/label/c.GestaoSLA_CategoryByCategorization';
+import categoryQueueLabel from '@salesforce/label/c.GestaoSLA_CategoryQueue';
+import categoryQueuePlaceholderLabel from '@salesforce/label/c.GestaoSLA_CategoryQueuePlaceholder';
+import categoryDistributionFieldLabel from '@salesforce/label/c.GestaoSLA_CategoryDistributionField';
+import categoryDistributionFieldPlaceholderLabel from '@salesforce/label/c.GestaoSLA_CategoryDistributionFieldPlaceholder';
+import categoryDistributionValueLabel from '@salesforce/label/c.GestaoSLA_CategoryDistributionValue';
+import categoryDistributionValuePlaceholderLabel from '@salesforce/label/c.GestaoSLA_CategoryDistributionValuePlaceholder';
 import ruleDeleteLabel from '@salesforce/label/c.GestaoSLA_RuleDelete';
 import gestaoDeleteButtonLabel from '@salesforce/label/c.GestaoSLA_DeleteButton';
 import confirmDeleteCategoryLabel from '@salesforce/label/c.GestaoSLA_ConfirmDeleteCategory';
@@ -186,6 +194,8 @@ import deleteGestaoSLA from '@salesforce/apex/GestaoSLAController.deleteGestaoSL
 import deleteCategoria from '@salesforce/apex/GestaoSLAController.deleteCategoria';
 import deleteRegraSLA from '@salesforce/apex/GestaoSLAController.deleteRegraSLA';
 import deleteRegrasSLABulk from '@salesforce/apex/GestaoSLAController.deleteRegrasSLABulk';
+import getCasePicklistFields from '@salesforce/apex/CategorizacaoController.getCasePicklistFields';
+import getQueuesForCategoria from '@salesforce/apex/CategorizacaoController.getQueues';
 
 const TAB_CATEGORIAS = 'categorias';
 const TAB_REGRAS = 'regras';
@@ -234,8 +244,15 @@ export default class GestaoSLAWorkspace extends LightningElement {
         assunto: '',
         subassunto: '',
         prioridadeSugerida: '',
-        ativo: true
+        ativo: true,
+        distribuirParaFila: false,
+        porCategorizacao: false,
+        filaDeveloperName: '',
+        campoDistribuicao: '',
+        valorDistribuicao: ''
     };
+    @track casePicklistFieldsData = [];
+    @track categoriaQueueOptionsData = [];
     @track showRegraModal = false;
     @track savingRegra = false;
     @track regraModalMode = 'create';
@@ -331,6 +348,14 @@ export default class GestaoSLAWorkspace extends LightningElement {
         categoryEdit: categoryEditLabel,
         categoryDeactivate: categoryDeactivateLabel,
         categoryDelete: categoryDeleteLabel,
+        categoryDistributeToQueue: categoryDistributeToQueueLabel,
+        categoryByCategorization: categoryByCategorizationLabel,
+        categoryQueue: categoryQueueLabel,
+        categoryQueuePlaceholder: categoryQueuePlaceholderLabel,
+        categoryDistributionField: categoryDistributionFieldLabel,
+        categoryDistributionFieldPlaceholder: categoryDistributionFieldPlaceholderLabel,
+        categoryDistributionValue: categoryDistributionValueLabel,
+        categoryDistributionValuePlaceholder: categoryDistributionValuePlaceholderLabel,
         ruleDelete: ruleDeleteLabel,
         gestaoDeleteButton: gestaoDeleteButtonLabel,
         confirmDeleteCategory: confirmDeleteCategoryLabel,
@@ -1352,7 +1377,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
         this.savingEditGestao = false;
     }
 
-    openCreateCategoriaModal() {
+    async openCreateCategoriaModal() {
         if (!this.permissions.canManageCategories || !this.selectedGestaoSLAId) return;
         this.categoriaModalMode = 'create';
         this.categoriaForm = {
@@ -1362,12 +1387,18 @@ export default class GestaoSLAWorkspace extends LightningElement {
             assunto: '',
             subassunto: '',
             prioridadeSugerida: '',
-            ativo: true
+            ativo: true,
+            distribuirParaFila: false,
+            porCategorizacao: false,
+            filaDeveloperName: '',
+            campoDistribuicao: '',
+            valorDistribuicao: ''
         };
         this.showCategoriaModal = true;
+        await this.loadCategoriaDistribuicaoData();
     }
 
-    openEditCategoriaModal(event) {
+    async openEditCategoriaModal(event) {
         if (!this.permissions.canManageCategories) return;
         const categoriaId = event.currentTarget?.dataset?.id;
         const row = (this.categorias || []).find((c) => c.id === categoriaId);
@@ -1380,9 +1411,28 @@ export default class GestaoSLAWorkspace extends LightningElement {
             assunto: row.assunto || '',
             subassunto: row.subassunto || '',
             prioridadeSugerida: row.prioridadeSugerida || '',
-            ativo: row.ativo === true
+            ativo: row.ativo === true,
+            distribuirParaFila: row.distribuirParaFila === true,
+            porCategorizacao: row.porCategorizacao === true,
+            filaDeveloperName: row.filaDeveloperName || '',
+            campoDistribuicao: row.campoDistribuicao || '',
+            valorDistribuicao: row.valorDistribuicao || ''
         };
         this.showCategoriaModal = true;
+        await this.loadCategoriaDistribuicaoData();
+    }
+
+    async loadCategoriaDistribuicaoData() {
+        try {
+            const [fields, queues] = await Promise.all([
+                this.casePicklistFieldsData.length ? Promise.resolve(this.casePicklistFieldsData) : getCasePicklistFields(),
+                getQueuesForCategoria({ unidadeNegocio: this.gestao?.unidadeNegocio })
+            ]);
+            this.casePicklistFieldsData = fields || [];
+            this.categoriaQueueOptionsData = queues || [];
+        } catch (error) {
+            this.showToast(this.labels.commonError, this.reduceError(error), 'error');
+        }
     }
 
     closeCategoriaModal() {
@@ -1393,21 +1443,74 @@ export default class GestaoSLAWorkspace extends LightningElement {
     handleCategoriaInputChange(event) {
         const field = event.target?.name;
         if (!field) return;
-        let value = event.detail?.value ?? event.target?.value;
+        const isToggle = field === 'distribuirParaFila' || field === 'porCategorizacao';
+        let value = isToggle ? event.target?.checked : event.detail?.value ?? event.target?.value;
         if (field === 'ativo') {
             value = value === true || value === 'true';
         }
         this.categoriaForm = { ...this.categoriaForm, [field]: value };
+
+        if (field === 'distribuirParaFila' && value === false) {
+            this.categoriaForm = {
+                ...this.categoriaForm,
+                porCategorizacao: false,
+                filaDeveloperName: '',
+                campoDistribuicao: '',
+                valorDistribuicao: ''
+            };
+        }
+        if (field === 'porCategorizacao' && value === true) {
+            this.categoriaForm = { ...this.categoriaForm, campoDistribuicao: '', valorDistribuicao: '' };
+        }
+        if (field === 'campoDistribuicao') {
+            this.categoriaForm = { ...this.categoriaForm, valorDistribuicao: '' };
+        }
+    }
+
+    get showCategoriaDistribuicao() {
+        return this.categoriaForm?.distribuirParaFila === true;
+    }
+
+    get showCategoriaCampoValor() {
+        return this.showCategoriaDistribuicao && this.categoriaForm?.porCategorizacao !== true;
+    }
+
+    get categoriaFilaRequired() {
+        return this.showCategoriaDistribuicao;
+    }
+
+    get categoriaCampoValorRequired() {
+        return this.showCategoriaCampoValor;
+    }
+
+    get categoriaQueueOptions() {
+        return (this.categoriaQueueOptionsData || []).map((q) => ({ label: `${q.name} (${q.developerName})`, value: q.developerName }));
+    }
+
+    get categoriaCasePicklistFieldOptions() {
+        return (this.casePicklistFieldsData || []).map((f) => ({ label: f.label, value: f.apiName }));
+    }
+
+    get categoriaCasePicklistValueOptions() {
+        const field = (this.casePicklistFieldsData || []).find((f) => f.apiName === this.categoriaForm?.campoDistribuicao);
+        return (field?.values || []).map((v) => ({ label: v.label, value: v.value }));
     }
 
     async handleSaveCategoria() {
         if (!this.permissions.canManageCategories) return;
         this.savingCategoria = true;
         try {
+            const distribuirParaFila = this.categoriaForm?.distribuirParaFila === true;
+            const porCategorizacao = distribuirParaFila && this.categoriaForm?.porCategorizacao === true;
             const request = {
                 ...this.categoriaForm,
                 prioridadeSugerida: this.categoriaForm?.prioridadeSugerida ? this.categoriaForm.prioridadeSugerida : null,
-                gestaoSLAId: this.selectedGestaoSLAId
+                gestaoSLAId: this.selectedGestaoSLAId,
+                distribuirParaFila,
+                porCategorizacao,
+                filaDeveloperName: distribuirParaFila ? this.categoriaForm?.filaDeveloperName : null,
+                campoDistribuicao: distribuirParaFila && !porCategorizacao ? this.categoriaForm?.campoDistribuicao : null,
+                valorDistribuicao: distribuirParaFila && !porCategorizacao ? this.categoriaForm?.valorDistribuicao : null
             };
             if (this.isCategoriaModalCreate) {
                 await createCategoria({ request });

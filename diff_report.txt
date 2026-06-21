@@ -1,0 +1,502 @@
+Linhas repo: 546 | Linhas triscal: 545
+So no Triscal: 1 | So no repo: 2
+Diffs de status: 70 | Com metadados preenchidos manualmente (Resp/Data/Ambiente): 0
+
+=== SO NO TRISCAL ===
+('Jornada do Case', 'Criar LWC caseNewCategorization', 'Comum (todas as unidades)')
+
+=== SO NO REPO ===
+('Jornada do Case', 'Criar LWC/Controller para categorização inicial na criação do Case', 'Comum (todas as unidades)')
+('LWC de Manutenção da Categorização (categorizacaoManager)', 'Listar dinamicamente campos picklist do objeto Case (para distribuição)', 'Comum (todas as unidades)')
+
+=== DIFFS DETALHADOS ===
+--- MANUAL_META=False ---
+FRENTE: Chat, WhatsApp e Bot Salesforce | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Criar Bot único MVP da Wilson Sons
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Pasta force-app/main/default/bots vazia — Bot não versionado localmente; validar se existe apenas na Org.
+
+--- MANUAL_META=False ---
+FRENTE: Carga da Árvore de Atendimento | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Separar corretamente casos como Reclamação ou Incidente em linhas distintas quando necessário
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Carga da Árvore de Atendimento | UNIDADE: Rebocadores
+ATIVIDADE: Validar quais categorizações exigem anexo obrigatório, valor financeiro ou dados operacionais
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Campo de controle existe; matriz funcional de regras pendente.
+
+--- MANUAL_META=False ---
+FRENTE: Omni-Channel e Omni Supervisor | UNIDADE: Salvador
+ATIVIDADE: Criar Routing Configurations por fila/canal
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: QueueRoutingConfig 'Service_Routing_Case_N1' criado por Marllon em 17/06 diretamente na Org (não retrieved). Configuração viva na Org WS_SERVICE, não versionada em force-app — validar diretamente na Org.
+
+--- MANUAL_META=False ---
+FRENTE: Casos Recorrentes / Agendamento | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Permitir frequência diária/semanal/dias específicos/mensal/trimestral/anual
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Parcial
+Obs Triscal: Campo único de frequência; granularidade completa (ex: dias específicos da semana) não confirmada em metadado de picklist.
+
+--- MANUAL_META=False ---
+FRENTE: Omni-Channel e Omni Supervisor | UNIDADE: Salvador
+ATIVIDADE: Testar roteamento por unidade de negócio
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Chat, WhatsApp e Bot Salesforce | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Configurar entrada por WhatsApp
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Parcial
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Chat, WhatsApp e Bot Salesforce | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Configurar diálogo para criar Caso
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Carga da Árvore de Atendimento | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Normalizar valores repetidos ou equivalentes entre português e inglês
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Carga da Árvore de Atendimento | UNIDADE: Salvador
+ATIVIDADE: Validar quais categorizações acionam áreas internas/N3
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Omni-Channel e Omni Supervisor | UNIDADE: Rio Grande
+ATIVIDADE: Criar Routing Configurations por fila/canal
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: QueueRoutingConfig 'Service_Routing_Case_N1' criado por Marllon em 17/06 diretamente na Org (não retrieved). Configuração viva na Org WS_SERVICE, não versionada em force-app — validar diretamente na Org.
+
+--- MANUAL_META=False ---
+FRENTE: Jornada do Case | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Implementar decisão Distribuir para fila
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Parcial
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: LWC de Manutenção da Categorização (categorizacaoManager) | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Preencher Unidade de Negócio automaticamente quando houver apenas uma opção
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Não confirmado em gestaoSLAWorkspace; o usuário escolhe o GestaoSLA/unidade manualmente na tela administrativa.
+
+--- MANUAL_META=False ---
+FRENTE: Omni-Channel e Omni Supervisor | UNIDADE: Rio Grande
+ATIVIDADE: Testar roteamento por unidade de negócio
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Carga da Árvore de Atendimento | UNIDADE: Centro Logístico
+ATIVIDADE: Validar quais categorizações exigem anexo obrigatório, valor financeiro ou dados operacionais
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Campo de controle existe; matriz funcional de regras pendente.
+
+--- MANUAL_META=False ---
+FRENTE: Omni-Channel e Omni Supervisor | UNIDADE: Salvador
+ATIVIDADE: Associar filas de atendimento ao Omni-Channel
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Configuração viva na Org WS_SERVICE, não versionada em force-app — validar diretamente na Org.
+
+--- MANUAL_META=False ---
+FRENTE: LWC de Manutenção da Categorização (categorizacaoManager) | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Gravar API Name do campo e API Value do valor
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Campos existem no objeto; CategoriaRequest do GestaoSLAController não os contempla — hoje só são preenchíveis via edição direta do registro no Setup ou carga de dados.
+
+--- MANUAL_META=False ---
+FRENTE: Carga da Árvore de Atendimento | UNIDADE: Rio Grande
+ATIVIDADE: Validar quais categorizações acionam áreas internas/N3
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Jornada do Case | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Permitir seleção de Tipo de Caso, Categoria, Assunto e Subassunto antes da tela padrão
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Parcial
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Chat, WhatsApp e Bot Salesforce | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Armazenar Unidade de Negócio na sessão/conversa
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Omni-Channel e Omni Supervisor | UNIDADE: Rebocadores
+ATIVIDADE: Criar Routing Configurations por fila/canal
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: QueueRoutingConfig 'Service_Routing_Case_N1' criado por Marllon em 17/06 diretamente na Org (não retrieved). Configuração viva na Org WS_SERVICE, não versionada em force-app — validar diretamente na Org.
+
+--- MANUAL_META=False ---
+FRENTE: Omni-Channel e Omni Supervisor | UNIDADE: Rio Grande
+ATIVIDADE: Associar filas de atendimento ao Omni-Channel
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Configuração viva na Org WS_SERVICE, não versionada em force-app — validar diretamente na Org.
+
+--- MANUAL_META=False ---
+FRENTE: Omni-Channel e Omni Supervisor | UNIDADE: Rebocadores
+ATIVIDADE: Testar roteamento por unidade de negócio
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Carga da Árvore de Atendimento | UNIDADE: Salvador
+ATIVIDADE: Validar quais categorizações exigem anexo obrigatório, valor financeiro ou dados operacionais
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Campo de controle existe; matriz funcional de regras pendente.
+
+--- MANUAL_META=False ---
+FRENTE: Chat, WhatsApp e Bot Salesforce | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Validar fallback quando cliente não for identificado
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Omni-Channel e Omni Supervisor | UNIDADE: Rebocadores
+ATIVIDADE: Associar filas de atendimento ao Omni-Channel
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Configuração viva na Org WS_SERVICE, não versionada em force-app — validar diretamente na Org.
+
+--- MANUAL_META=False ---
+FRENTE: LWC de Manutenção da Categorização (categorizacaoManager) | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Validar responsividade e padrão visual SLDS
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Omni-Channel e Omni Supervisor | UNIDADE: Centro Logístico
+ATIVIDADE: Criar Routing Configurations por fila/canal
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Parcial
+Obs Triscal: QueueRoutingConfig 'Service_Routing_Case_N1' criado por Marllon em 17/06 diretamente na Org (não retrieved). Configuração viva na Org WS_SERVICE, não versionada em force-app — validar diretamente na Org.
+
+--- MANUAL_META=False ---
+FRENTE: SLA, Entitlement Process e Área Participante | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Configurar regra para pausar SLA em Em Acompanhamento, se aplicável
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Parcial
+Obs Triscal: Implementado para Aguardando Cliente; cobertura de 'Em Acompanhamento' não confirmada nesta rodada.
+
+--- MANUAL_META=False ---
+FRENTE: Omni-Channel e Omni Supervisor | UNIDADE: Centro Logístico
+ATIVIDADE: Testar roteamento por unidade de negócio
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Carga da Árvore de Atendimento | UNIDADE: Rio Grande
+ATIVIDADE: Validar quais categorizações exigem anexo obrigatório, valor financeiro ou dados operacionais
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Campo de controle existe; matriz funcional de regras pendente.
+
+--- MANUAL_META=False ---
+FRENTE: Chat, WhatsApp e Bot Salesforce | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Configurar diálogo para consultar Caso existente
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Omni-Channel e Omni Supervisor | UNIDADE: Centro Logístico
+ATIVIDADE: Associar filas de atendimento ao Omni-Channel
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Configuração viva na Org WS_SERVICE, não versionada em force-app — validar diretamente na Org.
+
+--- MANUAL_META=False ---
+FRENTE: Omni-Channel e Omni Supervisor | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Testar roteamento por tipo de canal
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Omni-Channel e Omni Supervisor | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Criar status Disponível Todos / Disponível Casos / Disponível Chat / Ocupado
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Parcial
+Obs Triscal: Configuração viva na Org WS_SERVICE, não versionada em force-app — validar diretamente na Org.
+
+--- MANUAL_META=False ---
+FRENTE: Casos Recorrentes / Agendamento | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Registrar falhas em Log de Integração
+Triscal: status=Não iniciado resp=None data=None ambiente=None
+Repo:    status=Concluído
+Obs Triscal: Depende do Scheduler, ainda não localizado.
+
+--- MANUAL_META=False ---
+FRENTE: Chat, WhatsApp e Bot Salesforce | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Configurar diálogo para falar com atendente
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Parcial
+Obs Triscal: Flow de transbordo existe em working tree (decision 'Case elegível?' valida origem Chat/WhatsApp); diálogo do Bot propriamente dito não confirmado.
+
+--- MANUAL_META=False ---
+FRENTE: Chat, WhatsApp e Bot Salesforce | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Identificar cliente no WhatsApp por telefone
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Há serviço de resolução de contexto (Will) em alteração no branch atual; confirmar cobertura de telefone→Contact.
+
+--- MANUAL_META=False ---
+FRENTE: Pesquisa de Satisfação | UNIDADE: Salvador
+ATIVIDADE: Criar uma Salesforce Survey por Unidade de Negócio
+Triscal: status=Parcial resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Parametrização por unidade existe via CMDT; criação efetiva da Survey no Survey Builder não é versionável em force-app — validar na Org.
+
+--- MANUAL_META=False ---
+FRENTE: Chat, WhatsApp e Bot Salesforce | UNIDADE: Rio Grande
+ATIVIDADE: Validar menus distintos por unidade de negócio
+Triscal: status=N/A resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Chat, WhatsApp e Bot Salesforce | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Armazenar CaseId e CaseNumber quando houver criação de Caso
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Pesquisa de Satisfação | UNIDADE: Rio Grande
+ATIVIDADE: Criar uma Salesforce Survey por Unidade de Negócio
+Triscal: status=Parcial resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Parametrização por unidade existe via CMDT; criação efetiva da Survey no Survey Builder não é versionável em force-app — validar na Org.
+
+--- MANUAL_META=False ---
+FRENTE: Omni-Channel e Omni Supervisor | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Criar Service Channel para Chat/Mensagens
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Conforme PROJECT_INDEX.md, Marllon renomeou o ServiceChannel 'Email' para 'Case/Caso' diretamente na Org em 17/06 — Configuração viva na Org WS_SERVICE, não versionada em force-app — validar diretamente na Org.
+
+--- MANUAL_META=False ---
+FRENTE: Chat, WhatsApp e Bot Salesforce | UNIDADE: Rebocadores
+ATIVIDADE: Validar menus distintos por unidade de negócio
+Triscal: status=N/A resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Jornada do Case | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Implementar decisão Encerrar na criação
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Parcial
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: LWC de Manutenção da Categorização (categorizacaoManager) | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Listar apenas filas de Case relacionadas à Unidade de Negócio
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Sem tela de seleção de fila; hoje a fila é preenchida manualmente no registro (FilaDeveloperName__c).
+
+--- MANUAL_META=False ---
+FRENTE: Omni-Channel e Omni Supervisor | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Criar Service Channel para Case
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Configuração viva na Org WS_SERVICE, não versionada em force-app — validar diretamente na Org.
+
+--- MANUAL_META=False ---
+FRENTE: Pesquisa de Satisfação | UNIDADE: Rebocadores
+ATIVIDADE: Criar uma Salesforce Survey por Unidade de Negócio
+Triscal: status=Parcial resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Parametrização por unidade existe via CMDT; criação efetiva da Survey no Survey Builder não é versionável em force-app — validar na Org.
+
+--- MANUAL_META=False ---
+FRENTE: Homologação Funcional | UNIDADE: Centro Logístico
+ATIVIDADE: Testar Caso recorrente
+Triscal: status=Não iniciado resp=None data=None ambiente=None
+Repo:    status=Parcial
+Obs Triscal: Bloqueado: Apex Scheduler de Agendamento__c não localizado.
+
+--- MANUAL_META=False ---
+FRENTE: Jornada do Case | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Substituir o botão padrão New do Case por fluxo/tela customizada de categorização inicial
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Não localizado override de New Action nem LWC equivalente a caseNewCategorization no repositório.
+
+--- MANUAL_META=False ---
+FRENTE: LWC de Manutenção da Categorização (categorizacaoManager) | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Listar dinamicamente valores da picklist selecionada (para distribuição)
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Mesmo gap do item anterior — sem tela para configurar CampoDistribuicao__c/ValorDistribuicao__c.
+
+--- MANUAL_META=False ---
+FRENTE: Chat, WhatsApp e Bot Salesforce | UNIDADE: Centro Logístico
+ATIVIDADE: Validar menus distintos por unidade de negócio
+Triscal: status=N/A resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Jornada do Case | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Abrir a tela padrão de criação do Case com valores já preenchidos
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Parcial
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Pesquisa de Satisfação | UNIDADE: Centro Logístico
+ATIVIDADE: Criar uma Salesforce Survey por Unidade de Negócio
+Triscal: status=Parcial resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Parametrização por unidade existe via CMDT; criação efetiva da Survey no Survey Builder não é versionável em force-app — validar na Org.
+
+--- MANUAL_META=False ---
+FRENTE: Chat, WhatsApp e Bot Salesforce | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Definir nome final do Bot
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Depende de decisão de negócio.
+
+--- MANUAL_META=False ---
+FRENTE: Chat, WhatsApp e Bot Salesforce | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Configurar entrada por Chat/Enhanced Chat
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Chat, WhatsApp e Bot Salesforce | UNIDADE: Salvador
+ATIVIDADE: Validar menus distintos por unidade de negócio
+Triscal: status=N/A resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: LWC de Manutenção da Categorização (categorizacaoManager) | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Gravar labels funcionais para exibição e relatório
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Mesmo gap: campos existem, sem tela de preenchimento assistido.
+
+--- MANUAL_META=False ---
+FRENTE: LWC de Manutenção da Categorização (categorizacaoManager) | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Ocultar campos de fila quando Distribuir para fila? = Não
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Comportamento condicional de UI não existe fora da página padrão de edição do Setup.
+
+--- MANUAL_META=False ---
+FRENTE: Chat, WhatsApp e Bot Salesforce | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Identificar Unidade de Negócio pelo número/canal de WhatsApp
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Parcial
+Obs Triscal: Campo permite mapear canal→unidade; lógica de resolução em runtime não auditada nesta rodada.
+
+--- MANUAL_META=False ---
+FRENTE: Omni-Channel e Omni Supervisor | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Criar Presence Configurations
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Configuração viva na Org WS_SERVICE, não versionada em force-app — validar diretamente na Org.
+
+--- MANUAL_META=False ---
+FRENTE: Carga da Árvore de Atendimento | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Validar Tipo de Caso, Categoria, Assunto e Subassunto sem duplicidades
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Garantido estruturalmente pelo Hash único; validação de carga real pendente.
+
+--- MANUAL_META=False ---
+FRENTE: Jornada do Case | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Configurar Path de Etapa do Atendimento
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: Campo existe; .path-meta.xml não localizado no repositório.
+
+--- MANUAL_META=False ---
+FRENTE: Chat, WhatsApp e Bot Salesforce | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Garantir que as variáveis do pré-chat sejam capturadas corretamente no fluxo
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Chat, WhatsApp e Bot Salesforce | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Criar pré-chat com Unidade de Negócio, Nome e E-mail
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Casos Recorrentes / Agendamento | UNIDADE: Centro Logístico
+ATIVIDADE: Testar agendamentos por Conta no Centro Logístico
+Triscal: status=Não iniciado resp=None data=None ambiente=None
+Repo:    status=Parcial
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Carga da Árvore de Atendimento | UNIDADE: Rebocadores
+ATIVIDADE: Validar quais categorizações acionam áreas internas/N3
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Chat, WhatsApp e Bot Salesforce | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Configurar transbordo para Omni-Channel
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Parcial
+Obs Triscal: None
+
+--- MANUAL_META=False ---
+FRENTE: Jornada do Case | UNIDADE: Comum (todas as unidades)
+ATIVIDADE: Implementar decisão Assumir
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Parcial
+Obs Triscal: Campo de suporte existe; decisão completa (assumir/distribuir/encerrar) não confirmada em LWC.
+
+--- MANUAL_META=False ---
+FRENTE: Carga da Árvore de Atendimento | UNIDADE: Centro Logístico
+ATIVIDADE: Validar quais categorizações acionam áreas internas/N3
+Triscal: status=Concluído resp=None data=None ambiente=None
+Repo:    status=Não iniciado
+Obs Triscal: None
+

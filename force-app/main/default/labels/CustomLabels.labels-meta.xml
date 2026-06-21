@@ -121,6 +121,70 @@
         <value>Delete</value>
     </labels>
     <labels>
+        <fullName>GestaoSLA_CategoryDistributeToQueue</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category distribute to queue toggle label</shortDescription>
+        <value>Distribute to queue?</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryByCategorization</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category by categorization toggle label</shortDescription>
+        <value>By categorization?</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryQueue</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category queue combobox label</shortDescription>
+        <value>Case Queue</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryQueuePlaceholder</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category queue combobox placeholder</shortDescription>
+        <value>Select a queue</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryDistributionField</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category distribution field combobox label</shortDescription>
+        <value>Which field?</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryDistributionFieldPlaceholder</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category distribution field combobox placeholder</shortDescription>
+        <value>Select a Case field</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryDistributionValue</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category distribution value combobox label</shortDescription>
+        <value>Value</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryDistributionValuePlaceholder</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category distribution value combobox placeholder</shortDescription>
+        <value>Select a value</value>
+    </labels>
+    <labels>
         <fullName>GestaoSLA_CategoryEdit</fullName>
         <categories>GestaoSLA</categories>
         <language>en_US</language>

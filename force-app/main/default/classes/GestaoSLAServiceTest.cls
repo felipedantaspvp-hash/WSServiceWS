@@ -136,6 +136,7 @@ private class GestaoSLAServiceTest {
     @IsTest
     static void testSemPermissaoDeAcessoBloqueia() {
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, false);
 
         Boolean failed = false;
@@ -154,6 +155,7 @@ private class GestaoSLAServiceTest {
         createGestao('B', false);
 
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, true);
@@ -176,6 +178,110 @@ private class GestaoSLAServiceTest {
     }
 
     @IsTest
+    static void testBootstrapRestritoAUmaUnidadeAutoSelecionaEFiltraLista() {
+        GestaoSLA__c salvador = createGestao('Salvador', true);
+        salvador.UnidadeNegocio__c = 'Atendimento Tecon Salvador';
+        update salvador;
+        GestaoSLA__c rioGrande = createGestao('RioGrande', true);
+        rioGrande.UnidadeNegocio__c = 'Atendimento Tecon Rio Grande';
+        update rioGrande;
+
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, false);
+        GestaoSLAHelper.setAllowedUnidadesOverride(new Set<String>{ 'Atendimento Tecon Salvador' });
+
+        GestaoSLADTO.BootstrapResponse response = GestaoSLAService.getBootstrap();
+        Assert.areEqual(1, response.gestoes.size(), 'Usuário restrito a uma unidade deve ver apenas a Gestão de SLA dessa unidade.');
+        Assert.areEqual(salvador.Id, response.gestoes[0].id);
+        Assert.areEqual(1, response.unidadesDisponiveis.size());
+        Assert.areEqual('Atendimento Tecon Salvador', response.unidadeUnica, 'Deve indicar a única unidade disponível para auto-seleção na tela.');
+    }
+
+    @IsTest
+    static void testBootstrapAdminTecnicoVeTodasAsUnidadesMesmoComRestricaoDeRecordType() {
+        createGestao('Salvador', true);
+        GestaoSLA__c rioGrande = createGestao('RioGrande', true);
+        rioGrande.UnidadeNegocio__c = 'Atendimento Tecon Rio Grande';
+        update rioGrande;
+
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
+        GestaoSLAHelper.setAllowedUnidadesOverride(new Set<String>{ 'Atendimento Tecon Salvador' });
+
+        GestaoSLADTO.BootstrapResponse response = GestaoSLAService.getBootstrap();
+        Assert.areEqual(2, response.gestoes.size(), 'Admin Técnico deve ter acesso irrestrito, ignorando o Record Type disponível.');
+        Assert.areEqual(null, response.unidadesDisponiveis);
+        Assert.areEqual(null, response.unidadeUnica);
+    }
+
+    @IsTest
+    static void testBootstrapSemUnidadeDisponivelLancaErroFuncional() {
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, false);
+        GestaoSLAHelper.setAllowedUnidadesOverride(new Set<String>());
+
+        Boolean failed = false;
+        try {
+            GestaoSLAService.getBootstrap();
+        } catch (GestaoSLAService.FunctionalException ex) {
+            failed = true;
+            Assert.areEqual(true, String.isNotBlank(ex.getMessage()));
+        }
+        Assert.areEqual(true, failed, 'Usuário sem nenhuma Unidade de Negócio disponível deve receber erro funcional, não lista vazia silenciosa.');
+    }
+
+    @IsTest
+    static void testCreateCategoriaBloqueadaParaUnidadeNaoPermitida() {
+        GestaoSLA__c rioGrande = createGestao('RioGrandeBloqueio', true);
+        rioGrande.UnidadeNegocio__c = 'Atendimento Tecon Rio Grande';
+        update rioGrande;
+
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, false);
+        GestaoSLAHelper.setAllowedUnidadesOverride(new Set<String>{ 'Atendimento Tecon Salvador' });
+
+        GestaoSLADTO.CategoriaRequest req = new GestaoSLADTO.CategoriaRequest();
+        req.gestaoSLAId = rioGrande.Id;
+        req.tipoCaso = 'Solicitação';
+        req.categoria = 'Operação';
+        req.assunto = 'Acesso';
+
+        Boolean failed = false;
+        try {
+            GestaoSLAService.createCategoria(req);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            failed = true;
+        }
+        Assert.areEqual(true, failed, 'Usuário restrito à unidade Salvador não pode criar Categorização para Gestão de SLA de outra unidade (Rio Grande).');
+    }
+
+    @IsTest
+    static void testGetCategoriasBloqueadaParaUnidadeNaoPermitida() {
+        GestaoSLA__c rioGrande = createGestao('RioGrandeGetCat', true);
+        rioGrande.UnidadeNegocio__c = 'Atendimento Tecon Rio Grande';
+        update rioGrande;
+        createCategoria(rioGrande.Id, 'X', true);
+
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, false);
+        GestaoSLAHelper.setAllowedUnidadesOverride(new Set<String>{ 'Atendimento Tecon Salvador' });
+
+        Boolean failed = false;
+        try {
+            GestaoSLAService.getCategorias(rioGrande.Id, null, null, null, null, null);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            failed = true;
+        }
+        Assert.areEqual(true, failed, 'Usuário restrito à unidade Salvador não pode listar Categorizações de Gestão de SLA de outra unidade (Rio Grande).');
+    }
+
+    @IsTest
     static void testGetGestaoDetailComContadoresECamposTecnicos() {
         GestaoSLA__c g = createGestao('Detail', true);
         Categorizacao__c c1 = createCategoria(g.Id, '1', true);
@@ -185,6 +291,7 @@ private class GestaoSLAServiceTest {
         createRegra(g.Id, m1.Id, c1.Id, false);
 
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
 
@@ -201,6 +308,7 @@ private class GestaoSLAServiceTest {
     @IsTest
     static void testGetGestaoDetailErros() {
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
 
         Boolean nullFailed = false;
@@ -230,6 +338,7 @@ private class GestaoSLAServiceTest {
         createRegra(g1.Id, m.Id, c1.Id, true);
 
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
 
         GestaoSLADTO.CategoriasResponse all = GestaoSLAService.getCategorias(g1.Id, null, null, null, null, null);
@@ -248,6 +357,7 @@ private class GestaoSLAServiceTest {
         MarcoSLA__c m1 = createMarco(g.Id, 'Marco A', 1, true);
 
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, false);
         GestaoSLADTO.MarcosResponse semTecnico = GestaoSLAService.getMarcos(g.Id);
@@ -297,6 +407,7 @@ private class GestaoSLAServiceTest {
         );
 
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
 
         GestaoSLADTO.RegrasSLAResponse all = GestaoSLAService.getRegrasSLA(g1.Id, null, null, null, null, null);
@@ -334,6 +445,7 @@ private class GestaoSLAServiceTest {
     static void testGetRegrasSLASemPermissaoBloqueia() {
         GestaoSLA__c g = createGestao('REGRAS_SEM_PERM', true);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, false);
 
         Boolean failed = false;
@@ -349,6 +461,7 @@ private class GestaoSLAServiceTest {
     @IsTest
     static void testCreateGestaoSLAComSucesso() {
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
 
@@ -362,6 +475,7 @@ private class GestaoSLAServiceTest {
     @IsTest
     static void testCreateGestaoSLAComTemposOpcionais() {
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
 
@@ -378,6 +492,7 @@ private class GestaoSLAServiceTest {
     @IsTest
     static void testCreateGestaoSLASemPermissaoTecnica() {
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, false);
 
@@ -394,6 +509,7 @@ private class GestaoSLAServiceTest {
     @IsTest
     static void testCreateGestaoSLAValidacoesObrigatorias() {
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
 
@@ -432,6 +548,7 @@ private class GestaoSLAServiceTest {
     @IsTest
     static void testCreateGestaoSLABloqueiaDuplicidadesAtivas() {
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
 
@@ -469,6 +586,7 @@ private class GestaoSLAServiceTest {
     static void testUpdateGestaoSLAConfiguradorSemAdminTecnicoBloqueado() {
         GestaoSLA__c g = createGestao('EDIT_NON_ADMIN', true);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, false);
@@ -497,6 +615,7 @@ private class GestaoSLAServiceTest {
     static void testUpdateGestaoSLAAdminPermiteTemposNulos() {
         GestaoSLA__c g = createGestao('EDIT_ADMIN', true);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
 
@@ -523,6 +642,7 @@ private class GestaoSLAServiceTest {
     static void testUpdateGestaoSLANonAdminNaoPodeAlterarStatus() {
         GestaoSLA__c g = createGestao('EDIT_STATUS_NON_ADMIN', true);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, false);
@@ -551,6 +671,7 @@ private class GestaoSLAServiceTest {
     static void testGetInactiveGestoesSomenteAdminTecnico() {
         GestaoSLA__c inactive = createGestao('INATIVA_LISTA', false);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
 
@@ -575,6 +696,7 @@ private class GestaoSLAServiceTest {
         GestaoSLA__c inactive = createGestao('REATIVAR_OK', false);
 
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
 
@@ -602,6 +724,7 @@ private class GestaoSLAServiceTest {
     static void testCreateCategoriaComPermissao() {
         GestaoSLA__c g = createGestao('CAT_CREATE_OK', true);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
 
@@ -617,12 +740,95 @@ private class GestaoSLAServiceTest {
         GestaoSLADTO.CategoriaResumo response = GestaoSLAService.createCategoria(req);
         Assert.areEqual(g.UnidadeNegocio__c, response.unidadeNegocio);
         Assert.areEqual(true, response.ativo);
+        Assert.areEqual(false, response.distribuirParaFila, 'Sem solicitação de distribuição, DistribuirParaFila__c deve ficar Não.');
+    }
+
+    @IsTest
+    static void testCreateCategoriaComDistribuicaoSemFilaLancaErroFuncionalAmigavel() {
+        GestaoSLA__c g = createGestao('CAT_DIST_SEM_FILA', true);
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
+
+        GestaoSLADTO.CategoriaRequest req = new GestaoSLADTO.CategoriaRequest();
+        req.gestaoSLAId = g.Id;
+        req.tipoCaso = 'Solicitação';
+        req.categoria = 'Solicitação';
+        req.assunto = 'Cadastro';
+        req.ativo = true;
+        req.distribuirParaFila = true;
+        req.porCategorizacao = true;
+        // Fila intencionalmente omitida para validar a obrigatoriedade aplicada por
+        // CategorizacaoTriggerHandler -> CategorizacaoService.beforeSave (item 6.3.5 da especificação).
+
+        Boolean failed = false;
+        try {
+            GestaoSLAService.createCategoria(req);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            failed = true;
+            Assert.areEqual(true, ex.getMessage().contains('Fila'), 'Mensagem de erro deve ser amigável e mencionar a Fila, não um stacktrace de DmlException cru.');
+        }
+        Assert.areEqual(true, failed, 'Distribuir para fila sem informar a Fila deve falhar com erro funcional amigável.');
+    }
+
+    @IsTest
+    static void testCreateCategoriaComDistribuicaoPorCampoSemValorLancaErroFuncionalAmigavel() {
+        GestaoSLA__c g = createGestao('CAT_DIST_SEM_VALOR', true);
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
+
+        GestaoSLADTO.CategoriaRequest req = new GestaoSLADTO.CategoriaRequest();
+        req.gestaoSLAId = g.Id;
+        req.tipoCaso = 'Solicitação';
+        req.categoria = 'Solicitação';
+        req.assunto = 'Cadastro';
+        req.ativo = true;
+        req.distribuirParaFila = true;
+        req.porCategorizacao = false;
+        req.campoDistribuicao = 'Origin';
+        // Valor de distribuição intencionalmente omitido.
+
+        Boolean failed = false;
+        try {
+            GestaoSLAService.createCategoria(req);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            failed = true;
+        }
+        Assert.areEqual(true, failed, 'Distribuir por campo sem informar o Valor deve falhar com erro funcional amigável.');
+    }
+
+    @IsTest
+    static void testUpdateCategoriaPersisteCamposDeDistribuicaoQuandoValidos() {
+        GestaoSLA__c g = createGestao('CAT_UPDATE_DIST', true);
+        Categorizacao__c c = createCategoria(g.Id, 'UpdateDist', true);
+
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
+
+        GestaoSLADTO.CategoriaRequest req = new GestaoSLADTO.CategoriaRequest();
+        req.id = c.Id;
+        req.gestaoSLAId = g.Id;
+        req.tipoCaso = c.TipoCaso__c;
+        req.categoria = c.Categoria__c;
+        req.assunto = c.Assunto__c;
+        req.ativo = true;
+        req.distribuirParaFila = false;
+
+        GestaoSLADTO.CategoriaResumo response = GestaoSLAService.updateCategoria(req);
+        Assert.areEqual(false, response.distribuirParaFila);
+        Assert.areEqual(null, response.filaDeveloperName);
     }
 
     @IsTest
     static void testCreateCategoriaPermiteSubassuntoEPrioridadeVazios() {
         GestaoSLA__c g = createGestao('CAT_CREATE_NULLS', true);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
 
@@ -644,6 +850,7 @@ private class GestaoSLAServiceTest {
     static void testCreateCategoriaSemPermissao() {
         GestaoSLA__c g = createGestao('CAT_CREATE_SEM_PERM', true);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, false);
 
@@ -670,6 +877,7 @@ private class GestaoSLAServiceTest {
     static void testCreateCategoriaBloqueiaDuplicidadeEPrioridadeInvalida() {
         GestaoSLA__c g = createGestao('CAT_DUP', true);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
 
@@ -714,6 +922,7 @@ private class GestaoSLAServiceTest {
     static void testCreateCategoriaBloqueiaDuplicidadeComSubassuntoVazio() {
         GestaoSLA__c g = createGestao('CAT_DUP_EMPTY_SUB', true);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
 
@@ -743,6 +952,7 @@ private class GestaoSLAServiceTest {
         Categorizacao__c c = createCategoria(g.Id, 'CAT_UPD', true);
 
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
 
@@ -771,6 +981,7 @@ private class GestaoSLAServiceTest {
         Categorizacao__c c = createCategoria(g.Id, 'CAT_UPD_INVALID_PRIO', true);
 
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
 
@@ -800,6 +1011,7 @@ private class GestaoSLAServiceTest {
         Categorizacao__c c = createCategoria(g.Id, 'REGRA_CRUD', true);
         MarcoSLA__c m = createMarco(g.Id, 'Atendimento N3 CRUD', 1, true);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, true);
 
@@ -835,6 +1047,7 @@ private class GestaoSLAServiceTest {
         Categorizacao__c c = createCategoria(g.Id, 'REGRA_INATIVA_EDIT', true);
         MarcoSLA__c m = createMarco(g.Id, 'Marco Inativa Edit', 1, true);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, true);
 
@@ -864,6 +1077,7 @@ private class GestaoSLAServiceTest {
         Categorizacao__c c = createCategoria(g.Id, 'REGRA_SEM_PERM', true);
         MarcoSLA__c m = createMarco(g.Id, 'Marco Sem Perm', 1, true);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, false);
 
@@ -887,6 +1101,7 @@ private class GestaoSLAServiceTest {
         GestaoSLA__c g = createGestao('REGRA_AREA_INTERNA', true);
         Categorizacao__c c = createCategoria(g.Id, 'REGRA_AREA_INTERNA', true);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, true);
 
@@ -916,6 +1131,7 @@ private class GestaoSLAServiceTest {
         Categorizacao__c c = createCategoria(g.Id, 'REGRA_VALID', true);
         MarcoSLA__c m = createMarco(g.Id, 'Marco Valid', 1, true);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, true);
 
@@ -964,6 +1180,7 @@ private class GestaoSLAServiceTest {
         Categorizacao__c c = createCategoria(g.Id, 'REGRA_DUP', true);
         MarcoSLA__c m = createMarco(g.Id, 'Marco Dup', 1, true);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, true);
 
@@ -998,6 +1215,7 @@ private class GestaoSLAServiceTest {
         Categorizacao__c c1 = createCategoria(g1.Id, 'REGRA_REF', true);
         MarcoSLA__c m2 = createMarco(g2.Id, 'Marco Outro', 1, true);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, true);
 
@@ -1022,6 +1240,7 @@ private class GestaoSLAServiceTest {
         Categorizacao__c c = createCategoria(g.Id, 'AT_NO_AREA', true);
         MarcoSLA__c m = createMarco(g.Id, 'Marco AT', 1, true);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, true);
 
@@ -1041,6 +1260,7 @@ private class GestaoSLAServiceTest {
         Categorizacao__c c = createCategoria(g.Id, 'AI_NO_MARCO', true);
         MarcoSLA__c m = createMarco(g.Id, 'Marco AI', 1, true);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, true);
 
@@ -1067,6 +1287,7 @@ private class GestaoSLAServiceTest {
         update c2base;
         Categorizacao__c c2 = c2base;
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, true);
 
@@ -1102,6 +1323,7 @@ private class GestaoSLAServiceTest {
         String area2 = areas[1];
 
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, true);
 
@@ -1157,6 +1379,7 @@ private class GestaoSLAServiceTest {
         RegrasSLACategorizacao__c regra = [SELECT Id FROM RegrasSLACategorizacao__c WHERE Categorizacao__c = :c.Id LIMIT 1];
 
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, false);
 
@@ -1183,6 +1406,7 @@ private class GestaoSLAServiceTest {
         RegrasSLACategorizacao__c regra = [SELECT Id FROM RegrasSLACategorizacao__c WHERE Categorizacao__c = :c.Id LIMIT 1];
 
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, false);
 
@@ -1208,6 +1432,7 @@ private class GestaoSLAServiceTest {
         createRegra(g.Id, m.Id, c.Id, true);
 
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
 
@@ -1223,6 +1448,7 @@ private class GestaoSLAServiceTest {
         createCategoria(g.Id, 'DelGestaoCateg', true);
 
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
 
@@ -1242,6 +1468,7 @@ private class GestaoSLAServiceTest {
         GestaoSLA__c g = createGestao('DelGestaoSolo', true);
 
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
 

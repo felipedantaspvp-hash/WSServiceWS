@@ -757,6 +757,38 @@
         <name>GestaoSLA_CategoryDelete</name>
     </customLabels>
     <customLabels>
+        <label>Distribuir para fila?</label>
+        <name>GestaoSLA_CategoryDistributeToQueue</name>
+    </customLabels>
+    <customLabels>
+        <label>Por categorização?</label>
+        <name>GestaoSLA_CategoryByCategorization</name>
+    </customLabels>
+    <customLabels>
+        <label>Fila de Case</label>
+        <name>GestaoSLA_CategoryQueue</name>
+    </customLabels>
+    <customLabels>
+        <label>Selecione uma fila</label>
+        <name>GestaoSLA_CategoryQueuePlaceholder</name>
+    </customLabels>
+    <customLabels>
+        <label>Qual campo?</label>
+        <name>GestaoSLA_CategoryDistributionField</name>
+    </customLabels>
+    <customLabels>
+        <label>Selecione um campo do Case</label>
+        <name>GestaoSLA_CategoryDistributionFieldPlaceholder</name>
+    </customLabels>
+    <customLabels>
+        <label>Valor</label>
+        <name>GestaoSLA_CategoryDistributionValue</name>
+    </customLabels>
+    <customLabels>
+        <label>Selecione um valor</label>
+        <name>GestaoSLA_CategoryDistributionValuePlaceholder</name>
+    </customLabels>
+    <customLabels>
         <label>Editar</label>
         <name>GestaoSLA_CategoryEdit</name>
     </customLabels>
@@ -24946,22 +24978,6 @@
     </flowDefinitions>
     <flowDefinitions>
         <flows>
-            <customErrorMessages>
-                <developerName>Custom_Error_Message_1</developerName>
-                <field>ValorMinimoPeriodo__c</field>
-            </customErrorMessages>
-            <customErrorMessages>
-                <developerName>Custom_Error_Message_4</developerName>
-                <field>PercentualDoPeriodo__c</field>
-            </customErrorMessages>
-            <customErrorMessages>
-                <developerName>Custom_Error_Message_2</developerName>
-                <field>ValorDeCNTRPeriodo__c</field>
-            </customErrorMessages>
-            <customErrorMessages>
-                <developerName>Custom_Error_Message_3</developerName>
-                <field>ValorMinimoDiarioPorProcessoPeriodo__c</field>
-            </customErrorMessages>
             <textTemplates>
                 <name>TT_ListPrice_Consolidado</name>
             </textTemplates>

@@ -719,6 +719,55 @@
                                 onchange={handleCategoriaInputChange}
                                 required
                             ></lightning-combobox>
+
+                            <lightning-input
+                                type="toggle"
+                                label={labels.categoryDistributeToQueue}
+                                name="distribuirParaFila"
+                                checked={categoriaForm.distribuirParaFila}
+                                onchange={handleCategoriaInputChange}
+                                class="slds-m-top_medium"
+                            ></lightning-input>
+
+                            <template if:true={showCategoriaDistribuicao}>
+                                <lightning-input
+                                    type="toggle"
+                                    label={labels.categoryByCategorization}
+                                    name="porCategorizacao"
+                                    checked={categoriaForm.porCategorizacao}
+                                    onchange={handleCategoriaInputChange}
+                                ></lightning-input>
+                                <lightning-combobox
+                                    label={labels.categoryQueue}
+                                    name="filaDeveloperName"
+                                    value={categoriaForm.filaDeveloperName}
+                                    options={categoriaQueueOptions}
+                                    placeholder={labels.categoryQueuePlaceholder}
+                                    onchange={handleCategoriaInputChange}
+                                    required={categoriaFilaRequired}
+                                ></lightning-combobox>
+                            </template>
+
+                            <template if:true={showCategoriaCampoValor}>
+                                <lightning-combobox
+                                    label={labels.categoryDistributionField}
+                                    name="campoDistribuicao"
+                                    value={categoriaForm.campoDistribuicao}
+                                    options={categoriaCasePicklistFieldOptions}
+                                    placeholder={labels.categoryDistributionFieldPlaceholder}
+                                    onchange={handleCategoriaInputChange}
+                                    required={categoriaCampoValorRequired}
+                                ></lightning-combobox>
+                                <lightning-combobox
+                                    label={labels.categoryDistributionValue}
+                                    name="valorDistribuicao"
+                                    value={categoriaForm.valorDistribuicao}
+                                    options={categoriaCasePicklistValueOptions}
+                                    placeholder={labels.categoryDistributionValuePlaceholder}
+                                    onchange={handleCategoriaInputChange}
+                                    required={categoriaCampoValorRequired}
+                                ></lightning-combobox>
+                            </template>
                         </div>
                         <footer class="slds-modal__footer">
                             <lightning-button label={labels.categoryModalCancel} onclick={closeCategoriaModal}></lightning-button>

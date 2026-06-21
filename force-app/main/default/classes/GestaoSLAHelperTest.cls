@@ -15,6 +15,26 @@ private class GestaoSLAHelperTest {
     }
 
     @IsTest
+    static void testAllowedUnidadesOverrideSeam() {
+        GestaoSLAHelper.clearAllowedUnidadesOverride();
+        GestaoSLAHelper.setAllowedUnidadesOverride(new Set<String>{ 'Atendimento Tecon Salvador' });
+        Assert.areEqual(1, GestaoSLAHelper.getAllowedUnidadesNegocio().size());
+        Assert.areEqual(true, GestaoSLAHelper.getAllowedUnidadesNegocio().contains('Atendimento Tecon Salvador'));
+
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        Assert.areEqual(null, GestaoSLAHelper.getAllowedUnidadesNegocio());
+
+        GestaoSLAHelper.clearAllowedUnidadesOverride();
+    }
+
+    @IsTest
+    static void testGetAllowedUnidadesNegocioSemOverrideUsaRecordTypeReal() {
+        GestaoSLAHelper.clearAllowedUnidadesOverride();
+        Set<String> result = GestaoSLAHelper.getAllowedUnidadesNegocio();
+        Assert.areNotEqual(null, result, 'Sem override, o método deve computar a partir do Record Type real do usuário (pode ser vazio, mas não null).');
+    }
+
+    @IsTest
     static void testNormalizeTextAndLikePattern() {
         Assert.areEqual('', GestaoSLAHelper.normalizeText(null));
         Assert.areEqual('', GestaoSLAHelper.normalizeText('   '));

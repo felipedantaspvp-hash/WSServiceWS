@@ -83,6 +83,7 @@ private class GestaoSLAControllerTest {
     static void testControllerMethodsSuccess() {
         GestaoSLA__c g = createGestao();
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
 
@@ -105,6 +106,7 @@ private class GestaoSLAControllerTest {
     @IsTest
     static void testControllerThrowsAuraHandledWhenNoPermission() {
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, false);
         GestaoSLA__c g = createGestao();
 
@@ -157,6 +159,7 @@ private class GestaoSLAControllerTest {
     @IsTest
     static void testControllerCreateGestaoSLA() {
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
         String unidade = 'Salvador';
@@ -183,6 +186,7 @@ private class GestaoSLAControllerTest {
     static void testControllerUpdateGestaoSLA() {
         GestaoSLA__c g = createGestao();
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
 
@@ -204,6 +208,7 @@ private class GestaoSLAControllerTest {
     static void testControllerUpdateGestaoSLABloqueiaSemAdminTecnico() {
         GestaoSLA__c g = createGestao();
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, false);
@@ -232,6 +237,7 @@ private class GestaoSLAControllerTest {
     static void testControllerGetInactiveAndReactivate() {
         GestaoSLA__c gInativa = createGestaoInativa('A');
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
 
@@ -247,6 +253,7 @@ private class GestaoSLAControllerTest {
     static void testControllerCategoriaCrud() {
         GestaoSLA__c g = createGestao();
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
 
@@ -283,6 +290,7 @@ private class GestaoSLAControllerTest {
     static void testControllerCategoriaCrudSemPermissao() {
         GestaoSLA__c g = createGestao();
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, false);
 
@@ -329,6 +337,7 @@ private class GestaoSLAControllerTest {
         Categorizacao__c c = createCategoria(g.Id);
         MarcoSLA__c m = createMarco(g.Id);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, true);
 
@@ -348,6 +357,7 @@ private class GestaoSLAControllerTest {
     @IsTest
     static void testControllerRegraSLAConverteErroFuncional() {
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, false);
 
@@ -366,6 +376,7 @@ private class GestaoSLAControllerTest {
         GestaoSLA__c g = createGestao();
         Categorizacao__c c = createCategoria(g.Id);
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
 
@@ -383,6 +394,7 @@ private class GestaoSLAControllerTest {
     @IsTest
     static void testControllerRegraSLAUpdateDeactivateSemPermissao() {
         GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, false);
 
