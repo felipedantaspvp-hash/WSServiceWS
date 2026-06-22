@@ -211,4 +211,99 @@ private class CaseCreationServiceTest {
         Assert.areEqual(true, CaseCreationHelper.toSortedTranslatedOptions(new Set<String>{ 'Manual' }, 'Origin').size() > 0);
         Assert.areEqual(true, CaseCreationHelper.toSortedOptionsWithLabels(new Set<String>{ 'Solicitação' }, new Map<String, String>{ 'Solicitação' => 'Solicitação' }, 'TipoCaso__c').size() > 0);
     }
+
+    private static RecordType salvadorCategorizacaoRt() {
+        return [SELECT Id, DeveloperName FROM RecordType WHERE SObjectType = 'Categorizacao__c' AND DeveloperName = 'AtendimentoTeconSalvador' LIMIT 1];
+    }
+
+    private static RecordType salvadorCaseRt() {
+        return [SELECT Id, DeveloperName FROM RecordType WHERE SObjectType = 'Case' AND DeveloperName = 'AtendimentoTeconSalvador' LIMIT 1];
+    }
+
+    @IsTest
+    static void testApplyCampoCustomizadoDistributionOverridesOwnerWhenFieldMatches() {
+        Categorizacao__c cat = CategorizacaoTestDataFactory.base(true, false);
+        cat.RecordTypeId = salvadorCategorizacaoRt().Id;
+        cat.UnidadeNegocios__c = 'Atendimento Tecon Salvador';
+        cat.FilaDeveloperName__c = 'TSV_Q_TEST';
+        cat.CampoDistribuicao__c = 'Priority';
+        cat.ValorDistribuicao__c = 'High';
+        insert cat;
+        cat = [SELECT Id, UnidadeNegocios__c, FilaId__c FROM Categorizacao__c WHERE Id = :cat.Id];
+
+        Group queue = [SELECT Id FROM Group WHERE DeveloperName = 'TSV_Q_TEST' LIMIT 1];
+
+        Case c = new Case(
+            Subject = 'Teste distribuição por campo customizado',
+            RecordTypeId = salvadorCaseRt().Id,
+            UnidadeNegocio__c = 'Atendimento Tecon Salvador',
+            Origin = 'Manual',
+            Status = 'Aberto',
+            Priority = 'High',
+            Categorizacao__c = cat.Id
+        );
+        insert c;
+
+        Case saved = [SELECT OwnerId, DistribuicaoSolicitada__c, OrigemDistribuicao__c, FilaDestinoDeveloperName__c, FilaDestinoId__c FROM Case WHERE Id = :c.Id];
+        Assert.areEqual(queue.Id, saved.OwnerId, 'Owner deve ser sobrescrito para a fila quando o valor do campo customizado bate com o configurado.');
+        Assert.areEqual(true, saved.DistribuicaoSolicitada__c);
+        Assert.areEqual('Categorização', saved.OrigemDistribuicao__c);
+        Assert.areEqual('TSV_Q_TEST', saved.FilaDestinoDeveloperName__c);
+        Assert.areEqual(queue.Id, saved.FilaDestinoId__c);
+    }
+
+    @IsTest
+    static void testApplyCampoCustomizadoDistributionNaoSobrescreveOwnerQuandoValorNaoBate() {
+        Categorizacao__c cat = CategorizacaoTestDataFactory.base(true, false);
+        cat.RecordTypeId = salvadorCategorizacaoRt().Id;
+        cat.UnidadeNegocios__c = 'Atendimento Tecon Salvador';
+        cat.FilaDeveloperName__c = 'TSV_Q_TEST';
+        cat.CampoDistribuicao__c = 'Priority';
+        cat.ValorDistribuicao__c = 'High';
+        insert cat;
+        cat = [SELECT Id, UnidadeNegocios__c FROM Categorizacao__c WHERE Id = :cat.Id];
+
+        Id currentUserId = UserInfo.getUserId();
+        Case c = new Case(
+            Subject = 'Teste distribuição por campo customizado - valor diferente',
+            RecordTypeId = salvadorCaseRt().Id,
+            UnidadeNegocio__c = 'Atendimento Tecon Salvador',
+            Origin = 'Manual',
+            Status = 'Aberto',
+            Priority = 'Low',
+            Categorizacao__c = cat.Id,
+            OwnerId = currentUserId
+        );
+        insert c;
+
+        Case saved = [SELECT OwnerId, DistribuicaoSolicitada__c FROM Case WHERE Id = :c.Id];
+        Assert.areEqual(currentUserId, saved.OwnerId, 'Owner não deve ser alterado quando o valor do campo não bate com o configurado.');
+        Assert.areEqual(false, saved.DistribuicaoSolicitada__c);
+    }
+
+    @IsTest
+    static void testApplyCampoCustomizadoDistributionIgnoraQuandoCategorizacaoNaoUsaCampoCustomizado() {
+        Categorizacao__c cat = CategorizacaoTestDataFactory.base(true, true);
+        cat.RecordTypeId = salvadorCategorizacaoRt().Id;
+        cat.UnidadeNegocios__c = 'Atendimento Tecon Salvador';
+        cat.FilaDeveloperName__c = 'TSV_Q_TEST';
+        insert cat;
+        cat = [SELECT Id, UnidadeNegocios__c FROM Categorizacao__c WHERE Id = :cat.Id];
+
+        Id currentUserId = UserInfo.getUserId();
+        Case c = new Case(
+            Subject = 'Teste distribuição direta por categorização — não deve ser afetado',
+            RecordTypeId = salvadorCaseRt().Id,
+            UnidadeNegocio__c = 'Atendimento Tecon Salvador',
+            Origin = 'Manual',
+            Status = 'Aberto',
+            Priority = 'High',
+            Categorizacao__c = cat.Id,
+            OwnerId = currentUserId
+        );
+        insert c;
+
+        Case saved = [SELECT OwnerId FROM Case WHERE Id = :c.Id];
+        Assert.areEqual(currentUserId, saved.OwnerId, 'Categorização sem campo customizado não deve disparar essa lógica.');
+    }
 }

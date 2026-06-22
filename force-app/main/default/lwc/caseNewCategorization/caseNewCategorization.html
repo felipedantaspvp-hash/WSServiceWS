@@ -1,0 +1,95 @@
+<template>
+    <lightning-card title={labels.cardTitle} icon-name="standard:case">
+        <div class="form-shell slds-p-around_medium">
+            <p class="slds-text-body_small slds-m-bottom_medium">{labels.subtitle}</p>
+
+            <template if:true={loading}>
+                <lightning-spinner alternative-text="Carregando"></lightning-spinner>
+            </template>
+
+            <template if:false={loading}>
+                    <div class="section-title">{labels.ctxTitle}</div>
+                    <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                        <template if:true={showRecordTypeSelector}>
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                <lightning-combobox name="recordTypeId" label={labels.unidadeRecordType} value={model.recordTypeId} options={recordTypeOptions} onchange={handleRecordTypeChange}></lightning-combobox>
+                            </div>
+                        </template>
+                        <template if:false={showRecordTypeSelector}>
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                <lightning-input label={fieldLabels.unidadeNegocio} value={model.unidadeNegocio} disabled></lightning-input>
+                            </div>
+                        </template>
+                    </div>
+
+                    <div class="section-title">{labels.categorizationTitle}</div>
+                    <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning-combobox name="tipoCaso" label={fieldLabels.tipoCaso} value={model.tipoCaso} options={tipoOptions} onchange={handleFieldChange} disabled={disableTipoCaso} required={requiredTipoCaso}></lightning-combobox>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning-combobox name="categoria" label={fieldLabels.categoria} value={model.categoria} options={categoriaOptions} onchange={handleFieldChange} disabled={disableCategoria} required={requiredCategoria}></lightning-combobox>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning-combobox name="assunto" label={fieldLabels.assunto} value={model.assunto} options={assuntoOptions} onchange={handleFieldChange} disabled={disableAssunto} required={requiredAssunto}></lightning-combobox>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning-combobox name="subassunto" label={fieldLabels.subassunto} value={model.subassunto} options={subassuntoOptions} onchange={handleFieldChange} disabled={disableSubassunto} required={requiredSubassunto}></lightning-combobox>
+                        </div>
+                    </div>
+
+                    <div class="section-title">{labels.destinationTitle}</div>
+                    <div class="slds-m-bottom_medium">
+                        <div class="destination-title">{labels.destino}</div>
+                        <div class="destination-grid">
+                            <template for:each={destinationCards} for:item="card">
+                                <template if:true={card.checked}>
+                                    <button
+                                        key={card.value}
+                                        class="destination-card destination-card_selected"
+                                        data-value={card.value}
+                                        onclick={handleDestinationCardSelect}
+                                        type="button"
+                                    >
+                                        <div class="destination-radio">◉</div>
+                                        <div class="destination-content">
+                                            <div class="destination-label">{card.label}</div>
+                                            <div class="destination-description">{card.description}</div>
+                                        </div>
+                                    </button>
+                                </template>
+                                <template if:false={card.checked}>
+                                    <button
+                                        key={card.value}
+                                        class="destination-card"
+                                        data-value={card.value}
+                                        onclick={handleDestinationCardSelect}
+                                        type="button"
+                                    >
+                                        <div class="destination-radio">◯</div>
+                                        <div class="destination-content">
+                                            <div class="destination-label">{card.label}</div>
+                                            <div class="destination-description">{card.description}</div>
+                                        </div>
+                                    </button>
+                                </template>
+                            </template>
+                        </div>
+                    </div>
+                    <template if:true={resolvedQueue}>
+                        <lightning-input label={labels.queueResolved} value={resolvedQueue.developerName} disabled></lightning-input>
+                    </template>
+                    <template if:true={showQueueSelector}>
+                        <lightning-combobox label={labels.manualQueue} value={selectedQueueDeveloperName} options={queueOptions} onchange={handleQueueChange}></lightning-combobox>
+                    </template>
+
+                <div class="actions-footer">
+                    <div class="actions-row slds-grid slds-gutters_small slds-grid_align-center">
+                        <lightning-button variant="neutral" label={labels.cancel} onclick={cancel}></lightning-button>
+                        <lightning-button variant="brand" label={labels.continueCase} onclick={continueToStandardForm} disabled={disableContinue}></lightning-button>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

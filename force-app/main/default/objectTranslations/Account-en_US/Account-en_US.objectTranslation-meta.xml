@@ -85,6 +85,10 @@
         <name>Campo_Status</name>
     </validationRules>
     <validationRules>
+        <errorMessage><!-- Preencha Domínio E-mail apenas na conta principal da hierarquia ou no Grupo Econômico. --></errorMessage>
+        <name>DominiosEmail_apenas_conta_principal</name>
+    </validationRules>
+    <validationRules>
         <errorMessage><!-- CompanyId should be a numeric value --></errorMessage>
         <name>LID__Check_CompanyId_Value</name>
     </validationRules>

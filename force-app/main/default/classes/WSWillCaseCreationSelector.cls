@@ -8,32 +8,6 @@
 public inherited sharing class WSWillCaseCreationSelector {
 
     /**
-     * @description Retorna Contacts pelos Ids informados com campos de identificação e preferência de idioma.
-     * @param contactIds Conjunto de Ids a consultar.
-     * @return Mapa de Id → Contact.
-     **/
-    public static Map<Id, Contact> selectContactsByIds(Set<Id> contactIds) {
-        return new Map<Id, Contact>([
-            SELECT Id, AccountId, Name, Email, Phone, Idioma__c
-            FROM Contact
-            WHERE Id IN :contactIds
-        ]);
-    }
-
-    /**
-     * @description Retorna Contacts pelos endereços de e-mail informados.
-     * @param emails Conjunto de e-mails (em minúsculas) a consultar.
-     * @return Lista de Contact.
-     **/
-    public static List<Contact> selectContactsByEmails(Set<String> emails) {
-        return [
-            SELECT Id, AccountId, Name, Email, Phone, Idioma__c
-            FROM Contact
-            WHERE Email IN :emails
-        ];
-    }
-
-    /**
      * @description Retorna MessagingSessions pelos Ids informados.
      * @param sessionIds Conjunto de Ids a consultar.
      * @return Mapa de Id → MessagingSession.

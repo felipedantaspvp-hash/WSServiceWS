@@ -25,10 +25,6 @@
         <translation>Scheduling Discrepancy Follow-up</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Acompanhar veiculo sem agendamento</masterLabel>
-        <translation>Unscheduled Vehicle Follow-up</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Acompanhar veículo sem agendamento</masterLabel>
         <translation>Unscheduled Vehicle Follow-up</translation>
     </valueTranslation>
@@ -41,10 +37,6 @@
         <translation>Container Scheduling</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Agendamentos</masterLabel>
-        <translation>Scheduling</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Agendar visita presencial</masterLabel>
         <translation>Schedule On-site Visit</translation>
     </valueTranslation>
@@ -55,10 +47,6 @@
     <valueTranslation>
         <masterLabel>Ajustes de OS</masterLabel>
         <translation>Work Order Adjustments</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Amount of employed tugboats</masterLabel>
-        <translation>Amount of employed tugboats</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Antecipação de agendamento</masterLabel>
@@ -85,20 +73,12 @@
         <translation>Cargo Delivery Delay - Siscomex</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Atraso na entrega de carga Siscomex</masterLabel>
-        <translation>Cargo Delivery Delay - Siscomex</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Atraso na negociação comercial</masterLabel>
         <translation>Commercial Negotiation Delay</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Atraso no faturamento</masterLabel>
         <translation>Billing Delay</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Atraso ou Erro na Lib. Doc.</masterLabel>
-        <translation>Document Release Error or Delay</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Atraso ou Erro no Serviço</masterLabel>
@@ -157,10 +137,6 @@
         <translation>Individual Registration</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Cadastro Pessoa Juridica</masterLabel>
-        <translation>Company Registration</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Cadastro Pessoa Jurídica</masterLabel>
         <translation>Company Registration</translation>
     </valueTranslation>
@@ -181,12 +157,8 @@
         <translation>Protest Letter</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Clarification about maneuvers</masterLabel>
-        <translation>Clarification about maneuvers</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Commercial Data</masterLabel>
-        <translation>Commercial Data</translation>
+        <masterLabel>Carta de Indisponibilidade</masterLabel>
+        <translation>Unavailability Letter</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Compliance</masterLabel>
@@ -213,44 +185,20 @@
         <translation>Confirm Due Date</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Conformidade</masterLabel>
-        <translation>Compliance</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Contas a pagar</masterLabel>
         <translation>Accounts Payable</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Contestação de Demonstrativos</masterLabel>
+        <masterLabel>Contestação de Demonstrativos ou Fatura</masterLabel>
         <translation>Statement Dispute</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Contestação de demonstrativos ou fatura</masterLabel>
-        <translation>Invoice / Statement Dispute</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Conversa externa</masterLabel>
         <translation>External Communication</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Currency conversion request</masterLabel>
-        <translation>Currency conversion request</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Currículo</masterLabel>
         <translation>Resume / CV</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>DESOVA CROSS DOCKING</masterLabel>
-        <translation>Cross-Docking Unstuffing</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>DESOVA FREE TIME</masterLabel>
-        <translation>Free Time Unstuffing</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>DTA / DTC</masterLabel>
-        <translation>DTA / DTC</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>DTA/DTC</masterLabel>
@@ -271,10 +219,6 @@
     <valueTranslation>
         <masterLabel>Dados do recinto</masterLabel>
         <translation>Terminal Data</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Delay in commercial negotiation</masterLabel>
-        <translation>Delay in commercial negotiation</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Demandas</masterLabel>
@@ -301,8 +245,12 @@
         <translation>Consolidated Unstuffing</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Desova consolidado</masterLabel>
-        <translation>Consolidated Unstuffing</translation>
+        <masterLabel>Desova Cross Docking</masterLabel>
+        <translation>Cross-Docking Unstuffing</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Desova Free Time</masterLabel>
+        <translation>Free Time Unstuffing</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Devolução</masterLabel>
@@ -317,44 +265,12 @@
         <translation>Tecon Routing</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Direcionamento de Tezon</masterLabel>
-        <translation>Tezon Routing</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Diversos</masterLabel>
         <translation>Miscellaneous</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Doubts about PO</masterLabel>
-        <translation>Doubts about PO</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Doubts about currency change tariff</masterLabel>
-        <translation>Doubts about currency change tariff</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Doubts about invoice</masterLabel>
-        <translation>Doubts about invoice</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Doubts about local port</masterLabel>
-        <translation>Doubts about local port</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Doubts about the responsible owner</masterLabel>
-        <translation>Doubts about the responsible owner</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Doubts about the vessel&apos;s name</masterLabel>
-        <translation><!-- Doubts about the vessel&apos;s name --></translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Doubts on the amount of employed tugboats</masterLabel>
         <translation>Doubts on the amount of employed tugboats</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Duvidas diversas</masterLabel>
-        <translation>General Inquiries</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Dúvidas DUIMP</masterLabel>
@@ -375,6 +291,14 @@
     <valueTranslation>
         <masterLabel>Dúvidas sobre fatura</masterLabel>
         <translation>Invoice Inquiries</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dúvidas sobre o nome da embarcação</masterLabel>
+        <translation><!-- Dúvidas sobre o nome da embarcação --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Dúvidas sobre o proprietário responsável</masterLabel>
+        <translation>Doubts about the responsible owner</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Dúvidas sobre porto local</masterLabel>
@@ -433,7 +357,7 @@
         <translation>Forward CDA (Bonded Warehouse Certificate)</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Encaminhar TFA (termo de Falta e Avaria)</masterLabel>
+        <masterLabel>Encaminhar TFA (Termo de Falta e Avaria)</masterLabel>
         <translation>Forward TFA (Shortage and Damage Report)</translation>
     </valueTranslation>
     <valueTranslation>
@@ -485,10 +409,6 @@
         <translation>Send Return Note</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Envio de sequencia de pilha</masterLabel>
-        <translation>Send Stack Sequence</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Envio de sequência de pilha</masterLabel>
         <translation>Send Stack Sequence</translation>
     </valueTranslation>
@@ -499,6 +419,14 @@
     <valueTranslation>
         <masterLabel>Erro ao faturar responsável incorreto</masterLabel>
         <translation>Billing Error - Wrong Responsible Party</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Erro ao iniciar a manobra</masterLabel>
+        <translation>Error launching the maneuver</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Erro ao nomear a embarcação</masterLabel>
+        <translation>Error naming the vessel</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Erro na Concessão de Desconto</masterLabel>
@@ -537,26 +465,6 @@
         <translation>Registration Error or Delay</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Erro ou atraso atualização cadastral</masterLabel>
-        <translation>Registration Update Error or Delay</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Erro ou atraso no cadastro de cliente</masterLabel>
-        <translation>Customer Registration Error or Delay</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Erro/indisponibilidade Portal</masterLabel>
-        <translation>Portal Error / Unavailability</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Error launching the maneuver</masterLabel>
-        <translation>Error launching the maneuver</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Error naming the vessel</masterLabel>
-        <translation>Error naming the vessel</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Esclarecimento sobre manobras</masterLabel>
         <translation>Maneuver Clarification</translation>
     </valueTranslation>
@@ -567,10 +475,6 @@
     <valueTranslation>
         <masterLabel>Expedição manual</masterLabel>
         <translation>Manual Dispatch</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>FOTOGRAFIA</masterLabel>
-        <translation>Photography</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Falha de Recebimento</masterLabel>
@@ -601,10 +505,6 @@
         <translation>Incorrect Billing</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Faturas</masterLabel>
-        <translation>Invoices</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Fluxo de devolução de baú interno</masterLabel>
         <translation>Internal Container Return Flow</translation>
     </valueTranslation>
@@ -613,12 +513,8 @@
         <translation>Outside Business Hours</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Formal customer complaint</masterLabel>
-        <translation>Formal customer complaint</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Gate</masterLabel>
-        <translation>Gate</translation>
+        <masterLabel>Fotografia</masterLabel>
+        <translation>Photography</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Gerenciamento de programação de Exportação</masterLabel>
@@ -626,10 +522,6 @@
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Gerenciar planilhas de etiquetagem</masterLabel>
-        <translation>Manage Labeling Spreadsheets</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Gerenciar planilhas de etiquetaquem</masterLabel>
         <translation>Manage Labeling Spreadsheets</translation>
     </valueTranslation>
     <valueTranslation>
@@ -661,14 +553,6 @@
         <translation>Terminal Process Instructions</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Invoice</masterLabel>
-        <translation>Invoice</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Lack of release of maneuver/tail</masterLabel>
-        <translation>Lack of release of maneuver/tail</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Lacre</masterLabel>
         <translation>Seal</translation>
     </valueTranslation>
@@ -678,10 +562,6 @@
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Levante / Abertura OS Manual</masterLabel>
-        <translation>Loading / Manual Work Order Opening</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Levante / abertura de OS manual</masterLabel>
         <translation>Loading / Manual Work Order Opening</translation>
     </valueTranslation>
     <valueTranslation>
@@ -705,28 +585,12 @@
         <translation>Silent Call</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Local port</masterLabel>
-        <translation>Local port</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Marketing externo</masterLabel>
         <translation>External Marketing</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Marketing interno</masterLabel>
         <translation>Internal Marketing</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Mistake of commercial rules</masterLabel>
-        <translation>Mistake of commercial rules</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Mistake to bill the wrong owner</masterLabel>
-        <translation>Mistake to bill the wrong owner</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Mistake to send the invoice (wrong address)</masterLabel>
-        <translation>Mistake to send the invoice (wrong address)</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Morosidade nos Serviços</masterLabel>
@@ -743,10 +607,6 @@
     <valueTranslation>
         <masterLabel>Navio</masterLabel>
         <translation>Vessel</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Navios</masterLabel>
-        <translation>Vessels</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Nota Fiscal</masterLabel>
@@ -905,20 +765,12 @@
         <translation>Formal Customer Complaint</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Relatorios</masterLabel>
-        <translation>Reports</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Relatórios</masterLabel>
         <translation>Reports</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Relações de débitos em aberto</masterLabel>
         <translation>Outstanding Debt Summary</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Request to change the due date</masterLabel>
-        <translation>Request to change the due date</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Reserva</masterLabel>
@@ -997,15 +849,7 @@
         <translation>Teconline</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Time of the maneuver</masterLabel>
-        <translation>Time of the maneuver</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Tratativa entre terceiros</masterLabel>
-        <translation>Third-Party Negotiations</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Tratativas Entre Terceiros</masterLabel>
         <translation>Third-Party Negotiations</translation>
     </valueTranslation>
     <valueTranslation>
@@ -1013,23 +857,15 @@
         <translation>Usability</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>VISTORIA</masterLabel>
-        <translation>Survey / Inspection</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Valores/Serviços</masterLabel>
         <translation>Rates / Services</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Vistoria</masterLabel>
+        <translation>Survey / Inspection</translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>WS Acesso</masterLabel>
         <translation>WS Access</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Waiting for documentation requested by the customer</masterLabel>
-        <translation>Waiting for documentation requested by the customer</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>carta de indisponibilidade</masterLabel>
-        <translation>Unavailability Letter</translation>
     </valueTranslation>
 </GlobalValueSetTranslation>

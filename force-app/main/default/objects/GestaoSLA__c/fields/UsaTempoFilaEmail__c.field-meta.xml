@@ -3,7 +3,6 @@
     <fullName>UsaTempoFilaEmail__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indica se esta Gestão de SLA utiliza o marco único de Tempo de Fila de Email. Controla a exibição do campo na tela e a ativação automática do MarcoSLA__c correspondente.</description>
-    <externalId>false</externalId>
     <label>Usa Tempo de Fila de Email?</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

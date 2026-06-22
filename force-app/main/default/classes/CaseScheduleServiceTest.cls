@@ -7,19 +7,21 @@ private class CaseScheduleServiceTest {
     static void setupData() {
         insert new Account(Name = 'Conta Motor Agendamento');
 
-        Group queue = new Group(Name = 'TSV Schedule Engine', DeveloperName = TEST_QUEUE, Type = 'Queue');
-        insert queue;
-        insert new List<QueueSobject>{
-            new QueueSobject(QueueId = queue.Id, SobjectType = 'Case'),
-            new QueueSobject(QueueId = queue.Id, SobjectType = 'Agendamento__c')
-        };
+        System.runAs(new User(Id = UserInfo.getUserId())) {
+            Group queue = new Group(Name = 'TSV Schedule Engine', DeveloperName = TEST_QUEUE, Type = 'Queue');
+            insert queue;
+            insert new List<QueueSobject>{
+                new QueueSobject(QueueId = queue.Id, SobjectType = 'Case'),
+                new QueueSobject(QueueId = queue.Id, SobjectType = 'Agendamento__c')
+            };
+        }
     }
 
     @IsTest
     static void shouldCreateCase_WhenDailyScheduleIsEligibleForUserOwner() {
         TestContext ctx = setupContext(false);
         Datetime nowValue = Datetime.newInstance(Date.today(), Time.newInstance(10, 0, 0, 0));
-        Agendamento__c schedule = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(8, 0, 0, 0), 'USER', null, true, true);
+        Agendamento__c schedule = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(8, 0, 0, 0), 'USER', null, false, true);
         CaseScheduleDTO scheduleDTO = CaseScheduleDTO.fromSchedule(schedule);
         Assert.areEqual(schedule.Id, scheduleDTO.scheduleId, 'DTO should map schedule Id');
 
@@ -36,12 +38,79 @@ private class CaseScheduleServiceTest {
         Assert.areEqual(schedule.Id, createdCase.Agendamento__c, 'Case should reference source schedule');
         Assert.areEqual(UserInfo.getUserId(), createdCase.OwnerId, 'Case should be assigned to configured user');
         Assert.areEqual('Aberto', createdCase.Status, 'Case should start open');
+
+        Agendamento__c updated = [SELECT UltimaExecucao__c, ProximaExecucao__c FROM Agendamento__c WHERE Id = :schedule.Id];
+        Assert.areEqual(nowValue, updated.UltimaExecucao__c, 'Last execution should be stamped with the processing datetime');
+        Assert.areEqual(
+            Datetime.newInstance(Date.today().addDays(1), Time.newInstance(8, 0, 0, 0)),
+            updated.ProximaExecucao__c,
+            'Next execution for a daily schedule should be tomorrow at the configured time'
+        );
+    }
+
+    @IsTest
+    static void shouldComputeNextExecution_ForWeeklyMonthlyAndSpecificWeekdays() {
+        TestContext ctx = setupContext(false);
+        Date today = Date.today();
+
+        Agendamento__c weekly = insertSchedule(ctx, 'Semanal', today, Time.newInstance(8, 0, 0, 0), 'USER', null, false, true);
+        Agendamento__c monthly = insertSchedule(ctx, 'Mensal', today, Time.newInstance(8, 0, 0, 0), 'USER', null, false, true);
+        Agendamento__c specificWeekdays = insertSchedule(ctx, 'Dias específicos da semana', today, Time.newInstance(8, 0, 0, 0), 'USER', null, false, true);
+        update new Agendamento__c(Id = specificWeekdays.Id, DiasDaSemana__c = weekdayLabel(today) + ';' + weekdayLabel(today.addDays(2)));
+
+        Test.startTest();
+        CaseScheduleService.testNow = Datetime.newInstance(today, Time.newInstance(10, 0, 0, 0));
+        CaseScheduleService.processSchedules(loadSchedules(new Set<Id>{ weekly.Id, monthly.Id, specificWeekdays.Id }));
+        CaseScheduleService.testNow = null;
+        Test.stopTest();
+
+        Map<Id, Agendamento__c> updatedById = new Map<Id, Agendamento__c>(
+            [SELECT Id, ProximaExecucao__c FROM Agendamento__c WHERE Id IN :new Set<Id>{ weekly.Id, monthly.Id, specificWeekdays.Id }]
+        );
+
+        Assert.areEqual(
+            Datetime.newInstance(today.addDays(7), Time.newInstance(8, 0, 0, 0)),
+            updatedById.get(weekly.Id).ProximaExecucao__c,
+            'Weekly next execution should be the same weekday next week'
+        );
+        Assert.areEqual(
+            Datetime.newInstance(today.addMonths(1), Time.newInstance(8, 0, 0, 0)),
+            updatedById.get(monthly.Id).ProximaExecucao__c,
+            'Monthly next execution should be the same day next month'
+        );
+        Assert.areEqual(
+            Datetime.newInstance(today.addDays(2), Time.newInstance(8, 0, 0, 0)),
+            updatedById.get(specificWeekdays.Id).ProximaExecucao__c,
+            'Specific weekdays next execution should be the closest other selected weekday, not necessarily 7 days later'
+        );
+    }
+
+    @IsTest
+    static void shouldSetNextExecution_WhenScheduleSkippedBeforeStartDate() {
+        TestContext ctx = setupContext(false);
+        Date futureStart = Date.today().addDays(5);
+        Agendamento__c schedule = insertSchedule(ctx, 'Diária', futureStart, Time.newInstance(8, 0, 0, 0), 'USER', null, false, true);
+
+        Test.startTest();
+        CaseScheduleService.testNow = Datetime.newInstance(Date.today(), Time.newInstance(10, 0, 0, 0));
+        List<CaseScheduleResultDTO> results = CaseScheduleService.processSchedules(loadSchedules(new Set<Id>{ schedule.Id }));
+        CaseScheduleService.testNow = null;
+        Test.stopTest();
+
+        Assert.areEqual(true, results[0].skipped, 'Future schedule should be skipped');
+        Agendamento__c updated = [SELECT ProximaExecucao__c, UltimaExecucao__c FROM Agendamento__c WHERE Id = :schedule.Id];
+        Assert.areEqual(null, updated.UltimaExecucao__c, 'Schedule that never ran should have no last execution');
+        Assert.areEqual(
+            Datetime.newInstance(futureStart, Time.newInstance(8, 0, 0, 0)),
+            updated.ProximaExecucao__c,
+            'Next execution should be pre-computed even before the schedule is first eligible'
+        );
     }
 
     @IsTest
     static void shouldCreateCase_WhenQueueOwnerIsValid() {
         TestContext ctx = setupContext(true);
-        Agendamento__c schedule = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(8, 0, 0, 0), 'QUEUE', TEST_QUEUE, true, true);
+        Agendamento__c schedule = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(8, 0, 0, 0), 'QUEUE', TEST_QUEUE, false, true);
 
         Test.startTest();
         CaseScheduleService.testNow = Datetime.newInstance(Date.today(), Time.newInstance(10, 0, 0, 0));
@@ -57,7 +126,7 @@ private class CaseScheduleServiceTest {
     @IsTest
     static void shouldNotCreateCase_WhenBeforeExecutionTime() {
         TestContext ctx = setupContext(false);
-        Agendamento__c schedule = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(11, 0, 0, 0), 'USER', null, true, true);
+        Agendamento__c schedule = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(11, 0, 0, 0), 'USER', null, false, true);
 
         Test.startTest();
         CaseScheduleService.testNow = Datetime.newInstance(Date.today(), Time.newInstance(10, 0, 0, 0));
@@ -72,7 +141,7 @@ private class CaseScheduleServiceTest {
     @IsTest
     static void shouldNotCreateCase_WhenStartDateIsFuture() {
         TestContext ctx = setupContext(false);
-        Agendamento__c schedule = insertSchedule(ctx, 'Diária', Date.today().addDays(1), Time.newInstance(8, 0, 0, 0), 'USER', null, true, true);
+        Agendamento__c schedule = insertSchedule(ctx, 'Diária', Date.today().addDays(1), Time.newInstance(8, 0, 0, 0), 'USER', null, false, true);
 
         Test.startTest();
         CaseScheduleService.testNow = Datetime.newInstance(Date.today(), Time.newInstance(10, 0, 0, 0));
@@ -87,7 +156,7 @@ private class CaseScheduleServiceTest {
     @IsTest
     static void shouldRegisterError_WhenFrequencyIsMissing() {
         TestContext ctx = setupContext(false);
-        Agendamento__c schedule = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(8, 0, 0, 0), 'USER', null, true, true);
+        Agendamento__c schedule = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(8, 0, 0, 0), 'USER', null, false, true);
         update new Agendamento__c(Id = schedule.Id, Frequencia__c = null);
 
         Test.startTest();
@@ -104,7 +173,7 @@ private class CaseScheduleServiceTest {
     @IsTest
     static void shouldRegisterError_WhenQueueDoesNotExist() {
         TestContext ctx = setupContext(false);
-        Agendamento__c schedule = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(8, 0, 0, 0), 'QUEUE', 'QUEUE_NOT_FOUND_SCHEDULE', true, true);
+        Agendamento__c schedule = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(8, 0, 0, 0), 'QUEUE', 'QUEUE_NOT_FOUND_SCHEDULE', false, true);
 
         Test.startTest();
         CaseScheduleService.testNow = Datetime.newInstance(Date.today(), Time.newInstance(10, 0, 0, 0));
@@ -112,8 +181,14 @@ private class CaseScheduleServiceTest {
         CaseScheduleService.testNow = null;
         Test.stopTest();
 
-        Agendamento__c updated = [SELECT UltimoErroExecucao__c FROM Agendamento__c WHERE Id = :schedule.Id];
+        Agendamento__c updated = [SELECT UltimoErroExecucao__c, UltimaExecucao__c, ProximaExecucao__c FROM Agendamento__c WHERE Id = :schedule.Id];
         Assert.areEqual(true, updated.UltimoErroExecucao__c.contains('Fila'), 'Queue error should be stored');
+        Assert.areEqual(null, updated.UltimaExecucao__c, 'A failed run should not register a last execution');
+        Assert.areEqual(
+            Datetime.newInstance(Date.today(), Time.newInstance(8, 0, 0, 0)),
+            updated.ProximaExecucao__c,
+            'Next execution should still be computed (today, since the schedule remains eligible to retry) even when the run fails with an error'
+        );
         Assert.areEqual(0, [SELECT count() FROM Case WHERE Agendamento__c = :schedule.Id], 'No Case should be created');
     }
 
@@ -151,7 +226,7 @@ private class CaseScheduleServiceTest {
     @IsTest
     static void shouldCreateOnlyOnceForSameDailyWindow() {
         TestContext ctx = setupContext(false);
-        Agendamento__c schedule = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(8, 0, 0, 0), 'USER', null, true, true);
+        Agendamento__c schedule = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(8, 0, 0, 0), 'USER', null, false, true);
 
         Test.startTest();
         CaseScheduleService.testNow = Datetime.newInstance(Date.today(), Time.newInstance(10, 0, 0, 0));
@@ -174,9 +249,47 @@ private class CaseScheduleServiceTest {
     }
 
     @IsTest
+    static void shouldRespectSpecificWeekdaysFrequency() {
+        Date today = Date.today();
+        String todayLabel = weekdayLabel(today);
+        Datetime nowValue = Datetime.newInstance(today, Time.newInstance(10, 0, 0, 0));
+
+        Assert.areEqual(
+            true,
+            CaseScheduleService.isEligibleToRun(lightSchedule('Dias específicos da semana', today.addDays(-10), todayLabel), nowValue),
+            'Specific weekday matching today should be eligible'
+        );
+        Assert.areEqual(
+            false,
+            CaseScheduleService.isEligibleToRun(lightSchedule('Dias específicos da semana', today.addDays(-10), 'NaoExisteEsseDia'), nowValue),
+            'Specific weekday not matching today should not be eligible'
+        );
+        Assert.areEqual(
+            false,
+            CaseScheduleService.isEligibleToRun(lightSchedule('Dias específicos da semana', today.addDays(-10), null), nowValue),
+            'Specific weekday frequency without selected days should not be eligible'
+        );
+    }
+
+    @IsTest
+    static void shouldRegisterError_WhenSpecificWeekdaysFrequencyHasNoWeekdaysSelected() {
+        TestContext ctx = setupContext(false);
+        Agendamento__c schedule = insertSchedule(ctx, 'Dias específicos da semana', Date.today(), Time.newInstance(8, 0, 0, 0), 'USER', null, false, true);
+
+        Test.startTest();
+        CaseScheduleService.testNow = Datetime.newInstance(Date.today(), Time.newInstance(10, 0, 0, 0));
+        List<CaseScheduleResultDTO> results = CaseScheduleService.processSchedules(loadSchedules(new Set<Id>{ schedule.Id }));
+        CaseScheduleService.testNow = null;
+        Test.stopTest();
+
+        Assert.areEqual(false, results[0].success, 'Schedule without selected weekdays should fail validation');
+        Assert.areEqual(true, results[0].errorMessage.contains('Dias da semana'), 'Error should mention missing weekdays');
+    }
+
+    @IsTest
     static void shouldClearPreviousError_WhenCaseCreationSucceeds() {
         TestContext ctx = setupContext(false);
-        Agendamento__c schedule = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(8, 0, 0, 0), 'USER', null, true, true);
+        Agendamento__c schedule = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(8, 0, 0, 0), 'USER', null, false, true);
         update new Agendamento__c(Id = schedule.Id, UltimoErroExecucao__c = 'Erro anterior');
 
         Test.startTest();
@@ -191,7 +304,7 @@ private class CaseScheduleServiceTest {
     @IsTest
     static void shouldHandleValidationBranches_WhenScheduleDataIsIncomplete() {
         TestContext ctx = setupContext(false);
-        Agendamento__c base = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(8, 0, 0, 0), 'USER', null, true, true);
+        Agendamento__c base = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(8, 0, 0, 0), 'USER', null, false, true);
 
         List<Agendamento__c> rows = loadSchedules(new Set<Id>{ base.Id });
         Agendamento__c missingAccount = rows[0].clone(true, true, false, false);
@@ -239,9 +352,11 @@ private class CaseScheduleServiceTest {
     static void shouldHandleQueueAndCategorizationErrors() {
         TestContext ctx = setupContext(false);
         Group disabledQueue = new Group(Name = 'Disabled Schedule Queue', DeveloperName = 'TSV_DISABLED_SCHEDULE', Type = 'Queue');
-        insert disabledQueue;
+        System.runAs(new User(Id = UserInfo.getUserId())) {
+            insert disabledQueue;
+        }
 
-        Agendamento__c base = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(8, 0, 0, 0), 'USER', null, true, true);
+        Agendamento__c base = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(8, 0, 0, 0), 'USER', null, false, true);
         Agendamento__c disabledQueueSchedule = loadSchedules(new Set<Id>{ base.Id })[0].clone(true, true, false, false);
         disabledQueueSchedule.OwnerType__c = 'QUEUE';
         disabledQueueSchedule.OwnerQueueDeveloperName__c = disabledQueue.DeveloperName;
@@ -294,7 +409,7 @@ private class CaseScheduleServiceTest {
     @IsTest
     static void shouldRegisterError_WhenOwnerUserDoesNotExist() {
         TestContext ctx = setupContext(false);
-        Agendamento__c schedule = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(8, 0, 0, 0), 'USER', null, true, true);
+        Agendamento__c schedule = insertSchedule(ctx, 'Diária', Date.today(), Time.newInstance(8, 0, 0, 0), 'USER', null, false, true);
         Agendamento__c loaded = loadSchedules(new Set<Id>{ schedule.Id })[0];
         loaded.OwnerUser__c = createInactiveUser().Id;
 
@@ -368,7 +483,8 @@ private class CaseScheduleServiceTest {
             SELECT Id, Name, Conta__c, Ativo__c, UnidadeNegocio__c, TipoCaso__c,
                 Categoria__c, Assunto__c, Subassunto__c, DataInicio__c,
                 DescricaoAtividade__c, UltimoErroExecucao__c, PularFimDeSemana__c,
-                Frequencia__c, HorarioExecucao__c, OwnerType__c,
+                Frequencia__c, DiasDaSemana__c, HorarioExecucao__c, OwnerType__c,
+                UltimaExecucao__c, ProximaExecucao__c,
                 OwnerQueueDeveloperName__c, OwnerUser__c, RecordTypeId,
                 RecordType.DeveloperName
             FROM Agendamento__c
@@ -376,10 +492,28 @@ private class CaseScheduleServiceTest {
         ];
     }
 
+    private static final List<String> WEEKDAY_LABELS = new List<String>{
+        'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'
+    };
+
+    private static String weekdayLabel(Date value) {
+        Integer diff = Date.newInstance(1900, 1, 1).daysBetween(value);
+        Integer zeroBased = Math.mod(diff, 7);
+        if (zeroBased < 0) {
+            zeroBased += 7;
+        }
+        return WEEKDAY_LABELS[zeroBased];
+    }
+
     private static Agendamento__c lightSchedule(String frequency, Date startDate) {
+        return lightSchedule(frequency, startDate, null);
+    }
+
+    private static Agendamento__c lightSchedule(String frequency, Date startDate, String diasDaSemana) {
         return new Agendamento__c(
             Ativo__c = true,
             Frequencia__c = frequency,
+            DiasDaSemana__c = diasDaSemana,
             DataInicio__c = startDate,
             HorarioExecucao__c = Time.newInstance(8, 0, 0, 0),
             PularFimDeSemana__c = false
@@ -436,7 +570,9 @@ private class CaseScheduleServiceTest {
             UserName = 'inactive.schedule' + uniqueValue + '@example.com',
             IsActive = false
         );
-        insert userRow;
+        System.runAs(new User(Id = UserInfo.getUserId())) {
+            insert userRow;
+        }
         return userRow;
     }
 

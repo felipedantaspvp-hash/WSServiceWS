@@ -91,6 +91,13 @@
                                     <span class="meta-item__label">{labels.frequency}</span>
                                     <span class="meta-item__value">{schedule.displayFrequencia}</span>
                                 </div>
+                                <template if:true={schedule.hasDiasDaSemana}>
+                                    <div class="meta-item">
+                                        <lightning-icon icon-name="utility:event" size="xx-small"></lightning-icon>
+                                        <span class="meta-item__label">{labels.weekdays}</span>
+                                        <span class="meta-item__value">{schedule.displayDiasDaSemana}</span>
+                                    </div>
+                                </template>
                                 <div class="meta-item">
                                     <lightning-icon icon-name="utility:clock" size="xx-small"></lightning-icon>
                                     <span class="meta-item__label">{labels.executionTime}</span>
@@ -108,6 +115,24 @@
                                     <span class="meta-item__label">{labels.owner}</span>
                                     <span class="meta-item__value">{schedule.ownerDisplay}</span>
                                 </div>
+                                <template if:true={schedule.hasUltimaExecucao}>
+                                    <div class="meta-item">
+                                        <lightning-icon icon-name="utility:check" size="xx-small"></lightning-icon>
+                                        <span class="meta-item__label">{labels.lastExecution}</span>
+                                        <span class="meta-item__value">
+                                            <lightning-formatted-date-time value={schedule.ultimaExecucao} year="numeric" month="2-digit" day="2-digit" hour="2-digit" minute="2-digit"></lightning-formatted-date-time>
+                                        </span>
+                                    </div>
+                                </template>
+                                <template if:true={schedule.hasProximaExecucao}>
+                                    <div class="meta-item">
+                                        <lightning-icon icon-name="utility:forward" size="xx-small"></lightning-icon>
+                                        <span class="meta-item__label">{labels.nextExecution}</span>
+                                        <span class="meta-item__value">
+                                            <lightning-formatted-date-time value={schedule.proximaExecucao} year="numeric" month="2-digit" day="2-digit" hour="2-digit" minute="2-digit"></lightning-formatted-date-time>
+                                        </span>
+                                    </div>
+                                </template>
                             </div>
 
                             <template if:true={schedule.hasLastError}>
@@ -175,6 +200,21 @@
                         <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-3">
                             <lightning-input data-form-field type="date" name="dataInicio" label={labels.startDate} value={form.dataInicio} onchange={handleFormChange} required></lightning-input>
                         </div>
+                        <template if:true={showWeekdays}>
+                            <div class="slds-col slds-size_1-of-1">
+                                <lightning-dual-listbox
+                                    data-form-field
+                                    name="diasDaSemana"
+                                    label={labels.weekdays}
+                                    source-label={labels.availableWeekdays}
+                                    selected-label={labels.selectedWeekdays}
+                                    options={diasDaSemanaOptions}
+                                    value={form.diasDaSemana}
+                                    onchange={handleWeekdaysChange}
+                                    required
+                                ></lightning-dual-listbox>
+                            </div>
+                        </template>
                         <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
                             <lightning-input type="checkbox" name="pularFimDeSemana" label={labels.skipWeekends} checked={form.pularFimDeSemana} onchange={handleCheckboxChange}></lightning-input>
                         </div>

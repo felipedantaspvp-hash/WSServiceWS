@@ -223,6 +223,54 @@ public inherited sharing class CaseCreationService {
         return out;
     }
 
+    /**
+     * @description Aplica a distribuição por campo customizado ("By Custom Field?") no momento real
+     * da criação do Case — não no wizard de categorização (que não tem acesso ao valor final dos campos
+     * do Case, preenchidos só na tela padrão). Roda independente da Ação de Destino escolhida no wizard:
+     * se a Categorização vinculada ao Case usa critério de campo e o valor atual do campo indicado
+     * (CampoDistribuicao__c) bate com o valor configurado (ValorDistribuicao__c), o Owner é sobrescrito
+     * para a fila parametrizada (FilaId__c, já resolvido e cacheado na Categorização).
+     * @param newRows Cases sendo inseridos (contexto before insert — bulk safe, sem DML extra).
+     */
+    public static void applyCampoCustomizadoDistribution(List<Case> newRows) {
+        Set<Id> categorizacaoIds = new Set<Id>();
+        for (Case c : newRows) {
+            if (c.Categorizacao__c != null) categorizacaoIds.add(c.Categorizacao__c);
+        }
+        if (categorizacaoIds.isEmpty()) return;
+
+        Map<Id, Categorizacao__c> categorizacoesById = new Map<Id, Categorizacao__c>([
+            SELECT Id, DistribuirParaFila__c, PorCampoCustomizado__c, CampoDistribuicao__c, ValorDistribuicao__c,
+                   FilaDeveloperName__c, FilaId__c
+            FROM Categorizacao__c
+            WHERE Id IN :categorizacaoIds
+        ]);
+        if (categorizacoesById.isEmpty()) return;
+
+        Map<String, Schema.SObjectField> caseFields = Case.SObjectType.getDescribe().fields.getMap();
+
+        for (Case c : newRows) {
+            if (c.Categorizacao__c == null) continue;
+            Categorizacao__c cat = categorizacoesById.get(c.Categorizacao__c);
+            if (cat == null) continue;
+            if (!CategorizacaoHelper.isTrueFlag(cat.DistribuirParaFila__c)) continue;
+            if (!CategorizacaoHelper.isTrueFlag(cat.PorCampoCustomizado__c)) continue;
+            if (String.isBlank(cat.CampoDistribuicao__c) || String.isBlank(cat.ValorDistribuicao__c)) continue;
+            if (String.isBlank(cat.FilaId__c)) continue;
+            if (!caseFields.containsKey(cat.CampoDistribuicao__c)) continue;
+
+            Object liveValue = c.get(cat.CampoDistribuicao__c);
+            String liveValueStr = liveValue == null ? null : String.valueOf(liveValue);
+            if (!CaseCreationHelper.sameNormalizedValue(liveValueStr, cat.ValorDistribuicao__c)) continue;
+
+            c.OwnerId = cat.FilaId__c;
+            c.DistribuicaoSolicitada__c = true;
+            c.OrigemDistribuicao__c = 'Categorização';
+            c.FilaDestinoDeveloperName__c = cat.FilaDeveloperName__c;
+            c.FilaDestinoId__c = cat.FilaId__c;
+        }
+    }
+
     private static void validateCategorizationBase(CaseCreationDTO.CategorizationRequestDTO request) {
         if (request == null) throwFunctional('REQUIRED_CATEGORIZATION', 'Categorização é obrigatória.');
         if (request.recordTypeId == null) throwFunctional('REQUIRED_RECORD_TYPE', 'Record Type é obrigatório.');

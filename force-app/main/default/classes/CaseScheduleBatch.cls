@@ -11,7 +11,8 @@ public with sharing class CaseScheduleBatch implements Database.Batchable<SObjec
             SELECT Id, Name, Conta__c, Ativo__c, UnidadeNegocio__c, TipoCaso__c,
                 Categoria__c, Assunto__c, Subassunto__c, DataInicio__c,
                 DescricaoAtividade__c, UltimoErroExecucao__c, PularFimDeSemana__c,
-                Frequencia__c, HorarioExecucao__c, OwnerType__c,
+                UltimaExecucao__c, ProximaExecucao__c,
+                Frequencia__c, DiasDaSemana__c, HorarioExecucao__c, OwnerType__c,
                 OwnerQueueDeveloperName__c, OwnerUser__c, RecordTypeId,
                 RecordType.DeveloperName
             FROM Agendamento__c

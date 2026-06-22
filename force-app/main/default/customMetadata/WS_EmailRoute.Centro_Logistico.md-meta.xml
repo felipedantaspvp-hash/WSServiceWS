@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Centro Logístico</label>
+    <protected>false</protected>
+    <values>
+        <field>AllowedFromDomains__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Ativo__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>BusinessEmail__c</field>
+        <value xsi:type="xsd:string">centrologistico@yopmail.com</value>
+    </values>
+    <values>
+        <field>CaseOrigin__c</field>
+        <value xsi:type="xsd:string">Email</value>
+    </values>
+    <values>
+        <field>CaseRecordTypeDeveloperName__c</field>
+        <value xsi:type="xsd:string">AtendimentoCentroLogistico</value>
+    </values>
+    <values>
+        <field>ClosedCaseBehavior__c</field>
+        <value xsi:type="xsd:string">REOPEN</value>
+    </values>
+    <values>
+        <field>CreateContentFiles__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Descricao__c</field>
+        <value xsi:type="xsd:string">Survey MVP transacional do Centro Logístico. Evolutiva após definição final de CX.</value>
+    </values>
+    <values>
+        <field>IsDefaultEmailRoute__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>MatchMode__c</field>
+        <value xsi:type="xsd:string">ENVELOPE_TO</value>
+    </values>
+    <values>
+        <field>PersistEmailAudit__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Prioridade__c</field>
+        <value xsi:type="xsd:string">Medium</value>
+    </values>
+    <values>
+        <field>RelateNewCaseToOriginal__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>ReopenClosedCase__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>ReopenStatus__c</field>
+        <value xsi:type="xsd:string">New</value>
+    </values>
+    <values>
+        <field>ReopenWindowMinutes__c</field>
+        <value xsi:type="xsd:double">120.0</value>
+    </values>
+    <values>
+        <field>RouteKey__c</field>
+        <value xsi:type="xsd:string">centrologistico@yopmail.com</value>
+    </values>
+    <values>
+        <field>RouteOwnerDeveloperName__c</field>
+        <value xsi:type="xsd:string">CL_AtendimentoN1</value>
+    </values>
+    <values>
+        <field>RouteOwnerType__c</field>
+        <value xsi:type="xsd:string">QUEUE</value>
+    </values>
+    <values>
+        <field>RouteOwnerUsername__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>SalesforceServiceAddress__c</field>
+        <value xsi:type="xsd:string">ws_emailtocase_inbound@9-5prq6pnbq218iyxf456rn9an5wo78dfzodns1x17mrzrkejd2.be-3pxjjea0.bra54s.apex.sandbox.salesforce.com</value>
+    </values>
+    <values>
+        <field>UnidadeNegocio__c</field>
+        <value xsi:type="xsd:string">Centro Logístico</value>
+    </values>
+</CustomMetadata>

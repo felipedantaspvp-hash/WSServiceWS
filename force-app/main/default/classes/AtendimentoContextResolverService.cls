@@ -303,11 +303,7 @@ public inherited sharing class AtendimentoContextResolverService {
     private static Map<Id, Contact> fetchContactsById(Set<Id> ids) {
         Map<Id, Contact> out = new Map<Id, Contact>();
         if (ids == null || ids.isEmpty()) return out;
-        for (Contact row : [
-            SELECT Id, Name, AccountId, Email, Phone, MobilePhone
-            FROM Contact
-            WHERE Id IN :ids
-        ]) {
+        for (Contact row : AtendimentoContextResolverSelector.selectContactsByIds(ids)) {
             out.put(row.Id, row);
         }
         return out;
@@ -322,7 +318,7 @@ public inherited sharing class AtendimentoContextResolverService {
         Map<Id, Account> out = new Map<Id, Account>();
         if (accountIds.isEmpty()) return out;
 
-        for (Account row : [SELECT Id, Name FROM Account WHERE Id IN :accountIds]) {
+        for (Account row : AtendimentoContextResolverSelector.selectAccountsByIds(accountIds)) {
             out.put(row.Id, row);
         }
         return out;
@@ -385,11 +381,7 @@ public inherited sharing class AtendimentoContextResolverService {
             return activeChannelRoutesOverride;
         }
         if (!AtendimentoContextResolverHelper.canQueryObject('TCO_ChannelRouting__mdt')) return new List<TCO_ChannelRouting__mdt>();
-        return [
-            SELECT TCF_ChannelType__c, TCF_ChannelIdentifier__c, TCF_BusinessUnit__c, TCF_IsActive__c
-            FROM TCO_ChannelRouting__mdt
-            WHERE TCF_IsActive__c = true
-        ];
+        return AtendimentoContextResolverSelector.selectActiveChannelRoutes();
     }
 
     private static void applyUnexpectedError(AtendimentoContextResolverDTO.Response response) {

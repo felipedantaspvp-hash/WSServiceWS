@@ -10,6 +10,7 @@ public inherited sharing class WSWillCaseCreationService {
         public WSWillCaseCreationDTO.Request req;
         public WSWillCaseCreationDTO.Response res;
         public Id resolvedAccountId;
+        public Id representativeAccountId;
         public Id resolvedContactId;
         public Contact pendingContact;
         public Case pendingCase;
@@ -50,19 +51,16 @@ public inherited sharing class WSWillCaseCreationService {
             if (req.endUserId != null) endUserIds.add(req.endUserId);
         }
 
-        Map<Id, Contact> contactById = contactIds.isEmpty() ? new Map<Id, Contact>() : new Map<Id, Contact>([
-            SELECT Id, AccountId, Name, Email, Phone, Idioma__c
-            FROM Contact
-            WHERE Id IN :contactIds
-        ]);
+        String representedAccountField = AtendimentoContextResolverHelper.firstExistingField(
+            'Contact',
+            new List<String>{ 'ContaRepresentadaAtual__c' }
+        );
+
+        Map<Id, Contact> contactById = queryContactsByIds(contactIds, representedAccountField);
 
         Map<String, Contact> contactByEmail = new Map<String, Contact>();
         if (!emails.isEmpty()) {
-            for (Contact c : [
-                SELECT Id, AccountId, Name, Email, Phone, Idioma__c
-                FROM Contact
-                WHERE Email IN :emails
-            ]) {
+            for (Contact c : queryContactsByEmails(emails, representedAccountField)) {
                 if (!String.isBlank(c.Email)) {
                     contactByEmail.put(c.Email.trim().toLowerCase(), c);
                 }
@@ -83,11 +81,7 @@ public inherited sharing class WSWillCaseCreationService {
             if (Test.isRunningTest() && testMessagingById != null) {
                 messagingById.putAll(testMessagingById);
             } else {
-                messagingById = new Map<Id, MessagingSession>([
-                    SELECT Id, EndUserContactId, MessagingEndUserId, CaseId
-                    FROM MessagingSession
-                    WHERE Id IN :messagingSessionIds
-                ]);
+                messagingById = WSWillCaseCreationSelector.selectMessagingSessionsByIds(messagingSessionIds);
             }
         }
 
@@ -102,11 +96,7 @@ public inherited sharing class WSWillCaseCreationService {
             if (Test.isRunningTest() && testEndUserById != null) {
                 endUserById.putAll(testEndUserById);
             } else {
-                endUserById = new Map<Id, MessagingEndUser>([
-                    SELECT Id, ContactId, AccountId, Name, Language
-                    FROM MessagingEndUser
-                    WHERE Id IN :allEndUserIds
-                ]);
+                endUserById = WSWillCaseCreationSelector.selectMessagingEndUsersByIds(allEndUserIds);
             }
         }
 
@@ -122,11 +112,7 @@ public inherited sharing class WSWillCaseCreationService {
             }
         }
         if (!additionalContactIds.isEmpty()) {
-            for (Contact c : [
-                SELECT Id, AccountId, Name, Email, Phone, Idioma__c
-                FROM Contact
-                WHERE Id IN :additionalContactIds
-            ]) {
+            for (Contact c : queryContactsByIds(additionalContactIds, representedAccountField).values()) {
                 contactById.put(c.Id, c);
                 if (!String.isBlank(c.Email)) {
                     contactByEmail.put(c.Email.trim().toLowerCase(), c);
@@ -185,6 +171,7 @@ public inherited sharing class WSWillCaseCreationService {
             if (resolvedContact != null) {
                 item.resolvedContactId = resolvedContact.Id;
                 item.res.contactId = resolvedContact.Id;
+                applyResolvedContactAccounts(item, resolvedContact);
                 String normalizedLanguage = WSWillContextResolverHelper.normalizePreferredLanguage(req.language);
                 Contact contactToUpdate = contactsToUpdateById.containsKey(resolvedContact.Id)
                     ? contactsToUpdateById.get(resolvedContact.Id)
@@ -337,6 +324,7 @@ public inherited sharing class WSWillCaseCreationService {
             putIfCreateable(c, caseFields, 'RecordTypeId', item.targetRecordTypeId);
             putIfCreateable(c, caseFields, 'AccountId', item.resolvedAccountId);
             putIfCreateable(c, caseFields, 'ContactId', item.resolvedContactId);
+            putIfCreateable(c, caseFields, 'Representante__c', item.representativeAccountId);
             putIfCreateable(c, caseFields, 'Origin', item.normalizedOrigin);
             putIfValidPicklist(c, caseFields, 'OrigemDistribuicao__c', WSWillCaseCreationHelper.normalizeDistributionOrigin());
             putIfCreateable(c, caseFields, 'Subject', String.isBlank(req.caseType) ? 'Atendimento via Will' : req.caseType);
@@ -368,12 +356,7 @@ public inherited sharing class WSWillCaseCreationService {
                 Database.SaveResult sr = caseResults[i];
                 if (sr.isSuccess()) {
                     item.pendingCase.Id = sr.getId();
-                    Case createdCase = [
-                        SELECT Id, CaseNumber
-                        FROM Case
-                        WHERE Id = :sr.getId()
-                        LIMIT 1
-                    ];
+                    Case createdCase = WSWillCaseCreationSelector.selectCasesById(new Set<Id>{ sr.getId() }).get(sr.getId());
                     item.res.success = true;
                     item.res.caseId = createdCase.Id;
                     item.res.caseNumber = createdCase.CaseNumber;
@@ -589,12 +572,7 @@ public inherited sharing class WSWillCaseCreationService {
         QueueLookupResult out = new QueueLookupResult();
         if (developerNames == null || developerNames.isEmpty()) return out;
 
-        for (QueueSobject queueObject : [
-            SELECT QueueId, Queue.DeveloperName
-            FROM QueueSobject
-            WHERE SobjectType = 'Case'
-            ORDER BY Queue.DeveloperName
-        ]) {
+        for (QueueSobject queueObject : WSWillCaseCreationSelector.selectCaseQueuesBySobjectType()) {
             if (queueObject.Queue == null || String.isBlank(queueObject.Queue.DeveloperName)) continue;
 
             String developerName = queueObject.Queue.DeveloperName;
@@ -607,6 +585,98 @@ public inherited sharing class WSWillCaseCreationService {
 
     private static String normalizeKey(String value) {
         return String.isBlank(value) ? null : value.trim().toLowerCase();
+    }
+
+    private static void applyResolvedContactAccounts(WorkItem item, Contact resolvedContact) {
+        if (item == null || resolvedContact == null) return;
+
+        Id representedAccountId = null;
+        try {
+            representedAccountId = (Id) resolvedContact.get('ContaRepresentadaAtual__c');
+        } catch (Exception ex) {
+            representedAccountId = null;
+        }
+        if (representedAccountId != null) {
+            item.resolvedAccountId = representedAccountId;
+            item.res.accountId = representedAccountId;
+            if (resolvedContact.AccountId != null && resolvedContact.AccountId != representedAccountId) {
+                item.representativeAccountId = resolvedContact.AccountId;
+            }
+            return;
+        }
+
+        if (resolvedContact.AccountId != null) {
+            item.resolvedAccountId = resolvedContact.AccountId;
+            item.res.accountId = resolvedContact.AccountId;
+        }
+    }
+
+    private static Map<Id, Contact> queryContactsByIds(Set<Id> contactIds, String representedAccountField) {
+        Map<Id, Contact> out = new Map<Id, Contact>();
+        if (contactIds == null || contactIds.isEmpty()) return out;
+
+        List<String> selectFields = new List<String>{ 'Id', 'AccountId', 'Name', 'Email', 'Phone', 'Idioma__c' };
+        if (!String.isBlank(representedAccountField)) {
+            selectFields.add(representedAccountField);
+        }
+
+        String soql = 'SELECT ' + String.join(selectFields, ',') + ' FROM Contact WHERE Id IN :contactIds';
+        List<Contact> rows;
+        try {
+            rows = (List<Contact>) Database.query(soql);
+        } catch (QueryException ex) {
+            if (!ex.getMessage().contains('ContaRepresentadaAtual__c')) {
+                throw ex;
+            }
+            List<String> fallbackFields = new List<String>();
+            for (String fieldName : selectFields) {
+                if (fieldName != 'ContaRepresentadaAtual__c') {
+                    fallbackFields.add(fieldName);
+                }
+            }
+            rows = (List<Contact>) Database.query(
+                'SELECT ' + String.join(fallbackFields, ',') + ' FROM Contact WHERE Id IN :contactIds'
+            );
+        }
+
+        for (Contact row : rows) {
+            out.put(row.Id, row);
+        }
+        return out;
+    }
+
+    private static List<Contact> queryContactsByEmails(Set<String> emails, String representedAccountField) {
+        List<Contact> out = new List<Contact>();
+        if (emails == null || emails.isEmpty()) return out;
+
+        List<String> selectFields = new List<String>{ 'Id', 'AccountId', 'Name', 'Email', 'Phone', 'Idioma__c' };
+        if (!String.isBlank(representedAccountField)) {
+            selectFields.add(representedAccountField);
+        }
+
+        String soql = 'SELECT ' + String.join(selectFields, ',') + ' FROM Contact WHERE Email IN :emails';
+        List<Contact> rows;
+        try {
+            rows = (List<Contact>) Database.query(soql);
+        } catch (QueryException ex) {
+            if (!ex.getMessage().contains('ContaRepresentadaAtual__c')) {
+                throw ex;
+            }
+            List<String> fallbackFields = new List<String>();
+            for (String fieldName : selectFields) {
+                if (fieldName != 'ContaRepresentadaAtual__c') {
+                    fallbackFields.add(fieldName);
+                }
+            }
+            rows = (List<Contact>) Database.query(
+                'SELECT ' + String.join(fallbackFields, ',') + ' FROM Contact WHERE Email IN :emails'
+            );
+        }
+
+        for (Contact row : rows) {
+            out.add(row);
+        }
+        return out;
     }
 
     private static void putIfCreateable(SObject row, Map<String, Schema.SObjectField> fieldMap, String fieldApiName, Object value) {

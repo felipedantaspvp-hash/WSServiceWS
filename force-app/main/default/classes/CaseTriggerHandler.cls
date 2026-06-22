@@ -13,6 +13,7 @@ public inherited sharing class CaseTriggerHandler {
         'Existem áreas internas abertas. Conclua ou cancele as áreas participantes antes de fechar ou cancelar o caso.';
 
     public static void beforeInsert(List<Case> newRows) {
+        CaseCreationService.applyCampoCustomizadoDistribution(newRows);
     }
 
     public static void beforeUpdate(Map<Id, Case> newMap, Map<Id, Case> oldMap){

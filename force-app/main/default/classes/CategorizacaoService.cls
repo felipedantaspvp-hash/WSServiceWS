@@ -314,7 +314,12 @@ public inherited sharing class CategorizacaoService {
 
         String key = CategorizacaoHelper.buildNaturalKey(row);
         row.ChaveNatural__c = key;
-        row.ChaveNaturalHash__c = CategorizacaoHelper.sha256Hex(key);
+        // ChaveNaturalHash__c e unique=true no banco (constraint dura). Uma Categorizacao
+        // inativa nao pode reter um hash "vivo": isso travaria para sempre qualquer
+        // ativa (ou reativacao futura) com a mesma chave natural. Null e permitido em
+        // campo unico (varios nulls coexistem), entao zeramos o hash ao inativar e
+        // recalculamos normalmente sempre que o registro estiver/voltar Ativo.
+        row.ChaveNaturalHash__c = (row.Ativo__c == true) ? CategorizacaoHelper.sha256Hex(key) : null;
     }
 
     private static void clearDistribution(Categorizacao__c row, Boolean clearQueue, Boolean clearPorCampoCustomizado) {

@@ -7,12 +7,14 @@ private class AccountCaseScheduleServiceTest {
     static void setupData() {
         insert new Account(Name = 'Conta Agendamento Teste');
 
-        Group queue = new Group(Name = 'TSV Schedule Test', DeveloperName = TEST_QUEUE, Type = 'Queue');
-        insert queue;
-        insert new List<QueueSobject>{
-            new QueueSobject(QueueId = queue.Id, SobjectType = 'Case'),
-            new QueueSobject(QueueId = queue.Id, SobjectType = 'Agendamento__c')
-        };
+        System.runAs(new User(Id = UserInfo.getUserId())) {
+            Group queue = new Group(Name = 'TSV Schedule Test', DeveloperName = TEST_QUEUE, Type = 'Queue');
+            insert queue;
+            insert new List<QueueSobject>{
+                new QueueSobject(QueueId = queue.Id, SobjectType = 'Case'),
+                new QueueSobject(QueueId = queue.Id, SobjectType = 'Agendamento__c')
+            };
+        }
     }
 
     @IsTest
@@ -234,6 +236,43 @@ private class AccountCaseScheduleServiceTest {
     }
 
     @IsTest
+    static void shouldCreateSchedule_WhenFrequencyIsSpecificWeekdays() {
+        TestContext ctx = setupContext(false);
+        AccountCaseScheduleDTO.SaveRequestDTO request = baseRequest(getAccount().Id, ctx, 'USER');
+        request.ownerUserId = UserInfo.getUserId();
+        request.frequencia = 'Dias específicos da semana';
+        request.diasDaSemana = new List<String>{ 'Segunda', 'Quarta', 'Sexta' };
+
+        Test.startTest();
+        AccountCaseScheduleDTO.ScheduleDTO saved = AccountCaseScheduleService.saveSchedule(request);
+        Test.stopTest();
+
+        Assert.areEqual(3, saved.diasDaSemana.size(), 'Saved schedule should expose selected weekdays');
+        Assert.areEqual(
+            'Segunda;Quarta;Sexta',
+            [SELECT DiasDaSemana__c FROM Agendamento__c WHERE Id = :saved.id].DiasDaSemana__c,
+            'Selected weekdays should be persisted as a semicolon-separated multi-select value'
+        );
+    }
+
+    @IsTest
+    static void shouldFail_WhenSpecificWeekdaysFrequencyHasNoWeekdaysSelected() {
+        TestContext ctx = setupContext(false);
+        AccountCaseScheduleDTO.SaveRequestDTO request = baseRequest(getAccount().Id, ctx, 'USER');
+        request.ownerUserId = UserInfo.getUserId();
+        request.frequencia = 'Dias específicos da semana';
+
+        Test.startTest();
+        try {
+            AccountCaseScheduleService.saveSchedule(request);
+            Assert.fail('Expected missing weekdays error');
+        } catch (AccountCaseScheduleService.FunctionalException ex) {
+            Assert.areEqual(Label.AccountCaseSchedule_WeekdaysRequired, ex.getMessage(), 'Error should mention weekdays');
+        }
+        Test.stopTest();
+    }
+
+    @IsTest
     static void shouldSearchActiveUsers() {
         Test.startTest();
         List<AccountCaseScheduleDTO.OptionDTO> users = AccountCaseScheduleService.searchUsers('User');
@@ -316,7 +355,9 @@ private class AccountCaseScheduleServiceTest {
             UserName = 'inactive' + uniqueValue + '@example.com',
             IsActive = false
         );
-        insert userRow;
+        System.runAs(new User(Id = UserInfo.getUserId())) {
+            insert userRow;
+        }
         return userRow;
     }
 

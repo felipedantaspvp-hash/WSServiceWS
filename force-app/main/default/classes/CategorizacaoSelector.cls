@@ -117,7 +117,10 @@ public inherited sharing class CategorizacaoSelector {
     public static Map<String, Categorizacao__c> getExistingByHash(Set<String> hashes, Set<Id> ignoreIds) {
         Map<String, Categorizacao__c> out = new Map<String, Categorizacao__c>();
         if (hashes.isEmpty()) return out;
-        for (Categorizacao__c row : [SELECT Id, ChaveNaturalHash__c FROM Categorizacao__c WHERE ChaveNaturalHash__c IN :hashes]) {
+        // Somente registros Ativos colidem: uma Categorizacao inativa pode legitimamente
+        // compartilhar a mesma chave natural de uma ativa (ex.: duplicidade resolvida via
+        // inativacao em vez de exclusao) sem bloquear novas gravacoes/edicoes da ativa.
+        for (Categorizacao__c row : [SELECT Id, ChaveNaturalHash__c FROM Categorizacao__c WHERE ChaveNaturalHash__c IN :hashes AND Ativo__c = true]) {
             if (ignoreIds.contains(row.Id)) continue;
             out.put(row.ChaveNaturalHash__c, row);
         }

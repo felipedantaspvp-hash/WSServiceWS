@@ -353,6 +353,10 @@
         <name>AccountCaseSchedule_ActivityDescription</name>
     </customLabels>
     <customLabels>
+        <label>Disponíveis</label>
+        <name>AccountCaseSchedule_AvailableWeekdays</name>
+    </customLabels>
+    <customLabels>
         <label>Unidade de Negócio</label>
         <name>AccountCaseSchedule_BusinessUnit</name>
     </customLabels>
@@ -509,6 +513,10 @@
         <name>AccountCaseSchedule_LastError</name>
     </customLabels>
     <customLabels>
+        <label>Última execução</label>
+        <name>AccountCaseSchedule_LastExecution</name>
+    </customLabels>
+    <customLabels>
         <label>Carregando agendamentos</label>
         <name>AccountCaseSchedule_LoadingSchedules</name>
     </customLabels>
@@ -519,6 +527,10 @@
     <customLabels>
         <label>Novo Agendamento</label>
         <name>AccountCaseSchedule_NewScheduleTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Próxima execução</label>
+        <name>AccountCaseSchedule_NextExecution</name>
     </customLabels>
     <customLabels>
         <label>Proprietário</label>
@@ -621,6 +633,10 @@
         <name>AccountCaseSchedule_SelectedBusinessUnit</name>
     </customLabels>
     <customLabels>
+        <label>Selecionados</label>
+        <name>AccountCaseSchedule_SelectedWeekdays</name>
+    </customLabels>
+    <customLabels>
         <label>Dados do Atendimento</label>
         <name>AccountCaseSchedule_ServiceData</name>
     </customLabels>
@@ -677,6 +693,14 @@
         <name>AccountCaseSchedule_UserMustBeBlankForQueue</name>
     </customLabels>
     <customLabels>
+        <label>Dias da Semana</label>
+        <name>AccountCaseSchedule_Weekdays</name>
+    </customLabels>
+    <customLabels>
+        <label>Selecione ao menos um dia da semana para a frequência &quot;Dias específicos da semana&quot;.</label>
+        <name>AccountCaseSchedule_WeekdaysRequired</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Draft Contract Note --></label>
         <name>Draft_Contract_Note</name>
     </customLabels>
@@ -729,10 +753,6 @@
         <name>GestaoSLA_BusinessHours</name>
     </customLabels>
     <customLabels>
-        <label>Marcos Únicos</label>
-        <name>GestaoSLA_MarcosUnicosSectionTitle</name>
-    </customLabels>
-    <customLabels>
         <label>Ações</label>
         <name>GestaoSLA_CategoryActions</name>
     </customLabels>
@@ -743,6 +763,14 @@
     <customLabels>
         <label>Unidade de Negócio</label>
         <name>GestaoSLA_CategoryBusinessUnit</name>
+    </customLabels>
+    <customLabels>
+        <label>Por categorização?</label>
+        <name>GestaoSLA_CategoryByCategorization</name>
+    </customLabels>
+    <customLabels>
+        <label>Por campo personalizado?</label>
+        <name>GestaoSLA_CategoryByCustomField</name>
     </customLabels>
     <customLabels>
         <label>Tipo de Caso</label>
@@ -763,18 +791,6 @@
     <customLabels>
         <label>Distribuir para fila?</label>
         <name>GestaoSLA_CategoryDistributeToQueue</name>
-    </customLabels>
-    <customLabels>
-        <label>Por campo personalizado?</label>
-        <name>GestaoSLA_CategoryByCustomField</name>
-    </customLabels>
-    <customLabels>
-        <label>Fila de Case</label>
-        <name>GestaoSLA_CategoryQueue</name>
-    </customLabels>
-    <customLabels>
-        <label>Selecione uma fila</label>
-        <name>GestaoSLA_CategoryQueuePlaceholder</name>
     </customLabels>
     <customLabels>
         <label>Qual campo?</label>
@@ -885,6 +901,14 @@
         <name>GestaoSLA_CategoryPaginationPrevious</name>
     </customLabels>
     <customLabels>
+        <label>Fila de Case</label>
+        <name>GestaoSLA_CategoryQueue</name>
+    </customLabels>
+    <customLabels>
+        <label>Selecione uma fila</label>
+        <name>GestaoSLA_CategoryQueuePlaceholder</name>
+    </customLabels>
+    <customLabels>
         <label>Reativar Categorização</label>
         <name>GestaoSLA_CategoryReactivateButton</name>
     </customLabels>
@@ -957,30 +981,6 @@
         <name>GestaoSLA_ChatResponseTime</name>
     </customLabels>
     <customLabels>
-        <label>Tempo de Fila de Email</label>
-        <name>GestaoSLA_EmailQueueTime</name>
-    </customLabels>
-    <customLabels>
-        <label>Usa Tempo de Triagem?</label>
-        <name>GestaoSLA_UsaTriageTime</name>
-    </customLabels>
-    <customLabels>
-        <label>Usa Tempo de Resposta Chat?</label>
-        <name>GestaoSLA_UsaChatResponseTime</name>
-    </customLabels>
-    <customLabels>
-        <label>Usa Tempo de Fila de Email?</label>
-        <name>GestaoSLA_UsaEmailQueueTime</name>
-    </customLabels>
-    <customLabels>
-        <label>Fila de Email</label>
-        <name>GestaoSLA_MilestoneEmailQueueLabel</name>
-    </customLabels>
-    <customLabels>
-        <label>Tempo de Fila de Email em Minutos</label>
-        <name>GestaoSLA_FieldEmailQueueTimeMin</name>
-    </customLabels>
-    <customLabels>
         <label>Erro</label>
         <name>GestaoSLA_CommonError</name>
     </customLabels>
@@ -1027,6 +1027,10 @@
     <customLabels>
         <label>Editar Configurações</label>
         <name>GestaoSLA_EditSettingsButton</name>
+    </customLabels>
+    <customLabels>
+        <label>Tempo de Fila de Email</label>
+        <name>GestaoSLA_EmailQueueTime</name>
     </customLabels>
     <customLabels>
         <label>Entitlement Process</label>
@@ -1145,6 +1149,10 @@
         <name>GestaoSLA_FieldDescription</name>
     </customLabels>
     <customLabels>
+        <label>Tempo de Fila de Email em Minutos</label>
+        <name>GestaoSLA_FieldEmailQueueTimeMin</name>
+    </customLabels>
+    <customLabels>
         <label>Nome da Gestão de SLA</label>
         <name>GestaoSLA_FieldName</name>
     </customLabels>
@@ -1161,16 +1169,16 @@
         <name>GestaoSLA_Label</name>
     </customLabels>
     <customLabels>
-        <label>Fixar como favorita</label>
-        <name>GestaoSLA_PinButton</name>
-    </customLabels>
-    <customLabels>
-        <label>Remover favorita</label>
-        <name>GestaoSLA_UnpinButton</name>
+        <label>Marcos Únicos</label>
+        <name>GestaoSLA_MarcosUnicosSectionTitle</name>
     </customLabels>
     <customLabels>
         <label>Resposta Chat</label>
         <name>GestaoSLA_MilestoneChatResponseLabel</name>
+    </customLabels>
+    <customLabels>
+        <label>Fila de Email</label>
+        <name>GestaoSLA_MilestoneEmailQueueLabel</name>
     </customLabels>
     <customLabels>
         <label>Triagem</label>
@@ -1187,6 +1195,10 @@
     <customLabels>
         <label>Nenhuma Gestão de SLA ativa foi encontrada. Contate um administrador técnico.</label>
         <name>GestaoSLA_NoManagementFoundUser</name>
+    </customLabels>
+    <customLabels>
+        <label>Fixar como favorita</label>
+        <name>GestaoSLA_PinButton</name>
     </customLabels>
     <customLabels>
         <label>Funcionalidade será disponibilizada em pacote futuro.</label>
@@ -1427,6 +1439,22 @@
     <customLabels>
         <label>Tempo Triagem</label>
         <name>GestaoSLA_TriageTime</name>
+    </customLabels>
+    <customLabels>
+        <label>Remover favorita</label>
+        <name>GestaoSLA_UnpinButton</name>
+    </customLabels>
+    <customLabels>
+        <label>Usa Tempo de Resposta Chat?</label>
+        <name>GestaoSLA_UsaChatResponseTime</name>
+    </customLabels>
+    <customLabels>
+        <label>Usa Tempo de Fila de Email?</label>
+        <name>GestaoSLA_UsaEmailQueueTime</name>
+    </customLabels>
+    <customLabels>
+        <label>Usa Tempo de Triagem?</label>
+        <name>GestaoSLA_UsaTriageTime</name>
     </customLabels>
     <customLabels>
         <label>Sem fim</label>
@@ -25014,6 +25042,22 @@
     </flowDefinitions>
     <flowDefinitions>
         <flows>
+            <customErrorMessages>
+                <developerName>Custom_Error_Message_1</developerName>
+                <field>ValorMinimoPeriodo__c</field>
+            </customErrorMessages>
+            <customErrorMessages>
+                <developerName>Custom_Error_Message_4</developerName>
+                <field>PercentualDoPeriodo__c</field>
+            </customErrorMessages>
+            <customErrorMessages>
+                <developerName>Custom_Error_Message_2</developerName>
+                <field>ValorDeCNTRPeriodo__c</field>
+            </customErrorMessages>
+            <customErrorMessages>
+                <developerName>Custom_Error_Message_3</developerName>
+                <field>ValorMinimoDiarioPorProcessoPeriodo__c</field>
+            </customErrorMessages>
             <textTemplates>
                 <name>TT_ListPrice_Consolidado</name>
             </textTemplates>

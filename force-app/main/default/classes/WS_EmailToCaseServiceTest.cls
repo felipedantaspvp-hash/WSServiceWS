@@ -56,6 +56,117 @@ private class WS_EmailToCaseServiceTest {
     }
 
     @IsTest
+    static void testCreateNewCaseAssociatesExistingContactByEmail() {
+        Group queue = getQueue();
+        Account accountRow = new Account(Name = 'Cliente Email', Status__c = 'Nova');
+        insert accountRow;
+        Contact contactRow = new Contact(
+            LastName = 'Cliente Email',
+            Email = 'sender@example.com',
+            Phone = '11999990000',
+            AccountId = accountRow.Id
+        );
+        insert contactRow;
+
+        WS_EmailToCaseRouteConfig route = WS_EmailToCaseTestDataFactory.buildRoute(
+            'route-contact@company.com', WS_EmailToCaseConstants.OWNER_TYPE_QUEUE, queue.DeveloperName,
+            WS_EmailToCaseConstants.BEHAVIOR_REOPEN, 60
+        );
+        WS_EmailToCaseConfigService.setTestRoutes(new List<WS_EmailToCaseRouteConfig>{ route });
+
+        Test.startTest();
+        WS_EmailToCaseProcessResult result = new WS_EmailToCaseOrchestrator().process(
+            WS_EmailToCaseTestDataFactory.buildEmail('<m-contact@x>', 'route-contact@company.com', 'sender@example.com', 'Assunto contato', 'Body', null),
+            WS_EmailToCaseTestDataFactory.buildEnvelope('route-contact@company.com', 'sender@example.com')
+        );
+        Test.stopTest();
+
+        Case created = [SELECT AccountId, ContactId, Representante__c FROM Case WHERE Id = :result.caseId LIMIT 1];
+        System.assertEquals(accountRow.Id, created.AccountId);
+        System.assertEquals(contactRow.Id, created.ContactId);
+        System.assertEquals(null, created.Representante__c);
+        cleanupStatics();
+    }
+
+    @IsTest
+    static void testCreateNewCaseUsesRepresentedAccountWhenConfigured() {
+        Group queue = getQueue();
+        Account representative = new Account(Name = 'Despachante', Status__c = 'Nova');
+        Account represented = new Account(Name = 'Cliente Final', Status__c = 'Nova');
+        insert new List<Account>{ representative, represented };
+
+        Contact contactRow = new Contact(
+            LastName = 'Contato Representado',
+            Email = 'represented@example.com',
+            Phone = '11999990001',
+            AccountId = representative.Id,
+            ContaRepresentadaAtual__c = represented.Id
+        );
+        insert contactRow;
+
+        WS_EmailToCaseRouteConfig route = WS_EmailToCaseTestDataFactory.buildRoute(
+            'route-represented@company.com', WS_EmailToCaseConstants.OWNER_TYPE_QUEUE, queue.DeveloperName,
+            WS_EmailToCaseConstants.BEHAVIOR_REOPEN, 60
+        );
+        WS_EmailToCaseConfigService.setTestRoutes(new List<WS_EmailToCaseRouteConfig>{ route });
+
+        WS_EmailToCaseProcessResult result = new WS_EmailToCaseOrchestrator().process(
+            WS_EmailToCaseTestDataFactory.buildEmail('<m-represented@x>', 'route-represented@company.com', 'represented@example.com', 'Assunto representante', 'Body', null),
+            WS_EmailToCaseTestDataFactory.buildEnvelope('route-represented@company.com', 'represented@example.com')
+        );
+
+        Case created = [SELECT AccountId, ContactId, Representante__c FROM Case WHERE Id = :result.caseId LIMIT 1];
+        System.assertEquals(represented.Id, created.AccountId);
+        System.assertEquals(contactRow.Id, created.ContactId);
+        System.assertEquals(representative.Id, created.Representante__c);
+        cleanupStatics();
+    }
+
+    @IsTest
+    static void testCreateNewCaseMatchesAccountByDomainAndCreatesContact() {
+        Group queue = getQueue();
+        Account accountRow = new Account(
+            Name = 'Cliente Dominio',
+            Status__c = 'Nova',
+            DominiosEmail__c = 'example.com;example.org'
+        );
+        insert accountRow;
+
+        WS_EmailToCaseRouteConfig route = WS_EmailToCaseTestDataFactory.buildRoute(
+            'route-domain@company.com', WS_EmailToCaseConstants.OWNER_TYPE_QUEUE, queue.DeveloperName,
+            WS_EmailToCaseConstants.BEHAVIOR_REOPEN, 60
+        );
+        WS_EmailToCaseConfigService.setTestRoutes(new List<WS_EmailToCaseRouteConfig>{ route });
+
+        Messaging.InboundEmail email = WS_EmailToCaseTestDataFactory.buildEmail(
+            '<m-domain@x>', 'route-domain@company.com', 'novo.contato@example.com', 'Assunto dominio', 'Body', null
+        );
+        email.fromName = 'Novo Contato';
+
+        Test.startTest();
+        WS_EmailToCaseProcessResult result = new WS_EmailToCaseOrchestrator().process(
+            email,
+            WS_EmailToCaseTestDataFactory.buildEnvelope('route-domain@company.com', 'novo.contato@example.com')
+        );
+        Test.stopTest();
+
+        Case created = [SELECT AccountId, ContactId FROM Case WHERE Id = :result.caseId LIMIT 1];
+        System.assertEquals(accountRow.Id, created.AccountId);
+        System.assertNotEquals(null, created.ContactId);
+
+        Contact createdContact = [
+            SELECT AccountId, Email, BypassValidationsFromBot__c
+            FROM Contact
+            WHERE Id = :created.ContactId
+            LIMIT 1
+        ];
+        System.assertEquals(accountRow.Id, createdContact.AccountId);
+        System.assertEquals('novo.contato@example.com', createdContact.Email);
+        System.assertEquals(true, createdContact.BypassValidationsFromBot__c);
+        cleanupStatics();
+    }
+
+    @IsTest
     static void testInboundHandlerDelegatesToInboundService() {
         Group queue = getQueue();
         WS_EmailToCaseRouteConfig route = WS_EmailToCaseTestDataFactory.buildRoute(

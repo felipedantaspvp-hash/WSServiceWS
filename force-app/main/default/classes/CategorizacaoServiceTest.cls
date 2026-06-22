@@ -76,6 +76,38 @@ private class CategorizacaoServiceTest {
     }
 
     @IsTest
+    static void testDuplicidadeInativaNaoBloqueiaNovaAtiva() {
+        // Uma Categorizacao inativada (ex.: duplicidade de carga resolvida por inativação,
+        // em vez de exclusão) não pode bloquear para sempre novas gravações/edições de uma
+        // Categorizacao ativa com a mesma chave natural.
+        configureRuntimeOverrides();
+        Categorizacao__c a = CategorizacaoTestDataFactory.base(false, false);
+        a.RecordTypeId = currentRt().Id;
+        a.UnidadeNegocios__c = unidadeFromRt(currentRt().DeveloperName);
+        insert a;
+
+        a.Ativo__c = false;
+        a.MotivoInativacao__c = 'Duplicidade de carga - teste';
+        update a;
+
+        Categorizacao__c savedA = [SELECT Id, ChaveNaturalHash__c FROM Categorizacao__c WHERE Id = :a.Id];
+        Assert.areEqual(null, savedA.ChaveNaturalHash__c);
+
+        Categorizacao__c b = CategorizacaoTestDataFactory.base(false, false);
+        b.RecordTypeId = a.RecordTypeId;
+        b.UnidadeNegocios__c = unidadeFromRt(currentRt().DeveloperName);
+        insert b;
+
+        Categorizacao__c savedB = [SELECT Id, Ativo__c, ChaveNaturalHash__c FROM Categorizacao__c WHERE Id = :b.Id];
+        Assert.areEqual(true, savedB.Ativo__c);
+        Assert.areEqual(64, savedB.ChaveNaturalHash__c.length());
+
+        // A própria 'a' (inativa) também precisa continuar editável sem se autobloquear.
+        a.Prioridade__c = null;
+        update a;
+    }
+
+    @IsTest
     static void testDistribuicaoPorCampoValidaPicklist() {
         configureRuntimeOverrides();
         String queueDeveloperName = queueDevNameFromRt(currentRt().DeveloperName);

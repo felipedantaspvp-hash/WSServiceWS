@@ -1,0 +1,76 @@
+.section-title {
+    font-weight: 700;
+    color: #16325c;
+    margin-bottom: 0.5rem;
+}
+
+.form-shell {
+    position: relative;
+    padding-bottom: 5rem;
+}
+
+.actions-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    background: #f3f3f3;
+    border-top: 1px solid #d8dde6;
+    margin-top: 1rem;
+    padding: 0.75rem 0.5rem;
+}
+
+.actions-row {
+    width: 100%;
+}
+
+.destination-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.destination-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.destination-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    text-align: left;
+    padding: 0.75rem;
+    border: 1px solid #d8dde6;
+    border-radius: 0.375rem;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+.destination-card_selected {
+    border-color: #0176d3;
+    box-shadow: 0 0 0 1px #0176d3 inset;
+}
+
+.destination-radio {
+    color: #0176d3;
+    font-size: 1rem;
+    line-height: 1.2;
+    margin-top: 0.1rem;
+}
+
+.destination-label {
+    font-weight: 600;
+    color: #032d60;
+}
+
+.destination-description {
+    font-size: 0.72rem;
+    color: #706e6b;
+    margin-top: 0.15rem;
+}
+
+@media (max-width: 900px) {
+    .destination-grid {
+        grid-template-columns: 1fr;
+    }
+}

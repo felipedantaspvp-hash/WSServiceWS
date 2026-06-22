@@ -2939,6 +2939,38 @@
         <value>Frequency is required.</value>
     </labels>
     <labels>
+        <fullName>AccountCaseSchedule_Weekdays</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Weekdays field label</shortDescription>
+        <value>Weekdays</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_AvailableWeekdays</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Weekdays dual-listbox available column label</shortDescription>
+        <value>Available</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_SelectedWeekdays</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Weekdays dual-listbox selected column label</shortDescription>
+        <value>Selected</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_WeekdaysRequired</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Weekdays required error</shortDescription>
+        <value>Select at least one weekday for the &quot;specific weekdays&quot; frequency.</value>
+    </labels>
+    <labels>
         <fullName>AccountCaseSchedule_Inactive</fullName>
         <categories>AccountCaseSchedule</categories>
         <language>en_US</language>
@@ -3009,6 +3041,22 @@
         <protected>false</protected>
         <shortDescription>Last error column label</shortDescription>
         <value>Last error</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_LastExecution</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Last successful execution column label</shortDescription>
+        <value>Last execution</value>
+    </labels>
+    <labels>
+        <fullName>AccountCaseSchedule_NextExecution</fullName>
+        <categories>AccountCaseSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Next expected execution column label</shortDescription>
+        <value>Next execution</value>
     </labels>
     <labels>
         <fullName>AccountCaseSchedule_LoadingSchedules</fullName>
@@ -3345,5 +3393,13 @@
         <protected>false</protected>
         <shortDescription>User must be blank for queue error</shortDescription>
         <value>User must be empty when the owner is a queue.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryByCategorization</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category by categorization toggle label</shortDescription>
+        <value>By categorization?</value>
     </labels>
 </CustomLabels>

@@ -54,4 +54,53 @@ private class WS_EmailToCaseConfigServiceTest {
         Assert.areEqual(true, String.isBlank(configuredRoute.ownerType) == false);
         Assert.isNotNull(configuredRoute.reopenWindowMinutes);
     }
+
+    @IsTest
+    static void testGetActiveRoutesReadsDedicatedMetadataRowsOnly() {
+        WS_EmailRoute__mdt activeRow = new WS_EmailRoute__mdt();
+        activeRow.DeveloperName = 'DedicatedActive';
+        activeRow.Ativo__c = true;
+        activeRow.RouteKey__c = 'dedicated@company.com';
+        activeRow.BusinessEmail__c = 'inbox@company.com';
+        activeRow.SalesforceServiceAddress__c = 'service@company.com';
+        activeRow.MatchMode__c = 'ANY_RECIPIENT';
+        activeRow.CaseRecordTypeDeveloperName__c = 'AtendimentoTeconSalvador';
+        activeRow.CaseOrigin__c = 'Email';
+        activeRow.Prioridade__c = 'High';
+        activeRow.RouteOwnerType__c = 'QUEUE';
+        activeRow.RouteOwnerDeveloperName__c = 'TSV_AtendimentoN1';
+        activeRow.ClosedCaseBehavior__c = 'REOPEN';
+        activeRow.ReopenWindowMinutes__c = 45;
+        activeRow.ReopenStatus__c = 'Novo';
+        activeRow.RelateNewCaseToOriginal__c = true;
+        activeRow.IsDefaultEmailRoute__c = true;
+        activeRow.CreateContentFiles__c = false;
+        activeRow.PersistEmailAudit__c = true;
+        activeRow.AllowedFromDomains__c = 'example.com';
+        activeRow.Descricao__c = 'Rota dedicada';
+
+        WS_EmailRoute__mdt inactiveRow = new WS_EmailRoute__mdt();
+        inactiveRow.DeveloperName = 'DedicatedInactive';
+        inactiveRow.Ativo__c = false;
+        inactiveRow.RouteKey__c = 'inactive@company.com';
+
+        WS_EmailToCaseConfigService.setTestMetadataRows(new List<WS_EmailRoute__mdt>{ activeRow, inactiveRow });
+
+        List<WS_EmailToCaseRouteConfig> routes = WS_EmailToCaseConfigService.getActiveRoutes();
+
+        Assert.areEqual(1, routes.size());
+        Assert.areEqual('DedicatedActive', routes[0].developerName);
+        Assert.areEqual('dedicated@company.com', routes[0].routeKey);
+        Assert.areEqual('inbox@company.com', routes[0].businessEmail);
+        Assert.areEqual('service@company.com', routes[0].salesforceServiceAddress);
+        Assert.areEqual('QUEUE', routes[0].ownerType);
+        Assert.areEqual('TSV_AtendimentoN1', routes[0].ownerKey);
+        Assert.areEqual(true, routes[0].isDefaultRoute);
+        Assert.areEqual(false, routes[0].createContentFiles);
+        Assert.areEqual(true, routes[0].persistEmailAudit);
+        Assert.areEqual('example.com', routes[0].allowedFromDomains);
+        Assert.areEqual('Rota dedicada', routes[0].description);
+
+        WS_EmailToCaseConfigService.clearTestRoutes();
+    }
 }

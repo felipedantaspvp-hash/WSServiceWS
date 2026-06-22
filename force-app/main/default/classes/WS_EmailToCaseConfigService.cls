@@ -8,6 +8,8 @@
 public inherited sharing class WS_EmailToCaseConfigService {
     @TestVisible
     private static List<WS_EmailToCaseRouteConfig> testRoutes;
+    @TestVisible
+    private static List<WS_EmailRoute__mdt> testMetadataRows;
 
     @TestVisible
     static void setTestRoutes(List<WS_EmailToCaseRouteConfig> routes) {
@@ -15,8 +17,14 @@ public inherited sharing class WS_EmailToCaseConfigService {
     }
 
     @TestVisible
+    static void setTestMetadataRows(List<WS_EmailRoute__mdt> rows) {
+        testMetadataRows = rows;
+    }
+
+    @TestVisible
     static void clearTestRoutes() {
         testRoutes = null;
+        testMetadataRows = null;
     }
 
     public static List<WS_EmailToCaseRouteConfig> getActiveRoutes() {
@@ -30,9 +38,19 @@ public inherited sharing class WS_EmailToCaseConfigService {
             return cloneRoutes(onlyActive);
         }
 
+        return readDedicatedRouteMetadata();
+    }
+
+    private static List<WS_EmailToCaseRouteConfig> readDedicatedRouteMetadata() {
         List<WS_EmailToCaseRouteConfig> routes = new List<WS_EmailToCaseRouteConfig>();
-        Map<String, ParametrosAtendimento__mdt> allRoutes = ParametrosAtendimento__mdt.getAll();
-        for (ParametrosAtendimento__mdt row : allRoutes.values()) {
+        List<WS_EmailRoute__mdt> sourceRows = new List<WS_EmailRoute__mdt>();
+        if (Test.isRunningTest() && testMetadataRows != null) {
+            sourceRows.addAll(testMetadataRows);
+        } else {
+            sourceRows.addAll(WS_EmailRoute__mdt.getAll().values());
+        }
+
+        for (WS_EmailRoute__mdt row : sourceRows) {
             if (row.Ativo__c && !String.isBlank(row.RouteKey__c)) {
                 routes.add(toConfig(row));
             }
@@ -40,7 +58,7 @@ public inherited sharing class WS_EmailToCaseConfigService {
         return routes;
     }
 
-    private static WS_EmailToCaseRouteConfig toConfig(ParametrosAtendimento__mdt row) {
+    private static WS_EmailToCaseRouteConfig toConfig(WS_EmailRoute__mdt row) {
         WS_EmailToCaseRouteConfig c = new WS_EmailToCaseRouteConfig();
         c.developerName = row.DeveloperName;
         c.active = row.Ativo__c;

@@ -4,6 +4,7 @@
 public with sharing class AccountCaseScheduleService {
     private static final String OWNER_TYPE_USER = 'USER';
     private static final String OWNER_TYPE_QUEUE = 'QUEUE';
+    private static final String FREQUENCY_SPECIFIC_WEEKDAYS = 'Dias específicos da semana';
 
     public class FunctionalException extends Exception {}
 
@@ -24,6 +25,7 @@ public with sharing class AccountCaseScheduleService {
         out.agendamentoObjectApiName = AccountCaseScheduleHelper.getAgendamentoObjectApiName();
         out.caseContext = CaseCreationService.getInitialContext();
         out.frequenciaOptions = AccountCaseScheduleHelper.toOptions(Agendamento__c.Frequencia__c.getDescribe());
+        out.diasDaSemanaOptions = AccountCaseScheduleHelper.toOptions(Agendamento__c.DiasDaSemana__c.getDescribe());
         out.ownerTypeOptions = AccountCaseScheduleHelper.toOptions(Agendamento__c.OwnerType__c.getDescribe());
         out.schedules = toScheduleDTOs(AccountCaseScheduleHelper.getSchedulesByAccount(accountId));
         return out;
@@ -126,6 +128,9 @@ public with sharing class AccountCaseScheduleService {
         row.Subassunto__c = normalizeBlank(request.categorization.subassunto);
         row.DescricaoAtividade__c = request.descricaoAtividade.trim();
         row.Frequencia__c = request.frequencia;
+        row.DiasDaSemana__c = request.frequencia == FREQUENCY_SPECIFIC_WEEKDAYS && request.diasDaSemana != null
+            ? String.join(request.diasDaSemana, ';')
+            : null;
         row.HorarioExecucao__c = parseTime(request.horarioExecucao);
         row.DataInicio__c = request.dataInicio;
         row.PularFimDeSemana__c = request.pularFimDeSemana == true;
@@ -153,10 +158,11 @@ public with sharing class AccountCaseScheduleService {
         List<Agendamento__c> savedRows = [
             SELECT Id, Name, Ativo__c, Conta__c, UnidadeNegocio__c, RecordTypeId,
                 RecordType.DeveloperName, TipoCaso__c, Categoria__c, Assunto__c,
-                Subassunto__c, Frequencia__c, HorarioExecucao__c, DataInicio__c,
+                Subassunto__c, Frequencia__c, DiasDaSemana__c, HorarioExecucao__c, DataInicio__c,
                 PularFimDeSemana__c, DescricaoAtividade__c, OwnerType__c,
                 OwnerUser__c, OwnerUser__r.Name, OwnerQueueDeveloperName__c,
                 OwnerId, Owner.Name, UltimoErroExecucao__c,
+                UltimaExecucao__c, ProximaExecucao__c,
                 toLabel(UnidadeNegocio__c) UnidadeNegocioLabel,
                 toLabel(TipoCaso__c) TipoCasoLabel,
                 toLabel(Categoria__c) CategoriaLabel,
@@ -206,6 +212,9 @@ public with sharing class AccountCaseScheduleService {
         if (String.isBlank(request.categorization.categoria)) throw new FunctionalException(Label.AccountCaseSchedule_CategoryRequired);
         if (String.isBlank(request.descricaoAtividade)) throw new FunctionalException(Label.AccountCaseSchedule_DescriptionRequired);
         if (String.isBlank(request.frequencia)) throw new FunctionalException(Label.AccountCaseSchedule_FrequencyRequired);
+        if (request.frequencia == FREQUENCY_SPECIFIC_WEEKDAYS && (request.diasDaSemana == null || request.diasDaSemana.isEmpty())) {
+            throw new FunctionalException(Label.AccountCaseSchedule_WeekdaysRequired);
+        }
         if (String.isBlank(request.horarioExecucao)) throw new FunctionalException(Label.AccountCaseSchedule_TimeRequired);
         if (request.dataInicio == null) throw new FunctionalException(Label.AccountCaseSchedule_StartDateRequired);
         if (String.isBlank(request.ownerType)) throw new FunctionalException(Label.AccountCaseSchedule_OwnerTypeRequired);
@@ -283,6 +292,7 @@ public with sharing class AccountCaseScheduleService {
         request.categorization.assunto = fullRow.Assunto__c;
         request.categorization.subassunto = fullRow.Subassunto__c;
         request.frequencia = fullRow.Frequencia__c;
+        request.diasDaSemana = String.isBlank(fullRow.DiasDaSemana__c) ? new List<String>() : fullRow.DiasDaSemana__c.split(';');
         request.horarioExecucao = AccountCaseScheduleHelper.toScheduleDTO(fullRow).horarioExecucao;
         request.dataInicio = fullRow.DataInicio__c;
         request.pularFimDeSemana = fullRow.PularFimDeSemana__c;

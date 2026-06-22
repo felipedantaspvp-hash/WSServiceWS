@@ -34,10 +34,11 @@ public with sharing class AccountCaseScheduleHelper {
         return [
             SELECT Id, Name, Ativo__c, Conta__c, UnidadeNegocio__c, RecordTypeId,
                 RecordType.DeveloperName, TipoCaso__c, Categoria__c, Assunto__c,
-                Subassunto__c, Frequencia__c, HorarioExecucao__c, DataInicio__c,
+                Subassunto__c, Frequencia__c, DiasDaSemana__c, HorarioExecucao__c, DataInicio__c,
                 PularFimDeSemana__c, DescricaoAtividade__c, OwnerType__c,
                 OwnerUser__c, OwnerUser__r.Name, OwnerQueueDeveloperName__c,
                 OwnerId, Owner.Name, UltimoErroExecucao__c,
+                UltimaExecucao__c, ProximaExecucao__c,
                 toLabel(UnidadeNegocio__c) UnidadeNegocioLabel,
                 toLabel(TipoCaso__c) TipoCasoLabel,
                 toLabel(Categoria__c) CategoriaLabel,
@@ -186,6 +187,7 @@ public with sharing class AccountCaseScheduleHelper {
         dto.subassuntoLabel = getLabelOrFieldValue(row, 'SubassuntoLabel', 'Subassunto__c');
         dto.frequencia = row.Frequencia__c;
         dto.frequenciaLabel = getLabelOrFieldValue(row, 'FrequenciaLabel', 'Frequencia__c');
+        dto.diasDaSemana = String.isBlank(row.DiasDaSemana__c) ? new List<String>() : row.DiasDaSemana__c.split(';');
         dto.horarioExecucao = formatTime(row.HorarioExecucao__c);
         dto.dataInicio = row.DataInicio__c;
         dto.pularFimDeSemana = row.PularFimDeSemana__c;
@@ -197,6 +199,8 @@ public with sharing class AccountCaseScheduleHelper {
         dto.ownerQueueDeveloperName = row.OwnerQueueDeveloperName__c;
         dto.ownerDisplay = row.Owner == null ? null : row.Owner.Name;
         dto.ultimoErroExecucao = row.UltimoErroExecucao__c;
+        dto.ultimaExecucao = row.UltimaExecucao__c;
+        dto.proximaExecucao = row.ProximaExecucao__c;
         return dto;
     }
 

@@ -27,6 +27,7 @@ public with sharing class AccountCaseScheduleDTO {
         @AuraEnabled public String subassuntoLabel { get; set; }
         @AuraEnabled public String frequencia { get; set; }
         @AuraEnabled public String frequenciaLabel { get; set; }
+        @AuraEnabled public List<String> diasDaSemana { get; set; }
         @AuraEnabled public String horarioExecucao { get; set; }
         @AuraEnabled public Date dataInicio { get; set; }
         @AuraEnabled public Boolean pularFimDeSemana { get; set; }
@@ -38,6 +39,8 @@ public with sharing class AccountCaseScheduleDTO {
         @AuraEnabled public String ownerQueueDeveloperName { get; set; }
         @AuraEnabled public String ownerDisplay { get; set; }
         @AuraEnabled public String ultimoErroExecucao { get; set; }
+        @AuraEnabled public Datetime ultimaExecucao { get; set; }
+        @AuraEnabled public Datetime proximaExecucao { get; set; }
     }
 
     public class InitialStateDTO {
@@ -46,6 +49,7 @@ public with sharing class AccountCaseScheduleDTO {
         @AuraEnabled public List<ScheduleDTO> schedules { get; set; }
         @AuraEnabled public CaseCreationDTO.InitialContextDTO caseContext { get; set; }
         @AuraEnabled public List<OptionDTO> frequenciaOptions { get; set; }
+        @AuraEnabled public List<OptionDTO> diasDaSemanaOptions { get; set; }
         @AuraEnabled public List<OptionDTO> ownerTypeOptions { get; set; }
         @AuraEnabled public String agendamentoObjectApiName { get; set; }
     }
@@ -63,6 +67,7 @@ public with sharing class AccountCaseScheduleDTO {
         @AuraEnabled public Boolean ativo { get; set; }
         @AuraEnabled public CaseCreationDTO.CategorizationRequestDTO categorization { get; set; }
         @AuraEnabled public String frequencia { get; set; }
+        @AuraEnabled public List<String> diasDaSemana { get; set; }
         @AuraEnabled public String horarioExecucao { get; set; }
         @AuraEnabled public Date dataInicio { get; set; }
         @AuraEnabled public Boolean pularFimDeSemana { get; set; }

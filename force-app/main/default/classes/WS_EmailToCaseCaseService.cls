@@ -7,9 +7,20 @@
 **/
 public inherited sharing class WS_EmailToCaseCaseService {
     private static Map<String, Id> recordTypeByDevName;
+    private WS_EmailToCaseCustomerResolutionService customerResolutionService;
+
+    public WS_EmailToCaseCaseService() {
+        this(new WS_EmailToCaseCustomerResolutionService());
+    }
+
+    @TestVisible
+    private WS_EmailToCaseCaseService(WS_EmailToCaseCustomerResolutionService customerResolutionService) {
+        this.customerResolutionService = customerResolutionService;
+    }
 
     public Case createNewCase(Messaging.InboundEmail email, WS_EmailToCaseRouteConfig route, Id ownerId, Id originalCaseId) {
         WS_EmailToCaseUtils.ensureCaseCreateAccess();
+        WS_EmailToCaseCustomerResolutionService.Resolution customerResolution = customerResolutionService.resolveOrCreate(email);
 
         Case c = new Case();
         c.RecordTypeId = resolveCaseRecordTypeId(route.caseRecordTypeDeveloperName);
@@ -25,6 +36,9 @@ public inherited sharing class WS_EmailToCaseCaseService {
         if (originalCaseId != null && route.relateNewCaseToOriginal == true) {
             c.WS_Original_Case__c = originalCaseId;
         }
+        putIfCreateable(c, 'AccountId', customerResolution.accountId);
+        putIfCreateable(c, 'ContactId', customerResolution.contactId);
+        putIfCreateable(c, 'Representante__c', customerResolution.representativeAccountId);
 
         insert c;
         return c;
@@ -124,6 +138,19 @@ public inherited sharing class WS_EmailToCaseCaseService {
         }
         if (!openValues.contains(statusValue)) {
             throw new WS_EmailToCaseConfigException('Reopen_Status__c deve ser um status aberto de Case: ' + statusValue);
+        }
+    }
+
+    private static void putIfCreateable(Case row, String fieldApiName, Object value) {
+        if (row == null || value == null || String.isBlank(fieldApiName)) {
+            return;
+        }
+        Map<String, Schema.SObjectField> fieldMap = Case.SObjectType.getDescribe().fields.getMap();
+        if (!fieldMap.containsKey(fieldApiName)) {
+            return;
+        }
+        if (fieldMap.get(fieldApiName).getDescribe().isCreateable()) {
+            row.put(fieldApiName, value);
         }
     }
 }

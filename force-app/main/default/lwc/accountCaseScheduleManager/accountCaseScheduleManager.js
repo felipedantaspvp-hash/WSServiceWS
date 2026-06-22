@@ -24,10 +24,15 @@ import category from '@salesforce/label/c.AccountCaseSchedule_Category';
 import subject from '@salesforce/label/c.AccountCaseSchedule_Subject';
 import subsubject from '@salesforce/label/c.AccountCaseSchedule_Subsubject';
 import frequency from '@salesforce/label/c.AccountCaseSchedule_Frequency';
+import weekdays from '@salesforce/label/c.AccountCaseSchedule_Weekdays';
+import availableWeekdays from '@salesforce/label/c.AccountCaseSchedule_AvailableWeekdays';
+import selectedWeekdays from '@salesforce/label/c.AccountCaseSchedule_SelectedWeekdays';
 import executionTime from '@salesforce/label/c.AccountCaseSchedule_ExecutionTime';
 import startDate from '@salesforce/label/c.AccountCaseSchedule_StartDate';
 import owner from '@salesforce/label/c.AccountCaseSchedule_Owner';
 import lastError from '@salesforce/label/c.AccountCaseSchedule_LastError';
+import lastExecution from '@salesforce/label/c.AccountCaseSchedule_LastExecution';
+import nextExecution from '@salesforce/label/c.AccountCaseSchedule_NextExecution';
 import edit from '@salesforce/label/c.AccountCaseSchedule_Edit';
 import activate from '@salesforce/label/c.AccountCaseSchedule_Activate';
 import deactivate from '@salesforce/label/c.AccountCaseSchedule_Deactivate';
@@ -55,6 +60,8 @@ import statusUpdated from '@salesforce/label/c.AccountCaseSchedule_StatusUpdated
 import scheduleSaved from '@salesforce/label/c.AccountCaseSchedule_ScheduleSaved';
 import unexpectedError from '@salesforce/label/c.AccountCaseSchedule_UnexpectedError';
 
+const FREQUENCY_SPECIFIC_WEEKDAYS = 'Dias específicos da semana';
+
 const LABELS = {
     title,
     newSchedule,
@@ -70,10 +77,15 @@ const LABELS = {
     subject,
     subsubject,
     frequency,
+    weekdays,
+    availableWeekdays,
+    selectedWeekdays,
     executionTime,
     startDate,
     owner,
     lastError,
+    lastExecution,
+    nextExecution,
     edit,
     activate,
     deactivate,
@@ -112,6 +124,7 @@ export default class AccountCaseScheduleManager extends LightningElement {
     labels = LABELS;
     recordTypeOptions = [];
     frequenciaOptions = [];
+    diasDaSemanaOptions = [];
     ownerTypeOptions = [];
     tipoOptions = [];
     categoriaOptions = [];
@@ -156,12 +169,16 @@ export default class AccountCaseScheduleManager extends LightningElement {
             hasAssunto: !!row.assunto,
             hasSubassunto: !!row.subassunto,
             hasLastError: !!row.ultimoErroExecucao,
+            hasUltimaExecucao: !!row.ultimaExecucao,
+            hasProximaExecucao: !!row.proximaExecucao,
+            hasDiasDaSemana: !!(row.diasDaSemana && row.diasDaSemana.length),
             displayUnidadeNegocio: row.unidadeNegocioLabel || row.unidadeNegocio,
             displayTipoCaso: row.tipoCasoLabel || row.tipoCaso,
             displayCategoria: row.categoriaLabel || row.categoria,
             displayAssunto: row.assuntoLabel || row.assunto,
             displaySubassunto: row.subassuntoLabel || row.subassunto,
-            displayFrequencia: row.frequenciaLabel || row.frequencia
+            displayFrequencia: row.frequenciaLabel || row.frequencia,
+            displayDiasDaSemana: (row.diasDaSemana || []).join(', ')
         }));
     }
 
@@ -201,6 +218,10 @@ export default class AccountCaseScheduleManager extends LightningElement {
         return this.form.ownerType === 'QUEUE';
     }
 
+    get showWeekdays() {
+        return this.form.frequencia === FREQUENCY_SPECIFIC_WEEKDAYS;
+    }
+
     async loadInitialState() {
         this.loading = true;
         try {
@@ -208,6 +229,7 @@ export default class AccountCaseScheduleManager extends LightningElement {
             this.accountName = state?.accountName;
             this.schedules = state?.schedules || [];
             this.frequenciaOptions = this.toComboboxOptions(state?.frequenciaOptions);
+            this.diasDaSemanaOptions = this.toComboboxOptions(state?.diasDaSemanaOptions);
             this.ownerTypeOptions = this.toComboboxOptions(state?.ownerTypeOptions);
             this.recordTypeOptions = (state?.caseContext?.recordTypes || []).map((recordType) => ({
                 label: `${recordType.unidadeNegocio || recordType.label} (${recordType.label})`,
@@ -259,6 +281,7 @@ export default class AccountCaseScheduleManager extends LightningElement {
                 subassunto: row.subassunto
             },
             frequencia: row.frequencia,
+            diasDaSemana: row.diasDaSemana || [],
             horarioExecucao: row.horarioExecucao,
             dataInicio: row.dataInicio,
             pularFimDeSemana: row.pularFimDeSemana,
@@ -328,7 +351,16 @@ export default class AccountCaseScheduleManager extends LightningElement {
     }
 
     handleFormChange(event) {
-        this.form = { ...this.form, [event.target.name]: event.detail.value };
+        const field = event.target.name;
+        const value = event.detail.value;
+        this.form = { ...this.form, [field]: value };
+        if (field === 'frequencia' && value !== FREQUENCY_SPECIFIC_WEEKDAYS) {
+            this.form = { ...this.form, diasDaSemana: [] };
+        }
+    }
+
+    handleWeekdaysChange(event) {
+        this.form = { ...this.form, diasDaSemana: event.detail.value };
     }
 
     handleCheckboxChange(event) {
@@ -514,6 +546,7 @@ export default class AccountCaseScheduleManager extends LightningElement {
                 subassunto: null
             },
             frequencia: null,
+            diasDaSemana: [],
             horarioExecucao: null,
             dataInicio: null,
             pularFimDeSemana: true,

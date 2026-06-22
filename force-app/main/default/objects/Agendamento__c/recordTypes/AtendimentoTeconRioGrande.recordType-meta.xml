@@ -974,6 +974,37 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>DiasDaSemana__c</picklist>
+        <values>
+            <fullName>Domingo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quarta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quinta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Segunda</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sexta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sábado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Terça</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Frequencia__c</picklist>
         <values>
             <fullName>Anual</fullName>

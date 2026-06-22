@@ -16,6 +16,30 @@
         <visible>false</visible>
     </applicationVisibilities>
     <classAccesses>
+        <apexClass>AccountCaseScheduleController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>AccountCaseScheduleControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>AccountCaseScheduleDTO</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>AccountCaseScheduleHelper</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>AccountCaseScheduleService</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>AccountCaseScheduleServiceTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>AreaParticipanteController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -141,6 +165,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>AtendimentoContextResolverInvocable</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>AtendimentoContextResolverSelector</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -328,6 +356,46 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CaseScheduleBatch</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CaseScheduleBatchTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CaseScheduleDTO</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CaseScheduleExecutionWindowDTO</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CaseScheduleHelper</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CaseScheduleResultDTO</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CaseScheduleScheduler</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CaseScheduleSchedulerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CaseScheduleService</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CaseScheduleServiceTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CaseSurveyDispatchDTO</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -337,6 +405,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CaseSurveyDispatchHelper</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CaseSurveyDispatchSelector</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -548,6 +620,14 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>WSWillCaseCreationSelector</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>WSWillCaseCreationSelectorTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>WSWillCaseCreationService</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -656,6 +736,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>WS_EmailToCaseCustomerResolutionService</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>WS_EmailToCaseDedupService</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -696,7 +780,15 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>WS_EmailToCaseRouteServiceTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>WS_EmailToCaseServiceTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>WS_EmailToCaseSupportServiceTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -1269,6 +1361,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Agendamento__c.DiasDaSemana__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Agendamento__c.Frequencia__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -1294,6 +1391,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Agendamento__c.ProximaExecucao__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Agendamento__c.PularFimDeSemana__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -1305,6 +1407,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Agendamento__c.TipoCaso__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Agendamento__c.UltimaExecucao__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2554,6 +2661,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>GestaoSLA__c.TempoFilaEmailMinutos__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>GestaoSLA__c.TempoRespostaChatMinutos__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -2565,6 +2677,21 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>GestaoSLA__c.UnidadeNegocio__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>GestaoSLA__c.UsaTempoFilaEmail__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>GestaoSLA__c.UsaTempoRespostaChat__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>GestaoSLA__c.UsaTempoTriagem__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2595,6 +2722,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>MarcoSLA__c.Recorrente__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>MarcoSLA__c.TempoFallbackMinutos__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2704,11 +2836,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.AllowedFromDomains__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>ParametrosAtendimento__mdt.Ativo__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -2739,16 +2866,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.BusinessEmail__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.CanalOrigem__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>ParametrosAtendimento__mdt.CaseClosureTemplateDeveloperNameEN__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -2769,22 +2886,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.CaseOrigin__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>ParametrosAtendimento__mdt.CaseRecordTypeDeveloperName__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.ClosedCaseBehavior__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.CreateContentFiles__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2824,21 +2926,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.FilaCategorizacaoDeveloperName__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.IsDefaultEmailRoute__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.MatchMode__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>ParametrosAtendimento__mdt.MessagingChannelDeveloperName__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -2864,62 +2951,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.PersistEmailAudit__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.Prioridade__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>ParametrosAtendimento__mdt.QueueDeveloperNamePrefix__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.RelateNewCaseToOriginal__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.ReopenClosedCase__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.ReopenStatus__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.ReopenWindowMinutes__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.RouteKey__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.RouteOwnerDeveloperName__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.RouteOwnerType__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.RouteOwnerUsername__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>ParametrosAtendimento__mdt.SalesforceServiceAddress__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2965,6 +2997,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ParametrosAtendimento__mdt.VerifyDailySurvey__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ParametrosAtendimento__mdt.WhatsAppChannelDeveloperName__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3377,6 +3414,116 @@
         <field>User.pi__Pardot_User_Role__c</field>
         <readable>false</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.AllowedFromDomains__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.Ativo__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.BusinessEmail__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.CaseOrigin__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.CaseRecordTypeDeveloperName__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.ClosedCaseBehavior__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.CreateContentFiles__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.Descricao__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.IsDefaultEmailRoute__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.MatchMode__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.PersistEmailAudit__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.Prioridade__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.RelateNewCaseToOriginal__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.ReopenClosedCase__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.ReopenStatus__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.ReopenWindowMinutes__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.RouteKey__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.RouteOwnerDeveloperName__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.RouteOwnerType__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.RouteOwnerUsername__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.SalesforceServiceAddress__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WS_EmailRoute__mdt.UnidadeNegocio__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
     <flowAccesses>
         <enabled>false</enabled>
         <flow>Atendimento_Survey_TeconSalvador</flow>
@@ -3458,6 +3605,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>UserAlt-User Profile Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>WS_EmailRoute__mdt-Layout de Rota de EMail de Atendimento</layout>
     </layoutAssignments>
     <pageAccesses>
         <apexPage>ESWWSCLWebChat1779902508992</apexPage>

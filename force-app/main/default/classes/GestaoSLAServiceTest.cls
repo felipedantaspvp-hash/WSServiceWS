@@ -1130,6 +1130,43 @@ private class GestaoSLAServiceTest {
     }
 
     @IsTest
+    static void testReactivateCategoriaBloqueadaPorDuplicidadeAtiva() {
+        // Inativa uma Categorizacao e depois cria outra ATIVA com a mesma combinação
+        // (cenário real: duplicidade resolvida via inativação). Reativar a antiga deve
+        // continuar bloqueado enquanto a nova ativa existir, mesmo após o ajuste que faz
+        // o hash único (CategorizacaoSelector.getExistingByHash) ignorar inativas.
+        GestaoSLA__c g = createGestao('REACT_DUP', true);
+        Categorizacao__c original = createCategoria(g.Id, 'REACT_DUP', true);
+
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
+
+        GestaoSLADTO.CategoriaResumo deactivated = GestaoSLAService.deactivateCategoria(original.Id);
+        Assert.areEqual(false, deactivated.ativo);
+
+        GestaoSLADTO.CategoriaRequest createReq = new GestaoSLADTO.CategoriaRequest();
+        createReq.gestaoSLAId = g.Id;
+        createReq.tipoCaso = original.TipoCaso__c;
+        createReq.categoria = original.Categoria__c;
+        createReq.assunto = original.Assunto__c;
+        createReq.subassunto = original.Subassunto__c;
+        createReq.ativo = true;
+        GestaoSLADTO.CategoriaResumo novaAtiva = GestaoSLAService.createCategoria(createReq);
+        Assert.areEqual(true, novaAtiva.ativo);
+
+        Boolean failed = false;
+        try {
+            GestaoSLAService.reactivateCategoria(original.Id);
+        } catch (Exception ex) {
+            failed = true;
+            Assert.areEqual(true, ex.getMessage().contains('Já existe uma categorização ativa'));
+        }
+        Assert.areEqual(true, failed);
+    }
+
+    @IsTest
     static void testCreateUpdateDeactivateRegraSLAComPermissao() {
         GestaoSLA__c g = createGestao('REGRA_CRUD', true);
         Categorizacao__c c = createCategoria(g.Id, 'REGRA_CRUD', true);

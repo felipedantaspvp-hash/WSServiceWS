@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>CanalOrigem__c</fullName>
-    <description>Canal de origem associado à rota de e-mail.</description>
+    <fullName>UnidadeNegocio__c</fullName>
+    <description>Identificador canônico da unidade de negócio atendida por este registro consolidado.</description>
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
-    <label>Canal de Origem</label>
+    <label>Unidade de Negócio</label>
     <length>100</length>
     <required>false</required>
     <type>Text</type>

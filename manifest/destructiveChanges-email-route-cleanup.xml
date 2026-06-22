@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>ParametrosAtendimento__mdt.AllowedFromDomains__c</members>
+        <members>ParametrosAtendimento__mdt.BusinessEmail__c</members>
+        <members>ParametrosAtendimento__mdt.CanalOrigem__c</members>
+        <members>ParametrosAtendimento__mdt.CaseOrigin__c</members>
+        <members>ParametrosAtendimento__mdt.ClosedCaseBehavior__c</members>
+        <members>ParametrosAtendimento__mdt.CreateContentFiles__c</members>
+        <members>ParametrosAtendimento__mdt.FilaCategorizacaoDeveloperName__c</members>
+        <members>ParametrosAtendimento__mdt.IsDefaultEmailRoute__c</members>
+        <members>ParametrosAtendimento__mdt.MatchMode__c</members>
+        <members>ParametrosAtendimento__mdt.PersistEmailAudit__c</members>
+        <members>ParametrosAtendimento__mdt.Prioridade__c</members>
+        <members>ParametrosAtendimento__mdt.RelateNewCaseToOriginal__c</members>
+        <members>ParametrosAtendimento__mdt.ReopenClosedCase__c</members>
+        <members>ParametrosAtendimento__mdt.ReopenStatus__c</members>
+        <members>ParametrosAtendimento__mdt.ReopenWindowMinutes__c</members>
+        <members>ParametrosAtendimento__mdt.RouteKey__c</members>
+        <members>ParametrosAtendimento__mdt.RouteOwnerDeveloperName__c</members>
+        <members>ParametrosAtendimento__mdt.RouteOwnerType__c</members>
+        <members>ParametrosAtendimento__mdt.RouteOwnerUsername__c</members>
+        <members>ParametrosAtendimento__mdt.SalesforceServiceAddress__c</members>
+        <name>CustomField</name>
+    </types>
+    <version>66.0</version>
+</Package>

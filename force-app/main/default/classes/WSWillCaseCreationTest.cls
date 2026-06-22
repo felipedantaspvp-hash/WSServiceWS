@@ -392,6 +392,62 @@ private class WSWillCaseCreationTest {
         Assert.areEqual('QUEUE_NOT_FOUND_FOR_BOT', createdCase.FilaDestinoDeveloperName__c);
     }
 
+    @IsTest
+    static void shouldUseRepresentedAccountAndRepresentativeForExistingContact() {
+        if (!representedAccountFieldQueryable()) {
+            Assert.areEqual(true, true, 'Campo ContaRepresentadaAtual__c ainda não disponível nesta org de teste.');
+            return;
+        }
+
+        Account representative = new Account(Name = 'Despachante Canal Digital');
+        Account represented = new Account(Name = 'Cliente Final Canal Digital');
+        insert new List<Account>{ representative, represented };
+
+        Contact contactRow = new Contact(
+            LastName = 'Representado',
+            AccountId = representative.Id,
+            Email = 'represented.will@test.com',
+            Phone = '71933334444',
+            Idioma__c = 'pt_BR'
+        );
+        contactRow.put('ContaRepresentadaAtual__c', represented.Id);
+        insert contactRow;
+
+        WSWillCaseCreationDTO.Request req = new WSWillCaseCreationDTO.Request();
+        req.contactId = contactRow.Id;
+        req.businessUnitName = 'Tecon Salvador';
+        req.language = 'pt_BR';
+        req.channelName = 'WhatsApp';
+        req.origin = 'Bot';
+        req.customerFullName = 'Contato Representado';
+        req.customerEmail = 'represented.will@test.com';
+        req.customerPhone = '71933334444';
+        req.caseType = 'Solicitação';
+        req.description = 'Case com conta representada';
+
+        Test.startTest();
+        List<WSWillCaseCreationDTO.Response> res = WSWillCaseCreationInvocable.createCases(
+            new List<WSWillCaseCreationDTO.Request>{ req }
+        );
+        Test.stopTest();
+
+        Assert.areEqual(1, res.size());
+        Assert.areEqual(true, res[0].success, 'statusCode=' + res[0].statusCode + ' msg=' + res[0].message);
+        Assert.areEqual(represented.Id, res[0].accountId);
+        Assert.areEqual(contactRow.Id, res[0].contactId);
+
+        Case createdCase = [
+            SELECT Id, AccountId, ContactId, Representante__c, Origin
+            FROM Case
+            WHERE Id = :res[0].caseId
+            LIMIT 1
+        ];
+        Assert.areEqual(represented.Id, createdCase.AccountId);
+        Assert.areEqual(contactRow.Id, createdCase.ContactId);
+        Assert.areEqual(representative.Id, createdCase.Representante__c);
+        Assert.areEqual('Bot', createdCase.Origin);
+    }
+
     private static Group createCaseQueue(String developerName) {
         Group queue;
         System.runAs(new User(Id = UserInfo.getUserId())) {
@@ -412,6 +468,15 @@ private class WSWillCaseCreationTest {
         config.queueDeveloperNamePrefix = queueDeveloperName;
         config.isActive = true;
         return config;
+    }
+
+    private static Boolean representedAccountFieldQueryable() {
+        try {
+            Database.query('SELECT Id, ContaRepresentadaAtual__c FROM Contact LIMIT 1');
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
     }
 
 }

@@ -32,23 +32,33 @@ public with sharing class CaseScheduleService {
         List<Id> scheduleIdsByCaseIndex = new List<Id>();
         Map<Id, Agendamento__c> schedulesToUpdateById = new Map<Id, Agendamento__c>();
         List<SObject> logsToInsert = new List<SObject>();
+        Map<Id, Agendamento__c> scheduleById = new Map<Id, Agendamento__c>();
+        for (Agendamento__c schedule : schedules) {
+            if (schedule != null && schedule.Id != null) {
+                scheduleById.put(schedule.Id, schedule);
+            }
+        }
 
         for (Agendamento__c schedule : schedules) {
             CaseScheduleResultDTO result;
             try {
                 result = processSingleSchedule(schedule, context, nowValue, casesToInsert, scheduleIdsByCaseIndex);
-                if (result != null && result.success == false && schedule != null && schedule.Id != null) {
-                    schedulesToUpdateById.put(schedule.Id, buildErrorUpdate(schedule, result.errorMessage));
-                    SObject logRow = CaseScheduleHelper.buildErrorLog(schedule, result.errorMessage);
-                    if (logRow != null) {
-                        logsToInsert.add(logRow);
+                if (result != null && schedule != null && schedule.Id != null) {
+                    if (result.success == false) {
+                        schedulesToUpdateById.put(schedule.Id, buildErrorUpdate(schedule, result.errorMessage, nowValue));
+                        SObject logRow = CaseScheduleHelper.buildErrorLog(schedule, result.errorMessage);
+                        if (logRow != null) {
+                            logsToInsert.add(logRow);
+                        }
+                    } else if (result.skipped == true && schedule.ProximaExecucao__c == null) {
+                        schedulesToUpdateById.put(schedule.Id, buildNextExecutionUpdate(schedule, nowValue));
                     }
                 }
             } catch (Exception ex) {
                 String message = sanitizeError(ex);
                 result = CaseScheduleResultDTO.error(schedule == null ? null : schedule.Id, message);
                 if (schedule != null && schedule.Id != null) {
-                    schedulesToUpdateById.put(schedule.Id, buildErrorUpdate(schedule, message));
+                    schedulesToUpdateById.put(schedule.Id, buildErrorUpdate(schedule, message, nowValue));
                 }
                 SObject logRow = CaseScheduleHelper.buildErrorLog(schedule, ex.getMessage());
                 if (logRow != null) {
@@ -60,7 +70,7 @@ public with sharing class CaseScheduleService {
             }
         }
 
-        persistCases(casesToInsert, scheduleIdsByCaseIndex, schedulesToUpdateById, results, logsToInsert);
+        persistCases(casesToInsert, scheduleIdsByCaseIndex, scheduleById, schedulesToUpdateById, results, logsToInsert, nowValue);
         if (!schedulesToUpdateById.isEmpty()) {
             Database.update(schedulesToUpdateById.values(), false);
         }
@@ -91,7 +101,10 @@ public with sharing class CaseScheduleService {
         if (schedule.PularFimDeSemana__c == true && isWeekend(today)) {
             return false;
         }
-        return matchesFrequency(schedule.Frequencia__c, schedule.DataInicio__c, today);
+        if (normalizeFrequency(schedule.Frequencia__c) == 'SPECIFIC_WEEKDAYS' && String.isBlank(schedule.DiasDaSemana__c)) {
+            return false;
+        }
+        return matchesFrequency(schedule, today);
     }
 
     /**
@@ -264,6 +277,9 @@ public with sharing class CaseScheduleService {
         if (String.isBlank(schedule.Frequencia__c)) {
             return 'Frequência obrigatória / Frequency is required.';
         }
+        if (normalizeFrequency(schedule.Frequencia__c) == 'SPECIFIC_WEEKDAYS' && String.isBlank(schedule.DiasDaSemana__c)) {
+            return 'Dias da semana obrigatórios para frequência "Dias específicos da semana" / Weekdays are required for the "specific weekdays" frequency.';
+        }
         if (String.isBlank(schedule.OwnerType__c)) {
             return 'Tipo de proprietário obrigatório / Owner type is required.';
         }
@@ -387,9 +403,11 @@ public with sharing class CaseScheduleService {
     private static void persistCases(
         List<Case> casesToInsert,
         List<Id> scheduleIdsByCaseIndex,
+        Map<Id, Agendamento__c> scheduleById,
         Map<Id, Agendamento__c> schedulesToUpdateById,
         List<CaseScheduleResultDTO> results,
-        List<SObject> logsToInsert
+        List<SObject> logsToInsert,
+        Datetime nowValue
     ) {
         if (casesToInsert.isEmpty()) {
             return;
@@ -402,15 +420,16 @@ public with sharing class CaseScheduleService {
         for (Integer index = 0; index < saveResults.size(); index++) {
             Id scheduleId = scheduleIdsByCaseIndex[index];
             CaseScheduleResultDTO result = resultByScheduleId.get(scheduleId);
+            Agendamento__c schedule = scheduleById.get(scheduleId);
             if (saveResults[index].isSuccess()) {
-                schedulesToUpdateById.put(scheduleId, buildSuccessUpdate(scheduleId));
+                schedulesToUpdateById.put(scheduleId, buildSuccessUpdate(schedule, nowValue));
                 if (result != null) {
                     result.caseId = saveResults[index].getId();
                     result.message = 'Case criado com sucesso / Case created successfully.';
                 }
             } else {
                 String message = saveResults[index].getErrors()[0].getMessage();
-                schedulesToUpdateById.put(scheduleId, buildErrorUpdate(new Agendamento__c(Id = scheduleId), sanitizeError(message)));
+                schedulesToUpdateById.put(scheduleId, buildErrorUpdate(schedule, sanitizeError(message), nowValue));
                 if (result != null) {
                     result.success = false;
                     result.errorMessage = sanitizeError(message);
@@ -423,15 +442,55 @@ public with sharing class CaseScheduleService {
         }
     }
 
-    private static Agendamento__c buildSuccessUpdate(Id scheduleId) {
-        return new Agendamento__c(Id = scheduleId, UltimoErroExecucao__c = null);
+    private static Agendamento__c buildSuccessUpdate(Agendamento__c schedule, Datetime nowValue) {
+        Id scheduleId = schedule == null ? null : schedule.Id;
+        Datetime nextExecution = schedule == null
+            ? null
+            : computeNextExecution(schedule, nextSearchStartAfterSuccess(schedule, nowValue));
+        return new Agendamento__c(Id = scheduleId, UltimoErroExecucao__c = null, UltimaExecucao__c = nowValue, ProximaExecucao__c = nextExecution);
     }
 
-    private static Agendamento__c buildErrorUpdate(Agendamento__c schedule, String errorMessage) {
+    private static Agendamento__c buildErrorUpdate(Agendamento__c schedule, String errorMessage, Datetime nowValue) {
+        Datetime nextExecution = schedule == null || String.isBlank(schedule.Frequencia__c)
+            ? null
+            : computeNextExecution(schedule, nowValue.date());
         return new Agendamento__c(
             Id = schedule == null ? null : schedule.Id,
-            UltimoErroExecucao__c = CaseScheduleHelper.safeLeft(errorMessage, 32000)
+            UltimoErroExecucao__c = CaseScheduleHelper.safeLeft(errorMessage, 32000),
+            ProximaExecucao__c = nextExecution
         );
+    }
+
+    private static Agendamento__c buildNextExecutionUpdate(Agendamento__c schedule, Datetime nowValue) {
+        Datetime nextExecution = String.isBlank(schedule.Frequencia__c) ? null : computeNextExecution(schedule, nowValue.date());
+        return new Agendamento__c(Id = schedule.Id, ProximaExecucao__c = nextExecution);
+    }
+
+    private static Date nextSearchStartAfterSuccess(Agendamento__c schedule, Datetime nowValue) {
+        CaseScheduleExecutionWindowDTO window = buildExecutionWindow(schedule, nowValue);
+        Date windowEnd = window == null || window.windowEndDate == null ? nowValue.date() : window.windowEndDate;
+        return windowEnd.addDays(1);
+    }
+
+    /**
+     * @param schedule Schedule to evaluate.
+     * @param searchStartDate Earliest candidate date to consider.
+     * @return Next datetime (date + HorarioExecucao__c) at which the schedule will be eligible, bounded to ~2 years ahead.
+     */
+    private static Datetime computeNextExecution(Agendamento__c schedule, Date searchStartDate) {
+        if (schedule == null || String.isBlank(schedule.Frequencia__c) || schedule.HorarioExecucao__c == null) {
+            return null;
+        }
+        Date candidate = schedule.DataInicio__c != null && searchStartDate < schedule.DataInicio__c
+            ? schedule.DataInicio__c
+            : searchStartDate;
+        for (Integer i = 0; i < 740; i++) {
+            if (!(schedule.PularFimDeSemana__c == true && isWeekend(candidate)) && matchesFrequency(schedule, candidate)) {
+                return Datetime.newInstance(candidate, schedule.HorarioExecucao__c);
+            }
+            candidate = candidate.addDays(1);
+        }
+        return null;
     }
 
     private static void applyDefaultValues(Case caseRow, Map<String, String> values) {
@@ -499,10 +558,14 @@ public with sharing class CaseScheduleService {
         return 'Manual';
     }
 
-    private static Boolean matchesFrequency(String frequency, Date startDate, Date today) {
-        String normalized = normalizeFrequency(frequency);
+    private static Boolean matchesFrequency(Agendamento__c schedule, Date today) {
+        String normalized = normalizeFrequency(schedule.Frequencia__c);
+        Date startDate = schedule.DataInicio__c;
         if (normalized == 'DAILY') {
             return true;
+        }
+        if (normalized == 'SPECIFIC_WEEKDAYS') {
+            return matchesSpecificWeekday(schedule.DiasDaSemana__c, today);
         }
         if (normalized == 'WEEKLY') {
             return dayOfWeek(startDate) == dayOfWeek(today);
@@ -526,8 +589,11 @@ public with sharing class CaseScheduleService {
         if (normalized == 'diaria' || normalized == 'diario' || normalized == 'daily') {
             return 'DAILY';
         }
-        if (normalized == 'semanal' || normalized == 'weekly' || normalized == 'diasespecificosdasemana') {
+        if (normalized == 'semanal' || normalized == 'weekly') {
             return 'WEEKLY';
+        }
+        if (normalized == 'diasespecificosdasemana' || normalized == 'specificweekdays') {
+            return 'SPECIFIC_WEEKDAYS';
         }
         if (normalized == 'mensal' || normalized == 'monthly') {
             return 'MONTHLY';
@@ -557,6 +623,23 @@ public with sharing class CaseScheduleService {
             return 7;
         }
         return 10;
+    }
+
+    private static final List<String> WEEKDAY_LABELS_BY_ISO_NUMBER = new List<String>{
+        'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'
+    };
+
+    private static Boolean matchesSpecificWeekday(String diasDaSemana, Date today) {
+        if (String.isBlank(diasDaSemana)) {
+            return false;
+        }
+        String todayLabel = WEEKDAY_LABELS_BY_ISO_NUMBER[dayOfWeek(today) - 1];
+        for (String selectedDay : diasDaSemana.split(';')) {
+            if (selectedDay == todayLabel) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static Boolean isWeekend(Date value) {

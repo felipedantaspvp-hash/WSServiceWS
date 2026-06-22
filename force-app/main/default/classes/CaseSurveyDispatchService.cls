@@ -30,12 +30,7 @@ public inherited sharing class CaseSurveyDispatchService {
         Set<Id> caseIds = CaseSurveyDispatchHelper.extractCaseIds(requests);
         if (caseIds.isEmpty()) return new List<CaseSurveyDispatchDTO.Response>();
 
-        Map<Id, Case> casesById = new Map<Id, Case>([
-            SELECT Id, CaseNumber, Status, IsClosed, UnidadeNegocio__c, ContactId, Contact.Email, Contact.Idioma__c, ContactEmail,
-                   SuppliedEmail, EnviarPesquisaSatisfacao__c, PesquisaEnviada__c, DataHoraEnvioPesquisa__c
-            FROM Case
-            WHERE Id IN :caseIds
-        ]);
+        Map<Id, Case> casesById = CaseSurveyDispatchSelector.selectCasesById(caseIds);
 
         Set<Id> alreadyLinkedCaseIds = getCasesWithSurveySubject(caseIds);
         Set<String> surveyNames = new Set<String>();
@@ -186,12 +181,7 @@ public inherited sharing class CaseSurveyDispatchService {
             return new Set<Id>(testCasesWithSurveySubject);
         }
         Set<Id> linked = new Set<Id>();
-        for (SurveySubject subject : [
-            SELECT SubjectId
-            FROM SurveySubject
-            WHERE SubjectId IN :caseIds
-            AND SubjectEntityType = 'Case'
-        ]) {
+        for (SurveySubject subject : CaseSurveyDispatchSelector.selectSurveySubjectsByCaseIds(caseIds)) {
             linked.add(subject.SubjectId);
         }
         return linked;
@@ -203,12 +193,7 @@ public inherited sharing class CaseSurveyDispatchService {
         }
         Map<String, Id> result = new Map<String, Id>();
         if (developerNames.isEmpty()) return result;
-        for (Survey survey : [
-            SELECT Id, DeveloperName
-            FROM Survey
-            WHERE DeveloperName IN :developerNames
-            AND ActiveVersionId != null
-        ]) {
+        for (Survey survey : CaseSurveyDispatchSelector.selectSurveysByDeveloperNames(developerNames)) {
             result.put(survey.DeveloperName, survey.Id);
         }
         return result;
@@ -220,11 +205,7 @@ public inherited sharing class CaseSurveyDispatchService {
         }
         Map<String, Id> result = new Map<String, Id>();
         if (developerNames.isEmpty()) return result;
-        for (EmailTemplate template : [
-            SELECT Id, DeveloperName
-            FROM EmailTemplate
-            WHERE DeveloperName IN :developerNames
-        ]) {
+        for (EmailTemplate template : CaseSurveyDispatchSelector.selectEmailTemplatesByDeveloperNames(developerNames)) {
             result.put(template.DeveloperName, template.Id);
         }
         return result;
@@ -236,11 +217,7 @@ public inherited sharing class CaseSurveyDispatchService {
         }
         Map<String, Id> result = new Map<String, Id>();
         if (addresses.isEmpty()) return result;
-        for (OrgWideEmailAddress sender : [
-            SELECT Id, Address
-            FROM OrgWideEmailAddress
-            WHERE Address IN :addresses
-        ]) {
+        for (OrgWideEmailAddress sender : CaseSurveyDispatchSelector.selectOrgWideEmailsByAddresses(addresses)) {
             result.put(sender.Address.toLowerCase(), sender.Id);
         }
         return result;
@@ -252,12 +229,7 @@ public inherited sharing class CaseSurveyDispatchService {
         }
         Map<String, Id> result = new Map<String, Id>();
         if (urlPathPrefixes.isEmpty()) return result;
-        for (Network network : [
-            SELECT Id, UrlPathPrefix
-            FROM Network
-            WHERE UrlPathPrefix IN :urlPathPrefixes
-            AND Status = 'Live'
-        ]) {
+        for (Network network : CaseSurveyDispatchSelector.selectNetworksByUrlPathPrefixes(urlPathPrefixes)) {
             result.put(network.UrlPathPrefix.toLowerCase(), network.Id);
         }
         return result;

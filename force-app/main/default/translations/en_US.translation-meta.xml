@@ -1544,6 +1544,10 @@ Before we begin, please choose your service language.</message>
         <name>AccountCaseSchedule_ActivityDescription</name>
     </customLabels>
     <customLabels>
+        <label><!-- Weekdays dual-listbox available column label --></label>
+        <name>AccountCaseSchedule_AvailableWeekdays</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Business unit label --></label>
         <name>AccountCaseSchedule_BusinessUnit</name>
     </customLabels>
@@ -1700,6 +1704,10 @@ Before we begin, please choose your service language.</message>
         <name>AccountCaseSchedule_LastError</name>
     </customLabels>
     <customLabels>
+        <label><!-- Last successful execution column label --></label>
+        <name>AccountCaseSchedule_LastExecution</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Loading spinner text --></label>
         <name>AccountCaseSchedule_LoadingSchedules</name>
     </customLabels>
@@ -1710,6 +1718,10 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- New schedule form title --></label>
         <name>AccountCaseSchedule_NewScheduleTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Next expected execution column label --></label>
+        <name>AccountCaseSchedule_NextExecution</name>
     </customLabels>
     <customLabels>
         <label><!-- Owner label --></label>
@@ -1812,6 +1824,10 @@ Before we begin, please choose your service language.</message>
         <name>AccountCaseSchedule_SelectedBusinessUnit</name>
     </customLabels>
     <customLabels>
+        <label><!-- Weekdays dual-listbox selected column label --></label>
+        <name>AccountCaseSchedule_SelectedWeekdays</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Service data section label --></label>
         <name>AccountCaseSchedule_ServiceData</name>
     </customLabels>
@@ -1868,6 +1884,14 @@ Before we begin, please choose your service language.</message>
         <name>AccountCaseSchedule_UserMustBeBlankForQueue</name>
     </customLabels>
     <customLabels>
+        <label><!-- Weekdays field label --></label>
+        <name>AccountCaseSchedule_Weekdays</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Weekdays required error --></label>
+        <name>AccountCaseSchedule_WeekdaysRequired</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Draft Contract Note --></label>
         <name>Draft_Contract_Note</name>
     </customLabels>
@@ -1920,10 +1944,6 @@ Before we begin, please choose your service language.</message>
         <name>GestaoSLA_BusinessHours</name>
     </customLabels>
     <customLabels>
-        <label><!-- Section title for the single-milestone toggles in create/edit SLA Management forms. --></label>
-        <name>GestaoSLA_MarcosUnicosSectionTitle</name>
-    </customLabels>
-    <customLabels>
         <label><!-- Category actions column label --></label>
         <name>GestaoSLA_CategoryActions</name>
     </customLabels>
@@ -1934,6 +1954,14 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- Category business unit column --></label>
         <name>GestaoSLA_CategoryBusinessUnit</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Category by categorization toggle label --></label>
+        <name>GestaoSLA_CategoryByCategorization</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Category by custom field toggle label --></label>
+        <name>GestaoSLA_CategoryByCustomField</name>
     </customLabels>
     <customLabels>
         <label><!-- Category case type label --></label>
@@ -1954,18 +1982,6 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- Category distribute to queue toggle label --></label>
         <name>GestaoSLA_CategoryDistributeToQueue</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Category by custom field toggle label --></label>
-        <name>GestaoSLA_CategoryByCustomField</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Category queue combobox label --></label>
-        <name>GestaoSLA_CategoryQueue</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Category queue combobox placeholder --></label>
-        <name>GestaoSLA_CategoryQueuePlaceholder</name>
     </customLabels>
     <customLabels>
         <label><!-- Category distribution field combobox label --></label>
@@ -2076,6 +2092,14 @@ Before we begin, please choose your service language.</message>
         <name>GestaoSLA_CategoryPaginationPrevious</name>
     </customLabels>
     <customLabels>
+        <label><!-- Category queue combobox label --></label>
+        <name>GestaoSLA_CategoryQueue</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Category queue combobox placeholder --></label>
+        <name>GestaoSLA_CategoryQueuePlaceholder</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Reactivate categorization button --></label>
         <name>GestaoSLA_CategoryReactivateButton</name>
     </customLabels>
@@ -2148,30 +2172,6 @@ Before we begin, please choose your service language.</message>
         <name>GestaoSLA_ChatResponseTime</name>
     </customLabels>
     <customLabels>
-        <label><!-- Label for the email queue time field in the SLA Management workspace. --></label>
-        <name>GestaoSLA_EmailQueueTime</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Toggle label asking whether this SLA Management uses the Triage Time milestone. --></label>
-        <name>GestaoSLA_UsaTriageTime</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Toggle for whether this SLA Management uses Chat Response Time. --></label>
-        <name>GestaoSLA_UsaChatResponseTime</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Toggle for whether this SLA Management uses Email Queue Time. --></label>
-        <name>GestaoSLA_UsaEmailQueueTime</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Email Queue milestone name label --></label>
-        <name>GestaoSLA_MilestoneEmailQueueLabel</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Field label for email queue time (minutes) in create/edit forms. --></label>
-        <name>GestaoSLA_FieldEmailQueueTimeMin</name>
-    </customLabels>
-    <customLabels>
         <label><!-- Common error title --></label>
         <name>GestaoSLA_CommonError</name>
     </customLabels>
@@ -2218,6 +2218,10 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- Button label to edit technical settings of the SLA Management record. --></label>
         <name>GestaoSLA_EditSettingsButton</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Label for the email queue time field in the SLA Management workspace. --></label>
+        <name>GestaoSLA_EmailQueueTime</name>
     </customLabels>
     <customLabels>
         <label><!-- Label for the Entitlement Process field in the SLA Management workspace. --></label>
@@ -2336,6 +2340,10 @@ Before we begin, please choose your service language.</message>
         <name>GestaoSLA_FieldDescription</name>
     </customLabels>
     <customLabels>
+        <label><!-- Field label for email queue time (minutes) in create/edit forms. --></label>
+        <name>GestaoSLA_FieldEmailQueueTimeMin</name>
+    </customLabels>
+    <customLabels>
         <label><!-- SLA Management name field label --></label>
         <name>GestaoSLA_FieldName</name>
     </customLabels>
@@ -2352,16 +2360,16 @@ Before we begin, please choose your service language.</message>
         <name>GestaoSLA_Label</name>
     </customLabels>
     <customLabels>
-        <label><!-- Pin current SLA Management as favorite button label. --></label>
-        <name>GestaoSLA_PinButton</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Unpin current SLA Management favorite button label. --></label>
-        <name>GestaoSLA_UnpinButton</name>
+        <label><!-- Section title for single-milestone toggles in SLA Management forms. --></label>
+        <name>GestaoSLA_MarcosUnicosSectionTitle</name>
     </customLabels>
     <customLabels>
         <label><!-- Chat Response milestone name label --></label>
         <name>GestaoSLA_MilestoneChatResponseLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Email Queue milestone name label --></label>
+        <name>GestaoSLA_MilestoneEmailQueueLabel</name>
     </customLabels>
     <customLabels>
         <label><!-- Triage milestone name label --></label>
@@ -2378,6 +2386,10 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- No active SLA Management found message for regular users --></label>
         <name>GestaoSLA_NoManagementFoundUser</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Pin current SLA Management as favorite button label. --></label>
+        <name>GestaoSLA_PinButton</name>
     </customLabels>
     <customLabels>
         <label><!-- Placeholder message for features not yet available --></label>
@@ -2618,6 +2630,22 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- Label for the triage time field in the SLA Management workspace. --></label>
         <name>GestaoSLA_TriageTime</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Unpin current SLA Management favorite button label. --></label>
+        <name>GestaoSLA_UnpinButton</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Toggle for whether this SLA Management uses Chat Response Time. --></label>
+        <name>GestaoSLA_UsaChatResponseTime</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Toggle for whether this SLA Management uses Email Queue Time. --></label>
+        <name>GestaoSLA_UsaEmailQueueTime</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Toggle label asking whether this SLA Management uses the Triage Time milestone. --></label>
+        <name>GestaoSLA_UsaTriageTime</name>
     </customLabels>
     <customLabels>
         <label><!-- No end date label for validity display --></label>
@@ -26208,6 +26236,22 @@ Before we begin, please choose your service language.</message>
     </flowDefinitions>
     <flowDefinitions>
         <flows>
+            <customErrorMessages>
+                <developerName>Custom_Error_Message_1</developerName>
+                <field>ValorMinimoPeriodo__c</field>
+            </customErrorMessages>
+            <customErrorMessages>
+                <developerName>Custom_Error_Message_4</developerName>
+                <field>PercentualDoPeriodo__c</field>
+            </customErrorMessages>
+            <customErrorMessages>
+                <developerName>Custom_Error_Message_2</developerName>
+                <field>ValorDeCNTRPeriodo__c</field>
+            </customErrorMessages>
+            <customErrorMessages>
+                <developerName>Custom_Error_Message_3</developerName>
+                <field>ValorMinimoDiarioPorProcessoPeriodo__c</field>
+            </customErrorMessages>
             <textTemplates>
                 <name>TT_ListPrice_Consolidado</name>
             </textTemplates>

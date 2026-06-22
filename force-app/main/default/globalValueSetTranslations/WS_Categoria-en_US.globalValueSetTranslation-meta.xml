@@ -41,10 +41,6 @@
         <translation>Commercial</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Commercial</masterLabel>
-        <translation>Commercial</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Depot / Vazios</masterLabel>
         <translation>Depot / Empty Containers</translation>
     </valueTranslation>
@@ -65,10 +61,6 @@
         <translation>Documentation</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Doubts about the vessel&apos;s name</masterLabel>
-        <translation>Doubts about the vessel&apos;s name</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Dúvidas sobre nome da embarcação</masterLabel>
         <translation>Vessel Name Inquiries</translation>
     </valueTranslation>
@@ -78,10 +70,6 @@
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Financeiro</masterLabel>
-        <translation>Financial</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Financial</masterLabel>
         <translation>Financial</translation>
     </valueTranslation>
     <valueTranslation>
@@ -109,16 +97,8 @@
         <translation>Onboarding</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Operacional - pátio</masterLabel>
-        <translation>Yard Operations</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Operacional – Pátio</masterLabel>
         <translation>Yard Operations</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Operational</masterLabel>
-        <translation>Operational</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Operação</masterLabel>
@@ -127,10 +107,6 @@
     <valueTranslation>
         <masterLabel>Planejamento Operacional Alfandegado</masterLabel>
         <translation>Bonded Warehouse Operational Planning</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Portal Logistico</masterLabel>
-        <translation>Logistics Portal</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Portal Logístico</masterLabel>
@@ -175,10 +151,6 @@
     <valueTranslation>
         <masterLabel>Serviços de Armazém</masterLabel>
         <translation>Warehouse Services</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Serviços especificos</masterLabel>
-        <translation>Specific Services</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Serviços específicos</masterLabel>

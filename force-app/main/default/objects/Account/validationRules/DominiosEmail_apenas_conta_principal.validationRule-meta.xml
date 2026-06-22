@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DominiosEmail_apenas_conta_principal</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+NOT(ISBLANK(DominiosEmail__c)),
+NOT(ISBLANK(ParentId))
+)</errorConditionFormula>
+    <errorDisplayField>DominiosEmail__c</errorDisplayField>
+    <errorMessage>Preencha Domínio E-mail apenas na conta principal da hierarquia ou no Grupo Econômico.</errorMessage>
+</ValidationRule>

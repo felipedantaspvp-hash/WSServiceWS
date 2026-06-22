@@ -9,20 +9,22 @@ private class CaseScheduleBatchTest {
         Test.startTest();
         CaseScheduleService.testNow = Datetime.newInstance(Date.today(), Time.newInstance(10, 0, 0, 0));
         Database.executeBatch(new CaseScheduleBatch(), 200);
-        CaseScheduleService.testNow = null;
         Test.stopTest();
+        CaseScheduleService.testNow = null;
 
         Assert.areEqual(2, [SELECT count() FROM Case WHERE Agendamento__c IN :new Set<Id>{ first.Id, second.Id }], 'Batch should create Cases for eligible schedules');
     }
 
     private static TestContext prepareContext() {
         insert new Account(Name = 'Conta Batch Agendamento');
-        Group queue = new Group(Name = 'TSV Batch Schedule', DeveloperName = 'TSV_BATCH_SCHEDULE', Type = 'Queue');
-        insert queue;
-        insert new List<QueueSobject>{
-            new QueueSobject(QueueId = queue.Id, SobjectType = 'Case'),
-            new QueueSobject(QueueId = queue.Id, SobjectType = 'Agendamento__c')
-        };
+        System.runAs(new User(Id = UserInfo.getUserId())) {
+            Group queue = new Group(Name = 'TSV Batch Schedule', DeveloperName = 'TSV_BATCH_SCHEDULE', Type = 'Queue');
+            insert queue;
+            insert new List<QueueSobject>{
+                new QueueSobject(QueueId = queue.Id, SobjectType = 'Case'),
+                new QueueSobject(QueueId = queue.Id, SobjectType = 'Agendamento__c')
+            };
+        }
 
         TestContext ctx = new TestContext();
         ctx.caseRecordType = matchingCaseRecordType();
@@ -55,7 +57,7 @@ private class CaseScheduleBatchTest {
             Frequencia__c = frequency,
             DataInicio__c = Date.today(),
             HorarioExecucao__c = Time.newInstance(8, 0, 0, 0),
-            PularFimDeSemana__c = true,
+            PularFimDeSemana__c = false,
             OwnerType__c = 'USER',
             OwnerUser__c = UserInfo.getUserId(),
             OwnerId = UserInfo.getUserId()
