@@ -47,6 +47,7 @@ public inherited sharing class CaseCreationDTO {
         @AuraEnabled public String categoria { get; set; }
         @AuraEnabled public String assunto { get; set; }
         @AuraEnabled public String subassunto { get; set; }
+        @AuraEnabled public String customFieldValue { get; set; }
     }
 
     public class DestinationRequestDTO {
@@ -67,6 +68,13 @@ public inherited sharing class CaseCreationDTO {
         @AuraEnabled public Boolean queueReadOnly { get; set; }
         @AuraEnabled public QueueOptionDTO queue { get; set; }
         @AuraEnabled public String message { get; set; }
+        @AuraEnabled public Boolean usaCampoCustomizado { get; set; }
+        @AuraEnabled public String campoDistribuicao { get; set; }
+        @AuraEnabled public String campoDistribuicaoLabel { get; set; }
+        @AuraEnabled public String valorDistribuicao { get; set; }
+        @AuraEnabled public String valorDistribuicaoLabel { get; set; }
+        @AuraEnabled public Boolean valorDistribuicaoAtendido { get; set; }
+        @AuraEnabled public List<PicklistOptionDTO> campoDistribuicaoOptions { get; set; }
     }
 
     public class BuildDefaultValuesResponseDTO {

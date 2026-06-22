@@ -32,6 +32,72 @@ private class CaseCreationServiceTest {
     }
 
     @IsTest
+    static void testResolveWithCustomFieldValueMatched() {
+        RecordType rt = CaseCreationTestDataFactory.anyCaseRt();
+        Categorizacao__c cat = CaseCreationTestDataFactory.catRow(true, false, 'TSV_Q_TEST', rt.Id);
+        cat.CampoDistribuicao__c = 'Priority';
+        cat.ValorDistribuicao__c = 'High';
+        CaseCreationSelector.testCategorizacoes = new List<Categorizacao__c>{ cat };
+
+        CaseCreationDTO.CategorizationRequestDTO req = CaseCreationTestDataFactory.baseCategorization();
+        req.recordTypeId = rt.Id;
+        req.recordTypeDeveloperName = rt.DeveloperName;
+        req.customFieldValue = 'High';
+
+        CaseCreationDTO.ResolveSelectionResponseDTO res = CaseCreationService.resolveCategorizationSelection(req);
+        Assert.areEqual(true, res.usaCampoCustomizado);
+        Assert.areEqual('Priority', res.campoDistribuicao);
+        Assert.areEqual(true, res.valorDistribuicaoAtendido);
+        Assert.areEqual(true, res.hasParametrizedQueue);
+        Assert.areEqual('TSV_Q_TEST', res.queue.developerName);
+    }
+
+    @IsTest
+    static void testResolveWithCustomFieldValueNotMatched() {
+        RecordType rt = CaseCreationTestDataFactory.anyCaseRt();
+        Categorizacao__c cat = CaseCreationTestDataFactory.catRow(true, false, 'TSV_Q_TEST', rt.Id);
+        cat.CampoDistribuicao__c = 'Priority';
+        cat.ValorDistribuicao__c = 'High';
+        CaseCreationSelector.testCategorizacoes = new List<Categorizacao__c>{ cat };
+
+        CaseCreationDTO.CategorizationRequestDTO req = CaseCreationTestDataFactory.baseCategorization();
+        req.recordTypeId = rt.Id;
+        req.recordTypeDeveloperName = rt.DeveloperName;
+        req.customFieldValue = 'Low';
+
+        CaseCreationDTO.ResolveSelectionResponseDTO res = CaseCreationService.resolveCategorizationSelection(req);
+        Assert.areEqual(true, res.usaCampoCustomizado);
+        Assert.areEqual('Priority', res.campoDistribuicao);
+        Assert.areEqual('High', res.valorDistribuicao);
+        Assert.areEqual(false, res.valorDistribuicaoAtendido);
+        Assert.areEqual(false, res.hasParametrizedQueue);
+        Assert.areEqual(true, res.campoDistribuicaoOptions.size() > 0);
+    }
+
+    @IsTest
+    static void testBuildDefaultsDistribuirComCampoCustomizadoAtendido() {
+        RecordType rt = CaseCreationTestDataFactory.anyCaseRt();
+        Categorizacao__c cat = CaseCreationTestDataFactory.catRow(true, false, 'TSV_Q_TEST', rt.Id);
+        cat.CampoDistribuicao__c = 'Priority';
+        cat.ValorDistribuicao__c = 'High';
+        CaseCreationSelector.testCategorizacoes = new List<Categorizacao__c>{ cat };
+
+        CaseCreationDTO.BuildDefaultValuesRequestDTO req = new CaseCreationDTO.BuildDefaultValuesRequestDTO();
+        req.categorization = CaseCreationTestDataFactory.baseCategorization();
+        req.categorization.recordTypeId = rt.Id;
+        req.categorization.recordTypeDeveloperName = rt.DeveloperName;
+        req.categorization.customFieldValue = 'High';
+        req.destination = new CaseCreationDTO.DestinationRequestDTO();
+        req.destination.action = 'DISTRIBUIR';
+
+        CaseCreationDTO.BuildDefaultValuesResponseDTO out = CaseCreationService.buildDefaultValues(req);
+        Assert.areEqual(true, out.success);
+        Assert.areEqual('High', out.defaultValues.get('Priority'));
+        Assert.areEqual('TSV_Q_TEST', out.defaultValues.get('FilaDestinoDeveloperName__c'));
+        Assert.areEqual('Categorização', out.defaultValues.get('OrigemDistribuicao__c'));
+    }
+
+    @IsTest
     static void testBuildDefaultsAssumir() {
         RecordType rt = CaseCreationTestDataFactory.anyCaseRt();
         Categorizacao__c cat = CaseCreationTestDataFactory.catRow(false, false, null, rt.Id);

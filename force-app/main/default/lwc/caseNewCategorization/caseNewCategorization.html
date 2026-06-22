@@ -38,41 +38,32 @@
                         </div>
                     </div>
 
+                    <template if:true={showCustomField}>
+                        <div class="section-title">{customFieldLabel}</div>
+                        <div class="slds-m-bottom_medium slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning-combobox name="customField" label={customFieldLabel} value={customFieldValue} options={customFieldOptions} onchange={handleCustomFieldChange}></lightning-combobox>
+                        </div>
+                    </template>
+
                     <div class="section-title">{labels.destinationTitle}</div>
                     <div class="slds-m-bottom_medium">
                         <div class="destination-title">{labels.destino}</div>
                         <div class="destination-grid">
                             <template for:each={destinationCards} for:item="card">
-                                <template if:true={card.checked}>
-                                    <button
-                                        key={card.value}
-                                        class="destination-card destination-card_selected"
-                                        data-value={card.value}
-                                        onclick={handleDestinationCardSelect}
-                                        type="button"
-                                    >
-                                        <div class="destination-radio">◉</div>
-                                        <div class="destination-content">
-                                            <div class="destination-label">{card.label}</div>
-                                            <div class="destination-description">{card.description}</div>
-                                        </div>
-                                    </button>
-                                </template>
-                                <template if:false={card.checked}>
-                                    <button
-                                        key={card.value}
-                                        class="destination-card"
-                                        data-value={card.value}
-                                        onclick={handleDestinationCardSelect}
-                                        type="button"
-                                    >
-                                        <div class="destination-radio">◯</div>
-                                        <div class="destination-content">
-                                            <div class="destination-label">{card.label}</div>
-                                            <div class="destination-description">{card.description}</div>
-                                        </div>
-                                    </button>
-                                </template>
+                                <button
+                                    key={card.value}
+                                    class={card.cssClass}
+                                    data-value={card.value}
+                                    onclick={handleDestinationCardSelect}
+                                    disabled={card.disabled}
+                                    type="button"
+                                >
+                                    <div class="destination-radio">{card.radioGlyph}</div>
+                                    <div class="destination-content">
+                                        <div class="destination-label">{card.label}</div>
+                                        <div class="destination-description">{card.description}</div>
+                                    </div>
+                                </button>
                             </template>
                         </div>
                     </div>

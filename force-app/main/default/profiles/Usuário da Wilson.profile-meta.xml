@@ -516,6 +516,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>GestaoSLASelector</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>GestaoSLAService</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -3027,7 +3031,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Reclamacao__c.AtualizadoAposReuniao__c</field>
+        <field>Reclamacao__c.AtualizadoPosReuniao__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3545,6 +3549,17 @@
         <enabled>false</enabled>
         <flow>sfdc_default_ReportExport_Protection_Flow</flow>
     </flowAccesses>
+    <layoutAssignments>
+        <layout>Account-Account Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Account Layout</layout>
+        <recordType>Account.Default</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Account Layout</layout>
+        <recordType>Account.Startup</recordType>
+    </layoutAssignments>
     <layoutAssignments>
         <layout>AreaParticipante__c-Área Participante Layout</layout>
     </layoutAssignments>

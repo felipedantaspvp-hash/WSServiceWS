@@ -88,25 +88,47 @@ public inherited sharing class CaseCreationService {
         validateCategorizationBase(request);
         validateCategorizationPath(request);
 
-        List<Categorizacao__c> rows = CaseCreationSelector.getActiveCategorizacoes(request.recordTypeDeveloperName, request.unidadeNegocio);
-        Categorizacao__c chosen;
-        for (Categorizacao__c row : rows) {
-            if (CaseCreationHelper.sameNormalizedValue(row.TipoCaso__c, request.tipoCaso)
-                && CaseCreationHelper.sameNormalizedValue(row.Categoria__c, request.categoria)
-                && CaseCreationHelper.sameNormalizedValue(row.Assunto__c, request.assunto)
-                && CaseCreationHelper.sameNormalizedValue(row.Subassunto__c, request.subassunto)) {
-                Boolean distributeToQueue = CaseCreationHelper.isTrueFlag(row.DistribuirParaFila__c);
-                Boolean queueIsDefined = !String.isBlank(row.FilaDeveloperName__c);
-                Boolean noFieldDistribution = String.isBlank(row.CampoDistribuicao__c) && String.isBlank(row.ValorDistribuicao__c);
-                Boolean usaCampoCustomizado = CaseCreationHelper.isTrueFlag(row.PorCampoCustomizado__c);
-                if (distributeToQueue && queueIsDefined && (!usaCampoCustomizado || noFieldDistribution)) {
-                    chosen = row;
-                    break;
-                }
-            }
-        }
+        Categorizacao__c matched = findMatchingCategorization(request);
 
         CaseCreationDTO.ResolveSelectionResponseDTO out = new CaseCreationDTO.ResolveSelectionResponseDTO();
+        if (matched == null) return out;
+
+        Boolean distributeToQueue = CaseCreationHelper.isTrueFlag(matched.DistribuirParaFila__c);
+        Boolean queueIsDefined = !String.isBlank(matched.FilaDeveloperName__c);
+        Boolean usaCampoCustomizado = CaseCreationHelper.isTrueFlag(matched.PorCampoCustomizado__c)
+            && !String.isBlank(matched.CampoDistribuicao__c) && !String.isBlank(matched.ValorDistribuicao__c);
+
+        Categorizacao__c chosen;
+        if (distributeToQueue && queueIsDefined && !usaCampoCustomizado) {
+            chosen = matched;
+        }
+
+        if (usaCampoCustomizado) {
+            out.usaCampoCustomizado = true;
+            out.campoDistribuicao = matched.CampoDistribuicao__c;
+            Map<String, String> labelsByValue = CaseCreationHelper.getCasePicklistValueToLabel(matched.CampoDistribuicao__c);
+            Map<String, Schema.SObjectField> caseFields = Case.SObjectType.getDescribe().fields.getMap();
+            out.campoDistribuicaoLabel = caseFields.containsKey(matched.CampoDistribuicao__c)
+                ? caseFields.get(matched.CampoDistribuicao__c).getDescribe().getLabel()
+                : matched.CampoDistribuicao__c;
+            out.valorDistribuicao = matched.ValorDistribuicao__c;
+            out.valorDistribuicaoLabel = labelsByValue.containsKey(matched.ValorDistribuicao__c)
+                ? labelsByValue.get(matched.ValorDistribuicao__c)
+                : matched.ValorDistribuicao__c;
+            out.campoDistribuicaoOptions = new List<CaseCreationDTO.PicklistOptionDTO>();
+            for (String value : labelsByValue.keySet()) {
+                CaseCreationDTO.PicklistOptionDTO o = new CaseCreationDTO.PicklistOptionDTO();
+                o.value = value;
+                o.label = labelsByValue.get(value);
+                out.campoDistribuicaoOptions.add(o);
+            }
+
+            Boolean valorAtendido = distributeToQueue && queueIsDefined
+                && CaseCreationHelper.sameNormalizedValue(request.customFieldValue, matched.ValorDistribuicao__c);
+            out.valorDistribuicaoAtendido = valorAtendido;
+            if (valorAtendido) chosen = matched;
+        }
+
         out.hasParametrizedQueue = chosen != null;
         out.queueReadOnly = chosen != null;
         if (chosen != null) {
@@ -165,6 +187,9 @@ public inherited sharing class CaseCreationService {
         CaseCreationHelper.putIfNotBlank(values, 'Subassunto__c', request.categorization.subassunto);
         if (matchedCategorization != null && !String.isBlank(matchedCategorization.Prioridade__c)) {
             values.put('Priority', matchedCategorization.Prioridade__c);
+        }
+        if (resolved.usaCampoCustomizado == true) {
+            CaseCreationHelper.putIfNotBlank(values, resolved.campoDistribuicao, request.categorization.customFieldValue);
         }
         values.put('Origin', 'Manual');
 

@@ -516,6 +516,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>GestaoSLASelector</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>GestaoSLAService</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -3026,7 +3030,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Reclamacao__c.AtualizadoAposReuniao__c</field>
+        <field>Reclamacao__c.AtualizadoPosReuniao__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>

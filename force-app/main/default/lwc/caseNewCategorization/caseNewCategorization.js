@@ -25,6 +25,11 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
     @track destinationManuallySet = false;
     @track selectedQueueDeveloperName;
     @track objectInfo;
+    @track customFieldApiName;
+    @track customFieldLabel;
+    @track customFieldOptions = [];
+    @track customFieldValue;
+    @track customFieldMatched = false;
 
     language = (LANG || '').toLowerCase();
 
@@ -120,11 +125,47 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
     }
 
     get destinationCards() {
+        const lockedToDistribute = this.customFieldMatched;
         return [
-            { value: 'ASSUMIR', label: this.labels.assume, description: this.labels.destinationHintAssume, checked: this.destinationAction === 'ASSUMIR' },
-            { value: 'DISTRIBUIR', label: this.labels.distribute, description: this.labels.destinationHintDistribute, checked: this.destinationAction === 'DISTRIBUIR' },
-            { value: 'ENCERRAR', label: this.labels.close, description: this.labels.destinationHintClose, checked: this.destinationAction === 'ENCERRAR' }
+            {
+                value: 'ASSUMIR',
+                label: this.labels.assume,
+                description: this.labels.destinationHintAssume,
+                checked: this.destinationAction === 'ASSUMIR',
+                disabled: lockedToDistribute,
+                cssClass: this.cardCssClass(this.destinationAction === 'ASSUMIR', lockedToDistribute),
+                radioGlyph: this.destinationAction === 'ASSUMIR' ? '◉' : '◯'
+            },
+            {
+                value: 'DISTRIBUIR',
+                label: this.labels.distribute,
+                description: this.labels.destinationHintDistribute,
+                checked: this.destinationAction === 'DISTRIBUIR',
+                disabled: false,
+                cssClass: this.cardCssClass(this.destinationAction === 'DISTRIBUIR', false),
+                radioGlyph: this.destinationAction === 'DISTRIBUIR' ? '◉' : '◯'
+            },
+            {
+                value: 'ENCERRAR',
+                label: this.labels.close,
+                description: this.labels.destinationHintClose,
+                checked: this.destinationAction === 'ENCERRAR',
+                disabled: lockedToDistribute,
+                cssClass: this.cardCssClass(this.destinationAction === 'ENCERRAR', lockedToDistribute),
+                radioGlyph: this.destinationAction === 'ENCERRAR' ? '◉' : '◯'
+            }
         ];
+    }
+
+    cardCssClass(checked, disabled) {
+        let cssClass = 'destination-card';
+        if (checked) cssClass += ' destination-card_selected';
+        if (disabled) cssClass += ' destination-card_disabled';
+        return cssClass;
+    }
+
+    get showCustomField() {
+        return !!this.customFieldApiName;
     }
 
     async init() {
@@ -185,7 +226,16 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
         this.model.subassunto = null;
         this.destinationAction = 'ASSUMIR';
         this.destinationManuallySet = false;
+        this.resetCustomField();
         this.loadTreeOptions();
+    }
+
+    resetCustomField() {
+        this.customFieldApiName = null;
+        this.customFieldLabel = null;
+        this.customFieldOptions = [];
+        this.customFieldValue = null;
+        this.customFieldMatched = false;
     }
 
     handleFieldChange(event) {
@@ -221,6 +271,7 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
     async handleDestinationCardSelect(event) {
         const selected = event.currentTarget?.dataset?.value;
         if (!selected || selected === this.destinationAction) return;
+        if (this.customFieldMatched && selected !== 'DISTRIBUIR') return;
         this.destinationManuallySet = true;
         this.destinationAction = selected;
         await this.refreshDestinationSection();
@@ -236,17 +287,37 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
         // Categorização já está parametrizada para isso (sem exigir que o usuário lembre de mudar
         // o destino manualmente, que por padrão é "Assumir o caso").
         if (!this.model.tipoCaso || !this.model.categoria || !this.model.assunto) {
+            this.resetCustomField();
             return;
         }
 
         let resolved;
         try {
-            resolved = await resolveCategorizationSelection({ request: this.model });
+            resolved = await resolveCategorizationSelection({ request: { ...this.model, customFieldValue: this.customFieldValue } });
         } catch (e) {
             return;
         }
 
-        if (resolved?.hasParametrizedQueue && !this.destinationManuallySet) {
+        if (resolved?.usaCampoCustomizado) {
+            this.customFieldApiName = resolved.campoDistribuicao;
+            this.customFieldLabel = resolved.campoDistribuicaoLabel;
+            this.customFieldOptions = (resolved.campoDistribuicaoOptions || []).map((o) => ({ label: o.label, value: o.value }));
+            this.customFieldMatched = !!resolved.valorDistribuicaoAtendido;
+
+            if (this.customFieldValue == null) {
+                // Pré-preenche com o valor configurado na Categorização e refaz a resolução
+                // server-side para já refletir se essa sugestão atende ao critério.
+                this.customFieldValue = resolved.valorDistribuicao;
+                await this.refreshDestinationSection();
+                return;
+            }
+        } else {
+            this.resetCustomField();
+        }
+
+        if (this.customFieldMatched) {
+            this.destinationAction = 'DISTRIBUIR';
+        } else if (resolved?.hasParametrizedQueue && !this.destinationManuallySet) {
             this.destinationAction = 'DISTRIBUIR';
         }
 
@@ -257,6 +328,11 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
                 this.queueOptions = (queues || []).map((q) => ({ label: `${q.name} (${q.developerName})`, value: q.developerName }));
             }
         }
+    }
+
+    async handleCustomFieldChange(event) {
+        this.customFieldValue = event.detail.value;
+        await this.refreshDestinationSection();
     }
 
     handleQueueChange(event) {
@@ -353,7 +429,7 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
         this.loading = true;
         try {
             const req = {
-                categorization: this.model,
+                categorization: { ...this.model, customFieldValue: this.customFieldValue },
                 destination: {
                     action: this.destinationAction,
                     selectedQueueDeveloperName: this.selectedQueueDeveloperName

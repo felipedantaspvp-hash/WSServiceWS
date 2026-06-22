@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MaisInformacoesReincidencia__c</fullName>
     <description>Mais informações sobre reincidência</description>
-    <label>Informações Reincid?ncia</label>
+    <label>Informações Reincidência</label>
     <length>32768</length>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
