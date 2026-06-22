@@ -22,24 +22,8 @@ public inherited sharing class GestaoSLAService {
             : null;
 
         List<GestaoSLA__c> gestaoRows = allowedUnidades == null
-            ? [
-                SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
-                       TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, TempoFilaEmailMinutos__c,
-                   UsaTempoTriagem__c, UsaTempoRespostaChat__c, UsaTempoFilaEmail__c, StaticResourceName__c,
-                       Ativo__c, Descricao__c
-                FROM GestaoSLA__c
-                WHERE Ativo__c = true
-                ORDER BY Name
-            ]
-            : [
-                SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
-                       TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, TempoFilaEmailMinutos__c,
-                   UsaTempoTriagem__c, UsaTempoRespostaChat__c, UsaTempoFilaEmail__c, StaticResourceName__c,
-                       Ativo__c, Descricao__c
-                FROM GestaoSLA__c
-                WHERE Ativo__c = true AND UnidadeNegocio__c IN :allowedUnidades
-                ORDER BY Name
-            ];
+            ? GestaoSLASelector.selectActive()
+            : GestaoSLASelector.selectActiveByUnidades(allowedUnidades);
         for (GestaoSLA__c row : gestaoRows) {
             response.gestoes.add(toGestaoResumo(row, perms.canAdminTechnicalSettings));
         }
@@ -53,32 +37,16 @@ public inherited sharing class GestaoSLAService {
             throw new FunctionalException('Gestão de SLA não informada.');
         }
 
-        List<GestaoSLA__c> rows = [
-            SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
-                   TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, TempoFilaEmailMinutos__c,
-                   UsaTempoTriagem__c, UsaTempoRespostaChat__c, UsaTempoFilaEmail__c, StaticResourceName__c,
-                   Ativo__c, Descricao__c
-            FROM GestaoSLA__c
-            WHERE Id = :gestaoSLAId
-            LIMIT 1
-        ];
+        List<GestaoSLA__c> rows = GestaoSLASelector.selectById(gestaoSLAId);
         if (rows.isEmpty()) {
             throw new FunctionalException('Gestão de SLA não encontrada.');
         }
         ensureUnidadeAllowed(rows[0].UnidadeNegocio__c, resolveAllowedUnidades(perms));
 
-        Integer totalCategorias = [SELECT Count() FROM Categorizacao__c WHERE GestaoSLA__c = :gestaoSLAId];
-        Integer totalMarcosAtivos = [SELECT Count() FROM MarcoSLA__c WHERE GestaoSLA__c = :gestaoSLAId AND Ativo__c = true];
-        Integer totalRegrasAtivas = [SELECT Count() FROM RegrasSLACategorizacao__c WHERE GestaoSLA__c = :gestaoSLAId AND Ativo__c = true];
-        List<AggregateResult> areasResult = [
-            SELECT AreaAtendimento__c
-            FROM RegrasSLACategorizacao__c
-            WHERE GestaoSLA__c = :gestaoSLAId
-              AND EscopoRegra__c = :RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA
-              AND Ativo__c = true
-              AND AreaAtendimento__c != null
-            GROUP BY AreaAtendimento__c
-        ];
+        Integer totalCategorias = GestaoSLASelector.countCategoriasByGestaoSLA(gestaoSLAId);
+        Integer totalMarcosAtivos = GestaoSLASelector.countActiveMarcosByGestaoSLA(gestaoSLAId);
+        Integer totalRegrasAtivas = GestaoSLASelector.countActiveRegrasByGestaoSLA(gestaoSLAId);
+        List<AggregateResult> areasResult = GestaoSLASelector.selectDistinctActiveAreasByGestaoSLA(gestaoSLAId);
         Integer totalAreasInternas = areasResult.size();
 
         GestaoSLADTO.GestaoDetailResponse response = new GestaoSLADTO.GestaoDetailResponse();
@@ -108,25 +76,10 @@ public inherited sharing class GestaoSLAService {
         GestaoSLA__c gestaoCtx = loadGestaoOrThrow(gestaoSLAId);
         ensureUnidadeAllowed(gestaoCtx.UnidadeNegocio__c, resolveAllowedUnidades(perms));
 
-        List<Categorizacao__c> categoriasRows = [
-            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c,
-                   Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCampoCustomizado__c,
-                   FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c,
-                   LabelCampoDistribuicao__c, LabelValorDistribuicao__c
-            FROM Categorizacao__c
-            WHERE GestaoSLA__c = :gestaoSLAId
-            ORDER BY Name
-        ];
+        List<Categorizacao__c> categoriasRows = GestaoSLASelector.selectCategoriasByGestaoSLA(gestaoSLAId);
 
         Map<Id, Integer> regrasAtivasByCateg = new Map<Id, Integer>();
-        for (AggregateResult ar : [
-            SELECT Categorizacao__c categId, Count(Id) total
-            FROM RegrasSLACategorizacao__c
-            WHERE GestaoSLA__c = :gestaoSLAId
-              AND Ativo__c = true
-              AND Categorizacao__c != null
-            GROUP BY Categorizacao__c
-        ]) {
+        for (AggregateResult ar : GestaoSLASelector.countActiveRegrasByCategorizacao(gestaoSLAId)) {
             regrasAtivasByCateg.put((Id) ar.get('categId'), (Integer) ar.get('total'));
         }
 
@@ -170,14 +123,7 @@ public inherited sharing class GestaoSLAService {
         response.permissions = perms;
         response.marcos = new List<GestaoSLADTO.MarcoResumo>();
 
-        for (MarcoSLA__c row : [
-            SELECT Id, Name, GestaoSLA__c, NomeMarco__c, MilestoneTypeName__c, FonteTempo__c,
-                   Ordem__c, Recorrente__c, TipoRecorrencia__c, UsaCategorizacao__c,
-                   UsaAreaInterna__c, UsaOrigem__c, Ativo__c
-            FROM MarcoSLA__c
-            WHERE GestaoSLA__c = :gestaoSLAId
-            ORDER BY Ordem__c, Name
-        ]) {
+        for (MarcoSLA__c row : GestaoSLASelector.selectMarcosByGestaoSLA(gestaoSLAId)) {
             GestaoSLADTO.MarcoResumo dto = new GestaoSLADTO.MarcoResumo();
             dto.id = row.Id;
             dto.name = row.Name;
@@ -218,16 +164,7 @@ public inherited sharing class GestaoSLAService {
         response.permissions = perms;
         response.regras = new List<GestaoSLADTO.RegraSLAResumo>();
 
-        for (RegrasSLACategorizacao__c row : [
-            SELECT Id, GestaoSLA__c, Categorizacao__c, Categorizacao__r.Name,
-                   Categorizacao__r.Categoria__c, Categorizacao__r.Assunto__c, Categorizacao__r.Subassunto__c,
-                   MarcoSLA__c, MarcoSLA__r.Name, MarcoSLA__r.NomeMarco__c, MarcoSLA__r.Ordem__c,
-                   EscopoRegra__c, AreaAtendimento__c,
-                   TempoBaixa__c, TempoMedia__c, TempoAlta__c, Ativo__c
-            FROM RegrasSLACategorizacao__c
-            WHERE GestaoSLA__c = :gestaoSLAId
-            ORDER BY MarcoSLA__r.Ordem__c, Categorizacao__r.Name, AreaAtendimento__c
-        ]) {
+        for (RegrasSLACategorizacao__c row : GestaoSLASelector.selectRegrasByGestaoSLA(gestaoSLAId)) {
             if (categorizacaoId != null && row.Categorizacao__c != categorizacaoId) continue;
             if (marcoSLAId != null && row.MarcoSLA__c != null && row.MarcoSLA__c != marcoSLAId) continue;
             if (ativo != null && row.Ativo__c != ativo) continue;
@@ -274,12 +211,7 @@ public inherited sharing class GestaoSLAService {
         }
         validateRegraSLARequest(request, true);
 
-        List<RegrasSLACategorizacao__c> rows = [
-            SELECT Id, GestaoSLA__c, Ativo__c
-            FROM RegrasSLACategorizacao__c
-            WHERE Id = :request.id
-            LIMIT 1
-        ];
+        List<RegrasSLACategorizacao__c> rows = GestaoSLASelector.selectRegraById(request.id);
         if (rows.isEmpty()) {
             throw new FunctionalException('Regra de SLA não encontrada.');
         }
@@ -314,12 +246,7 @@ public inherited sharing class GestaoSLAService {
             throw new FunctionalException('Regra de SLA não encontrada.');
         }
 
-        List<RegrasSLACategorizacao__c> rows = [
-            SELECT Id, Ativo__c
-            FROM RegrasSLACategorizacao__c
-            WHERE Id = :regraSLAId
-            LIMIT 1
-        ];
+        List<RegrasSLACategorizacao__c> rows = GestaoSLASelector.selectRegraById(regraSLAId);
         if (rows.isEmpty()) {
             throw new FunctionalException('Regra de SLA não encontrada.');
         }
@@ -338,12 +265,7 @@ public inherited sharing class GestaoSLAService {
             throw new FunctionalException('Regra de SLA não encontrada.');
         }
 
-        List<RegrasSLACategorizacao__c> rows = [
-            SELECT Id, Ativo__c
-            FROM RegrasSLACategorizacao__c
-            WHERE Id = :regraSLAId
-            LIMIT 1
-        ];
+        List<RegrasSLACategorizacao__c> rows = GestaoSLASelector.selectRegraById(regraSLAId);
         if (rows.isEmpty()) {
             throw new FunctionalException('Regra de SLA não encontrada.');
         }
@@ -372,25 +294,14 @@ public inherited sharing class GestaoSLAService {
 
         loadGestaoOrThrow(gestaoSLAId);
         if (categorizacaoId != null) {
-            List<Categorizacao__c> cats = [
-                SELECT Id FROM Categorizacao__c
-                WHERE Id = :categorizacaoId AND GestaoSLA__c = :gestaoSLAId
-                LIMIT 1
-            ];
+            List<Categorizacao__c> cats = GestaoSLASelector.selectCategoriaByIdAndGestaoSLA(categorizacaoId, gestaoSLAId);
             if (cats.isEmpty()) {
                 throw new FunctionalException('Categorização não pertence à Gestão de SLA informada.');
             }
         }
 
         Map<String, RegrasSLACategorizacao__c> existingByArea = new Map<String, RegrasSLACategorizacao__c>();
-        for (RegrasSLACategorizacao__c r : [
-            SELECT Id, AreaAtendimento__c, TempoBaixa__c, TempoMedia__c, TempoAlta__c
-            FROM RegrasSLACategorizacao__c
-            WHERE GestaoSLA__c = :gestaoSLAId
-              AND Categorizacao__c = :categorizacaoId
-              AND EscopoRegra__c = :RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA
-              AND Ativo__c = true
-        ]) {
+        for (RegrasSLACategorizacao__c r : GestaoSLASelector.selectActiveAreaRulesByGestaoCategorizacao(gestaoSLAId, categorizacaoId)) {
             existingByArea.put(normalizeOptionalText(r.AreaAtendimento__c), r);
         }
 
@@ -440,16 +351,7 @@ public inherited sharing class GestaoSLAService {
         for (RegrasSLACategorizacao__c r : toUpdate) affectedIds.add(r.Id);
 
         List<GestaoSLADTO.RegraSLAResumo> results = new List<GestaoSLADTO.RegraSLAResumo>();
-        for (RegrasSLACategorizacao__c r : [
-            SELECT Id, GestaoSLA__c, Categorizacao__c, Categorizacao__r.Name,
-                   Categorizacao__r.Categoria__c, Categorizacao__r.Assunto__c, Categorizacao__r.Subassunto__c,
-                   MarcoSLA__c, MarcoSLA__r.Name, MarcoSLA__r.NomeMarco__c, MarcoSLA__r.Ordem__c,
-                   EscopoRegra__c, AreaAtendimento__c,
-                   TempoBaixa__c, TempoMedia__c, TempoAlta__c, Ativo__c
-            FROM RegrasSLACategorizacao__c
-            WHERE Id IN :affectedIds
-            ORDER BY AreaAtendimento__c
-        ]) {
+        for (RegrasSLACategorizacao__c r : GestaoSLASelector.selectRegraDetailByIds(affectedIds)) {
             results.add(toRegraSLAResumo(r));
         }
         return results;
@@ -504,12 +406,7 @@ public inherited sharing class GestaoSLAService {
         }
         validateCategoriaRequest(request, true);
 
-        List<Categorizacao__c> rows = [
-            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCampoCustomizado__c, FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c, LabelCampoDistribuicao__c, LabelValorDistribuicao__c
-            FROM Categorizacao__c
-            WHERE Id = :request.id
-            LIMIT 1
-        ];
+        List<Categorizacao__c> rows = GestaoSLASelector.selectCategoriaById(request.id);
         if (rows.isEmpty()) {
             throw new FunctionalException('Categorização não encontrada.');
         }
@@ -582,15 +479,8 @@ public inherited sharing class GestaoSLAService {
     }
 
     private static Categorizacao__c queryCategoriaById(Id categoriaId) {
-        return [
-            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c,
-                   Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCampoCustomizado__c, FilaDeveloperName__c,
-                   NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c,
-                   LabelCampoDistribuicao__c, LabelValorDistribuicao__c
-            FROM Categorizacao__c
-            WHERE Id = :categoriaId
-            LIMIT 1
-        ];
+        List<Categorizacao__c> rows = GestaoSLASelector.selectCategoriaById(categoriaId);
+        return rows.isEmpty() ? null : rows[0];
     }
 
     public static GestaoSLADTO.CategoriaResumo deactivateCategoria(Id categoriaId) {
@@ -601,12 +491,7 @@ public inherited sharing class GestaoSLAService {
             throw new FunctionalException('Categorização não encontrada.');
         }
 
-        List<Categorizacao__c> rows = [
-            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCampoCustomizado__c, FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c, LabelCampoDistribuicao__c, LabelValorDistribuicao__c
-            FROM Categorizacao__c
-            WHERE Id = :categoriaId
-            LIMIT 1
-        ];
+        List<Categorizacao__c> rows = GestaoSLASelector.selectCategoriaById(categoriaId);
         if (rows.isEmpty()) {
             throw new FunctionalException('Categorização não encontrada.');
         }
@@ -634,13 +519,7 @@ public inherited sharing class GestaoSLAService {
         response.permissions = perms;
         response.categoriasInativas = new List<GestaoSLADTO.CategoriaResumo>();
 
-        for (Categorizacao__c row : [
-            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCampoCustomizado__c, FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c, LabelCampoDistribuicao__c, LabelValorDistribuicao__c
-            FROM Categorizacao__c
-            WHERE GestaoSLA__c = :gestaoSLAId
-              AND Ativo__c = false
-            ORDER BY TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Name
-        ]) {
+        for (Categorizacao__c row : GestaoSLASelector.selectInactiveCategoriasByGestaoSLA(gestaoSLAId)) {
             response.categoriasInativas.add(toCategoriaResumo(row, 0));
         }
 
@@ -655,12 +534,7 @@ public inherited sharing class GestaoSLAService {
             throw new FunctionalException('Categorização não encontrada.');
         }
 
-        List<Categorizacao__c> rows = [
-            SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCampoCustomizado__c, FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c, LabelCampoDistribuicao__c, LabelValorDistribuicao__c
-            FROM Categorizacao__c
-            WHERE Id = :categoriaId
-            LIMIT 1
-        ];
+        List<Categorizacao__c> rows = GestaoSLASelector.selectCategoriaById(categoriaId);
         if (rows.isEmpty()) {
             throw new FunctionalException('Categorização não encontrada.');
         }
@@ -696,15 +570,7 @@ public inherited sharing class GestaoSLAService {
         response.permissions = perms;
         response.gestoesInativas = new List<GestaoSLADTO.GestaoResumo>();
 
-        for (GestaoSLA__c row : [
-            SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
-                   TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, TempoFilaEmailMinutos__c,
-                   UsaTempoTriagem__c, UsaTempoRespostaChat__c, UsaTempoFilaEmail__c, StaticResourceName__c,
-                   Ativo__c, Descricao__c
-            FROM GestaoSLA__c
-            WHERE Ativo__c = false
-            ORDER BY Name
-        ]) {
+        for (GestaoSLA__c row : GestaoSLASelector.selectInactive()) {
             response.gestoesInativas.add(toGestaoResumo(row, true));
         }
 
@@ -721,12 +587,7 @@ public inherited sharing class GestaoSLAService {
             throw new FunctionalException('Gestão de SLA não informada.');
         }
 
-        List<GestaoSLA__c> rows = [
-            SELECT Id, Ativo__c, UnidadeNegocio__c, EntitlementProcessName__c
-            FROM GestaoSLA__c
-            WHERE Id = :gestaoSLAId
-            LIMIT 1
-        ];
+        List<GestaoSLA__c> rows = GestaoSLASelector.selectActivationFieldsById(gestaoSLAId);
         if (rows.isEmpty()) {
             throw new FunctionalException('Gestão de SLA não encontrada.');
         }
@@ -736,24 +597,12 @@ public inherited sharing class GestaoSLAService {
             return getGestaoDetail(target.Id);
         }
 
-        Integer duplicidadeUnidade = [
-            SELECT Count()
-            FROM GestaoSLA__c
-            WHERE Ativo__c = true
-              AND UnidadeNegocio__c = :target.UnidadeNegocio__c
-              AND Id != :target.Id
-        ];
+        Integer duplicidadeUnidade = GestaoSLASelector.countActiveByUnidadeNegocioExcluding(target.UnidadeNegocio__c, target.Id);
         if (duplicidadeUnidade > 0) {
             throw new FunctionalException('Já existe uma Gestão de SLA ativa para esta Unidade de Negócio.');
         }
 
-        Integer duplicidadeEntitlement = [
-            SELECT Count()
-            FROM GestaoSLA__c
-            WHERE Ativo__c = true
-              AND EntitlementProcessName__c = :target.EntitlementProcessName__c
-              AND Id != :target.Id
-        ];
+        Integer duplicidadeEntitlement = GestaoSLASelector.countActiveByEntitlementProcessExcluding(target.EntitlementProcessName__c, target.Id);
         if (duplicidadeEntitlement > 0) {
             throw new FunctionalException('Já existe uma Gestão de SLA ativa para este Entitlement Process.');
         }
@@ -790,22 +639,12 @@ public inherited sharing class GestaoSLAService {
         String unidade = request.unidadeNegocio.trim();
         String entitlementProcess = request.entitlementProcessName.trim();
 
-        Integer duplicidadeUnidade = [
-            SELECT Count()
-            FROM GestaoSLA__c
-            WHERE Ativo__c = true
-              AND UnidadeNegocio__c = :unidade
-        ];
+        Integer duplicidadeUnidade = GestaoSLASelector.countActiveByUnidadeNegocio(unidade);
         if (duplicidadeUnidade > 0) {
             throw new FunctionalException('Já existe uma Gestão de SLA ativa para esta Unidade de Negócio.');
         }
 
-        Integer duplicidadeEntitlement = [
-            SELECT Count()
-            FROM GestaoSLA__c
-            WHERE Ativo__c = true
-              AND EntitlementProcessName__c = :entitlementProcess
-        ];
+        Integer duplicidadeEntitlement = GestaoSLASelector.countActiveByEntitlementProcess(entitlementProcess);
         if (duplicidadeEntitlement > 0) {
             throw new FunctionalException('Já existe uma Gestão de SLA ativa para este Entitlement Process.');
         }
@@ -846,14 +685,7 @@ public inherited sharing class GestaoSLAService {
             throw new FunctionalException('Gestão de SLA não informada.');
         }
 
-        List<GestaoSLA__c> rows = [
-            SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
-                   Descricao__c, StaticResourceName__c, Ativo__c,
-                   UsaTempoTriagem__c, UsaTempoRespostaChat__c, UsaTempoFilaEmail__c
-            FROM GestaoSLA__c
-            WHERE Id = :request.id
-            LIMIT 1
-        ];
+        List<GestaoSLA__c> rows = GestaoSLASelector.selectEditableFieldsById(request.id);
         if (rows.isEmpty()) {
             throw new FunctionalException('Gestão de SLA não encontrada.');
         }
@@ -899,24 +731,12 @@ public inherited sharing class GestaoSLAService {
         Boolean ativoFinal = request.ativo == null ? currentGestao.Ativo__c : request.ativo;
 
         if (ativoFinal) {
-            Integer duplicidadeUnidade = [
-                SELECT Count()
-                FROM GestaoSLA__c
-                WHERE Ativo__c = true
-                  AND UnidadeNegocio__c = :unidade
-                  AND Id != :request.id
-            ];
+            Integer duplicidadeUnidade = GestaoSLASelector.countActiveByUnidadeNegocioExcluding(unidade, request.id);
             if (duplicidadeUnidade > 0) {
                 throw new FunctionalException('Já existe uma Gestão de SLA ativa para esta Unidade de Negócio.');
             }
 
-            Integer duplicidadeEntitlement = [
-                SELECT Count()
-                FROM GestaoSLA__c
-                WHERE Ativo__c = true
-                  AND EntitlementProcessName__c = :entitlementProcess
-                  AND Id != :request.id
-            ];
+            Integer duplicidadeEntitlement = GestaoSLASelector.countActiveByEntitlementProcessExcluding(entitlementProcess, request.id);
             if (duplicidadeEntitlement > 0) {
                 throw new FunctionalException('Já existe uma Gestão de SLA ativa para este Entitlement Process.');
             }
@@ -978,13 +798,7 @@ public inherited sharing class GestaoSLAService {
     }
 
     private static void syncMarcoUnico(Id gestaoId, String milestoneTypeName, Boolean usar, Integer ordem) {
-        List<MarcoSLA__c> existing = [
-            SELECT Id, Ativo__c
-            FROM MarcoSLA__c
-            WHERE GestaoSLA__c = :gestaoId
-              AND MilestoneTypeName__c = :milestoneTypeName
-            LIMIT 1
-        ];
+        List<MarcoSLA__c> existing = GestaoSLASelector.selectMarcoByGestaoAndMilestoneTypeName(gestaoId, milestoneTypeName);
         if (usar == true) {
             if (existing.isEmpty()) {
                 insert new MarcoSLA__c(
@@ -1086,7 +900,7 @@ public inherited sharing class GestaoSLAService {
             throw new FunctionalException('Você não possui permissão (FLS/CRUD) para excluir Regras de SLA.');
         }
 
-        List<RegrasSLACategorizacao__c> rows = [SELECT Id FROM RegrasSLACategorizacao__c WHERE Id = :regraSLAId LIMIT 1];
+        List<RegrasSLACategorizacao__c> rows = GestaoSLASelector.selectRegraById(regraSLAId);
         if (rows.isEmpty()) {
             throw new FunctionalException('Regra de SLA não encontrada.');
         }
@@ -1110,7 +924,7 @@ public inherited sharing class GestaoSLAService {
             throw new FunctionalException('Você não possui permissão (FLS/CRUD) para excluir Regras de SLA.');
         }
 
-        List<RegrasSLACategorizacao__c> rows = [SELECT Id FROM RegrasSLACategorizacao__c WHERE Id IN :regraIds];
+        List<RegrasSLACategorizacao__c> rows = GestaoSLASelector.selectByIds(new Set<Id>(regraIds));
         if (!rows.isEmpty()) delete rows;
     }
 
@@ -1130,7 +944,7 @@ public inherited sharing class GestaoSLAService {
             throw new FunctionalException('Você não possui permissão (FLS/CRUD) para excluir Categorizações.');
         }
 
-        List<Categorizacao__c> rows = [SELECT Id FROM Categorizacao__c WHERE Id = :categoriaId LIMIT 1];
+        List<Categorizacao__c> rows = GestaoSLASelector.selectCategoriaIdById(categoriaId);
         if (rows.isEmpty()) {
             throw new FunctionalException('Categorização não encontrada.');
         }
@@ -1154,12 +968,12 @@ public inherited sharing class GestaoSLAService {
             throw new FunctionalException('Você não possui permissão (FLS/CRUD) para excluir Gestões de SLA.');
         }
 
-        List<GestaoSLA__c> rows = [SELECT Id FROM GestaoSLA__c WHERE Id = :gestaoSLAId LIMIT 1];
+        List<GestaoSLA__c> rows = GestaoSLASelector.selectGestaoIdById(gestaoSLAId);
         if (rows.isEmpty()) {
             throw new FunctionalException('Gestão de SLA não encontrada.');
         }
 
-        Integer categoriasVinculadas = [SELECT COUNT() FROM Categorizacao__c WHERE GestaoSLA__c = :gestaoSLAId];
+        Integer categoriasVinculadas = GestaoSLASelector.countCategoriasByGestaoSLA(gestaoSLAId);
         if (categoriasVinculadas > 0) {
             throw new FunctionalException('Não é possível excluir: existem Categorizações vinculadas a esta Gestão de SLA. Exclua ou reatribua as categorizações antes.');
         }
@@ -1171,7 +985,7 @@ public inherited sharing class GestaoSLAService {
         if (gestaoSLAId == null) {
             throw new FunctionalException('Gestão de SLA não informada.');
         }
-        List<GestaoSLA__c> rows = [SELECT Id, UnidadeNegocio__c FROM GestaoSLA__c WHERE Id = :gestaoSLAId LIMIT 1];
+        List<GestaoSLA__c> rows = GestaoSLASelector.selectUnidadeById(gestaoSLAId);
         if (rows.isEmpty()) {
             throw new FunctionalException('Gestão de SLA não encontrada.');
         }
@@ -1215,26 +1029,14 @@ public inherited sharing class GestaoSLAService {
         loadGestaoOrThrow(request.gestaoSLAId);
 
         if (request.marcoSLAId != null) {
-            List<MarcoSLA__c> marcos = [
-                SELECT Id
-                FROM MarcoSLA__c
-                WHERE Id = :request.marcoSLAId
-                  AND GestaoSLA__c = :request.gestaoSLAId
-                LIMIT 1
-            ];
+            List<MarcoSLA__c> marcos = GestaoSLASelector.selectMarcoByIdAndGestaoSLA(request.marcoSLAId, request.gestaoSLAId);
             if (marcos.isEmpty()) {
                 throw new FunctionalException('Marco SLA não pertence à Gestão de SLA informada.');
             }
         }
 
         if (request.categorizacaoId != null) {
-            List<Categorizacao__c> categoriasRows = [
-                SELECT Id
-                FROM Categorizacao__c
-                WHERE Id = :request.categorizacaoId
-                  AND GestaoSLA__c = :request.gestaoSLAId
-                LIMIT 1
-            ];
+            List<Categorizacao__c> categoriasRows = GestaoSLASelector.selectCategoriaByIdAndGestaoSLA(request.categorizacaoId, request.gestaoSLAId);
             if (categoriasRows.isEmpty()) {
                 throw new FunctionalException('Categorização não pertence à Gestão de SLA informada.');
             }
@@ -1247,14 +1049,7 @@ public inherited sharing class GestaoSLAService {
         }
 
         if (request.escopoRegra == RegrasSLACompatibilidadeService.ESCOPO_ATENDIMENTO) {
-            for (RegrasSLACategorizacao__c row : [
-                SELECT Id, Categorizacao__c
-                FROM RegrasSLACategorizacao__c
-                WHERE GestaoSLA__c = :request.gestaoSLAId
-                  AND MarcoSLA__c = :request.marcoSLAId
-                  AND EscopoRegra__c = :request.escopoRegra
-                  AND Ativo__c = true
-            ]) {
+            for (RegrasSLACategorizacao__c row : GestaoSLASelector.selectActiveByGestaoMarcoEscopo(request.gestaoSLAId, request.marcoSLAId, request.escopoRegra)) {
                 if (excludeId != null && row.Id == excludeId) continue;
                 if (row.Categorizacao__c == request.categorizacaoId) {
                     throw new FunctionalException('Já existe uma regra de SLA ativa com esta combinação.');
@@ -1262,14 +1057,7 @@ public inherited sharing class GestaoSLAService {
             }
         } else if (request.escopoRegra == RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA) {
             String normalizedArea = normalizeOptionalText(request.areaAtendimento);
-            for (RegrasSLACategorizacao__c row : [
-                SELECT Id, AreaAtendimento__c
-                FROM RegrasSLACategorizacao__c
-                WHERE GestaoSLA__c = :request.gestaoSLAId
-                  AND Categorizacao__c = :request.categorizacaoId
-                  AND EscopoRegra__c = :request.escopoRegra
-                  AND Ativo__c = true
-            ]) {
+            for (RegrasSLACategorizacao__c row : GestaoSLASelector.selectActiveByGestaoCategorizacaoEscopo(request.gestaoSLAId, request.categorizacaoId, request.escopoRegra)) {
                 if (excludeId != null && row.Id == excludeId) continue;
                 if (normalizeOptionalText(row.AreaAtendimento__c) == normalizedArea) {
                     throw new FunctionalException('Já existe uma regra de SLA ativa com esta combinação.');
@@ -1279,16 +1067,7 @@ public inherited sharing class GestaoSLAService {
     }
 
     private static GestaoSLADTO.RegraSLAResumo loadRegraResumoById(Id regraId) {
-        List<RegrasSLACategorizacao__c> rows = [
-            SELECT Id, GestaoSLA__c, Categorizacao__c, Categorizacao__r.Name,
-                   Categorizacao__r.Categoria__c, Categorizacao__r.Assunto__c, Categorizacao__r.Subassunto__c,
-                   MarcoSLA__c, MarcoSLA__r.Name, MarcoSLA__r.NomeMarco__c, MarcoSLA__r.Ordem__c,
-                   EscopoRegra__c, AreaAtendimento__c,
-                   TempoBaixa__c, TempoMedia__c, TempoAlta__c, Ativo__c
-            FROM RegrasSLACategorizacao__c
-            WHERE Id = :regraId
-            LIMIT 1
-        ];
+        List<RegrasSLACategorizacao__c> rows = GestaoSLASelector.selectRegraDetailById(regraId);
         if (rows.isEmpty()) {
             throw new FunctionalException('Regra de SLA não encontrada.');
         }
@@ -1409,18 +1188,9 @@ public inherited sharing class GestaoSLAService {
     }
 
     private static void validateCategoriaDuplicateActive(Id gestaoSLAId, String tipoCaso, String categoria, String assunto, String subassunto, Id excludeId) {
-        List<Categorizacao__c> dupRows = [
-            SELECT Id
-            FROM Categorizacao__c
-            WHERE GestaoSLA__c = :gestaoSLAId
-              AND TipoCaso__c = :tipoCaso
-              AND Categoria__c = :categoria
-              AND Assunto__c = :assunto
-              AND Subassunto__c = :subassunto
-              AND Ativo__c = true
-              AND Id != :excludeId
-            LIMIT 1
-        ];
+        List<Categorizacao__c> dupRows = GestaoSLASelector.selectDuplicateActiveCategoria(
+            gestaoSLAId, tipoCaso, categoria, assunto, subassunto, excludeId
+        );
         if (!dupRows.isEmpty()) {
             throw new FunctionalException('Já existe uma categorização ativa com esta combinação.');
         }

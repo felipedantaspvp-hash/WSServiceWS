@@ -60,7 +60,7 @@
     </values>
     <values>
         <field>Descricao__c</field>
-        <value xsi:type="xsd:string">Survey CSAT transacional de Rebocadores com estratÃ©gia parametrizada para versÃ£o em inglÃªs.</value>
+        <value xsi:type="xsd:string">Survey CSAT transacional de Rebocadores com estratégia parametrizada para versão em inglês.</value>
     </values>
     <values>
         <field>EmailFooterText__c</field>

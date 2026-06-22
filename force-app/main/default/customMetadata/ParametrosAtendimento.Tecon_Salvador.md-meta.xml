@@ -60,7 +60,7 @@
     </values>
     <values>
         <field>Descricao__c</field>
-        <value xsi:type="xsd:string">Survey CSAT transacional do Tecon Salvador, com verificaÃ§Ã£o diÃ¡ria habilitada.</value>
+        <value xsi:type="xsd:string">Survey CSAT transacional do Tecon Salvador, com verificação diária habilitada.</value>
     </values>
     <values>
         <field>EmailFooterText__c</field>

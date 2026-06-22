@@ -205,12 +205,12 @@ private class GestaoSLAControllerTest {
     }
 
     @IsTest
-    static void testControllerUpdateGestaoSLABloqueiaSemAdminTecnico() {
+    static void testControllerUpdateGestaoSLABloqueiaSemPermissaoAlguma() {
         GestaoSLA__c g = createGestao();
         GestaoSLAHelper.clearPermissionOverrides();
         GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
-        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, false);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, false);
 
         GestaoSLADTO.UpdateGestaoRequest req = new GestaoSLADTO.UpdateGestaoRequest();
@@ -231,6 +231,30 @@ private class GestaoSLAControllerTest {
             Assert.areEqual(true, String.isNotBlank(ex.getMessage()));
         }
         Assert.areEqual(true, failed);
+    }
+
+    @IsTest
+    static void testControllerUpdateGestaoSLAPermiteGestorMasPreservaCamposEstruturais() {
+        GestaoSLA__c g = createGestao();
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, false);
+
+        GestaoSLADTO.UpdateGestaoRequest req = new GestaoSLADTO.UpdateGestaoRequest();
+        req.id = g.Id;
+        req.name = g.Name + ' Editada';
+        req.unidadeNegocio = g.UnidadeNegocio__c;
+        req.entitlementProcessName = g.EntitlementProcessName__c;
+        req.businessHoursName = g.BusinessHoursName__c;
+        req.tempoTriagemMinutos = 10;
+        req.tempoRespostaChatMinutos = 20;
+        req.ativo = true;
+
+        GestaoSLADTO.GestaoDetailResponse detail = GestaoSLAController.updateGestaoSLA(req);
+
+        Assert.areEqual(g.Name, detail.gestao.name, 'Gestor sem Admin Técnico não deve conseguir alterar o nome (campo estrutural preservado).');
     }
 
     @IsTest

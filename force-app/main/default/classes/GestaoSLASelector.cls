@@ -2,7 +2,7 @@
  * @description       : Selector de queries SOQL para o módulo Gestão de SLA. Centraliza todos os acessos a GestaoSLA__c, Categorizacao__c, MarcoSLA__c e RegrasSLACategorizacao__c.
  * @author            : Triscal
  * @group             : Gestão de SLA
- * @last modified on  : 06-17-2026
+ * @last modified on  : 06-22-2026
  * @last modified by  : Jean Duarte
  **/
 public inherited sharing class GestaoSLASelector {
@@ -16,10 +16,28 @@ public inherited sharing class GestaoSLASelector {
     public static List<GestaoSLA__c> selectActive() {
         return [
             SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
-                   TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, StaticResourceName__c,
+                   TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, TempoFilaEmailMinutos__c,
+                   UsaTempoTriagem__c, UsaTempoRespostaChat__c, UsaTempoFilaEmail__c, StaticResourceName__c,
                    Ativo__c, Descricao__c
             FROM GestaoSLA__c
             WHERE Ativo__c = true
+            ORDER BY Name
+        ];
+    }
+
+    /**
+     * @description Retorna as Gestões de SLA ativas restritas a um conjunto de Unidades de Negócio.
+     * @param unidades Conjunto de valores de UnidadeNegocio__c permitidos.
+     * @return Lista de GestaoSLA__c ativas dentro das unidades informadas.
+     **/
+    public static List<GestaoSLA__c> selectActiveByUnidades(Set<String> unidades) {
+        return [
+            SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
+                   TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, TempoFilaEmailMinutos__c,
+                   UsaTempoTriagem__c, UsaTempoRespostaChat__c, UsaTempoFilaEmail__c, StaticResourceName__c,
+                   Ativo__c, Descricao__c
+            FROM GestaoSLA__c
+            WHERE Ativo__c = true AND UnidadeNegocio__c IN :unidades
             ORDER BY Name
         ];
     }
@@ -31,7 +49,8 @@ public inherited sharing class GestaoSLASelector {
     public static List<GestaoSLA__c> selectInactive() {
         return [
             SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
-                   TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, StaticResourceName__c,
+                   TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, TempoFilaEmailMinutos__c,
+                   UsaTempoTriagem__c, UsaTempoRespostaChat__c, UsaTempoFilaEmail__c, StaticResourceName__c,
                    Ativo__c, Descricao__c
             FROM GestaoSLA__c
             WHERE Ativo__c = false
@@ -47,12 +66,61 @@ public inherited sharing class GestaoSLASelector {
     public static List<GestaoSLA__c> selectById(Id gestaoSLAId) {
         return [
             SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
-                   TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, StaticResourceName__c,
+                   TempoTriagemMinutos__c, TempoRespostaChatMinutos__c, TempoFilaEmailMinutos__c,
+                   UsaTempoTriagem__c, UsaTempoRespostaChat__c, UsaTempoFilaEmail__c, StaticResourceName__c,
                    Ativo__c, Descricao__c
             FROM GestaoSLA__c
             WHERE Id = :gestaoSLAId
             LIMIT 1
         ];
+    }
+
+    /**
+     * @description Retorna apenas o Id da Gestão de SLA, para checagem de existência.
+     * @param gestaoSLAId Id da Gestão de SLA.
+     * @return Lista com zero ou um registro (somente Id).
+     **/
+    public static List<GestaoSLA__c> selectGestaoIdById(Id gestaoSLAId) {
+        return [SELECT Id FROM GestaoSLA__c WHERE Id = :gestaoSLAId LIMIT 1];
+    }
+
+    /**
+     * @description Retorna os campos necessários para reativação/duplicidade de uma Gestão de SLA.
+     * @param gestaoSLAId Id da Gestão de SLA.
+     * @return Lista com zero ou um registro (Id, Ativo__c, UnidadeNegocio__c, EntitlementProcessName__c).
+     **/
+    public static List<GestaoSLA__c> selectActivationFieldsById(Id gestaoSLAId) {
+        return [
+            SELECT Id, Ativo__c, UnidadeNegocio__c, EntitlementProcessName__c
+            FROM GestaoSLA__c
+            WHERE Id = :gestaoSLAId
+            LIMIT 1
+        ];
+    }
+
+    /**
+     * @description Retorna os campos editáveis pela tela de edição de Gestão de SLA (sem os tempos em minutos).
+     * @param gestaoSLAId Id da Gestão de SLA.
+     * @return Lista com zero ou um registro.
+     **/
+    public static List<GestaoSLA__c> selectEditableFieldsById(Id gestaoSLAId) {
+        return [
+            SELECT Id, Name, UnidadeNegocio__c, EntitlementProcessName__c, BusinessHoursName__c,
+                   Descricao__c, StaticResourceName__c, Ativo__c,
+                   UsaTempoTriagem__c, UsaTempoRespostaChat__c, UsaTempoFilaEmail__c
+            FROM GestaoSLA__c
+            WHERE Id = :gestaoSLAId
+            LIMIT 1
+        ];
+    }
+
+    /**
+     * @description Retorna somente a Unidade de Negócio de uma Gestão de SLA, para validação de referência.
+     * @param gestaoSLAId Id da Gestão de SLA.
+     * @return Lista com zero ou um registro (Id, UnidadeNegocio__c).
+     **/
+    public static List<GestaoSLA__c> selectUnidadeById(Id gestaoSLAId) {
+        return [SELECT Id, UnidadeNegocio__c FROM GestaoSLA__c WHERE Id = :gestaoSLAId LIMIT 1];
     }
 
     /**
@@ -118,14 +186,16 @@ public inherited sharing class GestaoSLASelector {
     // ─── Categorizacao__c ────────────────────────────────────────────────────
 
     /**
-     * @description Retorna todas as categorizações de uma Gestão de SLA ordenadas por nome.
+     * @description Retorna todas as categorizações de uma Gestão de SLA ordenadas por nome, com campos de distribuição.
      * @param gestaoSLAId Id da Gestão de SLA.
      * @return Lista de Categorizacao__c.
      **/
     public static List<Categorizacao__c> selectCategoriasByGestaoSLA(Id gestaoSLAId) {
         return [
             SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c,
-                   Subassunto__c, Prioridade__c, Ativo__c
+                   Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCampoCustomizado__c,
+                   FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c,
+                   LabelCampoDistribuicao__c, LabelValorDistribuicao__c
             FROM Categorizacao__c
             WHERE GestaoSLA__c = :gestaoSLAId
             ORDER BY Name
@@ -133,14 +203,16 @@ public inherited sharing class GestaoSLASelector {
     }
 
     /**
-     * @description Retorna as categorizações inativas de uma Gestão de SLA ordenadas por classificação.
+     * @description Retorna as categorizações inativas de uma Gestão de SLA ordenadas por classificação, com campos de distribuição.
      * @param gestaoSLAId Id da Gestão de SLA.
      * @return Lista de Categorizacao__c inativas.
      **/
     public static List<Categorizacao__c> selectInactiveCategoriasByGestaoSLA(Id gestaoSLAId) {
         return [
             SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c,
-                   Subassunto__c, Prioridade__c, Ativo__c
+                   Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCampoCustomizado__c,
+                   FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c,
+                   LabelCampoDistribuicao__c, LabelValorDistribuicao__c
             FROM Categorizacao__c
             WHERE GestaoSLA__c = :gestaoSLAId
               AND Ativo__c = false
@@ -149,18 +221,29 @@ public inherited sharing class GestaoSLASelector {
     }
 
     /**
-     * @description Retorna uma categorização pelo Id com todos os campos.
+     * @description Retorna uma categorização pelo Id com todos os campos, incluindo distribuição.
      * @param categoriaId Id da Categorizacao__c.
      * @return Lista com zero ou um registro Categorizacao__c.
      **/
     public static List<Categorizacao__c> selectCategoriaById(Id categoriaId) {
         return [
             SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c,
-                   Subassunto__c, Prioridade__c, Ativo__c
+                   Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCampoCustomizado__c,
+                   FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c,
+                   LabelCampoDistribuicao__c, LabelValorDistribuicao__c
             FROM Categorizacao__c
             WHERE Id = :categoriaId
             LIMIT 1
         ];
+    }
+
+    /**
+     * @description Retorna somente o Id de uma categorização, para checagem de existência.
+     * @param categoriaId Id da Categorizacao__c.
+     * @return Lista com zero ou um registro (somente Id).
+     **/
+    public static List<Categorizacao__c> selectCategoriaIdById(Id categoriaId) {
+        return [SELECT Id FROM Categorizacao__c WHERE Id = :categoriaId LIMIT 1];
     }
 
     /**
@@ -250,6 +333,22 @@ public inherited sharing class GestaoSLASelector {
     }
 
     /**
+     * @description Retorna o marco SLA único (Triagem/Resposta Chat/Fila Email) de uma Gestão de SLA pelo nome do MilestoneType.
+     * @param gestaoSLAId Id da Gestão de SLA.
+     * @param milestoneTypeName Nome do MilestoneType (MilestoneTypeName__c) a localizar.
+     * @return Lista com zero ou um registro (Id, Ativo__c).
+     **/
+    public static List<MarcoSLA__c> selectMarcoByGestaoAndMilestoneTypeName(Id gestaoSLAId, String milestoneTypeName) {
+        return [
+            SELECT Id, Ativo__c
+            FROM MarcoSLA__c
+            WHERE GestaoSLA__c = :gestaoSLAId
+              AND MilestoneTypeName__c = :milestoneTypeName
+            LIMIT 1
+        ];
+    }
+
+    /**
      * @description Conta marcos SLA ativos de uma Gestão de SLA.
      * @param gestaoSLAId Id da Gestão de SLA.
      * @return Total de marcos ativos.
@@ -329,14 +428,23 @@ public inherited sharing class GestaoSLASelector {
     }
 
     /**
-     * @description Retorna áreas internas ativas de uma categorização dentro de uma Gestão de SLA.
+     * @description Retorna somente os Ids de regras SLA por conjunto de Ids, para checagem de existência/exclusão.
+     * @param regraIds Conjunto de Ids a consultar.
+     * @return Lista de RegrasSLACategorizacao__c com somente Id.
+     **/
+    public static List<RegrasSLACategorizacao__c> selectByIds(Set<Id> regraIds) {
+        return [SELECT Id FROM RegrasSLACategorizacao__c WHERE Id IN :regraIds];
+    }
+
+    /**
+     * @description Retorna regras de Área Interna ativas de uma categorização dentro de uma Gestão de SLA, com os tempos de SLA.
      * @param gestaoSLAId Id da Gestão de SLA.
      * @param categorizacaoId Id da Categorizacao__c.
-     * @return Lista de RegrasSLACategorizacao__c com somente AreaAtendimento__c.
+     * @return Lista de RegrasSLACategorizacao__c (Id, AreaAtendimento__c, TempoBaixa__c, TempoMedia__c, TempoAlta__c).
      **/
-    public static List<RegrasSLACategorizacao__c> selectActiveAreasByGestaoCategorizacao(Id gestaoSLAId, Id categorizacaoId) {
+    public static List<RegrasSLACategorizacao__c> selectActiveAreaRulesByGestaoCategorizacao(Id gestaoSLAId, Id categorizacaoId) {
         return [
-            SELECT AreaAtendimento__c
+            SELECT Id, AreaAtendimento__c, TempoBaixa__c, TempoMedia__c, TempoAlta__c
             FROM RegrasSLACategorizacao__c
             WHERE GestaoSLA__c = :gestaoSLAId
               AND Categorizacao__c = :categorizacaoId
