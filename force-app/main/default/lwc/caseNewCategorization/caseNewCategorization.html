@@ -101,12 +101,12 @@
                                             <div key={row.key} class="slds-grid slds-wrap slds-gutters slds-m-bottom_small">
                                                 <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
                                                     <template if:true={row.left}>
-                                                        <lightning-input-field field-name={row.left}></lightning-input-field>
+                                                        <lightning-input-field field-name={row.left.field} required={row.left.required} onchange={handleDetailFieldChange}></lightning-input-field>
                                                     </template>
                                                 </div>
                                                 <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
                                                     <template if:true={row.right}>
-                                                        <lightning-input-field field-name={row.right}></lightning-input-field>
+                                                        <lightning-input-field field-name={row.right.field} required={row.right.required} onchange={handleDetailFieldChange}></lightning-input-field>
                                                     </template>
                                                 </div>
                                             </div>

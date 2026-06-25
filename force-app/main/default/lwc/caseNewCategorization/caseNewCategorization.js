@@ -11,29 +11,51 @@ import resolveCategorizationSelection from '@salesforce/apex/CaseCreationControl
 import getAvailableQueues from '@salesforce/apex/CaseCreationController.getAvailableQueues';
 import buildDefaultValues from '@salesforce/apex/CaseCreationController.buildDefaultValues';
 
-// Replica, por Unidade de Negócio, as seções de campos "preenchíveis na criação" da Lightning Page
-// real (Dynamic Forms) daquela unidade — os campos que o próprio wizard já resolve (Unidade, Tipo,
-// Categoria, Assunto, Subassunto, Owner, Etapa, Origin) ficam de fora de propósito, pois são
-// injetados via buildDefaultValues no submit, não preenchidos aqui. Campos somente leitura/auditoria
-// (CreatedDate, SuppliedEmail, CreatedById, etc.) também ficam fora — não fazem sentido na criação.
-// Atualizar aqui sempre que a Lightning Page da unidade correspondente mudar nesses campos.
-// Unidades sem entrada aqui caem no fallback de Page Layout puro (lightning-record-form).
+// Replica, por Unidade de Negócio, as seções/campos/regras de visibilidade "preenchíveis na criação"
+// da Lightning Page real (Dynamic Forms) daquela unidade — extraído de LP_Atendimento_Salvador em
+// 2026-06-25. Os campos que o próprio wizard já resolve (Unidade, Tipo, Categoria, Assunto,
+// Subassunto, Owner, Etapa, Origin) ficam de fora de propósito, pois são injetados via
+// buildDefaultValues no submit, não preenchidos aqui. Campos somente leitura/auditoria (CreatedDate,
+// SuppliedEmail, CreatedById, etc.) também ficam fora — não fazem sentido na criação.
+// `visibleWhen`/seção e campo recebem o contexto {tipoCaso, categoria, modalidade} com os valores
+// atuais (categoria/tipoCaso vêm do wizard; modalidade vem do próprio campo desta seção, em tempo real).
+// Atualizar aqui sempre que a Lightning Page da unidade correspondente mudar. Unidades sem entrada
+// aqui caem no fallback de Page Layout puro (lightning-record-form).
+const NAO_ELOGIO = (ctx) => ctx.tipoCaso !== 'Elogio';
 const CASE_DETAIL_SECTIONS_BY_UNIDADE = {
     'Atendimento Tecon Salvador': [
         {
             title: 'Informações do Cliente',
             rows: [
-                ['AccountId', 'ContactId'],
-                ['ContactEmail', 'ContactPhone']
+                [{ field: 'AccountId', required: true }, { field: 'ContactId', required: true }],
+                [{ field: 'Representante__c' }, null]
             ]
         },
         {
             title: 'Informações Adicionais',
-            rows: [['Priority', null]]
+            rows: [
+                [{ field: 'Modalidade__c', required: true, visibleWhen: NAO_ELOGIO }, { field: 'Priority' }],
+                [{ field: 'AreasParticipantes__c', required: true }, { field: 'Container__c', required: true, visibleWhen: NAO_ELOGIO }]
+            ]
+        },
+        {
+            title: 'Detalhes',
+            visibleWhen: (ctx) =>
+                ctx.tipoCaso === 'Elogio' ||
+                (NAO_ELOGIO(ctx) &&
+                    (ctx.modalidade === 'Cabotagem Embarque' || ctx.modalidade === 'Exportação' || ctx.categoria === 'Acesso ao Porto')),
+            rows: [
+                [{ field: 'Colaborador__c', visibleWhen: (ctx) => ctx.tipoCaso === 'Elogio' }, null],
+                [
+                    { field: 'BL__c', visibleWhen: (ctx) => NAO_ELOGIO(ctx) && ctx.modalidade === 'Importação' },
+                    { field: 'Booking__c', visibleWhen: (ctx) => NAO_ELOGIO(ctx) && (ctx.modalidade === 'Cabotagem Embarque' || ctx.modalidade === 'Exportação') }
+                ],
+                [{ field: 'EvidenciaGatePlaca__c', visibleWhen: (ctx) => NAO_ELOGIO(ctx) && ctx.categoria === 'Acesso ao Porto' }, null]
+            ]
         },
         {
             title: 'Descrição',
-            rows: [['Description', null]]
+            rows: [[{ field: 'Description', required: true }, null]]
         }
     ]
 };
@@ -59,6 +81,7 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
     @track hasParametrizedQueue = false;
     @track permiteAssumir = true;
     @track creating = false;
+    @track detailModalidade = null;
 
     language = (LANG || '').toLowerCase();
 
@@ -473,22 +496,51 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
         return !!(this.model.recordTypeId && this.model.unidadeNegocio);
     }
 
+    get detailContext() {
+        return {
+            tipoCaso: this.model.tipoCaso,
+            categoria: this.model.categoria,
+            modalidade: this.detailModalidade
+        };
+    }
+
+    resolveDetailField(fieldConfig, ctx) {
+        if (!fieldConfig) return null;
+        if (fieldConfig.visibleWhen && !fieldConfig.visibleWhen(ctx)) return null;
+        return {
+            field: fieldConfig.field,
+            required: fieldConfig.required === true
+        };
+    }
+
     get caseDetailSections() {
         const sections = CASE_DETAIL_SECTIONS_BY_UNIDADE[this.model.unidadeNegocio];
         if (!sections) return null;
-        return sections.map((section, sectionIndex) => ({
-            key: `case-detail-section-${sectionIndex}`,
-            title: section.title,
-            rows: section.rows.map((row, rowIndex) => ({
-                key: `case-detail-row-${sectionIndex}-${rowIndex}`,
-                left: row[0] || null,
-                right: row[1] || null
+        const ctx = this.detailContext;
+        return sections
+            .filter((section) => !section.visibleWhen || section.visibleWhen(ctx))
+            .map((section, sectionIndex) => ({
+                key: `case-detail-section-${sectionIndex}`,
+                title: section.title,
+                rows: section.rows
+                    .map((row, rowIndex) => ({
+                        key: `case-detail-row-${sectionIndex}-${rowIndex}`,
+                        left: this.resolveDetailField(row[0], ctx),
+                        right: this.resolveDetailField(row[1], ctx)
+                    }))
+                    .filter((row) => row.left || row.right)
             }))
-        }));
+            .filter((section) => section.rows.length > 0);
     }
 
     get hasCuratedSections() {
-        return !!this.caseDetailSections;
+        return !!CASE_DETAIL_SECTIONS_BY_UNIDADE[this.model.unidadeNegocio];
+    }
+
+    handleDetailFieldChange(event) {
+        if (event.target?.fieldName === 'Modalidade__c') {
+            this.detailModalidade = event.detail?.value;
+        }
     }
 
     validationError() {
