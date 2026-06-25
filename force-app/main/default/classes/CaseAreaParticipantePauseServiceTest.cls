@@ -41,6 +41,15 @@ private class CaseAreaParticipantePauseServiceTest {
         return r;
     }
 
+    private static String getNonInternalTipoAreaValue() {
+        for (Schema.PicklistEntry entry : AreaParticipante__c.TipoAreaParticipante__c.getDescribe().getPicklistValues()) {
+            if (!AreaParticipanteSLAHelper.isTipoInterna(entry.getValue())) {
+                return entry.getValue();
+            }
+        }
+        return AreaParticipanteSLAHelper.tipoAreaInternaApiValue();
+    }
+
     private static AreaParticipante__c createOpenArea(Case c, String area) {
         AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
         AreaParticipante__c ap = new AreaParticipante__c(
@@ -201,7 +210,7 @@ private class CaseAreaParticipantePauseServiceTest {
 
         AreaParticipante__c nonInternal = new AreaParticipante__c(
             Caso__c = c.Id,
-            TipoAreaParticipante__c = 'SLA Total',
+            TipoAreaParticipante__c = getNonInternalTipoAreaValue(),
             AreaAtendimento__c = area,
             StatusAtuacao__c = AreaParticipanteSLAHelper.STATUS_ATUACAO_ABERTA,
             ComentarioSolicitacao__c = 'skip non internal'

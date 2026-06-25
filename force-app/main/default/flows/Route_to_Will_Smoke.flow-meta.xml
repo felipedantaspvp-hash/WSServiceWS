@@ -122,7 +122,7 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>Triscal</targetReference>
+            <targetReference>ContaPorDominioEmail</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Não Existe</defaultConnectorLabel>
         <rules>
@@ -210,6 +210,11 @@
     <description>Routes each message to an enhanced bot. You can customize the flow with business and routing rules.</description>
     <environments>Default</environments>
     <formulas>
+        <name>DominioEmailChat</name>
+        <dataType>String</dataType>
+        <expression>IF(CONTAINS({!varEmail}, &quot;@&quot;), LOWER(TRIM(RIGHT({!varEmail}, LEN({!varEmail}) - FIND(&quot;@&quot;, {!varEmail})))), &quot;___ws_no_email_domain___&quot;)</expression>
+    </formulas>
+    <formulas>
         <name>TelefoneWhatsAppSemDDI</name>
         <dataType>String</dataType>
         <expression>IF(LEN({!MessagingUserWhatsApp.MessagingPlatformKey}) &gt; 2, RIGHT({!MessagingUserWhatsApp.MessagingPlatformKey}, LEN({!MessagingUserWhatsApp.MessagingPlatformKey}) - 2), {!MessagingUserWhatsApp.MessagingPlatformKey})</expression>
@@ -288,7 +293,13 @@
         <inputAssignments>
             <field>AccountId</field>
             <value>
-                <elementReference>Triscal.Id</elementReference>
+                <elementReference>ContaPorDominioEmail.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>BypassValidationsFromBot__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -317,6 +328,27 @@
         </inputAssignments>
         <object>Contact</object>
     </recordCreates>
+    <recordLookups>
+        <name>ContaPorDominioEmail</name>
+        <label>Conta por Domínio de Email</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>CriaContato</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DominiosEmail__c</field>
+            <operator>Contains</operator>
+            <value>
+                <elementReference>DominioEmailChat</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <recordLookups>
         <name>Contato</name>
         <label>Contato</label>
@@ -399,27 +431,6 @@
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>MessagingEndUser</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>Triscal</name>
-        <label>Triscal</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>CriaContato</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Name</field>
-            <operator>Contains</operator>
-            <value>
-                <stringValue>Triscal</stringValue>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Account</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>

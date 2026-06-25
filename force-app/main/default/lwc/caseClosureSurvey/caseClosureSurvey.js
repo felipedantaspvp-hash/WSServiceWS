@@ -15,7 +15,8 @@ export default class CaseClosureSurvey extends LightningElement {
         closureReason: null,
         closureSolution: null,
         closureComment: null,
-        selectedSendSurvey: false
+        selectedSendSurvey: false,
+        selectedGerarReclamacao: false
     };
 
     @api
@@ -55,6 +56,7 @@ export default class CaseClosureSurvey extends LightningElement {
             this.model.closureSolution = this.context?.closureSolution;
             this.model.closureComment = this.context?.closureComment;
             this.model.selectedSendSurvey = this.context?.selectedSendSurvey === true;
+            this.model.selectedGerarReclamacao = this.context?.selectedGerarReclamacao === true;
         } catch (error) {
             this.toast('Erro', this.reduceError(error), 'error');
         } finally {
@@ -98,6 +100,10 @@ export default class CaseClosureSurvey extends LightningElement {
         this.model.selectedSendSurvey = event.detail.value === 'true';
     }
 
+    handleGerarReclamacaoChange(event) {
+        this.model.selectedGerarReclamacao = event.target.checked;
+    }
+
     async submit() {
         const valid = [...this.template.querySelectorAll('lightning-input, lightning-textarea')]
             .reduce((isValid, input) => {
@@ -114,7 +120,8 @@ export default class CaseClosureSurvey extends LightningElement {
                 closureReason: this.model.closureReason,
                 closureSolution: this.model.closureSolution,
                 closureComment: this.model.closureComment,
-                selectedSendSurvey: this.model.selectedSendSurvey
+                selectedSendSurvey: this.model.selectedSendSurvey,
+                selectedGerarReclamacao: this.model.selectedGerarReclamacao
             };
             const response = await closeCase({ request });
             if (response?.errorMessage) {

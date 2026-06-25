@@ -43,4 +43,7 @@ public inherited sharing class AtendimentoConfigDTO {
     @AuraEnabled public String messagingChannelType { get; set; }
     @AuraEnabled public String messagingTargetQueueDeveloperName { get; set; }
     @AuraEnabled public String messagingFallbackQueueDeveloperName { get; set; }
+    @AuraEnabled public Boolean gerarReclamacaoNoEncerramento { get; set; }
+    @AuraEnabled public String reclamacaoRecordTypeDeveloperName { get; set; }
+    @AuraEnabled public String reclamacaoAreaValue { get; set; }
 }

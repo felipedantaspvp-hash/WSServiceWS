@@ -601,6 +601,7 @@ private class CaseRecategorizationServiceTest {
         row.DistribuirParaFila__c = 'Sim';
         row.PorCampoCustomizado__c = 'Não';
         row.FilaDeveloperName__c = autoQueue.DeveloperName;
+        row.EtapaAtendimentoDistribuicao__c = 'Aguardando Área Interna';
         CaseRecategorizationSelector.testCategorizacoes = new List<Categorizacao__c>{ row };
 
         CaseRecategorizationDTO.RecategorizationRequestDTO req = new CaseRecategorizationDTO.RecategorizationRequestDTO();
@@ -613,11 +614,12 @@ private class CaseRecategorizationServiceTest {
 
         CaseRecategorizationService.recategorize(req);
 
-        Case updated = [SELECT OwnerId, OrigemDistribuicao__c, FilaDestinoDeveloperName__c
+        Case updated = [SELECT OwnerId, OrigemDistribuicao__c, FilaDestinoDeveloperName__c, EtapaAtendimento__c
                         FROM Case WHERE Id = :c.Id];
         Assert.areEqual(autoQueue.Id, updated.OwnerId);
         Assert.areEqual('Categorização', updated.OrigemDistribuicao__c);
         Assert.areEqual(autoQueue.DeveloperName, updated.FilaDestinoDeveloperName__c);
+        Assert.areEqual('Aguardando Área Interna', updated.EtapaAtendimento__c, 'Deve usar a etapa configurada na Categorização em vez do valor fixo "Em Triagem".');
         clearOverrides();
     }
 

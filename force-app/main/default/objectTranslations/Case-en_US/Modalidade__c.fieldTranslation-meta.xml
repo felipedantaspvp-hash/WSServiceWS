@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Modality</label>
+    <name>Modalidade__c</name>
+    <picklistValues>
+        <masterLabel>A definir</masterLabel>
+        <translation>To Be Determined</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cabotagem Descarga</masterLabel>
+        <translation>Cabotage - Discharge</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cabotagem Embarque</masterLabel>
+        <translation>Cabotage - Loading</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carga de projeto</masterLabel>
+        <translation>Project Cargo</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Exportação</masterLabel>
+        <translation>Export</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Importação</masterLabel>
+        <translation>Import</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Não se aplica</masterLabel>
+        <translation>Not Applicable</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Operação de Navio</masterLabel>
+        <translation>Vessel Operation</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Recinto DTA e DTC</masterLabel>
+        <translation>DTA/DTC Bonded Yard</translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <applicationVisibilities>
+        <application>standard__PreconfiguredLightningServiceConsole</application>
+        <visible>true</visible>
+    </applicationVisibilities>
+    <description>Permite acesso operacional ao Omni Supervisor para monitorar atendimento Omni-Channel e gerenciar membros de filas.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Omni Supervisor Operador</label>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>OmniSupervisorManageQueue</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ViewRoles</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ViewSetup</name>
+    </userPermissions>
+</PermissionSet>

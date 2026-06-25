@@ -46,6 +46,8 @@ public inherited sharing class CaseClosureSurveyService {
         validateClosureRequest(request);
 
         Boolean sendSurvey = resolveSendSurvey(request, context, config, c);
+        Boolean reclamacaoEligible = context.showGerarReclamacaoQuestion == true;
+        Boolean gerarReclamacao = reclamacaoEligible && request.selectedGerarReclamacao == true;
 
         Case updateCase = new Case(Id = c.Id);
         updateCase.Status = String.isBlank(request.closureStatus) ? CLOSED_STATUS : request.closureStatus;
@@ -55,10 +57,25 @@ public inherited sharing class CaseClosureSurveyService {
         updateCase.EnviarPesquisaSatisfacao__c = sendSurvey;
         updateCase.AcaoPosCategorizacao__c = 'Encerrar';
         updateCase.EtapaAtendimento__c = 'Concluído';
+        if (reclamacaoEligible) {
+            // Registra que a decisão (gerar ou não) já foi capturada nesta tela, para que o
+            // motor automático (ReclamacaoService, disparado pelo trigger de Case) não decida de
+            // novo nesta mesma transação - inclusive quando o usuário escolhe não gerar.
+            updateCase.ReclamacaoDecisaoManual__c = true;
+            if (gerarReclamacao) {
+                updateCase.ReclamacaoGerada__c = true;
+                updateCase.DtGeracaoReclamacao__c = System.now();
+            }
+        }
         update updateCase;
+
+        if (gerarReclamacao) {
+            insert ReclamacaoService.buildReclamacao(c, config);
+        }
 
         CaseClosureSurveyDTO out = buildContext(getCaseById(c.Id), config);
         out.selectedSendSurvey = sendSurvey;
+        out.selectedGerarReclamacao = gerarReclamacao;
         out.successMessage = 'Caso encerrado com sucesso.';
         return out;
     }
@@ -95,6 +112,8 @@ public inherited sharing class CaseClosureSurveyService {
         dto.closureReason = c.MotivoEncerramento__c;
         dto.closureComment = c.ComentarioEncerramento__c;
         dto.closureSolution = c.SolucaoCaso__c;
+        dto.showGerarReclamacaoQuestion = ReclamacaoService.isEligibleForManualDecision(c, config);
+        dto.selectedGerarReclamacao = dto.showGerarReclamacaoQuestion;
         return dto;
     }
 
@@ -132,7 +151,7 @@ public inherited sharing class CaseClosureSurveyService {
             SELECT Id, CaseNumber, Status, IsClosed, UnidadeNegocio__c, Origin, ContactId, Contact.Email,
                    ContactEmail, SuppliedEmail, MotivoEncerramento__c, ComentarioEncerramento__c,
                    SolucaoCaso__c, EnviarPesquisaSatisfacao__c, PesquisaEnviada__c, DataHoraEnvioPesquisa__c,
-                   Categorizacao__c
+                   Categorizacao__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, ReclamacaoGerada__c
             FROM Case
             WHERE Id = :caseId
             LIMIT 1

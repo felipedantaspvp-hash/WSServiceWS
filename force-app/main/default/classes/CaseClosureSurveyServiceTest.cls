@@ -198,6 +198,93 @@ private class CaseClosureSurveyServiceTest {
         Assert.areEqual(false, CaseClosureSurveyHelper.isBlockedInternalDomain(null, null));
     }
 
+    @IsTest
+    static void showsGerarReclamacaoQuestionAndCreatesRecordWhenSelected() {
+        Id rtId = [SELECT Id FROM RecordType WHERE SObjectType = 'Reclamacao__c' AND IsActive = true LIMIT 1].Id;
+        Case c = createReclamacaoCase('Centro Logístico', 'cliente.reclamacao.sim@example.com');
+        setupConfigWithReclamacao('Centro Logístico', 'NEVER', true, 'CentroLogistico', 'Centro Logístico');
+        ReclamacaoService.testRecordTypeIdByDeveloperName = new Map<String, Id>{ 'CentroLogistico' => rtId };
+
+        CaseClosureSurveyDTO context = CaseClosureSurveyService.getClosureContext(c.Id);
+        Assert.areEqual(true, context.showGerarReclamacaoQuestion);
+
+        CaseClosureSurveyDTO request = buildRequest(c.Id, false);
+        request.selectedGerarReclamacao = true;
+        CaseClosureSurveyDTO result = CaseClosureSurveyService.closeCase(request);
+
+        Assert.areEqual(true, result.selectedGerarReclamacao);
+        Case updated = [SELECT ReclamacaoGerada__c, ReclamacaoDecisaoManual__c, DtGeracaoReclamacao__c FROM Case WHERE Id = :c.Id];
+        Assert.areEqual(true, updated.ReclamacaoGerada__c);
+        Assert.areEqual(true, updated.ReclamacaoDecisaoManual__c);
+        Assert.isNotNull(updated.DtGeracaoReclamacao__c);
+        Assert.areEqual(1, [SELECT COUNT() FROM Reclamacao__c WHERE Caso__c = :c.Id]);
+
+        ReclamacaoService.testRecordTypeIdByDeveloperName = null;
+        AtendimentoConfigService.clearTestSurveyConfigs();
+    }
+
+    @IsTest
+    static void honorsUserChoiceNotToGenerateReclamacao() {
+        Case c = createReclamacaoCase('Centro Logístico', 'cliente.reclamacao.nao@example.com');
+        setupConfigWithReclamacao('Centro Logístico', 'NEVER', true, 'CentroLogistico', 'Centro Logístico');
+
+        CaseClosureSurveyDTO request = buildRequest(c.Id, false);
+        request.selectedGerarReclamacao = false;
+        CaseClosureSurveyDTO result = CaseClosureSurveyService.closeCase(request);
+
+        Assert.areEqual(false, result.selectedGerarReclamacao);
+        Case updated = [SELECT ReclamacaoGerada__c, ReclamacaoDecisaoManual__c FROM Case WHERE Id = :c.Id];
+        Assert.areEqual(false, updated.ReclamacaoGerada__c);
+        Assert.areEqual(true, updated.ReclamacaoDecisaoManual__c, 'Decisão manual deve ser registrada mesmo quando o usuário escolhe não gerar, para suprimir o motor automático.');
+        Assert.areEqual(0, [SELECT COUNT() FROM Reclamacao__c WHERE Caso__c = :c.Id]);
+
+        AtendimentoConfigService.clearTestSurveyConfigs();
+    }
+
+    @IsTest
+    static void doesNotShowGerarReclamacaoQuestionWhenMetadataFlagDisabled() {
+        Case c = createReclamacaoCase('Centro Logístico', 'cliente.reclamacao.flagoff@example.com');
+        setupConfigWithReclamacao('Centro Logístico', 'NEVER', false, 'CentroLogistico', 'Centro Logístico');
+
+        CaseClosureSurveyDTO context = CaseClosureSurveyService.getClosureContext(c.Id);
+        Assert.areEqual(false, context.showGerarReclamacaoQuestion);
+
+        CaseClosureSurveyDTO request = buildRequest(c.Id, false);
+        request.selectedGerarReclamacao = true;
+        CaseClosureSurveyService.closeCase(request);
+
+        Case updated = [SELECT ReclamacaoGerada__c, ReclamacaoDecisaoManual__c FROM Case WHERE Id = :c.Id];
+        Assert.areEqual(false, updated.ReclamacaoGerada__c, 'Flag desabilitada no metadado: escolha do usuário não deve ter efeito.');
+        Assert.areEqual(false, updated.ReclamacaoDecisaoManual__c);
+        Assert.areEqual(0, [SELECT COUNT() FROM Reclamacao__c WHERE Caso__c = :c.Id]);
+
+        AtendimentoConfigService.clearTestSurveyConfigs();
+    }
+
+    private static Case createReclamacaoCase(String businessUnit, String email) {
+        Case c = createCase(businessUnit, email);
+        c.TipoCaso__c = 'Reclamação';
+        update c;
+        return c;
+    }
+
+    private static void setupConfigWithReclamacao(
+        String businessUnit,
+        String surveyMode,
+        Boolean gerarReclamacaoNoEncerramento,
+        String reclamacaoRecordTypeDeveloperName,
+        String reclamacaoAreaValue
+    ) {
+        AtendimentoConfigDTO config = new AtendimentoConfigDTO();
+        config.businessUnit = businessUnit;
+        config.isActive = true;
+        config.surveyMode = surveyMode;
+        config.gerarReclamacaoNoEncerramento = gerarReclamacaoNoEncerramento;
+        config.reclamacaoRecordTypeDeveloperName = reclamacaoRecordTypeDeveloperName;
+        config.reclamacaoAreaValue = reclamacaoAreaValue;
+        AtendimentoConfigService.setTestSurveyConfigs(new List<AtendimentoConfigDTO>{ config });
+    }
+
     private static Case createCase(String businessUnit, String email) {
         Case c = createUncategorizedCase(businessUnit, email);
         c.Categorizacao__c = getOrCreateCategorizationId(businessUnit);

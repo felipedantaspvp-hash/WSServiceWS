@@ -790,6 +790,10 @@
             <fullName>WS Acesso</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>PO %2F Draft</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Categoria__c</picklist>
@@ -971,6 +975,48 @@
         <values>
             <fullName>Sim</fullName>
             <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>EtapaAtendimentoDistribuicao__c</picklist>
+        <values>
+            <fullName>Aguardando Cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aguardando Área Interna</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Em Acompanhamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Em Atendimento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Em Triagem</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Novo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Preparando Retorno ao Cliente</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PermiteAssumirComFilaParametrizada__c</picklist>
+        <values>
+            <fullName>Não</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sim</fullName>
+            <default>true</default>
         </values>
     </picklistValues>
     <picklistValues>
@@ -1618,6 +1664,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Gold</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Grupo Econômico</fullName>
             <default>false</default>
         </values>
@@ -1827,10 +1877,6 @@
         </values>
         <values>
             <fullName>Orçamento e Faturas</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Ouro</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2187,6 +2233,34 @@
         </values>
         <values>
             <fullName>Vinculação e renovação de Proposta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stiff Barcaça</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PO %2F Draft</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ticket</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Layout inválido</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Colocação %2F Remoção Label</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consulta Booking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ticket de Pesagem</fullName>
             <default>false</default>
         </values>
     </picklistValues>

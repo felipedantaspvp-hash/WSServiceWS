@@ -307,6 +307,7 @@ public inherited sharing class CaseRecategorizationService {
         c.FilaDestinoDeveloperName__c = queue.DeveloperName;
         c.FilaDestinoId__c = String.valueOf(queue.Id);
         c.Status = 'Aberto';
-        c.EtapaAtendimento__c = 'Em Triagem';
+        String etapaDistribuicao = matchedCategorization != null ? matchedCategorization.EtapaAtendimentoDistribuicao__c : null;
+        c.EtapaAtendimento__c = String.isBlank(etapaDistribuicao) ? 'Em Triagem' : etapaDistribuicao;
     }
 }

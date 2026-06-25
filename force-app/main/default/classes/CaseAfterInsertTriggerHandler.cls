@@ -28,5 +28,6 @@ public inherited sharing class CaseAfterInsertTriggerHandler {
             CaseOpeningNotificationService.notifyOpenedCases(caseIds);
             CaseMilestoneSyncQueueable.enqueueSync(caseIds);
         }
+        ReclamacaoService.handleClosureOnInsert(newList);
     }
 }

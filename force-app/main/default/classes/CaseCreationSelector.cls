@@ -114,7 +114,9 @@ public inherited sharing class CaseCreationSelector {
                 Prioridade__c,
                 RecordTypeId, UnidadeNegocios__c,
                 DistribuirParaFila__c, PorCampoCustomizado__c, FilaDeveloperName__c,
-                CampoDistribuicao__c, ValorDistribuicao__c
+                CampoDistribuicao__c, ValorDistribuicao__c,
+                FilaDeveloperNameFallback__c, PermiteAssumirComFilaParametrizada__c,
+                EtapaAtendimentoDistribuicao__c
             FROM Categorizacao__c
             WHERE Ativo__c = true
                 AND RecordTypeId IN :categRtIds

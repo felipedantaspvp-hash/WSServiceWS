@@ -1116,9 +1116,9 @@
         <label>Orçamento e Faturas</label>
     </customValue>
     <customValue>
-        <fullName>Ouro</fullName>
+        <fullName>Gold</fullName>
         <default>false</default>
-        <label>Ouro</label>
+        <label>Gold</label>
     </customValue>
     <customValue>
         <fullName>Outros</fullName>

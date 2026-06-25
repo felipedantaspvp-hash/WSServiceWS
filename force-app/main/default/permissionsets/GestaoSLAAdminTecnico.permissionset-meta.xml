@@ -67,13 +67,28 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Categorizacao__c.EtapaAtendimentoDistribuicao__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Categorizacao__c.ExternalId__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Categorizacao__c.FilaDeveloperNameFallback__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Categorizacao__c.FilaDeveloperName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Categorizacao__c.FilaIdFallback__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -104,6 +119,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Categorizacao__c.NomeFilaDistribuicao__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Categorizacao__c.NomeFilaFallbackDistribuicao__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Categorizacao__c.PermiteAssumirComFilaParametrizada__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

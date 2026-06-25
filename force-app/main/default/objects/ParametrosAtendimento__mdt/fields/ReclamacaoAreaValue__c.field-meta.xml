@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ReclamacaoAreaValue__c</fullName>
+    <description>Valor de picklist a gravar em Reclamacao__c.Area__c/Unidade__c na geração automática (os valores desses picklists não são idênticos aos de Case.UnidadeNegocio__c).</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Valor de Área da Reclamação</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

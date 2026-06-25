@@ -75,6 +75,46 @@ private class CaseCreationServiceTest {
     }
 
     @IsTest
+    static void testResolveWithCustomFieldValueNotMatchedUsaFilaFallback() {
+        Group fallbackQueue = new Group(Name = 'TSV Queue Fallback', DeveloperName = 'TSV_Q_TEST_FALLBACK', Type = 'Queue');
+        insert fallbackQueue;
+        insert new QueueSobject(QueueId = fallbackQueue.Id, SobjectType = 'Case');
+
+        RecordType rt = CaseCreationTestDataFactory.anyCaseRt();
+        Categorizacao__c cat = CaseCreationTestDataFactory.catRow(true, false, 'TSV_Q_TEST', rt.Id);
+        cat.CampoDistribuicao__c = 'Priority';
+        cat.ValorDistribuicao__c = 'High';
+        cat.FilaDeveloperNameFallback__c = 'TSV_Q_TEST_FALLBACK';
+        CaseCreationSelector.testCategorizacoes = new List<Categorizacao__c>{ cat };
+
+        CaseCreationDTO.CategorizationRequestDTO req = CaseCreationTestDataFactory.baseCategorization();
+        req.recordTypeId = rt.Id;
+        req.recordTypeDeveloperName = rt.DeveloperName;
+        req.customFieldValue = 'Low';
+
+        CaseCreationDTO.ResolveSelectionResponseDTO res = CaseCreationService.resolveCategorizationSelection(req);
+        Assert.areEqual(false, res.valorDistribuicaoAtendido);
+        Assert.areEqual(true, res.hasParametrizedQueue);
+        Assert.areEqual('TSV_Q_TEST_FALLBACK', res.queue.developerName);
+    }
+
+    @IsTest
+    static void testResolveExpoePermiteAssumirComFilaParametrizada() {
+        RecordType rt = CaseCreationTestDataFactory.anyCaseRt();
+        Categorizacao__c cat = CaseCreationTestDataFactory.catRow(true, true, 'TSV_Q_TEST', rt.Id);
+        cat.PermiteAssumirComFilaParametrizada__c = 'Não';
+        CaseCreationSelector.testCategorizacoes = new List<Categorizacao__c>{ cat };
+
+        CaseCreationDTO.CategorizationRequestDTO req = CaseCreationTestDataFactory.baseCategorization();
+        req.recordTypeId = rt.Id;
+        req.recordTypeDeveloperName = rt.DeveloperName;
+
+        CaseCreationDTO.ResolveSelectionResponseDTO res = CaseCreationService.resolveCategorizationSelection(req);
+        Assert.areEqual(true, res.hasParametrizedQueue);
+        Assert.areEqual(false, res.permiteAssumirComFilaParametrizada);
+    }
+
+    @IsTest
     static void testBuildDefaultsDistribuirComCampoCustomizadoAtendido() {
         RecordType rt = CaseCreationTestDataFactory.anyCaseRt();
         Categorizacao__c cat = CaseCreationTestDataFactory.catRow(true, false, 'TSV_Q_TEST', rt.Id);
@@ -95,6 +135,49 @@ private class CaseCreationServiceTest {
         Assert.areEqual('High', out.defaultValues.get('Priority'));
         Assert.areEqual('TSV_Q_TEST', out.defaultValues.get('FilaDestinoDeveloperName__c'));
         Assert.areEqual('Categorização', out.defaultValues.get('OrigemDistribuicao__c'));
+    }
+
+    @IsTest
+    static void testBuildDefaultsAssumirBloqueadoQuandoCategorizacaoNaoPermite() {
+        RecordType rt = CaseCreationTestDataFactory.anyCaseRt();
+        Categorizacao__c cat = CaseCreationTestDataFactory.catRow(true, true, 'TSV_Q_TEST', rt.Id);
+        cat.PermiteAssumirComFilaParametrizada__c = 'Não';
+        CaseCreationSelector.testCategorizacoes = new List<Categorizacao__c>{ cat };
+
+        CaseCreationDTO.BuildDefaultValuesRequestDTO req = new CaseCreationDTO.BuildDefaultValuesRequestDTO();
+        req.categorization = CaseCreationTestDataFactory.baseCategorization();
+        req.categorization.recordTypeId = rt.Id;
+        req.categorization.recordTypeDeveloperName = rt.DeveloperName;
+        req.destination = new CaseCreationDTO.DestinationRequestDTO();
+        req.destination.action = 'ASSUMIR';
+
+        Boolean threw = false;
+        try {
+            CaseCreationService.buildDefaultValues(req);
+        } catch (CaseCreationService.FunctionalException ex) {
+            threw = true;
+            Assert.areEqual('ASSUMIR_NAO_PERMITIDO', ex.code);
+        }
+        Assert.areEqual(true, threw, 'Assumir deve ser bloqueado no servidor quando a Categorização não permite, não só escondido na UI.');
+    }
+
+    @IsTest
+    static void testBuildDefaultsAssumirPermitidoQuandoCategorizacaoPermite() {
+        RecordType rt = CaseCreationTestDataFactory.anyCaseRt();
+        Categorizacao__c cat = CaseCreationTestDataFactory.catRow(true, true, 'TSV_Q_TEST', rt.Id);
+        cat.PermiteAssumirComFilaParametrizada__c = 'Sim';
+        CaseCreationSelector.testCategorizacoes = new List<Categorizacao__c>{ cat };
+
+        CaseCreationDTO.BuildDefaultValuesRequestDTO req = new CaseCreationDTO.BuildDefaultValuesRequestDTO();
+        req.categorization = CaseCreationTestDataFactory.baseCategorization();
+        req.categorization.recordTypeId = rt.Id;
+        req.categorization.recordTypeDeveloperName = rt.DeveloperName;
+        req.destination = new CaseCreationDTO.DestinationRequestDTO();
+        req.destination.action = 'ASSUMIR';
+
+        CaseCreationDTO.BuildDefaultValuesResponseDTO out = CaseCreationService.buildDefaultValues(req);
+        Assert.areEqual(true, out.success);
+        Assert.areEqual('Assumir', out.defaultValues.get('AcaoPosCategorizacao__c'));
     }
 
     @IsTest
@@ -242,6 +325,43 @@ private class CaseCreationServiceTest {
     }
 
     @IsTest
+    static void testBuildDefaultsDistribuirUsaEtapaConfiguradaNaCategorizacao() {
+        RecordType rt = CaseCreationTestDataFactory.anyCaseRt();
+        Categorizacao__c cat = CaseCreationTestDataFactory.catRow(true, true, 'TSV_Q_TEST', rt.Id);
+        cat.EtapaAtendimentoDistribuicao__c = 'Aguardando Cliente';
+        CaseCreationSelector.testCategorizacoes = new List<Categorizacao__c>{ cat };
+
+        CaseCreationDTO.BuildDefaultValuesRequestDTO req = new CaseCreationDTO.BuildDefaultValuesRequestDTO();
+        req.categorization = CaseCreationTestDataFactory.baseCategorization();
+        req.categorization.recordTypeId = rt.Id;
+        req.categorization.recordTypeDeveloperName = rt.DeveloperName;
+        req.destination = new CaseCreationDTO.DestinationRequestDTO();
+        req.destination.action = 'DISTRIBUIR';
+
+        CaseCreationDTO.BuildDefaultValuesResponseDTO out = CaseCreationService.buildDefaultValues(req);
+        Assert.areEqual(true, out.success);
+        Assert.areEqual('Aguardando Cliente', out.defaultValues.get('EtapaAtendimento__c'));
+    }
+
+    @IsTest
+    static void testBuildDefaultsDistribuirSemEtapaConfiguradaUsaFallbackEmTriagem() {
+        RecordType rt = CaseCreationTestDataFactory.anyCaseRt();
+        CaseCreationSelector.testCategorizacoes = new List<Categorizacao__c>{
+            CaseCreationTestDataFactory.catRow(true, true, 'TSV_Q_TEST', rt.Id)
+        };
+
+        CaseCreationDTO.BuildDefaultValuesRequestDTO req = new CaseCreationDTO.BuildDefaultValuesRequestDTO();
+        req.categorization = CaseCreationTestDataFactory.baseCategorization();
+        req.categorization.recordTypeId = rt.Id;
+        req.categorization.recordTypeDeveloperName = rt.DeveloperName;
+        req.destination = new CaseCreationDTO.DestinationRequestDTO();
+        req.destination.action = 'DISTRIBUIR';
+
+        CaseCreationDTO.BuildDefaultValuesResponseDTO out = CaseCreationService.buildDefaultValues(req);
+        Assert.areEqual('Em Triagem', out.defaultValues.get('EtapaAtendimento__c'));
+    }
+
+    @IsTest
     static void testSelectorQueriesAndHelperUtilities() {
         CaseCreationSelector.testConfigs = null;
         CaseCreationSelector.testCategorizacoes = null;
@@ -287,7 +407,7 @@ private class CaseCreationServiceTest {
     }
 
     @IsTest
-    static void testApplyCampoCustomizadoDistributionOverridesOwnerWhenFieldMatches() {
+    static void testApplyCategorizacaoDistributionOverridesOwnerWhenFieldMatches() {
         Categorizacao__c cat = CategorizacaoTestDataFactory.base(true, false);
         cat.RecordTypeId = salvadorCategorizacaoRt().Id;
         cat.UnidadeNegocios__c = 'Atendimento Tecon Salvador';
@@ -319,7 +439,40 @@ private class CaseCreationServiceTest {
     }
 
     @IsTest
-    static void testApplyCampoCustomizadoDistributionNaoSobrescreveOwnerQuandoValorNaoBate() {
+    static void testApplyCategorizacaoDistributionUsaFilaFallbackQuandoValorNaoBate() {
+        Group fallbackQueue = new Group(Name = 'TSV Queue Fallback Test', DeveloperName = 'TSV_Q_TEST_FALLBACK', Type = 'Queue');
+        insert fallbackQueue;
+        insert new QueueSobject(QueueId = fallbackQueue.Id, SobjectType = 'Case');
+
+        Categorizacao__c cat = CategorizacaoTestDataFactory.base(true, false);
+        cat.RecordTypeId = salvadorCategorizacaoRt().Id;
+        cat.UnidadeNegocios__c = 'Atendimento Tecon Salvador';
+        cat.FilaDeveloperName__c = 'TSV_Q_TEST';
+        cat.CampoDistribuicao__c = 'Priority';
+        cat.ValorDistribuicao__c = 'High';
+        cat.FilaDeveloperNameFallback__c = 'TSV_Q_TEST_FALLBACK';
+        insert cat;
+        cat = [SELECT Id, UnidadeNegocios__c FROM Categorizacao__c WHERE Id = :cat.Id];
+
+        Case c = new Case(
+            Subject = 'Teste fila de fallback quando valor não bate',
+            RecordTypeId = salvadorCaseRt().Id,
+            UnidadeNegocio__c = 'Atendimento Tecon Salvador',
+            Origin = 'Manual',
+            Status = 'Aberto',
+            Priority = 'Low',
+            Categorizacao__c = cat.Id
+        );
+        insert c;
+
+        Case saved = [SELECT OwnerId, DistribuicaoSolicitada__c, FilaDestinoDeveloperName__c FROM Case WHERE Id = :c.Id];
+        Assert.areEqual(fallbackQueue.Id, saved.OwnerId, 'Owner deve ser a fila de fallback quando o valor do campo não bate e há fallback configurado.');
+        Assert.areEqual(true, saved.DistribuicaoSolicitada__c);
+        Assert.areEqual('TSV_Q_TEST_FALLBACK', saved.FilaDestinoDeveloperName__c);
+    }
+
+    @IsTest
+    static void testApplyCategorizacaoDistributionNaoSobrescreveOwnerQuandoValorNaoBateESemFallback() {
         Categorizacao__c cat = CategorizacaoTestDataFactory.base(true, false);
         cat.RecordTypeId = salvadorCategorizacaoRt().Id;
         cat.UnidadeNegocios__c = 'Atendimento Tecon Salvador';
@@ -343,33 +496,128 @@ private class CaseCreationServiceTest {
         insert c;
 
         Case saved = [SELECT OwnerId, DistribuicaoSolicitada__c FROM Case WHERE Id = :c.Id];
-        Assert.areEqual(currentUserId, saved.OwnerId, 'Owner não deve ser alterado quando o valor do campo não bate com o configurado.');
+        Assert.areEqual(currentUserId, saved.OwnerId, 'Owner não deve ser alterado quando o valor do campo não bate e não há fila de fallback.');
         Assert.areEqual(false, saved.DistribuicaoSolicitada__c);
     }
 
     @IsTest
-    static void testApplyCampoCustomizadoDistributionIgnoraQuandoCategorizacaoNaoUsaCampoCustomizado() {
+    static void testApplyCategorizacaoDistributionFilaFixaSemAcaoForcaOwnerParaFila() {
+        // Simula carga em massa/integração: Categorizacao__c com fila fixa (sem campo customizado),
+        // Case criado sem nenhuma das telas (AcaoPosCategorizacao__c em branco) — desde o Pacote 28
+        // essa distribuição é sempre reforçada pelo trigger, não só sugerida no wizard.
         Categorizacao__c cat = CategorizacaoTestDataFactory.base(true, true);
         cat.RecordTypeId = salvadorCategorizacaoRt().Id;
         cat.UnidadeNegocios__c = 'Atendimento Tecon Salvador';
         cat.FilaDeveloperName__c = 'TSV_Q_TEST';
+        cat.EtapaAtendimentoDistribuicao__c = 'Em Atendimento';
+        insert cat;
+        cat = [SELECT Id, UnidadeNegocios__c FROM Categorizacao__c WHERE Id = :cat.Id];
+
+        Group queue = [SELECT Id FROM Group WHERE DeveloperName = 'TSV_Q_TEST' LIMIT 1];
+        Id currentUserId = UserInfo.getUserId();
+        Case c = new Case(
+            Subject = 'Teste fila fixa via carga, sem AcaoPosCategorizacao__c',
+            RecordTypeId = salvadorCaseRt().Id,
+            UnidadeNegocio__c = 'Atendimento Tecon Salvador',
+            Origin = 'Manual',
+            Status = 'Aberto',
+            Priority = 'High',
+            EtapaAtendimento__c = 'Novo',
+            Categorizacao__c = cat.Id,
+            OwnerId = currentUserId
+        );
+        insert c;
+
+        Case saved = [SELECT OwnerId, EtapaAtendimento__c FROM Case WHERE Id = :c.Id];
+        Assert.areEqual(queue.Id, saved.OwnerId, 'Carga sem ação explícita deve sempre respeitar a fila parametrizada da Categorização.');
+        Assert.areEqual('Em Atendimento', saved.EtapaAtendimento__c, 'A etapa configurada na Categorização deve ser aplicada ao forçar a distribuição.');
+    }
+
+    @IsTest
+    static void testApplyCategorizacaoDistributionAssumirPermitidoNaoSobrescreveOwner() {
+        Categorizacao__c cat = CategorizacaoTestDataFactory.base(true, true);
+        cat.RecordTypeId = salvadorCategorizacaoRt().Id;
+        cat.UnidadeNegocios__c = 'Atendimento Tecon Salvador';
+        cat.FilaDeveloperName__c = 'TSV_Q_TEST';
+        cat.PermiteAssumirComFilaParametrizada__c = 'Sim';
         insert cat;
         cat = [SELECT Id, UnidadeNegocios__c FROM Categorizacao__c WHERE Id = :cat.Id];
 
         Id currentUserId = UserInfo.getUserId();
         Case c = new Case(
-            Subject = 'Teste distribuição direta por categorização — não deve ser afetado',
+            Subject = 'Teste Assumir permitido mesmo com fila parametrizada',
             RecordTypeId = salvadorCaseRt().Id,
             UnidadeNegocio__c = 'Atendimento Tecon Salvador',
             Origin = 'Manual',
             Status = 'Aberto',
             Priority = 'High',
             Categorizacao__c = cat.Id,
-            OwnerId = currentUserId
+            OwnerId = currentUserId,
+            AcaoPosCategorizacao__c = 'Assumir'
         );
         insert c;
 
-        Case saved = [SELECT OwnerId FROM Case WHERE Id = :c.Id];
-        Assert.areEqual(currentUserId, saved.OwnerId, 'Categorização sem campo customizado não deve disparar essa lógica.');
+        Case saved = [SELECT OwnerId, DistribuicaoSolicitada__c FROM Case WHERE Id = :c.Id];
+        Assert.areEqual(currentUserId, saved.OwnerId, 'Quando a Categorização permite assumir, o bypass explícito (Assumir) não deve ser sobrescrito.');
+        Assert.areEqual(false, saved.DistribuicaoSolicitada__c);
+    }
+
+    @IsTest
+    static void testApplyCategorizacaoDistributionAssumirNaoPermitidoForcaOwnerParaFila() {
+        Categorizacao__c cat = CategorizacaoTestDataFactory.base(true, true);
+        cat.RecordTypeId = salvadorCategorizacaoRt().Id;
+        cat.UnidadeNegocios__c = 'Atendimento Tecon Salvador';
+        cat.FilaDeveloperName__c = 'TSV_Q_TEST';
+        cat.PermiteAssumirComFilaParametrizada__c = 'Não';
+        insert cat;
+        cat = [SELECT Id, UnidadeNegocios__c FROM Categorizacao__c WHERE Id = :cat.Id];
+
+        Group queue = [SELECT Id FROM Group WHERE DeveloperName = 'TSV_Q_TEST' LIMIT 1];
+        Id currentUserId = UserInfo.getUserId();
+        Case c = new Case(
+            Subject = 'Teste Assumir bloqueado pela Categorização',
+            RecordTypeId = salvadorCaseRt().Id,
+            UnidadeNegocio__c = 'Atendimento Tecon Salvador',
+            Origin = 'Manual',
+            Status = 'Aberto',
+            Priority = 'High',
+            Categorizacao__c = cat.Id,
+            OwnerId = currentUserId,
+            AcaoPosCategorizacao__c = 'Assumir'
+        );
+        insert c;
+
+        Case saved = [SELECT OwnerId, DistribuicaoSolicitada__c FROM Case WHERE Id = :c.Id];
+        Assert.areEqual(queue.Id, saved.OwnerId, 'Quando a Categorização não permite assumir, mesmo um Assumir explícito deve ser sobrescrito para a fila.');
+        Assert.areEqual(true, saved.DistribuicaoSolicitada__c);
+    }
+
+    @IsTest
+    static void testApplyCategorizacaoDistributionEncerrarNuncaEnfileira() {
+        Categorizacao__c cat = CategorizacaoTestDataFactory.base(true, true);
+        cat.RecordTypeId = salvadorCategorizacaoRt().Id;
+        cat.UnidadeNegocios__c = 'Atendimento Tecon Salvador';
+        cat.FilaDeveloperName__c = 'TSV_Q_TEST';
+        cat.PermiteAssumirComFilaParametrizada__c = 'Não';
+        insert cat;
+        cat = [SELECT Id, UnidadeNegocios__c FROM Categorizacao__c WHERE Id = :cat.Id];
+
+        Id currentUserId = UserInfo.getUserId();
+        Case c = new Case(
+            Subject = 'Teste Case fechado na criação nunca é enfileirado',
+            RecordTypeId = salvadorCaseRt().Id,
+            UnidadeNegocio__c = 'Atendimento Tecon Salvador',
+            Origin = 'Manual',
+            Status = 'Fechado',
+            Priority = 'High',
+            Categorizacao__c = cat.Id,
+            OwnerId = currentUserId,
+            AcaoPosCategorizacao__c = 'Encerrar'
+        );
+        insert c;
+
+        Case saved = [SELECT OwnerId, DistribuicaoSolicitada__c FROM Case WHERE Id = :c.Id];
+        Assert.areEqual(currentUserId, saved.OwnerId, 'Encerrar na criação nunca deve enfileirar o Case, mesmo sem permissão de Assumir.');
+        Assert.areEqual(false, saved.DistribuicaoSolicitada__c);
     }
 }

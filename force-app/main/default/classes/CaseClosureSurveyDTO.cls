@@ -26,4 +26,6 @@ public inherited sharing class CaseClosureSurveyDTO {
     @AuraEnabled public String closureSolution { get; set; }
     @AuraEnabled public String successMessage { get; set; }
     @AuraEnabled public String errorMessage { get; set; }
+    @AuraEnabled public Boolean showGerarReclamacaoQuestion { get; set; }
+    @AuraEnabled public Boolean selectedGerarReclamacao { get; set; }
 }

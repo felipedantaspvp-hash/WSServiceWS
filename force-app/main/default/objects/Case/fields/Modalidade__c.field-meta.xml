@@ -16,6 +16,46 @@
                 <default>true</default>
                 <label>A definir</label>
             </value>
+            <value>
+                <fullName>Importação</fullName>
+                <default>false</default>
+                <label>Importação</label>
+            </value>
+            <value>
+                <fullName>Exportação</fullName>
+                <default>false</default>
+                <label>Exportação</label>
+            </value>
+            <value>
+                <fullName>Cabotagem Descarga</fullName>
+                <default>false</default>
+                <label>Cabotagem Descarga</label>
+            </value>
+            <value>
+                <fullName>Cabotagem Embarque</fullName>
+                <default>false</default>
+                <label>Cabotagem Embarque</label>
+            </value>
+            <value>
+                <fullName>Operação de Navio</fullName>
+                <default>false</default>
+                <label>Operação de Navio</label>
+            </value>
+            <value>
+                <fullName>Não se aplica</fullName>
+                <default>false</default>
+                <label>Não se aplica</label>
+            </value>
+            <value>
+                <fullName>Carga de projeto</fullName>
+                <default>false</default>
+                <label>Carga de projeto</label>
+            </value>
+            <value>
+                <fullName>Recinto DTA e DTC</fullName>
+                <default>false</default>
+                <label>Recinto DTA e DTC</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

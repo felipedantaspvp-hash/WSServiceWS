@@ -9,14 +9,8 @@
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>A definir</fullName>
-                <default>true</default>
-                <label>A definir</label>
-            </value>
-        </valueSetDefinition>
+        <restricted>true</restricted>
+        <valueSetName>AreasParticipantesAtendimento</valueSetName>
     </valueSet>
     <visibleLines>4</visibleLines>
 </CustomField>

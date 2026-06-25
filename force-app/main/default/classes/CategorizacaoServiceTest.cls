@@ -128,6 +128,154 @@ private class CategorizacaoServiceTest {
     }
 
     @IsTest
+    static void testEtapaAtendimentoObrigatoriaQuandoDistribui() {
+        configureRuntimeOverrides();
+        String queueDeveloperName = queueDevNameFromRt(currentRt().DeveloperName);
+
+        Categorizacao__c row = CategorizacaoTestDataFactory.base(true, true);
+        row.RecordTypeId = currentRt().Id;
+        row.UnidadeNegocios__c = unidadeFromRt(currentRt().DeveloperName);
+        row.FilaDeveloperName__c = queueDeveloperName;
+        row.EtapaAtendimentoDistribuicao__c = null;
+
+        DmlException ex;
+        try { insert row; } catch (DmlException e) { ex = e; }
+        Assert.areEqual(true, ex != null && ex.getMessage().contains('Etapa do Atendimento é obrigatória'));
+    }
+
+    @IsTest
+    static void testEtapaAtendimentoPersistidaQuandoDistribui() {
+        configureRuntimeOverrides();
+        String queueDeveloperName = queueDevNameFromRt(currentRt().DeveloperName);
+
+        Categorizacao__c row = CategorizacaoTestDataFactory.base(true, true);
+        row.RecordTypeId = currentRt().Id;
+        row.UnidadeNegocios__c = unidadeFromRt(currentRt().DeveloperName);
+        row.FilaDeveloperName__c = queueDeveloperName;
+        row.EtapaAtendimentoDistribuicao__c = 'Em Atendimento';
+        insert row;
+
+        Categorizacao__c saved = [SELECT EtapaAtendimentoDistribuicao__c FROM Categorizacao__c WHERE Id = :row.Id];
+        Assert.areEqual('Em Atendimento', saved.EtapaAtendimentoDistribuicao__c);
+    }
+
+    @IsTest
+    static void testClearDistributionLimpaEtapaAtendimentoQuandoDesativaFila() {
+        configureRuntimeOverrides();
+        String queueDeveloperName = queueDevNameFromRt(currentRt().DeveloperName);
+
+        Categorizacao__c row = CategorizacaoTestDataFactory.base(true, true);
+        row.RecordTypeId = currentRt().Id;
+        row.UnidadeNegocios__c = unidadeFromRt(currentRt().DeveloperName);
+        row.FilaDeveloperName__c = queueDeveloperName;
+        insert row;
+
+        row.DistribuirParaFila__c = 'Não';
+        update row;
+
+        Categorizacao__c saved = [SELECT EtapaAtendimentoDistribuicao__c FROM Categorizacao__c WHERE Id = :row.Id];
+        Assert.areEqual(null, saved.EtapaAtendimentoDistribuicao__c);
+    }
+
+    @IsTest
+    static void testDistribuicaoPorCampoComFilaFallbackValidaEResolve() {
+        configureRuntimeOverrides();
+        String queueDeveloperName = queueDevNameFromRt(currentRt().DeveloperName);
+        String fallbackDeveloperName = queueDeveloperName + '_FALLBACK';
+        CategorizacaoSelector.QueueData fallbackQd = new CategorizacaoSelector.QueueData();
+        fallbackQd.id = UserInfo.getUserId();
+        fallbackQd.name = fallbackDeveloperName;
+        fallbackQd.developerName = fallbackDeveloperName;
+        CategorizacaoSelector.testQueuesByDevName.put(fallbackDeveloperName, fallbackQd);
+
+        Categorizacao__c row = CategorizacaoTestDataFactory.base(true, false);
+        row.RecordTypeId = currentRt().Id;
+        row.UnidadeNegocios__c = unidadeFromRt(currentRt().DeveloperName);
+        row.FilaDeveloperName__c = queueDeveloperName;
+        row.CampoDistribuicao__c = 'Origin';
+        row.ValorDistribuicao__c = 'Email';
+        row.FilaDeveloperNameFallback__c = fallbackDeveloperName;
+        insert row;
+
+        Categorizacao__c saved = [SELECT FilaIdFallback__c, NomeFilaFallbackDistribuicao__c FROM Categorizacao__c WHERE Id = :row.Id];
+        Assert.areEqual(String.valueOf(fallbackQd.id), saved.FilaIdFallback__c);
+        Assert.areEqual(fallbackDeveloperName, saved.NomeFilaFallbackDistribuicao__c);
+    }
+
+    @IsTest
+    static void testDistribuicaoFilaFallbackInvalidaBloqueia() {
+        configureRuntimeOverrides();
+        String queueDeveloperName = queueDevNameFromRt(currentRt().DeveloperName);
+
+        Categorizacao__c row = CategorizacaoTestDataFactory.base(true, false);
+        row.RecordTypeId = currentRt().Id;
+        row.UnidadeNegocios__c = unidadeFromRt(currentRt().DeveloperName);
+        row.FilaDeveloperName__c = queueDeveloperName;
+        row.CampoDistribuicao__c = 'Origin';
+        row.ValorDistribuicao__c = 'Email';
+        row.FilaDeveloperNameFallback__c = 'FILA_QUE_NAO_EXISTE';
+        DmlException ex;
+        try { insert row; } catch (DmlException e) { ex = e; }
+        Assert.areEqual(true, ex != null && ex.getMessage().contains('Fila de fallback inválida'));
+    }
+
+    @IsTest
+    static void testPermiteAssumirDefaultSimQuandoEmBranco() {
+        configureRuntimeOverrides();
+        Categorizacao__c row = CategorizacaoTestDataFactory.base(false, false);
+        row.RecordTypeId = currentRt().Id;
+        row.UnidadeNegocios__c = unidadeFromRt(currentRt().DeveloperName);
+        insert row;
+
+        Categorizacao__c saved = [SELECT PermiteAssumirComFilaParametrizada__c FROM Categorizacao__c WHERE Id = :row.Id];
+        Assert.areEqual('Sim', saved.PermiteAssumirComFilaParametrizada__c);
+    }
+
+    @IsTest
+    static void testPermiteAssumirPreservaNaoQuandoExplicito() {
+        configureRuntimeOverrides();
+        String queueDeveloperName = queueDevNameFromRt(currentRt().DeveloperName);
+        Categorizacao__c row = CategorizacaoTestDataFactory.base(true, true);
+        row.RecordTypeId = currentRt().Id;
+        row.UnidadeNegocios__c = unidadeFromRt(currentRt().DeveloperName);
+        row.FilaDeveloperName__c = queueDeveloperName;
+        row.PermiteAssumirComFilaParametrizada__c = 'Não';
+        insert row;
+
+        Categorizacao__c saved = [SELECT PermiteAssumirComFilaParametrizada__c FROM Categorizacao__c WHERE Id = :row.Id];
+        Assert.areEqual('Não', saved.PermiteAssumirComFilaParametrizada__c);
+    }
+
+    @IsTest
+    static void testDesativarCampoCustomizadoLimpaFilaFallback() {
+        configureRuntimeOverrides();
+        String queueDeveloperName = queueDevNameFromRt(currentRt().DeveloperName);
+        String fallbackDeveloperName = queueDeveloperName + '_FALLBACK';
+        CategorizacaoSelector.QueueData fallbackQd = new CategorizacaoSelector.QueueData();
+        fallbackQd.id = UserInfo.getUserId();
+        fallbackQd.name = fallbackDeveloperName;
+        fallbackQd.developerName = fallbackDeveloperName;
+        CategorizacaoSelector.testQueuesByDevName.put(fallbackDeveloperName, fallbackQd);
+
+        Categorizacao__c row = CategorizacaoTestDataFactory.base(true, false);
+        row.RecordTypeId = currentRt().Id;
+        row.UnidadeNegocios__c = unidadeFromRt(currentRt().DeveloperName);
+        row.FilaDeveloperName__c = queueDeveloperName;
+        row.CampoDistribuicao__c = 'Origin';
+        row.ValorDistribuicao__c = 'Email';
+        row.FilaDeveloperNameFallback__c = fallbackDeveloperName;
+        insert row;
+
+        row.PorCampoCustomizado__c = 'Não';
+        update row;
+
+        Categorizacao__c saved = [SELECT FilaDeveloperNameFallback__c, FilaIdFallback__c, NomeFilaFallbackDistribuicao__c FROM Categorizacao__c WHERE Id = :row.Id];
+        Assert.areEqual(null, saved.FilaDeveloperNameFallback__c);
+        Assert.areEqual(null, saved.FilaIdFallback__c);
+        Assert.areEqual(null, saved.NomeFilaFallbackDistribuicao__c);
+    }
+
+    @IsTest
     static void testBulk() {
         configureRuntimeOverrides();
         List<Categorizacao__c> rows = new List<Categorizacao__c>();

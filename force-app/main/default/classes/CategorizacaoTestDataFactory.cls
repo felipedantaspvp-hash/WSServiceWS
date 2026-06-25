@@ -25,6 +25,7 @@ public inherited sharing class CategorizacaoTestDataFactory {
         c.Ativo__c = true;
         c.DistribuirParaFila__c = distribuir ? 'Sim' : 'Não';
         c.PorCampoCustomizado__c = porCat ? 'Não' : 'Sim';
+        if (distribuir) c.EtapaAtendimentoDistribuicao__c = 'Em Triagem';
         return c;
     }
 

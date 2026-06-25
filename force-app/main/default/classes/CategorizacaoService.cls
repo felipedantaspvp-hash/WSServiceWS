@@ -9,6 +9,7 @@ public inherited sharing class CategorizacaoService {
         for (Categorizacao__c row : records) {
             if (row.RecordTypeId != null) rtIds.add(row.RecordTypeId);
             if (!String.isBlank(row.FilaDeveloperName__c)) queueDevNames.add(row.FilaDeveloperName__c);
+            if (!String.isBlank(row.FilaDeveloperNameFallback__c)) queueDevNames.add(row.FilaDeveloperNameFallback__c);
         }
 
         Map<Id, RecordType> rts = CategorizacaoSelector.getRecordTypesById(rtIds);
@@ -262,6 +263,15 @@ public inherited sharing class CategorizacaoService {
         Boolean distribuir = CategorizacaoHelper.isTrueFlag(row.DistribuirParaFila__c);
         Boolean porCampoCustomizado = CategorizacaoHelper.isTrueFlag(row.PorCampoCustomizado__c);
 
+        // Default "Sim" quando em branco: nao deve travar retroativamente quem ja estava
+        // configurado antes deste campo existir, e novas Categorizacoes so ficam restritivas
+        // se o admin explicitamente desmarcar na tela.
+        if (String.isBlank(row.PermiteAssumirComFilaParametrizada__c)) {
+            row.PermiteAssumirComFilaParametrizada__c = 'Sim';
+        } else {
+            row.PermiteAssumirComFilaParametrizada__c = CategorizacaoHelper.isTrueFlag(row.PermiteAssumirComFilaParametrizada__c) ? 'Sim' : 'Não';
+        }
+
         if (!distribuir) {
             clearDistribution(row, true, true);
         } else {
@@ -278,6 +288,22 @@ public inherited sharing class CategorizacaoService {
                 }
                 row.NomeFilaDistribuicao__c = q.name;
                 row.FilaId__c = String.valueOf(q.id);
+
+                // Só valida a Etapa quando a Fila em si já resolveu — evita empilhar um segundo
+                // erro pouco útil (e que sobrescreveria a mensagem amigável de Fila no DmlException,
+                // já que addError() concatenado só expõe a última mensagem via getDmlMessage(0))
+                // quando o problema raiz é simplesmente a Fila não informada/inválida.
+                if (String.isBlank(row.EtapaAtendimentoDistribuicao__c)) {
+                    row.addError('Etapa do Atendimento é obrigatória quando a Categorização distribui para fila.');
+                } else {
+                    Set<String> activeEtapas = new Set<String>();
+                    for (Schema.PicklistEntry pe : Case.EtapaAtendimento__c.getDescribe().getPicklistValues()) {
+                        if (pe.isActive()) activeEtapas.add(pe.getValue());
+                    }
+                    if (!activeEtapas.contains(row.EtapaAtendimentoDistribuicao__c)) {
+                        row.addError('Etapa do Atendimento inválida para os valores ativos do Case.');
+                    }
+                }
             }
 
             if (!porCampoCustomizado) {
@@ -309,6 +335,22 @@ public inherited sharing class CategorizacaoService {
                         }
                     }
                 }
+
+                if (String.isBlank(row.FilaDeveloperNameFallback__c)) {
+                    row.FilaIdFallback__c = null;
+                    row.NomeFilaFallbackDistribuicao__c = null;
+                } else {
+                    CategorizacaoSelector.QueueData qFallback = queueByDev.get(row.FilaDeveloperNameFallback__c);
+                    if (qFallback == null) {
+                        row.addError('Fila de fallback inválida ou não habilitada para Case.');
+                    } else {
+                        if (cfg != null && !String.isBlank(cfg.queuePrefix) && !qFallback.developerName.startsWith(cfg.queuePrefix)) {
+                            row.addError('Prefixo da fila de fallback inválido para a Unidade de Negócio.');
+                        }
+                        row.NomeFilaFallbackDistribuicao__c = qFallback.name;
+                        row.FilaIdFallback__c = String.valueOf(qFallback.id);
+                    }
+                }
             }
         }
 
@@ -329,10 +371,14 @@ public inherited sharing class CategorizacaoService {
             row.NomeFilaDistribuicao__c = null;
             row.FilaDeveloperName__c = null;
             row.FilaId__c = null;
+            row.EtapaAtendimentoDistribuicao__c = null;
         }
         row.CampoDistribuicao__c = null;
         row.LabelCampoDistribuicao__c = null;
         row.ValorDistribuicao__c = null;
         row.LabelValorDistribuicao__c = null;
+        row.FilaDeveloperNameFallback__c = null;
+        row.FilaIdFallback__c = null;
+        row.NomeFilaFallbackDistribuicao__c = null;
     }
 }

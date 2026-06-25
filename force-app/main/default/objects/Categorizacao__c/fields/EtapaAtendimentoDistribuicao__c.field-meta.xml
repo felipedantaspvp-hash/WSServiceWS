@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EtapaAtendimentoDistribuicao__c</fullName>
+    <description>Etapa do Atendimento (Case.EtapaAtendimento__c) aplicada ao Case quando distribuido para fila por esta Categorizacao. Obrigatorio quando DistribuirParaFila__c=&apos;Sim&apos;.</description>
+    <label>Etapa do Atendimento na Distribuição</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Novo</fullName>
+                <default>false</default>
+                <label>Novo</label>
+            </value>
+            <value>
+                <fullName>Em Triagem</fullName>
+                <default>true</default>
+                <label>Em Triagem</label>
+            </value>
+            <value>
+                <fullName>Em Atendimento</fullName>
+                <default>false</default>
+                <label>Em Atendimento</label>
+            </value>
+            <value>
+                <fullName>Aguardando Cliente</fullName>
+                <default>false</default>
+                <label>Aguardando Cliente</label>
+            </value>
+            <value>
+                <fullName>Aguardando Área Interna</fullName>
+                <default>false</default>
+                <label>Aguardando Área Interna</label>
+            </value>
+            <value>
+                <fullName>Em Acompanhamento</fullName>
+                <default>false</default>
+                <label>Em Acompanhamento</label>
+            </value>
+            <value>
+                <fullName>Preparando Retorno ao Cliente</fullName>
+                <default>false</default>
+                <label>Preparando Retorno ao Cliente</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

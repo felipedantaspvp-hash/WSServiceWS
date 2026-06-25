@@ -659,6 +659,7 @@
                             <lightning-input
                                 lwc:ref="createStaticResourceName"
                                 label="Static Resource"
+                                field-level-help="Use uma imagem na proporção 8:3 (ex: 1920x720px ou 1600x600px). A imagem é exibida sem cortes; proporções diferentes geram barras vazias nas laterais."
                                 name="staticResourceName"
                                 data-scope="create"
                                 data-field="staticResourceName"
@@ -814,7 +815,7 @@
                             <lightning-combobox label={labels.categoryBusinessUnit} name="unidadeNegocio" data-field="unidadeNegocio" value={editForm.unidadeNegocio} options={unidadeNegocioOptions} oninput={handleEditInputChange} onchange={handleEditInputChange} disabled={isCamposEstruturaisReadOnly} required></lightning-combobox>
                             <lightning-input label={labels.gestaoEntitlementProcess} name="entitlementProcessName" data-field="entitlementProcessName" value={editForm.entitlementProcessName} oninput={handleEditInputChange} onchange={handleEditInputChange} disabled={isCamposEstruturaisReadOnly} required></lightning-input>
                             <lightning-input label={labels.gestaoBusinessHours} name="businessHoursName" data-field="businessHoursName" value={editForm.businessHoursName} oninput={handleEditInputChange} onchange={handleEditInputChange} disabled={isCamposEstruturaisReadOnly} required></lightning-input>
-                            <lightning-input label="Static Resource" name="staticResourceName" data-field="staticResourceName" value={editForm.staticResourceName} oninput={handleEditInputChange} onchange={handleEditInputChange} disabled={isCamposEstruturaisReadOnly}></lightning-input>
+                            <lightning-input label="Static Resource" field-level-help="Use uma imagem na proporção 8:3 (ex: 1920x720px ou 1600x600px). A imagem é exibida sem cortes; proporções diferentes geram barras vazias nas laterais." name="staticResourceName" data-field="staticResourceName" value={editForm.staticResourceName} oninput={handleEditInputChange} onchange={handleEditInputChange} disabled={isCamposEstruturaisReadOnly}></lightning-input>
                             <template if:true={canShowTechnical}>
                                 <lightning-combobox
                                     label={labels.categoryStatusField}

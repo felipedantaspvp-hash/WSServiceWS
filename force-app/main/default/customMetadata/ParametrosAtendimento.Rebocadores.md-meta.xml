@@ -79,6 +79,10 @@
         <value xsi:type="xsd:string">Atend_Survey_Email_Rebocadores_PT</value>
     </values>
     <values>
+        <field>GerarReclamacaoNoEncerramento__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
         <field>MessagingChannelDeveloperName__c</field>
         <value xsi:type="xsd:string">WS_REB_WebChat</value>
     </values>
@@ -101,6 +105,14 @@
     <values>
         <field>QueueDeveloperNamePrefix__c</field>
         <value xsi:type="xsd:string">REB</value>
+    </values>
+    <values>
+        <field>ReclamacaoAreaValue__c</field>
+        <value xsi:type="xsd:string">Rebocadores</value>
+    </values>
+    <values>
+        <field>ReclamacaoRecordTypeDeveloperName__c</field>
+        <value xsi:type="xsd:string">Rebocadores</value>
     </values>
     <values>
         <field>SendCaseOpeningEmail__c</field>

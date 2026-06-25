@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ReclamacaoDecisaoManual__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Marca que a decisão de gerar (ou não) a Reclamação foi capturada explicitamente pela tela assistida de encerramento (caseClosureSurvey), para que a geração automática via trigger não decida de novo nesta mesma transação.</description>
+    <label>Decisão Manual de Reclamação Registrada</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

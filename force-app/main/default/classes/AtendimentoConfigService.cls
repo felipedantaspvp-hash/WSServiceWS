@@ -118,6 +118,9 @@ public inherited sharing class AtendimentoConfigService {
         dto.messagingChannelType = row.MessagingChannelType__c;
         dto.messagingTargetQueueDeveloperName = row.MessagingTargetQueueDeveloperName__c;
         dto.messagingFallbackQueueDeveloperName = row.MessagingFallbackQueueDeveloperName__c;
+        dto.gerarReclamacaoNoEncerramento = row.GerarReclamacaoNoEncerramento__c;
+        dto.reclamacaoRecordTypeDeveloperName = row.ReclamacaoRecordTypeDeveloperName__c;
+        dto.reclamacaoAreaValue = row.ReclamacaoAreaValue__c;
         return dto;
     }
 
@@ -160,6 +163,9 @@ public inherited sharing class AtendimentoConfigService {
         dto.messagingChannelType = source.messagingChannelType;
         dto.messagingTargetQueueDeveloperName = source.messagingTargetQueueDeveloperName;
         dto.messagingFallbackQueueDeveloperName = source.messagingFallbackQueueDeveloperName;
+        dto.gerarReclamacaoNoEncerramento = source.gerarReclamacaoNoEncerramento == true;
+        dto.reclamacaoRecordTypeDeveloperName = source.reclamacaoRecordTypeDeveloperName;
+        dto.reclamacaoAreaValue = source.reclamacaoAreaValue;
         return dto;
     }
 }

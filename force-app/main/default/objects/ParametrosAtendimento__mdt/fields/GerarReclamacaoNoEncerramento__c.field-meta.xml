@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GerarReclamacaoNoEncerramento__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Se true, ao encerrar um Case com Tipo de Caso = Reclamação desta unidade, gera automaticamente o registro espelho em Reclamacao__c.</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Gerar Reclamação no Encerramento</label>
+    <type>Checkbox</type>
+</CustomField>

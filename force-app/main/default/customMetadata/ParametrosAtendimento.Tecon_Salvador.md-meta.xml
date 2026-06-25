@@ -79,6 +79,10 @@
         <value xsi:type="xsd:string">Atend_Survey_Email_TeconSalvador</value>
     </values>
     <values>
+        <field>GerarReclamacaoNoEncerramento__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
         <field>MessagingChannelDeveloperName__c</field>
         <value xsi:type="xsd:string">WS_TSV_WebChat</value>
     </values>
@@ -101,6 +105,14 @@
     <values>
         <field>QueueDeveloperNamePrefix__c</field>
         <value xsi:type="xsd:string">TSV</value>
+    </values>
+    <values>
+        <field>ReclamacaoAreaValue__c</field>
+        <value xsi:type="xsd:string">Tecon Salvador</value>
+    </values>
+    <values>
+        <field>ReclamacaoRecordTypeDeveloperName__c</field>
+        <value xsi:type="xsd:string">TeconSalvador</value>
     </values>
     <values>
         <field>SendCaseOpeningEmail__c</field>
