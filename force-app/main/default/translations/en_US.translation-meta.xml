@@ -1892,6 +1892,14 @@ Before we begin, please choose your service language.</message>
         <name>AccountCaseSchedule_WeekdaysRequired</name>
     </customLabels>
     <customLabels>
+        <label>Categorization</label>
+        <name>Categorizacao</name>
+    </customLabels>
+    <customLabels>
+        <label>Detail</label>
+        <name>Detalhes</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Draft Contract Note --></label>
         <name>Draft_Contract_Note</name>
     </customLabels>
@@ -1952,6 +1960,18 @@ Before we begin, please choose your service language.</message>
         <name>GestaoSLA_CategoryActiveColumn</name>
     </customLabels>
     <customLabels>
+        <label><!-- Allow assume toggle label --></label>
+        <name>GestaoSLA_CategoryAllowAssume</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Hint shown when allow-assume is off --></label>
+        <name>GestaoSLA_CategoryAllowAssumeOffHint</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Hint shown when allow-assume is on --></label>
+        <name>GestaoSLA_CategoryAllowAssumeOnHint</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Category business unit column --></label>
         <name>GestaoSLA_CategoryBusinessUnit</name>
     </customLabels>
@@ -1962,6 +1982,14 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- Category by custom field toggle label --></label>
         <name>GestaoSLA_CategoryByCustomField</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Hint shown when &quot;by custom field&quot; is off --></label>
+        <name>GestaoSLA_CategoryByCustomFieldOffHint</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Hint shown when &quot;by custom field&quot; is on --></label>
+        <name>GestaoSLA_CategoryByCustomFieldOnHint</name>
     </customLabels>
     <customLabels>
         <label><!-- Category case type label --></label>
@@ -1984,8 +2012,16 @@ Before we begin, please choose your service language.</message>
         <name>GestaoSLA_CategoryDistributeToQueue</name>
     </customLabels>
     <customLabels>
+        <label><!-- Hint below the distribute-to-queue toggle --></label>
+        <name>GestaoSLA_CategoryDistributeToQueueHint</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Category distribution field combobox label --></label>
         <name>GestaoSLA_CategoryDistributionField</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Hint below the distribution field selector --></label>
+        <name>GestaoSLA_CategoryDistributionFieldHint</name>
     </customLabels>
     <customLabels>
         <label><!-- Category distribution field combobox placeholder --></label>
@@ -1994,6 +2030,10 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- Category distribution value combobox label --></label>
         <name>GestaoSLA_CategoryDistributionValue</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Hint below the distribution value selector --></label>
+        <name>GestaoSLA_CategoryDistributionValueHint</name>
     </customLabels>
     <customLabels>
         <label><!-- Category distribution value combobox placeholder --></label>
@@ -2096,6 +2136,22 @@ Before we begin, please choose your service language.</message>
         <name>GestaoSLA_CategoryQueue</name>
     </customLabels>
     <customLabels>
+        <label><!-- Fallback queue field label --></label>
+        <name>GestaoSLA_CategoryQueueFallback</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Hint below the fallback queue selector --></label>
+        <name>GestaoSLA_CategoryQueueFallbackHint</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Fallback queue field placeholder --></label>
+        <name>GestaoSLA_CategoryQueueFallbackPlaceholder</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Hint below the queue field --></label>
+        <name>GestaoSLA_CategoryQueueHint</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Category queue combobox placeholder --></label>
         <name>GestaoSLA_CategoryQueuePlaceholder</name>
     </customLabels>
@@ -2134,6 +2190,18 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- Category SLA rules column label --></label>
         <name>GestaoSLA_CategorySlaRules</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Stage-on-distribute field label --></label>
+        <name>GestaoSLA_CategoryStageOnDistribute</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Hint below the stage-on-distribute field --></label>
+        <name>GestaoSLA_CategoryStageOnDistributeHint</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Stage-on-distribute field placeholder --></label>
+        <name>GestaoSLA_CategoryStageOnDistributePlaceholder</name>
     </customLabels>
     <customLabels>
         <label><!-- Category status field label --></label>
@@ -2374,6 +2442,126 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- Triage milestone name label --></label>
         <name>GestaoSLA_MilestoneTriageLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Milestones tab title --></label>
+        <name>GestaoSLA_MilestoneTabTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- New milestone button --></label>
+        <name>GestaoSLA_MilestoneNewButton</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Reactivate milestone action --></label>
+        <name>GestaoSLA_MilestoneReactivateButton</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Empty state for milestone maintenance list --></label>
+        <name>GestaoSLA_MilestoneEmptyState</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Milestone name field label --></label>
+        <name>GestaoSLA_MilestoneNameFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Milestone Type Name field label --></label>
+        <name>GestaoSLA_MilestoneTypeNameFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Hint explaining Milestone Type Name must match the Entitlement Process --></label>
+        <name>GestaoSLA_MilestoneTypeNameHint</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Milestone order field label --></label>
+        <name>GestaoSLA_MilestoneOrderFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Milestone time source field label --></label>
+        <name>GestaoSLA_MilestoneTimeSourceFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Milestone fallback time field label --></label>
+        <name>GestaoSLA_MilestoneFallbackTimeFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Milestone recurrent toggle field label --></label>
+        <name>GestaoSLA_MilestoneRecurrentFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Milestone recurrence type field label --></label>
+        <name>GestaoSLA_MilestoneRecurrenceTypeFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Milestone uses categorization field label --></label>
+        <name>GestaoSLA_MilestoneUsesCategorizationFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Milestone uses internal area field label --></label>
+        <name>GestaoSLA_MilestoneUsesInternalAreaFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Milestone uses origin field label --></label>
+        <name>GestaoSLA_MilestoneUsesOriginFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- New milestone modal title --></label>
+        <name>GestaoSLA_MilestoneModalNewTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Edit milestone modal title --></label>
+        <name>GestaoSLA_MilestoneModalEditTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Confirmation prompt before deactivating a milestone --></label>
+        <name>GestaoSLA_MilestoneConfirmDeactivate</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Toast shown after creating a milestone --></label>
+        <name>GestaoSLA_ToastMilestoneCreated</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Toast shown after updating a milestone --></label>
+        <name>GestaoSLA_ToastMilestoneUpdated</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Toast shown after deactivating a milestone --></label>
+        <name>GestaoSLA_ToastMilestoneDeactivated</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Toast shown after reactivating a milestone --></label>
+        <name>GestaoSLA_ToastMilestoneReactivated</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Fallback error message when saving a milestone fails --></label>
+        <name>GestaoSLA_ErrorSaveMilestone</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Fallback error message when deactivating a milestone fails --></label>
+        <name>GestaoSLA_ErrorDeactivateMilestone</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Fallback error message when reactivating a milestone fails --></label>
+        <name>GestaoSLA_ErrorReactivateMilestone</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Fallback error message when loading milestones fails --></label>
+        <name>GestaoSLA_ErrorLoadMilestones</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Delete milestone action --></label>
+        <name>GestaoSLA_MilestoneDelete</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Confirm delete milestone dialog message --></label>
+        <name>GestaoSLA_ConfirmDeleteMilestone</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Fallback error message when deleting a milestone fails --></label>
+        <name>GestaoSLA_ErrorDeleteMilestone</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Toast shown after deleting a milestone --></label>
+        <name>GestaoSLA_ToastMilestoneDeleted</name>
     </customLabels>
     <customLabels>
         <label><!-- Button label to create a new SLA Management record. --></label>
@@ -2666,6 +2854,10 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- Button label to view reports from the SLA Management summary card. --></label>
         <name>GestaoSLA_ViewReports</name>
+    </customLabels>
+    <customLabels>
+        <label>Customer information</label>
+        <name>InformacoesCliente</name>
     </customLabels>
     <customLabels>
         <label><!-- activate --></label>
@@ -33741,6 +33933,10 @@ Before we begin, please choose your service language.</message>
             <label><!-- Activities --></label>
             <name>Activities</name>
         </sections>
+        <sections>
+            <label><!-- Contas --></label>
+            <name>Contas</name>
+        </sections>
     </reportTypes>
     <reportTypes>
         <description><!-- Agreements with Quotes --></description>
@@ -34957,6 +35153,10 @@ Before we begin, please choose your service language.</message>
         <sections>
             <label><!-- Accounts --></label>
             <name>Accounts</name>
+        </sections>
+        <sections>
+            <label><!-- Contas --></label>
+            <name>Contas</name>
         </sections>
         <sections>
             <label><!-- Cotações --></label>

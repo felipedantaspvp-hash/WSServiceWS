@@ -195,7 +195,9 @@ public inherited sharing class GestaoSLASelector {
             SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c,
                    Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCampoCustomizado__c,
                    FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c,
-                   LabelCampoDistribuicao__c, LabelValorDistribuicao__c
+                   LabelCampoDistribuicao__c, LabelValorDistribuicao__c, FilaDeveloperNameFallback__c,
+                   FilaIdFallback__c, NomeFilaFallbackDistribuicao__c, PermiteAssumirComFilaParametrizada__c,
+                   EtapaAtendimentoDistribuicao__c
             FROM Categorizacao__c
             WHERE GestaoSLA__c = :gestaoSLAId
             ORDER BY Name
@@ -212,7 +214,9 @@ public inherited sharing class GestaoSLASelector {
             SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c,
                    Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCampoCustomizado__c,
                    FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c,
-                   LabelCampoDistribuicao__c, LabelValorDistribuicao__c
+                   LabelCampoDistribuicao__c, LabelValorDistribuicao__c, FilaDeveloperNameFallback__c,
+                   FilaIdFallback__c, NomeFilaFallbackDistribuicao__c, PermiteAssumirComFilaParametrizada__c,
+                   EtapaAtendimentoDistribuicao__c
             FROM Categorizacao__c
             WHERE GestaoSLA__c = :gestaoSLAId
               AND Ativo__c = false
@@ -230,7 +234,9 @@ public inherited sharing class GestaoSLASelector {
             SELECT Id, Name, GestaoSLA__c, UnidadeNegocios__c, TipoCaso__c, Categoria__c, Assunto__c,
                    Subassunto__c, Prioridade__c, Ativo__c, DistribuirParaFila__c, PorCampoCustomizado__c,
                    FilaDeveloperName__c, NomeFilaDistribuicao__c, CampoDistribuicao__c, ValorDistribuicao__c,
-                   LabelCampoDistribuicao__c, LabelValorDistribuicao__c
+                   LabelCampoDistribuicao__c, LabelValorDistribuicao__c, FilaDeveloperNameFallback__c,
+                   FilaIdFallback__c, NomeFilaFallbackDistribuicao__c, PermiteAssumirComFilaParametrizada__c,
+                   EtapaAtendimentoDistribuicao__c
             FROM Categorizacao__c
             WHERE Id = :categoriaId
             LIMIT 1
@@ -309,10 +315,26 @@ public inherited sharing class GestaoSLASelector {
         return [
             SELECT Id, Name, GestaoSLA__c, NomeMarco__c, MilestoneTypeName__c, FonteTempo__c,
                    Ordem__c, Recorrente__c, TipoRecorrencia__c, UsaCategorizacao__c,
-                   UsaAreaInterna__c, UsaOrigem__c, Ativo__c
+                   UsaAreaInterna__c, UsaOrigem__c, TempoFallbackMinutos__c, Ativo__c
             FROM MarcoSLA__c
             WHERE GestaoSLA__c = :gestaoSLAId
             ORDER BY Ordem__c, Name
+        ];
+    }
+
+    /**
+     * @description Retorna um marco SLA com todos os campos administráveis pelo Id, para edição na tela de Manutenção de Marcos.
+     * @param marcoId Id do MarcoSLA__c.
+     * @return Lista com zero ou um registro.
+     **/
+    public static List<MarcoSLA__c> selectMarcoFullById(Id marcoId) {
+        return [
+            SELECT Id, Name, GestaoSLA__c, NomeMarco__c, MilestoneTypeName__c, FonteTempo__c,
+                   Ordem__c, Recorrente__c, TipoRecorrencia__c, UsaCategorizacao__c,
+                   UsaAreaInterna__c, UsaOrigem__c, TempoFallbackMinutos__c, Ativo__c
+            FROM MarcoSLA__c
+            WHERE Id = :marcoId
+            LIMIT 1
         ];
     }
 
@@ -346,6 +368,16 @@ public inherited sharing class GestaoSLASelector {
               AND MilestoneTypeName__c = :milestoneTypeName
             LIMIT 1
         ];
+    }
+
+    /**
+     * @description Conta Regras de SLA (qualquer status) que ainda referenciam um Marco SLA, usado para
+     * bloquear exclusão definitiva e evitar que o lookup seja silenciosamente nulificado (deleteConstraint SetNull).
+     * @param marcoSLAId Id do MarcoSLA__c.
+     * @return Total de RegrasSLACategorizacao__c vinculadas.
+     **/
+    public static Integer countRegrasByMarcoSLA(Id marcoSLAId) {
+        return [SELECT Count() FROM RegrasSLACategorizacao__c WHERE MarcoSLA__c = :marcoSLAId];
     }
 
     /**

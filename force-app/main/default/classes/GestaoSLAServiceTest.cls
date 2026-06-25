@@ -1604,6 +1604,43 @@ private class GestaoSLAServiceTest {
     }
 
     @IsTest
+    static void testDeleteMarcoSLABlockedWhileRegrasLinked() {
+        GestaoSLA__c g = createGestao('DelMarco', true);
+        Categorizacao__c c = createCategoria(g.Id, 'DelMarco', true);
+        MarcoSLA__c m = createMarco(g.Id, 'Marco DelMarco', 1, true);
+        createRegra(g.Id, m.Id, c.Id, true);
+
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
+
+        Boolean blocked = false;
+        try {
+            GestaoSLAService.deleteMarcoSLA(m.Id);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            blocked = true;
+            Assert.areEqual(true, ex.getMessage().contains('Regras de SLA vinculadas'));
+        }
+        Assert.areEqual(true, blocked);
+        Assert.areEqual(1, [SELECT COUNT() FROM MarcoSLA__c WHERE Id = :m.Id]);
+    }
+
+    @IsTest
+    static void testDeleteMarcoSLASucceedsWithoutRegras() {
+        GestaoSLA__c g = createGestao('DelMarcoSolo', true);
+        MarcoSLA__c m = createMarco(g.Id, 'Marco DelMarcoSolo', 1, true);
+
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
+
+        GestaoSLAService.deleteMarcoSLA(m.Id);
+        Assert.areEqual(0, [SELECT COUNT() FROM MarcoSLA__c WHERE Id = :m.Id]);
+    }
+
+    @IsTest
     static void testDeleteGestaoSLABlockedWhileCategoriasLinked() {
         GestaoSLA__c g = createGestao('DelGestao', true);
         createCategoria(g.Id, 'DelGestaoCateg', true);
@@ -1635,6 +1672,103 @@ private class GestaoSLAServiceTest {
 
         GestaoSLAService.deleteGestaoSLA(g.Id);
         Assert.areEqual(0, [SELECT COUNT() FROM GestaoSLA__c WHERE Id = :g.Id]);
+    }
+
+    private static GestaoSLADTO.MarcoSLARequest buildMarcoRequestService(Id gestaoId) {
+        GestaoSLADTO.MarcoSLARequest req = new GestaoSLADTO.MarcoSLARequest();
+        req.gestaoSLAId = gestaoId;
+        req.nomeMarco = 'Marco Service';
+        req.milestoneTypeName = 'Marco Service';
+        req.fonteTempo = 'RegraSLA';
+        req.recorrente = false;
+        req.ativo = true;
+        return req;
+    }
+
+    @IsTest
+    static void testCreateMarcoSLARequiresTipoRecorrenciaWhenRecorrente() {
+        GestaoSLA__c g = createGestao('MarcoRecorrente', true);
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
+
+        GestaoSLADTO.MarcoSLARequest req = buildMarcoRequestService(g.Id);
+        req.recorrente = true;
+        req.tipoRecorrencia = null;
+
+        Boolean blocked = false;
+        try {
+            GestaoSLAService.createMarcoSLA(req);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            blocked = true;
+            Assert.areEqual(true, ex.getMessage().contains('Tipo de Recorrência'));
+        }
+        Assert.areEqual(true, blocked);
+    }
+
+    @IsTest
+    static void testUpdateMarcoSLABlockedWhenGestaoMismatch() {
+        GestaoSLA__c g1 = createGestao('MarcoMismatch1', true);
+        GestaoSLA__c g2 = createGestao('MarcoMismatch2', true);
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
+
+        GestaoSLADTO.MarcoResumo created = GestaoSLAService.createMarcoSLA(buildMarcoRequestService(g1.Id));
+
+        GestaoSLADTO.MarcoSLARequest updateReq = buildMarcoRequestService(g2.Id);
+        updateReq.id = created.id;
+
+        Boolean blocked = false;
+        try {
+            GestaoSLAService.updateMarcoSLA(updateReq);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            blocked = true;
+        }
+        Assert.areEqual(true, blocked);
+    }
+
+    @IsTest
+    static void testReactivateMarcoSLAAlreadyActiveReturnsUnchanged() {
+        GestaoSLA__c g = createGestao('MarcoJaAtivo', true);
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
+
+        GestaoSLADTO.MarcoResumo created = GestaoSLAService.createMarcoSLA(buildMarcoRequestService(g.Id));
+        GestaoSLADTO.MarcoResumo result = GestaoSLAService.reactivateMarcoSLA(created.id);
+        Assert.areEqual(true, result.ativo);
+    }
+
+    @IsTest
+    static void testCreateMarcoSLABlockedByExistingInactiveSameMilestoneType() {
+        // O nome do Milestone Type mapeia 1:1 para uma entidade real no Entitlement Process: uma vez
+        // usado nesta Gestão de SLA (ativo ou inativo), o caminho correto é reativar o registro existente,
+        // nunca criar um segundo — por isso o bloqueio vale mesmo com o original inativo.
+        GestaoSLA__c g = createGestao('MarcoReativarDuplicado', true);
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
+
+        GestaoSLADTO.MarcoResumo created = GestaoSLAService.createMarcoSLA(buildMarcoRequestService(g.Id));
+        GestaoSLAService.deactivateMarcoSLA(created.id);
+
+        GestaoSLADTO.MarcoSLARequest second = buildMarcoRequestService(g.Id);
+
+        Boolean blocked = false;
+        try {
+            GestaoSLAService.createMarcoSLA(second);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            blocked = true;
+        }
+        Assert.areEqual(true, blocked);
+
+        GestaoSLADTO.MarcoResumo reactivated = GestaoSLAService.reactivateMarcoSLA(created.id);
+        Assert.areEqual(true, reactivated.ativo);
     }
 
 }

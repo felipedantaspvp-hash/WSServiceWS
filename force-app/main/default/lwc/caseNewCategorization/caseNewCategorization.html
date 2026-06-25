@@ -1,4 +1,6 @@
 <template>
+    <div class="page-backdrop">
+    <div class="popup-card">
     <lightning-card title={labels.cardTitle} icon-name="standard:case">
         <div class="form-shell slds-p-around_medium">
             <p class="slds-text-body_small slds-m-bottom_medium">{labels.subtitle}</p>
@@ -41,7 +43,7 @@
                     <template if:true={showCustomField}>
                         <div class="section-title">{customFieldLabel}</div>
                         <div class="slds-m-bottom_medium slds-size_1-of-1 slds-large-size_1-of-2">
-                            <lightning-combobox name="customField" label={customFieldLabel} value={customFieldValue} options={customFieldOptions} onchange={handleCustomFieldChange}></lightning-combobox>
+                            <lightning-combobox name="customField" label={customFieldLabel} variant="label-hidden" value={customFieldValue} options={customFieldOptions} onchange={handleCustomFieldChange}></lightning-combobox>
                         </div>
                     </template>
 
@@ -66,6 +68,9 @@
                                 </button>
                             </template>
                         </div>
+                        <template if:true={assumirBloqueado}>
+                            <div class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">{labels.assumirBloqueadoHint}</div>
+                        </template>
                     </div>
                     <template if:true={resolvedQueue}>
                         <lightning-input label={labels.queueResolved} value={resolvedQueue.developerName} disabled></lightning-input>
@@ -83,4 +88,6 @@
             </template>
         </div>
     </lightning-card>
+    </div>
+    </div>
 </template>

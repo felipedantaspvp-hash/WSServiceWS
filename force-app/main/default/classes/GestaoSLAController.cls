@@ -25,7 +25,7 @@ public inherited sharing class GestaoSLAController {
      * @param gestaoSLAId Id do registro GestaoSLA__c.
      * @return GestaoDetailResponse com campos, categorias e regras associadas.
      **/
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled
     public static GestaoSLADTO.GestaoDetailResponse getGestaoDetail(Id gestaoSLAId) {
         try {
             return GestaoSLAService.getGestaoDetail(gestaoSLAId);
@@ -44,7 +44,7 @@ public inherited sharing class GestaoSLAController {
      * @param ativo Filtro por status ativo/inativo.
      * @return CategoriasResponse com lista de categorizações filtradas.
      **/
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled
     public static GestaoSLADTO.CategoriasResponse getCategorias(Id gestaoSLAId, String searchTerm, String tipoCaso, String categoria, String assunto, Boolean ativo) {
         try {
             return GestaoSLAService.getCategorias(gestaoSLAId, searchTerm, tipoCaso, categoria, assunto, ativo);
@@ -58,7 +58,7 @@ public inherited sharing class GestaoSLAController {
      * @param gestaoSLAId Id da Gestão de SLA.
      * @return MarcosResponse com lista de marcos disponíveis para associação.
      **/
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled
     public static GestaoSLADTO.MarcosResponse getMarcos(Id gestaoSLAId) {
         try {
             return GestaoSLAService.getMarcos(gestaoSLAId);
@@ -77,7 +77,7 @@ public inherited sharing class GestaoSLAController {
      * @param ativo Filtro por status ativo/inativo.
      * @return RegrasSLAResponse com lista de regras filtradas.
      **/
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled
     public static GestaoSLADTO.RegrasSLAResponse getRegrasSLA(
         Id gestaoSLAId,
         Id categorizacaoId,
@@ -97,7 +97,7 @@ public inherited sharing class GestaoSLAController {
      * @description Retorna lista de Gestões de SLA inativas para reativação.
      * @return InactiveGestoesResponse com registros GestaoSLA__c inativos.
      **/
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled
     public static GestaoSLADTO.InactiveGestoesResponse getInactiveGestoes() {
         try {
             return GestaoSLAService.getInactiveGestoes();
@@ -111,7 +111,7 @@ public inherited sharing class GestaoSLAController {
      * @param gestaoSLAId Id da Gestão de SLA.
      * @return InactiveCategoriasResponse com categorizações inativas disponíveis para reativação.
      **/
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled
     public static GestaoSLADTO.InactiveCategoriasResponse getInactiveCategorias(Id gestaoSLAId) {
         try {
             return GestaoSLAService.getInactiveCategorias(gestaoSLAId);
@@ -321,6 +321,75 @@ public inherited sharing class GestaoSLAController {
     public static GestaoSLADTO.RegraSLAResumo activateRegraSLA(Id regraSLAId) {
         try {
             return GestaoSLAService.activateRegraSLA(regraSLAId);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            throw new AuraHandledException(ex.getMessage());
+        }
+    }
+
+    /**
+     * @description Cria um novo Marco SLA vinculado a uma Gestão de SLA. Restrito ao Admin Técnico.
+     * @param request MarcoSLARequest com os dados do novo marco.
+     * @return MarcoResumo com o registro criado.
+     **/
+    @AuraEnabled
+    public static GestaoSLADTO.MarcoResumo createMarcoSLA(GestaoSLADTO.MarcoSLARequest request) {
+        try {
+            return GestaoSLAService.createMarcoSLA(request);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            throw new AuraHandledException(ex.getMessage());
+        }
+    }
+
+    /**
+     * @description Atualiza campos de um Marco SLA existente. Restrito ao Admin Técnico.
+     * @param request MarcoSLARequest com id e campos a atualizar.
+     * @return MarcoResumo com campos atualizados.
+     **/
+    @AuraEnabled
+    public static GestaoSLADTO.MarcoResumo updateMarcoSLA(GestaoSLADTO.MarcoSLARequest request) {
+        try {
+            return GestaoSLAService.updateMarcoSLA(request);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            throw new AuraHandledException(ex.getMessage());
+        }
+    }
+
+    /**
+     * @description Desativa um Marco SLA. Restrito ao Admin Técnico.
+     * @param marcoSLAId Id do MarcoSLA__c a desativar.
+     * @return MarcoResumo com status atualizado para inativo.
+     **/
+    @AuraEnabled
+    public static GestaoSLADTO.MarcoResumo deactivateMarcoSLA(Id marcoSLAId) {
+        try {
+            return GestaoSLAService.deactivateMarcoSLA(marcoSLAId);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            throw new AuraHandledException(ex.getMessage());
+        }
+    }
+
+    /**
+     * @description Reativa um Marco SLA previamente desativado. Restrito ao Admin Técnico.
+     * @param marcoSLAId Id do MarcoSLA__c a reativar.
+     * @return MarcoResumo com status atualizado para ativo.
+     **/
+    @AuraEnabled
+    public static GestaoSLADTO.MarcoResumo reactivateMarcoSLA(Id marcoSLAId) {
+        try {
+            return GestaoSLAService.reactivateMarcoSLA(marcoSLAId);
+        } catch (GestaoSLAService.FunctionalException ex) {
+            throw new AuraHandledException(ex.getMessage());
+        }
+    }
+
+    /**
+     * @description Exclui definitivamente um Marco SLA. Restrito ao Admin Técnico.
+     * @param marcoSLAId Id do MarcoSLA__c a excluir.
+     **/
+    @AuraEnabled
+    public static void deleteMarcoSLA(Id marcoSLAId) {
+        try {
+            GestaoSLAService.deleteMarcoSLA(marcoSLAId);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }

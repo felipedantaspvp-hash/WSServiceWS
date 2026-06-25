@@ -28,6 +28,21 @@ import categoryDistributionFieldLabel from '@salesforce/label/c.GestaoSLA_Catego
 import categoryDistributionFieldPlaceholderLabel from '@salesforce/label/c.GestaoSLA_CategoryDistributionFieldPlaceholder';
 import categoryDistributionValueLabel from '@salesforce/label/c.GestaoSLA_CategoryDistributionValue';
 import categoryDistributionValuePlaceholderLabel from '@salesforce/label/c.GestaoSLA_CategoryDistributionValuePlaceholder';
+import categoryDistributeToQueueHintLabel from '@salesforce/label/c.GestaoSLA_CategoryDistributeToQueueHint';
+import categoryQueueHintLabel from '@salesforce/label/c.GestaoSLA_CategoryQueueHint';
+import categoryByCustomFieldOnHintLabel from '@salesforce/label/c.GestaoSLA_CategoryByCustomFieldOnHint';
+import categoryByCustomFieldOffHintLabel from '@salesforce/label/c.GestaoSLA_CategoryByCustomFieldOffHint';
+import categoryDistributionFieldHintLabel from '@salesforce/label/c.GestaoSLA_CategoryDistributionFieldHint';
+import categoryDistributionValueHintLabel from '@salesforce/label/c.GestaoSLA_CategoryDistributionValueHint';
+import categoryQueueFallbackLabel from '@salesforce/label/c.GestaoSLA_CategoryQueueFallback';
+import categoryQueueFallbackPlaceholderLabel from '@salesforce/label/c.GestaoSLA_CategoryQueueFallbackPlaceholder';
+import categoryQueueFallbackHintLabel from '@salesforce/label/c.GestaoSLA_CategoryQueueFallbackHint';
+import categoryAllowAssumeLabel from '@salesforce/label/c.GestaoSLA_CategoryAllowAssume';
+import categoryAllowAssumeOnHintLabel from '@salesforce/label/c.GestaoSLA_CategoryAllowAssumeOnHint';
+import categoryAllowAssumeOffHintLabel from '@salesforce/label/c.GestaoSLA_CategoryAllowAssumeOffHint';
+import categoryStageOnDistributeLabel from '@salesforce/label/c.GestaoSLA_CategoryStageOnDistribute';
+import categoryStageOnDistributePlaceholderLabel from '@salesforce/label/c.GestaoSLA_CategoryStageOnDistributePlaceholder';
+import categoryStageOnDistributeHintLabel from '@salesforce/label/c.GestaoSLA_CategoryStageOnDistributeHint';
 import ruleDeleteLabel from '@salesforce/label/c.GestaoSLA_RuleDelete';
 import gestaoDeleteButtonLabel from '@salesforce/label/c.GestaoSLA_DeleteButton';
 import confirmDeleteCategoryLabel from '@salesforce/label/c.GestaoSLA_ConfirmDeleteCategory';
@@ -181,10 +196,45 @@ import errorRuleCategoryRequiredLabel from '@salesforce/label/c.GestaoSLA_ErrorR
 import errorRuleInternalAreaRequiredLabel from '@salesforce/label/c.GestaoSLA_ErrorRuleInternalAreaRequired';
 import errorRuleAtLeastOneTimeLabel from '@salesforce/label/c.GestaoSLA_ErrorRuleAtLeastOneTime';
 import errorRuleTimesMustBePositiveLabel from '@salesforce/label/c.GestaoSLA_ErrorRuleTimesMustBePositive';
+import milestoneTabTitleLabel from '@salesforce/label/c.GestaoSLA_MilestoneTabTitle';
+import milestoneNewButtonLabel from '@salesforce/label/c.GestaoSLA_MilestoneNewButton';
+import milestoneReactivateButtonLabel from '@salesforce/label/c.GestaoSLA_MilestoneReactivateButton';
+import milestoneEmptyStateLabel from '@salesforce/label/c.GestaoSLA_MilestoneEmptyState';
+import milestoneNameFieldLabel from '@salesforce/label/c.GestaoSLA_MilestoneNameFieldLabel';
+import milestoneTypeNameFieldLabel from '@salesforce/label/c.GestaoSLA_MilestoneTypeNameFieldLabel';
+import milestoneTypeNameHintLabel from '@salesforce/label/c.GestaoSLA_MilestoneTypeNameHint';
+import milestoneOrderFieldLabel from '@salesforce/label/c.GestaoSLA_MilestoneOrderFieldLabel';
+import milestoneTimeSourceFieldLabel from '@salesforce/label/c.GestaoSLA_MilestoneTimeSourceFieldLabel';
+import milestoneFallbackTimeFieldLabel from '@salesforce/label/c.GestaoSLA_MilestoneFallbackTimeFieldLabel';
+import milestoneRecurrentFieldLabel from '@salesforce/label/c.GestaoSLA_MilestoneRecurrentFieldLabel';
+import milestoneRecurrenceTypeFieldLabel from '@salesforce/label/c.GestaoSLA_MilestoneRecurrenceTypeFieldLabel';
+import milestoneUsesCategorizationFieldLabel from '@salesforce/label/c.GestaoSLA_MilestoneUsesCategorizationFieldLabel';
+import milestoneUsesInternalAreaFieldLabel from '@salesforce/label/c.GestaoSLA_MilestoneUsesInternalAreaFieldLabel';
+import milestoneUsesOriginFieldLabel from '@salesforce/label/c.GestaoSLA_MilestoneUsesOriginFieldLabel';
+import milestoneModalNewTitleLabel from '@salesforce/label/c.GestaoSLA_MilestoneModalNewTitle';
+import milestoneModalEditTitleLabel from '@salesforce/label/c.GestaoSLA_MilestoneModalEditTitle';
+import milestoneConfirmDeactivateLabel from '@salesforce/label/c.GestaoSLA_MilestoneConfirmDeactivate';
+import toastMilestoneCreatedLabel from '@salesforce/label/c.GestaoSLA_ToastMilestoneCreated';
+import toastMilestoneUpdatedLabel from '@salesforce/label/c.GestaoSLA_ToastMilestoneUpdated';
+import toastMilestoneDeactivatedLabel from '@salesforce/label/c.GestaoSLA_ToastMilestoneDeactivated';
+import toastMilestoneReactivatedLabel from '@salesforce/label/c.GestaoSLA_ToastMilestoneReactivated';
+import errorSaveMilestoneLabel from '@salesforce/label/c.GestaoSLA_ErrorSaveMilestone';
+import errorDeactivateMilestoneLabel from '@salesforce/label/c.GestaoSLA_ErrorDeactivateMilestone';
+import errorReactivateMilestoneLabel from '@salesforce/label/c.GestaoSLA_ErrorReactivateMilestone';
+import errorLoadMilestonesLabel from '@salesforce/label/c.GestaoSLA_ErrorLoadMilestones';
+import milestoneDeleteLabel from '@salesforce/label/c.GestaoSLA_MilestoneDelete';
+import confirmDeleteMilestoneLabel from '@salesforce/label/c.GestaoSLA_ConfirmDeleteMilestone';
+import errorDeleteMilestoneLabel from '@salesforce/label/c.GestaoSLA_ErrorDeleteMilestone';
+import toastMilestoneDeletedLabel from '@salesforce/label/c.GestaoSLA_ToastMilestoneDeleted';
 import getBootstrap from '@salesforce/apex/GestaoSLAController.getBootstrap';
 import getGestaoDetail from '@salesforce/apex/GestaoSLAController.getGestaoDetail';
 import getCategorias from '@salesforce/apex/GestaoSLAController.getCategorias';
 import getMarcos from '@salesforce/apex/GestaoSLAController.getMarcos';
+import createMarcoSLA from '@salesforce/apex/GestaoSLAController.createMarcoSLA';
+import updateMarcoSLA from '@salesforce/apex/GestaoSLAController.updateMarcoSLA';
+import deactivateMarcoSLA from '@salesforce/apex/GestaoSLAController.deactivateMarcoSLA';
+import reactivateMarcoSLA from '@salesforce/apex/GestaoSLAController.reactivateMarcoSLA';
+import deleteMarcoSLA from '@salesforce/apex/GestaoSLAController.deleteMarcoSLA';
 import getRegrasSLA from '@salesforce/apex/GestaoSLAController.getRegrasSLA';
 import createRegraSLA from '@salesforce/apex/GestaoSLAController.createRegraSLA';
 import updateRegraSLA from '@salesforce/apex/GestaoSLAController.updateRegraSLA';
@@ -210,6 +260,7 @@ import getQueuesForCategoria from '@salesforce/apex/CategorizacaoController.getQ
 
 const TAB_CATEGORIAS = 'categorias';
 const TAB_REGRAS = 'regras';
+const TAB_MARCOS = 'marcos';
 const TAB_CONFIG = 'config';
 const PAGE_SIZE_OPTIONS = [
     { label: '10', value: '10' },
@@ -261,10 +312,30 @@ export default class GestaoSLAWorkspace extends LightningElement {
         porCampoCustomizado: false,
         filaDeveloperName: '',
         campoDistribuicao: '',
-        valorDistribuicao: ''
+        valorDistribuicao: '',
+        filaDeveloperNameFallback: '',
+        permiteAssumirComFilaParametrizada: true,
+        etapaAtendimentoDistribuicao: ''
     };
     @track casePicklistFieldsData = [];
     @track categoriaQueueOptionsData = [];
+    @track showMarcoModal = false;
+    @track savingMarco = false;
+    @track marcoModalMode = 'create';
+    @track marcoForm = {
+        id: null,
+        nomeMarco: '',
+        milestoneTypeName: '',
+        ordem: null,
+        fonteTempo: '',
+        tempoFallbackMinutos: null,
+        recorrente: false,
+        tipoRecorrencia: '',
+        usaCategorizacao: false,
+        usaAreaInterna: false,
+        usaOrigem: false,
+        ativo: true
+    };
     @track showRegraModal = false;
     @track savingRegra = false;
     @track regraModalMode = 'create';
@@ -376,6 +447,21 @@ export default class GestaoSLAWorkspace extends LightningElement {
         categoryDistributionFieldPlaceholder: categoryDistributionFieldPlaceholderLabel,
         categoryDistributionValue: categoryDistributionValueLabel,
         categoryDistributionValuePlaceholder: categoryDistributionValuePlaceholderLabel,
+        categoryDistributeToQueueHint: categoryDistributeToQueueHintLabel,
+        categoryQueueHint: categoryQueueHintLabel,
+        categoryByCustomFieldOnHint: categoryByCustomFieldOnHintLabel,
+        categoryByCustomFieldOffHint: categoryByCustomFieldOffHintLabel,
+        categoryDistributionFieldHint: categoryDistributionFieldHintLabel,
+        categoryDistributionValueHint: categoryDistributionValueHintLabel,
+        categoryQueueFallback: categoryQueueFallbackLabel,
+        categoryQueueFallbackPlaceholder: categoryQueueFallbackPlaceholderLabel,
+        categoryQueueFallbackHint: categoryQueueFallbackHintLabel,
+        categoryAllowAssume: categoryAllowAssumeLabel,
+        categoryAllowAssumeOnHint: categoryAllowAssumeOnHintLabel,
+        categoryAllowAssumeOffHint: categoryAllowAssumeOffHintLabel,
+        categoryStageOnDistribute: categoryStageOnDistributeLabel,
+        categoryStageOnDistributePlaceholder: categoryStageOnDistributePlaceholderLabel,
+        categoryStageOnDistributeHint: categoryStageOnDistributeHintLabel,
         ruleDelete: ruleDeleteLabel,
         gestaoDeleteButton: gestaoDeleteButtonLabel,
         confirmDeleteCategory: confirmDeleteCategoryLabel,
@@ -528,7 +614,37 @@ export default class GestaoSLAWorkspace extends LightningElement {
         errorRuleCategoryRequired: errorRuleCategoryRequiredLabel,
         errorRuleInternalAreaRequired: errorRuleInternalAreaRequiredLabel,
         errorRuleAtLeastOneTime: errorRuleAtLeastOneTimeLabel,
-        errorRuleTimesMustBePositive: errorRuleTimesMustBePositiveLabel
+        errorRuleTimesMustBePositive: errorRuleTimesMustBePositiveLabel,
+        milestoneTabTitle: milestoneTabTitleLabel,
+        milestoneNewButton: milestoneNewButtonLabel,
+        milestoneReactivateButton: milestoneReactivateButtonLabel,
+        milestoneEmptyState: milestoneEmptyStateLabel,
+        milestoneNameField: milestoneNameFieldLabel,
+        milestoneTypeNameField: milestoneTypeNameFieldLabel,
+        milestoneTypeNameHint: milestoneTypeNameHintLabel,
+        milestoneOrderField: milestoneOrderFieldLabel,
+        milestoneTimeSourceField: milestoneTimeSourceFieldLabel,
+        milestoneFallbackTimeField: milestoneFallbackTimeFieldLabel,
+        milestoneRecurrentField: milestoneRecurrentFieldLabel,
+        milestoneRecurrenceTypeField: milestoneRecurrenceTypeFieldLabel,
+        milestoneUsesCategorizationField: milestoneUsesCategorizationFieldLabel,
+        milestoneUsesInternalAreaField: milestoneUsesInternalAreaFieldLabel,
+        milestoneUsesOriginField: milestoneUsesOriginFieldLabel,
+        milestoneModalNewTitle: milestoneModalNewTitleLabel,
+        milestoneModalEditTitle: milestoneModalEditTitleLabel,
+        milestoneConfirmDeactivate: milestoneConfirmDeactivateLabel,
+        toastMilestoneCreated: toastMilestoneCreatedLabel,
+        toastMilestoneUpdated: toastMilestoneUpdatedLabel,
+        toastMilestoneDeactivated: toastMilestoneDeactivatedLabel,
+        toastMilestoneReactivated: toastMilestoneReactivatedLabel,
+        errorSaveMilestone: errorSaveMilestoneLabel,
+        errorDeactivateMilestone: errorDeactivateMilestoneLabel,
+        errorReactivateMilestone: errorReactivateMilestoneLabel,
+        errorLoadMilestones: errorLoadMilestonesLabel,
+        milestoneDelete: milestoneDeleteLabel,
+        confirmDeleteMilestone: confirmDeleteMilestoneLabel,
+        errorDeleteMilestone: errorDeleteMilestoneLabel,
+        toastMilestoneDeleted: toastMilestoneDeletedLabel
     };
 
     connectedCallback() {
@@ -732,6 +848,10 @@ export default class GestaoSLAWorkspace extends LightningElement {
         return this.permissions.canAdminTechnicalSettings === true;
     }
 
+    get showMarcosTab() {
+        return this.permissions.canAdminTechnicalSettings === true;
+    }
+
     get pageSizeOptions() {
         return PAGE_SIZE_OPTIONS;
     }
@@ -929,6 +1049,42 @@ export default class GestaoSLAWorkspace extends LightningElement {
         return (this.regrasSLA || []).length > 0;
     }
 
+    get marcosDecorated() {
+        return (this.marcos || []).map((row) => ({
+            ...row,
+            ativoLabel: row.ativo ? this.labels.categoryStatusOptionActive : this.labels.categoryStatusOptionInactive,
+            ativoClass: row.ativo ? 'status-badge status-active' : 'status-badge status-inactive',
+            recorrenteLabel: row.recorrente ? this.labels.categoryStatusOptionActive : this.labels.categoryStatusOptionInactive,
+            tipoRecorrenciaLabel: row.tipoRecorrencia || '—',
+            fonteTempoLabel: row.fonteTempo || '—',
+            ordemLabel: row.ordem == null ? '—' : row.ordem
+        }));
+    }
+
+    get hasMarcos() {
+        return (this.marcos || []).length > 0;
+    }
+
+    get marcoFonteTempoOptions() {
+        return [
+            { label: '—', value: '' },
+            { label: 'GestaoSLA', value: 'GestaoSLA' },
+            { label: 'RegraSLA', value: 'RegraSLA' }
+        ];
+    }
+
+    get marcoTipoRecorrenciaOptions() {
+        return [
+            { label: 'NaoRecorrente', value: 'NaoRecorrente' },
+            { label: 'Independente', value: 'Independente' },
+            { label: 'Sequencial', value: 'Sequencial' }
+        ];
+    }
+
+    get showMarcoTipoRecorrencia() {
+        return this.marcoForm?.recorrente === true;
+    }
+
     get hasRegrasCategorizacaoContext() {
         return !!this.regrasCategorizacaoContextLabel;
     }
@@ -979,6 +1135,10 @@ export default class GestaoSLAWorkspace extends LightningElement {
         return this.activeTab === TAB_REGRAS;
     }
 
+    get activeIsMarcos() {
+        return this.activeTab === TAB_MARCOS;
+    }
+
     get activeIsConfig() {
         return this.activeTab === TAB_CONFIG;
     }
@@ -989,6 +1149,10 @@ export default class GestaoSLAWorkspace extends LightningElement {
 
     get regrasTabClass() {
         return this.activeIsRegras ? 'tab active' : 'tab';
+    }
+
+    get marcosTabClass() {
+        return this.activeIsMarcos ? 'tab active' : 'tab';
     }
 
     get configTabClass() {
@@ -1479,7 +1643,10 @@ export default class GestaoSLAWorkspace extends LightningElement {
             porCampoCustomizado: false,
             filaDeveloperName: '',
             campoDistribuicao: '',
-            valorDistribuicao: ''
+            valorDistribuicao: '',
+            filaDeveloperNameFallback: '',
+            permiteAssumirComFilaParametrizada: true,
+            etapaAtendimentoDistribuicao: ''
         };
         this.showCategoriaModal = true;
         await this.loadCategoriaDistribuicaoData();
@@ -1503,7 +1670,10 @@ export default class GestaoSLAWorkspace extends LightningElement {
             porCampoCustomizado: row.porCampoCustomizado === true,
             filaDeveloperName: row.filaDeveloperName || '',
             campoDistribuicao: row.campoDistribuicao || '',
-            valorDistribuicao: row.valorDistribuicao || ''
+            valorDistribuicao: row.valorDistribuicao || '',
+            filaDeveloperNameFallback: row.filaDeveloperNameFallback || '',
+            permiteAssumirComFilaParametrizada: row.permiteAssumirComFilaParametrizada !== false,
+            etapaAtendimentoDistribuicao: row.etapaAtendimentoDistribuicao || ''
         };
         this.showCategoriaModal = true;
         await this.loadCategoriaDistribuicaoData();
@@ -1530,7 +1700,7 @@ export default class GestaoSLAWorkspace extends LightningElement {
     handleCategoriaInputChange(event) {
         const field = event.target?.name;
         if (!field) return;
-        const isToggle = field === 'distribuirParaFila' || field === 'porCampoCustomizado';
+        const isToggle = field === 'distribuirParaFila' || field === 'porCampoCustomizado' || field === 'permiteAssumirComFilaParametrizada';
         let value = isToggle ? event.target?.checked : event.detail?.value ?? event.target?.value;
         if (field === 'ativo') {
             value = value === true || value === 'true';
@@ -1543,11 +1713,14 @@ export default class GestaoSLAWorkspace extends LightningElement {
                 porCampoCustomizado: false,
                 filaDeveloperName: '',
                 campoDistribuicao: '',
-                valorDistribuicao: ''
+                valorDistribuicao: '',
+                filaDeveloperNameFallback: '',
+                permiteAssumirComFilaParametrizada: true,
+                etapaAtendimentoDistribuicao: ''
             };
         }
         if (field === 'porCampoCustomizado' && value === false) {
-            this.categoriaForm = { ...this.categoriaForm, campoDistribuicao: '', valorDistribuicao: '' };
+            this.categoriaForm = { ...this.categoriaForm, campoDistribuicao: '', valorDistribuicao: '', filaDeveloperNameFallback: '' };
         }
         if (field === 'campoDistribuicao') {
             this.categoriaForm = { ...this.categoriaForm, valorDistribuicao: '' };
@@ -1562,6 +1735,18 @@ export default class GestaoSLAWorkspace extends LightningElement {
         return this.showCategoriaDistribuicao && this.categoriaForm?.porCampoCustomizado === true;
     }
 
+    get categoriaByCustomFieldHint() {
+        return this.categoriaForm?.porCampoCustomizado === true
+            ? this.labels.categoryByCustomFieldOnHint
+            : this.labels.categoryByCustomFieldOffHint;
+    }
+
+    get categoriaAllowAssumeHint() {
+        return this.categoriaForm?.permiteAssumirComFilaParametrizada !== false
+            ? this.labels.categoryAllowAssumeOnHint
+            : this.labels.categoryAllowAssumeOffHint;
+    }
+
     get categoriaFilaRequired() {
         return this.showCategoriaDistribuicao;
     }
@@ -1572,6 +1757,15 @@ export default class GestaoSLAWorkspace extends LightningElement {
 
     get categoriaQueueOptions() {
         return (this.categoriaQueueOptionsData || []).map((q) => ({ label: `${q.name} (${q.developerName})`, value: q.developerName }));
+    }
+
+    get categoriaQueueFallbackOptions() {
+        return [{ label: this.labels.categoryQueueFallbackPlaceholder, value: '' }, ...this.categoriaQueueOptions];
+    }
+
+    get categoriaEtapaAtendimentoOptions() {
+        const field = (this.casePicklistFieldsData || []).find((f) => f.apiName === 'EtapaAtendimento__c');
+        return (field?.values || []).map((v) => ({ label: v.label, value: v.value }));
     }
 
     get categoriaCasePicklistFieldOptions() {
@@ -1597,7 +1791,10 @@ export default class GestaoSLAWorkspace extends LightningElement {
                 porCampoCustomizado,
                 filaDeveloperName: distribuirParaFila ? this.categoriaForm?.filaDeveloperName : null,
                 campoDistribuicao: distribuirParaFila && porCampoCustomizado ? this.categoriaForm?.campoDistribuicao : null,
-                valorDistribuicao: distribuirParaFila && porCampoCustomizado ? this.categoriaForm?.valorDistribuicao : null
+                valorDistribuicao: distribuirParaFila && porCampoCustomizado ? this.categoriaForm?.valorDistribuicao : null,
+                filaDeveloperNameFallback: distribuirParaFila && porCampoCustomizado ? this.categoriaForm?.filaDeveloperNameFallback : null,
+                permiteAssumirComFilaParametrizada: distribuirParaFila ? this.categoriaForm?.permiteAssumirComFilaParametrizada !== false : true,
+                etapaAtendimentoDistribuicao: distribuirParaFila ? this.categoriaForm?.etapaAtendimentoDistribuicao : null
             };
             if (this.isCategoriaModalCreate) {
                 await createCategoria({ request });
@@ -1649,6 +1846,133 @@ export default class GestaoSLAWorkspace extends LightningElement {
         }
     }
 
+    get isMarcoModalCreate() {
+        return this.marcoModalMode === 'create';
+    }
+
+    get marcoModalTitle() {
+        return this.isMarcoModalCreate ? this.labels.milestoneModalNewTitle : this.labels.milestoneModalEditTitle;
+    }
+
+    openCreateMarcoModal() {
+        if (!this.permissions.canAdminTechnicalSettings || !this.selectedGestaoSLAId) return;
+        this.marcoModalMode = 'create';
+        this.marcoForm = {
+            id: null,
+            nomeMarco: '',
+            milestoneTypeName: '',
+            ordem: null,
+            fonteTempo: '',
+            tempoFallbackMinutos: null,
+            recorrente: false,
+            tipoRecorrencia: '',
+            usaCategorizacao: false,
+            usaAreaInterna: false,
+            usaOrigem: false,
+            ativo: true
+        };
+        this.showMarcoModal = true;
+    }
+
+    openEditMarcoModal(event) {
+        if (!this.permissions.canAdminTechnicalSettings) return;
+        const marcoId = event.currentTarget?.dataset?.id;
+        const row = (this.marcos || []).find((m) => m.id === marcoId);
+        if (!row) return;
+        this.marcoModalMode = 'edit';
+        this.marcoForm = {
+            id: row.id,
+            nomeMarco: row.nomeMarco || '',
+            milestoneTypeName: row.milestoneTypeName || '',
+            ordem: row.ordem == null ? null : row.ordem,
+            fonteTempo: row.fonteTempo || '',
+            tempoFallbackMinutos: row.tempoFallbackMinutos == null ? null : row.tempoFallbackMinutos,
+            recorrente: row.recorrente === true,
+            tipoRecorrencia: row.tipoRecorrencia || '',
+            usaCategorizacao: row.usaCategorizacao === true,
+            usaAreaInterna: row.usaAreaInterna === true,
+            usaOrigem: row.usaOrigem === true,
+            ativo: row.ativo !== false
+        };
+        this.showMarcoModal = true;
+    }
+
+    closeMarcoModal() {
+        this.showMarcoModal = false;
+        this.savingMarco = false;
+    }
+
+    handleMarcoInputChange(event) {
+        const field = event.target?.name;
+        if (!field) return;
+        const isToggle = field === 'recorrente' || field === 'usaCategorizacao' || field === 'usaAreaInterna' || field === 'usaOrigem' || field === 'ativo';
+        let value = isToggle ? event.target?.checked : event.detail?.value ?? event.target?.value;
+        if (field === 'ordem' || field === 'tempoFallbackMinutos') {
+            value = value === '' || value === null || value === undefined ? null : Number(value);
+        }
+        this.marcoForm = { ...this.marcoForm, [field]: value };
+        if (field === 'recorrente' && value === false) {
+            this.marcoForm = { ...this.marcoForm, tipoRecorrencia: '' };
+        }
+    }
+
+    async handleSaveMarco() {
+        if (!this.permissions.canAdminTechnicalSettings) return;
+        if (!this.marcoForm?.nomeMarco || !this.marcoForm?.milestoneTypeName) {
+            this.showToast(this.labels.commonError, this.labels.errorSaveMilestone, 'error');
+            return;
+        }
+        this.savingMarco = true;
+        try {
+            const request = {
+                ...this.marcoForm,
+                gestaoSLAId: this.selectedGestaoSLAId,
+                tipoRecorrencia: this.marcoForm?.recorrente === true ? this.marcoForm?.tipoRecorrencia : null
+            };
+            if (this.isMarcoModalCreate) {
+                await createMarcoSLA({ request });
+                this.showToast(this.labels.commonSuccess, this.labels.toastMilestoneCreated, 'success');
+            } else {
+                await updateMarcoSLA({ request });
+                this.showToast(this.labels.commonSuccess, this.labels.toastMilestoneUpdated, 'success');
+            }
+            await this.loadMarcos(this.selectedGestaoSLAId);
+            this.closeMarcoModal();
+        } catch (error) {
+            this.showToast(this.labels.commonError, this.reduceError(error) || this.labels.errorSaveMilestone, 'error');
+        } finally {
+            this.savingMarco = false;
+        }
+    }
+
+    async handleDeactivateMarco(event) {
+        if (!this.permissions.canAdminTechnicalSettings) return;
+        const marcoSLAId = event.currentTarget?.dataset?.id;
+        if (!marcoSLAId) return;
+        const confirmed = window.confirm(this.labels.milestoneConfirmDeactivate);
+        if (!confirmed) return;
+        try {
+            await deactivateMarcoSLA({ marcoSLAId });
+            this.showToast(this.labels.commonSuccess, this.labels.toastMilestoneDeactivated, 'success');
+            await this.loadMarcos(this.selectedGestaoSLAId);
+        } catch (error) {
+            this.showToast(this.labels.commonError, this.reduceError(error) || this.labels.errorDeactivateMilestone, 'error');
+        }
+    }
+
+    async handleReactivateMarco(event) {
+        if (!this.permissions.canAdminTechnicalSettings) return;
+        const marcoSLAId = event.currentTarget?.dataset?.id;
+        if (!marcoSLAId) return;
+        try {
+            await reactivateMarcoSLA({ marcoSLAId });
+            this.showToast(this.labels.commonSuccess, this.labels.toastMilestoneReactivated, 'success');
+            await this.loadMarcos(this.selectedGestaoSLAId);
+        } catch (error) {
+            this.showToast(this.labels.commonError, this.reduceError(error) || this.labels.errorReactivateMilestone, 'error');
+        }
+    }
+
     async handleDeleteRegra(event) {
         if (!this.permissions.canAdminTechnicalSettings) return;
         const regraId = event.currentTarget?.dataset?.id;
@@ -1691,6 +2015,36 @@ export default class GestaoSLAWorkspace extends LightningElement {
         this.regrasCategorizacaoContextLabel = this.buildCategoriaDisplay(row);
         this.activeTab = TAB_REGRAS;
         await this.loadRegrasSLA(this.selectedGestaoSLAId);
+    }
+
+    handleMarcoAction(event) {
+        const action = event.detail.value;
+        const id = event.currentTarget?.dataset?.id;
+        const syntheticEvent = { currentTarget: { dataset: { id } } };
+        if (action === 'edit') {
+            this.openEditMarcoModal(syntheticEvent);
+        } else if (action === 'deactivate') {
+            this.handleDeactivateMarco(syntheticEvent);
+        } else if (action === 'reactivate') {
+            this.handleReactivateMarco(syntheticEvent);
+        } else if (action === 'delete') {
+            this.handleDeleteMarco(syntheticEvent);
+        }
+    }
+
+    async handleDeleteMarco(event) {
+        if (!this.permissions.canAdminTechnicalSettings) return;
+        const marcoSLAId = event.currentTarget?.dataset?.id;
+        if (!marcoSLAId) return;
+        const confirmed = window.confirm(this.labels.confirmDeleteMilestone);
+        if (!confirmed) return;
+        try {
+            await deleteMarcoSLA({ marcoSLAId });
+            this.showToast(this.labels.commonSuccess, this.labels.toastMilestoneDeleted, 'success');
+            await this.loadMarcos(this.selectedGestaoSLAId);
+        } catch (error) {
+            this.showToast(this.labels.commonError, this.reduceError(error) || this.labels.errorDeleteMilestone, 'error');
+        }
     }
 
     handleCategoriaAction(event) {

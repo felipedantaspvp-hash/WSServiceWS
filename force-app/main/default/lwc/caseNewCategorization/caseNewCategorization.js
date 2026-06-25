@@ -29,7 +29,8 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
     @track customFieldLabel;
     @track customFieldOptions = [];
     @track customFieldValue;
-    @track customFieldMatched = false;
+    @track hasParametrizedQueue = false;
+    @track permiteAssumir = true;
 
     language = (LANG || '').toLowerCase();
 
@@ -57,6 +58,7 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
               assume: 'Assume case',
               distribute: 'Distribute to queue',
               close: 'Close on creation',
+              assumirBloqueadoHint: 'This categorization requires distribution to the configured queue; assuming the case directly is not allowed.',
               errorTitle: 'Error',
               unexpected: 'Unexpected error',
               prepareFailed: 'Failed to prepare Case creation.'
@@ -84,6 +86,7 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
               assume: 'Assumir o caso',
               distribute: 'Distribuir para fila',
               close: 'Encerrar na criação',
+              assumirBloqueadoHint: 'Esta categorização exige distribuição para a fila configurada; não é permitido assumir o caso diretamente.',
               errorTitle: 'Erro',
               unexpected: 'Erro inesperado',
               prepareFailed: 'Falha ao preparar criação do Case.'
@@ -124,16 +127,20 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
         ];
     }
 
+    get assumirBloqueado() {
+        return this.hasParametrizedQueue && !this.permiteAssumir;
+    }
+
     get destinationCards() {
-        const lockedToDistribute = this.customFieldMatched;
+        const assumirBloqueado = this.assumirBloqueado;
         return [
             {
                 value: 'ASSUMIR',
                 label: this.labels.assume,
                 description: this.labels.destinationHintAssume,
                 checked: this.destinationAction === 'ASSUMIR',
-                disabled: lockedToDistribute,
-                cssClass: this.cardCssClass(this.destinationAction === 'ASSUMIR', lockedToDistribute),
+                disabled: assumirBloqueado,
+                cssClass: this.cardCssClass(this.destinationAction === 'ASSUMIR', assumirBloqueado),
                 radioGlyph: this.destinationAction === 'ASSUMIR' ? '◉' : '◯'
             },
             {
@@ -150,8 +157,8 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
                 label: this.labels.close,
                 description: this.labels.destinationHintClose,
                 checked: this.destinationAction === 'ENCERRAR',
-                disabled: lockedToDistribute,
-                cssClass: this.cardCssClass(this.destinationAction === 'ENCERRAR', lockedToDistribute),
+                disabled: false,
+                cssClass: this.cardCssClass(this.destinationAction === 'ENCERRAR', false),
                 radioGlyph: this.destinationAction === 'ENCERRAR' ? '◉' : '◯'
             }
         ];
@@ -235,7 +242,6 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
         this.customFieldLabel = null;
         this.customFieldOptions = [];
         this.customFieldValue = null;
-        this.customFieldMatched = false;
     }
 
     handleFieldChange(event) {
@@ -271,7 +277,7 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
     async handleDestinationCardSelect(event) {
         const selected = event.currentTarget?.dataset?.value;
         if (!selected || selected === this.destinationAction) return;
-        if (this.customFieldMatched && selected !== 'DISTRIBUIR') return;
+        if (selected === 'ASSUMIR' && this.assumirBloqueado) return;
         this.destinationManuallySet = true;
         this.destinationAction = selected;
         await this.refreshDestinationSection();
@@ -288,6 +294,8 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
         // o destino manualmente, que por padrão é "Assumir o caso").
         if (!this.model.tipoCaso || !this.model.categoria || !this.model.assunto) {
             this.resetCustomField();
+            this.hasParametrizedQueue = false;
+            this.permiteAssumir = true;
             return;
         }
 
@@ -302,7 +310,6 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
             this.customFieldApiName = resolved.campoDistribuicao;
             this.customFieldLabel = resolved.campoDistribuicaoLabel;
             this.customFieldOptions = (resolved.campoDistribuicaoOptions || []).map((o) => ({ label: o.label, value: o.value }));
-            this.customFieldMatched = !!resolved.valorDistribuicaoAtendido;
 
             if (this.customFieldValue == null) {
                 // Pré-preenche com o valor configurado na Categorização e refaz a resolução
@@ -315,9 +322,15 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
             this.resetCustomField();
         }
 
-        if (this.customFieldMatched) {
+        this.hasParametrizedQueue = !!resolved?.hasParametrizedQueue;
+        this.permiteAssumir = resolved?.permiteAssumirComFilaParametrizada !== false;
+
+        if (this.hasParametrizedQueue && !this.permiteAssumir) {
+            // Categorização não permite assumir diretamente quando há fila parametrizada
+            // (fixa, por campo customizado batendo o critério, ou fallback) — trava o destino
+            // mesmo que o usuário já tivesse escolhido manualmente outro antes.
             this.destinationAction = 'DISTRIBUIR';
-        } else if (resolved?.hasParametrizedQueue && !this.destinationManuallySet) {
+        } else if (this.hasParametrizedQueue && !this.destinationManuallySet) {
             this.destinationAction = 'DISTRIBUIR';
         }
 

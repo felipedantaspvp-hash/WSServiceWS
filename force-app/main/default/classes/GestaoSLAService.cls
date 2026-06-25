@@ -124,23 +124,185 @@ public inherited sharing class GestaoSLAService {
         response.marcos = new List<GestaoSLADTO.MarcoResumo>();
 
         for (MarcoSLA__c row : GestaoSLASelector.selectMarcosByGestaoSLA(gestaoSLAId)) {
-            GestaoSLADTO.MarcoResumo dto = new GestaoSLADTO.MarcoResumo();
-            dto.id = row.Id;
-            dto.name = row.Name;
-            dto.nomeMarco = row.NomeMarco__c;
-            dto.milestoneTypeName = perms.canAdminTechnicalSettings ? row.MilestoneTypeName__c : null;
-            dto.fonteTempo = row.FonteTempo__c;
-            dto.ordem = row.Ordem__c;
-            dto.recorrente = row.Recorrente__c;
-            dto.tipoRecorrencia = row.TipoRecorrencia__c;
-            dto.usaCategorizacao = row.UsaCategorizacao__c;
-            dto.usaAreaInterna = row.UsaAreaInterna__c;
-            dto.usaOrigem = row.UsaOrigem__c;
-            dto.ativo = row.Ativo__c;
-            response.marcos.add(dto);
+            response.marcos.add(toMarcoResumo(row, perms.canAdminTechnicalSettings == true));
         }
 
         return response;
+    }
+
+    /**
+     * @description Cria um novo Marco SLA vinculado a uma Gestão de SLA. Restrito a quem administra
+     * configurações técnicas (Custom Permission AdministrarConfiguracoesGestaoSLA).
+     * @param request MarcoSLARequest com os dados do novo marco.
+     * @return MarcoResumo com o registro criado.
+     **/
+    public static GestaoSLADTO.MarcoResumo createMarcoSLA(GestaoSLADTO.MarcoSLARequest request) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        ensureCanAdminTechnicalSettings(perms);
+        validateMarcoRequest(request);
+
+        GestaoSLA__c gestao = loadGestaoOrThrow(request.gestaoSLAId);
+        ensureUnidadeAllowed(gestao.UnidadeNegocio__c, resolveAllowedUnidades(perms));
+        validateMarcoDuplicateMilestoneType(request.gestaoSLAId, request.milestoneTypeName, null);
+
+        MarcoSLA__c row = new MarcoSLA__c(
+            Name = request.nomeMarco.trim(),
+            GestaoSLA__c = request.gestaoSLAId,
+            NomeMarco__c = request.nomeMarco.trim(),
+            MilestoneTypeName__c = request.milestoneTypeName.trim()
+        );
+        applyMarcoFields(row, request);
+        try {
+            insert row;
+        } catch (DmlException dmx) {
+            throw new FunctionalException(dmx.getDmlMessage(0));
+        }
+        return toMarcoResumo(queryMarcoById(row.Id), true);
+    }
+
+    /**
+     * @description Atualiza os campos administráveis de um Marco SLA existente. Restrito a quem administra
+     * configurações técnicas (Custom Permission AdministrarConfiguracoesGestaoSLA).
+     * @param request MarcoSLARequest com id e campos a atualizar.
+     * @return MarcoResumo com o registro atualizado.
+     **/
+    public static GestaoSLADTO.MarcoResumo updateMarcoSLA(GestaoSLADTO.MarcoSLARequest request) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        ensureCanAdminTechnicalSettings(perms);
+        if (request == null || request.id == null) {
+            throw new FunctionalException('Marco SLA não encontrado.');
+        }
+        validateMarcoRequest(request);
+
+        MarcoSLA__c existing = queryMarcoById(request.id);
+        if (existing == null) {
+            throw new FunctionalException('Marco SLA não encontrado.');
+        }
+        if (request.gestaoSLAId == null || request.gestaoSLAId != existing.GestaoSLA__c) {
+            throw new FunctionalException('Gestão de SLA não informada.');
+        }
+        GestaoSLA__c gestao = loadGestaoOrThrow(existing.GestaoSLA__c);
+        ensureUnidadeAllowed(gestao.UnidadeNegocio__c, resolveAllowedUnidades(perms));
+        validateMarcoDuplicateMilestoneType(existing.GestaoSLA__c, request.milestoneTypeName, existing.Id);
+
+        existing.NomeMarco__c = request.nomeMarco.trim();
+        existing.Name = request.nomeMarco.trim();
+        existing.MilestoneTypeName__c = request.milestoneTypeName.trim();
+        applyMarcoFields(existing, request);
+        try {
+            update existing;
+        } catch (DmlException dmx) {
+            throw new FunctionalException(dmx.getDmlMessage(0));
+        }
+        return toMarcoResumo(queryMarcoById(existing.Id), true);
+    }
+
+    /**
+     * @description Desativa um Marco SLA, impedindo que continue sendo usado em novas Regras de SLA.
+     * Restrito a quem administra configurações técnicas (Custom Permission AdministrarConfiguracoesGestaoSLA).
+     * @param marcoSLAId Id do MarcoSLA__c a desativar.
+     * @return MarcoResumo com status atualizado para inativo.
+     **/
+    public static GestaoSLADTO.MarcoResumo deactivateMarcoSLA(Id marcoSLAId) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        ensureCanAdminTechnicalSettings(perms);
+        MarcoSLA__c row = queryMarcoById(marcoSLAId);
+        if (row == null) {
+            throw new FunctionalException('Marco SLA não encontrado.');
+        }
+        GestaoSLA__c gestao = loadGestaoOrThrow(row.GestaoSLA__c);
+        ensureUnidadeAllowed(gestao.UnidadeNegocio__c, resolveAllowedUnidades(perms));
+
+        row.Ativo__c = false;
+        update row;
+        return toMarcoResumo(row, true);
+    }
+
+    /**
+     * @description Reativa um Marco SLA previamente desativado. Restrito a quem administra configurações
+     * técnicas (Custom Permission AdministrarConfiguracoesGestaoSLA).
+     * @param marcoSLAId Id do MarcoSLA__c a reativar.
+     * @return MarcoResumo com status atualizado para ativo.
+     **/
+    public static GestaoSLADTO.MarcoResumo reactivateMarcoSLA(Id marcoSLAId) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        ensureCanAdminTechnicalSettings(perms);
+        MarcoSLA__c row = queryMarcoById(marcoSLAId);
+        if (row == null) {
+            throw new FunctionalException('Marco SLA não encontrado.');
+        }
+        GestaoSLA__c gestao = loadGestaoOrThrow(row.GestaoSLA__c);
+        ensureUnidadeAllowed(gestao.UnidadeNegocio__c, resolveAllowedUnidades(perms));
+        if (row.Ativo__c == true) {
+            return toMarcoResumo(row, true);
+        }
+        validateMarcoDuplicateMilestoneType(row.GestaoSLA__c, row.MilestoneTypeName__c, row.Id);
+
+        row.Ativo__c = true;
+        update row;
+        return toMarcoResumo(row, true);
+    }
+
+    private static void validateMarcoRequest(GestaoSLADTO.MarcoSLARequest request) {
+        if (request == null || request.gestaoSLAId == null) {
+            throw new FunctionalException('Gestão de SLA não informada.');
+        }
+        if (String.isBlank(request.nomeMarco)) {
+            throw new FunctionalException('Nome do Marco é obrigatório.');
+        }
+        if (String.isBlank(request.milestoneTypeName)) {
+            throw new FunctionalException('Nome do Milestone Type é obrigatório.');
+        }
+        if (request.recorrente == true && String.isBlank(request.tipoRecorrencia)) {
+            throw new FunctionalException('Tipo de Recorrência é obrigatório quando o marco é recorrente.');
+        }
+    }
+
+    private static void validateMarcoDuplicateMilestoneType(Id gestaoSLAId, String milestoneTypeName, Id excludeMarcoId) {
+        List<MarcoSLA__c> existing = GestaoSLASelector.selectMarcoByGestaoAndMilestoneTypeName(gestaoSLAId, milestoneTypeName);
+        if (!existing.isEmpty() && existing[0].Id != excludeMarcoId) {
+            throw new FunctionalException('Já existe um Marco SLA para este Milestone Type nesta Gestão de SLA.');
+        }
+    }
+
+    private static void applyMarcoFields(MarcoSLA__c row, GestaoSLADTO.MarcoSLARequest request) {
+        row.FonteTempo__c = String.isBlank(request.fonteTempo) ? null : request.fonteTempo.trim();
+        row.Ordem__c = request.ordem;
+        row.Recorrente__c = request.recorrente == true;
+        row.TipoRecorrencia__c = request.recorrente == true ? request.tipoRecorrencia : null;
+        row.UsaCategorizacao__c = request.usaCategorizacao == true;
+        row.UsaAreaInterna__c = request.usaAreaInterna == true;
+        row.UsaOrigem__c = request.usaOrigem == true;
+        row.TempoFallbackMinutos__c = request.tempoFallbackMinutos;
+        row.Ativo__c = request.ativo == null ? true : request.ativo;
+    }
+
+    private static MarcoSLA__c queryMarcoById(Id marcoId) {
+        List<MarcoSLA__c> rows = GestaoSLASelector.selectMarcoFullById(marcoId);
+        return rows.isEmpty() ? null : rows[0];
+    }
+
+    private static GestaoSLADTO.MarcoResumo toMarcoResumo(MarcoSLA__c row, Boolean showTechnical) {
+        GestaoSLADTO.MarcoResumo dto = new GestaoSLADTO.MarcoResumo();
+        dto.id = row.Id;
+        dto.gestaoSLAId = row.GestaoSLA__c;
+        dto.name = row.Name;
+        dto.nomeMarco = row.NomeMarco__c;
+        dto.milestoneTypeName = showTechnical ? row.MilestoneTypeName__c : null;
+        dto.fonteTempo = row.FonteTempo__c;
+        dto.ordem = row.Ordem__c;
+        dto.recorrente = row.Recorrente__c;
+        dto.tipoRecorrencia = row.TipoRecorrencia__c;
+        dto.usaCategorizacao = row.UsaCategorizacao__c;
+        dto.usaAreaInterna = row.UsaAreaInterna__c;
+        dto.usaOrigem = row.UsaOrigem__c;
+        dto.tempoFallbackMinutos = showTechnical ? row.TempoFallbackMinutos__c : null;
+        dto.ativo = row.Ativo__c;
+        return dto;
     }
 
     public static GestaoSLADTO.RegrasSLAResponse getRegrasSLA(
@@ -459,22 +621,28 @@ public inherited sharing class GestaoSLAService {
     private static void applyDistribuicaoRequest(Categorizacao__c row, GestaoSLADTO.CategoriaRequest request) {
         Boolean distribuir = request != null && request.distribuirParaFila == true;
         row.DistribuirParaFila__c = distribuir ? 'Sim' : 'Não';
+        row.PermiteAssumirComFilaParametrizada__c = (request != null && request.permiteAssumirComFilaParametrizada == false) ? 'Não' : 'Sim';
         if (!distribuir) {
             row.PorCampoCustomizado__c = 'Não';
             row.FilaDeveloperName__c = null;
             row.CampoDistribuicao__c = null;
             row.ValorDistribuicao__c = null;
+            row.FilaDeveloperNameFallback__c = null;
+            row.EtapaAtendimentoDistribuicao__c = null;
             return;
         }
         Boolean porCampoCustomizado = request.porCampoCustomizado == true;
         row.PorCampoCustomizado__c = porCampoCustomizado ? 'Sim' : 'Não';
         row.FilaDeveloperName__c = String.isBlank(request.filaDeveloperName) ? null : request.filaDeveloperName.trim();
+        row.EtapaAtendimentoDistribuicao__c = String.isBlank(request.etapaAtendimentoDistribuicao) ? null : request.etapaAtendimentoDistribuicao.trim();
         if (!porCampoCustomizado) {
             row.CampoDistribuicao__c = null;
             row.ValorDistribuicao__c = null;
+            row.FilaDeveloperNameFallback__c = null;
         } else {
             row.CampoDistribuicao__c = String.isBlank(request.campoDistribuicao) ? null : request.campoDistribuicao.trim();
             row.ValorDistribuicao__c = String.isBlank(request.valorDistribuicao) ? null : request.valorDistribuicao.trim();
+            row.FilaDeveloperNameFallback__c = String.isBlank(request.filaDeveloperNameFallback) ? null : request.filaDeveloperNameFallback.trim();
         }
     }
 
@@ -885,6 +1053,12 @@ public inherited sharing class GestaoSLAService {
         }
     }
 
+    private static void ensureCanAdminTechnicalSettings(GestaoSLADTO.PermissionInfo perms) {
+        if (perms == null || perms.canAdminTechnicalSettings != true) {
+            throw new FunctionalException('Você não possui permissão para administrar Marcos SLA.');
+        }
+    }
+
     /**
      * @description Exclui definitivamente uma Regra de SLA. Restrito ao Admin Técnico.
      * @param regraSLAId Id da RegrasSLACategorizacao__c a excluir.
@@ -949,6 +1123,36 @@ public inherited sharing class GestaoSLAService {
             throw new FunctionalException('Categorização não encontrada.');
         }
         delete rows[0];
+    }
+
+    /**
+     * @description Exclui definitivamente um Marco SLA. Bloqueia a exclusão se ainda existirem Regras de
+     *              SLA vinculadas, para evitar que o lookup seja silenciosamente nulificado (deleteConstraint
+     *              SetNull) e a regra perca o marco a que se aplica. Restrito ao Admin Técnico.
+     * @param marcoSLAId Id do MarcoSLA__c a excluir.
+     **/
+    public static void deleteMarcoSLA(Id marcoSLAId) {
+        GestaoSLADTO.PermissionInfo perms = buildPermissionInfo();
+        ensureCanAccess(perms);
+        ensureCanDelete(perms);
+        if (marcoSLAId == null) {
+            throw new FunctionalException('Marco SLA não informado.');
+        }
+        if (!Schema.sObjectType.MarcoSLA__c.isDeletable()) {
+            throw new FunctionalException('Você não possui permissão (FLS/CRUD) para excluir Marcos de SLA.');
+        }
+
+        MarcoSLA__c row = queryMarcoById(marcoSLAId);
+        if (row == null) {
+            throw new FunctionalException('Marco SLA não encontrado.');
+        }
+
+        Integer regrasVinculadas = GestaoSLASelector.countRegrasByMarcoSLA(marcoSLAId);
+        if (regrasVinculadas > 0) {
+            throw new FunctionalException('Não é possível excluir: existem Regras de SLA vinculadas a este Marco. Exclua ou reatribua as regras antes.');
+        }
+
+        delete row;
     }
 
     /**
@@ -1216,6 +1420,10 @@ public inherited sharing class GestaoSLAService {
         dto.valorDistribuicao = row.ValorDistribuicao__c;
         dto.labelCampoDistribuicao = row.LabelCampoDistribuicao__c;
         dto.labelValorDistribuicao = row.LabelValorDistribuicao__c;
+        dto.filaDeveloperNameFallback = row.FilaDeveloperNameFallback__c;
+        dto.nomeFilaFallbackDistribuicao = row.NomeFilaFallbackDistribuicao__c;
+        dto.permiteAssumirComFilaParametrizada = CategorizacaoHelper.isTrueFlag(row.PermiteAssumirComFilaParametrizada__c);
+        dto.etapaAtendimentoDistribuicao = row.EtapaAtendimentoDistribuicao__c;
         return dto;
     }
 

@@ -438,4 +438,247 @@ private class GestaoSLAControllerTest {
         }
         Assert.isTrue(deactivateFailed);
     }
+
+    private static GestaoSLADTO.MarcoSLARequest buildMarcoRequest(Id gestaoId) {
+        GestaoSLADTO.MarcoSLARequest req = new GestaoSLADTO.MarcoSLARequest();
+        req.gestaoSLAId = gestaoId;
+        req.nomeMarco = 'Marco Teste Controller';
+        req.milestoneTypeName = 'Marco Teste Controller';
+        req.ordem = 1;
+        req.fonteTempo = 'RegraSLA';
+        req.recorrente = false;
+        req.usaCategorizacao = true;
+        req.ativo = true;
+        return req;
+    }
+
+    @IsTest
+    static void testControllerCreateUpdateDeactivateReactivateMarcoSLA() {
+        GestaoSLA__c g = createGestao();
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
+
+        GestaoSLADTO.MarcoSLARequest createReq = buildMarcoRequest(g.Id);
+        GestaoSLADTO.MarcoResumo created = GestaoSLAController.createMarcoSLA(createReq);
+        Assert.areEqual('Marco Teste Controller', created.nomeMarco);
+        Assert.areEqual(true, created.ativo);
+
+        created.nomeMarco = 'Marco Teste Controller Editado';
+        created.gestaoSLAId = g.Id;
+        created.recorrente = true;
+        created.tipoRecorrencia = 'Sequencial';
+        GestaoSLADTO.MarcoSLARequest updateReq = toMarcoRequest(created);
+        GestaoSLADTO.MarcoResumo updated = GestaoSLAController.updateMarcoSLA(updateReq);
+        Assert.areEqual('Marco Teste Controller Editado', updated.nomeMarco);
+        Assert.areEqual('Sequencial', updated.tipoRecorrencia);
+
+        GestaoSLADTO.MarcoResumo deactivated = GestaoSLAController.deactivateMarcoSLA(updated.id);
+        Assert.areEqual(false, deactivated.ativo);
+
+        GestaoSLADTO.MarcoResumo reactivated = GestaoSLAController.reactivateMarcoSLA(updated.id);
+        Assert.areEqual(true, reactivated.ativo);
+    }
+
+    private static GestaoSLADTO.MarcoSLARequest toMarcoRequest(GestaoSLADTO.MarcoResumo resumo) {
+        GestaoSLADTO.MarcoSLARequest req = new GestaoSLADTO.MarcoSLARequest();
+        req.id = resumo.id;
+        req.gestaoSLAId = resumo.gestaoSLAId;
+        req.nomeMarco = resumo.nomeMarco;
+        req.milestoneTypeName = resumo.milestoneTypeName;
+        req.ordem = resumo.ordem;
+        req.fonteTempo = resumo.fonteTempo;
+        req.recorrente = resumo.recorrente;
+        req.tipoRecorrencia = resumo.tipoRecorrencia;
+        req.usaCategorizacao = resumo.usaCategorizacao;
+        req.usaAreaInterna = resumo.usaAreaInterna;
+        req.usaOrigem = resumo.usaOrigem;
+        req.tempoFallbackMinutos = resumo.tempoFallbackMinutos;
+        req.ativo = resumo.ativo;
+        return req;
+    }
+
+    @IsTest
+    static void testControllerMarcoSLASemPermissaoAdminTecnico() {
+        GestaoSLA__c g = createGestao();
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, false);
+
+        Boolean createFailed = false;
+        try {
+            GestaoSLAController.createMarcoSLA(buildMarcoRequest(g.Id));
+        } catch (AuraHandledException ex) {
+            createFailed = true;
+        }
+        Assert.isTrue(createFailed);
+
+        Boolean deactivateFailed = false;
+        try {
+            GestaoSLAController.deactivateMarcoSLA(null);
+        } catch (AuraHandledException ex) {
+            deactivateFailed = true;
+        }
+        Assert.isTrue(deactivateFailed);
+    }
+
+    @IsTest
+    static void testControllerCreateMarcoSLADuplicateMilestoneTypeFails() {
+        GestaoSLA__c g = createGestao();
+        MarcoSLA__c existing = createMarco(g.Id);
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
+
+        GestaoSLADTO.MarcoSLARequest req = buildMarcoRequest(g.Id);
+        req.milestoneTypeName = existing.MilestoneTypeName__c;
+
+        Boolean duplicateFailed = false;
+        try {
+            GestaoSLAController.createMarcoSLA(req);
+        } catch (AuraHandledException ex) {
+            duplicateFailed = true;
+        }
+        Assert.isTrue(duplicateFailed);
+    }
+
+    @IsTest
+    static void testControllerDeleteAndBulkMethods() {
+        GestaoSLA__c g = createGestao();
+        Categorizacao__c c = createCategoria(g.Id);
+        MarcoSLA__c m = createMarco(g.Id);
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
+
+        List<Schema.PicklistEntry> areaEntries = RegrasSLACategorizacao__c.AreaAtendimento__c.getDescribe().getPicklistValues();
+        GestaoSLADTO.RegraSLARequest bulkReq = buildRegraRequest(g.Id, m.Id, c.Id);
+        bulkReq.escopoRegra = RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA;
+        bulkReq.areaAtendimento = areaEntries[0].getValue();
+        List<GestaoSLADTO.RegraSLARequest> bulkReqs = new List<GestaoSLADTO.RegraSLARequest>{ bulkReq };
+        List<GestaoSLADTO.RegraSLAResumo> bulkCreated = GestaoSLAController.createRegrasSLABulk(bulkReqs);
+        Assert.areEqual(1, bulkCreated.size());
+
+        GestaoSLADTO.RegraSLAResumo activated = GestaoSLAController.activateRegraSLA(bulkCreated[0].id);
+        Assert.areEqual(true, activated.ativo);
+
+        List<String> areasInternas = GestaoSLAController.getAreasInternas();
+        Assert.areEqual(true, areasInternas != null);
+
+        GestaoSLAController.deleteRegraSLA(bulkCreated[0].id);
+        Assert.areEqual(0, [SELECT COUNT() FROM RegrasSLACategorizacao__c WHERE Id = :bulkCreated[0].id]);
+
+        GestaoSLAController.deleteCategoria(c.Id);
+        Assert.areEqual(0, [SELECT COUNT() FROM Categorizacao__c WHERE Id = :c.Id]);
+
+        GestaoSLAController.deleteMarcoSLA(m.Id);
+        Assert.areEqual(0, [SELECT COUNT() FROM MarcoSLA__c WHERE Id = :m.Id]);
+
+        GestaoSLAController.deleteGestaoSLA(g.Id);
+        Assert.areEqual(0, [SELECT COUNT() FROM GestaoSLA__c WHERE Id = :g.Id]);
+    }
+
+    @IsTest
+    static void testControllerDeleteMarcoSLASemPermissao() {
+        GestaoSLA__c g = createGestao();
+        MarcoSLA__c m = createMarco(g.Id);
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, false);
+
+        Boolean deleteFailed = false;
+        try {
+            GestaoSLAController.deleteMarcoSLA(m.Id);
+        } catch (AuraHandledException ex) {
+            deleteFailed = true;
+        }
+        Assert.isTrue(deleteFailed);
+        Assert.areEqual(1, [SELECT COUNT() FROM MarcoSLA__c WHERE Id = :m.Id]);
+    }
+
+    @IsTest
+    static void testControllerDeleteRegrasSLABulk() {
+        GestaoSLA__c g = createGestao();
+        Categorizacao__c c = createCategoria(g.Id);
+        MarcoSLA__c m = createMarco(g.Id);
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_REGRAS, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
+
+        GestaoSLADTO.RegraSLAResumo created = GestaoSLAController.createRegraSLA(buildRegraRequest(g.Id, m.Id, c.Id));
+        GestaoSLAController.deleteRegrasSLABulk(new List<Id>{ created.id });
+        Assert.areEqual(0, [SELECT COUNT() FROM RegrasSLACategorizacao__c WHERE Id = :created.id]);
+    }
+
+    @IsTest
+    static void testControllerCatchBranchesConvertFunctionalException() {
+        GestaoSLAHelper.clearPermissionOverrides();
+        GestaoSLAHelper.setAllowedUnidadesOverride(null);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
+        GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, false);
+
+        Boolean getInactiveGestoesFailed = false;
+        try {
+            GestaoSLAController.getInactiveGestoes();
+        } catch (AuraHandledException ex) {
+            getInactiveGestoesFailed = true;
+        }
+        Assert.isTrue(getInactiveGestoesFailed);
+
+        Boolean getInactiveCategoriasFailed = false;
+        try {
+            GestaoSLAController.getInactiveCategorias(null);
+        } catch (AuraHandledException ex) {
+            getInactiveCategoriasFailed = true;
+        }
+        Assert.isTrue(getInactiveCategoriasFailed);
+
+        Boolean createGestaoFailed = false;
+        try {
+            GestaoSLAController.createGestaoSLA(new GestaoSLADTO.CreateGestaoRequest());
+        } catch (AuraHandledException ex) {
+            createGestaoFailed = true;
+        }
+        Assert.isTrue(createGestaoFailed);
+
+        Boolean reactivateGestaoFailed = false;
+        try {
+            GestaoSLAController.reactivateGestaoSLA(null);
+        } catch (AuraHandledException ex) {
+            reactivateGestaoFailed = true;
+        }
+        Assert.isTrue(reactivateGestaoFailed);
+
+        Boolean reactivateCategoriaFailed = false;
+        try {
+            GestaoSLAController.reactivateCategoria(null);
+        } catch (AuraHandledException ex) {
+            reactivateCategoriaFailed = true;
+        }
+        Assert.isTrue(reactivateCategoriaFailed);
+
+        Boolean updateMarcoFailed = false;
+        try {
+            GestaoSLAController.updateMarcoSLA(new GestaoSLADTO.MarcoSLARequest());
+        } catch (AuraHandledException ex) {
+            updateMarcoFailed = true;
+        }
+        Assert.isTrue(updateMarcoFailed);
+
+        Boolean reactivateMarcoFailed = false;
+        try {
+            GestaoSLAController.reactivateMarcoSLA(null);
+        } catch (AuraHandledException ex) {
+            reactivateMarcoFailed = true;
+        }
+        Assert.isTrue(reactivateMarcoFailed);
+    }
 }

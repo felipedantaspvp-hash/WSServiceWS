@@ -961,6 +961,246 @@
         <value>Triage</value>
     </labels>
     <labels>
+        <fullName>GestaoSLA_MilestoneTabTitle</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Milestones tab title</shortDescription>
+        <value>Milestones</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneNewButton</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New milestone button</shortDescription>
+        <value>New Milestone</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneReactivateButton</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reactivate milestone action</shortDescription>
+        <value>Reactivate</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneEmptyState</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Empty state for milestone maintenance list</shortDescription>
+        <value>No milestones found for this SLA Management.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneNameFieldLabel</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Milestone name field label</shortDescription>
+        <value>Milestone Name</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneTypeNameFieldLabel</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Milestone Type Name field label</shortDescription>
+        <value>Milestone Type Name</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneTypeNameHint</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Hint explaining Milestone Type Name must match the Entitlement Process</shortDescription>
+        <value>Must match exactly the Milestone Type name configured in the Entitlement Process.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneOrderFieldLabel</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Milestone order field label</shortDescription>
+        <value>Order</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneTimeSourceFieldLabel</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Milestone time source field label</shortDescription>
+        <value>Time Source</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneFallbackTimeFieldLabel</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Milestone fallback time field label</shortDescription>
+        <value>Fallback Time (min)</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneRecurrentFieldLabel</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Milestone recurrent toggle field label</shortDescription>
+        <value>Recurrent?</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneRecurrenceTypeFieldLabel</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Milestone recurrence type field label</shortDescription>
+        <value>Recurrence Type</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneUsesCategorizationFieldLabel</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Milestone uses categorization field label</shortDescription>
+        <value>Uses Categorization</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneUsesInternalAreaFieldLabel</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Milestone uses internal area field label</shortDescription>
+        <value>Uses Internal Area</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneUsesOriginFieldLabel</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Milestone uses origin field label</shortDescription>
+        <value>Uses Origin</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneModalNewTitle</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New milestone modal title</shortDescription>
+        <value>New Milestone</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneModalEditTitle</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Edit milestone modal title</shortDescription>
+        <value>Edit Milestone</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneConfirmDeactivate</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Confirmation prompt before deactivating a milestone</shortDescription>
+        <value>Deactivate this milestone?</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ToastMilestoneCreated</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Toast shown after creating a milestone</shortDescription>
+        <value>Milestone created successfully.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ToastMilestoneUpdated</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Toast shown after updating a milestone</shortDescription>
+        <value>Milestone updated successfully.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ToastMilestoneDeactivated</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Toast shown after deactivating a milestone</shortDescription>
+        <value>Milestone deactivated successfully.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ToastMilestoneReactivated</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Toast shown after reactivating a milestone</shortDescription>
+        <value>Milestone reactivated successfully.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorSaveMilestone</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Fallback error message when saving a milestone fails</shortDescription>
+        <value>Could not save the milestone.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorDeactivateMilestone</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Fallback error message when deactivating a milestone fails</shortDescription>
+        <value>Could not deactivate the milestone.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorReactivateMilestone</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Fallback error message when reactivating a milestone fails</shortDescription>
+        <value>Could not reactivate the milestone.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorLoadMilestones</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Fallback error message when loading milestones fails</shortDescription>
+        <value>Could not load milestones.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_MilestoneDelete</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Delete milestone action</shortDescription>
+        <value>Delete</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ConfirmDeleteMilestone</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Confirm delete milestone dialog message</shortDescription>
+        <value>This will permanently delete this milestone. This action cannot be undone. Continue?</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ErrorDeleteMilestone</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Fallback error message when deleting a milestone fails</shortDescription>
+        <value>Could not delete the milestone.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_ToastMilestoneDeleted</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Toast shown after deleting a milestone</shortDescription>
+        <value>Milestone deleted successfully.</value>
+    </labels>
+    <labels>
         <fullName>GestaoSLA_NewButton</fullName>
         <categories>GestaoSLA</categories>
         <language>en_US</language>
@@ -3401,5 +3641,146 @@
         <protected>false</protected>
         <shortDescription>Category by categorization toggle label</shortDescription>
         <value>By categorization?</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryDistributeToQueueHint</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Hint below the distribute-to-queue toggle</shortDescription>
+        <value>When enabled, Cases created with this categorization can be routed automatically to a queue, instead of the agent choosing manually.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryQueueHint</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Hint below the queue field</shortDescription>
+        <value>This queue receives every Case of this categorization, unless the field condition below says otherwise.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryByCustomFieldOnHint</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Hint shown when &quot;by custom field&quot; is on</shortDescription>
+        <value>Only routes to the queue above when the chosen field matches the value below; otherwise the fallback queue is used (optional).</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryByCustomFieldOffHint</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Hint shown when &quot;by custom field&quot; is off</shortDescription>
+        <value>Every Case of this categorization always goes to the queue above, with no extra condition.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryDistributionFieldHint</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Hint below the distribution field selector</shortDescription>
+        <value>Case field that will be compared at the moment the Case is created.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryDistributionValueHint</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Hint below the distribution value selector</shortDescription>
+        <value>If the field above has this value, the Case goes to the queue configured above.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryQueueFallback</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Fallback queue field label</shortDescription>
+        <value>Queue if value does not match</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryQueueFallbackPlaceholder</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Fallback queue field placeholder</shortDescription>
+        <value>No fallback queue</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryQueueFallbackHint</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Hint below the fallback queue selector</shortDescription>
+        <value>Used when the field value above does not match, instead of leaving the Case without an automatic queue. Leave blank to not use one.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryAllowAssume</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Allow assume toggle label</shortDescription>
+        <value>Allow agent to assume the case directly?</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryAllowAssumeOnHint</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Hint shown when allow-assume is on</shortDescription>
+        <value>The agent will still see &quot;Assume case&quot; as an option when creating a Case of this categorization, even with a queue configured.</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryAllowAssumeOffHint</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Hint shown when allow-assume is off</shortDescription>
+        <value>The agent won&apos;t be able to assume the case directly; it will always be routed to the configured queue (closing the case is still always allowed).</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryStageOnDistribute</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Stage-on-distribute field label</shortDescription>
+        <value>Stage when distributed</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryStageOnDistributePlaceholder</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Stage-on-distribute field placeholder</shortDescription>
+        <value>Select a stage</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_CategoryStageOnDistributeHint</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Hint below the stage-on-distribute field</shortDescription>
+        <value>Stage the Case enters when sent to the queue above (required whenever this categorization distributes to a queue).</value>
+    </labels>
+    <labels>
+        <fullName>Categorizacao</fullName>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Categorização</shortDescription>
+        <value>Categorização</value>
+    </labels>
+    <labels>
+        <fullName>Detalhes</fullName>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Detalhes</shortDescription>
+        <value>Detalhes</value>
+    </labels>
+    <labels>
+        <fullName>InformacoesCliente</fullName>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Informações sobre o cliente</shortDescription>
+        <value>Informações sobre o cliente</value>
     </labels>
 </CustomLabels>

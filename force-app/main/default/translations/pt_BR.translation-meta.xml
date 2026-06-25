@@ -701,6 +701,14 @@
         <name>AccountCaseSchedule_WeekdaysRequired</name>
     </customLabels>
     <customLabels>
+        <label><!-- Categorização --></label>
+        <name>Categorizacao</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Detalhes --></label>
+        <name>Detalhes</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Draft Contract Note --></label>
         <name>Draft_Contract_Note</name>
     </customLabels>
@@ -761,6 +769,18 @@
         <name>GestaoSLA_CategoryActiveColumn</name>
     </customLabels>
     <customLabels>
+        <label>Permitir que o atendente assuma o caso diretamente?</label>
+        <name>GestaoSLA_CategoryAllowAssume</name>
+    </customLabels>
+    <customLabels>
+        <label>O atendente não poderá assumir o caso diretamente; ele sempre será direcionado para a fila configurada (encerrar o caso continua sempre permitido).</label>
+        <name>GestaoSLA_CategoryAllowAssumeOffHint</name>
+    </customLabels>
+    <customLabels>
+        <label>O atendente ainda verá &quot;Assumir o caso&quot; como opção ao criar um Case dessa categorização, mesmo com fila configurada.</label>
+        <name>GestaoSLA_CategoryAllowAssumeOnHint</name>
+    </customLabels>
+    <customLabels>
         <label>Unidade de Negócio</label>
         <name>GestaoSLA_CategoryBusinessUnit</name>
     </customLabels>
@@ -771,6 +791,14 @@
     <customLabels>
         <label>Por campo personalizado?</label>
         <name>GestaoSLA_CategoryByCustomField</name>
+    </customLabels>
+    <customLabels>
+        <label>Todo Case dessa categorização sempre vai para a fila acima, sem condição extra.</label>
+        <name>GestaoSLA_CategoryByCustomFieldOffHint</name>
+    </customLabels>
+    <customLabels>
+        <label>Só envia para a fila acima quando o campo escolhido tiver o valor abaixo; nos demais casos, usa a fila de fallback (opcional).</label>
+        <name>GestaoSLA_CategoryByCustomFieldOnHint</name>
     </customLabels>
     <customLabels>
         <label>Tipo de Caso</label>
@@ -793,8 +821,16 @@
         <name>GestaoSLA_CategoryDistributeToQueue</name>
     </customLabels>
     <customLabels>
+        <label>Quando ativado, Cases criados com esta categorização podem ser direcionados automaticamente para uma fila, em vez do atendente escolher manualmente.</label>
+        <name>GestaoSLA_CategoryDistributeToQueueHint</name>
+    </customLabels>
+    <customLabels>
         <label>Qual campo?</label>
         <name>GestaoSLA_CategoryDistributionField</name>
+    </customLabels>
+    <customLabels>
+        <label>Campo do Case que será comparado no momento da criação do Case.</label>
+        <name>GestaoSLA_CategoryDistributionFieldHint</name>
     </customLabels>
     <customLabels>
         <label>Selecione um campo do Case</label>
@@ -803,6 +839,10 @@
     <customLabels>
         <label>Valor</label>
         <name>GestaoSLA_CategoryDistributionValue</name>
+    </customLabels>
+    <customLabels>
+        <label>Se o campo acima tiver este valor, o Case vai para a fila configurada acima.</label>
+        <name>GestaoSLA_CategoryDistributionValueHint</name>
     </customLabels>
     <customLabels>
         <label>Selecione um valor</label>
@@ -905,6 +945,22 @@
         <name>GestaoSLA_CategoryQueue</name>
     </customLabels>
     <customLabels>
+        <label>Fila se o valor não bater</label>
+        <name>GestaoSLA_CategoryQueueFallback</name>
+    </customLabels>
+    <customLabels>
+        <label>Usada quando o valor do campo acima não bate, em vez de deixar o Case sem fila automática. Deixe em branco para não usar.</label>
+        <name>GestaoSLA_CategoryQueueFallbackHint</name>
+    </customLabels>
+    <customLabels>
+        <label>Sem fila de fallback</label>
+        <name>GestaoSLA_CategoryQueueFallbackPlaceholder</name>
+    </customLabels>
+    <customLabels>
+        <label>Esta fila recebe todo Case dessa categorização, a menos que a condição de campo abaixo diga o contrário.</label>
+        <name>GestaoSLA_CategoryQueueHint</name>
+    </customLabels>
+    <customLabels>
         <label>Selecione uma fila</label>
         <name>GestaoSLA_CategoryQueuePlaceholder</name>
     </customLabels>
@@ -943,6 +999,18 @@
     <customLabels>
         <label>Regras SLA</label>
         <name>GestaoSLA_CategorySlaRules</name>
+    </customLabels>
+    <customLabels>
+        <label>Etapa ao distribuir</label>
+        <name>GestaoSLA_CategoryStageOnDistribute</name>
+    </customLabels>
+    <customLabels>
+        <label>Etapa em que o Case entra ao ser enviado para a fila acima (obrigatória sempre que esta categorização distribui para fila).</label>
+        <name>GestaoSLA_CategoryStageOnDistributeHint</name>
+    </customLabels>
+    <customLabels>
+        <label>Selecione uma etapa</label>
+        <name>GestaoSLA_CategoryStageOnDistributePlaceholder</name>
     </customLabels>
     <customLabels>
         <label>Status</label>
@@ -1183,6 +1251,126 @@
     <customLabels>
         <label>Triagem</label>
         <name>GestaoSLA_MilestoneTriageLabel</name>
+    </customLabels>
+    <customLabels>
+        <label>Marcos</label>
+        <name>GestaoSLA_MilestoneTabTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Novo Marco</label>
+        <name>GestaoSLA_MilestoneNewButton</name>
+    </customLabels>
+    <customLabels>
+        <label>Reativar</label>
+        <name>GestaoSLA_MilestoneReactivateButton</name>
+    </customLabels>
+    <customLabels>
+        <label>Nenhum marco encontrado para esta Gestão de SLA.</label>
+        <name>GestaoSLA_MilestoneEmptyState</name>
+    </customLabels>
+    <customLabels>
+        <label>Nome do Marco</label>
+        <name>GestaoSLA_MilestoneNameFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label>Nome do Milestone Type</label>
+        <name>GestaoSLA_MilestoneTypeNameFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label>Deve corresponder exatamente ao nome do Milestone Type configurado no Entitlement Process.</label>
+        <name>GestaoSLA_MilestoneTypeNameHint</name>
+    </customLabels>
+    <customLabels>
+        <label>Ordem</label>
+        <name>GestaoSLA_MilestoneOrderFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label>Fonte do Tempo</label>
+        <name>GestaoSLA_MilestoneTimeSourceFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label>Tempo de Fallback (min)</label>
+        <name>GestaoSLA_MilestoneFallbackTimeFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label>Recorrente?</label>
+        <name>GestaoSLA_MilestoneRecurrentFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label>Tipo de Recorrência</label>
+        <name>GestaoSLA_MilestoneRecurrenceTypeFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label>Usa Categorização</label>
+        <name>GestaoSLA_MilestoneUsesCategorizationFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label>Usa Área Interna</label>
+        <name>GestaoSLA_MilestoneUsesInternalAreaFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label>Usa Origem</label>
+        <name>GestaoSLA_MilestoneUsesOriginFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label>Novo Marco</label>
+        <name>GestaoSLA_MilestoneModalNewTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Editar Marco</label>
+        <name>GestaoSLA_MilestoneModalEditTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Desativar este marco?</label>
+        <name>GestaoSLA_MilestoneConfirmDeactivate</name>
+    </customLabels>
+    <customLabels>
+        <label>Marco criado com sucesso.</label>
+        <name>GestaoSLA_ToastMilestoneCreated</name>
+    </customLabels>
+    <customLabels>
+        <label>Marco atualizado com sucesso.</label>
+        <name>GestaoSLA_ToastMilestoneUpdated</name>
+    </customLabels>
+    <customLabels>
+        <label>Marco desativado com sucesso.</label>
+        <name>GestaoSLA_ToastMilestoneDeactivated</name>
+    </customLabels>
+    <customLabels>
+        <label>Marco reativado com sucesso.</label>
+        <name>GestaoSLA_ToastMilestoneReactivated</name>
+    </customLabels>
+    <customLabels>
+        <label>Não foi possível salvar o marco.</label>
+        <name>GestaoSLA_ErrorSaveMilestone</name>
+    </customLabels>
+    <customLabels>
+        <label>Não foi possível desativar o marco.</label>
+        <name>GestaoSLA_ErrorDeactivateMilestone</name>
+    </customLabels>
+    <customLabels>
+        <label>Não foi possível reativar o marco.</label>
+        <name>GestaoSLA_ErrorReactivateMilestone</name>
+    </customLabels>
+    <customLabels>
+        <label>Não foi possível carregar os marcos.</label>
+        <name>GestaoSLA_ErrorLoadMilestones</name>
+    </customLabels>
+    <customLabels>
+        <label>Excluir</label>
+        <name>GestaoSLA_MilestoneDelete</name>
+    </customLabels>
+    <customLabels>
+        <label>Isso excluirá permanentemente este marco. Esta ação não pode ser desfeita. Continuar?</label>
+        <name>GestaoSLA_ConfirmDeleteMilestone</name>
+    </customLabels>
+    <customLabels>
+        <label>Não foi possível excluir o marco.</label>
+        <name>GestaoSLA_ErrorDeleteMilestone</name>
+    </customLabels>
+    <customLabels>
+        <label>Marco excluído com sucesso.</label>
+        <name>GestaoSLA_ToastMilestoneDeleted</name>
     </customLabels>
     <customLabels>
         <label>Nova Gestão de SLA</label>
@@ -1475,6 +1663,10 @@
     <customLabels>
         <label>Ver relatórios</label>
         <name>GestaoSLA_ViewReports</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Informações sobre o cliente --></label>
+        <name>InformacoesCliente</name>
     </customLabels>
     <customLabels>
         <label><!-- activate --></label>
@@ -32544,6 +32736,10 @@
             <label><!-- Activities --></label>
             <name>Activities</name>
         </sections>
+        <sections>
+            <label><!-- Contas --></label>
+            <name>Contas</name>
+        </sections>
     </reportTypes>
     <reportTypes>
         <description><!-- Agreements with Quotes --></description>
@@ -33760,6 +33956,10 @@
         <sections>
             <label><!-- Accounts --></label>
             <name>Accounts</name>
+        </sections>
+        <sections>
+            <label><!-- Contas --></label>
+            <name>Contas</name>
         </sections>
         <sections>
             <label><!-- Cotações --></label>

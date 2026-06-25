@@ -90,6 +90,10 @@ public inherited sharing class GestaoSLADTO {
         @AuraEnabled public String valorDistribuicao;
         @AuraEnabled public String labelCampoDistribuicao;
         @AuraEnabled public String labelValorDistribuicao;
+        @AuraEnabled public String filaDeveloperNameFallback;
+        @AuraEnabled public String nomeFilaFallbackDistribuicao;
+        @AuraEnabled public Boolean permiteAssumirComFilaParametrizada;
+        @AuraEnabled public String etapaAtendimentoDistribuicao;
     }
 
     public class CategoriaRequest {
@@ -107,10 +111,14 @@ public inherited sharing class GestaoSLADTO {
         @AuraEnabled public String filaDeveloperName { get; set; }
         @AuraEnabled public String campoDistribuicao { get; set; }
         @AuraEnabled public String valorDistribuicao { get; set; }
+        @AuraEnabled public String filaDeveloperNameFallback { get; set; }
+        @AuraEnabled public Boolean permiteAssumirComFilaParametrizada { get; set; }
+        @AuraEnabled public String etapaAtendimentoDistribuicao { get; set; }
     }
 
     public class MarcoResumo {
         @AuraEnabled public Id id;
+        @AuraEnabled public Id gestaoSLAId;
         @AuraEnabled public String name;
         @AuraEnabled public String nomeMarco;
         @AuraEnabled public String milestoneTypeName;
@@ -121,7 +129,24 @@ public inherited sharing class GestaoSLADTO {
         @AuraEnabled public Boolean usaCategorizacao;
         @AuraEnabled public Boolean usaAreaInterna;
         @AuraEnabled public Boolean usaOrigem;
+        @AuraEnabled public Decimal tempoFallbackMinutos;
         @AuraEnabled public Boolean ativo;
+    }
+
+    public class MarcoSLARequest {
+        @AuraEnabled public Id id { get; set; }
+        @AuraEnabled public Id gestaoSLAId { get; set; }
+        @AuraEnabled public String nomeMarco { get; set; }
+        @AuraEnabled public String milestoneTypeName { get; set; }
+        @AuraEnabled public String fonteTempo { get; set; }
+        @AuraEnabled public Decimal ordem { get; set; }
+        @AuraEnabled public Boolean recorrente { get; set; }
+        @AuraEnabled public String tipoRecorrencia { get; set; }
+        @AuraEnabled public Boolean usaCategorizacao { get; set; }
+        @AuraEnabled public Boolean usaAreaInterna { get; set; }
+        @AuraEnabled public Boolean usaOrigem { get; set; }
+        @AuraEnabled public Decimal tempoFallbackMinutos { get; set; }
+        @AuraEnabled public Boolean ativo { get; set; }
     }
 
     public class RegraSLAResumo {
