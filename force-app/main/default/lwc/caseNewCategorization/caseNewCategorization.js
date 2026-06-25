@@ -119,7 +119,7 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
               prepareFailed: 'Please complete the categorization above before saving.',
               resolveFailed: 'Failed to resolve Case defaults.',
               save: 'Save',
-              continueButton: 'Continue',
+              continueButton: 'Next',
               successTitle: 'Success',
               successMsg: 'Case created successfully.',
               createFailed: 'Failed to create Case.'
@@ -149,7 +149,7 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
               prepareFailed: 'Complete a categorização acima antes de salvar.',
               resolveFailed: 'Falha ao resolver os valores padrão do Caso.',
               save: 'Salvar',
-              continueButton: 'Seguir',
+              continueButton: 'Avançar',
               successTitle: 'Sucesso',
               successMsg: 'Caso criado com sucesso.',
               createFailed: 'Falha ao criar o Caso.'

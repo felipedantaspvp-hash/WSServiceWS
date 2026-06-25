@@ -10,30 +10,25 @@
             </template>
 
             <template if:true={showRecordTypeGate}>
-                <div class="slds-section slds-is-open">
-                    <h3 class="slds-section__title slds-theme_shade">
-                        <span class="slds-truncate slds-p-horizontal_small slds-p-vertical_x-small" title={labels.ctxTitle}>{labels.ctxTitle}</span>
-                    </h3>
-                    <div class="slds-section__content slds-p-around_small">
-                        <div class="destination-grid">
-                            <template for:each={recordTypeCards} for:item="card">
-                                <button
-                                    key={card.value}
-                                    class={card.cssClass}
-                                    data-value={card.value}
-                                    onclick={handleRecordTypeCardSelect}
-                                    type="button"
-                                >
-                                    <div class="destination-radio">{card.radioGlyph}</div>
-                                    <div class="destination-content">
-                                        <div class="destination-label">{card.label}</div>
-                                        <div class="destination-description">{card.description}</div>
-                                    </div>
-                                </button>
-                            </template>
-                        </div>
-                    </div>
-                </div>
+                <hr class="slds-m-vertical_small" />
+                <ul class="record-type-list">
+                    <template for:each={recordTypeCards} for:item="card">
+                        <li key={card.value}>
+                            <button
+                                class="record-type-row"
+                                data-value={card.value}
+                                onclick={handleRecordTypeCardSelect}
+                                type="button"
+                            >
+                                <span class="record-type-radio">{card.radioGlyph}</span>
+                                <span class="record-type-content">
+                                    <span class="record-type-label">{card.label}</span>
+                                    <span class="record-type-description">{card.description}</span>
+                                </span>
+                            </button>
+                        </li>
+                    </template>
+                </ul>
                 <div class="actions-footer">
                     <div class="actions-row slds-grid slds-gutters_small slds-grid_align-center">
                         <lightning-button variant="neutral" label={labels.cancel} onclick={cancel}></lightning-button>
