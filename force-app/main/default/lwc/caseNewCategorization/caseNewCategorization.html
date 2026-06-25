@@ -17,8 +17,24 @@
                     <div class="slds-section__content slds-p-around_small">
                         <div class="slds-grid slds-wrap slds-gutters">
                             <template if:true={showRecordTypeSelector}>
-                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                                    <lightning-combobox name="recordTypeId" label={labels.unidadeRecordType} value={model.recordTypeId} options={recordTypeOptions} onchange={handleRecordTypeChange}></lightning-combobox>
+                                <div class="slds-col slds-size_1-of-1">
+                                    <div class="destination-grid">
+                                        <template for:each={recordTypeCards} for:item="card">
+                                            <button
+                                                key={card.value}
+                                                class={card.cssClass}
+                                                data-value={card.value}
+                                                onclick={handleRecordTypeCardSelect}
+                                                type="button"
+                                            >
+                                                <div class="destination-radio">{card.radioGlyph}</div>
+                                                <div class="destination-content">
+                                                    <div class="destination-label">{card.label}</div>
+                                                    <div class="destination-description">{card.description}</div>
+                                                </div>
+                                            </button>
+                                        </template>
+                                    </div>
                                 </div>
                             </template>
                             <template if:false={showRecordTypeSelector}>

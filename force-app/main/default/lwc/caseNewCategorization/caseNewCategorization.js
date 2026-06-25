@@ -294,6 +294,18 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
 
     handleRecordTypeChange(event) {
         const selected = this.recordTypeOptions.find((o) => o.value === event.detail.value);
+        this.applyRecordTypeSelection(selected);
+    }
+
+    handleRecordTypeCardSelect(event) {
+        const value = event.currentTarget?.dataset?.value;
+        if (!value || value === this.model.recordTypeId) return;
+        const selected = this.recordTypeOptions.find((o) => o.value === value);
+        this.applyRecordTypeSelection(selected);
+    }
+
+    applyRecordTypeSelection(selected) {
+        if (!selected) return;
         this.setRecordType(selected);
         this.model.tipoCaso = null;
         this.model.categoria = null;
@@ -303,6 +315,22 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
         this.destinationManuallySet = false;
         this.resetCustomField();
         this.loadTreeOptions();
+    }
+
+    get recordTypeCards() {
+        return this.recordTypeOptions.map((option) => {
+            const checked = this.model.recordTypeId === option.value;
+            let cssClass = 'destination-card';
+            if (checked) cssClass += ' destination-card_selected';
+            return {
+                value: option.value,
+                label: option.unidade || option.label,
+                description: option.unidade ? option.label : null,
+                checked,
+                cssClass,
+                radioGlyph: checked ? '◉' : '◯'
+            };
+        });
     }
 
     resetCustomField() {
