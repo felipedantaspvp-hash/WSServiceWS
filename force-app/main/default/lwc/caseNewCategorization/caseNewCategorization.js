@@ -48,7 +48,7 @@ function buildSalvadorPatternSections() {
         {
             title: additionalInfoSectionLabel,
             rows: [
-                [{ field: 'Origin', required: true, value: 'Manual' }, { field: 'Priority' }],
+                [{ field: 'Origin', required: true, value: 'Manual' }, { field: 'Priority', value: (ctx) => ctx.prioridade }],
                 [{ field: 'Modalidade__c', required: true, visibleWhen: NAO_ELOGIO }, { field: 'Container__c', required: true, visibleWhen: NAO_ELOGIO }],
                 [{ field: 'AreasParticipantes__c', required: true }, null]
             ]
@@ -114,6 +114,7 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
     @track permiteAssumir = true;
     @track creating = false;
     @track detailModalidade = null;
+    @track detailPrioritySuggested = null;
     @track recordTypeConfirmed = false;
 
     language = (LANG || '').toLowerCase();
@@ -450,6 +451,7 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
             this.resetCustomField();
             this.hasParametrizedQueue = false;
             this.permiteAssumir = true;
+            this.detailPrioritySuggested = null;
             return;
         }
 
@@ -459,6 +461,8 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
         } catch (e) {
             return;
         }
+
+        this.detailPrioritySuggested = resolved?.prioridadeSugerida || null;
 
         if (resolved?.usaCampoCustomizado) {
             this.customFieldApiName = resolved.campoDistribuicao;
@@ -589,17 +593,19 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
         return {
             tipoCaso: this.model.tipoCaso,
             categoria: this.model.categoria,
-            modalidade: this.detailModalidade
+            modalidade: this.detailModalidade,
+            prioridade: this.detailPrioritySuggested
         };
     }
 
     resolveDetailField(fieldConfig, ctx) {
         if (!fieldConfig) return null;
         if (fieldConfig.visibleWhen && !fieldConfig.visibleWhen(ctx)) return null;
+        const resolvedValue = typeof fieldConfig.value === 'function' ? fieldConfig.value(ctx) : fieldConfig.value;
         return {
             field: fieldConfig.field,
             required: fieldConfig.required === true,
-            value: fieldConfig.value ?? null,
+            value: resolvedValue ?? null,
             fullWidth: fieldConfig.fullWidth === true
         };
     }

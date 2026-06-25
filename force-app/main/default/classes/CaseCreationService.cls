@@ -93,14 +93,19 @@ public inherited sharing class CaseCreationService {
         CaseCreationDTO.ResolveSelectionResponseDTO out = new CaseCreationDTO.ResolveSelectionResponseDTO();
         if (matched == null) return out;
 
+        out.prioridadeSugerida = matched.Prioridade__c;
+
         Boolean distributeToQueue = CaseCreationHelper.isTrueFlag(matched.DistribuirParaFila__c);
         Boolean queueIsDefined = !String.isBlank(matched.FilaDeveloperName__c);
         Boolean usaCampoCustomizado = CaseCreationHelper.isTrueFlag(matched.PorCampoCustomizado__c)
             && !String.isBlank(matched.CampoDistribuicao__c) && !String.isBlank(matched.ValorDistribuicao__c);
 
-        Categorizacao__c chosen;
+        out.permiteAssumirComFilaParametrizada = String.isBlank(matched.PermiteAssumirComFilaParametrizada__c)
+            || CaseCreationHelper.isTrueFlag(matched.PermiteAssumirComFilaParametrizada__c);
+
+        String queueDevNameToUse;
         if (distributeToQueue && queueIsDefined && !usaCampoCustomizado) {
-            chosen = matched;
+            queueDevNameToUse = matched.FilaDeveloperName__c;
         }
 
         if (usaCampoCustomizado) {
@@ -126,14 +131,20 @@ public inherited sharing class CaseCreationService {
             Boolean valorAtendido = distributeToQueue && queueIsDefined
                 && CaseCreationHelper.sameNormalizedValue(request.customFieldValue, matched.ValorDistribuicao__c);
             out.valorDistribuicaoAtendido = valorAtendido;
-            if (valorAtendido) chosen = matched;
+            if (valorAtendido) {
+                queueDevNameToUse = matched.FilaDeveloperName__c;
+            } else if (distributeToQueue && !String.isBlank(matched.FilaDeveloperNameFallback__c)) {
+                // Valor nao bateu o criterio, mas ha fila de fallback configurada: usa ela em vez
+                // de deixar o usuario escolher manualmente (mesmo efeito de uma fila resolvida).
+                queueDevNameToUse = matched.FilaDeveloperNameFallback__c;
+            }
         }
 
-        out.hasParametrizedQueue = chosen != null;
-        out.queueReadOnly = chosen != null;
-        if (chosen != null) {
-            Map<String, Group> gByDev = CaseCreationSelector.getQueuesByDeveloperName(new Set<String>{ chosen.FilaDeveloperName__c });
-            Group g = gByDev.get(chosen.FilaDeveloperName__c);
+        out.hasParametrizedQueue = !String.isBlank(queueDevNameToUse);
+        out.queueReadOnly = out.hasParametrizedQueue;
+        if (out.hasParametrizedQueue) {
+            Map<String, Group> gByDev = CaseCreationSelector.getQueuesByDeveloperName(new Set<String>{ queueDevNameToUse });
+            Group g = gByDev.get(queueDevNameToUse);
             if (g != null) {
                 CaseCreationDTO.QueueOptionDTO q = new CaseCreationDTO.QueueOptionDTO();
                 q.id = g.Id; q.name = g.Name; q.developerName = g.DeveloperName; q.readonlyReason = 'Fila definida pela parametrização da categorização.';
@@ -196,6 +207,10 @@ public inherited sharing class CaseCreationService {
         String action = request.destination.action;
         Id currentUserId = UserInfo.getUserId();
 
+        if (action == 'ASSUMIR' && resolved.hasParametrizedQueue == true && resolved.permiteAssumirComFilaParametrizada == false) {
+            throwFunctional('ASSUMIR_NAO_PERMITIDO', 'Esta Categorização exige distribuição para fila e não permite assumir o caso diretamente.');
+        }
+
         if (action == 'ASSUMIR') {
             values.put('OwnerId', String.valueOf(currentUserId));
             values.put('AcaoPosCategorizacao__c', 'Assumir');
@@ -229,7 +244,8 @@ public inherited sharing class CaseCreationService {
             values.put('FilaDestinoDeveloperName__c', queue.developerName);
             values.put('FilaDestinoId__c', String.valueOf(queue.id));
             values.put('Status', 'Aberto');
-            CaseCreationHelper.putIfNotBlank(values, 'EtapaAtendimento__c', 'Em Triagem');
+            String etapaDistribuicao = matchedCategorization != null ? matchedCategorization.EtapaAtendimentoDistribuicao__c : null;
+            CaseCreationHelper.putIfNotBlank(values, 'EtapaAtendimento__c', String.isBlank(etapaDistribuicao) ? 'Em Triagem' : etapaDistribuicao);
         } else {
             throwFunctional('DESTINATION_REQUIRED', 'Selecione o destino do caso.');
         }
@@ -249,15 +265,19 @@ public inherited sharing class CaseCreationService {
     }
 
     /**
-     * @description Aplica a distribuição por campo customizado ("By Custom Field?") no momento real
-     * da criação do Case — não no wizard de categorização (que não tem acesso ao valor final dos campos
-     * do Case, preenchidos só na tela padrão). Roda independente da Ação de Destino escolhida no wizard:
-     * se a Categorização vinculada ao Case usa critério de campo e o valor atual do campo indicado
-     * (CampoDistribuicao__c) bate com o valor configurado (ValorDistribuicao__c), o Owner é sobrescrito
-     * para a fila parametrizada (FilaId__c, já resolvido e cacheado na Categorização).
+     * @description Aplica/reforça a distribuição para fila parametrizada na Categorização no momento
+     * real da criação do Case — não só no wizard (que não tem acesso ao valor final dos campos do Case
+     * nem é o único caminho de criação: cargas em massa e integrações também populam Categorizacao__c
+     * sem passar por nenhuma tela). Roda independente da Ação de Destino escolhida no wizard, com 2
+     * únicas saídas reconhecidas como bypass explícito: AcaoPosCategorizacao__c = 'Encerrar' (Case já
+     * nasce fechado, não há por que enfilerar) e 'Assumir' quando a própria Categorização permite isso
+     * (PermiteAssumirComFilaParametrizada__c = 'Sim'). Em qualquer outro caso — incluindo cargas/API que
+     * nunca preenchem AcaoPosCategorizacao__c — a fila parametrizada (fixa, por campo customizado
+     * batendo o critério, ou fallback quando não bate) é sempre aplicada, fechando a "fuga" de deixar
+     * o Owner como veio da carga.
      * @param newRows Cases sendo inseridos (contexto before insert — bulk safe, sem DML extra).
      */
-    public static void applyCampoCustomizadoDistribution(List<Case> newRows) {
+    public static void applyCategorizacaoDistribution(List<Case> newRows) {
         Set<Id> categorizacaoIds = new Set<Id>();
         for (Case c : newRows) {
             if (c.Categorizacao__c != null) categorizacaoIds.add(c.Categorizacao__c);
@@ -266,7 +286,8 @@ public inherited sharing class CaseCreationService {
 
         Map<Id, Categorizacao__c> categorizacoesById = new Map<Id, Categorizacao__c>([
             SELECT Id, DistribuirParaFila__c, PorCampoCustomizado__c, CampoDistribuicao__c, ValorDistribuicao__c,
-                   FilaDeveloperName__c, FilaId__c
+                   FilaDeveloperName__c, FilaId__c, FilaDeveloperNameFallback__c, FilaIdFallback__c,
+                   PermiteAssumirComFilaParametrizada__c, EtapaAtendimentoDistribuicao__c
             FROM Categorizacao__c
             WHERE Id IN :categorizacaoIds
         ]);
@@ -279,20 +300,41 @@ public inherited sharing class CaseCreationService {
             Categorizacao__c cat = categorizacoesById.get(c.Categorizacao__c);
             if (cat == null) continue;
             if (!CategorizacaoHelper.isTrueFlag(cat.DistribuirParaFila__c)) continue;
-            if (!CategorizacaoHelper.isTrueFlag(cat.PorCampoCustomizado__c)) continue;
-            if (String.isBlank(cat.CampoDistribuicao__c) || String.isBlank(cat.ValorDistribuicao__c)) continue;
-            if (String.isBlank(cat.FilaId__c)) continue;
-            if (!caseFields.containsKey(cat.CampoDistribuicao__c)) continue;
+            if (c.AcaoPosCategorizacao__c == 'Encerrar') continue;
 
-            Object liveValue = c.get(cat.CampoDistribuicao__c);
-            String liveValueStr = liveValue == null ? null : String.valueOf(liveValue);
-            if (!CaseCreationHelper.sameNormalizedValue(liveValueStr, cat.ValorDistribuicao__c)) continue;
+            String targetFilaId = cat.FilaId__c;
+            String targetFilaDevName = cat.FilaDeveloperName__c;
 
-            c.OwnerId = cat.FilaId__c;
+            if (CategorizacaoHelper.isTrueFlag(cat.PorCampoCustomizado__c)
+                && !String.isBlank(cat.CampoDistribuicao__c) && !String.isBlank(cat.ValorDistribuicao__c)
+                && caseFields.containsKey(cat.CampoDistribuicao__c)) {
+                Object liveValue = c.get(cat.CampoDistribuicao__c);
+                String liveValueStr = liveValue == null ? null : String.valueOf(liveValue);
+                if (CaseCreationHelper.sameNormalizedValue(liveValueStr, cat.ValorDistribuicao__c)) {
+                    targetFilaId = cat.FilaId__c;
+                    targetFilaDevName = cat.FilaDeveloperName__c;
+                } else if (!String.isBlank(cat.FilaIdFallback__c)) {
+                    targetFilaId = cat.FilaIdFallback__c;
+                    targetFilaDevName = cat.FilaDeveloperNameFallback__c;
+                } else {
+                    continue;
+                }
+            }
+
+            if (String.isBlank(targetFilaId)) continue;
+
+            Boolean permiteAssumir = String.isBlank(cat.PermiteAssumirComFilaParametrizada__c)
+                || CategorizacaoHelper.isTrueFlag(cat.PermiteAssumirComFilaParametrizada__c);
+            if (c.AcaoPosCategorizacao__c == 'Assumir' && permiteAssumir) continue;
+
+            c.OwnerId = targetFilaId;
             c.DistribuicaoSolicitada__c = true;
             c.OrigemDistribuicao__c = 'Categorização';
-            c.FilaDestinoDeveloperName__c = cat.FilaDeveloperName__c;
-            c.FilaDestinoId__c = cat.FilaId__c;
+            c.FilaDestinoDeveloperName__c = targetFilaDevName;
+            c.FilaDestinoId__c = targetFilaId;
+            if (!String.isBlank(cat.EtapaAtendimentoDistribuicao__c)) {
+                c.EtapaAtendimento__c = cat.EtapaAtendimentoDistribuicao__c;
+            }
         }
     }
 

@@ -75,6 +75,8 @@ public inherited sharing class CaseCreationDTO {
         @AuraEnabled public String valorDistribuicaoLabel { get; set; }
         @AuraEnabled public Boolean valorDistribuicaoAtendido { get; set; }
         @AuraEnabled public List<PicklistOptionDTO> campoDistribuicaoOptions { get; set; }
+        @AuraEnabled public Boolean permiteAssumirComFilaParametrizada { get; set; }
+        @AuraEnabled public String prioridadeSugerida { get; set; }
     }
 
     public class BuildDefaultValuesResponseDTO {
