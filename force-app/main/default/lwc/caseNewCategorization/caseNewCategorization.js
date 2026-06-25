@@ -31,8 +31,13 @@ import descriptionSectionLabel from '@salesforce/label/c.CaseNewCategorization_D
 // Atualizar aqui sempre que a Lightning Page da unidade correspondente mudar. Unidades sem entrada
 // aqui caem no fallback de Page Layout puro (lightning-record-form).
 const NAO_ELOGIO = (ctx) => ctx.tipoCaso !== 'Elogio';
-const CASE_DETAIL_SECTIONS_BY_UNIDADE = {
-    'Atendimento Tecon Salvador': [
+
+// Gera uma cópia independente da config "padrão Salvador" — usado como placeholder para as
+// demais Unidades de Negócio até que cada uma tenha sua própria Lightning Page configurada e as
+// regras de negócio reais possam ser extraídas e ajustadas por unidade (ver comentário acima).
+// Retornar um array/objeto novo a cada chamada evita que editar uma unidade afete as outras.
+function buildSalvadorPatternSections() {
+    return [
         {
             title: informacoesClienteLabel,
             rows: [
@@ -75,7 +80,16 @@ const CASE_DETAIL_SECTIONS_BY_UNIDADE = {
             title: descriptionSectionLabel,
             rows: [[{ field: 'Description', required: true, fullWidth: true }, null]]
         }
-    ]
+    ];
+}
+
+const CASE_DETAIL_SECTIONS_BY_UNIDADE = {
+    'Atendimento Tecon Salvador': buildSalvadorPatternSections(),
+    // Placeholders no padrão Salvador — substituir pela config real de cada unidade quando a
+    // Lightning Page correspondente estiver configurada.
+    'Centro Logístico': buildSalvadorPatternSections(),
+    'Rebocadores': buildSalvadorPatternSections(),
+    'Atendimento Tecon Rio Grande': buildSalvadorPatternSections()
 };
 
 export default class CaseNewCategorization extends NavigationMixin(LightningElement) {
