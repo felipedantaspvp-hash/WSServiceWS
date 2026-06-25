@@ -43,29 +43,37 @@ const CASE_DETAIL_SECTIONS_BY_UNIDADE = {
         {
             title: additionalInfoSectionLabel,
             rows: [
-                [{ field: 'Origin', required: true }, { field: 'Priority' }],
+                [{ field: 'Origin', required: true, value: 'Manual' }, { field: 'Priority' }],
                 [{ field: 'Modalidade__c', required: true, visibleWhen: NAO_ELOGIO }, { field: 'Container__c', required: true, visibleWhen: NAO_ELOGIO }],
                 [{ field: 'AreasParticipantes__c', required: true }, null]
             ]
         },
         {
             title: detalhesLabel,
+            // União das condições de todos os campos abaixo — garante que a seção nunca fique
+            // oculta enquanto algum campo dela teria conteúdo a mostrar (a regra original da
+            // Lightning Page tinha essa mesma intenção, mas faltava "Modalidade = Importação"
+            // no nível da seção, o que escondia BL__c mesmo quando deveria aparecer).
             visibleWhen: (ctx) =>
                 ctx.tipoCaso === 'Elogio' ||
                 (NAO_ELOGIO(ctx) &&
-                    (ctx.modalidade === 'Cabotagem Embarque' || ctx.modalidade === 'Exportação' || ctx.categoria === 'Acesso ao Porto')),
+                    (ctx.modalidade === 'Importação' ||
+                        ctx.modalidade === 'Cabotagem Embarque' ||
+                        ctx.modalidade === 'Exportação' ||
+                        ctx.categoria === 'Acesso ao Porto')),
+            // Um campo por linha (sempre na coluna esquerda) — como a visibilidade de cada campo é
+            // independente, pares lado a lado deixavam a coluna direita vazia/flutuando com
+            // frequência. Mantém o layout estável e previsível nessa seção condicional.
             rows: [
                 [{ field: 'Colaborador__c', visibleWhen: (ctx) => ctx.tipoCaso === 'Elogio' }, null],
-                [
-                    { field: 'BL__c', visibleWhen: (ctx) => NAO_ELOGIO(ctx) && ctx.modalidade === 'Importação' },
-                    { field: 'Booking__c', visibleWhen: (ctx) => NAO_ELOGIO(ctx) && (ctx.modalidade === 'Cabotagem Embarque' || ctx.modalidade === 'Exportação') }
-                ],
+                [{ field: 'BL__c', visibleWhen: (ctx) => NAO_ELOGIO(ctx) && ctx.modalidade === 'Importação' }, null],
+                [{ field: 'Booking__c', visibleWhen: (ctx) => NAO_ELOGIO(ctx) && (ctx.modalidade === 'Cabotagem Embarque' || ctx.modalidade === 'Exportação') }, null],
                 [{ field: 'EvidenciaGatePlaca__c', visibleWhen: (ctx) => NAO_ELOGIO(ctx) && ctx.categoria === 'Acesso ao Porto' }, null]
             ]
         },
         {
             title: descriptionSectionLabel,
-            rows: [[{ field: 'Description', required: true }, null]]
+            rows: [[{ field: 'Description', required: true, fullWidth: true }, null]]
         }
     ]
 };
@@ -576,7 +584,9 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
         if (fieldConfig.visibleWhen && !fieldConfig.visibleWhen(ctx)) return null;
         return {
             field: fieldConfig.field,
-            required: fieldConfig.required === true
+            required: fieldConfig.required === true,
+            value: fieldConfig.value ?? null,
+            fullWidth: fieldConfig.fullWidth === true
         };
     }
 
@@ -590,11 +600,22 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
                 key: `case-detail-section-${sectionIndex}`,
                 title: section.title,
                 rows: section.rows
-                    .map((row, rowIndex) => ({
-                        key: `case-detail-row-${sectionIndex}-${rowIndex}`,
-                        left: this.resolveDetailField(row[0], ctx),
-                        right: this.resolveDetailField(row[1], ctx)
-                    }))
+                    .map((row, rowIndex) => {
+                        let left = this.resolveDetailField(row[0], ctx);
+                        let right = this.resolveDetailField(row[1], ctx);
+                        // Se só o campo da direita estiver visível, empurra para a esquerda —
+                        // evita deixar a coluna esquerda vazia com o campo "flutuando" à direita.
+                        if (!left && right) {
+                            left = right;
+                            right = null;
+                        }
+                        return {
+                            key: `case-detail-row-${sectionIndex}-${rowIndex}`,
+                            left,
+                            right,
+                            fullWidth: !!left?.fullWidth
+                        };
+                    })
                     .filter((row) => row.left || row.right)
             }))
             .filter((section) => section.rows.length > 0);
@@ -650,6 +671,11 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
             // Contato, Descrição, e quaisquer campos ainda presentes no Page Layout) prevalece por cima,
             // preservando a mesma semântica de "valor padrão, mas editável" que defaultFieldValues tinha.
             const fields = { ...(res.defaultValues || {}), ...event.detail.fields };
+            // Subject (padrão, max 255) não é exibido nessa tela — listas/relatórios legados ainda
+            // dependem dele, então espelhamos a Descrição truncada para mantê-lo preenchido.
+            if (fields.Description) {
+                fields.Subject = fields.Description.substring(0, 255);
+            }
             const formEl = this.template.querySelector('lightning-record-edit-form') || this.template.querySelector('lightning-record-form');
             formEl.submit(fields);
         } catch (e) {
