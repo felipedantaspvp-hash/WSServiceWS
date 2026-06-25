@@ -10,93 +10,73 @@
             </template>
 
             <template if:false={loading}>
-                    <div class="section-title">{labels.ctxTitle}</div>
-                    <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
-                        <template if:true={showRecordTypeSelector}>
-                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                                <lightning-combobox name="recordTypeId" label={labels.unidadeRecordType} value={model.recordTypeId} options={recordTypeOptions} onchange={handleRecordTypeChange}></lightning-combobox>
-                            </div>
-                        </template>
-                        <template if:false={showRecordTypeSelector}>
-                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                                <lightning-input label={fieldLabels.unidadeNegocio} value={model.unidadeNegocio} disabled></lightning-input>
-                            </div>
-                        </template>
-                    </div>
-
-                    <div class="section-title">{labels.categorizationTitle}</div>
-                    <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
-                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                            <lightning-combobox name="tipoCaso" label={fieldLabels.tipoCaso} value={model.tipoCaso} options={tipoOptions} onchange={handleFieldChange} disabled={disableTipoCaso} required={requiredTipoCaso}></lightning-combobox>
-                        </div>
-                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                            <lightning-combobox name="categoria" label={fieldLabels.categoria} value={model.categoria} options={categoriaOptions} onchange={handleFieldChange} disabled={disableCategoria} required={requiredCategoria}></lightning-combobox>
-                        </div>
-                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                            <lightning-combobox name="assunto" label={fieldLabels.assunto} value={model.assunto} options={assuntoOptions} onchange={handleFieldChange} disabled={disableAssunto} required={requiredAssunto}></lightning-combobox>
-                        </div>
-                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                            <lightning-combobox name="subassunto" label={fieldLabels.subassunto} value={model.subassunto} options={subassuntoOptions} onchange={handleFieldChange} disabled={disableSubassunto} required={requiredSubassunto}></lightning-combobox>
-                        </div>
-                    </div>
-
-                    <template if:true={showCustomField}>
-                        <div class="section-title">{customFieldLabel}</div>
-                        <div class="slds-m-bottom_medium slds-size_1-of-1 slds-large-size_1-of-2">
-                            <lightning-combobox name="customField" label={customFieldLabel} variant="label-hidden" value={customFieldValue} options={customFieldOptions} onchange={handleCustomFieldChange}></lightning-combobox>
-                        </div>
-                    </template>
-
-                    <div class="section-title">{labels.destinationTitle}</div>
-                    <div class="slds-m-bottom_medium">
-                        <div class="destination-title">{labels.destino}</div>
-                        <div class="destination-grid">
-                            <template for:each={destinationCards} for:item="card">
-                                <button
-                                    key={card.value}
-                                    class={card.cssClass}
-                                    data-value={card.value}
-                                    onclick={handleDestinationCardSelect}
-                                    disabled={card.disabled}
-                                    type="button"
-                                >
-                                    <div class="destination-radio">{card.radioGlyph}</div>
-                                    <div class="destination-content">
-                                        <div class="destination-label">{card.label}</div>
-                                        <div class="destination-description">{card.description}</div>
-                                    </div>
-                                </button>
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title slds-theme_shade">
+                        <span class="slds-truncate slds-p-horizontal_small slds-p-vertical_x-small" title={labels.ctxTitle}>{labels.ctxTitle}</span>
+                    </h3>
+                    <div class="slds-section__content slds-p-around_small">
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <template if:true={showRecordTypeSelector}>
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                    <lightning-combobox name="recordTypeId" label={labels.unidadeRecordType} value={model.recordTypeId} options={recordTypeOptions} onchange={handleRecordTypeChange}></lightning-combobox>
+                                </div>
+                            </template>
+                            <template if:false={showRecordTypeSelector}>
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                    <lightning-input label={fieldLabels.unidadeNegocio} value={model.unidadeNegocio} disabled></lightning-input>
+                                </div>
                             </template>
                         </div>
-                        <template if:true={assumirBloqueado}>
-                            <div class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">{labels.assumirBloqueadoHint}</div>
+                    </div>
+                </div>
+
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title slds-theme_shade">
+                        <span class="slds-truncate slds-p-horizontal_small slds-p-vertical_x-small" title={labels.categorizationTitle}>{labels.categorizationTitle}</span>
+                    </h3>
+                    <div class="slds-section__content slds-p-around_small">
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                <lightning-combobox name="tipoCaso" label={fieldLabels.tipoCaso} value={model.tipoCaso} options={tipoOptions} onchange={handleFieldChange} disabled={disableTipoCaso} required={requiredTipoCaso}></lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                <lightning-combobox name="categoria" label={fieldLabels.categoria} value={model.categoria} options={categoriaOptions} onchange={handleFieldChange} disabled={disableCategoria} required={requiredCategoria}></lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                <lightning-combobox name="assunto" label={fieldLabels.assunto} value={model.assunto} options={assuntoOptions} onchange={handleFieldChange} disabled={disableAssunto} required={requiredAssunto}></lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                <lightning-combobox name="subassunto" label={fieldLabels.subassunto} value={model.subassunto} options={subassuntoOptions} onchange={handleFieldChange} disabled={disableSubassunto} required={requiredSubassunto}></lightning-combobox>
+                            </div>
+                        </div>
+
+                        <template if:true={showCustomField}>
+                            <div class="slds-m-top_small slds-size_1-of-1 slds-large-size_1-of-2">
+                                <lightning-combobox name="customField" label={customFieldLabel} value={customFieldValue} options={customFieldOptions} onchange={handleCustomFieldChange}></lightning-combobox>
+                            </div>
                         </template>
                     </div>
-                    <template if:true={resolvedQueue}>
-                        <lightning-input label={labels.queueResolved} value={resolvedQueue.developerName} disabled></lightning-input>
+                </div>
+
+                <template if:true={hasRecordType}>
+                    <template if:true={creating}>
+                        <lightning-spinner alternative-text="Salvando"></lightning-spinner>
                     </template>
-                    <template if:true={showQueueSelector}>
-                        <lightning-combobox label={labels.manualQueue} value={selectedQueueDeveloperName} options={queueOptions} onchange={handleQueueChange}></lightning-combobox>
-                    </template>
 
-                    <template if:true={hasRecordType}>
-                        <div class="section-title">{labels.caseDetailsTitle}</div>
-
-                        <template if:true={creating}>
-                            <lightning-spinner alternative-text="Salvando"></lightning-spinner>
-                        </template>
-
-                        <template if:true={hasCuratedSections}>
-                            <lightning-record-edit-form
-                                object-api-name="Case"
-                                record-type-id={model.recordTypeId}
-                                onsubmit={handleRecordFormSubmit}
-                                onsuccess={handleRecordFormSuccess}
-                                onerror={handleRecordFormError}
-                            >
-                                <template for:each={caseDetailSections} for:item="section">
-                                    <div key={section.key} class="case-detail-section">
-                                        <div class="section-subtitle">{section.title}</div>
+                    <template if:true={hasCuratedSections}>
+                        <lightning-record-edit-form
+                            object-api-name="Case"
+                            record-type-id={model.recordTypeId}
+                            onsubmit={handleRecordFormSubmit}
+                            onsuccess={handleRecordFormSuccess}
+                            onerror={handleRecordFormError}
+                        >
+                            <template for:each={caseDetailSections} for:item="section">
+                                <div key={section.key} class="slds-section slds-is-open">
+                                    <h3 class="slds-section__title slds-theme_shade">
+                                        <span class="slds-truncate slds-p-horizontal_small slds-p-vertical_x-small" title={section.title}>{section.title}</span>
+                                    </h3>
+                                    <div class="slds-section__content slds-p-around_small">
                                         <template for:each={section.rows} for:item="row">
                                             <div key={row.key} class="slds-grid slds-wrap slds-gutters slds-m-bottom_small">
                                                 <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
@@ -112,30 +92,108 @@
                                             </div>
                                         </template>
                                     </div>
-                                </template>
-
-                                <div class="actions-footer">
-                                    <div class="actions-row slds-grid slds-gutters_small slds-grid_align-center">
-                                        <lightning-button variant="neutral" label={labels.cancel} onclick={cancel}></lightning-button>
-                                        <lightning-button variant="brand" type="submit" label={labels.save}></lightning-button>
-                                    </div>
                                 </div>
-                            </lightning-record-edit-form>
-                        </template>
+                            </template>
 
-                        <template if:false={hasCuratedSections}>
-                            <lightning-record-form
-                                object-api-name="Case"
-                                record-type-id={model.recordTypeId}
-                                layout-type="Full"
-                                mode="edit"
-                                onsubmit={handleRecordFormSubmit}
-                                onsuccess={handleRecordFormSuccess}
-                                onerror={handleRecordFormError}
-                                oncancel={cancel}
-                            ></lightning-record-form>
-                        </template>
+                            <div class="slds-section slds-is-open">
+                                <h3 class="slds-section__title slds-theme_shade">
+                                    <span class="slds-truncate slds-p-horizontal_small slds-p-vertical_x-small" title={labels.destinationTitle}>{labels.destinationTitle}</span>
+                                </h3>
+                                <div class="slds-section__content slds-p-around_small">
+                                    <div class="destination-grid">
+                                        <template for:each={destinationCards} for:item="card">
+                                            <button
+                                                key={card.value}
+                                                class={card.cssClass}
+                                                data-value={card.value}
+                                                onclick={handleDestinationCardSelect}
+                                                disabled={card.disabled}
+                                                type="button"
+                                            >
+                                                <div class="destination-radio">{card.radioGlyph}</div>
+                                                <div class="destination-content">
+                                                    <div class="destination-label">{card.label}</div>
+                                                    <div class="destination-description">{card.description}</div>
+                                                </div>
+                                            </button>
+                                        </template>
+                                    </div>
+                                    <template if:true={assumirBloqueado}>
+                                        <div class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">{labels.assumirBloqueadoHint}</div>
+                                    </template>
+                                    <template if:true={resolvedQueue}>
+                                        <lightning-input class="slds-m-top_small" label={labels.queueResolved} value={resolvedQueue.developerName} disabled></lightning-input>
+                                    </template>
+                                    <template if:true={showQueueSelector}>
+                                        <lightning-combobox class="slds-m-top_small" label={labels.manualQueue} value={selectedQueueDeveloperName} options={queueOptions} onchange={handleQueueChange}></lightning-combobox>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <div class="actions-footer">
+                                <div class="actions-row slds-grid slds-gutters_small slds-grid_align-center">
+                                    <lightning-button variant="neutral" label={labels.cancel} onclick={cancel}></lightning-button>
+                                    <lightning-button variant="brand" type="submit" label={labels.save}></lightning-button>
+                                </div>
+                            </div>
+                        </lightning-record-edit-form>
                     </template>
+
+                    <template if:false={hasCuratedSections}>
+                        <div class="slds-section slds-is-open">
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <span class="slds-truncate slds-p-horizontal_small slds-p-vertical_x-small" title={labels.destinationTitle}>{labels.destinationTitle}</span>
+                            </h3>
+                            <div class="slds-section__content slds-p-around_small">
+                                <div class="destination-grid">
+                                    <template for:each={destinationCards} for:item="card">
+                                        <button
+                                            key={card.value}
+                                            class={card.cssClass}
+                                            data-value={card.value}
+                                            onclick={handleDestinationCardSelect}
+                                            disabled={card.disabled}
+                                            type="button"
+                                        >
+                                            <div class="destination-radio">{card.radioGlyph}</div>
+                                            <div class="destination-content">
+                                                <div class="destination-label">{card.label}</div>
+                                                <div class="destination-description">{card.description}</div>
+                                            </div>
+                                        </button>
+                                    </template>
+                                </div>
+                                <template if:true={assumirBloqueado}>
+                                    <div class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">{labels.assumirBloqueadoHint}</div>
+                                </template>
+                                <template if:true={resolvedQueue}>
+                                    <lightning-input class="slds-m-top_small" label={labels.queueResolved} value={resolvedQueue.developerName} disabled></lightning-input>
+                                </template>
+                                <template if:true={showQueueSelector}>
+                                    <lightning-combobox class="slds-m-top_small" label={labels.manualQueue} value={selectedQueueDeveloperName} options={queueOptions} onchange={handleQueueChange}></lightning-combobox>
+                                </template>
+                            </div>
+                        </div>
+
+                        <div class="slds-section slds-is-open">
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <span class="slds-truncate slds-p-horizontal_small slds-p-vertical_x-small" title={labels.caseDetailsTitle}>{labels.caseDetailsTitle}</span>
+                            </h3>
+                            <div class="slds-section__content slds-p-around_small">
+                                <lightning-record-form
+                                    object-api-name="Case"
+                                    record-type-id={model.recordTypeId}
+                                    layout-type="Full"
+                                    mode="edit"
+                                    onsubmit={handleRecordFormSubmit}
+                                    onsuccess={handleRecordFormSuccess}
+                                    onerror={handleRecordFormError}
+                                    oncancel={cancel}
+                                ></lightning-record-form>
+                            </div>
+                        </div>
+                    </template>
+                </template>
             </template>
         </div>
     </lightning-card>

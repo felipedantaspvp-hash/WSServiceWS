@@ -24507,6 +24507,22 @@ Before we begin, please choose your service language.</message>
         <label><!-- Pardot Production Api Base Url --></label>
         <name>pi__Pardot_Production_Base_Url</name>
     </customLabels>
+    <customLabels>
+        <label><!-- Case context section title in the New Case wizard --></label>
+        <name>CaseNewCategorization_ContextSection</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Case destination section title in the New Case wizard --></label>
+        <name>CaseNewCategorization_DestinationSection</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Additional information section title in the New Case wizard --></label>
+        <name>CaseNewCategorization_AdditionalInfoSection</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Description section title in the New Case wizard --></label>
+        <name>CaseNewCategorization_DescriptionSection</name>
+    </customLabels>
     <customPageWebLinks>
         <label><!-- DocuSign Setup --></label>
         <name>dfsle__Setup</name>

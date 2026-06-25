@@ -10,6 +10,13 @@ import getTreeOptions from '@salesforce/apex/CaseCreationController.getTreeOptio
 import resolveCategorizationSelection from '@salesforce/apex/CaseCreationController.resolveCategorizationSelection';
 import getAvailableQueues from '@salesforce/apex/CaseCreationController.getAvailableQueues';
 import buildDefaultValues from '@salesforce/apex/CaseCreationController.buildDefaultValues';
+import contextSectionLabel from '@salesforce/label/c.CaseNewCategorization_ContextSection';
+import categorizacaoLabel from '@salesforce/label/c.Categorizacao';
+import destinationSectionLabel from '@salesforce/label/c.CaseNewCategorization_DestinationSection';
+import informacoesClienteLabel from '@salesforce/label/c.InformacoesCliente';
+import additionalInfoSectionLabel from '@salesforce/label/c.CaseNewCategorization_AdditionalInfoSection';
+import detalhesLabel from '@salesforce/label/c.Detalhes';
+import descriptionSectionLabel from '@salesforce/label/c.CaseNewCategorization_DescriptionSection';
 
 // Replica, por Unidade de Negócio, as seções/campos/regras de visibilidade "preenchíveis na criação"
 // da Lightning Page real (Dynamic Forms) daquela unidade — extraído de LP_Atendimento_Salvador em
@@ -25,21 +32,21 @@ const NAO_ELOGIO = (ctx) => ctx.tipoCaso !== 'Elogio';
 const CASE_DETAIL_SECTIONS_BY_UNIDADE = {
     'Atendimento Tecon Salvador': [
         {
-            title: 'Informações do Cliente',
+            title: informacoesClienteLabel,
             rows: [
                 [{ field: 'AccountId', required: true }, { field: 'ContactId', required: true }],
                 [{ field: 'Representante__c' }, null]
             ]
         },
         {
-            title: 'Informações Adicionais',
+            title: additionalInfoSectionLabel,
             rows: [
                 [{ field: 'Modalidade__c', required: true, visibleWhen: NAO_ELOGIO }, { field: 'Priority' }],
                 [{ field: 'AreasParticipantes__c', required: true }, { field: 'Container__c', required: true, visibleWhen: NAO_ELOGIO }]
             ]
         },
         {
-            title: 'Detalhes',
+            title: detalhesLabel,
             visibleWhen: (ctx) =>
                 ctx.tipoCaso === 'Elogio' ||
                 (NAO_ELOGIO(ctx) &&
@@ -54,7 +61,7 @@ const CASE_DETAIL_SECTIONS_BY_UNIDADE = {
             ]
         },
         {
-            title: 'Descrição',
+            title: descriptionSectionLabel,
             rows: [[{ field: 'Description', required: true }, null]]
         }
     ]
@@ -85,13 +92,10 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
 
     language = (LANG || '').toLowerCase();
 
-    labels = this.language.startsWith('en')
+    bilingualLabels = this.language.startsWith('en')
         ? {
               cardTitle: 'New Case',
               subtitle: 'Select the initial categorization to load the standard Case form.',
-              ctxTitle: '1. Case Context',
-              categorizationTitle: '2. Initial Categorization',
-              destinationTitle: '3. Case Destination',
               unidadeRecordType: 'Business Unit / Record Type',
               unidadeNegocio: 'Business Unit',
               tipoCaso: 'Case Type',
@@ -113,7 +117,6 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
               unexpected: 'Unexpected error',
               prepareFailed: 'Please complete the categorization above before saving.',
               resolveFailed: 'Failed to resolve Case defaults.',
-              caseDetailsTitle: '4. Case Details',
               save: 'Save',
               successTitle: 'Success',
               successMsg: 'Case created successfully.',
@@ -122,9 +125,6 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
         : {
               cardTitle: 'Novo Caso',
               subtitle: 'Selecione a categorização inicial para carregar o formulário padrão do Case.',
-              ctxTitle: '1. Contexto do Caso',
-              categorizationTitle: '2. Categorização Inicial',
-              destinationTitle: '3. Destino do Caso',
               unidadeRecordType: 'Unidade / Record Type',
               unidadeNegocio: 'Unidade de Negócio',
               tipoCaso: 'Tipo de Caso',
@@ -146,12 +146,19 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
               unexpected: 'Erro inesperado',
               prepareFailed: 'Complete a categorização acima antes de salvar.',
               resolveFailed: 'Falha ao resolver os valores padrão do Caso.',
-              caseDetailsTitle: '4. Detalhes do Caso',
               save: 'Salvar',
               successTitle: 'Sucesso',
               successMsg: 'Caso criado com sucesso.',
               createFailed: 'Falha ao criar o Caso.'
           };
+
+    labels = {
+        ...this.bilingualLabels,
+        ctxTitle: contextSectionLabel,
+        categorizationTitle: categorizacaoLabel,
+        destinationTitle: destinationSectionLabel,
+        caseDetailsTitle: detalhesLabel
+    };
 
     originalDefaults = {};
 

@@ -3783,4 +3783,36 @@
         <shortDescription>Informações sobre o cliente</shortDescription>
         <value>Informações sobre o cliente</value>
     </labels>
+    <labels>
+        <fullName>CaseNewCategorization_ContextSection</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case context section title in the New Case wizard</shortDescription>
+        <value>Case Context</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_DestinationSection</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case destination section title in the New Case wizard</shortDescription>
+        <value>Case Destination</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_AdditionalInfoSection</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Additional information section title in the New Case wizard</shortDescription>
+        <value>Additional Information</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_DescriptionSection</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description section title in the New Case wizard</shortDescription>
+        <value>Description</value>
+    </labels>
 </CustomLabels>
