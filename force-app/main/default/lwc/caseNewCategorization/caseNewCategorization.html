@@ -3,10 +3,6 @@
     <div class="popup-card">
     <lightning-card title={labels.cardTitle} icon-name="standard:case">
         <div class="form-shell slds-p-around_medium">
-            <template if:false={showRecordTypeGate}>
-                <p class="slds-text-body_small slds-m-bottom_medium">{labels.subtitle}</p>
-            </template>
-
             <template if:true={loading}>
                 <lightning-spinner alternative-text="Carregando"></lightning-spinner>
             </template>
@@ -45,19 +41,6 @@
             </template>
 
             <template if:false={loading}>
-                <div class="slds-section slds-is-open">
-                    <h3 class="slds-section__title slds-theme_shade">
-                        <span class="slds-truncate slds-p-horizontal_small slds-p-vertical_x-small" title={labels.ctxTitle}>{labels.ctxTitle}</span>
-                    </h3>
-                    <div class="slds-section__content slds-p-around_small">
-                        <div class="slds-grid slds-wrap slds-gutters">
-                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                                <lightning-input label={fieldLabels.unidadeNegocio} value={model.unidadeNegocio} disabled></lightning-input>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="slds-section slds-is-open">
                     <h3 class="slds-section__title slds-theme_shade">
                         <span class="slds-truncate slds-p-horizontal_small slds-p-vertical_x-small" title={labels.categorizationTitle}>{labels.categorizationTitle}</span>
