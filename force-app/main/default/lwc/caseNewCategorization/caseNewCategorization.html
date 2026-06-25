@@ -9,6 +9,44 @@
                 <lightning-spinner alternative-text="Carregando"></lightning-spinner>
             </template>
 
+            <template if:true={showRecordTypeGate}>
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title slds-theme_shade">
+                        <span class="slds-truncate slds-p-horizontal_small slds-p-vertical_x-small" title={labels.ctxTitle}>{labels.ctxTitle}</span>
+                    </h3>
+                    <div class="slds-section__content slds-p-around_small">
+                        <div class="destination-grid">
+                            <template for:each={recordTypeCards} for:item="card">
+                                <button
+                                    key={card.value}
+                                    class={card.cssClass}
+                                    data-value={card.value}
+                                    onclick={handleRecordTypeCardSelect}
+                                    type="button"
+                                >
+                                    <div class="destination-radio">{card.radioGlyph}</div>
+                                    <div class="destination-content">
+                                        <div class="destination-label">{card.label}</div>
+                                        <div class="destination-description">{card.description}</div>
+                                    </div>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+                <div class="actions-footer">
+                    <div class="actions-row slds-grid slds-gutters_small slds-grid_align-center">
+                        <lightning-button variant="neutral" label={labels.cancel} onclick={cancel}></lightning-button>
+                        <lightning-button variant="brand" label={labels.continueButton} onclick={confirmRecordType} disabled={disableConfirmRecordType}></lightning-button>
+                    </div>
+                </div>
+            </template>
+
+            <template if:false={showRecordTypeGate}>
+            <template if:true={loading}>
+                <lightning-spinner alternative-text="Carregando"></lightning-spinner>
+            </template>
+
             <template if:false={loading}>
                 <div class="slds-section slds-is-open">
                     <h3 class="slds-section__title slds-theme_shade">
@@ -16,32 +54,9 @@
                     </h3>
                     <div class="slds-section__content slds-p-around_small">
                         <div class="slds-grid slds-wrap slds-gutters">
-                            <template if:true={showRecordTypeSelector}>
-                                <div class="slds-col slds-size_1-of-1">
-                                    <div class="destination-grid">
-                                        <template for:each={recordTypeCards} for:item="card">
-                                            <button
-                                                key={card.value}
-                                                class={card.cssClass}
-                                                data-value={card.value}
-                                                onclick={handleRecordTypeCardSelect}
-                                                type="button"
-                                            >
-                                                <div class="destination-radio">{card.radioGlyph}</div>
-                                                <div class="destination-content">
-                                                    <div class="destination-label">{card.label}</div>
-                                                    <div class="destination-description">{card.description}</div>
-                                                </div>
-                                            </button>
-                                        </template>
-                                    </div>
-                                </div>
-                            </template>
-                            <template if:false={showRecordTypeSelector}>
-                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                                    <lightning-input label={fieldLabels.unidadeNegocio} value={model.unidadeNegocio} disabled></lightning-input>
-                                </div>
-                            </template>
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                <lightning-input label={fieldLabels.unidadeNegocio} value={model.unidadeNegocio} disabled></lightning-input>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -210,6 +225,7 @@
                         </div>
                     </template>
                 </template>
+            </template>
             </template>
         </div>
     </lightning-card>

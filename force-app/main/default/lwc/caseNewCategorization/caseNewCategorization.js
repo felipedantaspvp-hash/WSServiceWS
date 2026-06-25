@@ -89,6 +89,7 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
     @track permiteAssumir = true;
     @track creating = false;
     @track detailModalidade = null;
+    @track recordTypeConfirmed = false;
 
     language = (LANG || '').toLowerCase();
 
@@ -118,6 +119,7 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
               prepareFailed: 'Please complete the categorization above before saving.',
               resolveFailed: 'Failed to resolve Case defaults.',
               save: 'Save',
+              continueButton: 'Continue',
               successTitle: 'Success',
               successMsg: 'Case created successfully.',
               createFailed: 'Failed to create Case.'
@@ -147,6 +149,7 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
               prepareFailed: 'Complete a categorização acima antes de salvar.',
               resolveFailed: 'Falha ao resolver os valores padrão do Caso.',
               save: 'Salvar',
+              continueButton: 'Seguir',
               successTitle: 'Sucesso',
               successMsg: 'Caso criado com sucesso.',
               createFailed: 'Falha ao criar o Caso.'
@@ -256,12 +259,15 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
 
             if (this.recordTypeOptions.length === 1) {
                 this.setRecordType(this.recordTypeOptions[0]);
+                this.recordTypeConfirmed = true;
             } else if (this.context?.defaultRecordTypeId) {
+                // Múltiplos Record Types disponíveis: pré-seleciona o default só visualmente no
+                // card — ainda exige o clique em "Seguir" antes de abrir o restante do wizard.
                 const d = this.recordTypeOptions.find((o) => o.value === this.context.defaultRecordTypeId);
                 if (d) this.setRecordType(d);
             }
 
-            if (this.model.recordTypeId && this.model.unidadeNegocio) {
+            if (this.model.recordTypeId && this.model.unidadeNegocio && this.recordTypeConfirmed) {
                 await this.loadTreeOptions();
             }
         } catch (e) {
@@ -314,7 +320,25 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
         this.destinationAction = 'ASSUMIR';
         this.destinationManuallySet = false;
         this.resetCustomField();
-        this.loadTreeOptions();
+    }
+
+    get showRecordTypeGate() {
+        return this.recordTypeOptions.length > 1 && !this.recordTypeConfirmed;
+    }
+
+    get disableConfirmRecordType() {
+        return !this.model.recordTypeId;
+    }
+
+    async confirmRecordType() {
+        if (!this.model.recordTypeId) return;
+        this.loading = true;
+        try {
+            this.recordTypeConfirmed = true;
+            await this.loadTreeOptions();
+        } finally {
+            this.loading = false;
+        }
     }
 
     get recordTypeCards() {
@@ -446,10 +470,6 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
 
     handleQueueChange(event) {
         this.selectedQueueDeveloperName = event.detail.value;
-    }
-
-    get showRecordTypeSelector() {
-        return this.recordTypeOptions.length > 1;
     }
 
     get showQueueSelector() {
