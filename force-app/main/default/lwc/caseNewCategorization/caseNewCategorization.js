@@ -21,9 +21,11 @@ import descriptionSectionLabel from '@salesforce/label/c.CaseNewCategorization_D
 // Replica, por Unidade de Negócio, as seções/campos/regras de visibilidade "preenchíveis na criação"
 // da Lightning Page real (Dynamic Forms) daquela unidade — extraído de LP_Atendimento_Salvador em
 // 2026-06-25. Os campos que o próprio wizard já resolve (Unidade, Tipo, Categoria, Assunto,
-// Subassunto, Owner, Etapa, Origin) ficam de fora de propósito, pois são injetados via
-// buildDefaultValues no submit, não preenchidos aqui. Campos somente leitura/auditoria (CreatedDate,
-// SuppliedEmail, CreatedById, etc.) também ficam fora — não fazem sentido na criação.
+// Subassunto, Owner, Etapa) ficam de fora de propósito, pois são injetados via buildDefaultValues
+// no submit, não preenchidos aqui (a exceção é Origin, que o wizard pré-define como "Manual" mas
+// fica editável aqui — o valor escolhido pelo agente prevalece sobre o default no submit).
+// Campos somente leitura/auditoria (CreatedDate, SuppliedEmail, CreatedById, etc.) também ficam
+// fora — não fazem sentido na criação.
 // `visibleWhen`/seção e campo recebem o contexto {tipoCaso, categoria, modalidade} com os valores
 // atuais (categoria/tipoCaso vêm do wizard; modalidade vem do próprio campo desta seção, em tempo real).
 // Atualizar aqui sempre que a Lightning Page da unidade correspondente mudar. Unidades sem entrada
@@ -41,8 +43,9 @@ const CASE_DETAIL_SECTIONS_BY_UNIDADE = {
         {
             title: additionalInfoSectionLabel,
             rows: [
-                [{ field: 'Modalidade__c', required: true, visibleWhen: NAO_ELOGIO }, { field: 'Priority' }],
-                [{ field: 'AreasParticipantes__c', required: true }, { field: 'Container__c', required: true, visibleWhen: NAO_ELOGIO }]
+                [{ field: 'Origin', required: true }, { field: 'Priority' }],
+                [{ field: 'Modalidade__c', required: true, visibleWhen: NAO_ELOGIO }, { field: 'Container__c', required: true, visibleWhen: NAO_ELOGIO }],
+                [{ field: 'AreasParticipantes__c', required: true }, null]
             ]
         },
         {

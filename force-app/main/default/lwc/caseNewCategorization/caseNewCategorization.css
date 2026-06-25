@@ -6,11 +6,19 @@
 }
 
 .popup-card {
+    position: relative;
     max-width: 960px;
     margin: 0 auto;
     border-radius: 0.5rem;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
     overflow: hidden;
+}
+
+.close-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 10;
 }
 
 .form-shell {
