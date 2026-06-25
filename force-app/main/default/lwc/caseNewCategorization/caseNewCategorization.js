@@ -278,9 +278,12 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
     }
 
     setRecordType(option) {
-        this.model.recordTypeId = option.value;
-        this.model.recordTypeDeveloperName = option.devName;
-        this.model.unidadeNegocio = option.unidade;
+        this.model = {
+            ...this.model,
+            recordTypeId: option.value,
+            recordTypeDeveloperName: option.devName,
+            unidadeNegocio: option.unidade
+        };
     }
 
     async loadTreeOptions() {
@@ -312,11 +315,16 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
 
     applyRecordTypeSelection(selected) {
         if (!selected) return;
-        this.setRecordType(selected);
-        this.model.tipoCaso = null;
-        this.model.categoria = null;
-        this.model.assunto = null;
-        this.model.subassunto = null;
+        this.model = {
+            ...this.model,
+            recordTypeId: selected.value,
+            recordTypeDeveloperName: selected.devName,
+            unidadeNegocio: selected.unidade,
+            tipoCaso: null,
+            categoria: null,
+            assunto: null,
+            subassunto: null
+        };
         this.destinationAction = 'ASSUMIR';
         this.destinationManuallySet = false;
         this.resetCustomField();
@@ -370,20 +378,21 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
 
     async handleFieldChangeAsync(event) {
         const f = event.target.name;
-        this.model[f] = event.detail.value;
+        const updates = { [f]: event.detail.value };
 
         if (f === 'tipoCaso') {
-            this.model.categoria = null;
-            this.model.assunto = null;
-            this.model.subassunto = null;
+            updates.categoria = null;
+            updates.assunto = null;
+            updates.subassunto = null;
         }
         if (f === 'categoria') {
-            this.model.assunto = null;
-            this.model.subassunto = null;
+            updates.assunto = null;
+            updates.subassunto = null;
         }
         if (f === 'assunto') {
-            this.model.subassunto = null;
+            updates.subassunto = null;
         }
+        this.model = { ...this.model, ...updates };
         await this.loadTreeOptions();
         await this.refreshDestinationSection();
     }

@@ -3,7 +3,9 @@
     <div class="popup-card">
     <lightning-card title={labels.cardTitle} icon-name="standard:case">
         <div class="form-shell slds-p-around_medium">
-            <p class="slds-text-body_small slds-m-bottom_medium">{labels.subtitle}</p>
+            <template if:false={showRecordTypeGate}>
+                <p class="slds-text-body_small slds-m-bottom_medium">{labels.subtitle}</p>
+            </template>
 
             <template if:true={loading}>
                 <lightning-spinner alternative-text="Carregando"></lightning-spinner>
