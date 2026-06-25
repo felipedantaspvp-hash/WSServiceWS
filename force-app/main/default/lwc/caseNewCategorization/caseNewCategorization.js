@@ -1,7 +1,7 @@
 import { LightningElement, track, wire } from 'lwc';
 import { NavigationMixin, CurrentPageReference } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { encodeDefaultFieldValues, decodeDefaultFieldValues } from 'lightning/pageReferenceUtils';
+import { decodeDefaultFieldValues } from 'lightning/pageReferenceUtils';
 import LANG from '@salesforce/i18n/lang';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import CASE_OBJECT from '@salesforce/schema/Case';
@@ -10,6 +10,33 @@ import getTreeOptions from '@salesforce/apex/CaseCreationController.getTreeOptio
 import resolveCategorizationSelection from '@salesforce/apex/CaseCreationController.resolveCategorizationSelection';
 import getAvailableQueues from '@salesforce/apex/CaseCreationController.getAvailableQueues';
 import buildDefaultValues from '@salesforce/apex/CaseCreationController.buildDefaultValues';
+
+// Replica, por Unidade de Negócio, as seções de campos "preenchíveis na criação" da Lightning Page
+// real (Dynamic Forms) daquela unidade — os campos que o próprio wizard já resolve (Unidade, Tipo,
+// Categoria, Assunto, Subassunto, Owner, Etapa, Origin) ficam de fora de propósito, pois são
+// injetados via buildDefaultValues no submit, não preenchidos aqui. Campos somente leitura/auditoria
+// (CreatedDate, SuppliedEmail, CreatedById, etc.) também ficam fora — não fazem sentido na criação.
+// Atualizar aqui sempre que a Lightning Page da unidade correspondente mudar nesses campos.
+// Unidades sem entrada aqui caem no fallback de Page Layout puro (lightning-record-form).
+const CASE_DETAIL_SECTIONS_BY_UNIDADE = {
+    'Atendimento Tecon Salvador': [
+        {
+            title: 'Informações do Cliente',
+            rows: [
+                ['AccountId', 'ContactId'],
+                ['ContactEmail', 'ContactPhone']
+            ]
+        },
+        {
+            title: 'Informações Adicionais',
+            rows: [['Priority', null]]
+        },
+        {
+            title: 'Descrição',
+            rows: [['Description', null]]
+        }
+    ]
+};
 
 export default class CaseNewCategorization extends NavigationMixin(LightningElement) {
     @track loading = true;
@@ -31,6 +58,7 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
     @track customFieldValue;
     @track hasParametrizedQueue = false;
     @track permiteAssumir = true;
+    @track creating = false;
 
     language = (LANG || '').toLowerCase();
 
@@ -54,14 +82,19 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
               queueResolved: 'Queue defined by categorization',
               manualQueue: 'Manual queue',
               cancel: 'Cancel',
-              continueCase: 'Continue to Case creation',
               assume: 'Assume case',
               distribute: 'Distribute to queue',
               close: 'Close on creation',
               assumirBloqueadoHint: 'This categorization requires distribution to the configured queue; assuming the case directly is not allowed.',
               errorTitle: 'Error',
               unexpected: 'Unexpected error',
-              prepareFailed: 'Failed to prepare Case creation.'
+              prepareFailed: 'Please complete the categorization above before saving.',
+              resolveFailed: 'Failed to resolve Case defaults.',
+              caseDetailsTitle: '4. Case Details',
+              save: 'Save',
+              successTitle: 'Success',
+              successMsg: 'Case created successfully.',
+              createFailed: 'Failed to create Case.'
           }
         : {
               cardTitle: 'Novo Caso',
@@ -82,14 +115,19 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
               queueResolved: 'Fila definida pela categorização',
               manualQueue: 'Fila manual',
               cancel: 'Cancelar',
-              continueCase: 'Continuar para criação do Case',
               assume: 'Assumir o caso',
               distribute: 'Distribuir para fila',
               close: 'Encerrar na criação',
               assumirBloqueadoHint: 'Esta categorização exige distribuição para a fila configurada; não é permitido assumir o caso diretamente.',
               errorTitle: 'Erro',
               unexpected: 'Erro inesperado',
-              prepareFailed: 'Falha ao preparar criação do Case.'
+              prepareFailed: 'Complete a categorização acima antes de salvar.',
+              resolveFailed: 'Falha ao resolver os valores padrão do Caso.',
+              caseDetailsTitle: '4. Detalhes do Caso',
+              save: 'Salvar',
+              successTitle: 'Sucesso',
+              successMsg: 'Caso criado com sucesso.',
+              createFailed: 'Falha ao criar o Caso.'
           };
 
     originalDefaults = {};
@@ -408,13 +446,6 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
         return this.findLabel(this.subassuntoOptions, this.model.subassunto);
     }
 
-    get disableContinue() {
-        if (!this.model.recordTypeId || !this.model.unidadeNegocio) return true;
-        if (this.destinationAction !== 'DISTRIBUIR') return false;
-        if (this.resolvedQueue) return false;
-        return !this.selectedQueueDeveloperName;
-    }
-
     get requiredTipoCaso() {
         return this.tipoOptions.length > 0;
     }
@@ -438,8 +469,46 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
         });
     }
 
-    async continueToStandardForm() {
-        this.loading = true;
+    get hasRecordType() {
+        return !!(this.model.recordTypeId && this.model.unidadeNegocio);
+    }
+
+    get caseDetailSections() {
+        const sections = CASE_DETAIL_SECTIONS_BY_UNIDADE[this.model.unidadeNegocio];
+        if (!sections) return null;
+        return sections.map((section, sectionIndex) => ({
+            key: `case-detail-section-${sectionIndex}`,
+            title: section.title,
+            rows: section.rows.map((row, rowIndex) => ({
+                key: `case-detail-row-${sectionIndex}-${rowIndex}`,
+                left: row[0] || null,
+                right: row[1] || null
+            }))
+        }));
+    }
+
+    get hasCuratedSections() {
+        return !!this.caseDetailSections;
+    }
+
+    validationError() {
+        if (!this.hasRecordType) return this.labels.prepareFailed;
+        if (!this.model.tipoCaso || !this.model.categoria) return this.labels.prepareFailed;
+        if (this.destinationAction === 'DISTRIBUIR' && !this.resolvedQueue && !this.selectedQueueDeveloperName) {
+            return this.labels.prepareFailed;
+        }
+        return null;
+    }
+
+    async handleRecordFormSubmit(event) {
+        event.preventDefault();
+        const validationMessage = this.validationError();
+        if (validationMessage) {
+            this.toast(this.labels.errorTitle, validationMessage, 'error');
+            return;
+        }
+
+        this.creating = true;
         try {
             const req = {
                 categorization: { ...this.model, customFieldValue: this.customFieldValue },
@@ -452,27 +521,40 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
             };
             const res = await buildDefaultValues({ request: req });
             if (!res?.success) {
-                this.toast(this.labels.errorTitle, res?.error?.message || this.labels.prepareFailed, 'error');
+                this.toast(this.labels.errorTitle, res?.error?.message || this.labels.resolveFailed, 'error');
+                this.creating = false;
                 return;
             }
 
-            const encoded = encodeDefaultFieldValues(res.defaultValues || {});
-            const pageRef = {
-                type: 'standard__objectPage',
-                attributes: { objectApiName: 'Case', actionName: 'new' },
-                state: {
-                    nooverride: '1',
-                    recordTypeId: this.model.recordTypeId,
-                    defaultFieldValues: encoded
-                }
-            };
-            const url = await this[NavigationMixin.GenerateUrl](pageRef);
-            window.location.assign(url);
+            // Os valores resolvidos pelo wizard (campos do Dynamic Forms, fila, status, etc.) entram
+            // como base; qualquer valor que o agente realmente preencheu/alterou no formulário (Conta,
+            // Contato, Descrição, e quaisquer campos ainda presentes no Page Layout) prevalece por cima,
+            // preservando a mesma semântica de "valor padrão, mas editável" que defaultFieldValues tinha.
+            const fields = { ...(res.defaultValues || {}), ...event.detail.fields };
+            const formEl = this.template.querySelector('lightning-record-edit-form') || this.template.querySelector('lightning-record-form');
+            formEl.submit(fields);
         } catch (e) {
+            this.creating = false;
             this.toast(this.labels.errorTitle, this.reduceError(e), 'error');
-        } finally {
-            this.loading = false;
         }
+    }
+
+    handleRecordFormSuccess(event) {
+        this.creating = false;
+        this.toast(this.labels.successTitle, this.labels.successMsg, 'success');
+        this[NavigationMixin.Navigate]({
+            type: 'standard__recordPage',
+            attributes: {
+                recordId: event.detail.id,
+                objectApiName: 'Case',
+                actionName: 'view'
+            }
+        });
+    }
+
+    handleRecordFormError(event) {
+        this.creating = false;
+        this.toast(this.labels.errorTitle, this.reduceError(event.detail) || this.labels.createFailed, 'error');
     }
 
     toast(title, message, variant) {

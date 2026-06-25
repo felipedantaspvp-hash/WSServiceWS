@@ -79,12 +79,63 @@
                         <lightning-combobox label={labels.manualQueue} value={selectedQueueDeveloperName} options={queueOptions} onchange={handleQueueChange}></lightning-combobox>
                     </template>
 
-                <div class="actions-footer">
-                    <div class="actions-row slds-grid slds-gutters_small slds-grid_align-center">
-                        <lightning-button variant="neutral" label={labels.cancel} onclick={cancel}></lightning-button>
-                        <lightning-button variant="brand" label={labels.continueCase} onclick={continueToStandardForm} disabled={disableContinue}></lightning-button>
-                    </div>
-                </div>
+                    <template if:true={hasRecordType}>
+                        <div class="section-title">{labels.caseDetailsTitle}</div>
+
+                        <template if:true={creating}>
+                            <lightning-spinner alternative-text="Salvando"></lightning-spinner>
+                        </template>
+
+                        <template if:true={hasCuratedSections}>
+                            <lightning-record-edit-form
+                                object-api-name="Case"
+                                record-type-id={model.recordTypeId}
+                                onsubmit={handleRecordFormSubmit}
+                                onsuccess={handleRecordFormSuccess}
+                                onerror={handleRecordFormError}
+                            >
+                                <template for:each={caseDetailSections} for:item="section">
+                                    <div key={section.key} class="case-detail-section">
+                                        <div class="section-subtitle">{section.title}</div>
+                                        <template for:each={section.rows} for:item="row">
+                                            <div key={row.key} class="slds-grid slds-wrap slds-gutters slds-m-bottom_small">
+                                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                                    <template if:true={row.left}>
+                                                        <lightning-input-field field-name={row.left}></lightning-input-field>
+                                                    </template>
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                                    <template if:true={row.right}>
+                                                        <lightning-input-field field-name={row.right}></lightning-input-field>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template>
+
+                                <div class="actions-footer">
+                                    <div class="actions-row slds-grid slds-gutters_small slds-grid_align-center">
+                                        <lightning-button variant="neutral" label={labels.cancel} onclick={cancel}></lightning-button>
+                                        <lightning-button variant="brand" type="submit" label={labels.save}></lightning-button>
+                                    </div>
+                                </div>
+                            </lightning-record-edit-form>
+                        </template>
+
+                        <template if:false={hasCuratedSections}>
+                            <lightning-record-form
+                                object-api-name="Case"
+                                record-type-id={model.recordTypeId}
+                                layout-type="Full"
+                                mode="edit"
+                                onsubmit={handleRecordFormSubmit}
+                                onsuccess={handleRecordFormSuccess}
+                                onerror={handleRecordFormError}
+                                oncancel={cancel}
+                            ></lightning-record-form>
+                        </template>
+                    </template>
             </template>
         </div>
     </lightning-card>

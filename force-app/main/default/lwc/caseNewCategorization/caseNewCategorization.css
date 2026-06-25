@@ -19,6 +19,21 @@
     margin-bottom: 0.5rem;
 }
 
+.case-detail-section {
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    font-weight: 600;
+    color: #514f4d;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid #dddbda;
+}
+
 .form-shell {
     position: relative;
     padding-bottom: 5rem;
