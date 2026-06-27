@@ -1489,6 +1489,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>InvoiceCancelada__c</picklist>
+        <values>
+            <fullName>Não</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Sim</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Modalidade__c</picklist>
         <values>
             <fullName>A definir</fullName>
@@ -1637,6 +1648,17 @@
         </values>
         <values>
             <fullName>User didn%27t attend training</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>RepresentanteOuBroker__c</picklist>
+        <values>
+            <fullName>Broker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Representante</fullName>
             <default>false</default>
         </values>
     </picklistValues>
