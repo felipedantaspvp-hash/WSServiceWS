@@ -42,7 +42,7 @@ function buildSalvadorPatternSections() {
             title: informacoesClienteLabel,
             rows: [
                 [{ field: 'AccountId', required: true }, { field: 'ContactId', required: true }],
-                [{ field: 'Representante__c' }, null]
+                [{ field: 'Representante__c' }, { field: 'ParentId' }]
             ]
         },
         {
@@ -112,7 +112,7 @@ function buildRioGrandeSections() {
             title: informacoesClienteLabel,
             rows: [
                 [{ field: 'AccountId', required: true }, { field: 'ContactId', required: true }],
-                [{ field: 'Representante__c' }, null]
+                [{ field: 'Representante__c' }, { field: 'ParentId' }]
             ]
         },
         {
