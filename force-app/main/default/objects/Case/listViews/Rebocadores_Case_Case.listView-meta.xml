@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Rebocadores_Case_Case</fullName>
-    <booleanFilter>1 or 2 or 3</booleanFilter>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>NAME</columns>
     <columns>CASES.SUBJECT</columns>
@@ -11,22 +10,12 @@
     <columns>CORE.USERS.ALIAS</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>OWNER_NAME</field>
-        <operation>contains</operation>
+        <field>UnidadeNegocio__c</field>
+        <operation>equals</operation>
         <value>Rebocadores</value>
     </filters>
-    <filters>
-        <field>CORE.USERS.ALIAS</field>
-        <operation>equals</operation>
-        <value>lcard</value>
-    </filters>
-    <filters>
-        <field>CORE.USERS.ALIAS</field>
-        <operation>equals</operation>
-        <value>rneto</value>
-    </filters>
-    <label>Rebocadores - Case</label>
+    <label>Todos os Casos - Rebocadores</label>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
+        <group>GP_AtendimentoRebocadores</group>
     </sharedTo>
 </ListView>

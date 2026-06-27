@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Agendamento_AtendimentoCentroLogistico</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Atendimento Centro Logístico</label>
+        <sharedTo>
+            <group>GP_AtendimentoCentroLogistico</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>UnidadeNegocio__c</field>
+            <operation>equals</operation>
+            <value>Centro Logístico</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Agendamento_AtendimentoRebocadores</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Atendimento Rebocadores</label>
+        <sharedTo>
+            <group>GP_AtendimentoRebocadores</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>UnidadeNegocio__c</field>
+            <operation>equals</operation>
+            <value>Rebocadores</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Agendamento_AtendimentoRioGrande</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Atendimento Rio Grande</label>
+        <sharedTo>
+            <group>GP_AtendimentoRioGrande</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>UnidadeNegocio__c</field>
+            <operation>equals</operation>
+            <value>Atendimento Tecon Rio Grande</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Agendamento_AtendimentoSalvador</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Atendimento Salvador</label>
+        <sharedTo>
+            <group>GP_AtendimentoSalvador</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>UnidadeNegocio__c</field>
+            <operation>equals</operation>
+            <value>Atendimento Tecon Salvador</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

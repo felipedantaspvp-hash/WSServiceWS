@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- Reclamação --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- Reclamação --></value>
+    </caseValues>
+    <nameFieldLabel><!-- Reclamação Nº --></nameFieldLabel>
+    <recordTypes>
+        <description><!-- Record Type Centro Logístico - Reclamacao__c --></description>
+        <label><!-- Centro Logístico --></label>
+        <name>CentroLogistico</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Record Type Geral - Reclamacao__c --></description>
+        <label><!-- Geral --></label>
+        <name>Geral</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Record Type Rebocadores - Reclamacao__c --></description>
+        <label><!-- Rebocadores --></label>
+        <name>Rebocadores</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Record Type Tecon Rio Grande - Reclamacao__c --></description>
+        <label><!-- Tecon Rio Grande --></label>
+        <name>TeconRioGrande</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Record Type Tecon Salvador - Reclamacao__c --></description>
+        <label><!-- Tecon Salvador --></label>
+        <name>TeconSalvador</name>
+    </recordTypes>
+    <startsWith><!-- Consonant --></startsWith>
+</CustomObjectTranslation>

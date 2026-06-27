@@ -1,0 +1,180 @@
+<template>
+    <lightning-card title={cardTitle} icon-name="custom:custom63">
+        <template if:true={loading}>
+            <lightning-spinner alternative-text="Carregando"></lightning-spinner>
+        </template>
+
+        <div class="slds-p-around_medium">
+            <div class="section-title">{sectionGeneral}</div>
+            <div class="slds-grid slds-wrap slds-gutters">
+                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                    <lightning-combobox
+                        name="unidadeNegocio"
+                        label={unidadeNegocioLabel}
+                        value={model.unidadeNegocio}
+                        options={unidadeOptions}
+                        onchange={handleUnidadeChange}
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                    <lightning-combobox name="tipoCaso" data-field="tipoCaso" label={tipoCasoLabel} value={model.tipoCaso} options={tipoCasoOptions} onchange={handleChange}></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                    <lightning-combobox name="categoria" data-field="categoria" label={categoriaLabel} value={model.categoria} options={categoriaOptions} onchange={handleChange}></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                    <lightning-combobox name="assunto" data-field="assunto" label={assuntoLabel} value={model.assunto} options={assuntoOptions} onchange={handleChange}></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                    <lightning-combobox name="subassunto" data-field="subassunto" label={subassuntoLabel} value={model.subassunto} options={subassuntoOptions} onchange={handleChange}></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                    <lightning-combobox name="prioridade" data-field="prioridade" label={prioridadeLabel} value={model.prioridade} options={prioridadeOptions} onchange={handleChange}></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                    <lightning-input name="ativo" data-field="ativo" type="checkbox" label={ativoLabel} checked={model.ativo} onchange={handleChange}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-1">
+                    <lightning-textarea name="descricao" data-field="descricao" label={descricaoLabel} value={model.descricao} onchange={handleChange}></lightning-textarea>
+                </div>
+                <template if:true={showMotivoInativacao}>
+                    <div class="slds-col slds-size_1-of-1">
+                        <lightning-textarea name="motivoInativacao" data-field="motivoInativacao" label={motivoInativacaoLabel} value={model.motivoInativacao} required onchange={handleChange}></lightning-textarea>
+                    </div>
+                </template>
+            </div>
+
+            <div class="section-title slds-m-top_large">{sectionDistribution}</div>
+            <div class="slds-grid slds-wrap slds-gutters">
+                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                    <lightning-input name="distribuirParaFila" data-field="distribuirParaFila" type="checkbox" label={distribuirFilaLabel} checked={model.distribuirParaFila} onchange={handleChange}></lightning-input>
+                </div>
+                <template if:true={showDistribuicao}>
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                        <lightning-input name="porCategorizacao" data-field="porCategorizacao" type="checkbox" label={porCategorizacaoLabel} checked={model.porCategorizacao} onchange={handleChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                        <lightning-combobox name="filaDeveloperName" data-field="filaDeveloperName" label={filaCaseLabel} value={model.filaDeveloperName} options={queueOptions} onchange={handleChange}></lightning-combobox>
+                    </div>
+                </template>
+                <template if:true={showCampoValor}>
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                        <lightning-combobox name="campoDistribuicao" data-field="campoDistribuicao" label={qualCampoLabel} value={model.campoDistribuicao} options={casePicklistFieldOptions} onchange={handleChange}></lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                        <lightning-combobox name="valorDistribuicao" data-field="valorDistribuicao" label={valorLabel} value={model.valorDistribuicao} options={casePicklistValueOptions} onchange={handleChange}></lightning-combobox>
+                    </div>
+                </template>
+            </div>
+
+            <div class="section-title slds-m-top_large">{sectionSla}</div>
+            <div class="sla-panel slds-box slds-theme_default">
+                <template for:each={regrasSlaRows} for:item="row">
+                    <div key={row.key} class="sla-row">
+                        <div class="sla-marco-block">
+                            <div class="sla-marco">{row.marcoLabel}</div>
+                            <template if:true={row.description}>
+                                <p class="sla-marco-help">{row.description}</p>
+                            </template>
+                        </div>
+                        <template if:false={row.isMulti}>
+                            <div class="sla-single-cell">
+                                <lightning-input
+                                    type="number"
+                                    label={timeMinutesLabel}
+                                    variant="label-stacked"
+                                    value={row.singleTempo}
+                                    data-marco={row.marco}
+                                    onchange={handleRegraTempoChange}
+                                ></lightning-input>
+                            </div>
+                        </template>
+                        <template if:true={row.isMulti}>
+                            <div class="sla-multi-grid">
+                                <template for:each={row.cells} for:item="cell">
+                                    <div key={cell.key} class="sla-priority-cell">
+                                        <lightning-input
+                                            type="number"
+                                            label={cell.labelWithUnit}
+                                            variant="label-stacked"
+                                            value={cell.tempo}
+                                            data-marco={row.marco}
+                                            data-prioridade={cell.priority}
+                                            onchange={handleRegraTempoChange}
+                                        ></lightning-input>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <div class="sla-row n3-row">
+                    <div class="sla-marco-block">
+                        <div class="sla-marco">{atendimentoN3Label}</div>
+                        <template if:true={atendimentoN3Description}>
+                            <p class="sla-marco-help">{atendimentoN3Description}</p>
+                        </template>
+                    </div>
+                    <div class="n3-panel">
+                        <lightning-radio-group
+                            class="n3-mode-toggle"
+                            type="button"
+                            name="n3Mode"
+                            label={n3StrategyLabel}
+                            options={n3ModeOptions}
+                            value={n3Mode}
+                            onchange={handleN3ModeChange}
+                        ></lightning-radio-group>
+
+                        <template if:true={showN3Unique}>
+                            <div class="n3-table-card">
+                                <div class="n3-header-row">
+                                    <div class="n3-head">{n3AreaHeaderLabel}</div>
+                                    <div class="n3-head">{n3HighMinutesLabel}</div>
+                                    <div class="n3-head">{n3NormalMinutesLabel}</div>
+                                    <div class="n3-head">{n3LowMinutesLabel}</div>
+                                </div>
+                                <div class="n3-data-row">
+                                    <div class="n3-area-label">{n3AppliedAllLabel}</div>
+                                    <lightning-input type="number" variant="label-hidden" label={n3HighLabel} value={n3UniqueByPriority.High} data-priority="High" onchange={handleN3UniqueChange}></lightning-input>
+                                    <lightning-input type="number" variant="label-hidden" label={n3NormalLabel} value={n3UniqueByPriority.Medium} data-priority="Medium" onchange={handleN3UniqueChange}></lightning-input>
+                                    <lightning-input type="number" variant="label-hidden" label={n3LowLabel} value={n3UniqueByPriority.Low} data-priority="Low" onchange={handleN3UniqueChange}></lightning-input>
+                                </div>
+                            </div>
+                        </template>
+
+                        <template if:true={showN3ByArea}>
+                            <div class="n3-table-card">
+                                <div class="n3-header-row">
+                                    <div class="n3-head">{n3AreaHeaderLabel}</div>
+                                    <div class="n3-head">{n3HighMinutesLabel}</div>
+                                    <div class="n3-head">{n3NormalMinutesLabel}</div>
+                                    <div class="n3-head">{n3LowMinutesLabel}</div>
+                                </div>
+                                <template for:each={n3AreaRows} for:item="areaRow">
+                                    <div key={areaRow.area} class="n3-data-row">
+                                        <div class="n3-area-label">{areaRow.label}</div>
+                                        <lightning-input type="number" variant="label-hidden" label={n3HighLabel} value={areaRow.high} data-area={areaRow.area} data-priority="high" onchange={handleN3AreaChange}></lightning-input>
+                                        <lightning-input type="number" variant="label-hidden" label={n3NormalLabel} value={areaRow.medium} data-area={areaRow.area} data-priority="medium" onchange={handleN3AreaChange}></lightning-input>
+                                        <lightning-input type="number" variant="label-hidden" label={n3LowLabel} value={areaRow.low} data-area={areaRow.area} data-priority="low" onchange={handleN3AreaChange}></lightning-input>
+                                    </div>
+                                </template>
+                            </div>
+                            <p class="n3-help">{n3AreaConfiguredCount}</p>
+                        </template>
+                    </div>
+                </div>
+
+                <template if:false={regrasSlaRows.length}>
+                    <p class="slds-text-color_weak slds-p-around_small">{noMilestonesLabel}</p>
+                </template>
+            </div>
+
+            <div class="slds-m-top_large slds-grid slds-gutters_small">
+                <lightning-button variant="neutral" label={cancelLabel} onclick={handleCancel}></lightning-button>
+                <lightning-button variant="brand" label={saveLabel} onclick={handleSave}></lightning-button>
+            </div>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- Área Participante --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- Área Participante --></value>
+    </caseValues>
+    <layouts>
+        <layout>Área Participante Layout</layout>
+        <sections>
+            <label><!-- Links personalizados --></label>
+            <section>Links personalizados</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel><!-- Área Participante --></nameFieldLabel>
+    <recordTypes>
+        <label><!-- Centro Logístico --></label>
+        <name>CentroLogistico</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Rebocadores --></label>
+        <name>Rebocadores</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Tecon Rio Grande --></label>
+        <name>TeconRioGrande</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Tecon Salvador --></label>
+        <name>TeconSalvador</name>
+    </recordTypes>
+    <startsWith><!-- Consonant --></startsWith>
+</CustomObjectTranslation>

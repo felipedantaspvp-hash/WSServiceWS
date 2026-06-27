@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexEmailNotifications xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apexEmailNotification>
+        <user>suportewilsonsons@triscal.com.br</user>
+    </apexEmailNotification>
+    <apexEmailNotification>
+        <user>jduarte@triscal.com.br</user>
+    </apexEmailNotification>
+    <apexEmailNotification>
+        <email>mnascimento@triscal.com.br</email>
+    </apexEmailNotification>
+</ApexEmailNotifications>

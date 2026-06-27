@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Contato criado após este ser inativado --></help>
+    <label><!-- Contato Ativo --></label>
+    <name>Contato_Ativo__c</name>
+    <relationshipLabel><!-- Contato Ativo --></relationshipLabel>
+</CustomFieldTranslation>

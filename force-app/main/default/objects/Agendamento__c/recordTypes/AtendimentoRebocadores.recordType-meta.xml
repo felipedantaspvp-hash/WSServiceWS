@@ -1621,6 +1621,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Gold</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Grupo Econômico</fullName>
             <default>false</default>
         </values>
@@ -1838,10 +1842,6 @@
         </values>
         <values>
             <fullName>Orçamento e Faturas</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Ouro</fullName>
             <default>false</default>
         </values>
         <values>

@@ -1,0 +1,119 @@
+.section-title {
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #16325c;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid #dddbda;
+    padding-bottom: 0.25rem;
+}
+
+.sla-panel {
+    border-radius: 0.5rem;
+    border: 1px solid #d8dde6;
+    background: #ffffff;
+    padding: 0.5rem 0.75rem;
+}
+
+.sla-row {
+    display: grid;
+    grid-template-columns: 220px minmax(220px, 1fr);
+    column-gap: 1.25rem;
+    align-items: start;
+    padding: 0.6rem 0.25rem;
+    border-bottom: 1px solid #eef1f6;
+}
+
+.sla-marco {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #2e2e2e;
+    line-height: 1.25rem;
+}
+
+.sla-marco-block {
+    padding-top: 1.25rem;
+}
+
+.sla-marco-help {
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+    font-size: 0.75rem;
+    line-height: 1.1rem;
+    color: #54698d;
+}
+
+.sla-single-cell {
+    max-width: 220px;
+}
+
+.sla-multi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(120px, 1fr));
+    column-gap: 0.9rem;
+    max-width: 520px;
+}
+
+.sla-row:last-of-type { border-bottom: none; }
+
+.n3-row {
+    margin-top: 0.25rem;
+}
+
+.n3-panel {
+    background: #f8fafc;
+    border: 1px solid #dde3ee;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+}
+
+.n3-mode-toggle {
+    margin-bottom: 0.75rem;
+}
+
+.n3-help {
+    margin: 0.5rem 0 0;
+    font-size: 0.75rem;
+    color: #54698d;
+}
+
+.n3-table-card {
+    border: 1px solid #d8dde6;
+    border-radius: 0.4rem;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.n3-head {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #16325c;
+}
+
+.n3-header-row,
+.n3-data-row {
+    display: grid;
+    grid-template-columns: minmax(200px, 1.4fr) repeat(3, minmax(140px, 1fr));
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+}
+
+.n3-header-row {
+    background: #f3f6fb;
+    border-bottom: 1px solid #e3e8f2;
+}
+
+.n3-data-row {
+    border-top: 1px solid #eef1f6;
+}
+
+.n3-data-row:first-of-type {
+    border-top: none;
+}
+
+.n3-area-label {
+    font-size: 0.8rem;
+    color: #1f2d3d;
+    font-weight: 600;
+}

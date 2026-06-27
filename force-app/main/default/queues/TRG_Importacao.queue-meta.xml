@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesIncludeBosses>false</doesIncludeBosses>
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Atendimento Importação - Rio Grande</name>
+    <queueMembers>
+        <users>
+            <user>suportewilsonsons@triscal.com.br</user>
+        </users>
+    </queueMembers>
+    <queueRoutingConfig>Service_Routing_Case_N1</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

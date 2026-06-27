@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NomenclaturaAntiga__c</fullName>
+    <description>Nomenclatura anterior do item ou registro alterado, usada para rastreabilidade da mudança.</description>
+    <externalId>false</externalId>
+    <label>Nomenclatura Antiga</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

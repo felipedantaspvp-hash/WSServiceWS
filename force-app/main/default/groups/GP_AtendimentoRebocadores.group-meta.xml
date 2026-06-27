@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Group xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Grupo para compartilhamento de dados nos processos de atendimento de Rebocadores</description>
+    <doesIncludeBosses>true</doesIncludeBosses>
+    <name>Atendimento Rebocadores</name>
+</Group>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Negócios Habilitados para Campanhas --></label>
+    <name>Negocios_Habilitados_para_Campanhas__c</name>
+    <picklistValues>
+        <masterLabel>Agência Marítima</masterLabel>
+        <translation><!-- Agência Marítima --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Brasco</masterLabel>
+        <translation><!-- Brasco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Corporativo</masterLabel>
+        <translation><!-- Corporativo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Estaleiros</masterLabel>
+        <translation><!-- Estaleiros --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Logística</masterLabel>
+        <translation><!-- Logística --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rebocadores</masterLabel>
+        <translation><!-- Rebocadores --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tecon Rio Grande</masterLabel>
+        <translation><!-- Tecon Rio Grande --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tecon Salvador</masterLabel>
+        <translation><!-- Tecon Salvador --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

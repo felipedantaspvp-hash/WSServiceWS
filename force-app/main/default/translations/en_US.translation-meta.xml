@@ -1196,6 +1196,18 @@ Before we begin, please choose your service language.</message>
         <name>APP_CentralTemplates</name>
     </customApplications>
     <customApplications>
+        <label><!-- Atendimento - Centro Logistico --></label>
+        <name>Atendimento_CentroLogistico</name>
+    </customApplications>
+    <customApplications>
+        <label><!-- Atendimento - Rebocadores --></label>
+        <name>Atendimento_Rebocadores</name>
+    </customApplications>
+    <customApplications>
+        <label><!-- Atendimento - Tecon Rio Grande --></label>
+        <name>Atendimento_Tecon_RioGrande</name>
+    </customApplications>
+    <customApplications>
         <label><!-- Atendimento - Tecon Salvador --></label>
         <name>Atendimento_Tecon_Salvador</name>
     </customApplications>
@@ -1892,8 +1904,76 @@ Before we begin, please choose your service language.</message>
         <name>AccountCaseSchedule_WeekdaysRequired</name>
     </customLabels>
     <customLabels>
+        <label><!-- Additional information section title in the New Case wizard --></label>
+        <name>CaseNewCategorization_AdditionalInfoSection</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Case context section title in the New Case wizard --></label>
+        <name>CaseNewCategorization_ContextSection</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Description section title in the New Case wizard --></label>
+        <name>CaseNewCategorization_DescriptionSection</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Case destination section title in the New Case wizard --></label>
+        <name>CaseNewCategorization_DestinationSection</name>
+    </customLabels>
+    <customLabels>
         <label>Categorization</label>
         <name>Categorizacao</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Messaging channel label. --></label>
+        <name>ContactWhatsApp_Channel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Close action label. --></label>
+        <name>ContactWhatsApp_Close</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Empty state for no eligible WhatsApp users. --></label>
+        <name>ContactWhatsApp_EmptyState</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Contact not found error. --></label>
+        <name>ContactWhatsApp_ErrorContactNotFound</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Contact id required error. --></label>
+        <name>ContactWhatsApp_ErrorContactRequired</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error toast title. --></label>
+        <name>ContactWhatsApp_ErrorTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Unexpected error message. --></label>
+        <name>ContactWhatsApp_ErrorUnexpected</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Contact WhatsApp quick action header. --></label>
+        <name>ContactWhatsApp_Header</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Intro text for eligible WhatsApp users. --></label>
+        <name>ContactWhatsApp_Intro</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Loading text. --></label>
+        <name>ContactWhatsApp_Loading</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Button to open the Messaging User record. --></label>
+        <name>ContactWhatsApp_OpenMessagingUser</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Recommended candidate badge. --></label>
+        <name>ContactWhatsApp_Recommended</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Button to open the native Send A Message action. --></label>
+        <name>ContactWhatsApp_SendMessage</name>
     </customLabels>
     <customLabels>
         <label>Detail</label>
@@ -2272,6 +2352,10 @@ Before we begin, please choose your service language.</message>
         <name>GestaoSLA_ConfirmDeleteGestao</name>
     </customLabels>
     <customLabels>
+        <label><!-- Confirm delete milestone dialog message --></label>
+        <name>GestaoSLA_ConfirmDeleteMilestone</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Confirm delete SLA rule dialog message --></label>
         <name>GestaoSLA_ConfirmDeleteRule</name>
     </customLabels>
@@ -2304,6 +2388,10 @@ Before we begin, please choose your service language.</message>
         <name>GestaoSLA_ErrorDeactivateCategory</name>
     </customLabels>
     <customLabels>
+        <label><!-- Fallback error message when deactivating a milestone fails --></label>
+        <name>GestaoSLA_ErrorDeactivateMilestone</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Error deactivating SLA rule message --></label>
         <name>GestaoSLA_ErrorDeactivateRule</name>
     </customLabels>
@@ -2314,6 +2402,10 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- Error deleting Gestão de SLA message --></label>
         <name>GestaoSLA_ErrorDeleteGestao</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Fallback error message when deleting a milestone fails --></label>
+        <name>GestaoSLA_ErrorDeleteMilestone</name>
     </customLabels>
     <customLabels>
         <label><!-- Error deleting SLA rule message --></label>
@@ -2336,6 +2428,10 @@ Before we begin, please choose your service language.</message>
         <name>GestaoSLA_ErrorLoadManagement</name>
     </customLabels>
     <customLabels>
+        <label><!-- Fallback error message when loading milestones fails --></label>
+        <name>GestaoSLA_ErrorLoadMilestones</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Error loading SLA Rules message --></label>
         <name>GestaoSLA_ErrorLoadRules</name>
     </customLabels>
@@ -2346,6 +2442,10 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- Error reactivating SLA Management message --></label>
         <name>GestaoSLA_ErrorReactivateManagement</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Fallback error message when reactivating a milestone fails --></label>
+        <name>GestaoSLA_ErrorReactivateMilestone</name>
     </customLabels>
     <customLabels>
         <label><!-- Rule validation error: at least one SLA time required --></label>
@@ -2378,6 +2478,10 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- Category save error message --></label>
         <name>GestaoSLA_ErrorSaveCategory</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Fallback error message when saving a milestone fails --></label>
+        <name>GestaoSLA_ErrorSaveMilestone</name>
     </customLabels>
     <customLabels>
         <label><!-- Error saving SLA rule message --></label>
@@ -2436,32 +2540,68 @@ Before we begin, please choose your service language.</message>
         <name>GestaoSLA_MilestoneChatResponseLabel</name>
     </customLabels>
     <customLabels>
+        <label><!-- Confirmation prompt before deactivating a milestone --></label>
+        <name>GestaoSLA_MilestoneConfirmDeactivate</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Delete milestone action --></label>
+        <name>GestaoSLA_MilestoneDelete</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Email Queue milestone name label --></label>
         <name>GestaoSLA_MilestoneEmailQueueLabel</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Triage milestone name label --></label>
-        <name>GestaoSLA_MilestoneTriageLabel</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Milestones tab title --></label>
-        <name>GestaoSLA_MilestoneTabTitle</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- New milestone button --></label>
-        <name>GestaoSLA_MilestoneNewButton</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Reactivate milestone action --></label>
-        <name>GestaoSLA_MilestoneReactivateButton</name>
     </customLabels>
     <customLabels>
         <label><!-- Empty state for milestone maintenance list --></label>
         <name>GestaoSLA_MilestoneEmptyState</name>
     </customLabels>
     <customLabels>
+        <label><!-- Milestone fallback time field label --></label>
+        <name>GestaoSLA_MilestoneFallbackTimeFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Edit milestone modal title --></label>
+        <name>GestaoSLA_MilestoneModalEditTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- New milestone modal title --></label>
+        <name>GestaoSLA_MilestoneModalNewTitle</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Milestone name field label --></label>
         <name>GestaoSLA_MilestoneNameFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- New milestone button --></label>
+        <name>GestaoSLA_MilestoneNewButton</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Milestone order field label --></label>
+        <name>GestaoSLA_MilestoneOrderFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Reactivate milestone action --></label>
+        <name>GestaoSLA_MilestoneReactivateButton</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Milestone recurrence type field label --></label>
+        <name>GestaoSLA_MilestoneRecurrenceTypeFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Milestone recurrent toggle field label --></label>
+        <name>GestaoSLA_MilestoneRecurrentFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Milestones tab title --></label>
+        <name>GestaoSLA_MilestoneTabTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Milestone time source field label --></label>
+        <name>GestaoSLA_MilestoneTimeSourceFieldLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Triage milestone name label --></label>
+        <name>GestaoSLA_MilestoneTriageLabel</name>
     </customLabels>
     <customLabels>
         <label><!-- Milestone Type Name field label --></label>
@@ -2470,26 +2610,6 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- Hint explaining Milestone Type Name must match the Entitlement Process --></label>
         <name>GestaoSLA_MilestoneTypeNameHint</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Milestone order field label --></label>
-        <name>GestaoSLA_MilestoneOrderFieldLabel</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Milestone time source field label --></label>
-        <name>GestaoSLA_MilestoneTimeSourceFieldLabel</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Milestone fallback time field label --></label>
-        <name>GestaoSLA_MilestoneFallbackTimeFieldLabel</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Milestone recurrent toggle field label --></label>
-        <name>GestaoSLA_MilestoneRecurrentFieldLabel</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Milestone recurrence type field label --></label>
-        <name>GestaoSLA_MilestoneRecurrenceTypeFieldLabel</name>
     </customLabels>
     <customLabels>
         <label><!-- Milestone uses categorization field label --></label>
@@ -2502,66 +2622,6 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- Milestone uses origin field label --></label>
         <name>GestaoSLA_MilestoneUsesOriginFieldLabel</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- New milestone modal title --></label>
-        <name>GestaoSLA_MilestoneModalNewTitle</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Edit milestone modal title --></label>
-        <name>GestaoSLA_MilestoneModalEditTitle</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Confirmation prompt before deactivating a milestone --></label>
-        <name>GestaoSLA_MilestoneConfirmDeactivate</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Toast shown after creating a milestone --></label>
-        <name>GestaoSLA_ToastMilestoneCreated</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Toast shown after updating a milestone --></label>
-        <name>GestaoSLA_ToastMilestoneUpdated</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Toast shown after deactivating a milestone --></label>
-        <name>GestaoSLA_ToastMilestoneDeactivated</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Toast shown after reactivating a milestone --></label>
-        <name>GestaoSLA_ToastMilestoneReactivated</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Fallback error message when saving a milestone fails --></label>
-        <name>GestaoSLA_ErrorSaveMilestone</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Fallback error message when deactivating a milestone fails --></label>
-        <name>GestaoSLA_ErrorDeactivateMilestone</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Fallback error message when reactivating a milestone fails --></label>
-        <name>GestaoSLA_ErrorReactivateMilestone</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Fallback error message when loading milestones fails --></label>
-        <name>GestaoSLA_ErrorLoadMilestones</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Delete milestone action --></label>
-        <name>GestaoSLA_MilestoneDelete</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Confirm delete milestone dialog message --></label>
-        <name>GestaoSLA_ConfirmDeleteMilestone</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Fallback error message when deleting a milestone fails --></label>
-        <name>GestaoSLA_ErrorDeleteMilestone</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Toast shown after deleting a milestone --></label>
-        <name>GestaoSLA_ToastMilestoneDeleted</name>
     </customLabels>
     <customLabels>
         <label><!-- Button label to create a new SLA Management record. --></label>
@@ -2786,6 +2846,26 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- SLA Management updated success toast --></label>
         <name>GestaoSLA_ToastManagementUpdated</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Toast shown after creating a milestone --></label>
+        <name>GestaoSLA_ToastMilestoneCreated</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Toast shown after deactivating a milestone --></label>
+        <name>GestaoSLA_ToastMilestoneDeactivated</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Toast shown after deleting a milestone --></label>
+        <name>GestaoSLA_ToastMilestoneDeleted</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Toast shown after reactivating a milestone --></label>
+        <name>GestaoSLA_ToastMilestoneReactivated</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Toast shown after updating a milestone --></label>
+        <name>GestaoSLA_ToastMilestoneUpdated</name>
     </customLabels>
     <customLabels>
         <label><!-- SLA rule activated success toast --></label>
@@ -15040,6 +15120,18 @@ Before we begin, please choose your service language.</message>
         <name>dupcheck__DCSETUPCHECK_ERRORMESSAGE_CROSS_OBJECT_NOT_CONFIGURED_ANYMORE</name>
     </customLabels>
     <customLabels>
+        <label><!-- DCSETUPCHECK_ERRORMESSAGE_DUPLICATE_RECORDTYPE_MATCH --></label>
+        <name>dupcheck__DCSETUPCHECK_ERRORMESSAGE_DUPLICATE_RECORDTYPE_MATCH</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- DCSETUPCHECK_ERRORMESSAGE_DUPLICATE_RECORDTYPE_SCENARIO --></label>
+        <name>dupcheck__DCSETUPCHECK_ERRORMESSAGE_DUPLICATE_RECORDTYPE_SCENARIO</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- DCSETUPCHECK_ERRORMESSAGE_DUPLICATE_SETTING --></label>
+        <name>dupcheck__DCSETUPCHECK_ERRORMESSAGE_DUPLICATE_SETTING</name>
+    </customLabels>
+    <customLabels>
         <label><!-- DCSETUPCHECK_ERRORMESSAGE_FIELD_FROM_MERGERULECONFIG_DOES_NOT_EXIST --></label>
         <name>dupcheck__DCSETUPCHECK_ERRORMESSAGE_FIELD_FROM_MERGERULECONFIG_DOES_NOT_EXIST</name>
     </customLabels>
@@ -15078,6 +15170,18 @@ Before we begin, please choose your service language.</message>
     <customLabels>
         <label><!-- DCSETUPCHECK_ERRORMESSAGE_SCENARIOFIELD_UNLICENSED_CUSTOMFIELD --></label>
         <name>dupcheck__DCSETUPCHECK_ERRORMESSAGE_SCENARIOFIELD_UNLICENSED_CUSTOMFIELD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- DCSETUPCHECK_HEALTH_CHECK_FAILED --></label>
+        <name>dupcheck__DCSETUPCHECK_HEALTH_CHECK_FAILED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- DCSETUPCHECK_ORG_WIDE_CHECKS --></label>
+        <name>dupcheck__DCSETUPCHECK_ORG_WIDE_CHECKS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- DCSETUPCHECK_ORG_WIDE_GUIDANCE --></label>
+        <name>dupcheck__DCSETUPCHECK_ORG_WIDE_GUIDANCE</name>
     </customLabels>
     <customLabels>
         <label><!-- DCSETUPGENERAL_COULD_NOT_ADD_SCENARIO_LIMIT_REACHED --></label>
@@ -24507,22 +24611,6 @@ Before we begin, please choose your service language.</message>
         <label><!-- Pardot Production Api Base Url --></label>
         <name>pi__Pardot_Production_Base_Url</name>
     </customLabels>
-    <customLabels>
-        <label><!-- Case context section title in the New Case wizard --></label>
-        <name>CaseNewCategorization_ContextSection</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Case destination section title in the New Case wizard --></label>
-        <name>CaseNewCategorization_DestinationSection</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Additional information section title in the New Case wizard --></label>
-        <name>CaseNewCategorization_AdditionalInfoSection</name>
-    </customLabels>
-    <customLabels>
-        <label><!-- Description section title in the New Case wizard --></label>
-        <name>CaseNewCategorization_DescriptionSection</name>
-    </customLabels>
     <customPageWebLinks>
         <label><!-- DocuSign Setup --></label>
         <name>dfsle__Setup</name>
@@ -25003,6 +25091,417 @@ Before we begin, please choose your service language.</message>
     <flowDefinitions>
         <flows/>
         <fullName>Atendimento_Resolver_Contexto_Inicial</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <choices>
+                <choiceText>4</choiceText>
+                <name>c_1a02e3b0_5658_4e09_a5f6_e1e38c8d14c9</name>
+            </choices>
+            <choices>
+                <choiceText>Very slow</choiceText>
+                <name>c_4141beb2_00e9_4662_855d_5675ab32dd61</name>
+            </choices>
+            <choices>
+                <choiceText>Very fast</choiceText>
+                <name>c_4883ed80_e8a4_4f47_9ea3_b0d27ee35296</name>
+            </choices>
+            <choices>
+                <choiceText>Adequate</choiceText>
+                <name>c_626c50b4_c650_496b_8332_58f3bbb81159</name>
+            </choices>
+            <choices>
+                <choiceText>Slow</choiceText>
+                <name>c_6f156de4_c7cb_4dd5_b5db_9b7ca4b5027f</name>
+            </choices>
+            <choices>
+                <choiceText>3</choiceText>
+                <name>c_73ed9187_8014_493c_8464_1172d5c253e9</name>
+            </choices>
+            <choices>
+                <choiceText>Fast</choiceText>
+                <name>c_7cfc59eb_37ee_4b70_9cfd_856180ac525f</name>
+            </choices>
+            <choices>
+                <choiceText>5</choiceText>
+                <name>c_7dc40162_3bd6_4096_957d_c9375065f3ec</name>
+            </choices>
+            <choices>
+                <choiceText>1</choiceText>
+                <name>c_913a9416_8cbb_4f88_aa41_24ab3cdb0b17</name>
+            </choices>
+            <choices>
+                <choiceText>2</choiceText>
+                <name>c_fa466534_20f7_4493_967c_4553a648ae3e</name>
+            </choices>
+            <choices>
+                <choiceText>No</choiceText>
+                <name>resolved_no</name>
+            </choices>
+            <choices>
+                <choiceText>Partially</choiceText>
+                <name>resolved_partial</name>
+            </choices>
+            <choices>
+                <choiceText>Yes, completely</choiceText>
+                <name>resolved_yes_full</name>
+            </choices>
+            <screens>
+                <fields>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;How would you rate the service received?&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <name>q_197895d4_5344_4099_ae64_4ac79ced94be</name>
+                </fields>
+                <fields>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Leave a comment, if you wish.&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <name>q_42bfc0a2_81ce_499f_bec3_46d80ec12f66</name>
+                </fields>
+                <fields>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;How would you rate the response time?&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <name>q_quality</name>
+                </fields>
+                <fields>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Was your request resolved?&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <name>q_resolution</name>
+                </fields>
+                <name>survey_questions</name>
+            </screens>
+            <screens>
+                <fields>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <name>welcome_question</name>
+                </fields>
+                <name>welcome_page</name>
+            </screens>
+            <textTemplates>
+                <name>thankYouDescriptionTextTemplate</name>
+            </textTemplates>
+            <textTemplates>
+                <name>thankYouLabelTextTemplate</name>
+                <text>&lt;p&gt;&lt;strong&gt;Thank you for sharing your feedback. Your response helps us improve the Wilson Sons Logistics Center support experience.&lt;/strong&gt;&lt;/p&gt;</text>
+            </textTemplates>
+            <textTemplates>
+                <name>welcome_question_lref_tt</name>
+                <text>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 48px;&quot;&gt;Customer Satisfaction Survey | Logistics Center&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;We want to know about your experience with Wilson Sons Logistics Center support. Your feedback is important to help us improve our processes and services.&lt;/p&gt;</text>
+            </textTemplates>
+        </flows>
+        <fullName>Atendimento_Survey_CentroLogistico</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <choices>
+                <choiceText>Good</choiceText>
+                <name>c_1b270485_407f_4251_b593_79daea5952c8</name>
+            </choices>
+            <choices>
+                <choiceText>Poor</choiceText>
+                <name>c_afee919c_7b9b_4f84_af45_00c42bd8e1d1</name>
+            </choices>
+            <screens>
+                <fields>
+                    <fieldText>&lt;p&gt;&lt;span class=&quot;ql-cursor&quot;&gt;&lt;/span&gt;How would you rate the service received?&lt;/p&gt;</fieldText>
+                    <name>q_8dcc0a03_a376_4802_801e_e049d48d354b</name>
+                </fields>
+                <fields>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;&lt;span class=&quot;ql-cursor&quot;&gt;&lt;/span&gt;Would you like to leave a comment about the service?&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <name>q_db867e83_6fc2_463e_a270_a35afb5bba96</name>
+                </fields>
+                <name>p_20b75919_5c91_4e73_823a_8a0926e463a5</name>
+            </screens>
+            <screens>
+                <fields>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <name>welcome_question</name>
+                </fields>
+                <name>welcome_page</name>
+            </screens>
+            <textTemplates>
+                <name>thankYouDescriptionTextTemplate</name>
+            </textTemplates>
+            <textTemplates>
+                <name>thankYouLabelTextTemplate</name>
+                <text>&lt;p&gt;&lt;strong&gt;Thank you for sharing your feedback. Your response helps us improve the Wilson Sons Towage support experience.&lt;/strong&gt;&lt;/p&gt;</text>
+            </textTemplates>
+            <textTemplates>
+                <name>welcome_question_lref_tt</name>
+                <text>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 48px;&quot;&gt;Customer Satisfaction Survey | Towage&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;We want to know about your experience with Wilson Sons Towage support. Your feedback is important to help us continuously improve our services.&lt;/p&gt;</text>
+            </textTemplates>
+        </flows>
+        <fullName>Atendimento_Survey_Rebocadores</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <choices>
+                <name>csat_1</name>
+            </choices>
+            <choices>
+                <name>csat_2</name>
+            </choices>
+            <choices>
+                <name>csat_3</name>
+            </choices>
+            <choices>
+                <name>csat_4</name>
+            </choices>
+            <choices>
+                <name>csat_5</name>
+            </choices>
+            <choices>
+                <name>resolved_no</name>
+            </choices>
+            <choices>
+                <name>resolved_partial</name>
+            </choices>
+            <choices>
+                <name>resolved_yes_full</name>
+            </choices>
+            <choices>
+                <name>speed_1</name>
+            </choices>
+            <choices>
+                <name>speed_2</name>
+            </choices>
+            <choices>
+                <name>speed_3</name>
+            </choices>
+            <choices>
+                <name>speed_4</name>
+            </choices>
+            <choices>
+                <name>speed_5</name>
+            </choices>
+            <screens>
+                <fields>
+                    <name>q_csat</name>
+                </fields>
+                <fields>
+                    <name>q_quality</name>
+                </fields>
+                <fields>
+                    <name>q_resolution</name>
+                </fields>
+                <name>survey_questions</name>
+            </screens>
+            <screens>
+                <fields>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <name>welcome_question</name>
+                </fields>
+                <name>welcome_page</name>
+            </screens>
+            <textTemplates>
+                <name>thankYouDescriptionTextTemplate</name>
+            </textTemplates>
+            <textTemplates>
+                <name>thankYouLabelTextTemplate</name>
+            </textTemplates>
+            <textTemplates>
+                <name>welcome_question_lref_tt</name>
+            </textTemplates>
+        </flows>
+        <fullName>Atendimento_Survey_Rebocadores_EN</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <choices>
+                <choiceText>Poor</choiceText>
+                <name>c_00e765a9_659b_47c7_9e3c_925a50b40a34</name>
+            </choices>
+            <choices>
+                <choiceText>Good</choiceText>
+                <name>c_1eaa8e5e_1e1e_4c72_b5cb_dfd85c4d0a89</name>
+            </choices>
+            <choices>
+                <choiceText>Yes</choiceText>
+                <name>c_2756624f_53fe_48cd_a987_bfea9ff8236c</name>
+            </choices>
+            <choices>
+                <choiceText>Fast</choiceText>
+                <name>c_50f15ab1_262b_4658_bf0c_c621d0c7e9f9</name>
+            </choices>
+            <choices>
+                <choiceText>No</choiceText>
+                <name>c_6e15198f_e6b8_4b65_b644_b2987123260f</name>
+            </choices>
+            <choices>
+                <choiceText>2</choiceText>
+                <name>c_71ca8b13_d4e0_4ece_b642_b899b6273fcb</name>
+            </choices>
+            <choices>
+                <choiceText>Partially</choiceText>
+                <name>c_88f8c1e3_83f3_428e_bd94_681d8941f507</name>
+            </choices>
+            <choices>
+                <choiceText>Adequate</choiceText>
+                <name>c_a621ede6_f65b_420a_a2d1_c4857be6dc1d</name>
+            </choices>
+            <choices>
+                <choiceText>Very slow</choiceText>
+                <name>c_acdb10b0_4c26_4df6_a9f3_5ddaa985a30e</name>
+            </choices>
+            <choices>
+                <choiceText>Very fast</choiceText>
+                <name>c_c9282eaf_b704_40d5_bc63_587f11df9168</name>
+            </choices>
+            <choices>
+                <choiceText>4</choiceText>
+                <name>c_d66614f3_878d_48a6_8a2f_616e0f2cd12c</name>
+            </choices>
+            <choices>
+                <choiceText>3</choiceText>
+                <name>c_e71ce117_a830_4afb_8ee5_0a1b13a34234</name>
+            </choices>
+            <choices>
+                <choiceText>Slow</choiceText>
+                <name>c_fd858b5b_a4a0_42d0_a9e3_64992ac94367</name>
+            </choices>
+            <screens>
+                <fields>
+                    <fieldText>&lt;p&gt;&lt;span class=&quot;ql-cursor&quot;&gt;&lt;/span&gt;Was your issue resolved?&lt;/p&gt;</fieldText>
+                    <name>q_295a6ce5_4407_4ddd_ac4a_260c65c346b7</name>
+                </fields>
+                <fields>
+                    <fieldText>&lt;p&gt;&lt;span class=&quot;ql-cursor&quot;&gt;&lt;/span&gt;How would you rate the response time?&lt;/p&gt;</fieldText>
+                    <name>q_aa92a1bc_1508_4009_8383_3d6578a58c10</name>
+                </fields>
+                <fields>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Leave a comment, if you wish.&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <name>q_b662cdda_6b58_42c7_afaf_33270d3c7476</name>
+                </fields>
+                <fields>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;How would you rate the service received?&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <name>q_f5e7df3a_b1dd_4d4f_8f32_ac9a0db059bd</name>
+                </fields>
+                <name>p_75c03b8d_8be5_40ec_bd27_7674bc88fb0d</name>
+            </screens>
+            <screens>
+                <fields>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <name>welcome_question</name>
+                </fields>
+                <name>welcome_page</name>
+            </screens>
+            <textTemplates>
+                <name>thankYouDescriptionTextTemplate</name>
+            </textTemplates>
+            <textTemplates>
+                <name>thankYouLabelTextTemplate</name>
+                <text>&lt;p&gt;&lt;strong&gt;Thank you for rating Tecon Rio Grande support. Your feedback helps us keep improving.&lt;/strong&gt;&lt;/p&gt;</text>
+            </textTemplates>
+            <textTemplates>
+                <name>welcome_question_lref_tt</name>
+                <text>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 48px;&quot;&gt;Customer Satisfaction Survey | Tecon Rio Grande&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;Your service at Tecon Rio Grande has been closed. We want to make sure everything was resolved as expected. Your feedback is essential to help us continuously improve our services.&lt;/p&gt;</text>
+            </textTemplates>
+        </flows>
+        <fullName>Atendimento_Survey_TeconRioGrande</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <choices>
+                <choiceText>Very poor</choiceText>
+                <name>c_13ba11d1_7650_41fa_9e47_bb7dfc2f225e</name>
+            </choices>
+            <choices>
+                <choiceText>Fast</choiceText>
+                <name>c_18e534b8_1dd3_46b2_b3f5_1892998b068e</name>
+            </choices>
+            <choices>
+                <choiceText>No</choiceText>
+                <name>c_53fab538_f31c_40fb_a0d4_be9b709634d5</name>
+            </choices>
+            <choices>
+                <choiceText>Very slow</choiceText>
+                <name>c_573511cb_6235_48e1_80e3_0c6588a56d04</name>
+            </choices>
+            <choices>
+                <choiceText>Slow</choiceText>
+                <name>c_6c92f9a6_ebcf_4c72_ae0c_d8c75676ebb6</name>
+            </choices>
+            <choices>
+                <choiceText>3</choiceText>
+                <name>c_7968cc50_9bf2_4704_a3a2_baff2b8e1a52</name>
+            </choices>
+            <choices>
+                <choiceText>Very fast</choiceText>
+                <name>c_b1de7f08_4c1e_4844_8986_f7a27a1bfec9</name>
+            </choices>
+            <choices>
+                <choiceText>Yes</choiceText>
+                <name>c_b291305f_1b52_48e1_b5bf_416355f5c215</name>
+            </choices>
+            <choices>
+                <choiceText>4</choiceText>
+                <name>c_b9d6b4a6_3d0c_4f07_8fe7_79a31d95cd3d</name>
+            </choices>
+            <choices>
+                <choiceText>Excellent</choiceText>
+                <name>c_bbe32f5e_819c_40ba_b3ec_b8d028e437ea</name>
+            </choices>
+            <choices>
+                <choiceText>Adequate</choiceText>
+                <name>c_bdd41fd9_4c9c_4da6_94b1_4fc6986022d4</name>
+            </choices>
+            <choices>
+                <choiceText>2</choiceText>
+                <name>c_de771d91_6272_4890_8fda_84534f39b75c</name>
+            </choices>
+            <choices>
+                <choiceText>Partially</choiceText>
+                <name>c_e9864b18_cc3e_4733_9a6a_730f0380a8b9</name>
+            </choices>
+            <screens>
+                <fields>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Was your issue resolved?&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <name>q_1a33a477_35e9_4dbd_a817_a381c2272a0a</name>
+                </fields>
+                <fields>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Leave a comment, if you wish.&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <name>q_351db553_bb69_4e25_baf7_85232b648553</name>
+                </fields>
+                <fields>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;How would you rate the service received?&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <name>q_96e2e5ee_4ce6_47e2_b91b_8a3ad387ee78</name>
+                </fields>
+                <fields>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;How would you rate the response time?&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <name>q_cbb4d894_dc1f_43d1_b010_c6e1e667e1c1</name>
+                </fields>
+                <name>p_701b2e69_ee3c_4c8a_b597_77ba38f8d257</name>
+            </screens>
+            <screens>
+                <fields>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <name>welcome_question</name>
+                </fields>
+                <name>welcome_page</name>
+            </screens>
+            <textTemplates>
+                <name>thankYouDescriptionTextTemplate</name>
+            </textTemplates>
+            <textTemplates>
+                <name>thankYouLabelTextTemplate</name>
+                <text>&lt;p&gt;&lt;strong&gt;Thank you for sharing your feedback. Your response helps us improve the Tecon Salvador support experience.&lt;/strong&gt;&lt;/p&gt;</text>
+            </textTemplates>
+            <textTemplates>
+                <name>welcome_question_lref_tt</name>
+                <text>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 48px;&quot;&gt;Customer Satisfaction Survey | Tecon Salvador&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;Hello.&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;We want to know about your experience with Tecon Salvador support.&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;Your feedback is very important to help us continuously improve our services.&lt;/p&gt;</text>
+            </textTemplates>
+        </flows>
+        <fullName>Atendimento_Survey_TeconSalvador</fullName>
     </flowDefinitions>
     <flowDefinitions>
         <flows/>
@@ -26069,6 +26568,22 @@ Before we begin, please choose your service language.</message>
     </flowDefinitions>
     <flowDefinitions>
         <flows>
+            <customErrorMessages>
+                <developerName>Custom_Error_Message_1</developerName>
+                <field>ValorMinimoPeriodo__c</field>
+            </customErrorMessages>
+            <customErrorMessages>
+                <developerName>Custom_Error_Message_4</developerName>
+                <field>PercentualDoPeriodo__c</field>
+            </customErrorMessages>
+            <customErrorMessages>
+                <developerName>Custom_Error_Message_2</developerName>
+                <field>ValorDeCNTRPeriodo__c</field>
+            </customErrorMessages>
+            <customErrorMessages>
+                <developerName>Custom_Error_Message_3</developerName>
+                <field>ValorMinimoDiarioPorProcessoPeriodo__c</field>
+            </customErrorMessages>
             <textTemplates>
                 <name>TT_ListPrice_Consolidado</name>
             </textTemplates>
@@ -32582,6 +33097,10 @@ Before we begin, please choose your service language.</message>
                         <name>label</name>
                         <value/>
                     </inputParameters>
+                    <inputParameters>
+                        <name>required</name>
+                        <value/>
+                    </inputParameters>
                     <name>Destination_LayoutTemplate</name>
                 </fields>
                 <fields>
@@ -34883,6 +35402,37 @@ Before we begin, please choose your service language.</message>
         <sections>
             <label><!-- Analytic Notifications --></label>
             <name>Analytic Notifications</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Rep Work --></description>
+        <label><!-- Rep Work --></label>
+        <name>SfdcRepWorkReportType</name>
+        <sections>
+            <label><!-- Rep Work --></label>
+            <name>Rep Work</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Rep Work with Cases --></description>
+        <label><!-- Rep Work with Cases --></label>
+        <name>SfdcRepWorkWithCasesReportType</name>
+        <sections>
+            <label><!-- Cases --></label>
+            <name>Cases</name>
+        </sections>
+        <sections>
+            <label><!-- Rep Work --></label>
+            <name>Rep Work</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Rep Presence --></description>
+        <label><!-- Rep Presence --></label>
+        <name>SfdcUserPresenceReportType</name>
+        <sections>
+            <label><!-- User Presence --></label>
+            <name>User Presence</name>
         </sections>
     </reportTypes>
     <reportTypes>

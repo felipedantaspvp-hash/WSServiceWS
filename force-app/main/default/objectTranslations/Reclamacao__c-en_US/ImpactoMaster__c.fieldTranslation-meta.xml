@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Impacto Master --></label>
+    <name>ImpactoMaster__c</name>
+    <picklistValues>
+        <masterLabel>Alto</masterLabel>
+        <translation><!-- Alto --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Baixo</masterLabel>
+        <translation><!-- Baixo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Crítico</masterLabel>
+        <translation><!-- Crítico --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Médio</masterLabel>
+        <translation><!-- Médio --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

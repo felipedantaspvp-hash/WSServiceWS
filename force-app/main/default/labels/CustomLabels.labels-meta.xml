@@ -3815,4 +3815,108 @@
         <shortDescription>Description section title in the New Case wizard</shortDescription>
         <value>Description</value>
     </labels>
+    <labels>
+        <fullName>ContactWhatsApp_Channel</fullName>
+        <categories>ContactWhatsApp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Messaging channel label.</shortDescription>
+        <value>Channel</value>
+    </labels>
+    <labels>
+        <fullName>ContactWhatsApp_Close</fullName>
+        <categories>ContactWhatsApp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Close action label.</shortDescription>
+        <value>Close</value>
+    </labels>
+    <labels>
+        <fullName>ContactWhatsApp_EmptyState</fullName>
+        <categories>ContactWhatsApp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Empty state for no eligible WhatsApp users.</shortDescription>
+        <value>No opted-in WhatsApp Messaging User was found for this Contact.</value>
+    </labels>
+    <labels>
+        <fullName>ContactWhatsApp_ErrorContactNotFound</fullName>
+        <categories>ContactWhatsApp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Contact not found error.</shortDescription>
+        <value>Contact not found or unavailable.</value>
+    </labels>
+    <labels>
+        <fullName>ContactWhatsApp_ErrorContactRequired</fullName>
+        <categories>ContactWhatsApp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Contact id required error.</shortDescription>
+        <value>Contact is required to send a WhatsApp message.</value>
+    </labels>
+    <labels>
+        <fullName>ContactWhatsApp_ErrorTitle</fullName>
+        <categories>ContactWhatsApp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error toast title.</shortDescription>
+        <value>Unable to load WhatsApp message options</value>
+    </labels>
+    <labels>
+        <fullName>ContactWhatsApp_ErrorUnexpected</fullName>
+        <categories>ContactWhatsApp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unexpected error message.</shortDescription>
+        <value>An unexpected error occurred while loading WhatsApp message options.</value>
+    </labels>
+    <labels>
+        <fullName>ContactWhatsApp_Header</fullName>
+        <categories>ContactWhatsApp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Contact WhatsApp quick action header.</shortDescription>
+        <value>Send WhatsApp Message</value>
+    </labels>
+    <labels>
+        <fullName>ContactWhatsApp_Intro</fullName>
+        <categories>ContactWhatsApp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Intro text for eligible WhatsApp users.</shortDescription>
+        <value>Select the WhatsApp Messaging User to continue the conversation.</value>
+    </labels>
+    <labels>
+        <fullName>ContactWhatsApp_Loading</fullName>
+        <categories>ContactWhatsApp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Loading text.</shortDescription>
+        <value>Loading WhatsApp message options</value>
+    </labels>
+    <labels>
+        <fullName>ContactWhatsApp_OpenMessagingUser</fullName>
+        <categories>ContactWhatsApp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Button to open the Messaging User record.</shortDescription>
+        <value>Open Messaging User</value>
+    </labels>
+    <labels>
+        <fullName>ContactWhatsApp_Recommended</fullName>
+        <categories>ContactWhatsApp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recommended candidate badge.</shortDescription>
+        <value>Recommended</value>
+    </labels>
+    <labels>
+        <fullName>ContactWhatsApp_SendMessage</fullName>
+        <categories>ContactWhatsApp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Button to open the native Send A Message action.</shortDescription>
+        <value>Send A Message</value>
+    </labels>
 </CustomLabels>

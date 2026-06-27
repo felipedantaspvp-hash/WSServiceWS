@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Record Status</label>
+    <name>StatusRegistro__c</name>
+    <picklistValues>
+        <masterLabel>Aberta</masterLabel>
+        <translation><!-- Aberta --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cancelada</masterLabel>
+        <translation><!-- Cancelada --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Concluída</masterLabel>
+        <translation><!-- Concluída --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Em Análise</masterLabel>
+        <translation><!-- Em Análise --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

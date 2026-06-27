@@ -6,6 +6,10 @@
     <picklistValues>
         <picklist>AreaAtendimento__c</picklist>
         <values>
+            <fullName>Aduaneiro</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Apoio Aduaneiro</fullName>
             <default>false</default>
         </values>
@@ -15,6 +19,18 @@
         </values>
         <values>
             <fullName>Atendimento Backoffice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CAR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CSC</fullName>
             <default>false</default>
         </values>
         <values>
@@ -46,6 +62,18 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>DEPOT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Diretoria</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facilities</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Faturamento</fullName>
             <default>false</default>
         </values>
@@ -58,6 +86,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Manutenção</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Operações</fullName>
             <default>false</default>
         </values>
@@ -67,6 +99,14 @@
         </values>
         <values>
             <fullName>Operações Reefer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SMS</fullName>
             <default>false</default>
         </values>
         <values>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <layouts>
+        <layout>Agenciamento</layout>
+        <sections>
+            <label><!-- Agenciamento --></label>
+            <section>Agenciamento</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Contact Layout</layout>
+        <sections>
+            <label><!-- Agência --></label>
+            <section>Agência</section>
+        </sections>
+        <sections>
+            <label><!-- Pardot --></label>
+            <section>Pardot</section>
+        </sections>
+        <sections>
+            <label><!-- Pardot Activities --></label>
+            <section>Pardot Activities</section>
+        </sections>
+        <sections>
+            <label><!-- Tecon Rio Grande --></label>
+            <section>Tecon Rio Grande</section>
+        </sections>
+        <sections>
+            <label><!-- Towage --></label>
+            <section>Towage</section>
+        </sections>
+    </layouts>
+    <quickActions>
+        <aspect>Master</aspect>
+        <label>Enviar WhatsApp</label>
+        <name>Enviar_WhatsApp</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- LinkedIn InMail --></label>
+        <name>LID__LinkedIn_Message</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- View Profile --></label>
+        <name>LID__View_Profile</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Adobe Sign --></label>
+        <name>echosign_dev1__EchoSign_Contact_Publisher_Action</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Add to Nurture List --></label>
+        <name>pi__Add_to_Nurture_List</name>
+    </quickActions>
+    <recordTypes>
+        <label><!-- Default --></label>
+        <name>Default</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Startup --></label>
+        <name>Startup</name>
+    </recordTypes>
+    <validationRules>
+        <errorMessage><!-- Somente usuário PowerUser, Gestor ou Administrador possuem permissão de criar/alterar Contato com status diferente de Nova. --></errorMessage>
+        <name>Campo_Status</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Favor preencha o endereço. --></errorMessage>
+        <name>Endereco_preenchido_se_for_TCRG</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- CompanyId should be a numeric value --></errorMessage>
+        <name>LID__Check_CompanyId_Value</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- CompanyId should be a numeric value --></errorMessage>
+        <name>LID__Check_Company_Id_Value</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- O preenchimento das informações do endereço é obrigatório. --></errorMessage>
+        <name>Mailing_Address_Required_Rebocadores</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Os seguintes campos obrigatórios devem ser preenchidos: Primeiro Nome --></errorMessage>
+        <name>Primeiro_Nome_Obrigatorio</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- O campo segumentação específica e comercial  responsável devem ser preechidos obrigatoriamente. --></errorMessage>
+        <name>SegmentacaoEspecObrigatorioAgencia</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Um dos campos &quot;Telefone&quot; ou &quot;Celular&quot; deverá ser preenchido obrigatoriamente. --></errorMessage>
+        <name>Telefone_ou_Celular_Preenchido</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- GoogleMaps --></label>
+        <name>GoogleMaps</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- GoogleSearch --></label>
+        <name>GoogleSearch</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Mass_Delete_Records --></label>
+        <name>Mass_Delete_Records</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- dc3Check --></label>
+        <name>dupcheck__dc3Check</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- dc3Merge --></label>
+        <name>dupcheck__dc3Merge</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Send_to_EchoSign --></label>
+        <name>echosign_dev1__Send_to_EchoSign</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Send_Pardot_Email --></label>
+        <name>pi__Send_Pardot_Email</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Send_Pardot_Emails --></label>
+        <name>pi__Send_Pardot_Emails</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Send_Single_Pardot_Email --></label>
+        <name>pi__Send_Single_Pardot_Email</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Send_to_Prospect_Insight --></label>
+        <name>pi__Send_to_Prospect_Insight</name>
+    </webLinks>
+</CustomObjectTranslation>

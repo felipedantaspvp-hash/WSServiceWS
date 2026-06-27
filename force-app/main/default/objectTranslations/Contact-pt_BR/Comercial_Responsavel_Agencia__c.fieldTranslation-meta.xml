@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Comercial Responsável --></label>
+    <name>Comercial_Responsavel_Agencia__c</name>
+    <picklistValues>
+        <masterLabel>Ana Clara Teixedo</masterLabel>
+        <translation><!-- Ana Clara Teixedo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Camila Reis</masterLabel>
+        <translation><!-- Camila Reis --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carolina Andrade</masterLabel>
+        <translation><!-- Carolina Andrade --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>George Tsamis</masterLabel>
+        <translation><!-- George Tsamis --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Isabella Pereira</masterLabel>
+        <translation><!-- Isabella Pereira --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Iully Ferreira</masterLabel>
+        <translation><!-- Iully Ferreira --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Joanna Xiang</masterLabel>
+        <translation><!-- Joanna Xiang --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Jorge Coutinho</masterLabel>
+        <translation><!-- Jorge Coutinho --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Livia Nobrega</masterLabel>
+        <translation><!-- Livia Nobrega --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lorena Gomes</masterLabel>
+        <translation><!-- Lorena Gomes --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Maria Eduarda Rodrigues</masterLabel>
+        <translation><!-- Maria Eduarda Rodrigues --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Marina Braga</masterLabel>
+        <translation><!-- Marina Braga --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Michel de Kok</masterLabel>
+        <translation><!-- Michel de Kok --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ramon Amaral</masterLabel>
+        <translation><!-- Ramon Amaral --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Renan Queiroz</masterLabel>
+        <translation><!-- Renan Queiroz --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Thalita de Sá</masterLabel>
+        <translation><!-- Thalita de Sá --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Thomas Psarras</masterLabel>
+        <translation><!-- Thomas Psarras --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tássia Lima</masterLabel>
+        <translation><!-- Tássia Lima --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Úrsula Schmitz</masterLabel>
+        <translation><!-- Úrsula Schmitz --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

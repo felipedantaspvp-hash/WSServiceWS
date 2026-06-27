@@ -73,7 +73,13 @@ function buildSalvadorPatternSections() {
                 [{ field: 'Colaborador__c', visibleWhen: (ctx) => ctx.tipoCaso === 'Elogio' }, null],
                 [{ field: 'BL__c', visibleWhen: (ctx) => NAO_ELOGIO(ctx) && ctx.modalidade === 'Importação' }, null],
                 [{ field: 'Booking__c', visibleWhen: (ctx) => NAO_ELOGIO(ctx) && (ctx.modalidade === 'Cabotagem Embarque' || ctx.modalidade === 'Exportação') }, null],
-                [{ field: 'EvidenciaGatePlaca__c', visibleWhen: (ctx) => NAO_ELOGIO(ctx) && ctx.categoria === 'Acesso ao Porto' }, null]
+                [{
+                    field: 'EvidenciaGatePlaca__c',
+                    visibleWhen: (ctx) =>
+                        NAO_ELOGIO(ctx) &&
+                        ((ctx.categoria && /porto|gate/i.test(ctx.categoria)) ||
+                            (ctx.subassunto && /gate/i.test(ctx.subassunto)))
+                }, null]
             ]
         },
         {
@@ -593,6 +599,7 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
         return {
             tipoCaso: this.model.tipoCaso,
             categoria: this.model.categoria,
+            subassunto: this.subassuntoDisplay,
             modalidade: this.detailModalidade,
             prioridade: this.detailPrioritySuggested
         };

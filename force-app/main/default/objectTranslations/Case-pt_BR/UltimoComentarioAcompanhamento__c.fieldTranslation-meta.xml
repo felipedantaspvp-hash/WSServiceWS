@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Comentário operacional mais recente informado no acompanhamento. --></help>
+    <label><!-- Último Comentário do Acompanhamento --></label>
+    <name>UltimoComentarioAcompanhamento__c</name>
+</CustomFieldTranslation>

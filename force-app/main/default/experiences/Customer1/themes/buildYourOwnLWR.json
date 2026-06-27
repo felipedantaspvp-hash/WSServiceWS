@@ -1,0 +1,104 @@
+{
+  "activeBrandingSetId" : "6053b743-e77f-4104-8bd8-304d1bbad653",
+  "customCSS" : "",
+  "developerName" : "byo",
+  "id" : "79529dd5-0d3d-449b-af9e-57d6620aad7b",
+  "label" : "Build Your Own (LWR)",
+  "layouts" : {
+    "Inner" : "962ca09c-8c59-47f1-96d7-8d80c608c15c",
+    "ServiceNotAvailable" : "9701483b-508a-4152-8851-c53273ba6783"
+  },
+  "type" : "theme",
+  "views" : [ {
+    "componentAttributes" : { },
+    "componentName" : "community_byo:scopedHeaderAndFooter",
+    "id" : "962ca09c-8c59-47f1-96d7-8d80c608c15c",
+    "label" : "Scoped Header and Footer",
+    "regions" : [ {
+      "components" : [ {
+        "componentAttributes" : {
+          "backgroundImageConfig" : "",
+          "backgroundImageOverlay" : "rgba(0,0,0,0)",
+          "sectionConfig" : "{\"UUID\":\"253becb1-662f-4f76-9bef-63392309cdb6\",\"columns\":[{\"UUID\":\"721f180b-66c8-4a6b-9e59-9656288aed25\",\"columnName\":\"Column 1\",\"columnKey\":\"headerSection\",\"columnWidth\":\"12\",\"seedComponents\":null}]}"
+        },
+        "componentName" : "community_layout:section",
+        "id" : "253becb1-662f-4f76-9bef-63392309cdb6",
+        "regions" : [ {
+          "components" : [ {
+            "componentAttributes" : {
+              "bannerBackgroundColor" : "",
+              "bannerPosition" : "top",
+              "bannerSizePercent" : 35,
+              "borderRadius" : 20,
+              "boxShadow" : true,
+              "haveBanner" : false,
+              "iconBackgroundColor" : "rgb(255,255,255)",
+              "iconSize" : "medium",
+              "noImageColor" : "rgb(212, 212, 212)",
+              "overlay" : "rgba(0,0,0,0.01)",
+              "templateType" : "default",
+              "tileMenuEditor" : "Default_Navigation",
+              "titleColor" : "",
+              "titleFontSize" : "medium",
+              "titleHorizontalAlign" : "center"
+            },
+            "componentName" : "community_navigation:tileMenu",
+            "id" : "c5924f15-cbad-4f37-ac7b-a03a88846d39",
+            "renditionMap" : { },
+            "type" : "component"
+          } ],
+          "id" : "721f180b-66c8-4a6b-9e59-9656288aed25",
+          "regionLabel" : "Theme Header",
+          "regionName" : "headerSection",
+          "renditionMap" : { },
+          "type" : "region"
+        } ],
+        "renditionMap" : { },
+        "scopedBrandingSetId" : null,
+        "type" : "component"
+      } ],
+      "id" : "a7938959-54b6-40d2-982d-1e461fee3c01",
+      "regionName" : "header",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "backgroundImageConfig" : "",
+          "backgroundImageOverlay" : "rgba(0,0,0,0)",
+          "sectionConfig" : "{\"UUID\":\"2f3f382e-d056-4fa1-8c6a-c5312900a1d0\",\"columns\":[{\"UUID\":\"73d846d6-32e5-4527-8744-0c781e637bef\",\"columnName\":\"Column 1\",\"columnKey\":\"footerSection\",\"columnWidth\":\"12\",\"seedComponents\":null}]}"
+        },
+        "componentName" : "community_layout:section",
+        "id" : "2f3f382e-d056-4fa1-8c6a-c5312900a1d0",
+        "regions" : [ {
+          "id" : "73d846d6-32e5-4527-8744-0c781e637bef",
+          "regionLabel" : "Theme Footer",
+          "regionName" : "footerSection",
+          "renditionMap" : { },
+          "type" : "region"
+        } ],
+        "renditionMap" : { },
+        "scopedBrandingSetId" : null,
+        "type" : "component"
+      } ],
+      "id" : "19ced51a-4da6-480d-971f-124076aa917a",
+      "regionName" : "footer",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  }, {
+    "componentAttributes" : { },
+    "componentName" : "community_layout:simpleThemeLayout",
+    "id" : "9701483b-508a-4152-8851-c53273ba6783",
+    "label" : "Service Not Available Theme Layout",
+    "regions" : [ {
+      "id" : "3d77a65e-845b-4934-9658-d725c3d16a48",
+      "regionName" : "header",
+      "type" : "region"
+    }, {
+      "id" : "94461277-3f6b-4114-82cf-9cfe479c5c5b",
+      "regionName" : "footer",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  } ]
+}

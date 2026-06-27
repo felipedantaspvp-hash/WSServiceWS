@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Procedência da Reclamação --></label>
+    <name>ProcedenciaReclamacao__c</name>
+    <picklistValues>
+        <masterLabel>A definir</masterLabel>
+        <translation><!-- A definir --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Improcedente</masterLabel>
+        <translation><!-- Improcedente --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Parcialmente Procedente</masterLabel>
+        <translation><!-- Parcialmente Procedente --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Procedente</masterLabel>
+        <translation><!-- Procedente --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

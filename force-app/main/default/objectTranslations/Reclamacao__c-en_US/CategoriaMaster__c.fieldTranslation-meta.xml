@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Categoria Master --></label>
+    <name>CategoriaMaster__c</name>
+    <picklistValues>
+        <masterLabel>Atendimento</masterLabel>
+        <translation><!-- Atendimento --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Operação</masterLabel>
+        <translation><!-- Operação --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Outro</masterLabel>
+        <translation><!-- Outro --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Processo</masterLabel>
+        <translation><!-- Processo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sistema</masterLabel>
+        <translation><!-- Sistema --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

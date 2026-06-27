@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>TCRG_Case_Case</fullName>
-    <filterScope>Queue</filterScope>
-    <label>TCRG - Case</label>
-    <queue>TCRG_Case</queue>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>UnidadeNegocio__c</field>
+        <operation>equals</operation>
+        <value>Atendimento Tecon Rio Grande</value>
+    </filters>
+    <label>Todos os Casos - Tecon Rio Grande</label>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
+        <group>GP_AtendimentoRioGrande</group>
     </sharedTo>
 </ListView>

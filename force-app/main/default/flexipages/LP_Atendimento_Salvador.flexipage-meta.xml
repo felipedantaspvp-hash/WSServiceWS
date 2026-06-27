@@ -424,7 +424,7 @@
                 <fieldItem>Record.EvidenciaGatePlaca__c</fieldItem>
                 <identifier>RecordEvidenciaGatePlaca_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>2 AND (1 OR 3)</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Categoria__c}</leftValue>
                         <operator>EQUAL</operator>
@@ -434,6 +434,11 @@
                         <leftValue>{!Record.TipoCaso__c}</leftValue>
                         <operator>NE</operator>
                         <rightValue>Elogio</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Indisponibilidade do Gate</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -644,12 +649,6 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>caseAcompanhamentoBanner</componentName>
-                <identifier>c_caseAcompanhamentoBanner</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
                     <value>Facet-7034aca1-0502-4886-ab84-08c3ef6c7add</value>
@@ -802,6 +801,94 @@
                 <identifier>flexipage_fieldSection5</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-0888ad2f-1b00-4466-9b16-81648314d9c9</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>context</name>
+                    <value>RECORD</value>
+                </componentInstanceProperties>
+                <componentName>forceChatter:publisher</componentName>
+                <identifier>forceChatter_publisher2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>context</name>
+                    <value>RECORD</value>
+                </componentInstanceProperties>
+                <componentName>forceChatter:exposedFeed</componentName>
+                <identifier>forceChatter_exposedFeed</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-947b9efe-464b-45d9-bb0f-ee08ff8971e1</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>active</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-0888ad2f-1b00-4466-9b16-81648314d9c9</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Standard.Tab.detail</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>active</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-947b9efe-464b-45d9-bb0f-ee08ff8971e1</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Standard.Tab.activity</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-78b53ec8-2471-42b9-bc9f-b385e556c45d</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>caseAcompanhamentoBanner</componentName>
+                <identifier>c_caseAcompanhamentoBanner</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Tabs</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>tabs</name>
+                    <value>Facet-78b53ec8-2471-42b9-bc9f-b385e556c45d</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tabset</componentName>
+                <identifier>flexipage_tabset</identifier>
+            </componentInstance>
+        </itemInstances>
         <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
@@ -830,7 +917,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListApiName</name>
-                    <value>CaseComments</value>
+                    <value>EmailMessages</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListComponentOverride</name>
@@ -845,7 +932,7 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer</identifier>
+                <identifier>force_relatedListSingleContainer2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>

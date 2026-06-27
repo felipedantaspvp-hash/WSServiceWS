@@ -559,6 +559,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>PO %2F Draft</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Particularidade Não Acatada</fullName>
             <default>false</default>
         </values>
@@ -788,10 +792,6 @@
         </values>
         <values>
             <fullName>WS Acesso</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>PO %2F Draft</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1288,6 +1288,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Colocação %2F Remoção Label</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Compensação de Pagamento</fullName>
             <default>false</default>
         </values>
@@ -1329,6 +1333,10 @@
         </values>
         <values>
             <fullName>Confirmação ou alteração de e-mails</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consulta Booking</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1776,6 +1784,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Layout inválido</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Liberar acesso ao portal</fullName>
             <default>false</default>
         </values>
@@ -1881,6 +1893,10 @@
         </values>
         <values>
             <fullName>Outros</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PO %2F Draft</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2196,6 +2212,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Stiff Barcaça</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Tarifa acordada</fullName>
             <default>false</default>
         </values>
@@ -2209,6 +2229,14 @@
         </values>
         <values>
             <fullName>Termo de Cobrança</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ticket</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ticket de Pesagem</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2233,34 +2261,6 @@
         </values>
         <values>
             <fullName>Vinculação e renovação de Proposta</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Stiff Barcaça</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>PO %2F Draft</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Ticket</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Layout inválido</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Colocação %2F Remoção Label</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Consulta Booking</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Ticket de Pesagem</fullName>
             <default>false</default>
         </values>
     </picklistValues>

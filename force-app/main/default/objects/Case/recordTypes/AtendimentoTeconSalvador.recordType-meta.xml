@@ -3,6 +3,7 @@
     <fullName>AtendimentoTeconSalvador</fullName>
     <active>true</active>
     <businessProcess>Tecon Salvador</businessProcess>
+    <compactLayoutAssignment>Atendimento_Salvador</compactLayoutAssignment>
     <label>Atendimento Tecon Salvador</label>
     <picklistValues>
         <picklist>AcaoPosCategorizacao__c</picklist>
@@ -22,12 +23,9 @@
     <picklistValues>
         <picklist>AreasAtendimentoAtivas__c</picklist>
         <values>
-            <fullName>A definir</fullName>
-            <default>true</default>
+            <fullName>Aduaneiro</fullName>
+            <default>false</default>
         </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>AreasParticipantesSLA__c</picklist>
         <values>
             <fullName>Apoio Aduaneiro</fullName>
             <default>false</default>
@@ -38,6 +36,22 @@
         </values>
         <values>
             <fullName>Atendimento Backoffice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atendimento China</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CAR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CSC</fullName>
             <default>false</default>
         </values>
         <values>
@@ -69,6 +83,18 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>DEPOT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Diretoria</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facilities</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Faturamento</fullName>
             <default>false</default>
         </values>
@@ -81,6 +107,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Manutenção</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Operações</fullName>
             <default>false</default>
         </values>
@@ -90,6 +120,133 @@
         </values>
         <values>
             <fullName>Operações Reefer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SMS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Segurança Patrimonial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transporte</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>AreasParticipantesSLA__c</picklist>
+        <values>
+            <fullName>Aduaneiro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Apoio Aduaneiro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Armazenagem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atendimento Backoffice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CAR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CSC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadastro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Comercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Compliance Operacional</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Conciliação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contabilidade</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contas a Receber</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contêineres %2F Vazios</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DEPOT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Diretoria</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facilities</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Faturamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financeiro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Liberação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manutenção</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operações</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operações AG %2F Programação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operações Reefer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SMS</fullName>
             <default>false</default>
         </values>
         <values>
@@ -108,6 +265,10 @@
     <picklistValues>
         <picklist>AreasParticipantes__c</picklist>
         <values>
+            <fullName>Aduaneiro</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Apoio Aduaneiro</fullName>
             <default>false</default>
         </values>
@@ -117,6 +278,18 @@
         </values>
         <values>
             <fullName>Atendimento Backoffice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CAR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CSC</fullName>
             <default>false</default>
         </values>
         <values>
@@ -148,6 +321,18 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>DEPOT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Diretoria</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facilities</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Faturamento</fullName>
             <default>false</default>
         </values>
@@ -160,6 +345,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Manutenção</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Operações</fullName>
             <default>false</default>
         </values>
@@ -169,6 +358,14 @@
         </values>
         <values>
             <fullName>Operações Reefer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SMS</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1283,8 +1480,36 @@
     <picklistValues>
         <picklist>Modalidade__c</picklist>
         <values>
-            <fullName>A definir</fullName>
-            <default>true</default>
+            <fullName>Cabotagem Descarga</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cabotagem Embarque</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Carga de projeto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exportação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Importação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Não se aplica</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operação de Navio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recinto DTA e DTC</fullName>
+            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
@@ -2091,6 +2316,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Gold</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Grupo Econômico</fullName>
             <default>false</default>
         </values>
@@ -2320,10 +2549,6 @@
         </values>
         <values>
             <fullName>Orçamento e Faturas</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Ouro</fullName>
             <default>false</default>
         </values>
         <values>

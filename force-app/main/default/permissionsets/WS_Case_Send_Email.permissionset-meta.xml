@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permite envio de e-mail a partir de ações padrão de registro, incluindo Case. / Allows sending email from standard record actions, including Case.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>WS Case Send Email</label>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>SendEmail</name>
+    </userPermissions>
+</PermissionSet>

@@ -1,3 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Case</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Cases</value>
+    </caseValues>
+    <layouts>
+        <layout>Layout Solicitação Interna</layout>
+        <sections>
+            <label><!-- Admin --></label>
+            <section>Admin</section>
+        </sections>
+    </layouts>
+    <quickActions>
+        <label><!-- CloseCaseLightning --></label>
+        <name>CloseCaseLightning</name>
+    </quickActions>
+    <quickActions>
+        <aspect>Master</aspect>
+        <label>Put on Hold</label>
+        <name>Colocar_em_Acompanhamento</name>
+    </quickActions>
+    <quickActions>
+        <aspect>Master</aspect>
+        <label>Close Case</label>
+        <name>Encerrar_Caso_Com_Pesquisa</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- NewChildCase --></label>
+        <name>NewChildCase</name>
+    </quickActions>
+    <quickActions>
+        <aspect>Master</aspect>
+        <label>Recategorize Case</label>
+        <name>Recategorizar_Caso</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Email --></label>
+        <name>SendEmail</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Email --></label>
+        <name>WS_Email</name>
+    </quickActions>
+    <recordTypes>
+        <label><!-- Atendimento Centro Logístico --></label>
+        <name>AtendimentoCentroLogistico</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Atendimento Rebocadores --></label>
+        <name>AtendimentoRebocadores</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Atendimento Tecon Rio Grande --></label>
+        <name>AtendimentoTeconRioGrande</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Atendimento Tecon Salvador --></label>
+        <name>AtendimentoTeconSalvador</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- CNPJ inválido. Informe 14 caracteres sem máscara, seguindo o novo padrão alfanumérico da Receita Federal (12 caracteres alfanuméricos + 2 dígitos verificadores numéricos). --></errorMessage>
+        <name>Bloqueio_CNPJ_Formato_Invalido</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- CPF inválido. Informe os 11 dígitos numéricos sem máscara (sem pontos ou hífen). --></errorMessage>
+        <name>Bloqueio_CPF_Formato_Invalido</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Mass_Delete_Records --></label>
+        <name>Mass_Delete_Records</name>
+    </webLinks>
 </CustomObjectTranslation>

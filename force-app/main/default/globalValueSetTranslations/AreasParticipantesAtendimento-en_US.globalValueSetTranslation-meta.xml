@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSetTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <valueTranslation>
+        <masterLabel>Aduaneiro</masterLabel>
+        <translation><!-- Aduaneiro --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Apoio Aduaneiro</masterLabel>
+        <translation><!-- Apoio Aduaneiro --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Armazenagem</masterLabel>
+        <translation><!-- Armazenagem --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Atendimento Backoffice</masterLabel>
+        <translation><!-- Atendimento Backoffice --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Atendimento China</masterLabel>
+        <translation><!-- Atendimento China --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>CAR</masterLabel>
+        <translation><!-- CAR --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>CS</masterLabel>
+        <translation><!-- CS --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>CSC</masterLabel>
+        <translation><!-- CSC --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Cadastro</masterLabel>
+        <translation><!-- Cadastro --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Comercial</masterLabel>
+        <translation><!-- Comercial --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Compliance Operacional</masterLabel>
+        <translation><!-- Compliance Operacional --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Conciliação</masterLabel>
+        <translation><!-- Conciliação --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Contabilidade</masterLabel>
+        <translation><!-- Contabilidade --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Contas a Receber</masterLabel>
+        <translation><!-- Contas a Receber --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Contêineres / Vazios</masterLabel>
+        <translation><!-- Contêineres / Vazios --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>DEPOT</masterLabel>
+        <translation><!-- DEPOT --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Diretoria</masterLabel>
+        <translation><!-- Diretoria --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Facilities</masterLabel>
+        <translation><!-- Facilities --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Faturamento</masterLabel>
+        <translation><!-- Faturamento --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Financeiro</masterLabel>
+        <translation><!-- Financeiro --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Liberação</masterLabel>
+        <translation><!-- Liberação --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Manutenção</masterLabel>
+        <translation><!-- Manutenção --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Operações</masterLabel>
+        <translation><!-- Operações --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Operações AG / Programação</masterLabel>
+        <translation><!-- Operações AG / Programação --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Operações Reefer</masterLabel>
+        <translation><!-- Operações Reefer --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>RH</masterLabel>
+        <translation><!-- RH --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>SMS</masterLabel>
+        <translation><!-- SMS --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Segurança Patrimonial</masterLabel>
+        <translation><!-- Segurança Patrimonial --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>TI</masterLabel>
+        <translation><!-- TI --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Transporte</masterLabel>
+        <translation><!-- Transporte --></translation>
+    </valueTranslation>
+</GlobalValueSetTranslation>

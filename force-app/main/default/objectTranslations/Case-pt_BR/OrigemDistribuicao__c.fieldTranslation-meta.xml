@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Origem Distribuição --></label>
+    <name>OrigemDistribuicao__c</name>
+    <picklistValues>
+        <masterLabel>Agendamento</masterLabel>
+        <translation><!-- Agendamento --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Bot</masterLabel>
+        <translation><!-- Bot --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Categorização</masterLabel>
+        <translation><!-- Categorização --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Formulário</masterLabel>
+        <translation><!-- Formulário --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rota de E-mail</masterLabel>
+        <translation><!-- Rota de E-mail --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Seleção Manual</masterLabel>
+        <translation><!-- Seleção Manual --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bloqueio_CPF_Formato_Invalido</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+NOT(ISBLANK(CPF__c)),
+NOT(REGEX(CPF__c, &quot;[0-9]{11}&quot;))
+)</errorConditionFormula>
+    <errorDisplayField>CPF__c</errorDisplayField>
+    <errorMessage>CPF inválido. Informe os 11 dígitos numéricos sem máscara (sem pontos ou hífen).</errorMessage>
+</ValidationRule>
