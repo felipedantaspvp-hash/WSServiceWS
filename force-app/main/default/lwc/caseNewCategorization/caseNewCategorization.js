@@ -89,13 +89,153 @@ function buildSalvadorPatternSections() {
     ];
 }
 
+// Réplica para "Atendimento Tecon Rio Grande" — extraído de LP_Atendimento_RioGrande em
+// 2026-06-26. Diferente do padrão Salvador, as regras dessa unidade dependem fortemente de
+// Assunto__c (não só Categoria__c/Subassunto__c), por isso usa ctx.assunto (ver detailContext).
+// Vários campos apareciam em mais de uma seção/instância na Lightning Page original com
+// condições de visibilidade distintas (ex.: Container__c em 3 instâncias, ViagemNavio__c em 2,
+// Booking__c em 2, DataNascimento__c em 2) — aqui cada campo existe uma única vez, com o
+// `visibleWhen` cobrindo a união (OR) de todas as condições originais, já que o input em si é o
+// mesmo, só a regra de exibição mudava por instância na Lightning Page (lá isso era necessário
+// por causa do limite de 10 critérios por `visibilityRule`; aqui não há essa restrição).
+function buildRioGrandeSections() {
+    const isCadastroPF = (ctx) => ctx.assunto === 'Cadastro Pessoa Física';
+    const isCadastroPJ = (ctx) => ctx.assunto === 'Cadastro Pessoa Jurídica';
+    const isCargasPerigosas = (ctx) => ctx.assunto === 'Cargas perigosas / Especiais';
+    const isPJAtualizacao = (ctx) => isCadastroPJ(ctx) && ctx.subassunto === 'Atualização';
+    const isEDIFalha = (ctx) =>
+        ctx.assunto === 'EDI' &&
+        (ctx.subassunto === 'Falha de envio' || ctx.subassunto === 'Falha de recebimento' || ctx.subassunto === 'Divergência de dados');
+
+    return [
+        {
+            title: informacoesClienteLabel,
+            rows: [
+                [{ field: 'AccountId', required: true }, { field: 'ContactId', required: true }],
+                [{ field: 'Representante__c' }, null]
+            ]
+        },
+        {
+            title: additionalInfoSectionLabel,
+            rows: [
+                [{ field: 'Origin', required: true, value: 'Manual' }, { field: 'Priority', value: (ctx) => ctx.prioridade }],
+                [{ field: 'Nivel__c', required: true }, null]
+            ]
+        },
+        {
+            title: detalhesLabel,
+            // Sem visibleWhen no nível da seção: o filtro de linhas em caseDetailSections já
+            // remove a seção inteira quando nenhum dos campos abaixo bate sua condição.
+            rows: [
+                [{
+                    field: 'Motivo__c',
+                    required: true,
+                    visibleWhen: (ctx) =>
+                        ctx.categoria === 'Faturamento' &&
+                        (ctx.assunto === 'Ajustes de OS' || ctx.assunto === 'Nota Fiscal') &&
+                        (ctx.subassunto === 'CNPJ' || ctx.subassunto === 'Cancelamento')
+                }, null],
+                [{ field: 'CPF__c', required: true, visibleWhen: isCadastroPF }, null],
+                [{ field: 'CNPJ__c', required: true, visibleWhen: (ctx) => isCadastroPJ(ctx) || ctx.assunto === 'WS Acesso' }, null],
+                [{
+                    field: 'DataNascimento__c',
+                    visibleWhen: (ctx) =>
+                        isCadastroPF(ctx) &&
+                        (ctx.subassunto === 'Criação' ||
+                            ctx.subassunto === 'Status de aprovação' ||
+                            ctx.subassunto === 'Exclusão' ||
+                            ctx.subassunto === 'Atualização')
+                }, null],
+                [{ field: 'Atividade__c', required: true, visibleWhen: (ctx) => isCadastroPJ(ctx) && ctx.subassunto === 'Criação' }, null],
+                [{ field: 'NovaRazaoSocial__c', visibleWhen: isPJAtualizacao }, null],
+                [{ field: 'NovoEndereco__c', visibleWhen: isPJAtualizacao }, null],
+                [{ field: 'NovoEmail__c', visibleWhen: isPJAtualizacao }, null],
+                [{ field: 'EmailIncluido__c', required: true, visibleWhen: (ctx) => ctx.subassunto === 'Atualização de E-mail' }, null],
+                [{ field: 'EmailExcluido__c', required: true, visibleWhen: (ctx) => ctx.subassunto === 'Atualização de E-mail' }, null],
+                [{ field: 'NomenclaturaAntiga__c', required: true, visibleWhen: (ctx) => ctx.subassunto === 'Nomenclatura' }, null],
+                [{ field: 'NomenclaturaNova__c', required: true, visibleWhen: (ctx) => ctx.subassunto === 'Nomenclatura' }, null],
+                [{ field: 'SetorResponsavel__c', required: true, visibleWhen: (ctx) => ctx.subassunto === 'Setor Responsável' }, null],
+                [{
+                    field: 'NumeroPropostaSalesforce__c',
+                    required: true,
+                    visibleWhen: (ctx) =>
+                        ctx.assunto === 'Proposta Comercial' ||
+                        (ctx.categoria === 'Faturamento' && ctx.assunto === 'Nota Fiscal' && ctx.subassunto === 'Informações')
+                }, null],
+                [{
+                    field: 'NumeroNotaFiscal__c',
+                    required: true,
+                    visibleWhen: (ctx) => ctx.assunto === 'Nota Fiscal' && (ctx.subassunto === 'Cancelamento' || ctx.subassunto === 'Informações')
+                }, null],
+                [{
+                    field: 'NumeroFatura__c',
+                    required: true,
+                    visibleWhen: (ctx) => ctx.assunto === 'Fatura' || ctx.assunto === 'Contas a pagar'
+                }, null],
+                [{
+                    field: 'NumeroPODraft__c',
+                    visibleWhen: (ctx) =>
+                        ctx.categoria === 'Faturamento' && (ctx.subassunto === 'PO / Draft' || ctx.subassunto !== 'Solicitação para faturar')
+                }, null],
+                [{ field: 'NumeroOrdemServico__c', required: true, visibleWhen: (ctx) => ctx.assunto === 'Ajustes de OS' }, null],
+                [{
+                    field: 'ViagemNavio__c',
+                    visibleWhen: (ctx) =>
+                        ctx.subassunto === 'Lista de navio' ||
+                        (ctx.assunto === 'Navio' && ctx.subassunto === 'LAR') ||
+                        (ctx.categoria === 'Faturamento' && (ctx.subassunto === 'PO / Draft' || ctx.subassunto === 'Solicitação para faturar')) ||
+                        (ctx.assunto === 'Relatórios' && ctx.subassunto === 'Relatório de Movimentações')
+                }, null],
+                [{
+                    field: 'Booking__c',
+                    visibleWhen: (ctx) =>
+                        ctx.assunto === 'Booking' || (ctx.assunto === 'Relatórios' && ctx.subassunto === 'Consulta Booking') || isEDIFalha(ctx)
+                }, null],
+                [{
+                    field: 'Container__c',
+                    visibleWhen: (ctx) =>
+                        ['Navio', 'Pesagem', 'Presença de carga', 'Relatórios'].includes(ctx.assunto) ||
+                        ['Ticket de Pesagem', 'Consulta Contêiner', 'EIR'].includes(ctx.subassunto) ||
+                        ctx.assunto === 'Avaria' ||
+                        (isCargasPerigosas(ctx) && ctx.subassunto !== 'Colocação / Remoção Label') ||
+                        isEDIFalha(ctx) ||
+                        ctx.assunto === 'Solicitação para faturar' ||
+                        (ctx.assunto === 'Nota Fiscal' && ctx.subassunto === 'Previsão de Emissão') ||
+                        ctx.assunto === 'PO / Draft' ||
+                        ctx.assunto === 'Agendamento'
+                }, null],
+                [{ field: 'NumeroLacre__c', required: true, visibleWhen: (ctx) => ctx.subassunto === 'Lacres' }, null],
+                [{ field: 'NumeroLacreAlterado__c', visibleWhen: (ctx) => ctx.subassunto === 'Lacres' }, null],
+                [{ field: 'Bat__c', required: true, visibleWhen: (ctx) => ctx.assunto === 'Pátio' }, null],
+                [{ field: 'PlacaCavalo__c', visibleWhen: (ctx) => ctx.assunto === 'Agendamento' || ctx.assunto === 'Pátio' }, null],
+                [{ field: 'ResponsavelAvaria__c', required: true, visibleWhen: (ctx) => ctx.assunto === 'Avaria' }, null],
+                [{
+                    field: 'IMO__c',
+                    visibleWhen: (ctx) =>
+                        isCargasPerigosas(ctx) && (ctx.subassunto === 'Procedimentos' || ctx.subassunto === 'Cargas Aceitas/ Não Aceitas')
+                }, null],
+                [{ field: 'Mercadoria__c', visibleWhen: isCargasPerigosas }, null],
+                [{ field: 'UN__c', visibleWhen: isCargasPerigosas }, null],
+                [{ field: 'NomeDaTela__c', visibleWhen: (ctx) => ctx.assunto === 'Teconline' }, null],
+                [{ field: 'DUE__c', visibleWhen: (ctx) => ctx.assunto === 'Presença de carga' }, null],
+                [{ field: 'TipoArquivo__c', visibleWhen: isEDIFalha }, null],
+                [{ field: 'Observacoes__c' }, null]
+            ]
+        },
+        {
+            title: descriptionSectionLabel,
+            rows: [[{ field: 'Description', required: true, fullWidth: true }, null]]
+        }
+    ];
+}
+
 const CASE_DETAIL_SECTIONS_BY_UNIDADE = {
     'Atendimento Tecon Salvador': buildSalvadorPatternSections(),
     // Placeholders no padrão Salvador — substituir pela config real de cada unidade quando a
     // Lightning Page correspondente estiver configurada.
     'Centro Logístico': buildSalvadorPatternSections(),
     'Rebocadores': buildSalvadorPatternSections(),
-    'Atendimento Tecon Rio Grande': buildSalvadorPatternSections()
+    'Atendimento Tecon Rio Grande': buildRioGrandeSections()
 };
 
 export default class CaseNewCategorization extends NavigationMixin(LightningElement) {
@@ -599,6 +739,7 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
         return {
             tipoCaso: this.model.tipoCaso,
             categoria: this.model.categoria,
+            assunto: this.assuntoDisplay,
             subassunto: this.subassuntoDisplay,
             modalidade: this.detailModalidade,
             prioridade: this.detailPrioritySuggested

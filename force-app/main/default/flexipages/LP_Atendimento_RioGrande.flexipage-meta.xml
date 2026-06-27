@@ -709,21 +709,11 @@
                 <fieldItem>Record.NumeroPropostaSalesforce__c</fieldItem>
                 <identifier>RecordNumeroPropostaSalesforce_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>(1 AND 2) OR (3 AND 4 AND 5)</booleanFilter>
+                    <booleanFilter>1 OR (2 AND 3)</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Assunto__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Proposta Comercial</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Assunto__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Proposta Comercial</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Categoria__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Faturamento</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!Record.Assunto__c}</leftValue>
@@ -952,6 +942,84 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.NovoEndereco__c</fieldItem>
+                <identifier>RecordNovoEndereco_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Cadastro Pessoa Jurídica</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Atualização</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.NomeDaTela__c</fieldItem>
+                <identifier>RecordNomeDaTela_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Teconline</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.DUE__c</fieldItem>
+                <identifier>RecordDUE_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Presença de carga</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.NumeroLacreAlterado__c</fieldItem>
+                <identifier>RecordNumeroLacreAlterado_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Lacres</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-e130f16c-bde1-4a5e-a6f8-b44d008b1ab7</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Container__c</fieldItem>
                 <identifier>RecordContainer_cField2</identifier>
                 <visibilityRule>
@@ -1028,40 +1096,6 @@
                         <leftValue>{!Record.Assunto__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Agendamento</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.NomeDaTela__c</fieldItem>
-                <identifier>RecordNomeDaTela_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Assunto__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Teconline</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.DUE__c</fieldItem>
-                <identifier>RecordDUE_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Assunto__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Presença de carga</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -1157,23 +1191,6 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.NumeroLacreAlterado__c</fieldItem>
-                <identifier>RecordNumeroLacreAlterado_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Subassunto__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Lacres</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.Booking__c</fieldItem>
                 <identifier>RecordBooking_cField2</identifier>
                 <visibilityRule>
@@ -1234,33 +1251,6 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
-        <name>Facet-e130f16c-bde1-4a5e-a6f8-b44d008b1ab7</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.NovoEndereco__c</fieldItem>
-                <identifier>RecordNovoEndereco_cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Assunto__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Cadastro Pessoa Jurídica</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Subassunto__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Atualização</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-5ad8b3ca-4bc4-4989-b408-7b9e0656d3fe</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -1275,6 +1265,10 @@
                 <identifier>flexipage_column12</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-a905ab99-0537-4d97-b6fb-a8fea316227c</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -1285,7 +1279,7 @@
                 <identifier>flexipage_column13</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-a905ab99-0537-4d97-b6fb-a8fea316227c</name>
+        <name>Facet-detalhes-row2-9f1c2e7a</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -1565,6 +1559,124 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection7</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND (2 OR 3)) OR (4 AND 3) OR 5 OR (6 AND 7) OR 8 OR 9 OR 10</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Cadastro Pessoa Física</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Exclusão</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Atualização</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Cadastro Pessoa Jurídica</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Faturamento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Relatórios</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Relatório de Movimentações</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Teconline</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Presença de carga</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Lacres</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-detalhes-row2-9f1c2e7a</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection7b</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2 OR 3 OR (4 AND 5) OR 6 OR 7 OR 8 OR 9</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Avaria</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>EDI</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitação para faturar</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Nota Fiscal</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Previsão de Emissão</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>PO / Draft</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Agendamento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Pátio</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Cargas perigosas / Especiais</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
