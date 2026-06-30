@@ -3,6 +3,7 @@
     <fullName>AtendimentoRebocadores</fullName>
     <active>true</active>
     <businessProcess>Atendimento Rebocadores</businessProcess>
+    <compactLayoutAssignment>Atendimento_Rebocadores</compactLayoutAssignment>
     <label>Atendimento Rebocadores</label>
     <picklistValues>
         <picklist>AcaoPosCategorizacao__c</picklist>

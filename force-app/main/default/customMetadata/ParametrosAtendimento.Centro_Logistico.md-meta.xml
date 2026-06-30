@@ -104,7 +104,7 @@
     </values>
     <values>
         <field>QueueDeveloperNamePrefix__c</field>
-        <value xsi:type="xsd:string">CL</value>
+        <value xsi:type="xsd:string">CL_</value>
     </values>
     <values>
         <field>ReclamacaoAreaValue__c</field>

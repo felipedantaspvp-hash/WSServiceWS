@@ -3919,4 +3919,11 @@
         <shortDescription>Button to open the native Send A Message action.</shortDescription>
         <value>Send A Message</value>
     </labels>
+    <labels>
+        <fullName>CasoRelacionado</fullName>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Caso Relacionado</shortDescription>
+        <value>Caso Relacionado</value>
+    </labels>
 </CustomLabels>

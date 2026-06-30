@@ -183,6 +183,122 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.ParentId</fieldItem>
+                <identifier>RecordParentIdField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.TipoCasoRelacionado__c</fieldItem>
+                <identifier>RecordTipoCasoRelacionado_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.PossuiCasoRelacionado__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.AssuntoCasoRelacionado__c</fieldItem>
+                <identifier>RecordAssuntoCasoRelacionado_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.PossuiCasoRelacionado__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-7865c4db-6bbd-4172-9447-27e10e4c9129</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>flexipage:blankSpace</componentName>
+                <identifier>flexipage_blankSpace4</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CategoriaCasoRelacionado__c</fieldItem>
+                <identifier>RecordCategoriaCasoRelacionado_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.PossuiCasoRelacionado__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.SubassuntoCasoRelacionado__c</fieldItem>
+                <identifier>RecordSubassuntoCasoRelacionado_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.PossuiCasoRelacionado__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-b34f75a3-06a6-44e0-8399-6f37e172d518</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-7865c4db-6bbd-4172-9447-27e10e4c9129</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column17</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-b34f75a3-06a6-44e0-8399-6f37e172d518</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column18</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-b7a76f7d-233f-4338-9f1a-9deece826596</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.TipoCaso__c</fieldItem>
@@ -261,33 +377,6 @@
                 <identifier>RecordOriginField</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Modalidade__c</fieldItem>
-                <identifier>RecordModalidade_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.TipoCaso__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Elogio</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.AreasParticipantes__c</fieldItem>
-                <identifier>RecordAreasParticipantes_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-e386ddc7-63dd-48a8-bc05-bfd7f6e21141</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -300,23 +389,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Priority</fieldItem>
                 <identifier>RecordPriorityField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Container__c</fieldItem>
-                <identifier>RecordContainer_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.TipoCaso__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Elogio</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-08173715-5429-4b9a-a7e0-b294a2211943</name>
@@ -353,15 +425,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Colaborador__c</fieldItem>
-                <identifier>RecordColaborador_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.TipoCaso__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Elogio</rightValue>
-                    </criteria>
-                </visibilityRule>
+                <fieldItem>Record.PortoNome__c</fieldItem>
+                <identifier>RecordPortoNome_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -370,21 +435,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.BL__c</fieldItem>
-                <identifier>RecordBL_cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.TipoCaso__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Elogio</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Modalidade__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Importação</rightValue>
-                    </criteria>
-                </visibilityRule>
+                <fieldItem>Record.NavioNome__c</fieldItem>
+                <identifier>RecordNavioNome_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -393,26 +445,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Booking__c</fieldItem>
-                <identifier>RecordBooking_cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.TipoCaso__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Elogio</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Modalidade__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Cabotagem Embarque</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Modalidade__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Exportação</rightValue>
-                    </criteria>
-                </visibilityRule>
+                <fieldItem>Record.NumeroNotaFiscal__c</fieldItem>
+                <identifier>RecordNumeroNotaFiscal_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -421,27 +455,44 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.EvidenciaGatePlaca__c</fieldItem>
-                <identifier>RecordEvidenciaGatePlaca_cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Categoria__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Acesso ao Porto</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.TipoCaso__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Elogio</rightValue>
-                    </criteria>
-                </visibilityRule>
+                <fieldItem>Record.RepresentanteOuBroker__c</fieldItem>
+                <identifier>RecordRepresentanteOuBroker_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-e130f16c-bde1-4a5e-a6f8-b44d008b1ab7</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.PortoCodigoMercante__c</fieldItem>
+                <identifier>RecordPortoCodigoMercante_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.NavioIMO__c</fieldItem>
+                <identifier>RecordNavioIMO_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.InvoiceCancelada__c</fieldItem>
+                <identifier>RecordInvoiceCancelada_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-5ad8b3ca-4bc4-4989-b408-7b9e0656d3fe</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -670,6 +721,24 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
+                    <value>Facet-b7a76f7d-233f-4338-9f1a-9deece826596</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>{!$Label.CasoRelacionado}</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection9</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
                     <value>Facet-6d5c0744-e5e0-4b07-9b33-531581cf2866</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -718,34 +787,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection7</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 OR (2 AND (3 OR 4 OR 5))</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.TipoCaso__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Elogio</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.TipoCaso__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Elogio</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Modalidade__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Cabotagem Embarque</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Modalidade__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Exportação</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Categoria__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Acesso ao Porto</rightValue>
-                    </criteria>
-                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>

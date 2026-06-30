@@ -3,6 +3,7 @@
     <fullName>AtendimentoTeconRioGrande</fullName>
     <active>true</active>
     <businessProcess>Tecon Rio Grande</businessProcess>
+    <compactLayoutAssignment>Atendimento_RioGrande</compactLayoutAssignment>
     <label>Atendimento Tecon Rio Grande</label>
     <picklistValues>
         <picklist>AcaoPosCategorizacao__c</picklist>

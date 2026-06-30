@@ -1244,6 +1244,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.AssuntoCasoRelacionado__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Assunto__c</field>
         <readable>true</readable>
@@ -1286,6 +1291,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.CPF__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.CategoriaCasoRelacionado__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1415,12 +1425,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.Empresa__c</field>
+        <field>Case.EmpresaRepresentada__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.EmpresaRepresentada__c</field>
+        <field>Case.Empresa__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1694,6 +1704,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.PossuiCasoRelacionado__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Priority</field>
         <readable>true</readable>
@@ -1794,6 +1809,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.SubassuntoCasoRelacionado__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Subassunto__c</field>
         <readable>true</readable>
@@ -1826,6 +1846,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.TipoArquivo__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.TipoCasoRelacionado__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -729,6 +729,10 @@
         <name>CaseNewCategorization_DestinationSection</name>
     </customLabels>
     <customLabels>
+        <label><!-- Caso Relacionado --></label>
+        <name>CasoRelacionado</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Categorização --></label>
         <name>Categorizacao</name>
     </customLabels>

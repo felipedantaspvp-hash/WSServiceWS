@@ -1920,6 +1920,10 @@ Before we begin, please choose your service language.</message>
         <name>CaseNewCategorization_DestinationSection</name>
     </customLabels>
     <customLabels>
+        <label><!-- Caso Relacionado --></label>
+        <name>CasoRelacionado</name>
+    </customLabels>
+    <customLabels>
         <label>Categorization</label>
         <name>Categorizacao</name>
     </customLabels>
