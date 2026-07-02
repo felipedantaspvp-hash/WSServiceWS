@@ -1386,11 +1386,6 @@
         <label>Relatório personalizado</label>
     </customValue>
     <customValue>
-        <fullName>Relatórios diversos</fullName>
-        <default>false</default>
-        <label>Relatórios diversos</label>
-    </customValue>
-    <customValue>
         <fullName>Renovação</fullName>
         <default>false</default>
         <label>Renovação</label>

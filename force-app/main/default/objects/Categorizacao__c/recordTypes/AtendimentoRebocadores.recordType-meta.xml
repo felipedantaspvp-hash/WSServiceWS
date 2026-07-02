@@ -843,6 +843,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>PorCategorizacao__c</picklist>
+        <values>
+            <fullName>Não</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Sim</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Prioridade__c</picklist>
         <values>
             <fullName>High</fullName>
@@ -1529,10 +1540,6 @@
         </values>
         <values>
             <fullName>Relatório personalizado</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Relatórios diversos</fullName>
             <default>false</default>
         </values>
         <values>

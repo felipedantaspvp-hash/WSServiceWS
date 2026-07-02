@@ -151,6 +151,29 @@
                 <identifier>RecordContactPhoneField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CPF__c</fieldItem>
+                <identifier>RecordCPF_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.TipoCaso__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Portal Logístico</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-e8c1d005-f0dd-4655-8f96-62c1071854c4</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -377,33 +400,6 @@
                 <identifier>RecordOriginField</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Modalidade__c</fieldItem>
-                <identifier>RecordModalidade_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.TipoCaso__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Elogio</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.AreasParticipantes__c</fieldItem>
-                <identifier>RecordAreasParticipantes_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-e386ddc7-63dd-48a8-bc05-bfd7f6e21141</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -416,23 +412,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Priority</fieldItem>
                 <identifier>RecordPriorityField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Container__c</fieldItem>
-                <identifier>RecordContainer_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.TipoCaso__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Elogio</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-08173715-5429-4b9a-a7e0-b294a2211943</name>
@@ -467,15 +446,36 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Colaborador__c</fieldItem>
-                <identifier>RecordColaborador_cField</identifier>
+                <fieldItem>Record.DTA__c</fieldItem>
+                <identifier>RecordDTA_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>(1 AND (2 OR 3)) OR (4 AND 5)</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.TipoCaso__c}</leftValue>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Elogio</rightValue>
+                        <rightValue>Apoio Aduaneiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Confirmar prazo de vencimento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Confirmar liberação do MAPA</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Operação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Encaminhar dados do recebimento - Alfandegado</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -484,21 +484,36 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.BL__c</fieldItem>
-                <identifier>RecordBL_cField</identifier>
+                <fieldItem>Record.NumeroNotaFiscal__c</fieldItem>
+                <identifier>RecordNumeroNotaFiscal_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>(1 AND 2) OR (3 AND (4 OR 5))</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.TipoCaso__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Elogio</rightValue>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Apoio Aduaneiro</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.Modalidade__c}</leftValue>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Importação</rightValue>
+                        <rightValue>Confirmar liberação de carga</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Operação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Encaminhar dados do recebimento - Alfandegado</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Encaminhar dados do recebimento - CD</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -507,26 +522,26 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Booking__c</fieldItem>
-                <identifier>RecordBooking_cField</identifier>
+                <fieldItem>Record.DI_DUIMP__c</fieldItem>
+                <identifier>RecordDI_DUIMP_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.TipoCaso__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Elogio</rightValue>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Apoio Aduaneiro</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.Modalidade__c}</leftValue>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Cabotagem Embarque</rightValue>
+                        <rightValue>Confirmar liberação de carga</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.Modalidade__c}</leftValue>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Exportação</rightValue>
+                        <rightValue>Planejamento Operacional Alfandegado</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -535,21 +550,61 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.EvidenciaGatePlaca__c</fieldItem>
-                <identifier>RecordEvidenciaGatePlaca_cField</identifier>
+                <fieldItem>Record.NumeroFatura__c</fieldItem>
+                <identifier>RecordNumeroFatura_cField</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Categoria__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Acesso ao Porto</rightValue>
+                        <rightValue>Financeiro</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.TipoCaso__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Elogio</rightValue>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Fatura ou prévia</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Comissaria__c</fieldItem>
+                <identifier>RecordComissaria_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Financeiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Proposta comercial / Cadastro</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Processo_DTA_DI_DUIMP_DUE_NF__c</fieldItem>
+                <identifier>RecordProcesso_DTA_DI_DUIMP_DUE_NF_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Transporte</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -558,6 +613,136 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Conhecimento__c</fieldItem>
+                <identifier>RecordConhecimento_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND (2 OR 3)) OR (4 AND 5)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Apoio Aduaneiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Confirmar prazo de vencimento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Confirmar liberação do MAPA</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Operação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Encaminhar dados do recebimento - Alfandegado</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.DUE__c</fieldItem>
+                <identifier>RecordDUE_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Apoio Aduaneiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Confirmar liberação de carga</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CNPJ__c</fieldItem>
+                <identifier>RecordCNPJ_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Financeiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Proposta comercial / Cadastro</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.NumeroNotaFiscal__c</fieldItem>
+                <identifier>RecordNumeroNotaFiscal_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Financeiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Fatura ou prévia</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Motorista__c</fieldItem>
+                <identifier>RecordMotorista_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Agendamento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Acompanhar veículo sem agendamento</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-5ad8b3ca-4bc4-4989-b408-7b9e0656d3fe</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -583,6 +768,2266 @@
             </componentInstance>
         </itemInstances>
         <name>Facet-a905ab99-0537-4d97-b6fb-a8fea316227c</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Processo_DTA_DI_DUIMP_DUE_NF__c</fieldItem>
+                <identifier>RecordProcesso_DTA_DI_DUIMP_DUE_NF_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Transporte</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Pedido de coleta de carga</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitação de CTE</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.DTA__c</fieldItem>
+                <identifier>RecordDTA_cField4</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR (3 AND (4 OR 5 OR 6 OR 7 OR 8 OR 9))</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Operação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Encaminhar foto de avaria</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Realizar acompanhamento (modelo distinto)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Enviar relatório de paletização</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Comunicar programação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Informar status de remoção de carga</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitar packing list para despachante</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Gerenciar planilhas de etiquetagem</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.DI_DUIMP__c</fieldItem>
+                <identifier>RecordDI_DUIMP_cField5</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR (3 AND 4)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Operação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitar separação de carga entreposto</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Transporte</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Pedido de entrega de carga</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Conhecimento__c</fieldItem>
+                <identifier>RecordConhecimento_cField7</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Enviar relatório de paletização</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Gerenciar planilhas de etiquetagem</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Invoice__c</fieldItem>
+                <identifier>RecordInvoice_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Operação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitar separação de carga entreposto</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Invoice__c</fieldItem>
+                <identifier>RecordInvoice_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR (3 AND (4 OR 5))</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Transporte</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Pedido de coleta de carga</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Gerenciamento de programação de Exportação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Enviar comprovante de entrega</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.DA__c</fieldItem>
+                <identifier>RecordDA_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Operação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitar separação de carga entreposto</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Chave_de_Acesso_DUIMP__c</fieldItem>
+                <identifier>RecordChave_de_Acesso_DUIMP_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Planejamento Operacional Alfandegado</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Nome__c</fieldItem>
+                <identifier>RecordNome_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Portal Logístico</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Usuario_Portal__c</fieldItem>
+                <identifier>RecordUsuario_Portal_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Portal Logístico</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Horario_da_Entrega__c</fieldItem>
+                <identifier>RecordHorario_da_Entrega_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Transporte</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Pedido de entrega de carga</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CTE__c</fieldItem>
+                <identifier>RecordCTE_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Transporte</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Pedido de revisão de CTE</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.NF_DUE__c</fieldItem>
+                <identifier>RecordNF_DUE_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Transporte</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Pedido de revisão de CTE</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Data_Chegada__c</fieldItem>
+                <identifier>RecordData_Chegada_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3 OR 4)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Realizar acompanhamento (modelo distinto)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Comunicar programação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Informar status de remoção de carga</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.ID_Focus__c</fieldItem>
+                <identifier>RecordID_Focus_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Atualizar JDA com agendamentos</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Transportadora__c</fieldItem>
+                <identifier>RecordTransportadora_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Atualizar JDA com agendamentos</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.PlacaCavalo__c</fieldItem>
+                <identifier>RecordPlacaCavalo_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Atualizar JDA com agendamentos</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Container__c</fieldItem>
+                <identifier>RecordContainer_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitar packing list para despachante</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Container__c</fieldItem>
+                <identifier>RecordContainer_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3 OR 4)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Gerenciamento de programação de Exportação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Enviar comprovante de entrega</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Lançar serviços e custos adicionais no ECM</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.NumeroLacre__c</fieldItem>
+                <identifier>RecordNumeroLacre_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Gerenciamento de programação de Exportação</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.NumeroNotaFiscal__c</fieldItem>
+                <identifier>RecordNumeroNotaFiscal_cField6</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3 OR 4)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Realizar acompanhamento (modelo distinto)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Gerenciar recebimento de carga</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Elaborar romaneio e packing</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Packing_List__c</fieldItem>
+                <identifier>RecordPacking_List_cField4</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Gerenciar recebimento de carga</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Elaborar romaneio e packing</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.NumeroFatura__c</fieldItem>
+                <identifier>RecordNumeroFatura_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Realizar acompanhamento (modelo distinto)</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-27573a1f-1273-4d61-bbd2-b1f6fe226be0</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.RefCliente__c</fieldItem>
+                <identifier>RecordRefCliente_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Realizar acompanhamento (modelo distinto)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Enviar relatório de paletização</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Comunicar programação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Informar status de remoção de carga</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Gerenciar planilhas de etiquetagem</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Gerenciar recebimento de carga</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Elaborar romaneio e packing</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.PrestadorServico__c</fieldItem>
+                <identifier>RecordPrestadorServico_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>QSMS</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.DTA__c</fieldItem>
+                <identifier>RecordDTA_cField5</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Transporte</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Pedido de revisão de CTE</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.DI_DUIMP__c</fieldItem>
+                <identifier>RecordDI_DUIMP_cField6</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Conhecimento__c</fieldItem>
+                <identifier>RecordConhecimento_cField5</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3 OR (4 AND (5 OR 6))</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Operação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Encaminhar foto de avaria</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Planejamento Operacional Alfandegado</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Realizar acompanhamento (modelo distinto)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitar packing list para despachante</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Conhecimento__c</fieldItem>
+                <identifier>RecordConhecimento_cField6</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR (3 AND (4 OR 5))</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Operação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitar separação de carga entreposto</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Comunicar programação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Informar status de remoção de carga</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Packing_List__c</fieldItem>
+                <identifier>RecordPacking_List_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Operação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitar separação de carga entreposto</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Packing_List__c</fieldItem>
+                <identifier>RecordPacking_List_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Transporte</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Pedido de coleta de carga</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CPF__c</fieldItem>
+                <identifier>RecordCPF_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Portal Logístico</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Data_da_Entrega__c</fieldItem>
+                <identifier>RecordData_da_Entrega_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Enviar comprovante de entrega</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Data_da_Entrega__c</fieldItem>
+                <identifier>RecordData_da_Entrega_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Transporte</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Pedido de coleta de carga</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Pedido de entrega de carga</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Booking__c</fieldItem>
+                <identifier>RecordBooking_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Gerenciamento de programação de Exportação</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Tara__c</fieldItem>
+                <identifier>RecordTara_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Gerenciamento de programação de Exportação</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Data_Coleta__c</fieldItem>
+                <identifier>RecordData_Coleta_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Realizar acompanhamento (modelo distinto)</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Transportadora__c</fieldItem>
+                <identifier>RecordTransportadora_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Realizar acompanhamento (modelo distinto)</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.ChavesNF__c</fieldItem>
+                <identifier>RecordChavesNF_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Atualizar JDA com agendamentos</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Motorista__c</fieldItem>
+                <identifier>RecordMotorista_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Atualizar JDA com agendamentos</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Janela__c</fieldItem>
+                <identifier>RecordJanela_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Atualizar JDA com agendamentos</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Custo__c</fieldItem>
+                <identifier>RecordCusto_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Lançar serviços e custos adicionais no ECM</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-f59cb6ee-382c-48e1-b156-45e1c5226bd4</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-27573a1f-1273-4d61-bbd2-b1f6fe226be0</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column16</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-f59cb6ee-382c-48e1-b156-45e1c5226bd4</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column19</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-6fb0b0da-4123-4d45-95b7-53be2a1c1e96</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.NumeroFatura__c</fieldItem>
+                <identifier>RecordNumeroFatura_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Financeiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Isenção / Revisão de fatura</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.PeriodoQuestionado__c</fieldItem>
+                <identifier>RecordPeriodoQuestionado_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Financeiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Faturas em aberto</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.DA__c</fieldItem>
+                <identifier>RecordDA_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Documentação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Encaminhar CDA (Certificado Deposito Aduaneiro)</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.DTA__c</fieldItem>
+                <identifier>RecordDTA_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Documentação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Encaminhar CDA (Certificado Deposito Aduaneiro)</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.DTA__c</fieldItem>
+                <identifier>RecordDTA_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR (2 AND (3 OR 4 OR 5 OR 6 OR 7 OR 8) )</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Apoio Aduaneiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Documentação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Petição</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitar assinatura de carta protesto</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Enviar ticket de pesagem</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitar repesagem de carga</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitar documentos ou retificação documental</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Encaminhar TFA (Termo de Falta e Avaria)</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CNPJ__c</fieldItem>
+                <identifier>RecordCNPJ_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Financeiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Identificar pagamento da prévia</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Data_Remocao__c</fieldItem>
+                <identifier>RecordData_Remocao_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Apoio Aduaneiro</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Invoice__c</fieldItem>
+                <identifier>RecordInvoice_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Apoio Aduaneiro</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Empresa__c</fieldItem>
+                <identifier>RecordEmpresa_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Agendamento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Cadastrar empresas e clientes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Aprovar cadastro</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.PlacaCavalo__c</fieldItem>
+                <identifier>RecordPlacaCavalo_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Agendamento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Acompanhar divergências de agendamento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Acompanhar veículo sem agendamento</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.ID__c</fieldItem>
+                <identifier>RecordID_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Agendamento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Acompanhar divergências de agendamento</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.DUE__c</fieldItem>
+                <identifier>RecordDUE_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR (3 AND 4 AND 5)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Agendamento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Liberar janela extra</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Documentação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Petição</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Retificação documental</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Conhecimento__c</fieldItem>
+                <identifier>RecordConhecimento_cField4</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Financeiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Envio ou reenvio da fatura ou prévia</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.NumeroNotaFiscal__c</fieldItem>
+                <identifier>RecordNumeroNotaFiscal_cField5</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Financeiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Faturas em aberto</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Isenção / Revisão de fatura</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.NumeroNotaFiscal__c</fieldItem>
+                <identifier>RecordNumeroNotaFiscal_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR (3 AND (4 OR 9)) OR (5 AND 6 AND (7 OR 8))</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Agendamento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Liberar janela extra</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Documentação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Enviar foto</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Documentação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Petição</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Retificação documental</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Temas diversos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Enviar ticket de pesagem</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.NumeroNotaFiscal__c</fieldItem>
+                <identifier>RecordNumeroNotaFiscal_cField4</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Financeiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Envio ou reenvio da fatura ou prévia</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Identificar pagamento da prévia</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.E_mail__c</fieldItem>
+                <identifier>RecordE_mail_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Agendamento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Aprovar cadastro</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.E_mail__c</fieldItem>
+                <identifier>RecordE_mail_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Agendamento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Cadastrar empresas e clientes</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Data__c</fieldItem>
+                <identifier>RecordData_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Atendimento</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Comissaria__c</fieldItem>
+                <identifier>RecordComissaria_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR (2 AND 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Comercial</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Financeiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Proposta comercial / Cadastro</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Container__c</fieldItem>
+                <identifier>RecordContainer_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Documentação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitar assinatura de comprovante de entrega</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Data_Inicial__c</fieldItem>
+                <identifier>RecordData_Inicial_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND (2 OR 3)) OR (4 AND 5)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Documentação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Relatório diversos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Relatório personalizado</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Financeiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Relatório de custos</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Comprovante_de_Vinculo__c</fieldItem>
+                <identifier>RecordComprovante_de_Vinculo_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Financeiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitação de proposta comercial</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-b9fc57eb-cee3-44e0-a847-828cf34b8f93</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.BL__c</fieldItem>
+                <identifier>RecordBL_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Apoio Aduaneiro</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Anuencia_MAPA__c</fieldItem>
+                <identifier>RecordAnuencia_MAPA_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Apoio Aduaneiro</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Packing_List__c</fieldItem>
+                <identifier>RecordPacking_List_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Apoio Aduaneiro</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CNPJ__c</fieldItem>
+                <identifier>RecordCNPJ_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Agendamento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Cadastrar empresas e clientes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Aprovar cadastro</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CNPJ__c</fieldItem>
+                <identifier>RecordCNPJ_cField4</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Financeiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Proposta comercial / Cadastro</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Transportadora__c</fieldItem>
+                <identifier>RecordTransportadora_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND (2 OR 3)) OR (4 AND 5)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Agendamento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Acompanhar divergências de agendamento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Acompanhar veículo sem agendamento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Realizar acompanhamento (modelo distinto)</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Telefone__c</fieldItem>
+                <identifier>RecordTelefone_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Agendamento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Aprovar cadastro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Cadastrar empresas e clientes</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.DI_DUIMP__c</fieldItem>
+                <identifier>RecordDI_DUIMP_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR (3 AND 4) OR (3 AND 5 AND (6 OR 7 OR 8))</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Agendamento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Liberar janela extra</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Documentação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitar documentos ou retificação documental</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Petição</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Enviar foto</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Retificação documental</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Temas diversos</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.DI_DUIMP__c</fieldItem>
+                <identifier>RecordDI_DUIMP_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2 AND (3 OR 4)) OR (5 AND(6 OR 7))</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Documentação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Petição</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Retificação documental</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Temas diversos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Financeiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Envio ou reenvio da fatura ou prévia</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Identificar pagamento da prévia</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.DI_DUIMP__c</fieldItem>
+                <identifier>RecordDI_DUIMP_cField4</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Financeiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Faturas em aberto</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Isenção / Revisão de fatura</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Data_e_Hora_Pretendida__c</fieldItem>
+                <identifier>RecordData_e_Hora_Pretendida_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Agendamento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Liberar janela extra</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Conhecimento__c</fieldItem>
+                <identifier>RecordConhecimento_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3 OR 4)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Documentação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Enviar foto</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Encaminhar TFA (Termo de Falta e Avaria)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Encaminhar CDA (Certificado Deposito Aduaneiro)</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Conhecimento__c</fieldItem>
+                <identifier>RecordConhecimento_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3 OR 4 OR (5 AND(6 OR 7 OR 8)))</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Documentação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitar assinatura de carta protesto</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Enviar ticket de pesagem</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitar documentos ou retificação documental</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Petição</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Retirar pontuação de atraso</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Retificação documental</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Temas diversos</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Data_da_Entrega__c</fieldItem>
+                <identifier>RecordData_da_Entrega_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Documentação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitar assinatura de comprovante de entrega</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Data_Final__c</fieldItem>
+                <identifier>RecordData_Final_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND (2 OR 3)) OR (4 AND 5)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Documentação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Relatório diversos</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Relatório personalizado</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Financeiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Relatório de custos</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-263c13b2-1a1e-4b24-b21c-571e59152c8a</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-b9fc57eb-cee3-44e0-a847-828cf34b8f93</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column14</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-263c13b2-1a1e-4b24-b21c-571e59152c8a</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column15</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-9007c5b6-b45a-499d-b851-00419d9cae25</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -853,31 +3298,138 @@
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection7</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR (2 AND (3 OR 4 OR 5))</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.TipoCaso__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Elogio</rightValue>
+                        <rightValue>Informação</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.TipoCaso__c}</leftValue>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
                         <operator>NE</operator>
-                        <rightValue>Elogio</rightValue>
+                        <rightValue>Dados do recinto</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.Modalidade__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Cabotagem Embarque</rightValue>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Atendimento</rightValue>
                     </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-6fb0b0da-4123-4d45-95b7-53be2a1c1e96</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>{!$Label.Detalhes}</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection10</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7)</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Modalidade__c}</leftValue>
+                        <leftValue>{!Record.TipoCaso__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Exportação</rightValue>
+                        <rightValue>Solicitação</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!Record.Categoria__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Acesso ao Porto</rightValue>
+                        <rightValue>Operação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>QSMS</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Transporte</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Planejamento Operacional Alfandegado</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Portal Logístico</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Serviços específicos</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-9007c5b6-b45a-499d-b851-00419d9cae25</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>{!$Label.Detalhes}</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection8</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND ((2 AND NOT 8) OR 3 OR 4 OR 5 OR 6 OR 7)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.TipoCaso__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solicitação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Documentação</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Agendamento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Apoio Aduaneiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Atendimento</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Comercial</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Financeiro</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Enviar ticket de pesagem</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>

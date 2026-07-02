@@ -1326,6 +1326,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.ChavesNF__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.ClienteFinalOrganizacao__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -1377,6 +1382,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Container__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Custo__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1641,6 +1651,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Janela__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Language</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1677,6 +1692,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Motivo__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Motorista__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1811,6 +1831,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.OwnerEmFila__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Packing_List__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -1850,6 +1875,11 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.PrestadorServico__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Priority</field>
         <readable>true</readable>
@@ -1857,6 +1887,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.ProcedenciaReclamacao__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Processo_DTA_DI_DUIMP_DUE_NF__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1892,6 +1927,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.ReclamacaoGerada__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.RefCliente__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1987,6 +2027,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Tara__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Telefone__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2167,6 +2212,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Categorizacao__c.PorCampoCustomizado__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Categorizacao__c.PorCategorizacao__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3127,6 +3177,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Reclamacao__c.Assunto__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Reclamacao__c.AtualizadoAposReuniao__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>

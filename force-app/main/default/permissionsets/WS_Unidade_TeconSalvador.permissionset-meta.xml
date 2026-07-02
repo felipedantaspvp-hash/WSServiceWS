@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <applicationVisibilities>
+        <application>Atendimento_Tecon_Salvador</application>
+        <visible>true</visible>
+    </applicationVisibilities>
+    <description>Camada de unidade de negocio para usuarios de atendimento Tecon Salvador. Concede app e record types da unidade; filas e presence status devem ser configurados separadamente.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>WS Unidade - Tecon Salvador</label>
+    <recordTypeVisibilities>
+        <recordType>Agendamento__c.AtendimentoTeconSalvador</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>AreaParticipante__c.TeconSalvador</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Case.AtendimentoTeconSalvador</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Categorizacao__c.AtendimentoTeconSalvador</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Reclamacao__c.TeconSalvador</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+</PermissionSet>

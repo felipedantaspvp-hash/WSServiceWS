@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OwnerEmFila__c</fullName>
+    <description>Indica automaticamente se o proprietário atual do Case é uma fila, identificada pelo prefixo de Id de Group.</description>
+    <formula>BEGINS(CASESAFEID(OwnerId), &quot;00G&quot;)</formula>
+    <inlineHelpText>Marcado automaticamente quando o proprietário do Case for uma fila.</inlineHelpText>
+    <label>Proprietário em Fila</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
