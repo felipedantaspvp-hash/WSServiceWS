@@ -38,7 +38,7 @@ public inherited sharing class CaseClosureSurveyController {
         } catch (Exception ex) {
             CaseClosureSurveyDTO out = new CaseClosureSurveyDTO();
             out.caseId = request != null ? request.caseId : null;
-            out.errorMessage = 'Erro inesperado ao encerrar o Caso.';
+            out.errorMessage = Label.CaseClosureSurvey_UnexpectedControllerError;
             return out;
         }
     }

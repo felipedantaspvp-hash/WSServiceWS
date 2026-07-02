@@ -4,6 +4,30 @@
     <name>MotivoEncerramento__c</name>
     <picklistValues>
         <masterLabel>A definir</masterLabel>
-        <translation><!-- A definir --></translation>
+        <translation>To be defined</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Duplicado</masterLabel>
+        <translation>Duplicate</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fora do escopo</masterLabel>
+        <translation>Out of Scope</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Informação prestada</masterLabel>
+        <translation>Information Provided</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Resolvido</masterLabel>
+        <translation>Resolved</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sem retorno do cliente</masterLabel>
+        <translation>No Customer Response</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Solicitação cancelada</masterLabel>
+        <translation>Request Canceled</translation>
     </picklistValues>
 </CustomFieldTranslation>

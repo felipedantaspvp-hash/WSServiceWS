@@ -713,6 +713,158 @@
         <name>AccountCaseSchedule_WeekdaysRequired</name>
     </customLabels>
     <customLabels>
+        <label>Unidade de Negócio</label>
+        <name>CaseClosureSurvey_BusinessUnit</name>
+    </customLabels>
+    <customLabels>
+        <label>Cancelar</label>
+        <name>CaseClosureSurvey_Cancel</name>
+    </customLabels>
+    <customLabels>
+        <label>Este caso já está fechado.</label>
+        <name>CaseClosureSurvey_CaseAlreadyClosed</name>
+    </customLabels>
+    <customLabels>
+        <label>Caso não encontrado.</label>
+        <name>CaseClosureSurvey_CaseNotFound</name>
+    </customLabels>
+    <customLabels>
+        <label>Número do Caso</label>
+        <name>CaseClosureSurvey_CaseNumber</name>
+    </customLabels>
+    <customLabels>
+        <label>Caso não informado.</label>
+        <name>CaseClosureSurvey_CaseRequired</name>
+    </customLabels>
+    <customLabels>
+        <label>Canal</label>
+        <name>CaseClosureSurvey_Channel</name>
+    </customLabels>
+    <customLabels>
+        <label>Encerrar</label>
+        <name>CaseClosureSurvey_Close</name>
+    </customLabels>
+    <customLabels>
+        <label>Encerrar Caso</label>
+        <name>CaseClosureSurvey_CloseCaseTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Comentário de Encerramento</label>
+        <name>CaseClosureSurvey_ClosureComment</name>
+    </customLabels>
+    <customLabels>
+        <label>Dados de Encerramento</label>
+        <name>CaseClosureSurvey_ClosureDataTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Motivo de Encerramento</label>
+        <name>CaseClosureSurvey_ClosureReason</name>
+    </customLabels>
+    <customLabels>
+        <label>Motivo de encerramento é obrigatório.</label>
+        <name>CaseClosureSurvey_ClosureReasonRequired</name>
+    </customLabels>
+    <customLabels>
+        <label>Solução do Caso</label>
+        <name>CaseClosureSurvey_ClosureSolution</name>
+    </customLabels>
+    <customLabels>
+        <label>Solução do caso é obrigatória.</label>
+        <name>CaseClosureSurvey_ClosureSolutionRequired</name>
+    </customLabels>
+    <customLabels>
+        <label>Status de Encerramento</label>
+        <name>CaseClosureSurvey_ClosureStatus</name>
+    </customLabels>
+    <customLabels>
+        <label>Reclamação</label>
+        <name>CaseClosureSurvey_ComplaintTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Este cliente já recebeu pesquisa hoje. A configuração permite novo envio.</label>
+        <name>CaseClosureSurvey_DailySurveyAllowed</name>
+    </customLabels>
+    <customLabels>
+        <label>Este cliente já recebeu pesquisa hoje. O envio será bloqueado pela configuração da unidade de negócio.</label>
+        <name>CaseClosureSurvey_DailySurveyBlocked</name>
+    </customLabels>
+    <customLabels>
+        <label>Este cliente ainda não recebeu pesquisa hoje.</label>
+        <name>CaseClosureSurvey_DailySurveyNotSent</name>
+    </customLabels>
+    <customLabels>
+        <label>Erro</label>
+        <name>CaseClosureSurvey_ErrorTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Gerar registro de Reclamação para este Caso?</label>
+        <name>CaseClosureSurvey_GenerateComplaintQuestion</name>
+    </customLabels>
+    <customLabels>
+        <label>Carregando</label>
+        <name>CaseClosureSurvey_Loading</name>
+    </customLabels>
+    <customLabels>
+        <label>Não</label>
+        <name>CaseClosureSurvey_No</name>
+    </customLabels>
+    <customLabels>
+        <label>Você não possui permissão para encerrar este Caso.</label>
+        <name>CaseClosureSurvey_PermissionCloseDenied</name>
+    </customLabels>
+    <customLabels>
+        <label>Você não possui permissão para atualizar campos de encerramento deste Caso.</label>
+        <name>CaseClosureSurvey_PermissionFieldsDenied</name>
+    </customLabels>
+    <customLabels>
+        <label>Você não possui permissão para acessar este Caso.</label>
+        <name>CaseClosureSurvey_PermissionReadDenied</name>
+    </customLabels>
+    <customLabels>
+        <label>Categorize o caso antes de encerrá-lo.</label>
+        <name>CaseClosureSurvey_RequiredCategorization</name>
+    </customLabels>
+    <customLabels>
+        <label>Este cliente já recebeu pesquisa hoje.</label>
+        <name>CaseClosureSurvey_SameDaySurveyBlocked</name>
+    </customLabels>
+    <customLabels>
+        <label>Deseja enviar pesquisa de satisfação para este cliente?</label>
+        <name>CaseClosureSurvey_SendSurveyQuestion</name>
+    </customLabels>
+    <customLabels>
+        <label>Fechado</label>
+        <name>CaseClosureSurvey_StatusClosed</name>
+    </customLabels>
+    <customLabels>
+        <label>Caso encerrado com sucesso.</label>
+        <name>CaseClosureSurvey_SuccessMessage</name>
+    </customLabels>
+    <customLabels>
+        <label>Sucesso</label>
+        <name>CaseClosureSurvey_SuccessTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>A pesquisa de satisfação será enviada conforme regra da unidade de negócio.</label>
+        <name>CaseClosureSurvey_SurveyAlwaysInfo</name>
+    </customLabels>
+    <customLabels>
+        <label>Pesquisa de Satisfação</label>
+        <name>CaseClosureSurvey_SurveyTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Erro inesperado ao encerrar o Caso.</label>
+        <name>CaseClosureSurvey_UnexpectedControllerError</name>
+    </customLabels>
+    <customLabels>
+        <label>Erro inesperado.</label>
+        <name>CaseClosureSurvey_UnexpectedError</name>
+    </customLabels>
+    <customLabels>
+        <label>Sim</label>
+        <name>CaseClosureSurvey_Yes</name>
+    </customLabels>
+    <customLabels>
         <label>Informações Adicionais</label>
         <name>CaseNewCategorization_AdditionalInfoSection</name>
     </customLabels>

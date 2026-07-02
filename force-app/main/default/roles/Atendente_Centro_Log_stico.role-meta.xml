@@ -3,7 +3,7 @@
     <caseAccessLevel>Read</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Supervisor Atendimento Tecon Salvador</name>
+    <name>Atendente Centro Logístico</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>Atendimento_Tecon_Salvador</parentRole>
+    <parentRole>AgenteMaster_Atendimento_Centro_Log_stico</parentRole>
 </Role>

@@ -3926,4 +3926,308 @@
         <shortDescription>Caso Relacionado</shortDescription>
         <value>Caso Relacionado</value>
     </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_BusinessUnit</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Business unit field label</shortDescription>
+        <value>Business Unit</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_Cancel</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel button label for Case closure survey action</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_CaseAlreadyClosed</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case already closed error</shortDescription>
+        <value>This case is already closed.</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_CaseNotFound</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case not found error</shortDescription>
+        <value>Case not found.</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_CaseNumber</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case number field label</shortDescription>
+        <value>Case Number</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_CaseRequired</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case required error</shortDescription>
+        <value>Case was not provided.</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_Channel</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Channel field label</shortDescription>
+        <value>Channel</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_Close</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Close action button label</shortDescription>
+        <value>Close</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_CloseCaseTitle</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case closure action title</shortDescription>
+        <value>Close Case</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_ClosureComment</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Closure comment field label</shortDescription>
+        <value>Closure Comment</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_ClosureDataTitle</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Closure data section title</shortDescription>
+        <value>Closure Details</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_ClosureReason</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Closure reason field label</shortDescription>
+        <value>Closure Reason</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_ClosureReasonRequired</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Closure reason required error</shortDescription>
+        <value>Closure reason is required.</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_ClosureSolution</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Closure solution field label</shortDescription>
+        <value>Case Solution</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_ClosureSolutionRequired</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Closure solution required error</shortDescription>
+        <value>Case solution is required.</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_ClosureStatus</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Closure status field label</shortDescription>
+        <value>Closure Status</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_ComplaintTitle</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Complaint section title</shortDescription>
+        <value>Complaint</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_DailySurveyAllowed</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Daily survey already sent but allowed message</shortDescription>
+        <value>This customer already received a survey today. The configuration allows another send.</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_DailySurveyBlocked</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Daily survey already sent and blocked message</shortDescription>
+        <value>This customer already received a survey today. Sending will be blocked by the business unit configuration.</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_DailySurveyNotSent</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Daily survey not sent message</shortDescription>
+        <value>This customer has not received a survey today.</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_ErrorTitle</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error toast title</shortDescription>
+        <value>Error</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_GenerateComplaintQuestion</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Generate complaint checkbox label</shortDescription>
+        <value>Create a Complaint record for this Case?</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_Loading</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Loading spinner alternative text</shortDescription>
+        <value>Loading</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_No</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No option label</shortDescription>
+        <value>No</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_PermissionCloseDenied</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Close permission error</shortDescription>
+        <value>You do not have permission to close this Case.</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_PermissionFieldsDenied</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Closure fields permission error</shortDescription>
+        <value>You do not have permission to update this Case&apos;s closure fields.</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_PermissionReadDenied</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Read permission error</shortDescription>
+        <value>You do not have permission to access this Case.</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_RequiredCategorization</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Required categorization message</shortDescription>
+        <value>Categorize the case before closing it.</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_SameDaySurveyBlocked</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Same-day survey blocked error</shortDescription>
+        <value>This customer already received a survey today.</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_SendSurveyQuestion</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Send survey question label</shortDescription>
+        <value>Do you want to send a satisfaction survey to this customer?</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_StatusClosed</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Closed status display label</shortDescription>
+        <value>Closed</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_SuccessMessage</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case closure success message</shortDescription>
+        <value>Case closed successfully.</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_SuccessTitle</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Success toast title</shortDescription>
+        <value>Success</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_SurveyAlwaysInfo</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Always send survey information</shortDescription>
+        <value>The satisfaction survey will be sent according to the business unit rule.</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_SurveyTitle</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Survey section title</shortDescription>
+        <value>Satisfaction Survey</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_UnexpectedControllerError</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unexpected controller error</shortDescription>
+        <value>Unexpected error while closing the Case.</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_UnexpectedError</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unexpected UI error</shortDescription>
+        <value>Unexpected error.</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_Yes</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Yes option label</shortDescription>
+        <value>Yes</value>
+    </labels>
 </CustomLabels>

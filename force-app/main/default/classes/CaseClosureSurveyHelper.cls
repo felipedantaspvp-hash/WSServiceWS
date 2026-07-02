@@ -62,22 +62,23 @@ public inherited sharing class CaseClosureSurveyHelper {
         return hasCaseSurveySentToday(caseRecord, email);
     }
 
+    @SuppressWarnings('PMD.ApexSOQLInjection')
     private static Boolean hasSurveyInvitationTodayByEmail(String email) {
         Schema.SObjectType objectType = Schema.getGlobalDescribe().get('SurveyInvitation');
         if (objectType == null) return false;
+        if (!objectType.getDescribe().isAccessible()) return false;
 
         Map<String, Schema.SObjectField> fields = objectType.getDescribe().fields.getMap();
         String emailField = null;
         for (String candidate : new List<String>{ 'RecipientEmail', 'Email', 'ParticipantEmail' }) {
-            if (fields.containsKey(candidate)) {
+            if (fields.containsKey(candidate) && fields.get(candidate).getDescribe().isAccessible()) {
                 emailField = candidate;
                 break;
             }
         }
         if (emailField == null) return false;
 
-        String escapedEmail = String.escapeSingleQuotes(email);
-        String queryText = 'SELECT Id FROM SurveyInvitation WHERE CreatedDate = TODAY AND ' + emailField + ' = \'' + escapedEmail + '\' LIMIT 1';
+        String queryText = 'SELECT Id FROM SurveyInvitation WHERE CreatedDate = TODAY AND ' + emailField + ' = :email WITH USER_MODE LIMIT 1';
         try {
             return !Database.query(queryText).isEmpty();
         } catch (Exception ex) {
@@ -101,6 +102,7 @@ public inherited sharing class CaseClosureSurveyHelper {
                 ContactId = :caseRecord.ContactId
                 OR SuppliedEmail = :email
             )
+            WITH USER_MODE
             LIMIT 1
         ];
         return !cases.isEmpty();
@@ -108,11 +110,11 @@ public inherited sharing class CaseClosureSurveyHelper {
 
     public static String buildDailySurveyMessage(Boolean receivedToday, Boolean allowSameDay) {
         if (receivedToday == true && allowSameDay != true) {
-            return 'Este cliente já recebeu pesquisa hoje. O envio será bloqueado pela configuração da unidade de negócio.';
+            return Label.CaseClosureSurvey_DailySurveyBlocked;
         }
         if (receivedToday == true) {
-            return 'Este cliente já recebeu pesquisa hoje. A configuração permite novo envio.';
+            return Label.CaseClosureSurvey_DailySurveyAllowed;
         }
-        return 'Este cliente ainda não recebeu pesquisa hoje.';
+        return Label.CaseClosureSurvey_DailySurveyNotSent;
     }
 }

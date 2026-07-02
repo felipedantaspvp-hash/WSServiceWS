@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Motivo de Encerramento --></label>
+    <label>Motivo de Encerramento</label>
     <name>MotivoEncerramento__c</name>
     <picklistValues>
         <masterLabel>A definir</masterLabel>
-        <translation><!-- A definir --></translation>
+        <translation>A definir</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Duplicado</masterLabel>
+        <translation>Duplicado</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fora do escopo</masterLabel>
+        <translation>Fora do escopo</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Informação prestada</masterLabel>
+        <translation>Informação prestada</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Resolvido</masterLabel>
+        <translation>Resolvido</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sem retorno do cliente</masterLabel>
+        <translation>Sem retorno do cliente</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Solicitação cancelada</masterLabel>
+        <translation>Solicitação cancelada</translation>
     </picklistValues>
 </CustomFieldTranslation>

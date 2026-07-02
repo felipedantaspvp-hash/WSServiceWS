@@ -3,7 +3,7 @@
     <caseAccessLevel>Read</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Atendente Atendimento Centro Logístico</name>
+    <name>Atendente Rebocadores</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>Atendimento_Centro_Log_stico</parentRole>
+    <parentRole>AgenteMaster_Atendimento_Rebocadores</parentRole>
 </Role>

@@ -163,6 +163,15 @@ public inherited sharing class CaseCreationSelector {
 
     public static List<Group> getCaseQueuesByToken(String token) {
         if (String.isBlank(token)) return new List<Group>();
-        return [SELECT Id, Name, DeveloperName FROM Group WHERE Type='Queue' AND DeveloperName LIKE :('%' + token + '%') ORDER BY Name];
+        return [SELECT Id, Name, DeveloperName FROM Group WHERE Type='Queue' AND DeveloperName LIKE :(escapeLikePattern(token) + '%') ORDER BY Name];
+    }
+
+    @TestVisible
+    private static String escapeLikePattern(String value) {
+        String escaped = value.trim();
+        escaped = escaped.replace('\\', '\\\\');
+        escaped = escaped.replace('%', '\\%');
+        escaped = escaped.replace('_', '\\_');
+        return escaped;
     }
 }

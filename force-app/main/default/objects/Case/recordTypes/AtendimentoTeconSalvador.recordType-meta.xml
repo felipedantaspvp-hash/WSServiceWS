@@ -1553,8 +1553,28 @@
     <picklistValues>
         <picklist>MotivoEncerramento__c</picklist>
         <values>
-            <fullName>A definir</fullName>
-            <default>true</default>
+            <fullName>Duplicado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fora do escopo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Informação prestada</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolvido</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sem retorno do cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação cancelada</fullName>
+            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>

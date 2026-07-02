@@ -1,8 +1,8 @@
 <template>
-    <lightning-quick-action-panel header="Encerrar Caso">
+    <lightning-quick-action-panel header={labels.closeCaseTitle}>
         <div class="slds-p-around_medium">
             <template if:true={loading}>
-                <lightning-spinner alternative-text="Carregando"></lightning-spinner>
+                <lightning-spinner alternative-text={labels.loading}></lightning-spinner>
             </template>
 
             <template if:false={loading}>
@@ -15,48 +15,50 @@
 
                     <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                            <lightning-input label="Número do Caso" value={context.caseNumber} disabled></lightning-input>
+                            <lightning-input label={labels.caseNumber} value={context.caseNumber} disabled></lightning-input>
                         </div>
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                            <lightning-input label="Unidade de Negócio" value={context.businessUnit} disabled></lightning-input>
+                            <lightning-input label={labels.businessUnit} value={context.businessUnit} disabled></lightning-input>
                         </div>
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                            <lightning-input label="Canal" value={context.channel} disabled></lightning-input>
+                            <lightning-input label={labels.channel} value={context.channel} disabled></lightning-input>
                         </div>
                         <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
-                            <lightning-input label="Status de Encerramento" value={context.closureStatus} disabled></lightning-input>
+                            <lightning-input label={labels.closureStatus} value={closureStatusDisplay} disabled></lightning-input>
                         </div>
                     </div>
 
-                    <h3 class="slds-text-title_bold slds-m-bottom_small">Dados de Encerramento</h3>
-                    <lightning-input
+                    <h3 class="slds-text-title_bold slds-m-bottom_small">{labels.closureDataTitle}</h3>
+                    <lightning-combobox
                         class="slds-m-bottom_small"
-                        label="Motivo de Encerramento"
+                        label={labels.closureReason}
                         value={model.closureReason}
+                        options={closureReasonOptions}
                         data-field="closureReason"
                         onchange={handleChange}
+                        disabled={isClosureReasonPicklistLoading}
                         required>
-                    </lightning-input>
+                    </lightning-combobox>
                     <lightning-textarea
                         class="slds-m-bottom_small"
-                        label="Solução do Caso"
+                        label={labels.closureSolution}
                         value={model.closureSolution}
                         data-field="closureSolution"
                         onchange={handleChange}
                         required>
                     </lightning-textarea>
                     <lightning-textarea
-                        label="Comentário de Encerramento"
+                        label={labels.closureComment}
                         value={model.closureComment}
                         data-field="closureComment"
                         onchange={handleChange}>
                     </lightning-textarea>
 
                     <template if:true={context.showGerarReclamacaoQuestion}>
-                        <h3 class="slds-text-title_bold slds-m-top_medium slds-m-bottom_small">Reclamação</h3>
+                        <h3 class="slds-text-title_bold slds-m-top_medium slds-m-bottom_small">{labels.complaintTitle}</h3>
                         <lightning-input
                             type="checkbox"
-                            label="Gerar registro de Reclamação para este Caso?"
+                            label={labels.generateComplaintQuestion}
                             checked={model.selectedGerarReclamacao}
                             onchange={handleGerarReclamacaoChange}>
                         </lightning-input>
@@ -64,14 +66,14 @@
 
                     <template if:true={showSurveyInfo}>
                         <div class="slds-box slds-theme_info slds-m-top_medium">
-                            <p>A pesquisa de satisfação será enviada conforme regra da unidade de negócio.</p>
+                            <p>{labels.surveyAlwaysInfo}</p>
                         </div>
                     </template>
 
                     <template if:true={context.showSurveyQuestion}>
-                        <h3 class="slds-text-title_bold slds-m-top_medium slds-m-bottom_small">Pesquisa de Satisfação</h3>
+                        <h3 class="slds-text-title_bold slds-m-top_medium slds-m-bottom_small">{labels.surveyTitle}</h3>
                         <lightning-radio-group
-                            label="Deseja enviar pesquisa de satisfação para este cliente?"
+                            label={labels.sendSurveyQuestion}
                             options={surveyOptions}
                             value={sendSurveyValue}
                             type="radio"
@@ -89,11 +91,11 @@
         </div>
 
         <div slot="footer" class="slds-grid slds-grid_align-end slds-gutters_x-small">
-            <lightning-button label="Cancelar" onclick={cancel}></lightning-button>
+            <lightning-button label={labels.cancel} onclick={cancel}></lightning-button>
             <lightning-button
                 class="slds-m-left_x-small"
                 variant="brand"
-                label="Encerrar"
+                label={labels.close}
                 onclick={submit}
                 disabled={disableSubmit}>
             </lightning-button>

@@ -1904,6 +1904,158 @@ Before we begin, please choose your service language.</message>
         <name>AccountCaseSchedule_WeekdaysRequired</name>
     </customLabels>
     <customLabels>
+        <label><!-- Business unit field label --></label>
+        <name>CaseClosureSurvey_BusinessUnit</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cancel button label for Case closure survey action --></label>
+        <name>CaseClosureSurvey_Cancel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Case already closed error --></label>
+        <name>CaseClosureSurvey_CaseAlreadyClosed</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Case not found error --></label>
+        <name>CaseClosureSurvey_CaseNotFound</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Case number field label --></label>
+        <name>CaseClosureSurvey_CaseNumber</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Case required error --></label>
+        <name>CaseClosureSurvey_CaseRequired</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Channel field label --></label>
+        <name>CaseClosureSurvey_Channel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Close action button label --></label>
+        <name>CaseClosureSurvey_Close</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Case closure action title --></label>
+        <name>CaseClosureSurvey_CloseCaseTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Closure comment field label --></label>
+        <name>CaseClosureSurvey_ClosureComment</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Closure data section title --></label>
+        <name>CaseClosureSurvey_ClosureDataTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Closure reason field label --></label>
+        <name>CaseClosureSurvey_ClosureReason</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Closure reason required error --></label>
+        <name>CaseClosureSurvey_ClosureReasonRequired</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Closure solution field label --></label>
+        <name>CaseClosureSurvey_ClosureSolution</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Closure solution required error --></label>
+        <name>CaseClosureSurvey_ClosureSolutionRequired</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Closure status field label --></label>
+        <name>CaseClosureSurvey_ClosureStatus</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Complaint section title --></label>
+        <name>CaseClosureSurvey_ComplaintTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Daily survey already sent but allowed message --></label>
+        <name>CaseClosureSurvey_DailySurveyAllowed</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Daily survey already sent and blocked message --></label>
+        <name>CaseClosureSurvey_DailySurveyBlocked</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Daily survey not sent message --></label>
+        <name>CaseClosureSurvey_DailySurveyNotSent</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error toast title --></label>
+        <name>CaseClosureSurvey_ErrorTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Generate complaint checkbox label --></label>
+        <name>CaseClosureSurvey_GenerateComplaintQuestion</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Loading spinner alternative text --></label>
+        <name>CaseClosureSurvey_Loading</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- No option label --></label>
+        <name>CaseClosureSurvey_No</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Close permission error --></label>
+        <name>CaseClosureSurvey_PermissionCloseDenied</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Closure fields permission error --></label>
+        <name>CaseClosureSurvey_PermissionFieldsDenied</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Read permission error --></label>
+        <name>CaseClosureSurvey_PermissionReadDenied</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Required categorization message --></label>
+        <name>CaseClosureSurvey_RequiredCategorization</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Same-day survey blocked error --></label>
+        <name>CaseClosureSurvey_SameDaySurveyBlocked</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Send survey question label --></label>
+        <name>CaseClosureSurvey_SendSurveyQuestion</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Closed status display label --></label>
+        <name>CaseClosureSurvey_StatusClosed</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Case closure success message --></label>
+        <name>CaseClosureSurvey_SuccessMessage</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Success toast title --></label>
+        <name>CaseClosureSurvey_SuccessTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Always send survey information --></label>
+        <name>CaseClosureSurvey_SurveyAlwaysInfo</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Survey section title --></label>
+        <name>CaseClosureSurvey_SurveyTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Unexpected controller error --></label>
+        <name>CaseClosureSurvey_UnexpectedControllerError</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Unexpected UI error --></label>
+        <name>CaseClosureSurvey_UnexpectedError</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Yes option label --></label>
+        <name>CaseClosureSurvey_Yes</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Additional information section title in the New Case wizard --></label>
         <name>CaseNewCategorization_AdditionalInfoSection</name>
     </customLabels>

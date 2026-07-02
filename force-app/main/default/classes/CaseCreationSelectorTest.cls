@@ -93,6 +93,42 @@ private class CaseCreationSelectorTest {
     }
 
     @IsTest
+    static void testGetCaseQueuesByTokenUsesPrefixOnly() {
+        String runSuffix = String.valueOf(DateTime.now().getTime()).right(8);
+        String centroLogisticoDeveloperName = 'CL_Q_' + runSuffix;
+        String wildcardLookalikeDeveloperName = 'CLI_Atendimento_' + runSuffix;
+        String rioGrandeDeveloperName = 'TRG_AtendimentoCliente_' + runSuffix;
+        Group centroLogisticoQueue = new Group(
+            Name = 'Atendimento Cliente - Centro Logistico',
+            DeveloperName = centroLogisticoDeveloperName,
+            Type = 'Queue'
+        );
+        Group wildcardLookalikeQueue = new Group(
+            Name = 'Atendimento Cliente - Prefixo Parecido',
+            DeveloperName = wildcardLookalikeDeveloperName,
+            Type = 'Queue'
+        );
+        Group rioGrandeQueue = new Group(
+            Name = 'Atendimento Cliente - Rio Grande',
+            DeveloperName = rioGrandeDeveloperName,
+            Type = 'Queue'
+        );
+        insert new List<Group>{ centroLogisticoQueue, wildcardLookalikeQueue, rioGrandeQueue };
+
+        Test.startTest();
+        List<Group> result = CaseCreationSelector.getCaseQueuesByToken('CL_');
+        Test.stopTest();
+
+        Set<String> developerNames = new Set<String>();
+        for (Group queue : result) {
+            developerNames.add(queue.DeveloperName);
+        }
+        Assert.isTrue(developerNames.contains(centroLogisticoDeveloperName), 'Centro Logistico queue should match the CL prefix.');
+        Assert.isFalse(developerNames.contains(wildcardLookalikeDeveloperName), 'Queue beginning with CLI should not match literal CL_ prefix.');
+        Assert.isFalse(developerNames.contains(rioGrandeDeveloperName), 'Rio Grande queue should not match only because it contains "Cliente".');
+    }
+
+    @IsTest
     static void testGetBusinessUnitAliasesTeconSalvador() {
         Set<String> aliases = CaseCreationSelector.getBusinessUnitAliases('Atendimento Salvador');
         Assert.areEqual(true, aliases.contains('Atendimento Salvador'));

@@ -3,7 +3,7 @@
     <caseAccessLevel>Read</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Atendente Atendimento Tecon Rio Grande</name>
+    <name>Agente Master Tecon Salvador</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>Atendimento_Tecon_Rio_Grande</parentRole>
+    <parentRole>Atendimento_Tecon_Salvador</parentRole>
 </Role>

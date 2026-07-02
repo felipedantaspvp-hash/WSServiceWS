@@ -43,7 +43,7 @@ private class CaseClosureSurveyControllerTest {
         request.closureComment = 'Sem envio de pesquisa por decisão do usuário.';
 
         CaseClosureSurveyDTO response = CaseClosureSurveyController.closeCase(request);
-        Assert.areEqual('Caso encerrado com sucesso.', response.successMessage);
+        Assert.areEqual(Label.CaseClosureSurvey_SuccessMessage, response.successMessage);
         Assert.areEqual(null, response.errorMessage);
 
         AtendimentoConfigService.clearTestSurveyConfigs();
@@ -55,7 +55,7 @@ private class CaseClosureSurveyControllerTest {
 
         CaseClosureSurveyDTO response = CaseClosureSurveyController.closeCase(request);
 
-        Assert.areEqual('Caso não informado.', response.errorMessage);
+        Assert.areEqual(Label.CaseClosureSurvey_CaseRequired, response.errorMessage);
     }
 
     @IsTest
@@ -89,7 +89,7 @@ private class CaseClosureSurveyControllerTest {
         CaseClosureSurveyDTO response = CaseClosureSurveyController.closeCase(request);
         CaseClosureSurveyController.forceUnexpectedErrorForTest = false;
 
-        Assert.areEqual('Erro inesperado ao encerrar o Caso.', response.errorMessage);
+        Assert.areEqual(Label.CaseClosureSurvey_UnexpectedControllerError, response.errorMessage);
     }
 
     private static Categorizacao__c createCentroLogisticoCategorization() {

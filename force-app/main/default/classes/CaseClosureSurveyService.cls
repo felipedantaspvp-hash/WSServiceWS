@@ -9,7 +9,6 @@ public inherited sharing class CaseClosureSurveyService {
     public class FunctionalException extends Exception { public String code; }
 
     private static final String CLOSED_STATUS = 'Fechado';
-    private static final String REQUIRED_CATEGORIZATION_MESSAGE = 'Categorize o caso antes de encerrá-lo.';
 
     /**
      * @description Retorna contexto da tela de encerramento.
@@ -18,10 +17,10 @@ public inherited sharing class CaseClosureSurveyService {
      */
     public static CaseClosureSurveyDTO getClosureContext(Id caseId) {
         validateReadAccess();
-        if (caseId == null) throwFunctional('REQUIRED_CASE_ID', 'Caso não informado.');
+        if (caseId == null) throwFunctional('REQUIRED_CASE_ID', Label.CaseClosureSurvey_CaseRequired);
 
         Case c = getCaseById(caseId);
-        if (c == null) throwFunctional('CASE_NOT_FOUND', 'Caso não encontrado.');
+        if (c == null) throwFunctional('CASE_NOT_FOUND', Label.CaseClosureSurvey_CaseNotFound);
 
         AtendimentoConfigDTO config = AtendimentoConfigService.getSurveyConfigByBusinessUnit(c.UnidadeNegocio__c);
         return buildContext(c, config);
@@ -34,11 +33,11 @@ public inherited sharing class CaseClosureSurveyService {
      */
     public static CaseClosureSurveyDTO closeCase(CaseClosureSurveyDTO request) {
         validateUpdateAccess();
-        if (request == null || request.caseId == null) throwFunctional('REQUIRED_CASE_ID', 'Caso não informado.');
+        if (request == null || request.caseId == null) throwFunctional('REQUIRED_CASE_ID', Label.CaseClosureSurvey_CaseRequired);
 
         Case c = getCaseById(request.caseId);
-        if (c == null) throwFunctional('CASE_NOT_FOUND', 'Caso não encontrado.');
-        if (c.IsClosed) throwFunctional('CASE_ALREADY_CLOSED', 'Este caso já está fechado.');
+        if (c == null) throwFunctional('CASE_NOT_FOUND', Label.CaseClosureSurvey_CaseNotFound);
+        if (c.IsClosed) throwFunctional('CASE_ALREADY_CLOSED', Label.CaseClosureSurvey_CaseAlreadyClosed);
         validateCaseCategorization(c);
 
         AtendimentoConfigDTO config = AtendimentoConfigService.getSurveyConfigByBusinessUnit(c.UnidadeNegocio__c);
@@ -76,7 +75,7 @@ public inherited sharing class CaseClosureSurveyService {
         CaseClosureSurveyDTO out = buildContext(getCaseById(c.Id), config);
         out.selectedSendSurvey = sendSurvey;
         out.selectedGerarReclamacao = gerarReclamacao;
-        out.successMessage = 'Caso encerrado com sucesso.';
+        out.successMessage = Label.CaseClosureSurvey_SuccessMessage;
         return out;
     }
 
@@ -94,6 +93,7 @@ public inherited sharing class CaseClosureSurveyService {
         CaseClosureSurveyDTO dto = new CaseClosureSurveyDTO();
         dto.caseId = c.Id;
         dto.caseNumber = c.CaseNumber;
+        dto.recordTypeId = c.RecordTypeId;
         dto.businessUnit = c.UnidadeNegocio__c;
         dto.channel = c.Origin;
         dto.surveyMode = surveyMode;
@@ -107,7 +107,7 @@ public inherited sharing class CaseClosureSurveyService {
             ? CaseClosureSurveyHelper.buildDailySurveyMessage(receivedToday, dto.allowSameDaySurvey)
             : null;
         dto.isCategorized = c.Categorizacao__c != null;
-        dto.categorizationBlockMessage = dto.isCategorized == true ? null : REQUIRED_CATEGORIZATION_MESSAGE;
+        dto.categorizationBlockMessage = dto.isCategorized == true ? null : Label.CaseClosureSurvey_RequiredCategorization;
         dto.closureStatus = CLOSED_STATUS;
         dto.closureReason = c.MotivoEncerramento__c;
         dto.closureComment = c.ComentarioEncerramento__c;
@@ -130,25 +130,25 @@ public inherited sharing class CaseClosureSurveyService {
         Boolean selected = request.selectedSendSurvey == true;
         if (!selected) return false;
         if (context.customerAlreadyReceivedSurveyToday == true && context.allowSameDaySurvey != true) {
-            throwFunctional('SAME_DAY_SURVEY_BLOCKED', 'Este cliente já recebeu pesquisa hoje.');
+            throwFunctional('SAME_DAY_SURVEY_BLOCKED', Label.CaseClosureSurvey_SameDaySurveyBlocked);
         }
         return true;
     }
 
     private static void validateClosureRequest(CaseClosureSurveyDTO request) {
-        if (String.isBlank(request.closureReason)) throwFunctional('REQUIRED_CLOSURE_REASON', 'Motivo de encerramento é obrigatório.');
-        if (String.isBlank(request.closureSolution)) throwFunctional('REQUIRED_CLOSURE_SOLUTION', 'Solução do caso é obrigatória.');
+        if (String.isBlank(request.closureReason)) throwFunctional('REQUIRED_CLOSURE_REASON', Label.CaseClosureSurvey_ClosureReasonRequired);
+        if (String.isBlank(request.closureSolution)) throwFunctional('REQUIRED_CLOSURE_SOLUTION', Label.CaseClosureSurvey_ClosureSolutionRequired);
     }
 
     private static void validateCaseCategorization(Case c) {
         if (c.Categorizacao__c == null) {
-            throwFunctional('REQUIRED_CASE_CATEGORIZATION', REQUIRED_CATEGORIZATION_MESSAGE);
+            throwFunctional('REQUIRED_CASE_CATEGORIZATION', Label.CaseClosureSurvey_RequiredCategorization);
         }
     }
 
     private static Case getCaseById(Id caseId) {
         List<Case> rows = [
-            SELECT Id, CaseNumber, Status, IsClosed, UnidadeNegocio__c, Origin, ContactId, Contact.Email,
+            SELECT Id, CaseNumber, RecordTypeId, Status, IsClosed, UnidadeNegocio__c, Origin, ContactId, Contact.Email,
                    ContactEmail, SuppliedEmail, MotivoEncerramento__c, ComentarioEncerramento__c,
                    SolucaoCaso__c, EnviarPesquisaSatisfacao__c, PesquisaEnviada__c, DataHoraEnvioPesquisa__c,
                    Categorizacao__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, ReclamacaoGerada__c
@@ -161,21 +161,21 @@ public inherited sharing class CaseClosureSurveyService {
 
     private static void validateReadAccess() {
         if (!Schema.sObjectType.Case.isAccessible()) {
-            throwFunctional('CRUD_DENIED', 'Você não possui permissão para acessar este Caso.');
+            throwFunctional('CRUD_DENIED', Label.CaseClosureSurvey_PermissionReadDenied);
         }
     }
 
     private static void validateUpdateAccess() {
         validateReadAccess();
         if (!Schema.sObjectType.Case.isUpdateable()) {
-            throwFunctional('CRUD_DENIED', 'Você não possui permissão para encerrar este Caso.');
+            throwFunctional('CRUD_DENIED', Label.CaseClosureSurvey_PermissionCloseDenied);
         }
         if (!Case.Status.getDescribe().isUpdateable()
             || !Case.MotivoEncerramento__c.getDescribe().isUpdateable()
             || !Case.ComentarioEncerramento__c.getDescribe().isUpdateable()
             || !Case.SolucaoCaso__c.getDescribe().isUpdateable()
             || !Case.EnviarPesquisaSatisfacao__c.getDescribe().isUpdateable()) {
-            throwFunctional('FLS_DENIED', 'Você não possui permissão para atualizar campos de encerramento deste Caso.');
+            throwFunctional('FLS_DENIED', Label.CaseClosureSurvey_PermissionFieldsDenied);
         }
     }
 

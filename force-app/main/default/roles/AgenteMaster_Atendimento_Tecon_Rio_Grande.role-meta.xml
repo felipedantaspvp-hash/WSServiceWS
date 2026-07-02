@@ -3,7 +3,7 @@
     <caseAccessLevel>Edit</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Supervisor Atendimento Centro Logístico</name>
+    <name>Agente Master Tecon Rio Grande</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>Atendimento_Centro_Log_stico</parentRole>
+    <parentRole>Atendimento_Tecon_Rio_Grande</parentRole>
 </Role>

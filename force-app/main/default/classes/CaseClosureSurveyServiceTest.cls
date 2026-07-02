@@ -8,6 +8,8 @@ private class CaseClosureSurveyServiceTest {
         setupConfig('Centro Logístico', 'ALWAYS', false, false, true, null);
 
         CaseClosureSurveyDTO context = CaseClosureSurveyService.getClosureContext(c.Id);
+        Case sourceCase = [SELECT RecordTypeId FROM Case WHERE Id = :c.Id];
+        Assert.areEqual(sourceCase.RecordTypeId, context.recordTypeId);
         Assert.areEqual('ALWAYS', context.surveyMode);
         Assert.areEqual(false, context.showSurveyQuestion);
         Assert.areEqual(true, context.defaultSendSurvey);
@@ -16,7 +18,7 @@ private class CaseClosureSurveyServiceTest {
         CaseClosureSurveyDTO result = CaseClosureSurveyService.closeCase(request);
         Case updatedCase = [SELECT Status, EnviarPesquisaSatisfacao__c FROM Case WHERE Id = :c.Id];
 
-        Assert.areEqual('Caso encerrado com sucesso.', result.successMessage);
+        Assert.areEqual(Label.CaseClosureSurvey_SuccessMessage, result.successMessage);
         Assert.areEqual('Fechado', updatedCase.Status);
         Assert.areEqual(true, updatedCase.EnviarPesquisaSatisfacao__c);
     }
@@ -63,7 +65,7 @@ private class CaseClosureSurveyServiceTest {
             CaseClosureSurveyService.closeCase(request);
             Assert.areEqual(true, false, 'Deveria bloquear envio no mesmo dia.');
         } catch (CaseClosureSurveyService.FunctionalException ex) {
-            Assert.areEqual('Este cliente já recebeu pesquisa hoje.', ex.getMessage());
+            Assert.areEqual(Label.CaseClosureSurvey_SameDaySurveyBlocked, ex.getMessage());
         }
 
         CaseClosureSurveyHelper.clearTestCustomerSurveyTodayByEmail();
@@ -102,13 +104,13 @@ private class CaseClosureSurveyServiceTest {
 
         CaseClosureSurveyDTO context = CaseClosureSurveyService.getClosureContext(c.Id);
         Assert.areEqual(false, context.isCategorized);
-        Assert.areEqual('Categorize o caso antes de encerrá-lo.', context.categorizationBlockMessage);
+        Assert.areEqual(Label.CaseClosureSurvey_RequiredCategorization, context.categorizationBlockMessage);
 
         try {
             CaseClosureSurveyService.closeCase(buildRequest(c.Id, false));
             Assert.fail('Deveria bloquear encerramento de caso sem categorização.');
         } catch (CaseClosureSurveyService.FunctionalException ex) {
-            Assert.areEqual('Categorize o caso antes de encerrá-lo.', ex.getMessage());
+            Assert.areEqual(Label.CaseClosureSurvey_RequiredCategorization, ex.getMessage());
         }
 
         AtendimentoConfigService.clearTestSurveyConfigs();
@@ -137,7 +139,7 @@ private class CaseClosureSurveyServiceTest {
             CaseClosureSurveyService.closeCase(request);
             Assert.areEqual(true, false, 'Deveria exigir motivo de encerramento.');
         } catch (CaseClosureSurveyService.FunctionalException ex) {
-            Assert.areEqual('Motivo de encerramento é obrigatório.', ex.getMessage());
+            Assert.areEqual(Label.CaseClosureSurvey_ClosureReasonRequired, ex.getMessage());
         }
     }
 
@@ -153,7 +155,7 @@ private class CaseClosureSurveyServiceTest {
         Assert.areEqual('cliente.helper@example.com', CaseClosureSurveyHelper.resolveRecipientEmail(c));
         Assert.areEqual(true, CaseClosureSurveyHelper.isBlockedInternalDomain('user@wilsonsons.com.br', 'wilsonsons.com.br;example.com'));
         Assert.areEqual(false, CaseClosureSurveyHelper.isBlockedInternalDomain('user@cliente.com', 'wilsonsons.com.br;example.com'));
-        Assert.areEqual('Este cliente já recebeu pesquisa hoje. A configuração permite novo envio.', CaseClosureSurveyHelper.buildDailySurveyMessage(true, true));
+        Assert.areEqual(Label.CaseClosureSurvey_DailySurveyAllowed, CaseClosureSurveyHelper.buildDailySurveyMessage(true, true));
 
         CaseClosureSurveyHelper.setTestCustomerSurveyTodayByEmail(new Map<String, Boolean>{
             'cliente.helper@example.com' => true

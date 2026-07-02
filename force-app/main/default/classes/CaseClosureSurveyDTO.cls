@@ -8,6 +8,7 @@
 public inherited sharing class CaseClosureSurveyDTO {
     @AuraEnabled public Id caseId { get; set; }
     @AuraEnabled public String caseNumber { get; set; }
+    @AuraEnabled public Id recordTypeId { get; set; }
     @AuraEnabled public String businessUnit { get; set; }
     @AuraEnabled public String channel { get; set; }
     @AuraEnabled public String surveyMode { get; set; }

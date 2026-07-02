@@ -2,5 +2,5 @@
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <label><!-- Dono da Conta WS Logística --></label>
     <name>Dono_da_Conta_WS_Log_stica__c</name>
-    <relationshipLabel><!-- Contas --></relationshipLabel>
+    <relationshipLabel><!-- Accounts --></relationshipLabel>
 </CustomFieldTranslation>

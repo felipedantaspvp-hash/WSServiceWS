@@ -71,6 +71,18 @@
         <errorMessage><!-- CPF inválido. Informe os 11 dígitos numéricos sem máscara (sem pontos ou hífen). --></errorMessage>
         <name>Bloqueio_CPF_Formato_Invalido</name>
     </validationRules>
+    <validationRules>
+        <errorMessage><!-- Horário da Entrega inválido. Informe no formato HH:MM (ex: 14:30). --></errorMessage>
+        <name>Bloqueio_Horario_Entrega_Invalido</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Informe pelo menos um: Navio (Nome) ou Navio (IMO). --></errorMessage>
+        <name>Bloqueio_Navio_Nao_Informado</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Informe pelo menos um: Porto (Nome) ou Porto (Código Mercante). --></errorMessage>
+        <name>Bloqueio_Porto_Nao_Informado</name>
+    </validationRules>
     <webLinks>
         <label><!-- Mass_Delete_Records --></label>
         <name>Mass_Delete_Records</name>
