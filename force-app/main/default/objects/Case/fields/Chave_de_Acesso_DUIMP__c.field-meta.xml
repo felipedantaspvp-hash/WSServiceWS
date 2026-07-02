@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Chave_de_Acesso_DUIMP__c</fullName>
+    <description>Chave de acesso da DUIMP (Declaração Única de Importação) vinculada ao processo.</description>
+    <externalId>false</externalId>
+    <label>Chave de Acesso DUIMP</label>
+    <length>80</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

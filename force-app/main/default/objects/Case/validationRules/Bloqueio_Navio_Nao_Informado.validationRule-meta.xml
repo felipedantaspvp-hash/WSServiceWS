@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bloqueio_Navio_Nao_Informado</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &quot;AtendimentoRebocadores&quot;,
+ISBLANK(NavioNome__c),
+ISBLANK(NavioIMO__c)
+)</errorConditionFormula>
+    <errorDisplayField>NavioNome__c</errorDisplayField>
+    <errorMessage>Informe pelo menos um: Navio (Nome) ou Navio (IMO).</errorMessage>
+</ValidationRule>

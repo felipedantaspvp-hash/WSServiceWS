@@ -17,6 +17,7 @@ import informacoesClienteLabel from '@salesforce/label/c.InformacoesCliente';
 import additionalInfoSectionLabel from '@salesforce/label/c.CaseNewCategorization_AdditionalInfoSection';
 import detalhesLabel from '@salesforce/label/c.Detalhes';
 import descriptionSectionLabel from '@salesforce/label/c.CaseNewCategorization_DescriptionSection';
+import casoRelacionadoLabel from '@salesforce/label/c.CasoRelacionado';
 
 // Replica, por Unidade de Negócio, as seções/campos/regras de visibilidade "preenchíveis na criação"
 // da Lightning Page real (Dynamic Forms) daquela unidade — extraído de LP_Atendimento_Salvador em
@@ -229,12 +230,52 @@ function buildRioGrandeSections() {
     ];
 }
 
+// Réplica para "Rebocadores" — extraído de LP_Atendimento_Rebocadores em 2026-06-27. Bem mais
+// simples que Salvador/Rio Grande: nenhum dos campos de "Detalhes" tem regra de visibilidade na
+// Lightning Page original (todos aparecem juntos, sempre). A seção "Caso Relacionado" da LP tinha
+// mais 4 campos (TipoCasoRelacionado__c, AssuntoCasoRelacionado__c, CategoriaCasoRelacionado__c,
+// SubassuntoCasoRelacionado__c) que ficam de fora aqui de propósito: são fórmulas que leem do
+// Parent (`TEXT(Parent.Assunto__c)` etc.) — só fazem sentido depois que o Case já existe com o
+// Caso Pai salvo, igual aos demais campos readonly/fórmula que já ficam fora desta config.
+function buildRebocadoresSections() {
+    return [
+        {
+            title: informacoesClienteLabel,
+            rows: [
+                [{ field: 'AccountId', required: true }, { field: 'ContactId', required: true }],
+                [{ field: 'Representante__c' }, null]
+            ]
+        },
+        {
+            title: casoRelacionadoLabel,
+            rows: [[{ field: 'ParentId' }, null]]
+        },
+        {
+            title: additionalInfoSectionLabel,
+            rows: [[{ field: 'Origin', required: true, value: 'Manual' }, { field: 'Priority', value: (ctx) => ctx.prioridade }]]
+        },
+        {
+            title: detalhesLabel,
+            rows: [
+                [{ field: 'PortoNome__c' }, { field: 'NavioNome__c' }],
+                [{ field: 'NumeroNotaFiscal__c' }, { field: 'RepresentanteOuBroker__c' }],
+                [{ field: 'PortoCodigoMercante__c' }, { field: 'NavioIMO__c' }],
+                [{ field: 'InvoiceCancelada__c' }, null]
+            ]
+        },
+        {
+            title: descriptionSectionLabel,
+            rows: [[{ field: 'Description', required: true, fullWidth: true }, null]]
+        }
+    ];
+}
+
 const CASE_DETAIL_SECTIONS_BY_UNIDADE = {
     'Atendimento Tecon Salvador': buildSalvadorPatternSections(),
-    // Placeholders no padrão Salvador — substituir pela config real de cada unidade quando a
-    // Lightning Page correspondente estiver configurada.
+    // Placeholder no padrão Salvador — substituir pela config real quando a Lightning Page
+    // correspondente estiver configurada.
     'Centro Logístico': buildSalvadorPatternSections(),
-    'Rebocadores': buildSalvadorPatternSections(),
+    'Rebocadores': buildRebocadoresSections(),
     'Atendimento Tecon Rio Grande': buildRioGrandeSections()
 };
 

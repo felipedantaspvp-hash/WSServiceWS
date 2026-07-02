@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Horario_da_Entrega__c</fullName>
+    <description>Horário pretendido/realizado da entrega, em formato texto (HH:MM), sem uso do campo Time padrão.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Informe no formato HH:MM (ex: 14:30).</inlineHelpText>
+    <label>Horário da Entrega</label>
+    <length>20</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

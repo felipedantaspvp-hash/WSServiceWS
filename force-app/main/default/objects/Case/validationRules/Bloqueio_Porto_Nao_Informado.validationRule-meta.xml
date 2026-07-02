@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bloqueio_Porto_Nao_Informado</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &quot;AtendimentoRebocadores&quot;,
+ISBLANK(PortoNome__c),
+ISBLANK(PortoCodigoMercante__c)
+)</errorConditionFormula>
+    <errorDisplayField>PortoNome__c</errorDisplayField>
+    <errorMessage>Informe pelo menos um: Porto (Nome) ou Porto (Código Mercante).</errorMessage>
+</ValidationRule>
