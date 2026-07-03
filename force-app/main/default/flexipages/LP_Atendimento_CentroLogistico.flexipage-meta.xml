@@ -36,7 +36,7 @@
                         <valueListItems>
                             <value>Case.Encerrar_Caso_Com_Pesquisa</value>
                             <visibilityRule>
-                                <booleanFilter>1 OR 2</booleanFilter>
+                                <booleanFilter>1 AND 2</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Status}</leftValue>
                                     <operator>NE</operator>
@@ -149,29 +149,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.ContactPhone</fieldItem>
                 <identifier>RecordContactPhoneField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.CPF__c</fieldItem>
-                <identifier>RecordCPF_cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.TipoCaso__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Solicitação</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Categoria__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Portal Logístico</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-e8c1d005-f0dd-4655-8f96-62c1071854c4</name>
@@ -1492,6 +1469,19 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.DI_DUIMP__c</fieldItem>
                 <identifier>RecordDI_DUIMP_cField6</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Categoria__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Transporte</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Pedido de revisão de CTE</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -2143,7 +2133,7 @@
                     <booleanFilter>1 AND (2 OR 3)</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Categoria__c}</leftValue>
-                        <operator>NE</operator>
+                        <operator>EQUAL</operator>
                         <rightValue>Agendamento</rightValue>
                     </criteria>
                     <criteria>
@@ -3427,9 +3417,9 @@
                         <rightValue>Financeiro</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.Assunto__c}</leftValue>
+                        <leftValue>{!Record.Subassunto__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Enviar ticket de pesagem</rightValue>
+                        <rightValue>Relatório de estoque</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>

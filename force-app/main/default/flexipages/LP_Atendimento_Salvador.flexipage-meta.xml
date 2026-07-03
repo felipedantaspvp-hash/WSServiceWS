@@ -36,7 +36,7 @@
                         <valueListItems>
                             <value>Case.Encerrar_Caso_Com_Pesquisa</value>
                             <visibilityRule>
-                                <booleanFilter>1 OR 2</booleanFilter>
+                                <booleanFilter>1 AND 2</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Status}</leftValue>
                                     <operator>NE</operator>
@@ -852,7 +852,7 @@
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection7</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR (2 AND (3 OR 4 OR 5))</booleanFilter>
+                    <booleanFilter>1 OR (2 AND (3 OR 4 OR 5 OR 6))</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.TipoCaso__c}</leftValue>
                         <operator>EQUAL</operator>
@@ -877,6 +877,11 @@
                         <leftValue>{!Record.Categoria__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Acesso ao Porto</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Modalidade__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Importação</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>

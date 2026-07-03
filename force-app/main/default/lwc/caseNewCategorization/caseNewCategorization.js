@@ -176,7 +176,7 @@ function buildRioGrandeSections() {
                 [{
                     field: 'NumeroPODraft__c',
                     visibleWhen: (ctx) =>
-                        ctx.categoria === 'Faturamento' && (ctx.subassunto === 'PO / Draft' || ctx.subassunto !== 'Solicitação para faturar')
+                        ctx.categoria === 'Faturamento' && (ctx.subassunto === 'PO / Draft' || ctx.subassunto === 'Solicitação para faturar')
                 }, null],
                 [{ field: 'NumeroOrdemServico__c', required: true, visibleWhen: (ctx) => ctx.assunto === 'Ajustes de OS' }, null],
                 [{
@@ -230,6 +230,514 @@ function buildRioGrandeSections() {
     ];
 }
 
+// Extraído de LP_Atendimento_CentroLogistico em 2026-07-02. A LP divide "Detalhes" em três
+// seções físicas (section7/10/8) por limitação de 10 critérios por visibilityRule; aqui
+// consolidamos tudo em uma seção, mesclando instâncias duplicadas do mesmo campo em um único
+// visibleWhen. Campos de fórmula (TipoCasoRelacionado__c etc.) ficam de fora por não existirem
+// antes do save. Regra de layout: nenhum campo sozinho no lado direito da linha.
+function buildCentroLogisticoSections() {
+    // ---- DTA__c ----
+    // s7(Informação): ApoioAduaneiro+(Confirmar prazo vencimento OR Confirmar liberação MAPA)
+    //                 OR Operação+Encaminhar dados do recebimento - Alfandegado
+    // s10(Solicitação): Operação+foto avaria OR ServiçosEsp+(all except Enviar relatório paletização)
+    //                   OR Transporte+revisão CTE
+    // s8(Solicitação): ApoioAduaneiro (all) OR Documentação+vários assuntos
+    const showDTA = (ctx) => {
+        if (ctx.tipoCaso === 'Informação') {
+            return (ctx.categoria === 'Apoio Aduaneiro' &&
+                    (ctx.assunto === 'Confirmar prazo de vencimento' ||
+                     ctx.assunto === 'Confirmar liberação do MAPA')) ||
+                   (ctx.categoria === 'Operação' &&
+                    ctx.assunto === 'Encaminhar dados do recebimento - Alfandegado');
+        }
+        if (ctx.tipoCaso === 'Solicitação') {
+            return (ctx.categoria === 'Operação' && ctx.assunto === 'Encaminhar foto de avaria') ||
+                   (ctx.categoria === 'Serviços específicos' &&
+                    ctx.assunto !== 'Enviar relatório de paletização') ||
+                   (ctx.categoria === 'Transporte' &&
+                    ctx.subassunto === 'Pedido de revisão de CTE') ||
+                   ctx.categoria === 'Apoio Aduaneiro' ||
+                   (ctx.categoria === 'Documentação' && (
+                       ctx.assunto === 'Encaminhar CDA (Certificado Deposito Aduaneiro)' ||
+                       ctx.assunto === 'Petição' ||
+                       ctx.assunto === 'Solicitar assinatura de carta protesto' ||
+                       ctx.assunto === 'Enviar ticket de pesagem' ||
+                       ctx.assunto === 'Solicitar repesagem de carga' ||
+                       ctx.assunto === 'Solicitar documentos ou retificação documental' ||
+                       ctx.assunto === 'Encaminhar TFA (Termo de Falta e Avaria)'
+                   ));
+        }
+        return false;
+    };
+
+    // ---- Conhecimento__c ----
+    // s7(Informação): ApoioAduaneiro+(Confirmar prazo vencimento OR Confirmar MAPA)
+    //                 OR Operação+Alfandegado
+    // s10(Solicitação): Operação+(foto avaria OR Entreposto) OR POAlfandegado
+    //                   OR ServiçosEsp+(Realizar/SolicitarPacking/Relatório/Planilhas/Comunicar/InformarStatus)
+    // s8(Solicitação): Documentação+(foto/TFA/CDA/CartaProtesto/TicketPesagem/SolicitarDocs/Petição+sub)
+    //                  OR Financeiro+Envio reenvio fatura/prévia
+    const showConhecimento = (ctx) => {
+        if (ctx.tipoCaso === 'Informação') {
+            return (ctx.categoria === 'Apoio Aduaneiro' &&
+                    (ctx.assunto === 'Confirmar prazo de vencimento' ||
+                     ctx.assunto === 'Confirmar liberação do MAPA')) ||
+                   (ctx.categoria === 'Operação' &&
+                    ctx.assunto === 'Encaminhar dados do recebimento - Alfandegado');
+        }
+        if (ctx.tipoCaso === 'Solicitação') {
+            return (ctx.categoria === 'Operação' && (
+                        ctx.assunto === 'Encaminhar foto de avaria' ||
+                        ctx.assunto === 'Solicitar separação de carga entreposto'
+                   )) ||
+                   ctx.categoria === 'Planejamento Operacional Alfandegado' ||
+                   (ctx.categoria === 'Serviços específicos' && (
+                       ctx.assunto === 'Realizar acompanhamento (modelo distinto)' ||
+                       ctx.assunto === 'Solicitar packing list para despachante' ||
+                       ctx.assunto === 'Enviar relatório de paletização' ||
+                       ctx.assunto === 'Gerenciar planilhas de etiquetagem' ||
+                       ctx.assunto === 'Comunicar programação' ||
+                       ctx.assunto === 'Informar status de remoção de carga'
+                   )) ||
+                   (ctx.categoria === 'Documentação' && (
+                       ctx.subassunto === 'Enviar foto' ||
+                       ctx.assunto === 'Encaminhar TFA (Termo de Falta e Avaria)' ||
+                       ctx.assunto === 'Encaminhar CDA (Certificado Deposito Aduaneiro)' ||
+                       ctx.assunto === 'Solicitar assinatura de carta protesto' ||
+                       ctx.assunto === 'Enviar ticket de pesagem' ||
+                       ctx.assunto === 'Solicitar documentos ou retificação documental' ||
+                       (ctx.assunto === 'Petição' && (
+                           ctx.subassunto === 'Retirar pontuação de atraso' ||
+                           ctx.subassunto === 'Retificação documental' ||
+                           ctx.subassunto === 'Temas diversos'
+                       ))
+                   )) ||
+                   (ctx.categoria === 'Financeiro' &&
+                    ctx.subassunto === 'Envio ou reenvio da fatura ou prévia');
+        }
+        return false;
+    };
+
+    // ---- NumeroNotaFiscal__c ----
+    // s7(Informação): ApoioAduaneiro+Confirmar liberação OR Operação+(Alfandegado OR CD)
+    //                 OR Financeiro+Fatura ou prévia
+    // s8(Solicitação): Agendamento+Liberar janela OR Documentação+vários OR Financeiro+vários
+    // s10(Solicitação): ServiçosEsp+(Realizar/GerenciarRecebimento/ElaborarRomaneio)
+    const showNumeroNotaFiscal = (ctx) => {
+        if (ctx.tipoCaso === 'Informação') {
+            return (ctx.categoria === 'Apoio Aduaneiro' &&
+                    ctx.assunto === 'Confirmar liberação de carga') ||
+                   (ctx.categoria === 'Operação' && (
+                       ctx.assunto === 'Encaminhar dados do recebimento - Alfandegado' ||
+                       ctx.assunto === 'Encaminhar dados do recebimento - CD'
+                   )) ||
+                   (ctx.categoria === 'Financeiro' && ctx.assunto === 'Fatura ou prévia');
+        }
+        if (ctx.tipoCaso === 'Solicitação') {
+            return (ctx.categoria === 'Agendamento' && ctx.assunto === 'Liberar janela extra') ||
+                   (ctx.categoria === 'Documentação' && (
+                       ctx.subassunto === 'Enviar foto' ||
+                       ctx.assunto === 'Enviar ticket de pesagem' ||
+                       (ctx.assunto === 'Petição' && (
+                           ctx.subassunto === 'Retificação documental' ||
+                           ctx.subassunto === 'Temas diversos'
+                       ))
+                   )) ||
+                   (ctx.categoria === 'Financeiro' && (
+                       ctx.subassunto === 'Faturas em aberto' ||
+                       ctx.subassunto === 'Isenção / Revisão de fatura' ||
+                       ctx.subassunto === 'Envio ou reenvio da fatura ou prévia' ||
+                       ctx.subassunto === 'Identificar pagamento da prévia'
+                   )) ||
+                   (ctx.categoria === 'Serviços específicos' && (
+                       ctx.assunto === 'Realizar acompanhamento (modelo distinto)' ||
+                       ctx.assunto === 'Gerenciar recebimento de carga' ||
+                       ctx.assunto === 'Elaborar romaneio e packing'
+                   ));
+        }
+        return false;
+    };
+
+    // ---- DUE__c ----
+    // s7(Informação): ApoioAduaneiro+Confirmar liberação
+    // s8(Solicitação): Agendamento+Liberar janela OR Documentação+Petição+Retificação documental
+    const showDUE = (ctx) =>
+        (ctx.tipoCaso === 'Informação' && ctx.categoria === 'Apoio Aduaneiro' &&
+         ctx.assunto === 'Confirmar liberação de carga') ||
+        (ctx.tipoCaso === 'Solicitação' && (
+            (ctx.categoria === 'Agendamento' && ctx.assunto === 'Liberar janela extra') ||
+            (ctx.categoria === 'Documentação' && ctx.assunto === 'Petição' &&
+             ctx.subassunto === 'Retificação documental')
+        ));
+
+    // ---- DI_DUIMP__c ----
+    // s7(Informação): ApoioAduaneiro+Confirmar liberação OR POAlfandegado
+    // s10(Solicitação): Operação+Entreposto OR Transporte+(Pedido entrega OR revisão CTE)
+    // s8(Solicitação): Agendamento+Liberar janela OR Documentação+vários OR Financeiro+vários
+    const showDI_DUIMP = (ctx) => {
+        if (ctx.tipoCaso === 'Informação') {
+            return (ctx.categoria === 'Apoio Aduaneiro' &&
+                    ctx.assunto === 'Confirmar liberação de carga') ||
+                   ctx.categoria === 'Planejamento Operacional Alfandegado';
+        }
+        if (ctx.tipoCaso === 'Solicitação') {
+            return (ctx.categoria === 'Operação' &&
+                    ctx.assunto === 'Solicitar separação de carga entreposto') ||
+                   (ctx.categoria === 'Transporte' && (
+                       ctx.subassunto === 'Pedido de entrega de carga' ||
+                       ctx.subassunto === 'Pedido de revisão de CTE'
+                   )) ||
+                   (ctx.categoria === 'Agendamento' && ctx.assunto === 'Liberar janela extra') ||
+                   (ctx.categoria === 'Documentação' && (
+                       ctx.assunto === 'Solicitar documentos ou retificação documental' ||
+                       (ctx.assunto === 'Petição' && (
+                           ctx.subassunto === 'Enviar foto' ||
+                           ctx.subassunto === 'Retificação documental' ||
+                           ctx.subassunto === 'Temas diversos'
+                       ))
+                   )) ||
+                   (ctx.categoria === 'Financeiro' && (
+                       ctx.subassunto === 'Envio ou reenvio da fatura ou prévia' ||
+                       ctx.subassunto === 'Identificar pagamento da prévia' ||
+                       ctx.subassunto === 'Faturas em aberto' ||
+                       ctx.subassunto === 'Isenção / Revisão de fatura'
+                   ));
+        }
+        return false;
+    };
+
+    // ---- DA__c ----
+    // s8(Solicitação): Documentação+CDA
+    // s10(Solicitação): Operação+Entreposto
+    const showDA = (ctx) =>
+        ctx.tipoCaso === 'Solicitação' && (
+            (ctx.categoria === 'Documentação' &&
+             ctx.assunto === 'Encaminhar CDA (Certificado Deposito Aduaneiro)') ||
+            (ctx.categoria === 'Operação' &&
+             ctx.assunto === 'Solicitar separação de carga entreposto')
+        );
+
+    // ---- Processo_DTA_DI_DUIMP_DUE_NF__c ----
+    // s7(Informação): Transporte (all)
+    // s10(Solicitação): Transporte+(Pedido coleta OR Solicitação CTE)
+    const showProcesso = (ctx) =>
+        ctx.categoria === 'Transporte' && (
+            ctx.tipoCaso === 'Informação' ||
+            (ctx.tipoCaso === 'Solicitação' && (
+                ctx.subassunto === 'Pedido de coleta de carga' ||
+                ctx.subassunto === 'Solicitação de CTE'
+            ))
+        );
+
+    // ---- CTE__c / NF_DUE__c ---- (ambos: Solicitação+Transporte+Pedido revisão CTE)
+    const showTransporteRevisaoCTE = (ctx) =>
+        ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Transporte' &&
+        ctx.subassunto === 'Pedido de revisão de CTE';
+
+    // ---- Chave_de_Acesso_DUIMP__c ---- (Solicitação+POAlfandegado)
+    // ---- Invoice__c ---- (Solicitação: Operação+Entreposto OR Transporte+Coleta OR ServiçosEsp+... OR ApoioAduaneiro)
+    const showInvoice = (ctx) =>
+        ctx.tipoCaso === 'Solicitação' && (
+            (ctx.categoria === 'Operação' &&
+             ctx.assunto === 'Solicitar separação de carga entreposto') ||
+            (ctx.categoria === 'Transporte' && ctx.subassunto === 'Pedido de coleta de carga') ||
+            (ctx.categoria === 'Serviços específicos' && (
+                ctx.assunto === 'Gerenciamento de programação de Exportação' ||
+                ctx.assunto === 'Enviar comprovante de entrega'
+            )) ||
+            ctx.categoria === 'Apoio Aduaneiro'
+        );
+
+    // ---- Packing_List__c ---- (Solicitação: ApoioAduaneiro OR Operação+Entreposto
+    //                            OR Transporte+Coleta OR ServiçosEsp+(GerenciarReceb/ElaborarRom))
+    const showPackingList = (ctx) =>
+        ctx.tipoCaso === 'Solicitação' && (
+            ctx.categoria === 'Apoio Aduaneiro' ||
+            (ctx.categoria === 'Operação' &&
+             ctx.assunto === 'Solicitar separação de carga entreposto') ||
+            (ctx.categoria === 'Transporte' && ctx.subassunto === 'Pedido de coleta de carga') ||
+            (ctx.categoria === 'Serviços específicos' && (
+                ctx.assunto === 'Gerenciar recebimento de carga' ||
+                ctx.assunto === 'Elaborar romaneio e packing'
+            ))
+        );
+
+    // ---- NumeroFatura__c ----
+    // s7(Informação): Financeiro+Fatura ou prévia
+    // s8(Solicitação): Financeiro+Isenção/Revisão fatura
+    // s10(Solicitação): ServiçosEsp+Realizar acompanhamento
+    const showNumeroFatura = (ctx) =>
+        (ctx.tipoCaso === 'Informação' && ctx.categoria === 'Financeiro' &&
+         ctx.assunto === 'Fatura ou prévia') ||
+        (ctx.tipoCaso === 'Solicitação' && (
+            (ctx.categoria === 'Financeiro' &&
+             ctx.subassunto === 'Isenção / Revisão de fatura') ||
+            (ctx.categoria === 'Serviços específicos' &&
+             ctx.assunto === 'Realizar acompanhamento (modelo distinto)')
+        ));
+
+    // ---- Comissaria__c ----
+    // s7(Informação): Financeiro+Proposta comercial / Cadastro
+    // s8(Solicitação): Comercial (all) OR Financeiro+Proposta comercial / Cadastro
+    const showComissaria = (ctx) =>
+        (ctx.tipoCaso === 'Informação' && ctx.categoria === 'Financeiro' &&
+         ctx.assunto === 'Proposta comercial / Cadastro') ||
+        (ctx.tipoCaso === 'Solicitação' && (
+            ctx.categoria === 'Comercial' ||
+            (ctx.categoria === 'Financeiro' && ctx.assunto === 'Proposta comercial / Cadastro')
+        ));
+
+    // ---- CNPJ__c ----
+    // s7(Informação): Financeiro+Proposta comercial / Cadastro
+    // s8(Solicitação): Agendamento+(Cadastrar empresas OR Aprovar cadastro)
+    //                  OR Financeiro+(Identificar pagamento OR Proposta comercial / Cadastro)
+    const showCNPJ = (ctx) =>
+        (ctx.tipoCaso === 'Informação' && ctx.categoria === 'Financeiro' &&
+         ctx.assunto === 'Proposta comercial / Cadastro') ||
+        (ctx.tipoCaso === 'Solicitação' && (
+            (ctx.categoria === 'Agendamento' && (
+                ctx.assunto === 'Cadastrar empresas e clientes' ||
+                ctx.assunto === 'Aprovar cadastro'
+            )) ||
+            (ctx.categoria === 'Financeiro' && (
+                ctx.subassunto === 'Identificar pagamento da prévia' ||
+                ctx.assunto === 'Proposta comercial / Cadastro'
+            ))
+        ));
+
+    // ---- PeriodoQuestionado__c ---- (Solicitação+Financeiro+Faturas em aberto)
+    // ---- Comprovante_de_Vinculo__c ---- (Solicitação+Financeiro+Solicitação de proposta comercial)
+
+    // ---- Empresa__c / E_mail__c / Telefone__c ---- (Agendamento+Cadastrar/Aprovar)
+    const isAgendamentoCadastro = (ctx) =>
+        ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Agendamento' && (
+            ctx.assunto === 'Cadastrar empresas e clientes' ||
+            ctx.assunto === 'Aprovar cadastro'
+        );
+
+    // ---- PlacaCavalo__c ----
+    // s7(Informação): Agendamento+Acompanhar veículo sem agendamento
+    // s8(Solicitação): Agendamento+(Acompanhar divergências OR Acompanhar veículo)
+    // s10(Solicitação): ServiçosEsp+Atualizar JDA
+    const showPlacaCavalo = (ctx) =>
+        (ctx.categoria === 'Agendamento' && (
+            ctx.assunto === 'Acompanhar divergências de agendamento' ||
+            ctx.assunto === 'Acompanhar veículo sem agendamento'
+        )) ||
+        (ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Serviços específicos' &&
+         ctx.assunto === 'Atualizar JDA com agendamentos');
+
+    // ---- Transportadora__c ----
+    // s8(Solicitação): Agendamento+(Acompanhar divergências OR Acompanhar veículo)
+    //                  OR ServiçosEsp+Realizar acompanhamento
+    // s10(Solicitação): ServiçosEsp+(Realizar acompanhamento OR Atualizar JDA)
+    const showTransportadora = (ctx) =>
+        ctx.tipoCaso === 'Solicitação' && (
+            (ctx.categoria === 'Agendamento' && (
+                ctx.assunto === 'Acompanhar divergências de agendamento' ||
+                ctx.assunto === 'Acompanhar veículo sem agendamento'
+            )) ||
+            (ctx.categoria === 'Serviços específicos' && (
+                ctx.assunto === 'Realizar acompanhamento (modelo distinto)' ||
+                ctx.assunto === 'Atualizar JDA com agendamentos'
+            ))
+        );
+
+    // ---- Motorista__c ----
+    // s7(Informação): Agendamento+Acompanhar veículo sem agendamento
+    // s10(Solicitação): ServiçosEsp+Atualizar JDA
+    const showMotorista = (ctx) =>
+        (ctx.tipoCaso === 'Informação' && ctx.categoria === 'Agendamento' &&
+         ctx.assunto === 'Acompanhar veículo sem agendamento') ||
+        (ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Serviços específicos' &&
+         ctx.assunto === 'Atualizar JDA com agendamentos');
+
+    // ---- Container__c ----
+    // s8(Solicitação): Documentação+Solicitar assinatura comprovante entrega
+    // s10(Solicitação): ServiçosEsp+(SolicitarPacking OR GerenciamentoExportação OR
+    //                               EnviarComprovante OR LançarServiços)
+    const showContainer = (ctx) =>
+        ctx.tipoCaso === 'Solicitação' && (
+            (ctx.categoria === 'Documentação' &&
+             ctx.assunto === 'Solicitar assinatura de comprovante de entrega') ||
+            (ctx.categoria === 'Serviços específicos' && (
+                ctx.assunto === 'Solicitar packing list para despachante' ||
+                ctx.assunto === 'Gerenciamento de programação de Exportação' ||
+                ctx.assunto === 'Enviar comprovante de entrega' ||
+                ctx.assunto === 'Lançar serviços e custos adicionais no ECM'
+            ))
+        );
+
+    // ---- Data_da_Entrega__c ----
+    // s10(Solicitação): Transporte+(Pedido coleta OR Pedido entrega) OR ServiçosEsp+Enviar comprovante
+    const showDataEntrega = (ctx) =>
+        ctx.tipoCaso === 'Solicitação' && (
+            (ctx.categoria === 'Transporte' && (
+                ctx.subassunto === 'Pedido de coleta de carga' ||
+                ctx.subassunto === 'Pedido de entrega de carga'
+            )) ||
+            (ctx.categoria === 'Serviços específicos' &&
+             ctx.assunto === 'Enviar comprovante de entrega')
+        );
+
+    // ---- Data_Inicial__c / Data_Final__c ---- (mesma condição)
+    // s8(Solicitação): Documentação+(Relatório diversos OR Relatório personalizado)
+    //                  OR Financeiro+Relatório de custos
+    const showDataInicialFinal = (ctx) =>
+        ctx.tipoCaso === 'Solicitação' && (
+            (ctx.categoria === 'Documentação' && (
+                ctx.subassunto === 'Relatório diversos' ||
+                ctx.subassunto === 'Relatório personalizado'
+            )) ||
+            (ctx.categoria === 'Financeiro' && ctx.subassunto === 'Relatório de custos')
+        );
+
+    // ---- Data_Remocao__c ---- (s8 Solicitação: Categoria NE ApoioAduaneiro)
+    // Escopo: apenas as categorias presentes na section8 (não inclui Operação/QSMS/Transporte/
+    // POAlfandegado/ServiçosEsp/Portal, pois esses estão na section10 sem este campo).
+    const showDataRemocao = (ctx) =>
+        ctx.tipoCaso === 'Solicitação' &&
+        ['Documentação', 'Agendamento', 'Atendimento', 'Comercial', 'Financeiro'].includes(ctx.categoria);
+
+    return [
+        {
+            title: informacoesClienteLabel,
+            rows: [
+                [{ field: 'AccountId', required: true }, { field: 'ContactId', required: true }],
+                [{ field: 'Representante__c' }, { field: 'ParentId' }]
+            ]
+        },
+        {
+            title: additionalInfoSectionLabel,
+            rows: [
+                [{ field: 'Origin', required: true, value: 'Manual' },
+                 { field: 'Priority', value: (ctx) => ctx.prioridade }]
+            ]
+        },
+        {
+            title: detalhesLabel,
+            rows: [
+                // Documentos de carga (Apoio Aduaneiro / Operação)
+                [{ field: 'DTA__c', required: true, visibleWhen: showDTA },
+                 { field: 'Conhecimento__c', required: true, visibleWhen: showConhecimento }],
+                [{ field: 'NumeroNotaFiscal__c', required: true, visibleWhen: showNumeroNotaFiscal },
+                 { field: 'DUE__c', required: true, visibleWhen: showDUE }],
+                [{ field: 'DI_DUIMP__c', required: true, visibleWhen: showDI_DUIMP },
+                 { field: 'DA__c', required: true, visibleWhen: showDA }],
+                // Apoio Aduaneiro (Solicitação)
+                [{ field: 'BL__c', required: true,
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Apoio Aduaneiro' },
+                 { field: 'Anuencia_MAPA__c', required: true,
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Apoio Aduaneiro' }],
+                [{ field: 'Invoice__c', visibleWhen: showInvoice },
+                 { field: 'Packing_List__c', visibleWhen: showPackingList }],
+                // Transporte / Planejamento Operacional Alfandegado
+                [{ field: 'Processo_DTA_DI_DUIMP_DUE_NF__c', required: true, visibleWhen: showProcesso },
+                 { field: 'CTE__c', required: true, visibleWhen: showTransporteRevisaoCTE }],
+                [{ field: 'NF_DUE__c', visibleWhen: showTransporteRevisaoCTE },
+                 { field: 'Chave_de_Acesso_DUIMP__c', required: true,
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Planejamento Operacional Alfandegado' }],
+                // Financeiro / Comercial
+                [{ field: 'NumeroFatura__c', required: true, visibleWhen: showNumeroFatura },
+                 { field: 'Comissaria__c', required: true, visibleWhen: showComissaria }],
+                [{ field: 'PeriodoQuestionado__c', required: true,
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Financeiro' &&
+                                        ctx.subassunto === 'Faturas em aberto' },
+                 { field: 'Comprovante_de_Vinculo__c', required: true,
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Financeiro' &&
+                                        ctx.subassunto === 'Solicitação de proposta comercial' }],
+                // Agendamento — cadastro (CNPJ usa showCNPJ completo para cobrir Financeiro tb;
+                // Telefone só mostra para Agendamento — quando o contexto for Financeiro, CNPJ
+                // fica visível no esquerdo e Telefone oculto no direito, o que é válido)
+                [{ field: 'Empresa__c', required: true, visibleWhen: isAgendamentoCadastro },
+                 { field: 'E_mail__c', required: true, visibleWhen: isAgendamentoCadastro }],
+                [{ field: 'CNPJ__c', visibleWhen: showCNPJ },
+                 { field: 'Telefone__c', visibleWhen: isAgendamentoCadastro }],
+                // Agendamento — acompanhamento / janela
+                [{ field: 'PlacaCavalo__c', required: true, visibleWhen: showPlacaCavalo },
+                 { field: 'Transportadora__c', required: true, visibleWhen: showTransportadora }],
+                [{ field: 'ID__c', required: true,
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Agendamento' &&
+                                        ctx.assunto === 'Acompanhar divergências de agendamento' },
+                 { field: 'Motorista__c', visibleWhen: showMotorista }],
+                // Data_e_Hora_Pretendida só para Liberar janela extra (DUE já está na row de Documentos)
+                [{ field: 'Data_e_Hora_Pretendida__c', required: true,
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Agendamento' &&
+                                        ctx.assunto === 'Liberar janela extra' }, null],
+                // Container / transporte físico
+                [{ field: 'Container__c', required: true, visibleWhen: showContainer },
+                 { field: 'NumeroLacre__c', required: true,
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Serviços específicos' &&
+                                        ctx.assunto === 'Gerenciamento de programação de Exportação' }],
+                [{ field: 'Booking__c', required: true,
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Serviços específicos' &&
+                                        ctx.assunto === 'Gerenciamento de programação de Exportação' },
+                 { field: 'Tara__c', required: true,
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Serviços específicos' &&
+                                        ctx.assunto === 'Gerenciamento de programação de Exportação' }],
+                // Datas
+                [{ field: 'Data_da_Entrega__c', required: true, visibleWhen: showDataEntrega },
+                 { field: 'Data_Coleta__c', required: true,
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Serviços específicos' &&
+                                        ctx.assunto === 'Realizar acompanhamento (modelo distinto)' }],
+                [{ field: 'Data_Chegada__c', required: true,
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Serviços específicos' && (
+                       ctx.assunto === 'Realizar acompanhamento (modelo distinto)' ||
+                       ctx.assunto === 'Comunicar programação' ||
+                       ctx.assunto === 'Informar status de remoção de carga'
+                   ) },
+                 { field: 'Horario_da_Entrega__c', required: true,
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Transporte' &&
+                                        ctx.subassunto === 'Pedido de entrega de carga' }],
+                // Data_Remocao (esquerda, broad) + Data__c (direita, Atendimento only). Quando
+                // não é Atendimento, só Data_Remocao aparece — field sozinho na esquerda é válido.
+                [{ field: 'Data_Remocao__c', required: true, visibleWhen: showDataRemocao },
+                 { field: 'Data__c', required: true,
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Atendimento' }],
+                [{ field: 'Data_Inicial__c', required: true, visibleWhen: showDataInicialFinal },
+                 { field: 'Data_Final__c', required: true, visibleWhen: showDataInicialFinal }],
+                // Portal Logístico
+                [{ field: 'Nome__c', required: true,
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Portal Logístico' },
+                 { field: 'CPF__c', required: true,
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Portal Logístico' }],
+                [{ field: 'Usuario_Portal__c', required: true,
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Portal Logístico' }, null],
+                // Serviços específicos — acompanhamento/etiquetagem
+                [{ field: 'RefCliente__c', required: true,
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Serviços específicos' && (
+                       ctx.assunto === 'Realizar acompanhamento (modelo distinto)' ||
+                       ctx.assunto === 'Enviar relatório de paletização' ||
+                       ctx.assunto === 'Comunicar programação' ||
+                       ctx.assunto === 'Informar status de remoção de carga' ||
+                       ctx.assunto === 'Gerenciar planilhas de etiquetagem' ||
+                       ctx.assunto === 'Gerenciar recebimento de carga' ||
+                       ctx.assunto === 'Elaborar romaneio e packing'
+                   ) },
+                 { field: 'PrestadorServico__c',
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'QSMS' }],
+                // Serviços específicos — Atualizar JDA
+                [{ field: 'ID_Focus__c', required: true,
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Serviços específicos' &&
+                                        ctx.assunto === 'Atualizar JDA com agendamentos' },
+                 { field: 'ChavesNF__c',
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Serviços específicos' &&
+                                        ctx.assunto === 'Atualizar JDA com agendamentos' }],
+                [{ field: 'Janela__c',
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Serviços específicos' &&
+                                        ctx.assunto === 'Atualizar JDA com agendamentos' },
+                 { field: 'Custo__c',
+                   visibleWhen: (ctx) => ctx.tipoCaso === 'Solicitação' && ctx.categoria === 'Serviços específicos' &&
+                                        ctx.assunto === 'Lançar serviços e custos adicionais no ECM' }]
+            ]
+        },
+        {
+            title: descriptionSectionLabel,
+            rows: [[{ field: 'Description', required: true, fullWidth: true }, null]]
+        }
+    ];
+}
+
 // Réplica para "Rebocadores" — extraído de LP_Atendimento_Rebocadores em 2026-06-27. Bem mais
 // simples que Salvador/Rio Grande: nenhum dos campos de "Detalhes" tem regra de visibilidade na
 // Lightning Page original (todos aparecem juntos, sempre). A seção "Caso Relacionado" da LP tinha
@@ -272,9 +780,7 @@ function buildRebocadoresSections() {
 
 const CASE_DETAIL_SECTIONS_BY_UNIDADE = {
     'Atendimento Tecon Salvador': buildSalvadorPatternSections(),
-    // Placeholder no padrão Salvador — substituir pela config real quando a Lightning Page
-    // correspondente estiver configurada.
-    'Centro Logístico': buildSalvadorPatternSections(),
+    'Centro Logístico': buildCentroLogisticoSections(),
     'Rebocadores': buildRebocadoresSections(),
     'Atendimento Tecon Rio Grande': buildRioGrandeSections()
 };

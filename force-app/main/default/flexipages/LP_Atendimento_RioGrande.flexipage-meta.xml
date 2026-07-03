@@ -36,7 +36,7 @@
                         <valueListItems>
                             <value>Case.Encerrar_Caso_Com_Pesquisa</value>
                             <visibilityRule>
-                                <booleanFilter>1 OR 2</booleanFilter>
+                                <booleanFilter>1 AND 2</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Status}</leftValue>
                                     <operator>NE</operator>
@@ -1008,7 +1008,7 @@
                     </criteria>
                     <criteria>
                         <leftValue>{!Record.Subassunto__c}</leftValue>
-                        <operator>NE</operator>
+                        <operator>EQUAL</operator>
                         <rightValue>Solicitação para faturar</rightValue>
                     </criteria>
                 </visibilityRule>

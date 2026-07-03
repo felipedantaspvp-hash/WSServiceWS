@@ -3855,18 +3855,6 @@
         <recordType>Reclamacao__c.TeconSalvador</recordType>
         <visible>false</visible>
     </recordTypeVisibilities>
-    <servicePresenceStatusAccesses>
-        <enabled>false</enabled>
-        <servicePresenceStatus>Caso_Disponivel</servicePresenceStatus>
-    </servicePresenceStatusAccesses>
-    <servicePresenceStatusAccesses>
-        <enabled>false</enabled>
-        <servicePresenceStatus>Caso_Messaging_Online</servicePresenceStatus>
-    </servicePresenceStatusAccesses>
-    <servicePresenceStatusAccesses>
-        <enabled>false</enabled>
-        <servicePresenceStatus>Email_Online</servicePresenceStatus>
-    </servicePresenceStatusAccesses>
     <tabVisibilities>
         <tab>Categorizacao__c</tab>
         <visibility>Hidden</visibility>
@@ -3890,10 +3878,6 @@
     <tabVisibilities>
         <tab>standard-Entitlement</tab>
         <visibility>Hidden</visibility>
-    </tabVisibilities>
-    <tabVisibilities>
-        <tab>standard-home</tab>
-        <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <userLicense>Guest User License</userLicense>
     <userPermissions>

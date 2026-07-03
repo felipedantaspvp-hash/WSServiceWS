@@ -3727,7 +3727,6 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Case</object>
-        <viewAllFields>false</viewAllFields>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -3737,7 +3736,6 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Contact</object>
-        <viewAllFields>false</viewAllFields>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -3747,7 +3745,6 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Entitlement</object>
-        <viewAllFields>false</viewAllFields>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <pageAccesses>
@@ -3893,18 +3890,6 @@
         <recordType>Reclamacao__c.TeconSalvador</recordType>
         <visible>false</visible>
     </recordTypeVisibilities>
-    <servicePresenceStatusAccesses>
-        <enabled>false</enabled>
-        <servicePresenceStatus>Caso_Disponivel</servicePresenceStatus>
-    </servicePresenceStatusAccesses>
-    <servicePresenceStatusAccesses>
-        <enabled>false</enabled>
-        <servicePresenceStatus>Caso_Messaging_Online</servicePresenceStatus>
-    </servicePresenceStatusAccesses>
-    <servicePresenceStatusAccesses>
-        <enabled>false</enabled>
-        <servicePresenceStatus>Email_Online</servicePresenceStatus>
-    </servicePresenceStatusAccesses>
     <tabVisibilities>
         <tab>Categorizacao__c</tab>
         <visibility>DefaultOn</visibility>
@@ -3928,10 +3913,6 @@
     <tabVisibilities>
         <tab>standard-Entitlement</tab>
         <visibility>Hidden</visibility>
-    </tabVisibilities>
-    <tabVisibilities>
-        <tab>standard-home</tab>
-        <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <userLicense>Salesforce</userLicense>
     <userPermissions>
