@@ -203,7 +203,7 @@ public inherited sharing class WSWillCaseCreationService {
                     Phone = req.customerPhone,
                     Idioma__c = WSWillContextResolverHelper.normalizePreferredLanguage(req.language)
                 );
-                putIfFieldExists(newContact, Contact.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap(), 'BypassValidationsFromBot__c', true);
+                putIfCreateable(newContact, Contact.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap(), 'BypassValidationsFromBot__c', true);
                 if (fallbackAccountId != null) {
                     newContact.AccountId = fallbackAccountId;
                     item.resolvedAccountId = fallbackAccountId;
@@ -320,27 +320,27 @@ public inherited sharing class WSWillCaseCreationService {
 
             Case c = new Case();
             Map<String, Schema.SObjectField> caseFields = Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
-            putIfFieldExists(c, caseFields, 'RecordTypeId', item.targetRecordTypeId);
-            putIfFieldExists(c, caseFields, 'AccountId', item.resolvedAccountId);
-            putIfFieldExists(c, caseFields, 'ContactId', item.resolvedContactId);
-            putIfFieldExists(c, caseFields, 'Representante__c', item.representativeAccountId);
-            putIfFieldExists(c, caseFields, 'Origin', item.normalizedOrigin);
+            putIfCreateable(c, caseFields, 'RecordTypeId', item.targetRecordTypeId);
+            putIfCreateable(c, caseFields, 'AccountId', item.resolvedAccountId);
+            putIfCreateable(c, caseFields, 'ContactId', item.resolvedContactId);
+            putIfCreateable(c, caseFields, 'Representante__c', item.representativeAccountId);
+            putIfCreateable(c, caseFields, 'Origin', item.normalizedOrigin);
             putIfValidPicklist(c, caseFields, 'OrigemDistribuicao__c', WSWillCaseCreationHelper.normalizeDistributionOrigin());
-            putIfFieldExists(c, caseFields, 'Subject', String.isBlank(req.caseType) ? 'Atendimento via Will' : req.caseType);
-            putIfFieldExists(c, caseFields, 'Description', req.description);
+            putIfCreateable(c, caseFields, 'Subject', String.isBlank(req.caseType) ? 'Atendimento via Will' : req.caseType);
+            putIfCreateable(c, caseFields, 'Description', req.description);
             putIfValidPicklist(c, caseFields, 'UnidadeNegocio__c', item.resolvedBusinessUnitName);
-            putIfFieldExists(c, caseFields, 'IdiomaAtendimento__c', WSWillCaseCreationHelper.normalizeLanguageForCase(req.language));
+            putIfCreateable(c, caseFields, 'IdiomaAtendimento__c', WSWillCaseCreationHelper.normalizeLanguageForCase(req.language));
             putIfValidPicklist(c, caseFields, 'TipoCaso__c', req.caseType);
-            putIfFieldExists(c, caseFields, 'SuppliedName', req.customerFullName);
-            putIfFieldExists(c, caseFields, 'SuppliedEmail', req.customerEmail);
-            putIfFieldExists(c, caseFields, 'SuppliedPhone', req.customerPhone);
-            putIfFieldExists(c, caseFields, 'Status', 'Aberto');
-            putIfFieldExists(c, caseFields, 'OwnerId', item.targetOwnerId);
+            putIfCreateable(c, caseFields, 'SuppliedName', req.customerFullName);
+            putIfCreateable(c, caseFields, 'SuppliedEmail', req.customerEmail);
+            putIfCreateable(c, caseFields, 'SuppliedPhone', req.customerPhone);
+            putIfCreateable(c, caseFields, 'Status', 'Aberto');
+            putIfCreateable(c, caseFields, 'OwnerId', item.targetOwnerId);
             if (!String.isBlank(item.targetQueueDeveloperName)) {
-                putIfFieldExists(c, caseFields, 'FilaDestinoDeveloperName__c', item.targetQueueDeveloperName);
+                putIfCreateable(c, caseFields, 'FilaDestinoDeveloperName__c', item.targetQueueDeveloperName);
             }
             if (item.targetQueueId != null) {
-                putIfFieldExists(c, caseFields, 'FilaDestinoId__c', String.valueOf(item.targetQueueId));
+                putIfCreateable(c, caseFields, 'FilaDestinoId__c', String.valueOf(item.targetQueueId));
             }
 
             item.pendingCase = c;
@@ -620,15 +620,16 @@ public inherited sharing class WSWillCaseCreationService {
 
     // The Will bot writes these records in elevated context by design; this helper only keeps the
     // payload compatible with orgs where some optional fields may not exist.
-    private static void putIfFieldExists(SObject row, Map<String, Schema.SObjectField> fieldMap, String fieldApiName, Object value) {
+    private static void putIfCreateable(SObject row, Map<String, Schema.SObjectField> fieldMap, String fieldApiName, Object value) {
         if (value == null || String.isBlank(fieldApiName) || fieldMap == null || !fieldMap.containsKey(fieldApiName)) return;
+        if (!fieldMap.get(fieldApiName).getDescribe().isCreateable()) return;
         row.put(fieldApiName, value);
     }
 
     private static void putIfValidPicklist(SObject row, Map<String, Schema.SObjectField> fieldMap, String fieldApiName, String value) {
         if (String.isBlank(value) || String.isBlank(fieldApiName) || fieldMap == null || !fieldMap.containsKey(fieldApiName)) return;
         Schema.DescribeFieldResult d = fieldMap.get(fieldApiName).getDescribe();
-        if (d.getType() != Schema.DisplayType.Picklist) return;
+        if (!d.isCreateable() || d.getType() != Schema.DisplayType.Picklist) return;
 
         for (Schema.PicklistEntry entry : d.getPicklistValues()) {
             if (CaseCreationHelper.sameNormalizedValue(entry.getValue(), value) || CaseCreationHelper.sameNormalizedValue(entry.getLabel(), value)) {

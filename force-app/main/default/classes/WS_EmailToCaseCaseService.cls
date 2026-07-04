@@ -36,9 +36,9 @@ public inherited sharing class WS_EmailToCaseCaseService {
         if (originalCaseId != null && route.relateNewCaseToOriginal == true) {
             c.WS_Original_Case__c = originalCaseId;
         }
-        putIfFieldExists(c, 'AccountId', customerResolution.accountId);
-        putIfFieldExists(c, 'ContactId', customerResolution.contactId);
-        putIfFieldExists(c, 'Representante__c', customerResolution.representativeAccountId);
+        putIfCreateable(c, 'AccountId', customerResolution.accountId);
+        putIfCreateable(c, 'ContactId', customerResolution.contactId);
+        putIfCreateable(c, 'Representante__c', customerResolution.representativeAccountId);
 
         insert c;
         return c;
@@ -141,14 +141,12 @@ public inherited sharing class WS_EmailToCaseCaseService {
         }
     }
 
-    // Email-to-Case runs as an inbound integration flow; this helper preserves schema compatibility
-    // for optional fields but is not intended to simulate per-user FLS enforcement.
-    private static void putIfFieldExists(Case row, String fieldApiName, Object value) {
+    private static void putIfCreateable(Case row, String fieldApiName, Object value) {
         if (row == null || value == null || String.isBlank(fieldApiName)) {
             return;
         }
         Map<String, Schema.SObjectField> fieldMap = Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
-        if (!fieldMap.containsKey(fieldApiName)) {
+        if (!fieldMap.containsKey(fieldApiName) || !fieldMap.get(fieldApiName).getDescribe().isCreateable()) {
             return;
         }
         row.put(fieldApiName, value);
