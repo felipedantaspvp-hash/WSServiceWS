@@ -1,0 +1,423 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<title>Code Review — WSServiceWS</title>
+<style>
+:root{
+  --bg:#f5f6f8;
+  --surface:#ffffff;
+  --surface-2:#eceef2;
+  --border:#d7dbe2;
+  --text:#1b222c;
+  --text-dim:#525c6b;
+  --accent:#2b6e8f;
+  --accent-dim:#dceaf0;
+  --crit:#b23b2e;
+  --crit-bg:#fbe6e2;
+  --alto:#c0722a;
+  --alto-bg:#faedd9;
+  --medio:#9c8a1f;
+  --medio-bg:#f6f1d6;
+  --baixo:#4c7a5a;
+  --baixo-bg:#e2efe6;
+  --mono: ui-monospace, "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  --sans: "Segoe UI", "IBM Plex Sans", Roboto, -apple-system, sans-serif;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+  line-height:1.55;
+}
+.page{
+  max-width:920px;
+  margin:0 auto;
+  padding:3rem 1.5rem 6rem;
+}
+header.hero{
+  border-bottom:1px solid var(--border);
+  padding-bottom:2rem;
+  margin-bottom:2.5rem;
+}
+.eyebrow{
+  font-family:var(--mono);
+  font-size:0.78rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:0.6rem;
+}
+h1{
+  font-size:2.1rem;
+  font-weight:650;
+  margin:0 0 0.5rem;
+  text-wrap:balance;
+  letter-spacing:-0.01em;
+}
+.hero p{
+  color:var(--text-dim);
+  max-width:60ch;
+  margin:0.4rem 0 0;
+}
+.meta-row{
+  display:flex;
+  gap:1.5rem;
+  flex-wrap:wrap;
+  margin-top:1.4rem;
+  font-family:var(--mono);
+  font-size:0.82rem;
+  color:var(--text-dim);
+}
+.meta-row b{color:var(--text); font-weight:600;}
+
+h2{
+  font-size:1.4rem;
+  font-weight:650;
+  margin:3rem 0 0.3rem;
+  letter-spacing:-0.005em;
+  scroll-margin-top:1rem;
+}
+h2 .num{color:var(--accent); font-family:var(--mono); font-size:0.85em; margin-right:0.4rem;}
+.section-intro{color:var(--text-dim); margin:0 0 1.4rem; max-width:68ch;}
+
+h3{
+  font-size:1.08rem;
+  font-weight:600;
+  margin:2rem 0 0.6rem;
+}
+
+p{margin:0.7rem 0;}
+a{color:var(--accent);}
+
+code, .path{
+  font-family:var(--mono);
+  font-size:0.86em;
+  background:var(--surface-2);
+  padding:0.1em 0.35em;
+  border-radius:4px;
+  white-space:nowrap;
+}
+
+.table-wrap{overflow-x:auto; border:1px solid var(--border); border-radius:10px; margin:1rem 0;}
+table{border-collapse:collapse; width:100%; min-width:480px; font-size:0.92rem;}
+thead th{
+  text-align:left;
+  background:var(--surface-2);
+  color:var(--text-dim);
+  font-weight:600;
+  font-size:0.76rem;
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+  padding:0.65rem 0.9rem;
+  border-bottom:1px solid var(--border);
+}
+tbody td{
+  padding:0.65rem 0.9rem;
+  border-bottom:1px solid var(--border);
+  vertical-align:top;
+}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:var(--surface-2);}
+td.num, th.num{font-variant-numeric:tabular-nums; text-align:right;}
+
+.chip{
+  display:inline-block;
+  font-family:var(--mono);
+  font-size:0.72rem;
+  font-weight:600;
+  letter-spacing:0.02em;
+  padding:0.2em 0.55em;
+  border-radius:5px;
+  white-space:nowrap;
+}
+.chip-critico{color:var(--crit); background:var(--crit-bg);}
+.chip-alto{color:var(--alto); background:var(--alto-bg);}
+.chip-medio{color:var(--medio); background:var(--medio-bg);}
+.chip-baixo{color:var(--baixo); background:var(--baixo-bg);}
+
+.finding{
+  border:1px solid var(--border);
+  border-left:3px solid var(--sev, var(--border));
+  border-radius:8px;
+  background:var(--surface);
+  padding:1rem 1.2rem;
+  margin:0.9rem 0;
+  break-inside:avoid;
+}
+.finding.crit{--sev:var(--crit);}
+.finding.alto{--sev:var(--alto);}
+.finding.medio{--sev:var(--medio);}
+.finding.baixo{--sev:var(--baixo);}
+.finding .fhead{
+  display:flex;
+  align-items:baseline;
+  gap:0.6rem;
+  flex-wrap:wrap;
+  margin-bottom:0.35rem;
+}
+.finding .ftitle{font-weight:600; font-size:0.98rem;}
+.finding .floc{font-family:var(--mono); font-size:0.8rem; color:var(--text-dim);}
+.finding .fwhy{margin-top:0.5rem; padding-top:0.5rem; border-top:1px dashed var(--border); color:var(--text-dim); font-size:0.92rem;}
+.finding .fwhy b{color:var(--text); font-weight:600;}
+
+.callout{
+  background:var(--accent-dim);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:1rem 1.2rem;
+  margin:1.2rem 0;
+  font-size:0.94rem;
+  break-inside:avoid;
+}
+.callout b{color:var(--accent);}
+
+ul.tight{margin:0.5rem 0; padding-left:1.3rem;}
+ul.tight li{margin:0.3rem 0;}
+
+.summary-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0.8rem;
+  margin:1.4rem 0 2rem;
+}
+.stat{
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:0.9rem 1rem;
+  background:var(--surface);
+}
+.stat .n{font-family:var(--mono); font-size:1.6rem; font-weight:650; font-variant-numeric:tabular-nums;}
+.stat .l{font-size:0.76rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.03em; margin-top:0.2rem;}
+.stat.crit .n{color:var(--crit);}
+.stat.alto .n{color:var(--alto);}
+.stat.medio .n{color:var(--medio);}
+.stat.baixo .n{color:var(--baixo);}
+
+.priority-list{counter-reset:pr;list-style:none;padding:0;margin:1rem 0;}
+.priority-list li{
+  counter-increment:pr;
+  display:flex;
+  gap:0.9rem;
+  align-items:flex-start;
+  padding:0.7rem 0;
+  border-bottom:1px solid var(--border);
+}
+.priority-list li:last-child{border-bottom:none;}
+.priority-list .pn{
+  font-family:var(--mono);
+  color:var(--accent);
+  font-weight:650;
+  min-width:1.6rem;
+}
+.priority-list .pn::before{content:counter(pr);}
+.priority-list .pmeta{color:var(--text-dim); font-size:0.85rem; margin-top:0.15rem;}
+
+footer{
+  margin-top:3.5rem;
+  padding-top:1.4rem;
+  border-top:1px solid var(--border);
+  color:var(--text-dim);
+  font-size:0.82rem;
+}
+@media print{
+  .page{max-width:100%;padding:1rem 0.5rem 2rem;}
+  body{background:#fff;}
+}
+</style>
+
+<div class="page">
+
+<header class="hero">
+  <div class="eyebrow">Code Review · Apex · Somente leitura</div>
+  <h1>WSServiceWS — revisão geral pós-fechamento de escopo</h1>
+  <p>Levantamento de dívida técnica e criticidades no código de produção, sem nenhuma refatoração aplicada. Serve de mapa para priorizar o próximo ciclo, começando pela criação de uma <b>TestDataFactory</b> centralizada.</p>
+  <div class="meta-row">
+    <span><b>211</b> classes Apex</span>
+    <span><b>66</b> classes de teste</span>
+    <span><b>5</b> factories de teste dispersas</span>
+    <span>Branch <code>feat/claude/area-participante-existing-fix</code></span>
+  </div>
+</header>
+
+<h2><span class="num">01</span>Sumário executivo</h2>
+<p class="section-intro">Duas dívidas dominam o quadro: (1) ausência de uma TestDataFactory central, que hoje custa boilerplate repetido em dezenas de classes de teste toda vez que uma Validation Rule ou campo obrigatório muda; e (2) <code>GestaoSLAService.cls</code>/<code>GestaoSLASelector.cls</code> concentrando 4 domínios de negócio distintos numa única classe cada, mais um caso de funcionalidade (atribuição automática de Entitlement) implementada e testada mas nunca conectada ao fluxo real de Case. Nenhum dos achados críticos é um bug ativo já quebrando produção hoje — são riscos de manutenibilidade e um gap de wiring que tende a virar bug quando alguém assumir, por engano, que a funcionalidade está ativa. Os achados de segurança (FLS/CRUD) são reais, mas mitigados por contexto de uso.</p>
+
+<div class="summary-grid">
+  <div class="stat crit"><div class="n">2</div><div class="l">Achados críticos</div></div>
+  <div class="stat alto"><div class="n">6</div><div class="l">Achados altos</div></div>
+  <div class="stat medio"><div class="n">6</div><div class="l">Achados médios</div></div>
+  <div class="stat baixo"><div class="n">3</div><div class="l">Achados baixos / referência</div></div>
+</div>
+
+<h2><span class="num">02</span>Dívida técnica: ausência de TestDataFactory central</h2>
+<p class="section-intro">Confirmado por grep em todas as 66 classes de teste. As 5 factories existentes não cobrem os SObjects mais recriados manualmente, e nenhuma cria <code>Account</code>/<code>Contact</code> — a base de praticamente todo teste do domínio de atendimento.</p>
+
+<h3>O que as 5 factories atuais realmente fazem</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Factory</th><th>Cobre</th><th>Problema</th></tr></thead>
+<tbody>
+<tr><td><code>WS_EmailToCaseTestDataFactory</code></td><td>Case via Email-to-Case, resolve RecordType/Status dinamicamente</td><td>A mais genérica das 5 — mas escopada só ao próprio domínio, não reaproveitável</td></tr>
+<tr><td><code>AreaParticipanteTestDataFactory</code></td><td>AreaParticipante__c, GestaoSLA__c, RegrasSLACategorizacao__c</td><td>Helpers de GestaoSLA/RegraSLA são <code>private</code> — não reaproveitáveis por outras suites</td></tr>
+<tr><td><code>CategorizacaoTestDataFactory</code></td><td>Categorizacao__c</td><td>Lógica diverge de <code>CaseCreationTestDataFactory</code> e <code>CaseRecategorizationTestDataFactory</code> — 3 versões diferentes do mesmo conceito</td></tr>
+<tr><td><code>CaseCreationTestDataFactory</code></td><td>Case + Categorizacao__c</td><td>Regra de Rebocadores (Navio/Porto obrigatórios) codificada de novo aqui</td></tr>
+<tr><td><code>CaseRecategorizationTestDataFactory</code></td><td>Case + Categorizacao__c</td><td>Mesma regra de Rebocadores duplicada uma terceira vez</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Duplicação real, contada via grep (de 66 classes de teste)</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Padrão</th><th class="num">Classes que duplicam</th><th>Leitura</th></tr></thead>
+<tbody>
+<tr><td><code>new Account(</code></td><td class="num">19</td><td>Maior gap — nenhuma factory cria Account</td></tr>
+<tr><td><code>new Case(</code></td><td class="num">19</td><td>Cada suite monta o Case do zero</td></tr>
+<tr><td><code>new GestaoSLA__c(</code></td><td class="num">15</td><td>Helper existe mas é privado numa única factory</td></tr>
+<tr><td><code>new Contact(</code></td><td class="num">13</td><td>Sem nenhuma factory hoje</td></tr>
+<tr><td><code>new RegrasSLACategorizacao__c(</code></td><td class="num">13</td><td>Idem — helper privado</td></tr>
+<tr><td><code>new Group(</code> (filas)</td><td class="num">12</td><td>Sem factory</td></tr>
+<tr><td><code>new AreaParticipante__c(</code></td><td class="num">10</td><td>Factory existe, pouco reaproveitada</td></tr>
+<tr><td><code>new User(</code></td><td class="num">8</td><td>Sem factory</td></tr>
+<tr><td><code>new Categorizacao__c(</code> isolado</td><td class="num">4</td><td>3 implementações divergentes concorrendo</td></tr>
+<tr><td><code>MarcoSLA__c</code> / <code>Reclamacao__c</code> / <code>Agendamento__c</code> / CMDT</td><td class="num">0</td><td>Sem cobertura de factory nenhuma (gaps reais, não duplicação)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout"><b>Por que isso é dívida técnica de verdade, não só estilo:</b> 5 Validation Rules ativas no Case hoje forçam obrigatoriedade condicional — nenhum campo é <code>required</code> declarativo no schema. Duas delas (<code>Bloqueio_Navio_Nao_Informado</code>, <code>Bloqueio_Porto_Nao_Informado</code>) exigem <code>NavioNome__c</code>/<code>PortoNome__c</code> sempre que o RecordType é Rebocadores, e essa regra está hardcoded em pelo menos 3 lugares diferentes de setup de teste. Qualquer nova Validation Rule no Case (padrão recorrente neste projeto — 5 pacotes recentes criaram VRs novas) exige tocar em cada uma dessas classes de teste manualmente, em vez de um único ponto.</div>
+
+<h3>Inconsistências concretas (setup manual quando já existia helper)</h3>
+<ul class="tight">
+<li><code class="path">CaseOpeningNotificationServiceTest.cls:104-118</code> — recria Account→Contact→Case do zero</li>
+<li><code class="path">CaseSurveyDispatchServiceTest.cls:173-196</code> — idem</li>
+<li><code class="path">WSWillCaseCreationTest.cls:88-97,132-139</code> — idem, duas vezes na mesma classe</li>
+<li><code class="path">ReclamacaoServiceTest.cls:48</code> — monta Case manualmente antes de chamar <code>ReclamacaoService.buildReclamacao</code></li>
+<li><code class="path">CaseAreaParticipantePauseServiceTest.cls:18-38</code> — cadeia GestaoSLA/Categorizacao/RegrasSLA/AreaParticipante toda manual</li>
+<li><code class="path">AreaParticipanteSLABatchTest.cls:23,43,62</code> — mesma cadeia, 3 vezes</li>
+</ul>
+
+<h3>Estrutura proposta para a TestDataFactory central</h3>
+<p>Só recomendação — nada implementado. Ordem pensada para eliminar a maior duplicação primeiro:</p>
+<ol class="priority-list">
+<li><span class="pn"></span><div><b>createAccount()</b> / <b>createAccountWithContact()</b><div class="pmeta">Maior gap isolado — 19 + 13 classes recriam isso hoje</div></div></li>
+<li><span class="pn"></span><div><b>createCase(unidade, recordType)</b><div class="pmeta">Com tratamento automático embutido para a regra de Rebocadores (Navio/Porto) — elimina a duplicação tripla</div></div></li>
+<li><span class="pn"></span><div><b>createGestaoSLA(unidade)</b> / <b>createRegraSLA(...)</b><div class="pmeta">Já existem como helpers privados em <code>AreaParticipanteTestDataFactory</code> — só precisam virar públicos e parametrizáveis</div></div></li>
+<li><span class="pn"></span><div><b>createCategorizacao(...)</b><div class="pmeta">Unificar as 3 versões divergentes hoje espalhadas em 3 factories diferentes</div></div></li>
+<li><span class="pn"></span><div><b>createQueue()</b> / <b>createTestUser(profile)</b><div class="pmeta">12 + 8 classes montam isso na mão</div></div></li>
+<li><span class="pn"></span><div><b>createAreaParticipante(...)</b><div class="pmeta">Consolidar a factory já existente, hoje pouco reaproveitada fora do próprio domínio</div></div></li>
+<li><span class="pn"></span><div><b>createReclamacao(...)</b> / <b>createAgendamento(...)</b><div class="pmeta">Gaps reais — zero cobertura de factory hoje, mesmo com testes existentes desses domínios</div></div></li>
+<li><span class="pn"></span><div><b>Utilitários transversais</b> — <code>pickValue</code>, <code>anyRecordType</code>, <code>anyOpenStatus</code>/<code>anyClosedStatus</code><div class="pmeta">4 implementações quase idênticas hoje, uma em cada factory</div></div></li>
+</ol>
+
+<h2><span class="num">03</span>Criticidades no código de produção</h2>
+<p class="section-intro">Revisão focada em Services, Selectors, Helpers, Controllers e Triggers do módulo de Atendimento (não testes; classes de Sales Cloud como cotação/lead ficaram fora de escopo). Os 2 achados críticos são de manutenibilidade/wiring, não vulnerabilidade explorável diretamente — os riscos de segurança encontrados são reais, porém mitigados por contexto (o dado não vem de input livre do usuário).</p>
+
+<h3>Crítico</h3>
+
+<div class="finding crit">
+  <div class="fhead"><span class="chip chip-critico">Crítico · Arquitetura</span><span class="ftitle">God Object: 4 domínios de negócio numa única classe</span><span class="floc"><code class="path">GestaoSLAService.cls</code> — 1489 linhas, 28 métodos públicos</span></div>
+  <p>CRUD completo de <code>GestaoSLA__c</code> (782-936), <code>Categorizacao__c</code> (522-728), <code>MarcoSLA__c</code> (139-306) e <code>RegrasSLACategorizacao__c</code> (342-520), mais gate de permissões (1023-1060), resolução de escopo por Unidade de Negócio (1001-1021), validações de duplicidade/picklist (1310-1401) e mapeamento de DTO — tudo num único arquivo.</p>
+  <div class="fwhy"><b>Por quê:</b> qualquer mudança em uma das 5 responsabilidades força reteste/recompilação da classe inteira; alterar a distribuição de Categoria pode afetar cobertura de teste de Marco sem nenhuma relação lógica entre os dois. Risco de regressão cruzada alto e crescente a cada novo pacote — já é o maior arquivo de serviço do projeto.</div>
+</div>
+
+<div class="finding crit">
+  <div class="fhead"><span class="chip chip-critico">Crítico · Wiring</span><span class="ftitle">Funcionalidade implementada e testada, nunca conectada ao fluxo real</span><span class="floc"><code class="path">CaseEntitlementAssignmentService.cls:6</code></span></div>
+  <p><code>assignForSalvador</code> (e a classe inteira) só é referenciada pelo próprio teste (<code>CaseEntitlementAssignmentServiceTest.cls</code>) — nenhum trigger handler, service ou controller de produção a invoca.</p>
+  <div class="fwhy"><b>Por quê:</b> ou é código morto que confunde manutenção futura (parece que a atribuição automática de Entitlement para Salvador está ativa, mas não está), ou é um bug real de wiring — atribuição automática de <code>EntitlementId</code> para Cases de Salvador silenciosamente nunca acontece por esse caminho. Precisa de uma decisão explícita: religar ou remover.</div>
+</div>
+
+<h3>Alto</h3>
+
+<div class="finding alto">
+  <div class="fhead"><span class="chip chip-alto">Alto · Arquitetura</span><span class="ftitle">SOQL inline no trigger handler, com hack de teste para compensar</span><span class="floc"><code class="path">CaseTriggerHandler.cls:35-44</code></span></div>
+  <p>A query de bloqueio de fechamento de Case (<code>AggregateResult</code> contando <code>AreaParticipante__c</code> abertas) está inline no handler, apesar de existir <code>AreaParticipanteSelector.cls</code> no projeto — quebra o padrão "trigger fino" que o resto do handler segue.</p>
+  <div class="fwhy"><b>Por quê:</b> como a query não está isolada num Selector com método próprio, a única forma de simular resultado em teste é o hack <code>injectedBlockersByCase</code> (linhas 9, 32-34) — um seam de teste frágil que não seria necessário com a query no lugar certo.</div>
+</div>
+
+<div class="finding alto">
+  <div class="fhead"><span class="chip chip-alto">Alto · Hardcoding</span><span class="ftitle">Nomes de Unidade de Negócio fixos em Apex, cobertura assimétrica</span><span class="floc"><code class="path">CaseCreationSelector.cls:128-148</code> (<code>getBusinessUnitAliases</code>)</span></div>
+  <p>Trata "salvador" e "riogrande" com listas de alias fixas no código; Centro Logístico e Rebocadores não têm alias nenhum — apesar de <code>ParametrosAtendimento__mdt</code> existir no projeto exatamente para isso (já usado por <code>GestaoSLAHelper</code>/<code>ReclamacaoService</code>/<code>AtendimentoConfigService</code>).</p>
+  <div class="fwhy"><b>Por quê:</b> adicionar ou renomear uma unidade de negócio exige alterar Apex e fazer novo deploy em vez de só cadastrar um registro de Custom Metadata; a assimetria entre unidades é sintoma de a lógica ter sido remendada ao longo do tempo em vez de centralizada desde o início.</div>
+</div>
+
+<h3>Médio</h3>
+
+<div class="finding medio">
+  <div class="fhead"><span class="chip chip-medio">Médio · Arquitetura</span><span class="ftitle">SOQL inline disperso, sem Selector correspondente</span><span class="floc"><code class="path">WSWillContextResolverService.cls</code> — linhas 200, 210-214, 236-241, 270-274, 298-304</span></div>
+  <p>5 queries inline na classe de serviço (incluindo SOQL dinâmico via <code>Database.queryWithBinds</code>), enquanto outras áreas do projeto (Case Creation, Categorização) já adotam o padrão Selector.</p>
+  <div class="fwhy"><b>Por quê:</b> inconsistência de camada aumenta custo de manutenção e dificulta reuso/mocking — a resolução de contato por telefone, por exemplo, é lógica que poderia ser reaproveitada por outros fluxos se estivesse num Selector.</div>
+</div>
+
+<div class="finding medio">
+  <div class="fhead"><span class="chip chip-medio">Médio · Hardcoding</span><span class="ftitle">Valores de negócio duplicados em CMDT + fallback Apex</span><span class="floc"><code class="path">CategorizacaoSelector.cls:56-63</code></span></div>
+  <p>Fallback correto para quando <code>AtendimentoConfigService.getActiveConfigs()</code> retorna vazio, mas os valores de Salvador/Rio Grande/Centro Logístico/Rebocadores ficam duplicados em dois lugares: Custom Metadata e Apex.</p>
+  <div class="fwhy"><b>Por quê:</b> os dois lugares podem divergir silenciosamente se alguém atualizar o Custom Metadata sem atualizar o fallback (ou vice-versa) — risco de comportamento inconsistente entre ambientes onde o CMDT está populado e onde não está.</div>
+</div>
+
+<div class="finding medio">
+  <div class="fhead"><span class="chip chip-medio">Médio · Tratamento de erro</span><span class="ftitle">Falha "best-effort" só registrada em debug, sem monitoramento</span><span class="floc"><code class="path">AreaParticipanteRegiaoAtendimentoService.cls:67-70</code></span></div>
+  <p>Catch documentado e intencional ("uma falha aqui nunca deve impedir o salvamento do Case"), mas usa só <code>System.debug</code>.</p>
+  <div class="fwhy"><b>Por quê:</b> se a automação de Região de Atendimento Secundária falhar sistematicamente (ex.: erro de configuração em <code>GestaoSLA__c.RegiaoAtendimentoSecundaria__c</code>), ninguém é alertado — o log só existe numa sessão de debug ativa.</div>
+</div>
+
+<div class="finding medio">
+  <div class="fhead"><span class="chip chip-medio">Médio · Tratamento de erro</span><span class="ftitle">Padrão "engolir e retornar fallback" sem log em Helpers</span><span class="floc"><code class="path">CaseRecategorizationHelper.cls:44-46</code> · <code class="path">CaseClosureSurveyHelper.cls:84-86</code></span></div>
+  <p>Ambos capturam qualquer exceção e retornam um valor de fallback sem nenhum registro, nem <code>System.debug</code> — o mesmo padrão aparece em <code>CaseClosureSurveyHelper.hasSurveyInvitationTodayByEmail</code> (linhas 65-87), onde a resolução dinâmica do campo de e-mail via describe falha silenciosamente para <code>false</code>.</p>
+  <div class="fwhy"><b>Por quê:</b> se o fallback estiver mascarando um bug de configuração (ex.: campo picklist ou describe inválido), o problema nunca aparece em nenhum monitoramento — um erro de configuração vira, sem log, uma decisão de negócio ("cliente não recebeu pesquisa hoje") tomada sobre dado errado.</div>
+</div>
+
+<div class="finding alto">
+  <div class="fhead"><span class="chip chip-alto">Alto · Segurança</span><span class="ftitle">SOQL dinâmico sem enforcement de FLS</span><span class="floc"><code class="path">AreaParticipanteSelector.cls:25-66</code></span></div>
+  <p><code>getAreasByCase</code>, <code>getAreaById</code>, <code>getAreasByIds</code> montam SOQL via <code>Database.query(soql)</code> sem <code>WITH USER_MODE</code>/<code>stripInaccessible</code>. O Service chamador só valida acesso a nível de objeto, não por campo.</p>
+  <div class="fwhy"><b>Por quê:</b> a lista retornada inclui campos sensíveis (<code>SolucaoTomada__c</code>, <code>ComentarioRetorno__c</code>) expostos a controllers <code>@AuraEnabled</code> — um usuário sem FLS nesses campos ainda os recebe, quebrando o modelo de segurança declarativo do Salesforce.</div>
+</div>
+
+<div class="finding alto">
+  <div class="fhead"><span class="chip chip-alto">Alto · Segurança</span><span class="ftitle">Query dinâmica de Contact sem FLS, dados de PII</span><span class="floc"><code class="path">WSWillCaseCreationService.cls:614-682</code></span></div>
+  <p><code>queryContactsByIds</code>/<code>queryContactsByEmails</code> validam o campo extra contra o schema (mitiga injection), mas não aplicam enforcement de FLS na leitura de <code>Contact</code>.</p>
+  <div class="fwhy"><b>Por quê:</b> serve a integração WhatsApp/WSWill — um contexto de execução com sharing indevido pode expor e-mail/telefone além do que o usuário autenticado deveria ver.</div>
+</div>
+
+<div class="finding alto">
+  <div class="fhead"><span class="chip chip-alto">Alto · Segurança</span><span class="ftitle">Suppress de PMD sem justificativa documentada</span><span class="floc"><code class="path">ReclamacaoService.cls:60,134</code></span></div>
+  <p><code>@SuppressWarnings('PMD.ApexCRUDViolation')</code> em DML/SOQL de contexto de trigger, sem comentário explicando a decisão (diferente do padrão usado em <code>CaseOpeningNotificationService.cls:8</code>).</p>
+  <div class="fwhy"><b>Por quê:</b> padrão system-mode é aceitável aqui, mas a falta de justificativa documentada dificulta auditoria futura sobre se o suppress continua válido quando o fluxo mudar.</div>
+</div>
+
+<div class="finding alto">
+  <div class="fhead"><span class="chip chip-alto">Alto · Segurança</span><span class="ftitle">Suppress de PMD aplicado à classe inteira</span><span class="floc"><code class="path">CaseOpeningNotificationService.cls:8</code></span></div>
+  <p><code>@SuppressWarnings</code> no header da classe, não no método específico já revisado (linha 32-37).</p>
+  <div class="fwhy"><b>Por quê:</b> silencia o linter para todo código futuro adicionado à classe, não só para o SOQL system-mode já validado — uma nova query com FLS relevante passaria despercebida.</div>
+</div>
+
+<h3>Médio (continuação)</h3>
+
+<div class="finding medio">
+  <div class="fhead"><span class="chip chip-medio">Médio</span><span class="ftitle">SOQL inline fora do Selector</span><span class="floc"><code class="path">AreaParticipanteService.cls:522</code></span></div>
+  <p><code>getParticipationDetails</code> executa <code>[SELECT IsStopped FROM Case ...]</code> direto, quebrando a convenção do próprio projeto de centralizar queries no Selector.</p>
+  <div class="fwhy"><b>Por quê:</b> duplicar o padrão fora do Selector dificulta auditoria centralizada de segurança/performance e abre precedente para mais SOQL inline se disseminado.</div>
+</div>
+
+<div class="finding medio">
+  <div class="fhead"><span class="chip chip-medio">Médio · Arquitetura</span><span class="ftitle">Selector com mesma concentração de domínios do Service</span><span class="floc"><code class="path">GestaoSLASelector.cls</code> — 564 linhas, ~20 métodos</span></div>
+  <p>Espelha o achado do <code>GestaoSLAService</code> (seção Crítico): queries para 4 objetos diferentes num único arquivo.</p>
+  <div class="fwhy"><b>Por quê:</b> manutenção mais cara para localizar a query correta; caberia dividir por domínio (<code>MarcoSLASelector</code>, <code>RegraSLACategorizacaoSelector</code>) seguindo o padrão que outras partes do projeto já usam.</div>
+</div>
+
+<h3>Baixo / referência positiva</h3>
+<ul class="tight">
+<li><span class="chip chip-baixo">Baixo</span> <code class="path">WS_EmailToCaseInboundService.cls:158-160</code> — catch vazio, mas é o único que documenta explicitamente a decisão de engolir a exceção; modelo a seguir para os demais catches silenciosos listados acima.</li>
+<li><span class="chip chip-baixo">Referência</span> <code class="path">CaseTriggerHandler.cls</code> — 78 linhas, delega quase tudo a Services especializados sem lógica duplicada (só a query de bloqueio, achado Alto acima, foge do padrão). Estrutura geral é o modelo que <code>GestaoSLAService</code> poderia seguir.</li>
+<li><span class="chip chip-baixo">Referência</span> Nenhum Selector órfão encontrado nos 9 arquivos <code>*Selector.cls</code> — achado histórico de auditorias anteriores já resolvido.</li>
+</ul>
+
+<div class="callout"><b>Bulkificação:</b> nenhum SOQL/DML dentro de loop foi encontrado nas classes centrais analisadas — o padrão parece bem tratado no projeto. <b>Hardcoding por unidade de negócio:</b> a maior parte da resolução já passa por <code>ParametrosAtendimento__mdt</code>/<code>AtendimentoConfigService</code>, mas esse padrão não foi adotado de forma consistente — <code>CaseCreationSelector</code> e <code>CategorizacaoSelector</code> ainda têm nomes de unidade fixos em Apex (achados Alto e Médio acima), e <code>ParametrosAtendimento__mdt</code> é usado hoje em só 3 classes do projeto.</div>
+
+<footer>
+Análise estática, somente leitura — nenhum arquivo foi alterado. Escopo: <code>force-app/main/default/classes</code>, módulo de Atendimento/Service Cloud — classes de Sales Cloud (cotação, lead, entitlement de vendas) foram excluídas por não pertencerem a este domínio. Achados de segurança de FLS dinâmico assumem contexto <code>@AuraEnabled</code>/integração externa; não foram testados em runtime.
+</footer>
+
+</div>
+
+</body></html>
