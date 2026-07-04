@@ -2,10 +2,10 @@
 private class ContactWhatsappMessageControllerTest {
     @TestSetup
     static void setupTestData() {
-        insert new Contact(
-            LastName = 'WhatsApp Action Test',
-            Phone = '+5511999990000'
-        );
+        TestDataFactory.createContact(null, new Map<String, Object>{
+            'LastName' => 'WhatsApp Action Test',
+            'Phone' => '+5511999990000'
+        });
     }
 
     @IsTest

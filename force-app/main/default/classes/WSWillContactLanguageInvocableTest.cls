@@ -7,8 +7,10 @@ private class WSWillContactLanguageInvocableTest {
 
     @IsTest
     static void shouldUpdateContactLanguageFromMessagingSessionEndUser() {
-        Contact contactRow = new Contact(LastName = 'Idioma Session', Phone = '11999991001');
-        insert contactRow;
+        Contact contactRow = TestDataFactory.createContact(null, new Map<String, Object>{
+            'LastName' => 'Idioma Session',
+            'Phone' => '11999991001'
+        });
 
         WSWillContactLanguageInvocable.testSessionById = new Map<Id, SObject>{
             SESSION_ID => fakeSession(SESSION_ID, END_USER_ID, null)
@@ -37,8 +39,11 @@ private class WSWillContactLanguageInvocableTest {
 
     @IsTest
     static void shouldUpdateContactLanguageFromDirectSessionContact() {
-        Contact contactRow = new Contact(LastName = 'Idioma Direto', Idioma__c = 'pt_BR', Phone = '11999991002');
-        insert contactRow;
+        Contact contactRow = TestDataFactory.createContact(null, new Map<String, Object>{
+            'LastName' => 'Idioma Direto',
+            'Idioma__c' => 'pt_BR',
+            'Phone' => '11999991002'
+        });
 
         WSWillContactLanguageInvocable.testSessionById = new Map<Id, SObject>{
             SESSION_WITH_DIRECT_CONTACT_ID => fakeSession(SESSION_WITH_DIRECT_CONTACT_ID, null, contactRow.Id)
@@ -60,8 +65,10 @@ private class WSWillContactLanguageInvocableTest {
 
     @IsTest
     static void shouldUpdateContactLanguageFromEndUserInput() {
-        Contact contactRow = new Contact(LastName = 'Idioma EndUser', Phone = '11999991003');
-        insert contactRow;
+        Contact contactRow = TestDataFactory.createContact(null, new Map<String, Object>{
+            'LastName' => 'Idioma EndUser',
+            'Phone' => '11999991003'
+        });
 
         WSWillContactLanguageInvocable.testSessionById = new Map<Id, SObject>();
         WSWillContactLanguageInvocable.testEndUserById = new Map<Id, SObject>{
@@ -129,8 +136,7 @@ private class WSWillContactLanguageInvocableTest {
 
     @IsTest
     static void shouldCoverUtilityBranches() {
-        Account accountRow = new Account(Name = 'Conta Idioma Fetch');
-        insert accountRow;
+        Account accountRow = TestDataFactory.createAccount(new Map<String, Object>{ 'Name' => 'Conta Idioma Fetch' });
 
         Map<Id, SObject> emptyByObject = WSWillContactLanguageInvocable.fetchByIds(
             null,

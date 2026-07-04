@@ -594,15 +594,14 @@ private class CaseAcompanhamentoServiceTest {
     }
 
     private static Case createCase(String etapa) {
-        Case c = new Case(
-            Subject = 'Teste acompanhamento',
-            Status = 'Aberto',
-            Origin = 'Email',
-            EtapaAtendimento__c = etapa,
-            UnidadeNegocio__c = 'Centro Logístico'
-        );
-        insert c;
-        return c;
+        return TestDataFactory.createCase(new Map<String, Object>{
+            'RecordTypeId' => null,
+            'Subject' => 'Teste acompanhamento',
+            'Status' => 'Aberto',
+            'Origin' => 'Email',
+            'EtapaAtendimento__c' => etapa,
+            'UnidadeNegocio__c' => 'Centro Logístico'
+        });
     }
 
     private static Acao__c createActiveAction(Id caseId, String etapaAnterior) {

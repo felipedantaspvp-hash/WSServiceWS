@@ -5,8 +5,7 @@ private class WSWillConversationLinkTest {
 
     @IsTest
     static void shouldReturnConversationNotFoundWhenNoConversation() {
-        Case cs = new Case(Subject = 'Teste Link', Status = 'Aberto');
-        insert cs;
+        Case cs = TestDataFactory.createCase(new Map<String, Object>{ 'RecordTypeId' => null, 'Subject' => 'Teste Link', 'Status' => 'Aberto' });
 
         WSWillConversationLinkDTO.Request req = new WSWillConversationLinkDTO.Request();
         req.caseId = cs.Id;
@@ -48,8 +47,7 @@ private class WSWillConversationLinkTest {
 
     @IsTest
     static void shouldReturnConversationNotFoundForMessagingSessionNotInDb() {
-        Case cs = new Case(Subject = 'Teste Link MS', Status = 'Aberto');
-        insert cs;
+        Case cs = TestDataFactory.createCase(new Map<String, Object>{ 'RecordTypeId' => null, 'Subject' => 'Teste Link MS', 'Status' => 'Aberto' });
 
         WSWillConversationLinkDTO.Request req = new WSWillConversationLinkDTO.Request();
         req.caseId = cs.Id;
@@ -68,8 +66,7 @@ private class WSWillConversationLinkTest {
 
     @IsTest
     static void shouldReturnConversationNotFoundForLiveChatNotInDb() {
-        Case cs = new Case(Subject = 'Teste Link LC', Status = 'Aberto');
-        insert cs;
+        Case cs = TestDataFactory.createCase(new Map<String, Object>{ 'RecordTypeId' => null, 'Subject' => 'Teste Link LC', 'Status' => 'Aberto' });
 
         WSWillConversationLinkDTO.Request req = new WSWillConversationLinkDTO.Request();
         req.caseId = cs.Id;
@@ -88,11 +85,9 @@ private class WSWillConversationLinkTest {
 
     @IsTest
     static void shouldReturnUnsupportedWhenConversationIsNotMessagingOrLiveChat() {
-        Case cs = new Case(Subject = 'Teste Link Unsupported', Status = 'Aberto');
-        insert cs;
+        Case cs = TestDataFactory.createCase(new Map<String, Object>{ 'RecordTypeId' => null, 'Subject' => 'Teste Link Unsupported', 'Status' => 'Aberto' });
 
-        Case fakeConvCase = new Case(Subject = 'Fake Conv', Status = 'Aberto');
-        insert fakeConvCase;
+        Case fakeConvCase = TestDataFactory.createCase(new Map<String, Object>{ 'RecordTypeId' => null, 'Subject' => 'Fake Conv', 'Status' => 'Aberto' });
 
         WSWillConversationLinkDTO.Request req = new WSWillConversationLinkDTO.Request();
         req.caseId = cs.Id;
@@ -120,8 +115,7 @@ private class WSWillConversationLinkTest {
 
     @IsTest
     static void shouldLinkMessagingSessionSuccess() {
-        Case cs = new Case(Subject = 'Link MS Success');
-        insert cs;
+        Case cs = TestDataFactory.createCase(new Map<String, Object>{ 'RecordTypeId' => null, 'Subject' => 'Link MS Success' });
 
         MessagingSession ms = (MessagingSession) JSON.deserialize(
             '{"Id":"' + String.valueOf(FAKE_MESSAGING_ID) + '"}', MessagingSession.class
@@ -171,8 +165,7 @@ private class WSWillConversationLinkTest {
 
     @IsTest
     static void shouldLinkLiveChatTranscriptSuccess() {
-        Case cs = new Case(Subject = 'Link LC Success');
-        insert cs;
+        Case cs = TestDataFactory.createCase(new Map<String, Object>{ 'RecordTypeId' => null, 'Subject' => 'Link LC Success' });
 
         LiveChatTranscript lct = (LiveChatTranscript) JSON.deserialize(
             '{"Id":"' + String.valueOf(FAKE_LIVE_CHAT_ID) + '"}', LiveChatTranscript.class

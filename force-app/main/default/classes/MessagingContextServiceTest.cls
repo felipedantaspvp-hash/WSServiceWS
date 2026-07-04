@@ -29,15 +29,15 @@ private class MessagingContextServiceTest {
     }
 
     private static Account createAccount() {
-        Account a = new Account(Name = 'ACME');
-        insert a;
-        return a;
+        return TestDataFactory.createAccount(new Map<String, Object>{ 'Name' => 'ACME' });
     }
 
     private static Contact createContact(Id accountId) {
-        Contact c = new Contact(FirstName='Teste', LastName='Contato', AccountId=accountId, MobilePhone='5511999999999');
-        insert c;
-        return c;
+        return TestDataFactory.createContact(accountId, new Map<String, Object>{
+            'FirstName' => 'Teste',
+            'LastName' => 'Contato',
+            'MobilePhone' => '5511999999999'
+        });
     }
 
     private static void setupConfig(String channelDevName, String businessUnit) {

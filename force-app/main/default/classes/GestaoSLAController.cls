@@ -47,7 +47,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static GestaoSLADTO.CategoriasResponse getCategorias(Id gestaoSLAId, String searchTerm, String tipoCaso, String categoria, String assunto, Boolean ativo) {
         try {
-            return GestaoSLAService.getCategorias(gestaoSLAId, searchTerm, tipoCaso, categoria, assunto, ativo);
+            return GestaoSLACategoriaService.getCategorias(gestaoSLAId, searchTerm, tipoCaso, categoria, assunto, ativo);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -61,7 +61,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static GestaoSLADTO.MarcosResponse getMarcos(Id gestaoSLAId) {
         try {
-            return GestaoSLAService.getMarcos(gestaoSLAId);
+            return GestaoSLAMarcoService.getMarcos(gestaoSLAId);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -87,7 +87,7 @@ public inherited sharing class GestaoSLAController {
         Boolean ativo
     ) {
         try {
-            return GestaoSLAService.getRegrasSLA(gestaoSLAId, categorizacaoId, marcoSLAId, escopo, areaAtendimento, ativo);
+            return GestaoSLARegraService.getRegrasSLA(gestaoSLAId, categorizacaoId, marcoSLAId, escopo, areaAtendimento, ativo);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -114,7 +114,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static GestaoSLADTO.InactiveCategoriasResponse getInactiveCategorias(Id gestaoSLAId) {
         try {
-            return GestaoSLAService.getInactiveCategorias(gestaoSLAId);
+            return GestaoSLACategoriaService.getInactiveCategorias(gestaoSLAId);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -182,7 +182,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static void deleteCategoria(Id categoriaId) {
         try {
-            GestaoSLAService.deleteCategoria(categoriaId);
+            GestaoSLACategoriaService.deleteCategoria(categoriaId);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -195,7 +195,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static void deleteRegraSLA(Id regraSLAId) {
         try {
-            GestaoSLAService.deleteRegraSLA(regraSLAId);
+            GestaoSLARegraService.deleteRegraSLA(regraSLAId);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -208,7 +208,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static void deleteRegrasSLABulk(List<Id> regraIds) {
         try {
-            GestaoSLAService.deleteRegrasSLABulk(regraIds);
+            GestaoSLARegraService.deleteRegrasSLABulk(regraIds);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -222,7 +222,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static GestaoSLADTO.CategoriaResumo createCategoria(GestaoSLADTO.CategoriaRequest request) {
         try {
-            return GestaoSLAService.createCategoria(request);
+            return GestaoSLACategoriaService.createCategoria(request);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -236,7 +236,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static GestaoSLADTO.CategoriaResumo updateCategoria(GestaoSLADTO.CategoriaRequest request) {
         try {
-            return GestaoSLAService.updateCategoria(request);
+            return GestaoSLACategoriaService.updateCategoria(request);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -250,7 +250,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static GestaoSLADTO.CategoriaResumo deactivateCategoria(Id categoriaId) {
         try {
-            return GestaoSLAService.deactivateCategoria(categoriaId);
+            return GestaoSLACategoriaService.deactivateCategoria(categoriaId);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -264,7 +264,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static GestaoSLADTO.CategoriaResumo reactivateCategoria(Id categoriaId) {
         try {
-            return GestaoSLAService.reactivateCategoria(categoriaId);
+            return GestaoSLACategoriaService.reactivateCategoria(categoriaId);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -278,7 +278,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static GestaoSLADTO.RegraSLAResumo createRegraSLA(GestaoSLADTO.RegraSLARequest request) {
         try {
-            return GestaoSLAService.createRegraSLA(request);
+            return GestaoSLARegraService.createRegraSLA(request);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -292,7 +292,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static GestaoSLADTO.RegraSLAResumo updateRegraSLA(GestaoSLADTO.RegraSLARequest request) {
         try {
-            return GestaoSLAService.updateRegraSLA(request);
+            return GestaoSLARegraService.updateRegraSLA(request);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -306,7 +306,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static GestaoSLADTO.RegraSLAResumo deactivateRegraSLA(Id regraSLAId) {
         try {
-            return GestaoSLAService.deactivateRegraSLA(regraSLAId);
+            return GestaoSLARegraService.deactivateRegraSLA(regraSLAId);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -320,7 +320,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static GestaoSLADTO.RegraSLAResumo activateRegraSLA(Id regraSLAId) {
         try {
-            return GestaoSLAService.activateRegraSLA(regraSLAId);
+            return GestaoSLARegraService.activateRegraSLA(regraSLAId);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -334,7 +334,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static GestaoSLADTO.MarcoResumo createMarcoSLA(GestaoSLADTO.MarcoSLARequest request) {
         try {
-            return GestaoSLAService.createMarcoSLA(request);
+            return GestaoSLAMarcoService.createMarcoSLA(request);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -348,7 +348,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static GestaoSLADTO.MarcoResumo updateMarcoSLA(GestaoSLADTO.MarcoSLARequest request) {
         try {
-            return GestaoSLAService.updateMarcoSLA(request);
+            return GestaoSLAMarcoService.updateMarcoSLA(request);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -362,7 +362,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static GestaoSLADTO.MarcoResumo deactivateMarcoSLA(Id marcoSLAId) {
         try {
-            return GestaoSLAService.deactivateMarcoSLA(marcoSLAId);
+            return GestaoSLAMarcoService.deactivateMarcoSLA(marcoSLAId);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -376,7 +376,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static GestaoSLADTO.MarcoResumo reactivateMarcoSLA(Id marcoSLAId) {
         try {
-            return GestaoSLAService.reactivateMarcoSLA(marcoSLAId);
+            return GestaoSLAMarcoService.reactivateMarcoSLA(marcoSLAId);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -389,7 +389,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static void deleteMarcoSLA(Id marcoSLAId) {
         try {
-            GestaoSLAService.deleteMarcoSLA(marcoSLAId);
+            GestaoSLAMarcoService.deleteMarcoSLA(marcoSLAId);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -402,7 +402,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled(cacheable=true)
     public static List<String> getAreasInternas() {
         try {
-            return GestaoSLAService.getAreasInternas();
+            return GestaoSLARegraService.getAreasInternas();
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }
@@ -417,7 +417,7 @@ public inherited sharing class GestaoSLAController {
     @AuraEnabled
     public static List<GestaoSLADTO.RegraSLAResumo> createRegrasSLABulk(List<GestaoSLADTO.RegraSLARequest> requests) {
         try {
-            return GestaoSLAService.createRegrasSLABulk(requests);
+            return GestaoSLARegraService.createRegrasSLABulk(requests);
         } catch (GestaoSLAService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         }

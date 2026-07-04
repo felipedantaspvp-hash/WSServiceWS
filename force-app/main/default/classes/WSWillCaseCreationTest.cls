@@ -5,8 +5,7 @@ private class WSWillCaseCreationTest {
 
     @IsTest
     static void shouldCreateCaseAndContact() {
-        Account a = new Account(Name = 'Conta Caso Bot');
-        insert a;
+        Account a = TestDataFactory.createAccount(new Map<String, Object>{ 'Name' => 'Conta Caso Bot' });
         Group queue = createCaseQueue('WSTEST_TSV_AtendimentoN1');
 
         WSWillCaseCreationService.testUnitConfigs = new List<AtendimentoConfigDTO>{
@@ -85,16 +84,13 @@ private class WSWillCaseCreationTest {
 
     @IsTest
     static void shouldReuseExistingContactByEmailAndUpdateLanguage() {
-        Account a = new Account(Name = 'Conta Reuso');
-        insert a;
-        Contact existing = new Contact(
-            LastName = 'Reuso',
-            AccountId = a.Id,
-            Email = 'reuse.bot@test.com',
-            Phone = '71911112222',
-            Idioma__c = 'pt_BR'
-        );
-        insert existing;
+        Account a = TestDataFactory.createAccount(new Map<String, Object>{ 'Name' => 'Conta Reuso' });
+        Contact existing = TestDataFactory.createContact(a.Id, new Map<String, Object>{
+            'LastName' => 'Reuso',
+            'Email' => 'reuse.bot@test.com',
+            'Phone' => '71911112222',
+            'Idioma__c' => 'pt_BR'
+        });
 
         WSWillCaseCreationDTO.Request req = new WSWillCaseCreationDTO.Request();
         req.accountId = a.Id;
@@ -123,20 +119,17 @@ private class WSWillCaseCreationTest {
 
     @IsTest
     static void shouldCreateCaseFromMessagingSessionAndOverrideOrigin() {
-        Account a = new Account(Name = 'Conta Conversa');
-        insert a;
+        Account a = TestDataFactory.createAccount(new Map<String, Object>{ 'Name' => 'Conta Conversa' });
         Group queue = createCaseQueue('WSTEST_TSV_Messaging');
         WSWillCaseCreationService.testUnitConfigs = new List<AtendimentoConfigDTO>{
             buildConfig('Atendimento Tecon Salvador', 'AtendimentoTeconSalvador',queue.DeveloperName)
         };
-        Contact contactRow = new Contact(
-            LastName = 'Conversa',
-            AccountId = a.Id,
-            Email = 'conversa.bot@test.com',
-            Phone = '71922223333',
-            Idioma__c = 'pt_BR'
-        );
-        insert contactRow;
+        Contact contactRow = TestDataFactory.createContact(a.Id, new Map<String, Object>{
+            'LastName' => 'Conversa',
+            'Email' => 'conversa.bot@test.com',
+            'Phone' => '71922223333',
+            'Idioma__c' => 'pt_BR'
+        });
 
         WSWillCaseCreationService.testMessagingById = new Map<Id, MessagingSession>{
             SESSION_ID => new MessagingSession(Id = SESSION_ID, MessagingEndUserId = END_USER_ID)
@@ -199,16 +192,13 @@ private class WSWillCaseCreationTest {
             buildConfig('Atendimento Tecon Salvador', 'AtendimentoTeconSalvador',queue.DeveloperName)
         };
 
-        Account a = new Account(Name = 'Conta Fila Bot');
-        insert a;
-        Contact contactRow = new Contact(
-            LastName = 'Fila',
-            AccountId = a.Id,
-            Email = 'queue.bot@test.com',
-            Phone = '71944445555',
-            Idioma__c = 'pt_BR'
-        );
-        insert contactRow;
+        Account a = TestDataFactory.createAccount(new Map<String, Object>{ 'Name' => 'Conta Fila Bot' });
+        Contact contactRow = TestDataFactory.createContact(a.Id, new Map<String, Object>{
+            'LastName' => 'Fila',
+            'Email' => 'queue.bot@test.com',
+            'Phone' => '71944445555',
+            'Idioma__c' => 'pt_BR'
+        });
 
         WSWillCaseCreationDTO.Request req = new WSWillCaseCreationDTO.Request();
         req.accountId = a.Id;
@@ -248,16 +238,13 @@ private class WSWillCaseCreationTest {
 
     @IsTest
     static void shouldKeepChatCaseWithCurrentUserOwnerEvenWhenSendToQueueIsTrue() {
-        Account a = new Account(Name = 'Conta Fila Metadata');
-        insert a;
-        Contact contactRow = new Contact(
-            LastName = 'Metadata',
-            AccountId = a.Id,
-            Email = 'config.queue.bot@test.com',
-            Phone = '71955556666',
-            Idioma__c = 'pt_BR'
-        );
-        insert contactRow;
+        Account a = TestDataFactory.createAccount(new Map<String, Object>{ 'Name' => 'Conta Fila Metadata' });
+        Contact contactRow = TestDataFactory.createContact(a.Id, new Map<String, Object>{
+            'LastName' => 'Metadata',
+            'Email' => 'config.queue.bot@test.com',
+            'Phone' => '71955556666',
+            'Idioma__c' => 'pt_BR'
+        });
 
         WSWillCaseCreationDTO.Request req = new WSWillCaseCreationDTO.Request();
         req.accountId = a.Id;
@@ -295,16 +282,13 @@ private class WSWillCaseCreationTest {
 
     @IsTest
     static void shouldInferWhatsappOriginFromChannelAndKeepCurrentUserOwner() {
-        Account a = new Account(Name = 'Conta Fila Prefixo');
-        insert a;
-        Contact contactRow = new Contact(
-            LastName = 'Prefixo',
-            AccountId = a.Id,
-            Email = 'prefix.queue.bot@test.com',
-            Phone = '71977778888',
-            Idioma__c = 'pt_BR'
-        );
-        insert contactRow;
+        Account a = TestDataFactory.createAccount(new Map<String, Object>{ 'Name' => 'Conta Fila Prefixo' });
+        Contact contactRow = TestDataFactory.createContact(a.Id, new Map<String, Object>{
+            'LastName' => 'Prefixo',
+            'Email' => 'prefix.queue.bot@test.com',
+            'Phone' => '71977778888',
+            'Idioma__c' => 'pt_BR'
+        });
 
         WSWillCaseCreationDTO.Request req = new WSWillCaseCreationDTO.Request();
         req.accountId = a.Id;
@@ -341,16 +325,13 @@ private class WSWillCaseCreationTest {
 
     @IsTest
     static void shouldCreateCaseWithoutQueueWhenRequestedQueueIsInvalid() {
-        Account a = new Account(Name = 'Conta Fila Invalida');
-        insert a;
-        Contact contactRow = new Contact(
-            LastName = 'Sem Fila',
-            AccountId = a.Id,
-            Email = 'no.queue.bot@test.com',
-            Phone = '71966667777',
-            Idioma__c = 'pt_BR'
-        );
-        insert contactRow;
+        Account a = TestDataFactory.createAccount(new Map<String, Object>{ 'Name' => 'Conta Fila Invalida' });
+        Contact contactRow = TestDataFactory.createContact(a.Id, new Map<String, Object>{
+            'LastName' => 'Sem Fila',
+            'Email' => 'no.queue.bot@test.com',
+            'Phone' => '71966667777',
+            'Idioma__c' => 'pt_BR'
+        });
 
         WSWillCaseCreationService.testUnitConfigs = new List<AtendimentoConfigDTO>{
             buildConfig('Atendimento Tecon Salvador', 'AtendimentoTeconSalvador','QUEUE_NOT_FOUND_FOR_BOT')
@@ -399,17 +380,16 @@ private class WSWillCaseCreationTest {
             return;
         }
 
-        Account representative = new Account(Name = 'Despachante Canal Digital');
-        Account represented = new Account(Name = 'Cliente Final Canal Digital');
+        Account representative = TestDataFactory.buildAccount(new Map<String, Object>{ 'Name' => 'Despachante Canal Digital' });
+        Account represented = TestDataFactory.buildAccount(new Map<String, Object>{ 'Name' => 'Cliente Final Canal Digital' });
         insert new List<Account>{ representative, represented };
 
-        Contact contactRow = new Contact(
-            LastName = 'Representado',
-            AccountId = representative.Id,
-            Email = 'represented.will@test.com',
-            Phone = '71933334444',
-            Idioma__c = 'pt_BR'
-        );
+        Contact contactRow = TestDataFactory.buildContact(representative.Id, new Map<String, Object>{
+            'LastName' => 'Representado',
+            'Email' => 'represented.will@test.com',
+            'Phone' => '71933334444',
+            'Idioma__c' => 'pt_BR'
+        });
         contactRow.put('ContaRepresentadaAtual__c', represented.Id);
         insert contactRow;
 

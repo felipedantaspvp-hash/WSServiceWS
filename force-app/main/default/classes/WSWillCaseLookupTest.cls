@@ -2,22 +2,24 @@
 private class WSWillCaseLookupTest {
     @IsTest
     static void shouldLookupCaseWhenAuthorized() {
-        Account a = new Account(Name = 'Conta Lookup');
-        insert a;
-        Contact c = new Contact(LastName = 'Contato Lookup', AccountId = a.Id, Email = 'lookup@test.com', Phone = '11999990003');
-        insert c;
+        Account a = TestDataFactory.createAccount(new Map<String, Object>{ 'Name' => 'Conta Lookup' });
+        Contact c = TestDataFactory.createContact(a.Id, new Map<String, Object>{
+            'LastName' => 'Contato Lookup',
+            'Email' => 'lookup@test.com',
+            'Phone' => '11999990003'
+        });
 
-        Case cs = new Case(
-            Subject = 'Teste',
-            Status = 'Aberto',
-            AccountId = a.Id,
-            ContactId = c.Id,
-            TipoCaso__c = 'Solicitação',
-            Categoria__c = 'Solicitação',
-            Assunto__c = 'Informativo',
-            EtapaAtendimento__c = 'Em Atendimento'
-        );
-        insert cs;
+        Case cs = TestDataFactory.createCase(new Map<String, Object>{
+            'RecordTypeId' => null,
+            'Subject' => 'Teste',
+            'Status' => 'Aberto',
+            'AccountId' => a.Id,
+            'ContactId' => c.Id,
+            'TipoCaso__c' => 'Solicitação',
+            'Categoria__c' => 'Solicitação',
+            'Assunto__c' => 'Informativo',
+            'EtapaAtendimento__c' => 'Em Atendimento'
+        });
         cs = [SELECT Id, CaseNumber, ContactId, AccountId, EtapaAtendimento__c FROM Case WHERE Id = :cs.Id];
 
         WSWillCaseLookupDTO.Request req = new WSWillCaseLookupDTO.Request();
@@ -52,23 +54,23 @@ private class WSWillCaseLookupTest {
 
     @IsTest
     static void shouldOmitBlankPartsFromMessageAndReturnStage() {
-        Account a = new Account(Name = 'Conta Lookup Parcial');
-        insert a;
-        Contact c = new Contact(LastName = 'Contato Parcial', AccountId = a.Id);
-        c.Phone = '11999990004';
-        insert c;
+        Account a = TestDataFactory.createAccount(new Map<String, Object>{ 'Name' => 'Conta Lookup Parcial' });
+        Contact c = TestDataFactory.createContact(a.Id, new Map<String, Object>{
+            'LastName' => 'Contato Parcial',
+            'Phone' => '11999990004'
+        });
 
-        Case cs = new Case(
-            Subject = 'Teste parcial',
-            Status = 'Aberto',
-            AccountId = a.Id,
-            ContactId = c.Id,
-            TipoCaso__c = 'Informação',
-            Categoria__c = null,
-            Assunto__c = 'Informativo',
-            EtapaAtendimento__c = 'Novo'
-        );
-        insert cs;
+        Case cs = TestDataFactory.createCase(new Map<String, Object>{
+            'RecordTypeId' => null,
+            'Subject' => 'Teste parcial',
+            'Status' => 'Aberto',
+            'AccountId' => a.Id,
+            'ContactId' => c.Id,
+            'TipoCaso__c' => 'Informação',
+            'Categoria__c' => null,
+            'Assunto__c' => 'Informativo',
+            'EtapaAtendimento__c' => 'Novo'
+        });
         cs = [SELECT Id, CaseNumber, EtapaAtendimento__c FROM Case WHERE Id = :cs.Id];
 
         WSWillCaseLookupDTO.Request req = new WSWillCaseLookupDTO.Request();

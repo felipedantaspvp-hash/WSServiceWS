@@ -2,9 +2,7 @@
 private class CaseCreationControllerTest {
     @TestSetup
     static void setupData() {
-        Group g = new Group(Name='TSV Queue Test CC', DeveloperName='TSV_Q_CC_TEST', Type='Queue');
-        insert g;
-        insert new QueueSobject(QueueId=g.Id, SobjectType='Case');
+        TestDataFactory.createQueue('TSV_Q_CC_TEST');
     }
 
     @IsTest

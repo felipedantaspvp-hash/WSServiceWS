@@ -141,17 +141,15 @@ private class CaseTriggerHandlerTest {
     static void testStandardOrigemDoesNotBlockClosure() {
         // AreaParticipante__c Standard tem BloqueiaFechamentoCaso__c = false (set por buildRecord())
         // A query filtra BloqueiaFechamentoCaso__c = true E OrigemSLA__c = 'Custom' → Standard excluído
-        Case c = new Case();
-        insert c;
+        Case c = TestDataFactory.createCase(new Map<String, Object>{ 'RecordTypeId' => null });
 
         // Standard: guard em AreaParticipanteSLAService.beforeSave skips validações
-        insert new AreaParticipante__c(
-            Caso__c = c.Id,
-            TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
-            OrigemSLA__c = AreaParticipanteSLAHelper.ORIGEM_SLA_STANDARD,
-            BloqueiaFechamentoCaso__c = false,
-            StatusAtuacao__c = AreaParticipanteSLAHelper.STATUS_ATUACAO_ABERTA
-        );
+        TestDataFactory.createAreaParticipante(c.Id, new Map<String, Object>{
+            'TipoAreaParticipante__c' => AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
+            'OrigemSLA__c' => AreaParticipanteSLAHelper.ORIGEM_SLA_STANDARD,
+            'BloqueiaFechamentoCaso__c' => false,
+            'StatusAtuacao__c' => AreaParticipanteSLAHelper.STATUS_ATUACAO_ABERTA
+        });
 
         Case oldCase = (Case) JSON.deserialize('{"Id":"' + c.Id + '","IsClosed":false}', Case.class);
         Case newCase = (Case) JSON.deserialize('{"Id":"' + c.Id + '","IsClosed":true}', Case.class);

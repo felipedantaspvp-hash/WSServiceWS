@@ -31,21 +31,16 @@ private class AtendimentoContextResolverTest {
     private class GatewayTestException extends Exception {}
 
     private static Account createAccount(String name) {
-        Account row = new Account(Name = name);
-        insert row;
-        return row;
+        return TestDataFactory.createAccount(new Map<String, Object>{ 'Name' => name });
     }
 
     private static Contact createContact(String firstName, String lastName, Id accountId) {
-        Contact row = new Contact(
-            FirstName = firstName,
-            LastName = lastName,
-            AccountId = accountId,
-            Email = firstName + '.' + lastName + '@example.com',
-            MobilePhone = '5511999999999'
-        );
-        insert row;
-        return row;
+        return TestDataFactory.createContact(accountId, new Map<String, Object>{
+            'FirstName' => firstName,
+            'LastName' => lastName,
+            'Email' => firstName + '.' + lastName + '@example.com',
+            'MobilePhone' => '5511999999999'
+        });
     }
 
     private static AtendimentoContextResolverDTO.Request baseRequest() {
@@ -339,9 +334,7 @@ private class AtendimentoContextResolverTest {
     static void shouldCoverHelperIsIdOfType() {
         Id caseId = [SELECT Id FROM Case LIMIT 1]?.Id;
         if (caseId == null) {
-            Case c = new Case(Subject = 'helper test');
-            insert c;
-            caseId = c.Id;
+            caseId = TestDataFactory.createCase(new Map<String, Object>{ 'RecordTypeId' => null, 'Subject' => 'helper test' }).Id;
         }
 
         Assert.areEqual(true, AtendimentoContextResolverHelper.isIdOfType(caseId, 'Case'));

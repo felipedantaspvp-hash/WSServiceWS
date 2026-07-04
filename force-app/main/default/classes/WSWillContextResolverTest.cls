@@ -6,17 +6,13 @@ private class WSWillContextResolverTest {
 
     @IsTest
     static void shouldResolveContactLanguageAndAccountFromMessagingSession() {
-        Account accountRow = new Account(Name = 'Conta Contexto');
-        insert accountRow;
-
-        Contact contactRow = new Contact(
-            LastName = 'Cliente Contexto',
-            AccountId = accountRow.Id,
-            Idioma__c = 'pt_BR',
-            Email = 'contexto@test.com',
-            Phone = '11999990001'
-        );
-        insert contactRow;
+        Account accountRow = TestDataFactory.createAccount(new Map<String, Object>{ 'Name' => 'Conta Contexto' });
+        Contact contactRow = TestDataFactory.createContact(accountRow.Id, new Map<String, Object>{
+            'LastName' => 'Cliente Contexto',
+            'Idioma__c' => 'pt_BR',
+            'Email' => 'contexto@test.com',
+            'Phone' => '11999990001'
+        });
 
         Id messagingChannelId = Id.valueOf('0Mj000000000001');
         SObject sessionRow = fakeSession(
@@ -69,8 +65,11 @@ private class WSWillContextResolverTest {
 
     @IsTest
     static void shouldResolveContactFromEndUserWhenSessionDoesNotExposeContact() {
-        Contact contactRow = new Contact(LastName = 'Cliente EndUser', Idioma__c = 'en_US', Phone = '11999990002');
-        insert contactRow;
+        Contact contactRow = TestDataFactory.createContact(null, new Map<String, Object>{
+            'LastName' => 'Cliente EndUser',
+            'Idioma__c' => 'en_US',
+            'Phone' => '11999990002'
+        });
 
         WSWillContextResolverService.testMessagingById = new Map<Id, SObject>{
             SESSION_ID => fakeSession(SESSION_ID, END_USER_ID, null, 'Chat', null)
@@ -98,16 +97,12 @@ private class WSWillContextResolverTest {
 
     @IsTest
     static void shouldResolveWhatsappContactAndLanguageFromMessagingPlatformKey() {
-        Account accountRow = new Account(Name = 'Conta WhatsApp');
-        insert accountRow;
-
-        Contact contactRow = new Contact(
-            LastName = 'Cliente WhatsApp',
-            AccountId = accountRow.Id,
-            MobilePhone = '21980792973',
-            Idioma__c = 'pt_BR'
-        );
-        insert contactRow;
+        Account accountRow = TestDataFactory.createAccount(new Map<String, Object>{ 'Name' => 'Conta WhatsApp' });
+        Contact contactRow = TestDataFactory.createContact(accountRow.Id, new Map<String, Object>{
+            'LastName' => 'Cliente WhatsApp',
+            'MobilePhone' => '21980792973',
+            'Idioma__c' => 'pt_BR'
+        });
 
         WSWillContextResolverService.testMessagingById = new Map<Id, SObject>{
             SESSION_ID => fakeSession(SESSION_ID, END_USER_ID, null, 'WhatsApp', 'WhatsAppTeconSalvador')
@@ -222,8 +217,7 @@ private class WSWillContextResolverTest {
 
     @IsTest
     static void shouldCoverUtilityBranches() {
-        Account accountRow = new Account(Name = 'Conta Fetch');
-        insert accountRow;
+        Account accountRow = TestDataFactory.createAccount(new Map<String, Object>{ 'Name' => 'Conta Fetch' });
 
         Map<Id, SObject> fetched = WSWillContextResolverService.fetchByIds(
             'Account',
@@ -265,8 +259,10 @@ private class WSWillContextResolverTest {
 
     @IsTest
     static void shouldHandleLiveChatAndLimitedContext() {
-        Contact contactRow = new Contact(LastName = 'Cliente Live', Phone = '11999990003');
-        insert contactRow;
+        Contact contactRow = TestDataFactory.createContact(null, new Map<String, Object>{
+            'LastName' => 'Cliente Live',
+            'Phone' => '11999990003'
+        });
 
         WSWillContextResolverService.testMessagingById = new Map<Id, SObject>();
         WSWillContextResolverService.testEndUserById = new Map<Id, SObject>();
@@ -320,8 +316,11 @@ private class WSWillContextResolverTest {
 
     @IsTest
     static void shouldResolveBusinessUnitFromAtendimentoParamsWhenRoutingMetadataIsEmpty() {
-        Contact contactRow = new Contact(LastName = 'Cliente BU', Idioma__c = 'pt_BR', Phone = '11999990004');
-        insert contactRow;
+        Contact contactRow = TestDataFactory.createContact(null, new Map<String, Object>{
+            'LastName' => 'Cliente BU',
+            'Idioma__c' => 'pt_BR',
+            'Phone' => '11999990004'
+        });
 
         WSWillContextResolverService.testMessagingById = new Map<Id, SObject>{
             SESSION_ID => fakeSession(SESSION_ID, END_USER_ID, contactRow.Id, 'EmbeddedMessaging', 'WS_TSA_WebChat')

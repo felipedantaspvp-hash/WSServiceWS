@@ -1,8 +1,14 @@
 @IsTest
 private class CaseRecategorizationControllerTest {
+    // Antes buscava DeveloperName='TeconSalvador' (nome errado — o real é
+    // 'AtendimentoTeconSalvador'), então sempre caía no fallback "qualquer RT ativo",
+    // que ocasionalmente sorteava Rebocadores e quebrava por Navio/Porto obrigatórios.
     private static RecordType anyCaseRt() {
-        List<RecordType> preferred = [SELECT Id, DeveloperName, Name FROM RecordType WHERE SObjectType='Case' AND DeveloperName = 'TeconSalvador' LIMIT 1];
-        return preferred.isEmpty() ? [SELECT Id, DeveloperName, Name FROM RecordType WHERE SObjectType='Case' LIMIT 1] : preferred[0];
+        try {
+            return TestDataFactory.recordTypeByDeveloperName('Case', 'AtendimentoTeconSalvador');
+        } catch (Exception e) {
+            return TestDataFactory.anyActiveRecordType('Case');
+        }
     }
 
     @IsTest
@@ -35,8 +41,12 @@ private class CaseRecategorizationControllerTest {
         CaseRecategorizationSelector.testConfigsByRtDevName = new Map<String, CaseCreationSelector.UnidadeConfig>{ rt.DeveloperName => cfg };
         CaseCreationSelector.testConfigs = new Map<String, CaseCreationSelector.UnidadeConfig>{ rt.DeveloperName => cfg };
 
-        Case c = new Case(Subject = 'Teste Recateg', RecordTypeId = rt.Id, Status = 'New', UnidadeNegocio__c = cfg.unidadeNegocio);
-        insert c;
+        Case c = TestDataFactory.createCase(new Map<String, Object>{
+            'RecordTypeId' => rt.Id,
+            'Subject' => 'Teste Recateg',
+            'Status' => 'New',
+            'UnidadeNegocio__c' => cfg.unidadeNegocio
+        });
 
         CaseRecategorizationDTO.CaseRecategorizationContextDTO ctx = CaseRecategorizationController.getContext(c.Id);
         Assert.areEqual(c.Id, ctx.caseId);
