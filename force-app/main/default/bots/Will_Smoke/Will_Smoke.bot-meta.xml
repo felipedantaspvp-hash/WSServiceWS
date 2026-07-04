@@ -11,12 +11,12 @@
         <contextVariableMappings>
             <SObjectType>MessagingSession</SObjectType>
             <fieldName>MessagingSession.ChannelType</fieldName>
-            <messageType>EmbeddedMessaging</messageType>
+            <messageType>WhatsApp</messageType>
         </contextVariableMappings>
         <contextVariableMappings>
             <SObjectType>MessagingSession</SObjectType>
             <fieldName>MessagingSession.ChannelType</fieldName>
-            <messageType>WhatsApp</messageType>
+            <messageType>EmbeddedMessaging</messageType>
         </contextVariableMappings>
         <dataType>Text</dataType>
         <description>This variable may also be referred to as MessagingSession ChannelType</description>

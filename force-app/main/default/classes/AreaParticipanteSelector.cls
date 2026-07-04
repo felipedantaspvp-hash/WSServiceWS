@@ -11,19 +11,24 @@ public inherited sharing class AreaParticipanteSelector {
     private static final String AREA_FIELD = 'AreaAtendimento__c';
 
     public static Case getCaseById(Id caseId) {
-        if (testCase != null) return testCase;
+        if (testCase != null) {
+            return testCase;
+        }
         List<Case> rows = [
-            SELECT Id, CaseNumber, OwnerId, Status, Categorizacao__c, Categorizacao__r.GestaoSLA__c, Priority, Origin,
+            SELECT Id, CaseNumber, OwnerId, Status, IsClosed, Categorizacao__c, Categorizacao__r.GestaoSLA__c, Priority, Origin,
                 AreasParticipantes__c, AreasParticipantesSLA__c, EtapaAtendimento__c, IsStopped
             FROM Case
             WHERE Id = :caseId
+            WITH USER_MODE
             LIMIT 1
         ];
         return rows.isEmpty() ? null : rows[0];
     }
 
     public static List<AreaParticipante__c> getAreasByCase(Id caseId) {
-        if (testAreas != null) return testAreas;
+        if (testAreas != null) {
+            return testAreas;
+        }
         String soql =
             'SELECT Id, Caso__c, ' + AREA_FIELD + ', StatusAtuacao__c,' +
             ' DataHoraInicio__c, DataHoraInicioPausa__c, DataHoraPrazo__c, DataHoraFim__c, StatusAtuacaoAnteriorPausa__c,' +
@@ -54,7 +59,9 @@ public inherited sharing class AreaParticipanteSelector {
     }
 
     public static List<AreaParticipante__c> getAreasByIds(Set<Id> areaIds) {
-        if (areaIds == null || areaIds.isEmpty()) return new List<AreaParticipante__c>();
+        if (areaIds == null || areaIds.isEmpty()) {
+            return new List<AreaParticipante__c>();
+        }
         String soql =
             'SELECT Id, Caso__c, ' + AREA_FIELD + ', StatusAtuacao__c,' +
             ' DataHoraInicio__c, DataHoraInicioPausa__c, DataHoraPrazo__c, DataHoraFim__c, StatusAtuacaoAnteriorPausa__c,' +
@@ -68,13 +75,19 @@ public inherited sharing class AreaParticipanteSelector {
 
     public static Set<String> getEligibleAreaValuesForCase(Case caseRow) {
         Set<String> out = new Set<String>();
-        if (caseRow == null || caseRow.Categorizacao__c == null) return out;
+        if (caseRow == null || caseRow.Categorizacao__c == null) {
+            return out;
+        }
         Id gestaoId;
         try {
             SObject categRel = caseRow.getSObject('Categorizacao__r');
             gestaoId = categRel != null ? (Id) categRel.get('GestaoSLA__c') : null;
-        } catch (SObjectException ex) {}
-        if (gestaoId == null) return out;
+        } catch (SObjectException ex) {
+            gestaoId = null;
+        }
+        if (gestaoId == null) {
+            return out;
+        }
         for (RegrasSLACategorizacao__c rule : [
             SELECT AreaAtendimento__c
             FROM RegrasSLACategorizacao__c
@@ -83,6 +96,7 @@ public inherited sharing class AreaParticipanteSelector {
                 AND GestaoSLA__c = :gestaoId
                 AND EscopoRegra__c = :RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA
                 AND AreaAtendimento__c != null
+            WITH USER_MODE
         ]) {
             out.add(rule.AreaAtendimento__c);
         }
@@ -90,7 +104,9 @@ public inherited sharing class AreaParticipanteSelector {
     }
 
     public static Boolean hasEligibleAreaRule(Case caseRow, String areaValue) {
-        if (String.isBlank(areaValue)) return false;
+        if (String.isBlank(areaValue)) {
+            return false;
+        }
         return getEligibleAreaValuesForCase(caseRow).contains(areaValue);
     }
 }

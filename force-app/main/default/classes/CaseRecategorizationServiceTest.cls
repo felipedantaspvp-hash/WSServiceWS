@@ -4,7 +4,7 @@ private class CaseRecategorizationServiceTest {
     private static final String DEFAULT_QUEUE_TOKEN_RIO_GRANDE = 'TRG_';
 
     private static String pickValue(String fieldApiName, Integer index) {
-        Map<String, Schema.SObjectField> fields = Case.SObjectType.getDescribe().fields.getMap();
+        Map<String, Schema.SObjectField> fields = Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
         List<Schema.PicklistEntry> values = fields.get(fieldApiName).getDescribe().getPicklistValues();
         Integer safeIndex = values.size() > index ? index : 0;
         return values[safeIndex].getValue();
@@ -93,13 +93,19 @@ private class CaseRecategorizationServiceTest {
     }
 
     private static Case buildUncategorizedCase(Id recordTypeId, String unidade, String status) {
-        return new Case(
+        Case c = new Case(
             Subject = 'Caso sem categorização',
             RecordTypeId = recordTypeId,
             UnidadeNegocio__c = unidade,
             Origin = 'Manual',
             Status = status
         );
+        List<RecordType> rts = [SELECT DeveloperName FROM RecordType WHERE Id = :recordTypeId LIMIT 1];
+        if (!rts.isEmpty() && rts[0].DeveloperName == 'AtendimentoRebocadores') {
+            c.NavioNome__c = 'Navio Teste';
+            c.PortoNome__c = 'Porto Teste';
+        }
+        return c;
     }
 
     private static Group createCaseQueue(String developerName, String name) {
@@ -307,6 +313,7 @@ private class CaseRecategorizationServiceTest {
             Status = openStatus,
             OwnerId = ownerQueue.Id
         );
+        if (rt.DeveloperName == 'AtendimentoRebocadores') { c.NavioNome__c = 'Navio Teste'; c.PortoNome__c = 'Porto Teste'; }
         insert c;
 
         String unidadeEsperada = CaseCreationSelector.resolveCanonicalBusinessUnit('Tecon Rio Grande');
@@ -366,6 +373,7 @@ private class CaseRecategorizationServiceTest {
             Origin = 'Manual',
             Status = pickValue('Status', 0)
         );
+        if (rt.DeveloperName == 'AtendimentoRebocadores') { c.NavioNome__c = 'Navio Teste'; c.PortoNome__c = 'Porto Teste'; }
         insert c;
 
         Boolean threw = false;

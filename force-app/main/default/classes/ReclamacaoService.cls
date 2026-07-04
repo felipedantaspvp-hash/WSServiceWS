@@ -8,6 +8,15 @@
  **/
 public inherited sharing class ReclamacaoService {
     private static final String TIPO_CASO_RECLAMACAO = 'Reclamação';
+    private static final String STATUS_REGISTRO_ABERTA = 'Aberta';
+    private static final String MODALIDADE_IMPORTACAO = 'Importação';
+    private static final String MODALIDADE_EXPORTACAO = 'Exportação';
+    private static final String MODALIDADE_CABOTAGEM = 'Cabotagem';
+    private static final String MODALIDADE_OUTRO = 'Outro';
+    private static final String CASE_MODALIDADE_CABOTAGEM_DESCARGA = 'Cabotagem Descarga';
+    private static final String CASE_MODALIDADE_CABOTAGEM_EMBARQUE = 'Cabotagem Embarque';
+    private static final String CASE_MODALIDADE_A_DEFINIR = 'A definir';
+    private static final String CASE_MODALIDADE_NAO_SE_APLICA = 'Não se aplica';
 
     @TestVisible private static Map<String, Id> testRecordTypeIdByDeveloperName;
     private static Map<String, Id> recordTypeIdByDeveloperName;
@@ -48,14 +57,18 @@ public inherited sharing class ReclamacaoService {
         processEligibleCases(eligible);
     }
 
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     private static void processEligibleCases(List<Case> eligible) {
         if (eligible.isEmpty()) return;
 
+        Map<Id, Case> casesById = getCasesForReclamacao(eligible);
         List<Reclamacao__c> toInsert = new List<Reclamacao__c>();
         List<Case> toUpdate = new List<Case>();
         for (Case c : eligible) {
+            Case sourceCase = casesById.get(c.Id);
+            if (sourceCase == null) continue;
             AtendimentoConfigDTO cfg = AtendimentoConfigService.getSurveyConfigByBusinessUnit(c.UnidadeNegocio__c);
-            toInsert.add(buildReclamacao(c, cfg));
+            toInsert.add(buildReclamacao(sourceCase, cfg));
             toUpdate.add(new Case(Id = c.Id, ReclamacaoGerada__c = true, DtGeracaoReclamacao__c = System.now()));
         }
 
@@ -100,6 +113,13 @@ public inherited sharing class ReclamacaoService {
         r.Categoria__c = c.Categoria__c;
         r.Assunto__c = c.Assunto__c;
         r.Subassunto__c = c.Subassunto__c;
+        r.Cliente__c = c.AccountId;
+        r.Modalidade__c = normalizeModalidade(c.Modalidade__c);
+        r.QuemReclamou__c = resolveQuemReclamou(c);
+        r.StatusRegistro__c = STATUS_REGISTRO_ABERTA;
+        r.CarimboDataHora__c = System.now();
+        r.DataInicioTicket__c = c.CreatedDate == null ? null : c.CreatedDate.date();
+        r.SemanaRecebimento__c = c.CreatedDate == null ? null : c.CreatedDate.format('yyyy-ww');
         // Area__c e Unidade__c hoje são picklists distintos com o mesmo conjunto de valores
         // (achado de auditoria: redundância pré-existente no objeto, fora de escopo corrigir
         // agora) - preenchidos com o mesmo valor para não deixar nenhum dos dois em branco.
@@ -109,6 +129,50 @@ public inherited sharing class ReclamacaoService {
         Id rtId = resolveRecordTypeId(cfg == null ? null : cfg.reclamacaoRecordTypeDeveloperName);
         if (rtId != null) r.RecordTypeId = rtId;
         return r;
+    }
+
+    @SuppressWarnings('PMD.ApexCRUDViolation')
+    private static Map<Id, Case> getCasesForReclamacao(List<Case> eligible) {
+        Set<Id> caseIds = new Set<Id>();
+        for (Case c : eligible) {
+            if (c != null && c.Id != null) {
+                caseIds.add(c.Id);
+            }
+        }
+        if (caseIds.isEmpty()) return new Map<Id, Case>();
+
+        return new Map<Id, Case>([
+            SELECT Id, AccountId, Contact.Name, SuppliedName, CreatedDate, Modalidade__c,
+                   Categoria__c, Assunto__c, Subassunto__c, UnidadeNegocio__c
+            FROM Case
+            WHERE Id IN :caseIds
+        ]);
+    }
+
+    private static String normalizeModalidade(String caseModalidade) {
+        if (String.isBlank(caseModalidade)
+            || caseModalidade == CASE_MODALIDADE_A_DEFINIR
+            || caseModalidade == CASE_MODALIDADE_NAO_SE_APLICA) {
+            return null;
+        }
+        if (caseModalidade == MODALIDADE_IMPORTACAO
+            || caseModalidade == MODALIDADE_EXPORTACAO
+            || caseModalidade == MODALIDADE_CABOTAGEM) {
+            return caseModalidade;
+        }
+        if (caseModalidade == CASE_MODALIDADE_CABOTAGEM_DESCARGA
+            || caseModalidade == CASE_MODALIDADE_CABOTAGEM_EMBARQUE) {
+            return MODALIDADE_CABOTAGEM;
+        }
+        return MODALIDADE_OUTRO;
+    }
+
+    private static String resolveQuemReclamou(Case c) {
+        if (c == null) return null;
+        if (c.Contact != null && String.isNotBlank(c.Contact.Name)) {
+            return c.Contact.Name;
+        }
+        return String.isBlank(c.SuppliedName) ? null : c.SuppliedName;
     }
 
     private static Id resolveRecordTypeId(String developerName) {
@@ -123,7 +187,7 @@ public inherited sharing class ReclamacaoService {
         if (recordTypeIdByDeveloperName != null) return recordTypeIdByDeveloperName;
 
         recordTypeIdByDeveloperName = new Map<String, Id>();
-        for (Schema.RecordTypeInfo info : Reclamacao__c.SObjectType.getDescribe().getRecordTypeInfos()) {
+        for (Schema.RecordTypeInfo info : Reclamacao__c.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getRecordTypeInfos()) {
             recordTypeIdByDeveloperName.put(info.getDeveloperName(), info.getRecordTypeId());
         }
         return recordTypeIdByDeveloperName;

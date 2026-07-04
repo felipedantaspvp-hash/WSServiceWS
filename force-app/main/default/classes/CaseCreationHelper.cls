@@ -52,7 +52,7 @@ public inherited sharing class CaseCreationHelper {
 
     public static Map<String, String> getCasePicklistValueToLabel(String fieldApiName) {
         Map<String, String> out = new Map<String, String>();
-        Map<String, Schema.SObjectField> fieldsByApi = Case.SObjectType.getDescribe().fields.getMap();
+        Map<String, Schema.SObjectField> fieldsByApi = Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
         if (!fieldsByApi.containsKey(fieldApiName)) return out;
 
         Schema.DescribeFieldResult dfr = fieldsByApi.get(fieldApiName).getDescribe();
@@ -86,7 +86,7 @@ public inherited sharing class CaseCreationHelper {
 
     public static List<CaseCreationDTO.PicklistOptionDTO> toSortedTranslatedOptions(Set<String> values, String caseFieldApiName) {
         Map<String, String> labelsByValue = getCasePicklistValueToLabel(caseFieldApiName);
-        Map<String, Schema.SObjectField> fieldsByApi = Case.SObjectType.getDescribe().fields.getMap();
+        Map<String, Schema.SObjectField> fieldsByApi = Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
         Map<String, String> valueByNormalized = new Map<String, String>();
         if (fieldsByApi.containsKey(caseFieldApiName)) {
             for (Schema.PicklistEntry pe : fieldsByApi.get(caseFieldApiName).getDescribe().getPicklistValues()) {
@@ -121,7 +121,7 @@ public inherited sharing class CaseCreationHelper {
     }
 
     public static List<CaseCreationDTO.PicklistOptionDTO> toSortedOptionsWithLabels(Set<String> values, Map<String, String> labelsByValue, String caseFieldApiName) {
-        Map<String, Schema.SObjectField> fieldsByApi = Case.SObjectType.getDescribe().fields.getMap();
+        Map<String, Schema.SObjectField> fieldsByApi = Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
         Map<String, List<Schema.PicklistEntry>> entriesByNormalizedValue = new Map<String, List<Schema.PicklistEntry>>();
         Map<String, String> canonicalValueByNormalized = new Map<String, String>();
         if (fieldsByApi.containsKey(caseFieldApiName)) {

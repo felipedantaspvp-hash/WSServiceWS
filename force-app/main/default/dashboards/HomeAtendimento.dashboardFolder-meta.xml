@@ -5,5 +5,10 @@
         <sharedTo>suportewilsonsons@triscal.com.br</sharedTo>
         <sharedToType>User</sharedToType>
     </folderShares>
+    <folderShares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>Atendimento</sharedTo>
+        <sharedToType>RoleAndSubordinatesInternal</sharedToType>
+    </folderShares>
     <name>Home Atendimento</name>
 </DashboardFolder>

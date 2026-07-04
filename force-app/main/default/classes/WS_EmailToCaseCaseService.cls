@@ -72,7 +72,7 @@ public inherited sharing class WS_EmailToCaseCaseService {
         }
         if (recordTypeByDevName == null) {
             recordTypeByDevName = new Map<String, Id>();
-            for (Schema.RecordTypeInfo info : Case.SObjectType.getDescribe().getRecordTypeInfos()) {
+            for (Schema.RecordTypeInfo info : Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getRecordTypeInfos()) {
                 recordTypeByDevName.put(info.getDeveloperName(), info.getRecordTypeId());
             }
         }
@@ -145,7 +145,7 @@ public inherited sharing class WS_EmailToCaseCaseService {
         if (row == null || value == null || String.isBlank(fieldApiName)) {
             return;
         }
-        Map<String, Schema.SObjectField> fieldMap = Case.SObjectType.getDescribe().fields.getMap();
+        Map<String, Schema.SObjectField> fieldMap = Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
         if (!fieldMap.containsKey(fieldApiName)) {
             return;
         }

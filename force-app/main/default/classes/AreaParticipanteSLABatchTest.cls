@@ -12,46 +12,39 @@ private class AreaParticipanteSLABatchTest {
     }
 
     private static Categorizacao__c createCategorizacao() {
-        Categorizacao__c c = CategorizacaoTestDataFactory.base(false, false);
-        insert c;
-        return c;
+        return TestDataFactory.createCategorizacao(null);
+    }
+
+    private static Case createCaseWithoutSla(String area1, String area2) {
+        String mp = String.isBlank(area2) ? area1 : area1 + ';' + area2;
+        return TestDataFactory.createCase(new Map<String, Object>{
+            'AreasParticipantesSLA__c' => mp,
+            'EtapaAtendimento__c' => 'Aguardando Área Interna'
+        });
     }
 
     private static RegrasSLACategorizacao__c createRule(Id categId, String area, String priority) {
-        List<Schema.PicklistEntry> ue = GestaoSLA__c.UnidadeNegocio__c.getDescribe().getPicklistValues();
-        String unidade = ue.isEmpty() ? 'Salvador' : ue[0].getValue();
-        GestaoSLA__c g = new GestaoSLA__c(
-            Name = 'Gestao Batch ' + String.valueOf(Crypto.getRandomInteger()),
-            UnidadeNegocio__c = unidade,
-            EntitlementProcessName__c = 'Atendimento Salvador',
-            BusinessHoursName__c = getBhName(),
-            Ativo__c = true
-        );
-        insert g;
-        RegrasSLACategorizacao__c r = new RegrasSLACategorizacao__c(
-            Categorizacao__c = categId,
-            AreaAtendimento__c = area,
-            BusinessHoursName__c = getBhName(),
-            Ativo__c = true,
-            GestaoSLA__c = g.Id,
-            EscopoRegra__c = RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA,
-            TempoBaixa__c = 30,
-            TempoMedia__c = 30,
-            TempoAlta__c = 30
-        );
-        insert r;
-        Categorizacao__c categ = new Categorizacao__c(Id = categId);
-        categ.GestaoSLA__c = g.Id;
-        update categ;
+        String bhName = getBhName();
+        GestaoSLA__c g = TestDataFactory.createGestaoSla(new Map<String, Object>{
+            'Name' => 'Gestao Batch ' + String.valueOf(Crypto.getRandomInteger()),
+            'BusinessHoursName__c' => bhName
+        });
+        RegrasSLACategorizacao__c r = TestDataFactory.createRegraSla(categId, g.Id, area, new Map<String, Object>{
+            'BusinessHoursName__c' => bhName,
+            'TempoBaixa__c' => 30,
+            'TempoMedia__c' => 30,
+            'TempoAlta__c' => 30
+        });
+        TestDataFactory.linkGestaoSla(categId, g.Id);
         return r;
     }
 
     @IsTest
     static void testBatchRecalculatesAndMarksOverdue() {
         enableDeterministicBusinessHoursMath();
-        String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
+        String area = TestDataFactory.commonAreaValues()[0];
         Categorizacao__c categ = createCategorizacao();
-        Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(area, null);
+        Case c = createCaseWithoutSla(area, null);
         c.Categorizacao__c = categ.Id;
         c.Priority = 'Medium';
         c.Origin = 'Manual';
@@ -59,14 +52,12 @@ private class AreaParticipanteSLABatchTest {
 
         createRule(categ.Id, area, 'Medium');
 
-        AreaParticipante__c ap = new AreaParticipante__c(
-            Caso__c = c.Id,
-            TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
-            AreaAtendimento__c = area,
-            StatusAtuacao__c = AreaParticipanteSLAHelper.STATUS_ATUACAO_ABERTA,
-            ComentarioSolicitacao__c = 'batch open'
-        );
-        insert ap;
+        AreaParticipante__c ap = TestDataFactory.createAreaParticipante(c.Id, new Map<String, Object>{
+            'TipoAreaParticipante__c' => AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
+            'AreaAtendimento__c' => area,
+            'StatusAtuacao__c' => AreaParticipanteSLAHelper.STATUS_ATUACAO_ABERTA,
+            'ComentarioSolicitacao__c' => 'batch open'
+        });
 
         ap = [SELECT Id, DataHoraPrazo__c FROM AreaParticipante__c WHERE Id = :ap.Id];
         ap.DataHoraPrazo__c = System.now().addMinutes(-5);
@@ -94,9 +85,9 @@ private class AreaParticipanteSLABatchTest {
     @IsTest
     static void testBatchDoesNotChangePausedRows() {
         enableDeterministicBusinessHoursMath();
-        String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
+        String area = TestDataFactory.commonAreaValues()[0];
         Categorizacao__c categ = createCategorizacao();
-        Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(area, null);
+        Case c = createCaseWithoutSla(area, null);
         c.Categorizacao__c = categ.Id;
         c.Priority = 'Medium';
         c.Origin = 'Manual';
@@ -104,16 +95,14 @@ private class AreaParticipanteSLABatchTest {
 
         createRule(categ.Id, area, 'Medium');
 
-        AreaParticipante__c ap = new AreaParticipante__c(
-            Caso__c = c.Id,
-            TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
-            AreaAtendimento__c = area,
-            StatusAtuacao__c = AreaParticipanteSLAHelper.STATUS_ATUACAO_PAUSADA,
-            StatusSLA__c = AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO,
-            DataHoraInicioPausa__c = System.now().addMinutes(-30),
-            ComentarioSolicitacao__c = 'batch paused'
-        );
-        insert ap;
+        AreaParticipante__c ap = TestDataFactory.createAreaParticipante(c.Id, new Map<String, Object>{
+            'TipoAreaParticipante__c' => AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
+            'AreaAtendimento__c' => area,
+            'StatusAtuacao__c' => AreaParticipanteSLAHelper.STATUS_ATUACAO_PAUSADA,
+            'StatusSLA__c' => AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO,
+            'DataHoraInicioPausa__c' => System.now().addMinutes(-30),
+            'ComentarioSolicitacao__c' => 'batch paused'
+        });
 
         AreaParticipante__c beforeRow = [SELECT Id, StatusSLA__c, DataHoraInicioPausa__c FROM AreaParticipante__c WHERE Id = :ap.Id];
 
@@ -129,9 +118,9 @@ private class AreaParticipanteSLABatchTest {
     @IsTest
     static void testBatchDoesNotProcessClosedOrCanceledRows() {
         enableDeterministicBusinessHoursMath();
-        String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
+        String area = TestDataFactory.commonAreaValues()[0];
         Categorizacao__c categ = createCategorizacao();
-        Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(area, null);
+        Case c = createCaseWithoutSla(area, null);
         c.Categorizacao__c = categ.Id;
         c.Priority = 'Medium';
         c.Origin = 'Manual';
@@ -139,16 +128,14 @@ private class AreaParticipanteSLABatchTest {
 
         createRule(categ.Id, area, 'Medium');
 
-        AreaParticipante__c closed = new AreaParticipante__c(
-            Caso__c = c.Id,
-            TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
-            AreaAtendimento__c = area,
-            StatusAtuacao__c = AreaParticipanteSLAHelper.STATUS_ATUACAO_CONCLUIDA,
-            StatusSLA__c = AreaParticipanteSLAHelper.STATUS_SLA_CONCLUIDO,
-            DataHoraFim__c = System.now(),
-            ComentarioSolicitacao__c = 'closed row'
-        );
-        insert closed;
+        AreaParticipante__c closed = TestDataFactory.createAreaParticipante(c.Id, new Map<String, Object>{
+            'TipoAreaParticipante__c' => AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
+            'AreaAtendimento__c' => area,
+            'StatusAtuacao__c' => AreaParticipanteSLAHelper.STATUS_ATUACAO_CONCLUIDA,
+            'StatusSLA__c' => AreaParticipanteSLAHelper.STATUS_SLA_CONCLUIDO,
+            'DataHoraFim__c' => System.now(),
+            'ComentarioSolicitacao__c' => 'closed row'
+        });
 
         Datetime beforeFim = closed.DataHoraFim__c;
         AreaParticipante__c beforeRow = [SELECT Id, StatusSLA__c FROM AreaParticipante__c WHERE Id = :closed.Id];
@@ -165,9 +152,9 @@ private class AreaParticipanteSLABatchTest {
     @IsTest
     static void testBatchDoesNotProcessCanceledRows() {
         enableDeterministicBusinessHoursMath();
-        String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
+        String area = TestDataFactory.commonAreaValues()[0];
         Categorizacao__c categ = createCategorizacao();
-        Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(area, null);
+        Case c = createCaseWithoutSla(area, null);
         c.Categorizacao__c = categ.Id;
         c.Priority = 'Medium';
         c.Origin = 'Manual';
@@ -175,16 +162,14 @@ private class AreaParticipanteSLABatchTest {
 
         createRule(categ.Id, area, 'Medium');
 
-        AreaParticipante__c canceled = new AreaParticipante__c(
-            Caso__c = c.Id,
-            TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
-            AreaAtendimento__c = area,
-            StatusAtuacao__c = AreaParticipanteSLAHelper.STATUS_ATUACAO_CANCELADA,
-            StatusSLA__c = AreaParticipanteSLAHelper.STATUS_SLA_CANCELADO,
-            DataHoraFim__c = System.now(),
-            ComentarioSolicitacao__c = 'canceled row'
-        );
-        insert canceled;
+        AreaParticipante__c canceled = TestDataFactory.createAreaParticipante(c.Id, new Map<String, Object>{
+            'TipoAreaParticipante__c' => AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
+            'AreaAtendimento__c' => area,
+            'StatusAtuacao__c' => AreaParticipanteSLAHelper.STATUS_ATUACAO_CANCELADA,
+            'StatusSLA__c' => AreaParticipanteSLAHelper.STATUS_SLA_CANCELADO,
+            'DataHoraFim__c' => System.now(),
+            'ComentarioSolicitacao__c' => 'canceled row'
+        });
 
         Datetime beforeFim = canceled.DataHoraFim__c;
         AreaParticipante__c beforeRow = [SELECT Id, StatusSLA__c FROM AreaParticipante__c WHERE Id = :canceled.Id];

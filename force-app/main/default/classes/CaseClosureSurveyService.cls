@@ -38,6 +38,7 @@ public inherited sharing class CaseClosureSurveyService {
         Case c = getCaseById(request.caseId);
         if (c == null) throwFunctional('CASE_NOT_FOUND', Label.CaseClosureSurvey_CaseNotFound);
         if (c.IsClosed) throwFunctional('CASE_ALREADY_CLOSED', Label.CaseClosureSurvey_CaseAlreadyClosed);
+        if (c.IsStopped == true) throwFunctional('CASE_ON_HOLD', Label.CaseClosureSurvey_CaseOnHoldBlocked);
         validateCaseCategorization(c);
 
         AtendimentoConfigDTO config = AtendimentoConfigService.getSurveyConfigByBusinessUnit(c.UnidadeNegocio__c);
@@ -148,7 +149,7 @@ public inherited sharing class CaseClosureSurveyService {
 
     private static Case getCaseById(Id caseId) {
         List<Case> rows = [
-            SELECT Id, CaseNumber, RecordTypeId, Status, IsClosed, UnidadeNegocio__c, Origin, ContactId, Contact.Email,
+            SELECT Id, CaseNumber, RecordTypeId, Status, IsClosed, IsStopped, UnidadeNegocio__c, Origin, ContactId, Contact.Email,
                    ContactEmail, SuppliedEmail, MotivoEncerramento__c, ComentarioEncerramento__c,
                    SolucaoCaso__c, EnviarPesquisaSatisfacao__c, PesquisaEnviada__c, DataHoraEnvioPesquisa__c,
                    Categorizacao__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, ReclamacaoGerada__c

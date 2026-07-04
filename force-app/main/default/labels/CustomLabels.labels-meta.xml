@@ -4230,4 +4230,20 @@
         <shortDescription>Yes option label</shortDescription>
         <value>Yes</value>
     </labels>
+    <labels>
+        <fullName>AreaParticipante_CaseClosedAddBlocked</fullName>
+        <categories>AreaParticipante</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Closed Case participant area blocked error</shortDescription>
+        <value>Participant areas cannot be added to closed, completed, or canceled Cases.</value>
+    </labels>
+    <labels>
+        <fullName>CaseClosureSurvey_CaseOnHoldBlocked</fullName>
+        <categories>CaseClosureSurvey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case on hold closure blocked error</shortDescription>
+        <value>Cases on hold cannot be closed. Resume service before closing the case.</value>
+    </labels>
 </CustomLabels>

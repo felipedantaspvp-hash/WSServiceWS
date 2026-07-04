@@ -17,10 +17,10 @@ private class CaseClosureSurveyControllerTest {
             Origin = 'Telefone',
             UnidadeNegocio__c = 'Centro Logístico',
             ContactId = contact.Id,
-            SuppliedEmail = contact.Email,
-            Categorizacao__c = categorizacao.Id
+            SuppliedEmail = contact.Email
         );
         insert c;
+        update new Case(Id = c.Id, Categorizacao__c = categorizacao.Id, IsStopped = false);
 
         AtendimentoConfigDTO config = new AtendimentoConfigDTO();
         config.businessUnit = 'Centro Logístico';
@@ -38,13 +38,13 @@ private class CaseClosureSurveyControllerTest {
         CaseClosureSurveyDTO request = new CaseClosureSurveyDTO();
         request.caseId = c.Id;
         request.selectedSendSurvey = false;
-        request.closureReason = 'A definir';
+        request.closureReason = 'Resolvido';
         request.closureSolution = 'Resolvido pelo atendimento.';
         request.closureComment = 'Sem envio de pesquisa por decisão do usuário.';
 
         CaseClosureSurveyDTO response = CaseClosureSurveyController.closeCase(request);
+        Assert.areEqual(null, response.errorMessage, 'Erro inesperado no encerramento: ' + response.errorMessage);
         Assert.areEqual(Label.CaseClosureSurvey_SuccessMessage, response.successMessage);
-        Assert.areEqual(null, response.errorMessage);
 
         AtendimentoConfigService.clearTestSurveyConfigs();
     }
@@ -56,6 +56,40 @@ private class CaseClosureSurveyControllerTest {
         CaseClosureSurveyDTO response = CaseClosureSurveyController.closeCase(request);
 
         Assert.areEqual(Label.CaseClosureSurvey_CaseRequired, response.errorMessage);
+    }
+
+    @IsTest
+    static void controllerBlocksCloseWhenCaseIsOnHold() {
+        Contact contact = new Contact(
+            LastName = 'Cliente Em Espera',
+            Email = 'cliente.espera@example.com',
+            Phone = '11999990000'
+        );
+        insert contact;
+
+        Categorizacao__c categorizacao = createCentroLogisticoCategorization();
+
+        Case c = new Case(
+            Subject = 'Atendimento em espera',
+            Status = 'Aberto',
+            Origin = 'Telefone',
+            UnidadeNegocio__c = 'Centro Logístico',
+            ContactId = contact.Id,
+            SuppliedEmail = contact.Email
+        );
+        insert c;
+        update new Case(Id = c.Id, Categorizacao__c = categorizacao.Id, IsStopped = true);
+
+        CaseClosureSurveyDTO request = new CaseClosureSurveyDTO();
+        request.caseId = c.Id;
+        request.selectedSendSurvey = false;
+        request.closureReason = 'Resolvido';
+        request.closureSolution = 'Resolvido pelo atendimento.';
+        request.closureComment = 'Tentativa bloqueada por espera.';
+
+        CaseClosureSurveyDTO response = CaseClosureSurveyController.closeCase(request);
+
+        Assert.areEqual(Label.CaseClosureSurvey_CaseOnHoldBlocked, response.errorMessage);
     }
 
     @IsTest
@@ -75,14 +109,14 @@ private class CaseClosureSurveyControllerTest {
             Origin = 'Email',
             UnidadeNegocio__c = 'Centro Logístico',
             ContactId = contact.Id,
-            SuppliedEmail = contact.Email,
-            Categorizacao__c = categorizacao.Id
+            SuppliedEmail = contact.Email
         );
         insert c;
+        update new Case(Id = c.Id, Categorizacao__c = categorizacao.Id);
 
         CaseClosureSurveyDTO request = new CaseClosureSurveyDTO();
         request.caseId = c.Id;
-        request.closureReason = 'A definir';
+        request.closureReason = 'Resolvido';
         request.closureSolution = 'Forçar erro de DML.';
 
         CaseClosureSurveyController.forceUnexpectedErrorForTest = true;

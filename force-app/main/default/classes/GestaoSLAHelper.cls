@@ -73,7 +73,7 @@ public inherited sharing class GestaoSLAHelper {
         }
 
         Set<String> out = new Set<String>();
-        Map<String, Schema.RecordTypeInfo> rtInfos = Case.SObjectType.getDescribe().getRecordTypeInfosByDeveloperName();
+        Map<String, Schema.RecordTypeInfo> rtInfos = Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getRecordTypeInfosByDeveloperName();
         for (String devName : unidadeByRtDevName.keySet()) {
             Schema.RecordTypeInfo info = rtInfos.get(devName);
             if (info != null && info.isAvailable()) {

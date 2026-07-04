@@ -11,5 +11,10 @@
     <columns>Subassunto__c</columns>
     <columns>CASES.LAST_UPDATE</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Fechado,Cancelado</value>
+    </filters>
     <label>Todos os casos abertos</label>
 </ListView>

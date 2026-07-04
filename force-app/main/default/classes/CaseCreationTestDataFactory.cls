@@ -1,7 +1,9 @@
+// Wrapper fino sobre TestDataFactory (Pacote 40) para catRow: a lógica de montagem do
+// SObject vive só em TestDataFactory, evitando divergência entre implementações duplicadas.
 @IsTest
 public inherited sharing class CaseCreationTestDataFactory {
     public static RecordType anyCaseRt() {
-        return [SELECT Id, DeveloperName FROM RecordType WHERE SObjectType='Case' AND IsActive=true LIMIT 1];
+        return TestDataFactory.anyActiveRecordType('Case');
     }
 
     public static CaseCreationDTO.CategorizationRequestDTO baseCategorization() {
@@ -20,17 +22,17 @@ public inherited sharing class CaseCreationTestDataFactory {
     // Mantém a assinatura/semântica histórica do chamador: porCat=true significa "distribuição
     // direta pela categorização, sem campo/valor extra" — o oposto do novo PorCampoCustomizado__c.
     public static Categorizacao__c catRow(Boolean distribuir, Boolean porCat, String filaDevName, Id rtId) {
-        Categorizacao__c row = new Categorizacao__c();
-        row.RecordTypeId = rtId;
-        row.UnidadeNegocios__c = 'Salvador';
-        row.TipoCaso__c = 'Solicitação';
-        row.Categoria__c = 'Operação';
-        row.Assunto__c = 'Acesso';
-        row.Subassunto__c = 'Acesso indisponível';
-        row.Ativo__c = true;
-        row.DistribuirParaFila__c = distribuir ? 'Sim' : 'Não';
-        row.PorCampoCustomizado__c = porCat ? 'Não' : 'Sim';
-        row.FilaDeveloperName__c = filaDevName;
-        return row;
+        return TestDataFactory.buildCategorizacao(new Map<String, Object>{
+            'RecordTypeId' => rtId,
+            'UnidadeNegocios__c' => 'Salvador',
+            'TipoCaso__c' => 'Solicitação',
+            'Categoria__c' => 'Operação',
+            'Assunto__c' => 'Acesso',
+            'Subassunto__c' => 'Acesso indisponível',
+            'Ativo__c' => true,
+            'DistribuirParaFila__c' => distribuir ? 'Sim' : 'Não',
+            'PorCampoCustomizado__c' => porCat ? 'Não' : 'Sim',
+            'FilaDeveloperName__c' => filaDevName
+        });
     }
 }

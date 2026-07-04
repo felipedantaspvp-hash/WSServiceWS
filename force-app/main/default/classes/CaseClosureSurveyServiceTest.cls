@@ -340,7 +340,7 @@ private class CaseClosureSurveyServiceTest {
         CaseClosureSurveyDTO request = new CaseClosureSurveyDTO();
         request.caseId = caseId;
         request.selectedSendSurvey = sendSurvey;
-        request.closureReason = 'A definir';
+        request.closureReason = 'Resolvido';
         request.closureSolution = 'Atendimento concluído.';
         request.closureComment = 'Encerramento registrado pela action.';
         return request;

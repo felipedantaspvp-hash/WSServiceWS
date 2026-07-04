@@ -156,6 +156,7 @@ public inherited sharing class WS_EmailToCaseInboundService {
             try {
                 logService.logError(ctx, ex.getMessage(), persistAudit);
             } catch (Exception ignoredLogEx) {
+                System.debug(LoggingLevel.WARN, 'Log service unavailable; swallowed to protect main flow: ' + ignoredLogEx.getMessage());
             }
             result.success = true;
             result.message = 'Falha controlada no processamento: ' + ex.getMessage();

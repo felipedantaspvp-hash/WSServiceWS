@@ -45,7 +45,9 @@ private class AreaParticipanteRegiaoAtendimentoTest {
             Origin = AreaParticipanteTestDataFactory.pickValue('Case', 'Origin', 0),
             Priority = AreaParticipanteTestDataFactory.pickValue('Case', 'Priority', 0),
             AreasParticipantesSLA__c = 'Atendimento China',
-            EtapaAtendimento__c = 'Aguardando Área Interna'
+            EtapaAtendimento__c = 'Aguardando Área Interna',
+            NavioNome__c = 'Navio Teste',
+            PortoNome__c = 'Porto Teste'
         );
         insert c;
 

@@ -1,9 +1,15 @@
 @IsTest
 private class CaseAreaParticipantePauseServiceTest {
     private static Categorizacao__c createCategorizacao() {
-        Categorizacao__c c = CategorizacaoTestDataFactory.base(false, false);
-        insert c;
-        return c;
+        return TestDataFactory.createCategorizacao(null);
+    }
+
+    private static Case createCaseWithoutSla(String area1, String area2) {
+        String mp = String.isBlank(area2) ? area1 : area1 + ';' + area2;
+        return TestDataFactory.createCase(new Map<String, Object>{
+            'AreasParticipantesSLA__c' => mp,
+            'EtapaAtendimento__c' => 'Aguardando Área Interna'
+        });
     }
 
     private static String getBhName() {
@@ -13,31 +19,18 @@ private class CaseAreaParticipantePauseServiceTest {
     }
 
     private static RegrasSLACategorizacao__c createRule(Id categId, String area) {
-        List<Schema.PicklistEntry> ue = GestaoSLA__c.UnidadeNegocio__c.getDescribe().getPicklistValues();
-        String unidade = ue.isEmpty() ? 'Salvador' : ue[0].getValue();
-        GestaoSLA__c g = new GestaoSLA__c(
-            Name = 'Gestao Pause ' + String.valueOf(Crypto.getRandomInteger()),
-            UnidadeNegocio__c = unidade,
-            EntitlementProcessName__c = 'Atendimento Salvador',
-            BusinessHoursName__c = getBhName(),
-            Ativo__c = true
-        );
-        insert g;
-        RegrasSLACategorizacao__c r = new RegrasSLACategorizacao__c(
-            Categorizacao__c = categId,
-            AreaAtendimento__c = area,
-            BusinessHoursName__c = getBhName(),
-            Ativo__c = true,
-            GestaoSLA__c = g.Id,
-            EscopoRegra__c = RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA,
-            TempoBaixa__c = 120,
-            TempoMedia__c = 120,
-            TempoAlta__c = 120
-        );
-        insert r;
-        Categorizacao__c categ = new Categorizacao__c(Id = categId);
-        categ.GestaoSLA__c = g.Id;
-        update categ;
+        String bhName = getBhName();
+        GestaoSLA__c g = TestDataFactory.createGestaoSla(new Map<String, Object>{
+            'Name' => 'Gestao Pause ' + String.valueOf(Crypto.getRandomInteger()),
+            'BusinessHoursName__c' => bhName
+        });
+        RegrasSLACategorizacao__c r = TestDataFactory.createRegraSla(categId, g.Id, area, new Map<String, Object>{
+            'BusinessHoursName__c' => bhName,
+            'TempoBaixa__c' => 120,
+            'TempoMedia__c' => 120,
+            'TempoAlta__c' => 120
+        });
+        TestDataFactory.linkGestaoSla(categId, g.Id);
         return r;
     }
 
@@ -52,23 +45,20 @@ private class CaseAreaParticipantePauseServiceTest {
 
     private static AreaParticipante__c createOpenArea(Case c, String area) {
         AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
-        AreaParticipante__c ap = new AreaParticipante__c(
-            Caso__c = c.Id,
-            TipoAreaParticipante__c = AreaParticipanteSLAHelper.tipoAreaInternaApiValue(),
-            AreaAtendimento__c = area,
-            StatusAtuacao__c = AreaParticipanteSLAHelper.STATUS_ATUACAO_ABERTA,
-            ComentarioSolicitacao__c = 'pause test'
-        );
-        insert ap;
-        return ap;
+        return TestDataFactory.createAreaParticipante(c.Id, new Map<String, Object>{
+            'TipoAreaParticipante__c' => AreaParticipanteSLAHelper.tipoAreaInternaApiValue(),
+            'AreaAtendimento__c' => area,
+            'StatusAtuacao__c' => AreaParticipanteSLAHelper.STATUS_ATUACAO_ABERTA,
+            'ComentarioSolicitacao__c' => 'pause test'
+        });
     }
 
     @IsTest
     static void testPauseOnEnteringAguardandoCliente() {
         CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
-        String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
+        String area = TestDataFactory.commonAreaValues()[0];
         Categorizacao__c categ = createCategorizacao();
-        Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(area, null);
+        Case c = createCaseWithoutSla(area, null);
         c.Categorizacao__c = categ.Id;
         c.Priority = 'Medium';
         c.Origin = 'Manual';
@@ -105,9 +95,9 @@ private class CaseAreaParticipantePauseServiceTest {
     static void testResumeRestoresStatusAndDeadlineAndSlaStatus() {
         CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
         AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
-        String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
+        String area = TestDataFactory.commonAreaValues()[0];
         Categorizacao__c categ = createCategorizacao();
-        Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(area, null);
+        Case c = createCaseWithoutSla(area, null);
         c.Categorizacao__c = categ.Id;
         c.Priority = 'Medium';
         c.Origin = 'Manual';
@@ -156,9 +146,9 @@ private class CaseAreaParticipantePauseServiceTest {
     static void testResumeKeepsVencidoWhenStillOverdue() {
         CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
         AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
-        String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
+        String area = TestDataFactory.commonAreaValues()[0];
         Categorizacao__c categ = createCategorizacao();
-        Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(area, null);
+        Case c = createCaseWithoutSla(area, null);
         c.Categorizacao__c = categ.Id;
         c.Priority = 'Medium';
         c.Origin = 'Manual';
@@ -199,30 +189,28 @@ private class CaseAreaParticipantePauseServiceTest {
     static void testPauseSkipsNonInternalAndAlreadyPausedRows() {
         CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
         AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
-        String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
+        String area = TestDataFactory.commonAreaValues()[0];
         Categorizacao__c categ = createCategorizacao();
-        Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(area, null);
+        Case c = createCaseWithoutSla(area, null);
         c.Categorizacao__c = categ.Id;
         c.Priority = 'Medium';
         c.Origin = 'Manual';
         update c;
         createRule(categ.Id, area);
 
-        AreaParticipante__c nonInternal = new AreaParticipante__c(
-            Caso__c = c.Id,
-            TipoAreaParticipante__c = getNonInternalTipoAreaValue(),
-            AreaAtendimento__c = area,
-            StatusAtuacao__c = AreaParticipanteSLAHelper.STATUS_ATUACAO_ABERTA,
-            ComentarioSolicitacao__c = 'skip non internal'
-        );
-        AreaParticipante__c alreadyPaused = new AreaParticipante__c(
-            Caso__c = c.Id,
-            TipoAreaParticipante__c = AreaParticipanteSLAHelper.tipoAreaInternaApiValue(),
-            AreaAtendimento__c = area,
-            StatusAtuacao__c = AreaParticipanteSLAHelper.STATUS_ATUACAO_PAUSADA,
-            StatusSLA__c = AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO,
-            ComentarioSolicitacao__c = 'skip paused'
-        );
+        AreaParticipante__c nonInternal = TestDataFactory.buildAreaParticipante(c.Id, new Map<String, Object>{
+            'TipoAreaParticipante__c' => getNonInternalTipoAreaValue(),
+            'AreaAtendimento__c' => area,
+            'StatusAtuacao__c' => AreaParticipanteSLAHelper.STATUS_ATUACAO_ABERTA,
+            'ComentarioSolicitacao__c' => 'skip non internal'
+        });
+        AreaParticipante__c alreadyPaused = TestDataFactory.buildAreaParticipante(c.Id, new Map<String, Object>{
+            'TipoAreaParticipante__c' => AreaParticipanteSLAHelper.tipoAreaInternaApiValue(),
+            'AreaAtendimento__c' => area,
+            'StatusAtuacao__c' => AreaParticipanteSLAHelper.STATUS_ATUACAO_PAUSADA,
+            'StatusSLA__c' => AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO,
+            'ComentarioSolicitacao__c' => 'skip paused'
+        });
         insert new List<AreaParticipante__c>{ nonInternal, alreadyPaused };
 
         Case oldCase = (Case) c.clone(true, true, true, true);
@@ -251,9 +239,9 @@ private class CaseAreaParticipantePauseServiceTest {
     static void testResumeUsesAndamentoWhenPreviousStatusIsBlank() {
         CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
         AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
-        String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
+        String area = TestDataFactory.commonAreaValues()[0];
         Categorizacao__c categ = createCategorizacao();
-        Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(area, null);
+        Case c = createCaseWithoutSla(area, null);
         c.Categorizacao__c = categ.Id;
         c.Priority = 'Medium';
         c.Origin = 'Manual';
@@ -297,8 +285,8 @@ private class CaseAreaParticipantePauseServiceTest {
     static void testPauseEnterSetsMilestonePauseField() {
         CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
         CaseAreaParticipantePauseService.bypassCaseMilestoneDmlInTests = false;
-        Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(
-            AreaParticipanteTestDataFactory.commonAreaValues()[0], null
+        Case c = createCaseWithoutSla(
+            TestDataFactory.commonAreaValues()[0], null
         );
 
         Case oldCase = (Case) c.clone(true, true, true, true);
@@ -321,8 +309,8 @@ private class CaseAreaParticipantePauseServiceTest {
     static void testResumeExitClearsMilestonePauseField() {
         CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
         CaseAreaParticipantePauseService.bypassCaseMilestoneDmlInTests = false;
-        Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(
-            AreaParticipanteTestDataFactory.commonAreaValues()[0], null
+        Case c = createCaseWithoutSla(
+            TestDataFactory.commonAreaValues()[0], null
         );
 
         c.DataHoraPausaMilestone__c = System.now().addMinutes(-15);
@@ -348,8 +336,8 @@ private class CaseAreaParticipantePauseServiceTest {
     static void testBypassSkipsCaseMilestoneDml() {
         CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
         CaseAreaParticipantePauseService.bypassCaseMilestoneDmlInTests = true;
-        Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(
-            AreaParticipanteTestDataFactory.commonAreaValues()[0], null
+        Case c = createCaseWithoutSla(
+            TestDataFactory.commonAreaValues()[0], null
         );
 
         Case oldCase = (Case) c.clone(true, true, true, true);
@@ -371,9 +359,9 @@ private class CaseAreaParticipantePauseServiceTest {
     @IsTest
     static void testNoOpWhenRecursionGuardIsAlreadyEntered() {
         CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
-        String area = AreaParticipanteTestDataFactory.commonAreaValues()[0];
+        String area = TestDataFactory.commonAreaValues()[0];
         Categorizacao__c categ = createCategorizacao();
-        Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(area, null);
+        Case c = createCaseWithoutSla(area, null);
         c.Categorizacao__c = categ.Id;
         c.Priority = 'Medium';
         c.Origin = 'Manual';

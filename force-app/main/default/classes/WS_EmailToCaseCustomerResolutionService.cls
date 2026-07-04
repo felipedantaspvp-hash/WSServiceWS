@@ -130,7 +130,7 @@ public inherited sharing class WS_EmailToCaseCustomerResolutionService {
         }
 
         String[] nameParts = WSWillCaseCreationHelper.splitFullName(displayName);
-        Map<String, Schema.SObjectField> fieldMap = Contact.SObjectType.getDescribe().fields.getMap();
+        Map<String, Schema.SObjectField> fieldMap = Contact.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
 
         Contact contactRow = new Contact();
         putIfCreateable(contactRow, fieldMap, 'FirstName', nameParts[0]);

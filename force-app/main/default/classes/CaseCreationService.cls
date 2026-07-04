@@ -12,7 +12,7 @@ public inherited sharing class CaseCreationService {
 
         User u = CaseCreationSelector.getCurrentUser();
         Map<String, CaseCreationSelector.UnidadeConfig> cfg = CaseCreationSelector.getUnidadeConfigByRtDevName();
-        Map<Id, Schema.RecordTypeInfo> infos = Case.SObjectType.getDescribe().getRecordTypeInfosById();
+        Map<Id, Schema.RecordTypeInfo> infos = Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getRecordTypeInfosById();
 
         CaseCreationDTO.InitialContextDTO out = new CaseCreationDTO.InitialContextDTO();
         out.userId = u.Id;
@@ -112,7 +112,7 @@ public inherited sharing class CaseCreationService {
             out.usaCampoCustomizado = true;
             out.campoDistribuicao = matched.CampoDistribuicao__c;
             Map<String, String> labelsByValue = CaseCreationHelper.getCasePicklistValueToLabel(matched.CampoDistribuicao__c);
-            Map<String, Schema.SObjectField> caseFields = Case.SObjectType.getDescribe().fields.getMap();
+            Map<String, Schema.SObjectField> caseFields = Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
             out.campoDistribuicaoLabel = caseFields.containsKey(matched.CampoDistribuicao__c)
                 ? caseFields.get(matched.CampoDistribuicao__c).getDescribe().getLabel()
                 : matched.CampoDistribuicao__c;
@@ -293,7 +293,7 @@ public inherited sharing class CaseCreationService {
         ]);
         if (categorizacoesById.isEmpty()) return;
 
-        Map<String, Schema.SObjectField> caseFields = Case.SObjectType.getDescribe().fields.getMap();
+        Map<String, Schema.SObjectField> caseFields = Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
 
         for (Case c : newRows) {
             if (c.Categorizacao__c == null) continue;

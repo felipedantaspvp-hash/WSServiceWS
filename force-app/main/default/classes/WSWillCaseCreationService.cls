@@ -204,7 +204,7 @@ public inherited sharing class WSWillCaseCreationService {
                     Phone = req.customerPhone,
                     Idioma__c = WSWillContextResolverHelper.normalizePreferredLanguage(req.language)
                 );
-                putIfCreateable(newContact, Contact.SObjectType.getDescribe().fields.getMap(), 'BypassValidationsFromBot__c', true);
+                putIfCreateable(newContact, Contact.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap(), 'BypassValidationsFromBot__c', true);
                 if (fallbackAccountId != null) {
                     newContact.AccountId = fallbackAccountId;
                     item.resolvedAccountId = fallbackAccountId;
@@ -320,7 +320,7 @@ public inherited sharing class WSWillCaseCreationService {
             WSWillCaseCreationDTO.Request req = item.req;
 
             Case c = new Case();
-            Map<String, Schema.SObjectField> caseFields = Case.SObjectType.getDescribe().fields.getMap();
+            Map<String, Schema.SObjectField> caseFields = Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
             putIfCreateable(c, caseFields, 'RecordTypeId', item.targetRecordTypeId);
             putIfCreateable(c, caseFields, 'AccountId', item.resolvedAccountId);
             putIfCreateable(c, caseFields, 'ContactId', item.resolvedContactId);
@@ -409,7 +409,7 @@ public inherited sharing class WSWillCaseCreationService {
         Set<String> requestedQueueDevNames = new Set<String>();
         List<AtendimentoConfigDTO> unitConfigs = fetchActiveUnitConfigs();
         List<AtendimentoConfigDTO> channelConfigs = fetchActiveChannelConfigs();
-        Map<String, Schema.RecordTypeInfo> caseRecordTypesByDeveloperName = Case.SObjectType.getDescribe().getRecordTypeInfosByDeveloperName();
+        Map<String, Schema.RecordTypeInfo> caseRecordTypesByDeveloperName = Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getRecordTypeInfosByDeveloperName();
 
         for (WorkItem item : workItems) {
             if (item == null || item.req == null) continue;
@@ -616,7 +616,8 @@ public inherited sharing class WSWillCaseCreationService {
         if (contactIds == null || contactIds.isEmpty()) return out;
 
         List<String> selectFields = new List<String>{ 'Id', 'AccountId', 'Name', 'Email', 'Phone', 'Idioma__c' };
-        if (!String.isBlank(representedAccountField)) {
+        if (!String.isBlank(representedAccountField) &&
+            Schema.SObjectType.Contact.fields.getMap().containsKey(representedAccountField.toLowerCase())) {
             selectFields.add(representedAccountField);
         }
 
@@ -650,7 +651,8 @@ public inherited sharing class WSWillCaseCreationService {
         if (emails == null || emails.isEmpty()) return out;
 
         List<String> selectFields = new List<String>{ 'Id', 'AccountId', 'Name', 'Email', 'Phone', 'Idioma__c' };
-        if (!String.isBlank(representedAccountField)) {
+        if (!String.isBlank(representedAccountField) &&
+            Schema.SObjectType.Contact.fields.getMap().containsKey(representedAccountField.toLowerCase())) {
             selectFields.add(representedAccountField);
         }
 

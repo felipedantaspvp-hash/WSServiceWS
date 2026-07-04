@@ -5,7 +5,7 @@ public inherited sharing class AtendimentoContextResolverService {
         Map<Id, SObject> fetchByIds(String objectApiName, Set<Id> ids, Set<String> fieldsToRead);
     }
 
-    private class DefaultConversationGateway implements ConversationGateway {
+    private inherited sharing class DefaultConversationGateway implements ConversationGateway {
         public Map<Id, SObject> fetchByIds(String objectApiName, Set<Id> ids, Set<String> fieldsToRead) {
             Map<Id, SObject> out = new Map<Id, SObject>();
             if (String.isBlank(objectApiName) || ids == null || ids.isEmpty() || !AtendimentoContextResolverHelper.canQueryObject(objectApiName)) {
@@ -14,8 +14,9 @@ public inherited sharing class AtendimentoContextResolverService {
 
             Set<String> readableFields = AtendimentoContextResolverHelper.existingFields(objectApiName, fieldsToRead);
             readableFields.add('Id');
+            // objectApiName validated via canQueryObject() and readableFields via existingFields() above
             String soql = 'SELECT ' + String.join(new List<String>(readableFields), ',') + ' FROM ' + objectApiName + ' WHERE Id IN :ids';
-            for (SObject row : Database.query(soql)) {
+            for (SObject row : Database.queryWithBinds(soql, new Map<String, Object>{ 'ids' => ids }, AccessLevel.USER_MODE)) {
                 out.put((Id) row.get('Id'), row);
             }
             return out;

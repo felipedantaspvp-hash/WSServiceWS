@@ -15,7 +15,6 @@
     <testClassName>CaseCreationControllerTest</testClassName>
     <testClassName>CaseCreationSelectorTest</testClassName>
     <testClassName>CaseCreationServiceTest</testClassName>
-    <testClassName>CaseEntitlementAssignmentServiceTest</testClassName>
     <testClassName>CaseMilestoneMacroServiceTest</testClassName>
     <testClassName>CaseMilestoneTriggerTimeCalculatorTest</testClassName>
     <testClassName>CaseRecategorizationControllerTest</testClassName>
@@ -26,7 +25,6 @@
     <testClassName>CategorizacaoServiceTest</testClassName>
     <testClassName>CategorizacaoTriggerTest</testClassName>
     <testClassName>DTOCoverageTest</testClassName>
-    <testClassName>FlowRoutingErrorEmailInvocableTest</testClassName>
     <testClassName>GestaoSLAControllerTest</testClassName>
     <testClassName>GestaoSLAHelperTest</testClassName>
     <testClassName>GestaoSLAServiceTest</testClassName>

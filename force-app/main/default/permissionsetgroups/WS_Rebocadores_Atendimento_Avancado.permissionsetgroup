@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Grupo de atribuicao para atendentes avancados da unidade Rebocadores.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>WS Rebocadores - Atendimento Avancado</label>
+    <permissionSets>AccountCaseScheduleOperador</permissionSets>
+    <permissionSets>CaseAcompanhamentoOperador</permissionSets>
+    <permissionSets>GestaoSLAConfigurador</permissionSets>
+    <permissionSets>OmniSupervisorOperador</permissionSets>
+    <permissionSets>WS_AreasParticipantes_Operador</permissionSets>
+    <permissionSets>WS_Atendimento_Avancado_Operacional</permissionSets>
+    <permissionSets>WS_Atendimento_Basico_Operacional</permissionSets>
+    <permissionSets>WS_Case_Criacao</permissionSets>
+    <permissionSets>WS_Case_Encerramento</permissionSets>
+    <permissionSets>WS_Case_Recategorizacao</permissionSets>
+    <permissionSets>WS_PesquisasSatisfacao_Gestor</permissionSets>
+    <permissionSets>WS_Service_Base_Atendente</permissionSets>
+    <permissionSets>WS_Unidade_Rebocadores</permissionSets>
+    <permissionSets>WS_WhatsApp_Contato</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

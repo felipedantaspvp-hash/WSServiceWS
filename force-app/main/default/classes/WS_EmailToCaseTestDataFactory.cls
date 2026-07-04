@@ -4,6 +4,8 @@
  * @group             :
  * @last modified on  : 05-19-2026
  * @last modified by  : jduarte@wilsonsons.com.br.service
+ * createQueue/createUser/createCase delegam para TestDataFactory (Pacote 40) — wrapper fino,
+ * lógica de montagem do SObject centralizada lá.
 **/
 @IsTest
 public inherited sharing class WS_EmailToCaseTestDataFactory {
@@ -56,39 +58,24 @@ public inherited sharing class WS_EmailToCaseTestDataFactory {
     }
 
     public static Group createQueue(String developerName) {
-        Group g = new Group(Name = developerName, DeveloperName = developerName, Type = 'Queue');
-        insert g;
-        insert new QueueSobject(QueueId = g.Id, SobjectType = 'Case');
-        return g;
+        return TestDataFactory.createQueue(developerName);
     }
 
     public static User createUser(String aliasSeed) {
-        Profile profile = [SELECT Id FROM Profile WHERE UserType = 'Standard' LIMIT 1];
-        String uniq = String.valueOf(DateTime.now().getTime());
-        User u = new User(
-            Alias = aliasSeed.left(8),
-            Email = aliasSeed + uniq + '@example.com',
-            EmailEncodingKey = 'UTF-8',
-            LastName = 'WS',
-            LanguageLocaleKey = 'en_US',
-            LocaleSidKey = 'en_US',
-            ProfileId = profile.Id,
-            TimeZoneSidKey = 'America/Sao_Paulo',
-            Username = aliasSeed + uniq + '@example.com'
-        );
-        insert u;
-        return u;
+        return TestDataFactory.createUser(aliasSeed, null);
     }
 
+    // RecordTypeId propositalmente null: replica o comportamento original de deixar o
+    // RecordType default da org resolver (ver TestDataFactory.buildCase).
     public static Case createCase(Id ownerId, String status, Datetime closedDateLike) {
-        Case c = new Case(
-            Subject = 'Case teste',
-            Origin = 'Email',
-            Priority = 'Medium',
-            OwnerId = ownerId,
-            Status = status
-        );
-        insert c;
+        Case c = TestDataFactory.createCase(new Map<String, Object>{
+            'RecordTypeId' => null,
+            'Subject' => 'Case teste',
+            'Origin' => 'Email',
+            'Priority' => 'Medium',
+            'OwnerId' => ownerId,
+            'Status' => status
+        });
         if (closedDateLike != null) {
             Test.setCreatedDate(c.Id, closedDateLike.addDays(-1));
         }
@@ -96,7 +83,7 @@ public inherited sharing class WS_EmailToCaseTestDataFactory {
     }
 
     public static String getAnyCaseRecordTypeDeveloperName() {
-        for (Schema.RecordTypeInfo info : Case.SObjectType.getDescribe().getRecordTypeInfos()) {
+        for (Schema.RecordTypeInfo info : Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getRecordTypeInfos()) {
             if (info.isAvailable()) {
                 return info.getDeveloperName();
             }

@@ -12,12 +12,13 @@ public inherited sharing class WSWillCaseLookupService {
 
         Map<String, Case> caseByNumber = new Map<String, Case>();
         if (!caseNumbers.isEmpty()) {
-            List<String> quoted = new List<String>();
-            for (String cn : caseNumbers) {
-                quoted.add('\'' + String.escapeSingleQuotes(cn) + '\'');
-            }
-            String soql = 'SELECT Id, CaseNumber, Status, TipoCaso__c, Categoria__c, Assunto__c, EtapaAtendimento__c, ContactId, AccountId FROM Case WHERE CaseNumber IN (' + String.join(quoted, ',') + ')';
-            for (Case c : Database.query(soql)) {
+            for (Case c : [
+                SELECT Id, CaseNumber, Status, TipoCaso__c, Categoria__c, Assunto__c,
+                       EtapaAtendimento__c, ContactId, AccountId
+                FROM Case
+                WHERE CaseNumber IN :caseNumbers
+                WITH USER_MODE
+            ]) {
                 caseByNumber.put(c.CaseNumber, c);
             }
         }

@@ -280,14 +280,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CaseEntitlementAssignmentService</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CaseEntitlementAssignmentServiceTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>CaseMilestoneMacroService</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -476,14 +468,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>FlowRoutingErrorEmailInvocable</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>FlowRoutingErrorEmailInvocableTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>GestaoSLAController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -497,14 +481,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>GestaoSLAHealthCheckDTO</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GestaoSLAHealthCheckService</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GestaoSLAHealthCheckServiceTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>

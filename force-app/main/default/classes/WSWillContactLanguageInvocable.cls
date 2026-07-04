@@ -173,8 +173,9 @@ public inherited sharing class WSWillContactLanguageInvocable {
 
         Set<String> readableFields = AtendimentoContextResolverHelper.existingFields(objectApiName, candidateFields);
         readableFields.add('Id');
+        // objectApiName validated via canQueryObject() and readableFields via existingFields() above
         String soql = 'SELECT ' + String.join(new List<String>(readableFields), ',') + ' FROM ' + objectApiName + ' WHERE Id IN :ids';
-        for (SObject row : Database.query(soql)) {
+        for (SObject row : Database.queryWithBinds(soql, new Map<String, Object>{ 'ids' => ids }, AccessLevel.USER_MODE)) {
             out.put((Id) row.get('Id'), row);
         }
         return out;

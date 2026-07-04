@@ -102,19 +102,20 @@ private class CaseOpeningNotificationServiceTest {
     }
 
     private static Case createOpenCase(String businessUnit, String email, String language) {
-        Account account = new Account(Name = 'Conta Abertura');
-        insert account;
-        Contact contact = new Contact(LastName = 'Cliente Abertura', Email = email, Phone = '11999990000', AccountId = account.Id, Idioma__c = language);
-        insert contact;
-        Case c = new Case(
-            Subject = 'Caso Abertura',
-            Status = 'Aberto',
-            Origin = 'Email',
-            UnidadeNegocio__c = businessUnit,
-            ContactId = contact.Id
+        Contact contact = TestDataFactory.createAccountAndContact(
+            new Map<String, Object>{ 'Name' => 'Conta Abertura' },
+            new Map<String, Object>{ 'LastName' => 'Cliente Abertura', 'Email' => email, 'Phone' => '11999990000', 'Idioma__c' => language }
         );
-        insert c;
-        return c;
+        // RecordTypeId propositalmente null: replica o comportamento original de deixar o
+        // RecordType default da org resolver, sem depender de qual RT ativo a factory sortear.
+        return TestDataFactory.createCase(new Map<String, Object>{
+            'RecordTypeId' => null,
+            'Subject' => 'Caso Abertura',
+            'Status' => 'Aberto',
+            'Origin' => 'Email',
+            'UnidadeNegocio__c' => businessUnit,
+            'ContactId' => contact.Id
+        });
     }
 
     private static void setupConfig(Boolean sendOpeningEmail) {

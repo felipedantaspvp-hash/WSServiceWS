@@ -3,7 +3,7 @@ public inherited sharing class MessagingContextService {
         Map<Id, SObject> fetchByIds(String objectApiName, Set<Id> ids, Set<String> fieldsToRead);
     }
 
-    private class DefaultConversationGateway implements ConversationGateway {
+    private inherited sharing class DefaultConversationGateway implements ConversationGateway {
         public Map<Id, SObject> fetchByIds(String objectApiName, Set<Id> ids, Set<String> fieldsToRead) {
             Map<Id, SObject> out = new Map<Id, SObject>();
             if (String.isBlank(objectApiName) || ids == null || ids.isEmpty() || !MessagingContextHelper.canQueryObject(objectApiName)) return out;
@@ -14,8 +14,9 @@ public inherited sharing class MessagingContextService {
                 for (String f : fieldsToRead) if (mapFields.containsKey(f)) readableFields.add(f);
             }
             readableFields.add('Id');
+            // objectApiName validated via canQueryObject() and readableFields via schema field map above
             String soql = 'SELECT ' + String.join(new List<String>(readableFields), ',') + ' FROM ' + objectApiName + ' WHERE Id IN :ids';
-            for (SObject row : Database.query(soql)) out.put((Id) row.get('Id'), row);
+            for (SObject row : Database.queryWithBinds(soql, new Map<String, Object>{ 'ids' => ids }, AccessLevel.USER_MODE)) out.put((Id) row.get('Id'), row);
             return out;
         }
     }

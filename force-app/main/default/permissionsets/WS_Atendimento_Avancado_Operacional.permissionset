@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Camada operacional para atendentes avancados do Service Cloud: tabs administrativas de Gestao SLA, OmniSupervisor e pesquisas.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>WS Atendimento Avancado Operacional</label>
+    <tabSettings>
+        <tab>GestaoSLA</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>standard-OmniSupervisorLightning</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>standard-Survey</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+</PermissionSet>

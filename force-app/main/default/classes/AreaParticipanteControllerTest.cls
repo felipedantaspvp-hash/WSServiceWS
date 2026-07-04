@@ -278,6 +278,30 @@ private class AreaParticipanteControllerTest {
     }
 
     @IsTest
+    static void testAddParticipationBlocksTerminalCase() {
+        enableBhBypass();
+        List<String> areas = AreaParticipanteTestDataFactory.commonAreaValues();
+        String area1 = areas[0];
+        Case c = AreaParticipanteTestDataFactory.createCase(area1, null);
+        update new Case(Id = c.Id, EtapaAtendimento__c = 'Concluído');
+
+        AreaParticipanteDTO.AddRequestDTO req = new AreaParticipanteDTO.AddRequestDTO();
+        req.caseId = c.Id;
+        req.area = area1;
+        req.comentarioSolicitacao = 'Solicitação bloqueada por caso concluído';
+
+        Boolean threw = false;
+        try {
+            Test.startTest();
+            AreaParticipanteController.addParticipation(req);
+            Test.stopTest();
+        } catch (AuraHandledException ex) {
+            threw = true;
+        }
+        Assert.isTrue(threw);
+    }
+
+    @IsTest
     static void testAddParticipationBulkSuccess() {
         enableBhBypass();
         List<String> areas = AreaParticipanteTestDataFactory.commonAreaValues();
@@ -308,6 +332,33 @@ private class AreaParticipanteControllerTest {
         Assert.areEqual(true, res.success);
         Assert.isTrue(res.count >= 1);
         Assert.isTrue(res.count == req.items.size());
+    }
+
+    @IsTest
+    static void testAddParticipationBulkBlocksCanceledCase() {
+        enableBhBypass();
+        List<String> areas = AreaParticipanteTestDataFactory.commonAreaValues();
+        String area1 = areas[0];
+        Case c = AreaParticipanteTestDataFactory.createCase(area1, null);
+        update new Case(Id = c.Id, EtapaAtendimento__c = 'Cancelado');
+
+        AreaParticipanteDTO.AddBulkItemDTO item = new AreaParticipanteDTO.AddBulkItemDTO();
+        item.area = area1;
+        item.comentarioSolicitacao = 'Solicitação bloqueada por caso cancelado';
+
+        AreaParticipanteDTO.AddBulkRequestDTO req = new AreaParticipanteDTO.AddBulkRequestDTO();
+        req.caseId = c.Id;
+        req.items = new List<AreaParticipanteDTO.AddBulkItemDTO>{ item };
+
+        Boolean threw = false;
+        try {
+            Test.startTest();
+            AreaParticipanteController.addParticipationBulk(req);
+            Test.stopTest();
+        } catch (AuraHandledException ex) {
+            threw = true;
+        }
+        Assert.isTrue(threw);
     }
 
     @IsTest

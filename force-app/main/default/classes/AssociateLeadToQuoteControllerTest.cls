@@ -63,27 +63,31 @@ public class AssociateLeadToQuoteControllerTest {
         insert quoteLineItem;
     }
     
-    static testMethod void getLineupLeadsTest(){
+    @IsTest
+    static void getLineupLeadsTest(){
         QuoteLineItem QuoteLineItemId = [SELECT Id,Lineup_Id__c FROM QuoteLineItem LIMIT 1];
         test.StartTest();
         AssociateLeadToQuoteController.getLineupLeads(QuoteLineItemId.Id);
         test.StopTest();
     }
 
-    static testMethod void getLineupLeadsTest2(){
+    @IsTest
+    static void getLineupLeadsTest2(){
         test.StartTest();
         AssociateLeadToQuoteController.getLineupLeads(null);
         test.StopTest();
     }
 
-    static testMethod void updateQuoteLineItemTest(){
+    @IsTest
+    static void updateQuoteLineItemTest(){
         QuoteLineItem QuoteLineItemId = [SELECT Id,Lineup_Id__c FROM QuoteLineItem LIMIT 1];
         test.StartTest();
         AssociateLeadToQuoteController.updateQuoteLineItem(QuoteLineItemId.Id,'1234');
         test.StopTest();
     }
 
-    static testMethod void updateQuoteLineItemTest2(){
+    @IsTest
+    static void updateQuoteLineItemTest2(){
         test.StartTest();
         AssociateLeadToQuoteController.updateQuoteLineItem(null,'1234');
         test.StopTest();

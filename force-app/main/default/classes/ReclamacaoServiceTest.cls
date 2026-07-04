@@ -43,14 +43,25 @@ private class ReclamacaoServiceTest {
 
     private static Case insertOpenReclamacaoCase() {
         RecordType caseRt = [SELECT Id FROM RecordType WHERE SObjectType = 'Case' AND DeveloperName = 'AtendimentoTeconSalvador' AND IsActive = true LIMIT 1];
+        Account account = new Account(Name = 'Cliente Reclamacao');
+        insert account;
+        Contact contact = new Contact(
+            LastName = 'Solicitante Reclamacao',
+            AccountId = account.Id,
+            MobilePhone = '11999999999'
+        );
+        insert contact;
         Case c = new Case(
             Subject = 'Case Reclamação Teste',
             RecordTypeId = caseRt.Id,
             Status = AreaParticipanteTestDataFactory.pickValue('Case', 'Status', 0),
             Origin = AreaParticipanteTestDataFactory.pickValue('Case', 'Origin', 0),
             Priority = AreaParticipanteTestDataFactory.pickValue('Case', 'Priority', 0),
+            AccountId = account.Id,
+            ContactId = contact.Id,
             TipoCaso__c = 'Reclamação',
             UnidadeNegocio__c = UNIDADE,
+            Modalidade__c = 'Cabotagem Descarga',
             Categoria__c = 'Acesso ao Porto',
             Assunto__c = 'Acesso',
             Subassunto__c = 'Acesso indisponível'
@@ -77,7 +88,13 @@ private class ReclamacaoServiceTest {
         Assert.areEqual(true, updated.ReclamacaoGerada__c);
         Assert.isNotNull(updated.DtGeracaoReclamacao__c);
 
-        List<Reclamacao__c> created = [SELECT Id, Caso__c, Categoria__c, Assunto__c, Subassunto__c, Area__c, Unidade__c, RecordTypeId FROM Reclamacao__c WHERE Caso__c = :c.Id];
+        List<Reclamacao__c> created = [
+            SELECT Id, Caso__c, Categoria__c, Assunto__c, Subassunto__c, Area__c, Unidade__c,
+                   RecordTypeId, Cliente__c, Modalidade__c, QuemReclamou__c, StatusRegistro__c,
+                   CarimboDataHora__c, DataInicioTicket__c, SemanaRecebimento__c
+            FROM Reclamacao__c
+            WHERE Caso__c = :c.Id
+        ];
         Assert.areEqual(1, created.size());
         Assert.areEqual('Acesso ao Porto', created[0].Categoria__c);
         Assert.areEqual('Acesso', created[0].Assunto__c);
@@ -85,7 +102,56 @@ private class ReclamacaoServiceTest {
         Assert.areEqual('Tecon Salvador', created[0].Area__c);
         Assert.areEqual('Tecon Salvador', created[0].Unidade__c);
         Assert.areEqual(rtId, created[0].RecordTypeId);
+        Assert.areEqual(c.AccountId, created[0].Cliente__c);
+        Assert.areEqual('Cabotagem', created[0].Modalidade__c);
+        Assert.areEqual('Solicitante Reclamacao', created[0].QuemReclamou__c);
+        Assert.areEqual('Aberta', created[0].StatusRegistro__c);
+        Assert.isNotNull(created[0].CarimboDataHora__c);
+        Assert.areEqual(Date.today(), created[0].DataInicioTicket__c);
+        Assert.isNotNull(created[0].SemanaRecebimento__c);
         clearInjections();
+    }
+
+    @IsTest
+    static void testBuildReclamacaoFallsBackToSuppliedNameAndNormalizesModalidade() {
+        RecordType caseRt = [SELECT Id FROM RecordType WHERE SObjectType = 'Case' AND DeveloperName = 'AtendimentoTeconSalvador' AND IsActive = true LIMIT 1];
+        Account account = new Account(Name = 'Cliente Fallback');
+        insert account;
+        Case c = new Case(
+            Subject = 'Case Reclamação Fallback',
+            RecordTypeId = caseRt.Id,
+            Status = AreaParticipanteTestDataFactory.pickValue('Case', 'Status', 0),
+            Origin = AreaParticipanteTestDataFactory.pickValue('Case', 'Origin', 0),
+            Priority = AreaParticipanteTestDataFactory.pickValue('Case', 'Priority', 0),
+            AccountId = account.Id,
+            SuppliedName = 'Nome Fornecido',
+            TipoCaso__c = 'Reclamação',
+            UnidadeNegocio__c = UNIDADE,
+            Modalidade__c = 'Operação de Navio',
+            Categoria__c = 'Acesso ao Porto',
+            Assunto__c = 'Acesso',
+            Subassunto__c = 'Acesso indisponível'
+        );
+        insert c;
+
+        AtendimentoConfigDTO cfg = new AtendimentoConfigDTO();
+        cfg.reclamacaoAreaValue = 'Tecon Salvador';
+        cfg.reclamacaoRecordTypeDeveloperName = 'TeconSalvador';
+
+        Reclamacao__c created = ReclamacaoService.buildReclamacao([
+            SELECT Id, AccountId, Contact.Name, SuppliedName, CreatedDate, Modalidade__c,
+                   Categoria__c, Assunto__c, Subassunto__c
+            FROM Case
+            WHERE Id = :c.Id
+        ], cfg);
+
+        Assert.areEqual(c.AccountId, created.Cliente__c);
+        Assert.areEqual('Outro', created.Modalidade__c);
+        Assert.areEqual('Nome Fornecido', created.QuemReclamou__c);
+        Assert.areEqual('Aberta', created.StatusRegistro__c);
+        Assert.isNotNull(created.CarimboDataHora__c);
+        Assert.areEqual(Date.today(), created.DataInicioTicket__c);
+        Assert.isNotNull(created.SemanaRecebimento__c);
     }
 
     @IsTest
@@ -173,7 +239,7 @@ private class ReclamacaoServiceTest {
         Case c = insertOpenReclamacaoCase();
 
         Test.startTest();
-        update new Case(Id = c.Id, Status = 'Fechado', MotivoEncerramento__c = 'A definir', SolucaoCaso__c = 'Concluído.');
+        update new Case(Id = c.Id, Status = 'Fechado', MotivoEncerramento__c = 'Resolvido', SolucaoCaso__c = 'Concluído.');
         Test.stopTest();
 
         Case updated = [SELECT ReclamacaoGerada__c, DtGeracaoReclamacao__c FROM Case WHERE Id = :c.Id];
@@ -191,7 +257,7 @@ private class ReclamacaoServiceTest {
         Case c = insertOpenReclamacaoCase();
 
         Test.startTest();
-        update new Case(Id = c.Id, Status = 'Fechado', MotivoEncerramento__c = 'A definir', SolucaoCaso__c = 'Concluído.');
+        update new Case(Id = c.Id, Status = 'Fechado', MotivoEncerramento__c = 'Resolvido', SolucaoCaso__c = 'Concluído.');
         Test.stopTest();
 
         Case updated = [SELECT ReclamacaoGerada__c FROM Case WHERE Id = :c.Id];
@@ -232,18 +298,23 @@ private class ReclamacaoServiceTest {
 
     private static Case insertClosedReclamacaoCase() {
         RecordType caseRt = [SELECT Id FROM RecordType WHERE SObjectType = 'Case' AND DeveloperName = 'AtendimentoTeconSalvador' AND IsActive = true LIMIT 1];
+        Account account = new Account(Name = 'Cliente Reclamacao Carga');
+        insert account;
         Case c = new Case(
             Subject = 'Case Reclamação já fechado (carga)',
             RecordTypeId = caseRt.Id,
             Status = 'Fechado',
             Origin = AreaParticipanteTestDataFactory.pickValue('Case', 'Origin', 0),
             Priority = AreaParticipanteTestDataFactory.pickValue('Case', 'Priority', 0),
+            AccountId = account.Id,
+            SuppliedName = 'Solicitante Carga',
             TipoCaso__c = 'Reclamação',
             UnidadeNegocio__c = UNIDADE,
+            Modalidade__c = 'Importação',
             Categoria__c = 'Acesso ao Porto',
             Assunto__c = 'Acesso',
             Subassunto__c = 'Acesso indisponível',
-            MotivoEncerramento__c = 'A definir',
+            MotivoEncerramento__c = 'Resolvido',
             SolucaoCaso__c = 'Carga histórica.'
         );
         insert c;

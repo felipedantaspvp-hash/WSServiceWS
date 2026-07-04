@@ -103,6 +103,7 @@ public inherited sharing class AreaParticipanteService {
 
         Case caseRow = AreaParticipanteSelector.getCaseById(request.caseId);
         if (caseRow == null) throwFunctional('CASE_NOT_FOUND', msg('Caso não encontrado ou sem acesso.', 'Case not found or no access.'));
+        validateCaseAllowsAddingParticipation(caseRow);
 
         Set<String> allowedAreas = new Set<String>();
         for (Schema.PicklistEntry pe : Case.AreasParticipantesSLA__c.getDescribe().getPicklistValues()) {
@@ -194,6 +195,7 @@ public inherited sharing class AreaParticipanteService {
 
         Case caseRow = AreaParticipanteSelector.getCaseById(request.caseId);
         if (caseRow == null) throwFunctional('CASE_NOT_FOUND', msg('Caso não encontrado ou sem acesso.', 'Case not found or no access.'));
+        validateCaseAllowsAddingParticipation(caseRow);
 
         Map<String, String> normalizedToCanonical = new Map<String, String>();
         for (Schema.PicklistEntry pe : Case.AreasParticipantesSLA__c.getDescribe().getPicklistValues()) {
@@ -584,6 +586,22 @@ public inherited sharing class AreaParticipanteService {
         if (!Case.AreasParticipantesSLA__c.getDescribe().isUpdateable()
             || !Case.AreasParticipantes__c.getDescribe().isUpdateable()) {
             throwFunctional('FLS_DENIED', msg('Você não possui permissão para adicionar participação.', 'You do not have permission to add participation.'));
+        }
+    }
+
+    private static void validateCaseAllowsAddingParticipation(Case caseRow) {
+        if (caseRow == null) return;
+        String statusNorm = AreaParticipanteHelper.normalizeText(caseRow.Status);
+        String etapaNorm = AreaParticipanteHelper.normalizeText(caseRow.EtapaAtendimento__c);
+        Boolean isClosedOrTerminal = caseRow.IsClosed == true
+            || statusNorm.contains('fechad')
+            || statusNorm.contains('closed')
+            || statusNorm.contains('cancel')
+            || statusNorm.contains('conclu')
+            || etapaNorm.contains('cancel')
+            || etapaNorm.contains('conclu');
+        if (isClosedOrTerminal) {
+            throwFunctional('CASE_CLOSED_FOR_PARTICIPATION', Label.AreaParticipante_CaseClosedAddBlocked);
         }
     }
 

@@ -175,24 +175,24 @@ private class CaseSurveyDispatchServiceTest {
     }
 
     private static Case createClosedEligibleCase(String businessUnit, String email, String language) {
-        Account account = new Account(Name = 'Conta Survey');
-        insert account;
-        Contact contact = new Contact(LastName = 'Cliente Survey', Email = email, Phone = '11999990000', AccountId = account.Id, Idioma__c = language);
-        insert contact;
-        Case c = new Case(
-            Subject = 'Caso Survey',
-            RecordTypeId = getCaseRecordTypeId('AtendimentoCentroLogistico'),
-            Status = 'Fechado',
-            Origin = 'Email',
-            UnidadeNegocio__c = businessUnit,
-            ContactId = contact.Id,
-            EnviarPesquisaSatisfacao__c = true,
-            PesquisaEnviada__c = false,
-            MotivoEncerramento__c = 'A definir',
-            SolucaoCaso__c = 'Atendimento concluído.'
+        Contact contact = TestDataFactory.createAccountAndContact(
+            new Map<String, Object>{ 'Name' => 'Conta Survey' },
+            new Map<String, Object>{ 'LastName' => 'Cliente Survey', 'Email' => email, 'Phone' => '11999990000', 'Idioma__c' => language }
         );
-        insert c;
-        return c;
+        return TestDataFactory.createCase(new Map<String, Object>{
+            'RecordTypeId' => getCaseRecordTypeId('AtendimentoCentroLogistico'),
+            'Subject' => 'Caso Survey',
+            'Status' => 'Fechado',
+            'Origin' => 'Email',
+            'UnidadeNegocio__c' => businessUnit,
+            'ContactId' => contact.Id,
+            'EnviarPesquisaSatisfacao__c' => true,
+            'PesquisaEnviada__c' => false,
+            // 'A definir' não é um valor habilitado da lista restrita para o RecordType
+            // AtendimentoCentroLogistico (confirmado no Setup) — usa 'Resolvido', que é.
+            'MotivoEncerramento__c' => 'Resolvido',
+            'SolucaoCaso__c' => 'Atendimento concluído.'
+        });
     }
 
     private static Id getCaseRecordTypeId(String developerName) {

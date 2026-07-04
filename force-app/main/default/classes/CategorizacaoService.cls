@@ -83,7 +83,7 @@ public inherited sharing class CategorizacaoService {
 
     public static List<CategorizacaoDTO.RecordTypeOption> getAvailableRecordTypes() {
         List<CategorizacaoDTO.RecordTypeOption> out = new List<CategorizacaoDTO.RecordTypeOption>();
-        Map<Id, Schema.RecordTypeInfo> infos = Categorizacao__c.SObjectType.getDescribe().getRecordTypeInfosById();
+        Map<Id, Schema.RecordTypeInfo> infos = Categorizacao__c.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getRecordTypeInfosById();
         for (RecordType rt : CategorizacaoSelector.getAvailableRecordTypesForObject()) {
             Schema.RecordTypeInfo rti = infos.get(rt.Id);
             if (rti == null || !rti.isAvailable()) continue;
@@ -106,7 +106,7 @@ public inherited sharing class CategorizacaoService {
 
     public static List<CategorizacaoDTO.CasePicklistField> getCasePicklistFields() {
         List<CategorizacaoDTO.CasePicklistField> out = new List<CategorizacaoDTO.CasePicklistField>();
-        Map<String, Schema.SObjectField> fields = Case.SObjectType.getDescribe().fields.getMap();
+        Map<String, Schema.SObjectField> fields = Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
         for (String apiName : fields.keySet()) {
             Schema.DescribeFieldResult d = fields.get(apiName).getDescribe();
             if (d.getType() != Schema.DisplayType.Picklist) continue;
@@ -313,7 +313,7 @@ public inherited sharing class CategorizacaoService {
                 if (String.isBlank(row.ValorDistribuicao__c)) row.addError('Valor de distribuição é obrigatório.');
 
                 if (!String.isBlank(row.CampoDistribuicao__c)) {
-                    Map<String, Schema.SObjectField> caseFields = Case.SObjectType.getDescribe().fields.getMap();
+                    Map<String, Schema.SObjectField> caseFields = Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
                     if (!caseFields.containsKey(row.CampoDistribuicao__c)) {
                         row.addError('Campo de distribuição inválido em Case.');
                     } else {
