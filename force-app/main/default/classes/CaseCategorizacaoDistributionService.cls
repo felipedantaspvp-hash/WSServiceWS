@@ -1,7 +1,11 @@
 /**
- * Aplica a distribuicao parametrizada por Categorizacao__c no before insert de Case.
- * Mantem a automacao trigger-side separada do fluxo sincrono do wizard de criacao.
- */
+ * @description       : Aplica a distribuicao parametrizada por Categorizacao__c no before insert de Case,
+ *                       mantendo a automacao trigger-side separada do fluxo sincrono do wizard de criacao.
+ * @author            : Triscal
+ * @group             : Atendimento
+ * @last modified on  : 07-04-2026
+ * @last modified by  : Jean Duarte
+ **/
 public inherited sharing class CaseCategorizacaoDistributionService {
     private static final String ACAO_ENCERRAR = 'Encerrar';
     private static final String ACAO_ASSUMIR = 'Assumir';
@@ -11,7 +15,6 @@ public inherited sharing class CaseCategorizacaoDistributionService {
      * Reforca a fila parametrizada da Categorizacao no before insert do Case.
      * @param newRows Cases sendo inseridos no contexto before insert
      */
-    @SuppressWarnings('PMD.ApexCRUDViolation')
     public static void applyDistribution(List<Case> newRows) {
         Set<Id> categorizacaoIds = new Set<Id>();
         for (Case currentCase : newRows) {
@@ -29,6 +32,7 @@ public inherited sharing class CaseCategorizacaoDistributionService {
                    PermiteAssumirComFilaParametrizada__c, EtapaAtendimentoDistribuicao__c
             FROM Categorizacao__c
             WHERE Id IN :categorizacaoIds
+            WITH USER_MODE
         ]);
         if (categorizacoesById.isEmpty()) {
             return;

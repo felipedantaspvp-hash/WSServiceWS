@@ -55,14 +55,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>ActionGerarTemplateControllerTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>AddProductQuoteControllerTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>AreaParticipanteController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -160,10 +152,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>AreaParticipanteTriggerHandler</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>AssociateLeadToQuoteControllerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -511,10 +499,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>DataMass</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>GestaoSLAController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -524,10 +508,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>GestaoSLADTO</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GestaoSLAHealthCheckDTO</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -3431,26 +3411,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>RegrasSLACategorizacao__c.UsaBusinessHoursSecundario__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>TCO_ChannelRouting__mdt.TCF_BusinessUnit__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>TCO_ChannelRouting__mdt.TCF_ChannelIdentifier__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>TCO_ChannelRouting__mdt.TCF_ChannelType__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>TCO_ChannelRouting__mdt.TCF_IsActive__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>

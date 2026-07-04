@@ -106,10 +106,8 @@ public inherited sharing class AtendimentoContextResolverHelper {
         String normalizedType = normalizeKey(normalizedChannelType);
         String normalizedIdentifier = normalizeKey(channelIdentifier);
 
-        AtendimentoConfigDTO fallbackConfig;
         for (AtendimentoConfigDTO row : rows) {
             if (row == null || row.isActive != true || String.isBlank(row.businessUnit)) continue;
-            if (fallbackConfig == null) fallbackConfig = row;
 
             String rowDeveloperName = normalizeKey(primaryChannelDeveloperName(normalizedType, row));
             String rowConfigName = normalizeKey(row.developerName);
@@ -133,10 +131,7 @@ public inherited sharing class AtendimentoContextResolverHelper {
             }
         }
 
-        if (normalizedType == normalizeKey(CHANNEL_WHATSAPP)) {
-            return null;
-        }
-        return fallbackConfig == null ? null : fallbackConfig.businessUnit;
+        return null;
     }
 
     private static String primaryChannelDeveloperName(String normalizedType, AtendimentoConfigDTO row) {

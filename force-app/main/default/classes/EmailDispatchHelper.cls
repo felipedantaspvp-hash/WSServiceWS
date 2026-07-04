@@ -1,6 +1,10 @@
 /**
- * Helper compartilhado para interpretar resultados de envio de e-mail.
- */
+ * @description       : Helper compartilhado para interpretar resultados de envio de e-mail.
+ * @author            : Triscal
+ * @group             : Atendimento
+ * @last modified on  : 07-04-2026
+ * @last modified by  : Jean Duarte
+ **/
 public class EmailDispatchHelper {
     private static final String ERROR_PREFIX = 'Erro ao enviar e-mail: ';
     private static final String ERROR_SEPARATOR = ' | ';

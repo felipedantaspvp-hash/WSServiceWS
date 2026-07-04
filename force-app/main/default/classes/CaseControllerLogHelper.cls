@@ -20,7 +20,7 @@ public inherited sharing class CaseControllerLogHelper {
         }
         SObject row = logType.newSObject();
         CaseScheduleHelper.putIfFieldExists(row, 'Name', CaseScheduleHelper.safeLeft(origin, 80));
-        CaseScheduleHelper.putIfFieldExists(row, 'MetodoCallout__c', 'CASE_CONTROLLER');
+        CaseScheduleHelper.putIfFieldExists(row, 'MetodoCallout__c', 'CASE_CTRL');
         CaseScheduleHelper.putIfFieldExists(row, 'DescritivoErroLog__c', CaseScheduleHelper.safeLeft(ex.getMessage(), 255));
         CaseScheduleHelper.putIfFieldExists(row, 'ComentariosObservacoes__c', CaseScheduleHelper.safeLeft(ex.getStackTraceString(), LOG_TEXT_LIMIT));
         CaseScheduleHelper.putIfFieldExists(row, 'Endpoint__c', origin);

@@ -135,7 +135,7 @@ public with sharing class CaseScheduleHelper {
         }
         SObject row = logType.newSObject();
         putIfFieldExists(row, 'Name', safeLeft('Motor Agendamento Case', 80));
-        putIfFieldExists(row, 'MetodoCallout__c', 'CASE_SCHEDULE');
+        putIfFieldExists(row, 'MetodoCallout__c', 'CASE_SCHED');
         putIfFieldExists(row, 'DescritivoErroLog__c', safeLeft(technicalMessage, 255));
         putIfFieldExists(row, 'ComentariosObservacoes__c', safeLeft(buildLogDetail(schedule, technicalMessage), LOG_TEXT_LIMIT));
         putIfFieldExists(row, 'Endpoint__c', 'CaseScheduleService');
