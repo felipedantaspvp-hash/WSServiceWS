@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Unidade --></label>
+    <label>Business Unit</label>
     <name>Unidade__c</name>
     <picklistValues>
         <masterLabel>Centro Logístico</masterLabel>
-        <translation><!-- Centro Logístico --></translation>
+        <translation>Centro Logístico</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Rebocadores</masterLabel>
-        <translation><!-- Rebocadores --></translation>
+        <translation>Rebocadores</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Tecon Rio Grande</masterLabel>
-        <translation><!-- Tecon Rio Grande --></translation>
+        <translation>Tecon Rio Grande</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Tecon Salvador</masterLabel>
-        <translation><!-- Tecon Salvador --></translation>
+        <translation>Tecon Salvador</translation>
     </picklistValues>
 </CustomFieldTranslation>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Closed Case Behavior</label>
+    <name>ClosedCaseBehavior__c</name>
+    <picklistValues>
+        <masterLabel>REOPEN</masterLabel>
+        <translation>REOPEN</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>IGNORE</masterLabel>
+        <translation>IGNORE</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>RELATE</masterLabel>
+        <translation>RELATE</translation>
+    </picklistValues>
+</CustomFieldTranslation>

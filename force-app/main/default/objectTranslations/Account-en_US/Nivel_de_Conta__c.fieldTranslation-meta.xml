@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Nível de Conta --></label>
+    <label>Account Level</label>
     <name>Nivel_de_Conta__c</name>
     <picklistValues>
         <masterLabel>A Desenvolver</masterLabel>
-        <translation><!-- A Desenvolver --></translation>
+        <translation>To Develop</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Agentes e Despachantes</masterLabel>
-        <translation><!-- Agentes e Despachantes --></translation>
+        <translation>Agents and Customs Brokers</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Grande Cliente</masterLabel>
-        <translation><!-- Grande Cliente --></translation>
+        <translation>Large Customer</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Médio Cliente</masterLabel>
-        <translation><!-- Médio Cliente --></translation>
+        <translation>Medium Customer</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Pequeno Cliente</masterLabel>
-        <translation><!-- Pequeno Cliente --></translation>
+        <translation>Small Customer</translation>
     </picklistValues>
 </CustomFieldTranslation>

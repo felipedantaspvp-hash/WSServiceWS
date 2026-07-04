@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Comissária de Despacho --></label>
+    <label>Customs Clearance Broker</label>
     <name>Comissaria_Despacho__c</name>
     <relationshipLabel><!-- Comissária de Despacho --></relationshipLabel>
 </CustomFieldTranslation>

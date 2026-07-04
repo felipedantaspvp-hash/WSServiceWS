@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Data e Hora Pretendida --></label>
+    <label>Requested Date and Time</label>
     <name>Data_e_Hora_Pretendida__c</name>
 </CustomFieldTranslation>

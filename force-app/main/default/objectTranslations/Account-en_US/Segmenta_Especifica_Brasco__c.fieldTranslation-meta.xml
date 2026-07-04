@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Segmentação Específica Brasco --></label>
+    <label>Brasco Specific Segmentation</label>
     <name>Segmenta_Especifica_Brasco__c</name>
     <picklistValues>
         <masterLabel>OSC - Armador</masterLabel>
-        <translation><!-- OSC - Armador --></translation>
+        <translation>OSC - Shipowner</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>OSC - Outros</masterLabel>
-        <translation><!-- OSC - Outros --></translation>
+        <translation>OSC - Other</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Oil Company</masterLabel>
-        <translation><!-- Oil Company --></translation>
+        <translation>Oil Company</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Petrobrás</masterLabel>
-        <translation><!-- Petrobrás --></translation>
+        <translation>Petrobrás</translation>
     </picklistValues>
 </CustomFieldTranslation>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Selecione o tipo de ação operacional registrada para o atendimento.</help>
+    <label>Tipo</label>
+    <name>Tipo__c</name>
+    <picklistValues>
+        <masterLabel>Controle de Pausa</masterLabel>
+        <translation>Controle de Pausa</translation>
+    </picklistValues>
+</CustomFieldTranslation>

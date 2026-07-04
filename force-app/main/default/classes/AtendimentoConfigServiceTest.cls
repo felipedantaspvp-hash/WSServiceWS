@@ -66,6 +66,21 @@ private class AtendimentoConfigServiceTest {
         Assert.areEqual('logoWSemail', result.brandLogoResourceName);
     }
 
+    @IsTest
+    static void getActiveAtendimentoConfigsMirrorsGetActiveConfigs() {
+        AtendimentoConfigDTO active = buildConfig('Tecon Rio Grande', 'OPTIONAL');
+        AtendimentoConfigDTO inactive = buildConfig('Centro Logístico', 'NEVER');
+        inactive.isActive = false;
+        AtendimentoConfigService.setTestSurveyConfigs(new List<AtendimentoConfigDTO>{ active, inactive });
+
+        List<AtendimentoConfigDTO> result = AtendimentoConfigService.getActiveAtendimentoConfigs();
+
+        Assert.areEqual(1, result.size());
+        Assert.areEqual('Tecon Rio Grande', result[0].businessUnit);
+
+        AtendimentoConfigService.clearTestSurveyConfigs();
+    }
+
     private static AtendimentoConfigDTO buildConfig(String businessUnit, String mode) {
         AtendimentoConfigDTO config = new AtendimentoConfigDTO();
         config.businessUnit = businessUnit;

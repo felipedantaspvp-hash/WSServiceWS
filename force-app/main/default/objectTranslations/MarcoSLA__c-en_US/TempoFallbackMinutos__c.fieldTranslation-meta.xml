@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Fallback time (minutes) used when there is no SLA Rule for the Case's Categorization. Blank = uses the system default.</help>
+    <label>Fallback Time (min)</label>
+    <name>TempoFallbackMinutos__c</name>
+</CustomFieldTranslation>

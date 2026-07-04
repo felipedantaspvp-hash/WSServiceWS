@@ -16,7 +16,7 @@
             </template>
 
             <template if:true={hasError}>
-                <lightning-card title="Erro" icon-name="utility:error">
+                <lightning-card title={labels.commonError} icon-name="utility:error">
                     <div class="slds-p-horizontal_medium slds-p-bottom_medium">
                         {errorMessage}
                     </div>
@@ -565,7 +565,7 @@
                                 <h3>{labels.technicalSettingsTabTitle}</h3>
                                 <p>{labels.gestaoEntitlementProcess}: {gestao.entitlementProcessName}</p>
                                 <p>{labels.gestaoBusinessHours}: {gestao.businessHoursName}</p>
-                                <p>Static Resource: {gestao.staticResourceName}</p>
+                                <p>{labels.gestaoStaticResource}: {gestao.staticResourceName}</p>
                                 <p>{labels.categoryBusinessUnit}: {gestao.unidadeNegocio}</p>
                             </section>
                         </template>
@@ -658,8 +658,8 @@
                             ></lightning-input>
                             <lightning-input
                                 lwc:ref="createStaticResourceName"
-                                label="Static Resource"
-                                field-level-help="Use uma imagem na proporção 8:3 (ex: 1920x720px ou 1600x600px). A imagem é exibida sem cortes; proporções diferentes geram barras vazias nas laterais."
+                                label={labels.gestaoStaticResource}
+                                field-level-help={labels.gestaoStaticResourceHelp}
                                 name="staticResourceName"
                                 data-scope="create"
                                 data-field="staticResourceName"
@@ -815,7 +815,7 @@
                             <lightning-combobox label={labels.categoryBusinessUnit} name="unidadeNegocio" data-field="unidadeNegocio" value={editForm.unidadeNegocio} options={unidadeNegocioOptions} oninput={handleEditInputChange} onchange={handleEditInputChange} disabled={isCamposEstruturaisReadOnly} required></lightning-combobox>
                             <lightning-input label={labels.gestaoEntitlementProcess} name="entitlementProcessName" data-field="entitlementProcessName" value={editForm.entitlementProcessName} oninput={handleEditInputChange} onchange={handleEditInputChange} disabled={isCamposEstruturaisReadOnly} required></lightning-input>
                             <lightning-input label={labels.gestaoBusinessHours} name="businessHoursName" data-field="businessHoursName" value={editForm.businessHoursName} oninput={handleEditInputChange} onchange={handleEditInputChange} disabled={isCamposEstruturaisReadOnly} required></lightning-input>
-                            <lightning-input label="Static Resource" field-level-help="Use uma imagem na proporção 8:3 (ex: 1920x720px ou 1600x600px). A imagem é exibida sem cortes; proporções diferentes geram barras vazias nas laterais." name="staticResourceName" data-field="staticResourceName" value={editForm.staticResourceName} oninput={handleEditInputChange} onchange={handleEditInputChange} disabled={isCamposEstruturaisReadOnly}></lightning-input>
+                            <lightning-input label={labels.gestaoStaticResource} field-level-help={labels.gestaoStaticResourceHelp} name="staticResourceName" data-field="staticResourceName" value={editForm.staticResourceName} oninput={handleEditInputChange} onchange={handleEditInputChange} disabled={isCamposEstruturaisReadOnly}></lightning-input>
                             <template if:true={canShowTechnical}>
                                 <lightning-combobox
                                     label={labels.categoryStatusField}
@@ -1277,10 +1277,10 @@
                                     <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
                                         <thead>
                                             <tr class="slds-line-height_reset">
-                                                <th class="area-interna-col-area area-interna-th-clickable" ondblclick={handleReplicateFirstRow} title="Duplo clique: replica toda a primeira linha para todas as áreas">{labels.ruleColInternalArea}</th>
-                                                <th class="area-interna-col-time area-interna-th-clickable" data-field="tempoAlta" ondblclick={handleReplicateColumn} title="Duplo clique: replica o valor da primeira área para todas">{labels.rulePriorityHighMin}</th>
-                                                <th class="area-interna-col-time area-interna-th-clickable" data-field="tempoMedia" ondblclick={handleReplicateColumn} title="Duplo clique: replica o valor da primeira área para todas">{labels.rulePriorityMediumMin}</th>
-                                                <th class="area-interna-col-time area-interna-th-clickable" data-field="tempoBaixa" ondblclick={handleReplicateColumn} title="Duplo clique: replica o valor da primeira área para todas">{labels.rulePriorityLowMin}</th>
+                                                <th class="area-interna-col-area area-interna-th-clickable" ondblclick={handleReplicateFirstRow} title={labels.areaInternaHelpReplicateRow}>{labels.ruleColInternalArea}</th>
+                                                <th class="area-interna-col-time area-interna-th-clickable" data-field="tempoAlta" ondblclick={handleReplicateColumn} title={labels.areaInternaHelpReplicateColumn}>{labels.rulePriorityHighMin}</th>
+                                                <th class="area-interna-col-time area-interna-th-clickable" data-field="tempoMedia" ondblclick={handleReplicateColumn} title={labels.areaInternaHelpReplicateColumn}>{labels.rulePriorityMediumMin}</th>
+                                                <th class="area-interna-col-time area-interna-th-clickable" data-field="tempoBaixa" ondblclick={handleReplicateColumn} title={labels.areaInternaHelpReplicateColumn}>{labels.rulePriorityLowMin}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -1290,7 +1290,7 @@
                                                         class="area-interna-col-area area-interna-th-clickable"
                                                         data-area={row.area}
                                                         ondblclick={handleCopyRowPriorityHigh}
-                                                        title="Duplo clique: copia o valor de Priority High para Medium e Low desta área"
+                                                        title={labels.areaInternaHelpCopyRowPriority}
                                                     >
                                                         <span class="slds-truncate">{row.area}</span>
                                                     </td>

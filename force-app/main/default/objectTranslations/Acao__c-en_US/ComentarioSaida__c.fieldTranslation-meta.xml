@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <help><!-- Descreva o contexto de saída da ação operacional. --></help>
-    <label><!-- Comentário de Saída --></label>
+    <help>Describe the exit context of the operational action.</help>
+    <label>Exit Comment</label>
     <name>ComentarioSaida__c</name>
 </CustomFieldTranslation>

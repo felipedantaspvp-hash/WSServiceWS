@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Gerente de Conta --></label>
+    <label>Account Manager</label>
     <name>Gerente_da_Conta_Tecon_Salvador__c</name>
     <picklistValues>
         <masterLabel>Bruno Souza</masterLabel>
-        <translation><!-- Bruno Souza --></translation>
+        <translation>Bruno Souza</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Cléo Maryan Rodriguez</masterLabel>
-        <translation><!-- Cléo Maryan Rodriguez --></translation>
+        <translation>Cléo Maryan Rodriguez</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Karoline Torres</masterLabel>
-        <translation><!-- Karoline Torres --></translation>
+        <translation>Karoline Torres</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Maicon Silva Sousa</masterLabel>
-        <translation><!-- Maicon Silva Sousa --></translation>
+        <translation>Maicon Silva Sousa</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Mayron Kaneko</masterLabel>
-        <translation><!-- Mayron Kaneko --></translation>
+        <translation>Mayron Kaneko</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Patricia Muiños</masterLabel>
-        <translation><!-- Patricia Muiños --></translation>
+        <translation>Patricia Muiños</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Renata Silva</masterLabel>
-        <translation><!-- Renata Silva --></translation>
+        <translation>Renata Silva</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Robert Castro</masterLabel>
-        <translation><!-- Robert Castro --></translation>
+        <translation>Robert Castro</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Vanessa Queiroz</masterLabel>
-        <translation><!-- Vanessa Queiroz --></translation>
+        <translation>Vanessa Queiroz</translation>
     </picklistValues>
 </CustomFieldTranslation>

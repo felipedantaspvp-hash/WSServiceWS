@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Segmentação Wilson --></label>
+    <label>Wilson Segmentation</label>
     <name>Segmenta_Wilson__c</name>
     <picklistValues>
         <masterLabel>Armador Liner</masterLabel>
-        <translation><!-- Armador Liner --></translation>
+        <translation>Liner Shipowner</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Armador Tramp</masterLabel>
-        <translation><!-- Armador Tramp --></translation>
+        <translation>Tramp Shipowner</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Embarcador Carga Não Conteinerizada</masterLabel>
-        <translation><!-- Embarcador Carga Não Conteinerizada --></translation>
+        <translation>Non-Containerized Cargo Shipper</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Embarcador Contêiner</masterLabel>
-        <translation><!-- Embarcador Contêiner --></translation>
+        <translation>Container Shipper</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Estaleiro</masterLabel>
-        <translation><!-- Estaleiro --></translation>
+        <translation>Shipyard</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Intermediário de Carga</masterLabel>
-        <translation><!-- Intermediário de Carga --></translation>
+        <translation>Cargo Intermediary</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Outro</masterLabel>
-        <translation><!-- Outro --></translation>
+        <translation>Other</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Recebedor Carga Não Conteinerizada</masterLabel>
-        <translation><!-- Recebedor Carga Não Conteinerizada --></translation>
+        <translation>Non-Containerized Cargo Receiver</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Óleo &amp; Gás</masterLabel>
-        <translation><!-- Óleo &amp; Gás --></translation>
+        <translation>Oil &amp; Gas</translation>
     </picklistValues>
 </CustomFieldTranslation>

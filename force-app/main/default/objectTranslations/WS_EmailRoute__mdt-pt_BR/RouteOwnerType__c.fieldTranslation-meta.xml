@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Tipo do Owner da Rota</label>
+    <name>RouteOwnerType__c</name>
+    <picklistValues>
+        <masterLabel>QUEUE</masterLabel>
+        <translation>QUEUE</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>USER</masterLabel>
+        <translation>USER</translation>
+    </picklistValues>
+</CustomFieldTranslation>

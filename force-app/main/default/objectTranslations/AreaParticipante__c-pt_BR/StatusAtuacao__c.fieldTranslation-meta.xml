@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Status da Área Participante</label>
+    <name>StatusAtuacao__c</name>
+    <picklistValues>
+        <masterLabel>Aberta</masterLabel>
+        <translation>Aberta</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Em Andamento</masterLabel>
+        <translation>Em Andamento</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Concluída</masterLabel>
+        <translation>Concluída</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cancelada</masterLabel>
+        <translation>Cancelada</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vencida</masterLabel>
+        <translation>Vencida</translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Frequência</label>
+    <name>Frequencia__c</name>
+    <picklistValues>
+        <masterLabel>Diária</masterLabel>
+        <translation>Diária</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Dias específicos da semana</masterLabel>
+        <translation>Dias específicos da semana</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Semanal</masterLabel>
+        <translation>Semanal</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mensal</masterLabel>
+        <translation>Mensal</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Trimestral</masterLabel>
+        <translation>Trimestral</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Anual</masterLabel>
+        <translation>Anual</translation>
+    </picklistValues>
+</CustomFieldTranslation>

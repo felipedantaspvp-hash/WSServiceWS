@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Gerente de Conta</label>
+    <name>Gerente_Conta_Tecon_Rio_Grande__c</name>
+    <picklistValues>
+        <masterLabel>Daiana Valin</masterLabel>
+        <translation>Daiana Valin</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Débora Barboza</masterLabel>
+        <translation>Débora Barboza</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Luciane Vincenzi</masterLabel>
+        <translation>Luciane Vincenzi</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Marina Vidal</masterLabel>
+        <translation>Marina Vidal</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Osvaldo Prestes</masterLabel>
+        <translation>Osvaldo Prestes</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Richard Almeida</masterLabel>
+        <translation>Richard Almeida</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rodrigo Brunetto</masterLabel>
+        <translation>Rodrigo Brunetto</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rodrigo Velho</masterLabel>
+        <translation>Rodrigo Velho</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Samuel Pereira</masterLabel>
+        <translation>Samuel Pereira</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Thiago Novais</masterLabel>
+        <translation>Thiago Novais</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Treice Grunberg</masterLabel>
+        <translation>Treice Grunberg</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Victor Licastro</masterLabel>
+        <translation>Victor Licastro</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vinicius Barros</masterLabel>
+        <translation>Vinicius Barros</translation>
+    </picklistValues>
+</CustomFieldTranslation>

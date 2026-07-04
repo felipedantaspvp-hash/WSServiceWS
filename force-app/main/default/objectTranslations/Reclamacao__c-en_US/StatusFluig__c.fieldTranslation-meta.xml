@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Status Fluig --></label>
+    <label>Fluig Status</label>
     <name>StatusFluig__c</name>
     <picklistValues>
         <masterLabel>Aberto</masterLabel>
-        <translation><!-- Aberto --></translation>
+        <translation>Open</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Cancelado</masterLabel>
-        <translation><!-- Cancelado --></translation>
+        <translation>Cancelled</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Concluído</masterLabel>
-        <translation><!-- Concluído --></translation>
+        <translation>Completed</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Em Andamento</masterLabel>
-        <translation><!-- Em Andamento --></translation>
+        <translation>In Progress</translation>
     </picklistValues>
 </CustomFieldTranslation>

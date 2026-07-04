@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Área de Negócio</label>
+    <name>Area_Negocio__c</name>
+    <picklistValues>
+        <masterLabel>Agência</masterLabel>
+        <translation>Agência</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Bases de Apoio Offshore</masterLabel>
+        <translation>Bases de Apoio Offshore</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Estaleiro</masterLabel>
+        <translation>Estaleiro</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Logística - Plataforma NE</masterLabel>
+        <translation>Logística - Plataforma NE</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Logística - Plataforma SE</masterLabel>
+        <translation>Logística - Plataforma SE</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tecon Rio Grande</masterLabel>
+        <translation>Tecon Rio Grande</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tecon Salvador</masterLabel>
+        <translation>Tecon Salvador</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rebocadores</masterLabel>
+        <translation>Rebocadores</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>WSUT</masterLabel>
+        <translation>WSUT</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Novos Negócios</masterLabel>
+        <translation>Novos Negócios</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Argonáutica</masterLabel>
+        <translation>Argonáutica</translation>
+    </picklistValues>
+</CustomFieldTranslation>

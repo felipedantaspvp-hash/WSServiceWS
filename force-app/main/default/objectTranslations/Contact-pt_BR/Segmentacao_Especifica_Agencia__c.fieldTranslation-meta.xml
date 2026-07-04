@@ -1,97 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Segmentação Específica Agência --></label>
+    <label>Segmentação Específica Agência</label>
     <name>Segmentacao_Especifica_Agencia__c</name>
     <picklistValues>
         <masterLabel>Afretador</masterLabel>
-        <translation><!-- Afretador --></translation>
+        <translation>Afretador</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Alumínio</masterLabel>
-        <translation><!-- Alumínio --></translation>
+        <translation>Alumínio</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Armador</masterLabel>
-        <translation><!-- Armador --></translation>
+        <translation>Armador</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Aço</masterLabel>
-        <translation><!-- Aço --></translation>
+        <translation>Aço</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Açúcar</masterLabel>
-        <translation><!-- Açúcar --></translation>
+        <translation>Açúcar</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Broker</masterLabel>
-        <translation><!-- Broker --></translation>
+        <translation>Broker</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Carga Geral</masterLabel>
-        <translation><!-- Carga Geral --></translation>
+        <translation>Carga Geral</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Carga Viva</masterLabel>
-        <translation><!-- Carga Viva --></translation>
+        <translation>Carga Viva</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Carga de Projeto</masterLabel>
-        <translation><!-- Carga de Projeto --></translation>
+        <translation>Carga de Projeto</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Carvão</masterLabel>
-        <translation><!-- Carvão --></translation>
+        <translation>Carvão</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Celulose</masterLabel>
-        <translation><!-- Celulose --></translation>
+        <translation>Celulose</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Cimento</masterLabel>
-        <translation><!-- Cimento --></translation>
+        <translation>Cimento</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Coque</masterLabel>
-        <translation><!-- Coque --></translation>
+        <translation>Coque</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Fertilizante</masterLabel>
-        <translation><!-- Fertilizante --></translation>
+        <translation>Fertilizante</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Grãos</masterLabel>
-        <translation><!-- Grãos --></translation>
+        <translation>Grãos</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Líquido</masterLabel>
-        <translation><!-- Líquido --></translation>
+        <translation>Líquido</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Madeira</masterLabel>
-        <translation><!-- Madeira --></translation>
+        <translation>Madeira</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Minério</masterLabel>
-        <translation><!-- Minério --></translation>
+        <translation>Minério</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Outros</masterLabel>
-        <translation><!-- Outros --></translation>
+        <translation>Outros</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Químicos</masterLabel>
-        <translation><!-- Químicos --></translation>
+        <translation>Químicos</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Ro-Ro</masterLabel>
-        <translation><!-- Ro-Ro --></translation>
+        <translation>Ro-Ro</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Sal</masterLabel>
-        <translation><!-- Sal --></translation>
+        <translation>Sal</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Óleo &amp; Gás</masterLabel>
-        <translation><!-- Óleo &amp; Gás --></translation>
+        <translation>Óleo &amp; Gás</translation>
     </picklistValues>
 </CustomFieldTranslation>

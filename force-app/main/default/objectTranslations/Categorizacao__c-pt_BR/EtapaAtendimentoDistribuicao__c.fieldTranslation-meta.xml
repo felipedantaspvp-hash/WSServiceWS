@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Etapa do Atendimento na Distribuição</label>
+    <name>EtapaAtendimentoDistribuicao__c</name>
+    <picklistValues>
+        <masterLabel>Novo</masterLabel>
+        <translation>Novo</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Em Triagem</masterLabel>
+        <translation>Em Triagem</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Em Atendimento</masterLabel>
+        <translation>Em Atendimento</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Aguardando Cliente</masterLabel>
+        <translation>Aguardando Cliente</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Aguardando Área Interna</masterLabel>
+        <translation>Aguardando Área Interna</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Em Acompanhamento</masterLabel>
+        <translation>Em Acompanhamento</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Preparando Retorno ao Cliente</masterLabel>
+        <translation>Preparando Retorno ao Cliente</translation>
+    </picklistValues>
+</CustomFieldTranslation>

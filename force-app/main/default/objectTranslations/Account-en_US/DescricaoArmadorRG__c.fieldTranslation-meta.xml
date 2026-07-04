@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Terminal Rio Grande --></label>
+    <label>Rio Grande Terminal</label>
     <name>DescricaoArmadorRG__c</name>
 </CustomFieldTranslation>

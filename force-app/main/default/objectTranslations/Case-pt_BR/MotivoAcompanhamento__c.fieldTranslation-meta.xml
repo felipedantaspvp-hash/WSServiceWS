@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <help><!-- Selecione o motivo operacional para colocar o Case em acompanhamento. --></help>
-    <label><!-- Motivo do Acompanhamento --></label>
+    <help>Selecione o motivo operacional para colocar o Case em acompanhamento.</help>
+    <label>Motivo do Acompanhamento</label>
     <name>MotivoAcompanhamento__c</name>
     <picklistValues>
         <masterLabel>Aguardando cliente</masterLabel>
-        <translation><!-- Aguardando cliente --></translation>
+        <translation>Aguardando cliente</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Aguardando documentação</masterLabel>
-        <translation><!-- Aguardando documentação --></translation>
+        <translation>Aguardando documentação</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Aguardando movimentação operacional</masterLabel>
-        <translation><!-- Aguardando movimentação operacional --></translation>
+        <translation>Aguardando movimentação operacional</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Aguardando terceiro</masterLabel>
-        <translation><!-- Aguardando terceiro --></translation>
+        <translation>Aguardando terceiro</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Operação externa</masterLabel>
-        <translation><!-- Operação externa --></translation>
+        <translation>Operação externa</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Outro</masterLabel>
-        <translation><!-- Outro --></translation>
+        <translation>Outro</translation>
     </picklistValues>
 </CustomFieldTranslation>

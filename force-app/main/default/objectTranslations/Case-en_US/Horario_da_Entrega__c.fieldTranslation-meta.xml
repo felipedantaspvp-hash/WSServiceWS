@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <help><!-- Informe no formato HH:MM (ex: 14:30). --></help>
-    <label><!-- Horário da Entrega --></label>
+    <help>Enter in HH:MM format (e.g., 14:30).</help>
+    <label>Delivery Time</label>
     <name>Horario_da_Entrega__c</name>
 </CustomFieldTranslation>

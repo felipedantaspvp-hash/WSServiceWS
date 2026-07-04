@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Status --></label>
+    <label>Status</label>
     <name>Status__c</name>
     <picklistValues>
         <masterLabel>Ativo</masterLabel>
-        <translation><!-- Ativo --></translation>
+        <translation>Ativo</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Duplicado</masterLabel>
-        <translation><!-- Duplicado --></translation>
+        <translation>Duplicado</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Inativo</masterLabel>
-        <translation><!-- Inativo --></translation>
+        <translation>Inativo</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Novo</masterLabel>
-        <translation><!-- Novo --></translation>
+        <translation>Novo</translation>
     </picklistValues>
 </CustomFieldTranslation>

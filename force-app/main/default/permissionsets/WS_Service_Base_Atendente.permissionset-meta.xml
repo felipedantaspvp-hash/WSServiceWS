@@ -372,11 +372,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.BaseLocalidade__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.Booking__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -472,11 +467,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.NumeroConteiner__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.NumeroFatura__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -548,11 +538,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.UsuarioInicioAcompanhamento__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.ValorContestado__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

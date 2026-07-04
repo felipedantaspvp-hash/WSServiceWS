@@ -1220,11 +1220,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.ArquivoReferencia__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.AssetId</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -1246,11 +1241,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.BL__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.BaseLocalidade__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1306,11 +1296,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.ChavesNF__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.ClienteFinalOrganizacao__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1395,16 +1380,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.DadoVerificavelProcesso__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.DadosMinimosPedido__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.DataHoraEnvioPesquisa__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -1465,11 +1440,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.DecisaoArmador__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.Descricao_do_Relatorio__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -1481,11 +1451,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.DistribuicaoSolicitada__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.DocumentacaoFaltante__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1511,16 +1476,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.EmailIncluido__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.EmailUsuario__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.EmpresaRepresentada__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1555,11 +1510,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.FaixaEsperada__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.FilaDestinoDeveloperName__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -1586,16 +1536,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.IMO__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.IdentificacaoCliente__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.IdentificacaoMinima__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1700,17 +1640,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.NomeArquivo__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.NomeDaTela__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.NomeOrganizacao__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1741,11 +1671,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.NovoEndereco__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.NumeroConteiner__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1785,17 +1710,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.NumeroProposta__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.Observacoes__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.OrganizacaoValidadaApp__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1911,11 +1826,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.RefCliente__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.ReferenciaProcesso__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2061,11 +1971,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Usuario_Portal__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.ValorContestado__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>

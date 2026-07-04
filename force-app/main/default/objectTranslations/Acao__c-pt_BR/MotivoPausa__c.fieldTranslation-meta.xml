@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Selecione o motivo que melhor explica por que o atendimento entrou em acompanhamento.</help>
+    <label>Motivo da Pausa</label>
+    <name>MotivoPausa__c</name>
+    <picklistValues>
+        <masterLabel>Operação externa</masterLabel>
+        <translation>Operação externa</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Aguardando cliente</masterLabel>
+        <translation>Aguardando cliente</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Aguardando terceiro</masterLabel>
+        <translation>Aguardando terceiro</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Aguardando movimentação operacional</masterLabel>
+        <translation>Aguardando movimentação operacional</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Aguardando documentação</masterLabel>
+        <translation>Aguardando documentação</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Outro</masterLabel>
+        <translation>Outro</translation>
+    </picklistValues>
+</CustomFieldTranslation>

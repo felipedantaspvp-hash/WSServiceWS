@@ -2,7 +2,7 @@
     <lightning-quick-action-panel header={labels.title}>
         <div class="slds-p-around_medium shell">
             <template if:true={loading}>
-                <lightning-spinner alternative-text="Loading"></lightning-spinner>
+                <lightning-spinner alternative-text={labels.loading}></lightning-spinner>
             </template>
 
             <template if:false={loading}>

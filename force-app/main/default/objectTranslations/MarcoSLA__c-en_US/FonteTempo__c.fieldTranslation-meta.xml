@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Time Source</label>
+    <name>FonteTempo__c</name>
+    <picklistValues>
+        <masterLabel>GestaoSLA</masterLabel>
+        <translation>GestaoSLA</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>RegraSLA</masterLabel>
+        <translation>RegraSLA</translation>
+    </picklistValues>
+</CustomFieldTranslation>

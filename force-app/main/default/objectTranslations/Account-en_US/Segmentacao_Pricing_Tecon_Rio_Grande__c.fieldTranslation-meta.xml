@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Segmentação Pricing --></label>
+    <label>Pricing Segmentation</label>
     <name>Segmentacao_Pricing_Tecon_Rio_Grande__c</name>
     <picklistValues>
         <masterLabel>Agente de Carga</masterLabel>
-        <translation><!-- Agente de Carga --></translation>
+        <translation>Cargo Agent</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Cargas Diferenciadas (NCC e Cargas de Projeto)</masterLabel>
-        <translation><!-- Cargas Diferenciadas (NCC e Cargas de Projeto) --></translation>
+        <translation>Special Cargo (NCC and Project Cargo)</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Cliente Grande</masterLabel>
-        <translation><!-- Cliente Grande --></translation>
+        <translation>Large Customer</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Cliente Pequeno</masterLabel>
-        <translation><!-- Cliente Pequeno --></translation>
+        <translation>Small Customer</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Cliente a Desenvolver</masterLabel>
-        <translation><!-- Cliente a Desenvolver --></translation>
+        <translation>Customer to Develop</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Despachante</masterLabel>
-        <translation><!-- Despachante --></translation>
+        <translation>Customs Broker</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Key Account</masterLabel>
-        <translation><!-- Key Account --></translation>
+        <translation>Key Account</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>NVOCC</masterLabel>
-        <translation><!-- NVOCC --></translation>
+        <translation>NVOCC</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Transportadora</masterLabel>
-        <translation><!-- Transportadora --></translation>
+        <translation>Carrier</translation>
     </picklistValues>
 </CustomFieldTranslation>

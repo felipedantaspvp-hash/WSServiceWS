@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <help><!-- Selecione o motivo operacional para colocar o Case em acompanhamento. --></help>
+    <help>Select the operational reason to put the Case on follow-up.</help>
     <label>Follow-up Reason</label>
     <name>MotivoAcompanhamento__c</name>
     <picklistValues>

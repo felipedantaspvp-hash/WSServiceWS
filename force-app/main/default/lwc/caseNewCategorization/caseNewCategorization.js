@@ -2,7 +2,6 @@ import { LightningElement, track, wire } from 'lwc';
 import { NavigationMixin, CurrentPageReference } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { decodeDefaultFieldValues } from 'lightning/pageReferenceUtils';
-import LANG from '@salesforce/i18n/lang';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import CASE_OBJECT from '@salesforce/schema/Case';
 import getInitialContext from '@salesforce/apex/CaseCreationController.getInitialContext';
@@ -18,6 +17,36 @@ import additionalInfoSectionLabel from '@salesforce/label/c.CaseNewCategorizatio
 import detalhesLabel from '@salesforce/label/c.Detalhes';
 import descriptionSectionLabel from '@salesforce/label/c.CaseNewCategorization_DescriptionSection';
 import casoRelacionadoLabel from '@salesforce/label/c.CasoRelacionado';
+import cardTitleLabel from '@salesforce/label/c.CaseNewCategorization_CardTitle';
+import subtitleLabel from '@salesforce/label/c.CaseNewCategorization_Subtitle';
+import unidadeRecordTypeLabel from '@salesforce/label/c.CaseNewCategorization_UnidadeRecordType';
+import unidadeNegocioLabel from '@salesforce/label/c.CaseNewCategorization_UnidadeNegocio';
+import tipoCasoLabel from '@salesforce/label/c.CaseNewCategorization_TipoCaso';
+import categoriaFieldLabel from '@salesforce/label/c.CaseNewCategorization_Categoria';
+import assuntoLabel from '@salesforce/label/c.CaseNewCategorization_Assunto';
+import subassuntoLabel from '@salesforce/label/c.CaseNewCategorization_Subassunto';
+import destinoLabel from '@salesforce/label/c.CaseNewCategorization_Destino';
+import destinationHintAssumeLabel from '@salesforce/label/c.CaseNewCategorization_DestinationHintAssume';
+import destinationHintDistributeLabel from '@salesforce/label/c.CaseNewCategorization_DestinationHintDistribute';
+import destinationHintCloseLabel from '@salesforce/label/c.CaseNewCategorization_DestinationHintClose';
+import queueResolvedLabel from '@salesforce/label/c.CaseNewCategorization_QueueResolved';
+import manualQueueLabel from '@salesforce/label/c.CaseNewCategorization_ManualQueue';
+import cancelLabel from '@salesforce/label/c.CaseNewCategorization_Cancel';
+import loadingLabel from '@salesforce/label/c.CaseNewCategorization_Loading';
+import savingLabel from '@salesforce/label/c.CaseNewCategorization_Saving';
+import assumeLabel from '@salesforce/label/c.CaseNewCategorization_Assume';
+import distributeLabel from '@salesforce/label/c.CaseNewCategorization_Distribute';
+import closeLabel from '@salesforce/label/c.CaseNewCategorization_Close';
+import assumirBloqueadoHintLabel from '@salesforce/label/c.CaseNewCategorization_AssumirBloqueadoHint';
+import errorTitleLabel from '@salesforce/label/c.CaseNewCategorization_ErrorTitle';
+import unexpectedLabel from '@salesforce/label/c.CaseNewCategorization_Unexpected';
+import prepareFailedLabel from '@salesforce/label/c.CaseNewCategorization_PrepareFailed';
+import resolveFailedLabel from '@salesforce/label/c.CaseNewCategorization_ResolveFailed';
+import saveLabel from '@salesforce/label/c.CaseNewCategorization_Save';
+import continueButtonLabel from '@salesforce/label/c.CaseNewCategorization_ContinueButton';
+import successTitleLabel from '@salesforce/label/c.CaseNewCategorization_SuccessTitle';
+import successMsgLabel from '@salesforce/label/c.CaseNewCategorization_SuccessMsg';
+import createFailedLabel from '@salesforce/label/c.CaseNewCategorization_CreateFailed';
 
 // Replica, por Unidade de Negócio, as seções/campos/regras de visibilidade "preenchíveis na criação"
 // da Lightning Page real (Dynamic Forms) daquela unidade — extraído de LP_Atendimento_Salvador em
@@ -810,72 +839,37 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
     @track detailPrioritySuggested = null;
     @track recordTypeConfirmed = false;
 
-    language = (LANG || '').toLowerCase();
-
-    bilingualLabels = this.language.startsWith('en')
-        ? {
-              cardTitle: 'New Case',
-              subtitle: 'Select the initial categorization to load the standard Case form.',
-              unidadeRecordType: 'Business Unit / Record Type',
-              unidadeNegocio: 'Business Unit',
-              tipoCaso: 'Case Type',
-              categoria: 'Category',
-              assunto: 'Subject',
-              subassunto: 'Subsubject',
-              destino: 'Destination',
-              destinationHintAssume: 'The current user will be the owner.',
-              destinationHintDistribute: 'Uses configured queue or manual selection.',
-              destinationHintClose: 'Closes the case and keeps owner as current user.',
-              queueResolved: 'Queue defined by categorization',
-              manualQueue: 'Manual queue',
-              cancel: 'Cancel',
-              assume: 'Assume case',
-              distribute: 'Distribute to queue',
-              close: 'Close on creation',
-              assumirBloqueadoHint: 'This categorization requires distribution to the configured queue; assuming the case directly is not allowed.',
-              errorTitle: 'Error',
-              unexpected: 'Unexpected error',
-              prepareFailed: 'Please complete the categorization above before saving.',
-              resolveFailed: 'Failed to resolve Case defaults.',
-              save: 'Save',
-              continueButton: 'Next',
-              successTitle: 'Success',
-              successMsg: 'Case created successfully.',
-              createFailed: 'Failed to create Case.'
-          }
-        : {
-              cardTitle: 'Novo Caso',
-              subtitle: 'Selecione a categorização inicial para carregar o formulário padrão do Case.',
-              unidadeRecordType: 'Unidade / Record Type',
-              unidadeNegocio: 'Unidade de Negócio',
-              tipoCaso: 'Tipo de Caso',
-              categoria: 'Categoria',
-              assunto: 'Assunto',
-              subassunto: 'Subassunto',
-              destino: 'Destino',
-              destinationHintAssume: 'O usuário atual será proprietário.',
-              destinationHintDistribute: 'Usa fila parametrizada ou seleção manual.',
-              destinationHintClose: 'Fecha o caso e mantém owner como usuário atual.',
-              queueResolved: 'Fila definida pela categorização',
-              manualQueue: 'Fila manual',
-              cancel: 'Cancelar',
-              assume: 'Assumir o caso',
-              distribute: 'Distribuir para fila',
-              close: 'Encerrar na criação',
-              assumirBloqueadoHint: 'Esta categorização exige distribuição para a fila configurada; não é permitido assumir o caso diretamente.',
-              errorTitle: 'Erro',
-              unexpected: 'Erro inesperado',
-              prepareFailed: 'Complete a categorização acima antes de salvar.',
-              resolveFailed: 'Falha ao resolver os valores padrão do Caso.',
-              save: 'Salvar',
-              continueButton: 'Avançar',
-              successTitle: 'Sucesso',
-              successMsg: 'Caso criado com sucesso.',
-              createFailed: 'Falha ao criar o Caso.'
-          };
-
     labels = {
-        ...this.bilingualLabels,
+        cardTitle: cardTitleLabel,
+        subtitle: subtitleLabel,
+        unidadeRecordType: unidadeRecordTypeLabel,
+        unidadeNegocio: unidadeNegocioLabel,
+        tipoCaso: tipoCasoLabel,
+        categoria: categoriaFieldLabel,
+        assunto: assuntoLabel,
+        subassunto: subassuntoLabel,
+        destino: destinoLabel,
+        destinationHintAssume: destinationHintAssumeLabel,
+        destinationHintDistribute: destinationHintDistributeLabel,
+        destinationHintClose: destinationHintCloseLabel,
+        queueResolved: queueResolvedLabel,
+        manualQueue: manualQueueLabel,
+        cancel: cancelLabel,
+        loading: loadingLabel,
+        saving: savingLabel,
+        assume: assumeLabel,
+        distribute: distributeLabel,
+        close: closeLabel,
+        assumirBloqueadoHint: assumirBloqueadoHintLabel,
+        errorTitle: errorTitleLabel,
+        unexpected: unexpectedLabel,
+        prepareFailed: prepareFailedLabel,
+        resolveFailed: resolveFailedLabel,
+        save: saveLabel,
+        continueButton: continueButtonLabel,
+        successTitle: successTitleLabel,
+        successMsg: successMsgLabel,
+        createFailed: createFailedLabel,
         ctxTitle: contextSectionLabel,
         categorizationTitle: categorizacaoLabel,
         destinationTitle: destinationSectionLabel,

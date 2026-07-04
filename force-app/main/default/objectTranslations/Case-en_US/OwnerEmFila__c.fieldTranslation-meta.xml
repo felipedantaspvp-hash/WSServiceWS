@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <help><!-- Marcado automaticamente quando o proprietário do Case for uma fila. --></help>
-    <label><!-- Proprietário em Fila --></label>
+    <help>Automatically checked when the Case owner is a queue.</help>
+    <label>Owner Is Queue</label>
     <name>OwnerEmFila__c</name>
 </CustomFieldTranslation>

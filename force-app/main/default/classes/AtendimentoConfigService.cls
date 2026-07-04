@@ -66,6 +66,16 @@ public inherited sharing class AtendimentoConfigService {
     }
 
     /**
+     * @description Exposição @AuraEnabled de getActiveConfigs() para o wizard de LWC (categorizacaoManager),
+     * que precisa mapear Record Type de Case para Unidade de Negócio no client-side.
+     * @return Configurações ativas clonadas.
+     */
+    @AuraEnabled(cacheable=true)
+    public static List<AtendimentoConfigDTO> getActiveAtendimentoConfigs() {
+        return getActiveConfigs();
+    }
+
+    /**
      * @description Unidades de Negócio que o usuário corrente pode ver/gerenciar, derivadas dos Record Types
      * de Case disponíveis para o usuário (Schema.RecordTypeInfo.isAvailable()) mapeados via
      * ParametrosAtendimento__mdt.CaseRecordTypeDeveloperName__c -> UnidadeNegocio__c.

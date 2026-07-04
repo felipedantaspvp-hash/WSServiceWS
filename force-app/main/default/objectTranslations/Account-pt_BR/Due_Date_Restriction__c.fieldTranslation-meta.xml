@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Due Date Restriction</label>
+    <name>Due_Date_Restriction__c</name>
+    <picklistValues>
+        <masterLabel>Advanced</masterLabel>
+        <translation>Advanced</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>7 days</masterLabel>
+        <translation>7 days</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>15 days</masterLabel>
+        <translation>15 days</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>20 days</masterLabel>
+        <translation>20 days</translation>
+    </picklistValues>
+</CustomFieldTranslation>

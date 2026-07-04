@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Modalidade</label>
+    <name>Modalidade__c</name>
+    <picklistValues>
+        <masterLabel>Importação</masterLabel>
+        <translation>Importação</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Exportação</masterLabel>
+        <translation>Exportação</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cabotagem</masterLabel>
+        <translation>Cabotagem</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Outro</masterLabel>
+        <translation>Outro</translation>
+    </picklistValues>
+</CustomFieldTranslation>

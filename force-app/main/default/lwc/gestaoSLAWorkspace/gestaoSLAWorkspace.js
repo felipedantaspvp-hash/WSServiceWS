@@ -105,6 +105,8 @@ import gestaoEditButtonLabel from '@salesforce/label/c.GestaoSLA_EditButton';
 import gestaoEditSettingsButtonLabel from '@salesforce/label/c.GestaoSLA_EditSettingsButton';
 import gestaoEntitlementProcessLabel from '@salesforce/label/c.GestaoSLA_EntitlementProcess';
 import gestaoBusinessHoursLabel from '@salesforce/label/c.GestaoSLA_BusinessHours';
+import gestaoStaticResourceLabel from '@salesforce/label/c.GestaoSLA_StaticResource';
+import gestaoStaticResourceHelpLabel from '@salesforce/label/c.GestaoSLA_StaticResourceHelp';
 import gestaoMarcosUnicosSectionTitleLabel from '@salesforce/label/c.GestaoSLA_MarcosUnicosSectionTitle';
 import gestaoTriageTimeLabel from '@salesforce/label/c.GestaoSLA_TriageTime';
 import gestaoChatResponseTimeLabel from '@salesforce/label/c.GestaoSLA_ChatResponseTime';
@@ -524,6 +526,8 @@ export default class GestaoSLAWorkspace extends LightningElement {
         gestaoEditSettingsButton: gestaoEditSettingsButtonLabel,
         gestaoEntitlementProcess: gestaoEntitlementProcessLabel,
         gestaoBusinessHours: gestaoBusinessHoursLabel,
+        gestaoStaticResource: gestaoStaticResourceLabel,
+        gestaoStaticResourceHelp: gestaoStaticResourceHelpLabel,
         gestaoMarcosUnicosSectionTitle: gestaoMarcosUnicosSectionTitleLabel,
         gestaoTriageTime: gestaoTriageTimeLabel,
         gestaoEmailQueueTime: gestaoEmailQueueTimeLabel,

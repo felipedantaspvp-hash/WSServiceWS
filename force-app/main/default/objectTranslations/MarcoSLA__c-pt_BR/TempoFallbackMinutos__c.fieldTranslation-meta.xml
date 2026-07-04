@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Tempo de fallback (minutos) quando não há Regra de SLA para a Categorização do Case. Em branco = usa o padrão do sistema.</help>
+    <label>Tempo de Fallback (min)</label>
+    <name>TempoFallbackMinutos__c</name>
+</CustomFieldTranslation>

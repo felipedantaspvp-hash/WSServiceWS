@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <help><!-- Campo preenchido automaticamente com a etapa anterior ao acompanhamento. --></help>
-    <label><!-- Etapa Anterior do Acompanhamento --></label>
+    <help>Field automatically filled in with the stage prior to follow-up.</help>
+    <label>Previous Follow-up Stage</label>
     <name>EtapaAnteriorAcompanhamento__c</name>
 </CustomFieldTranslation>

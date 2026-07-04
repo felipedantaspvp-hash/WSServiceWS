@@ -1,69 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Segmentação Específica Logística --></label>
+    <label>Logistics Specific Segmentation</label>
     <name>Segmenta_Especifica_Logistica__c</name>
     <picklistValues>
         <masterLabel>Ambev</masterLabel>
-        <translation><!-- Ambev --></translation>
+        <translation>Ambev</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Automotivo</masterLabel>
-        <translation><!-- Automotivo --></translation>
+        <translation>Automotive</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Bebidas/Alimentos</masterLabel>
-        <translation><!-- Bebidas/Alimentos --></translation>
+        <translation>Beverages/Food</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Bens Industriais</masterLabel>
-        <translation><!-- Bens Industriais --></translation>
+        <translation>Industrial Goods</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Bens de Consumo/Varejo</masterLabel>
-        <translation><!-- Bens de Consumo/Varejo --></translation>
+        <translation>Consumer Goods/Retail</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Construção</masterLabel>
-        <translation><!-- Construção --></translation>
+        <translation>Construction</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Cosméticos/Perfumaria</masterLabel>
-        <translation><!-- Cosméticos/Perfumaria --></translation>
+        <translation>Cosmetics/Perfumery</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Energia/Solar</masterLabel>
-        <translation><!-- Energia/Solar --></translation>
+        <translation>Energy/Solar</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Life Science</masterLabel>
-        <translation><!-- Life Science --></translation>
+        <translation>Life Science</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Lifestyle</masterLabel>
-        <translation><!-- Lifestyle --></translation>
+        <translation>Lifestyle</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Maquinário</masterLabel>
-        <translation><!-- Maquinário --></translation>
+        <translation>Machinery</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Outros</masterLabel>
-        <translation><!-- Outros --></translation>
+        <translation>Other</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Partes e Peças</masterLabel>
-        <translation><!-- Partes e Peças --></translation>
+        <translation>Parts and Components</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Químico</masterLabel>
-        <translation><!-- Químico --></translation>
+        <translation>Chemical</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Tecnologia/Elet. Eletrônico</masterLabel>
-        <translation><!-- Tecnologia/Elet. Eletrônico --></translation>
+        <translation>Technology/Electronics</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Trading/Ag. Carga/Armador/P.F.</masterLabel>
-        <translation><!-- Trading/Ag. Carga/Armador/P.F. --></translation>
+        <translation>Trading/Cargo Agent/Shipowner/Individual</translation>
     </picklistValues>
 </CustomFieldTranslation>

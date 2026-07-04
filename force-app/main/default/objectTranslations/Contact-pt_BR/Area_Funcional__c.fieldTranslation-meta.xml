@@ -1,85 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Área Funcional --></label>
+    <label>Área Funcional</label>
     <name>Area_Funcional__c</name>
     <picklistValues>
         <masterLabel>Administrativo / Financeiro</masterLabel>
-        <translation><!-- Administrativo / Financeiro --></translation>
+        <translation>Administrativo / Financeiro</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Comercial / Vendas</masterLabel>
-        <translation><!-- Comercial / Vendas --></translation>
+        <translation>Comercial / Vendas</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Compras / Suprimentos</masterLabel>
-        <translation><!-- Compras / Suprimentos --></translation>
+        <translation>Compras / Suprimentos</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Comércio Exterior</masterLabel>
-        <translation><!-- Comércio Exterior --></translation>
+        <translation>Comércio Exterior</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Engenharia</masterLabel>
-        <translation><!-- Engenharia --></translation>
+        <translation>Engenharia</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Fiscalização / Auditoria</masterLabel>
-        <translation><!-- Fiscalização / Auditoria --></translation>
+        <translation>Fiscalização / Auditoria</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Jurídico</masterLabel>
-        <translation><!-- Jurídico --></translation>
+        <translation>Jurídico</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Logística</masterLabel>
-        <translation><!-- Logística --></translation>
+        <translation>Logística</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Manutenção</masterLabel>
-        <translation><!-- Manutenção --></translation>
+        <translation>Manutenção</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Marketing</masterLabel>
-        <translation><!-- Marketing --></translation>
+        <translation>Marketing</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Novos Negócios</masterLabel>
-        <translation><!-- Novos Negócios --></translation>
+        <translation>Novos Negócios</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Operações</masterLabel>
-        <translation><!-- Operações --></translation>
+        <translation>Operações</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Outro</masterLabel>
-        <translation><!-- Outro --></translation>
+        <translation>Outro</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Planejamento / Estratégico</masterLabel>
-        <translation><!-- Planejamento / Estratégico --></translation>
+        <translation>Planejamento / Estratégico</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Projetos</masterLabel>
-        <translation><!-- Projetos --></translation>
+        <translation>Projetos</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Recursos Humanos</masterLabel>
-        <translation><!-- Recursos Humanos --></translation>
+        <translation>Recursos Humanos</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Relacionamento Cliente / Pós-Venda</masterLabel>
-        <translation><!-- Relacionamento Cliente / Pós-Venda --></translation>
+        <translation>Relacionamento Cliente / Pós-Venda</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>SMS</masterLabel>
-        <translation><!-- SMS --></translation>
+        <translation>SMS</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>TI</masterLabel>
-        <translation><!-- TI --></translation>
+        <translation>TI</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Tecnologia da Informação</masterLabel>
-        <translation><!-- Tecnologia da Informação --></translation>
+        <translation>Tecnologia da Informação</translation>
     </picklistValues>
 </CustomFieldTranslation>

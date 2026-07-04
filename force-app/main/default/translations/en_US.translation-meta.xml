@@ -2080,7 +2080,7 @@ Before we begin, please choose your service language.</message>
         <name>CaseNewCategorization_DestinationSection</name>
     </customLabels>
     <customLabels>
-        <label><!-- Caso Relacionado --></label>
+        <label>Related Case</label>
         <name>CasoRelacionado</name>
     </customLabels>
     <customLabels>
@@ -24775,6 +24775,106 @@ Before we begin, please choose your service language.</message>
         <label><!-- Pardot Production Api Base Url --></label>
         <name>pi__Pardot_Production_Base_Url</name>
     </customLabels>
+    <customLabels>
+        <label>Time between case creation and categorization.</label>
+        <name>CategorizacaoManager_MarcoDescTriagem</name>
+    </customLabels>
+    <customLabels>
+        <label>Time after chat overflow until an Attendance Analyst starts handling it.</label>
+        <name>CategorizacaoManager_MarcoDescRespostaChat</name>
+    </customLabels>
+    <customLabels>
+        <label>Queue time after categorization and distribution, before first handling.</label>
+        <name>CategorizacaoManager_MarcoDescPrimeiraResposta</name>
+    </customLabels>
+    <customLabels>
+        <label>When a case leaves the queue and is being handled by N2.</label>
+        <name>CategorizacaoManager_MarcoDescAtendimento</name>
+    </customLabels>
+    <customLabels>
+        <label>When the case is with an internal area that is not the attendance team.</label>
+        <name>CategorizacaoManager_MarcoDescAtendimentoN3</name>
+    </customLabels>
+    <customLabels>
+        <label>Time the attendance analyst has to return to the customer with the N3 answer.</label>
+        <name>CategorizacaoManager_MarcoDescRetornoN3</name>
+    </customLabels>
+    <customLabels>
+        <label>Total time expected to conclude the case from the moment it was opened.</label>
+        <name>CategorizacaoManager_MarcoDescSlaTotal</name>
+    </customLabels>
+    <customLabels>
+        <label>Triage</label>
+        <name>CategorizacaoManager_MarcoLabelTriagem</name>
+    </customLabels>
+    <customLabels>
+        <label>Chat Response</label>
+        <name>CategorizacaoManager_MarcoLabelRespostaChat</name>
+    </customLabels>
+    <customLabels>
+        <label>First Response</label>
+        <name>CategorizacaoManager_MarcoLabelPrimeiraResposta</name>
+    </customLabels>
+    <customLabels>
+        <label>Handling</label>
+        <name>CategorizacaoManager_MarcoLabelAtendimento</name>
+    </customLabels>
+    <customLabels>
+        <label>N3 Handling</label>
+        <name>CategorizacaoManager_MarcoLabelAtendimentoN3</name>
+    </customLabels>
+    <customLabels>
+        <label>N3 Return</label>
+        <name>CategorizacaoManager_MarcoLabelRetornoN3</name>
+    </customLabels>
+    <customLabels>
+        <label>Total SLA</label>
+        <name>CategorizacaoManager_MarcoLabelSlaTotal</name>
+    </customLabels>
+    <customLabels>
+        <label>Operations</label>
+        <name>CategorizacaoManager_AreaLabelOperacoes</name>
+    </customLabels>
+    <customLabels>
+        <label>Storage</label>
+        <name>CategorizacaoManager_AreaLabelArmazenagem</name>
+    </customLabels>
+    <customLabels>
+        <label>Customs Support</label>
+        <name>CategorizacaoManager_AreaLabelApoioAduaneiro</name>
+    </customLabels>
+    <customLabels>
+        <label>Release</label>
+        <name>CategorizacaoManager_AreaLabelLiberacao</name>
+    </customLabels>
+    <customLabels>
+        <label>Billing</label>
+        <name>CategorizacaoManager_AreaLabelFaturamento</name>
+    </customLabels>
+    <customLabels>
+        <label>Sales</label>
+        <name>CategorizacaoManager_AreaLabelComercial</name>
+    </customLabels>
+    <customLabels>
+        <label>Finance</label>
+        <name>CategorizacaoManager_AreaLabelFinanceiro</name>
+    </customLabels>
+    <customLabels>
+        <label>Tax</label>
+        <name>CategorizacaoManager_AreaLabelFiscal</name>
+    </customLabels>
+    <customLabels>
+        <label>Quality</label>
+        <name>CategorizacaoManager_AreaLabelQualidade</name>
+    </customLabels>
+    <customLabels>
+        <label>Legal</label>
+        <name>CategorizacaoManager_AreaLabelJuridico</name>
+    </customLabels>
+    <customLabels>
+        <label>IT</label>
+        <name>CategorizacaoManager_AreaLabelTi</name>
+    </customLabels>
     <customPageWebLinks>
         <label><!-- DocuSign Setup --></label>
         <name>dfsle__Setup</name>
@@ -26729,33 +26829,6 @@ Before we begin, please choose your service language.</message>
     <flowDefinitions>
         <flows/>
         <fullName>PeriodoQLIAlcadaPeriodosTRG</fullName>
-    </flowDefinitions>
-    <flowDefinitions>
-        <flows>
-            <customErrorMessages>
-                <developerName>Custom_Error_Message_1</developerName>
-                <field>ValorMinimoPeriodo__c</field>
-            </customErrorMessages>
-            <customErrorMessages>
-                <developerName>Custom_Error_Message_4</developerName>
-                <field>PercentualDoPeriodo__c</field>
-            </customErrorMessages>
-            <customErrorMessages>
-                <developerName>Custom_Error_Message_2</developerName>
-                <field>ValorDeCNTRPeriodo__c</field>
-            </customErrorMessages>
-            <customErrorMessages>
-                <developerName>Custom_Error_Message_3</developerName>
-                <field>ValorMinimoDiarioPorProcessoPeriodo__c</field>
-            </customErrorMessages>
-            <textTemplates>
-                <name>TT_ListPrice_Consolidado</name>
-            </textTemplates>
-            <textTemplates>
-                <name>TT_SalesPrice_Consolidado</name>
-            </textTemplates>
-        </flows>
-        <fullName>Periodo_Before_Trigger</fullName>
     </flowDefinitions>
     <flowDefinitions>
         <flows>
@@ -32998,14 +33071,6 @@ Before we begin, please choose your service language.</message>
             </textTemplates>
         </flows>
         <fullName>Update_Contract_Status_of_Opportunity</fullName>
-    </flowDefinitions>
-    <flowDefinitions>
-        <flows>
-            <customErrorMessages>
-                <developerName>Nao_autorizado</developerName>
-            </customErrorMessages>
-        </flows>
-        <fullName>Usuario_Verifica_permissao</fullName>
     </flowDefinitions>
     <flowDefinitions>
         <flows>

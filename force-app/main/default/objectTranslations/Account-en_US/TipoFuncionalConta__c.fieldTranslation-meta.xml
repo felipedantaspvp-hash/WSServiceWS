@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Tipo Funcional de Conta --></label>
+    <label>Account Functional Type</label>
     <name>TipoFuncionalConta__c</name>
     <picklistValues>
         <masterLabel>Conta Unidade Operacional</masterLabel>
-        <translation><!-- Conta Unidade Operacional --></translation>
+        <translation>Operating Unit Account</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Grupo Econômico</masterLabel>
-        <translation><!-- Grupo Econômico --></translation>
+        <translation>Economic Group</translation>
     </picklistValues>
 </CustomFieldTranslation>

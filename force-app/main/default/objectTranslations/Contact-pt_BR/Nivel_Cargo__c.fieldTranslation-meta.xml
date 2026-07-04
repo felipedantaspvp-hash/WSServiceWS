@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Nível do Cargo --></label>
+    <label>Nível do Cargo</label>
     <name>Nivel_Cargo__c</name>
     <picklistValues>
         <masterLabel>Analista</masterLabel>
-        <translation><!-- Analista --></translation>
+        <translation>Analista</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Assistente</masterLabel>
-        <translation><!-- Assistente --></translation>
+        <translation>Assistente</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Coordenador</masterLabel>
-        <translation><!-- Coordenador --></translation>
+        <translation>Coordenador</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Diretor</masterLabel>
-        <translation><!-- Diretor --></translation>
+        <translation>Diretor</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Dono / Sócio</masterLabel>
-        <translation><!-- Dono / Sócio --></translation>
+        <translation>Dono / Sócio</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Gerente</masterLabel>
-        <translation><!-- Gerente --></translation>
+        <translation>Gerente</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Membro do Conselho</masterLabel>
-        <translation><!-- Membro do Conselho --></translation>
+        <translation>Membro do Conselho</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Presidente</masterLabel>
-        <translation><!-- Presidente --></translation>
+        <translation>Presidente</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Vice-presidente / Superintendente</masterLabel>
-        <translation><!-- Vice-presidente / Superintendente --></translation>
+        <translation>Vice-presidente / Superintendente</translation>
     </picklistValues>
 </CustomFieldTranslation>

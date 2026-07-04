@@ -1,5 +1,4 @@
 import { LightningElement, api, track } from 'lwc';
-import LANG from '@salesforce/i18n/lang';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getPanelDataFresh from '@salesforce/apex/AreaParticipanteController.getPanelDataFresh';
 import closeParticipation from '@salesforce/apex/AreaParticipanteController.closeParticipation';
@@ -7,6 +6,74 @@ import getParticipationDetails from '@salesforce/apex/AreaParticipanteController
 import addParticipationBulk from '@salesforce/apex/AreaParticipanteController.addParticipationBulk';
 import pauseParticipation from '@salesforce/apex/AreaParticipanteController.pauseParticipation';
 import resumeParticipation from '@salesforce/apex/AreaParticipanteController.resumeParticipation';
+
+import titleLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Title';
+import internalAreaLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_InternalArea';
+import atendimentoLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Atendimento';
+import operationalSummaryLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_OperationalSummary';
+import openGroupLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_OpenGroup';
+import doneGroupLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_DoneGroup';
+import emptyLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Empty';
+import openPluralLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_OpenPlural';
+import overduePluralLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_OverduePlural';
+import violatedLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Violated';
+import overdueLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Overdue';
+import pausedLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Paused';
+import completedViolatedLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_CompletedViolated';
+import completedInTimeLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_CompletedInTime';
+import cancelledLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Cancelled';
+import cancelledViolatedLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_CancelledViolated';
+import inTimeLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_InTime';
+import slaStatusLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_SlaStatus';
+import slaTimeLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_SlaTime';
+import consumedTimeLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_ConsumedTime';
+import remainingTimeLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_RemainingTime';
+import pausedTimeLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_PausedTime';
+import sequenceLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Sequence';
+import elapsedLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Elapsed';
+import startLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Start';
+import deadlineLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Deadline';
+import requestLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Request';
+import nextDeadlineLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_NextDeadline';
+import closeLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Close';
+import detailsLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Details';
+import closeTitleLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_CloseTitle';
+import areaLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Area';
+import currentStatusLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_CurrentStatus';
+import requestCommentLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_RequestComment';
+import returnCommentLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_ReturnComment';
+import solutionLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Solution';
+import cancelLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Cancel';
+import confirmCloseLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_ConfirmClose';
+import detailTitleLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_DetailTitle';
+import backLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Back';
+import statusLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Status';
+import closeModalLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_CloseModal';
+import errorLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Error';
+import successLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Success';
+import closeSuccessLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_CloseSuccess';
+import pauseLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Pause';
+import resumeLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Resume';
+import pauseSuccessLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_PauseSuccess';
+import resumeSuccessLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_ResumeSuccess';
+import addLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Add';
+import addTitleLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_AddTitle';
+import requestCommentInputLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_RequestCommentInput';
+import confirmAddLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_ConfirmAdd';
+import addSuccessCountLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_AddSuccessCount';
+import unexpectedErrorLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_UnexpectedError';
+import addStep2TitleLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_AddStep2Title';
+import addAvailableLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_AddAvailable';
+import addSelectedLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_AddSelected';
+import nextLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Next';
+import refreshLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_Refresh';
+import completedOnLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_CompletedOn';
+import statusLineCompletedLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_StatusLineCompleted';
+import statusLineCancelledLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_StatusLineCancelled';
+import statusLinePausedLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_StatusLinePaused';
+import statusLineOverdueByLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_StatusLineOverdueBy';
+import statusLineOverdueLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_StatusLineOverdue';
+import statusLineDeadlineLabel from '@salesforce/label/c.CaseAreasParticipantesPanel_StatusLineDeadline';
 
 export default class CaseAreasParticipantesPanel extends LightningElement {
     @api recordId;
@@ -24,135 +91,67 @@ export default class CaseAreasParticipantesPanel extends LightningElement {
     @track addItems = [];
     @track isOpenGroupExpanded = true;
     @track isDoneGroupExpanded = false;
-    lang = (LANG || '').toLowerCase();
-    isEnglish = this.lang.startsWith('en');
-    labels = this.isEnglish
-        ? {
-              title: 'Participant Areas',
-              internalArea: 'Internal Area',
-              operationalSummary: 'Operational summary',
-              openGroup: 'Open',
-              doneGroup: 'Completed',
-              empty: 'No active participant area for this Case.',
-              openPlural: 'open',
-              overduePlural: 'overdue',
-              violated: 'Violated',
-              overdue: 'Overdue',
-              paused: 'Paused',
-              completedViolated: 'Completed with violation',
-              completedInTime: 'Completed within SLA',
-              cancelled: 'Cancelled',
-              cancelledViolated: 'Cancelled with violation',
-              inTime: 'Within SLA',
-              slaStatus: 'SLA Status',
-              slaTime: 'SLA Time',
-              consumedTime: 'Consumed',
-              remainingTime: 'Remaining',
-              pausedTime: 'Paused Time',
-              sequence: 'Cycle',
-              elapsed: 'Elapsed',
-              start: 'Start',
-              deadline: 'Deadline',
-              request: 'Request',
-              nextDeadline: 'Next deadline',
-              close: 'Close',
-              details: 'Details',
-              closeTitle: 'Close Participation',
-              area: 'Participant Area',
-              currentStatus: 'Current Status',
-              requestComment: 'Request Comment',
-              returnComment: 'Return Comment',
-              solution: 'Area Solution / Return',
-              cancel: 'Cancel',
-              confirmClose: 'Confirm Closing',
-              detailTitle: 'Participation Details',
-              back: '← Back',
-              status: 'Status',
-              closeModal: 'Close',
-              error: 'Error',
-              success: 'Success',
-              closeSuccess: 'Participation closed successfully.',
-              pause: 'Pause',
-              resume: 'Resume',
-              pauseSuccess: 'Participation paused successfully.',
-              resumeSuccess: 'Participation resumed successfully.',
-              add: 'Add area',
-              addTitle: 'Add Participant Area',
-              requestCommentInput: 'Request comment',
-              confirmAdd: 'Confirm add',
-              addSuccess: 'Participant area added successfully.',
-              unexpectedError: 'Unexpected error',
-              addStep2Title: 'Comments by Area',
-              addAvailable: 'Available',
-              addSelected: 'Selected',
-              next: 'Next',
-              back: 'Back',
-              refresh: 'Refresh',
-              completedOn: 'Completed on'
-          }
-        : {
-              title: 'Áreas Participantes',
-              internalArea: 'Área Interna',
-              operationalSummary: 'Resumo operacional',
-              openGroup: 'Em aberto',
-              doneGroup: 'Concluídas',
-              empty: 'Nenhuma área participante ativa para este Caso.',
-              openPlural: 'abertas',
-              overduePlural: 'vencidas',
-              violated: 'Violada',
-              overdue: 'Vencida',
-              paused: 'Pausada',
-              completedViolated: 'Concluída com violação',
-              completedInTime: 'Concluída dentro do prazo',
-              cancelled: 'Cancelada',
-              cancelledViolated: 'Cancelada com violação',
-              inTime: 'Dentro do Prazo',
-              slaStatus: 'Status SLA',
-              slaTime: 'Tempo SLA',
-              consumedTime: 'Consumido',
-              remainingTime: 'Restante',
-              pausedTime: 'Tempo pausado',
-              sequence: 'Ciclo',
-              elapsed: 'Tempo decorrido',
-              start: 'Início',
-              deadline: 'Prazo',
-              request: 'Solicitação',
-              nextDeadline: 'Próximo prazo',
-              close: 'Encerrar',
-              details: 'Detalhes',
-              closeTitle: 'Encerrar Participação',
-              area: 'Área Participante',
-              currentStatus: 'Status Atual',
-              requestComment: 'Comentário de Solicitação',
-              returnComment: 'Comentário de Retorno',
-              solution: 'Solução / Retorno da Área',
-              cancel: 'Cancelar',
-              confirmClose: 'Confirmar Encerramento',
-              detailTitle: 'Detalhes da Participação',
-              back: '← Voltar',
-              status: 'Status',
-              closeModal: 'Fechar',
-              error: 'Erro',
-              success: 'Sucesso',
-              closeSuccess: 'Participação encerrada com sucesso.',
-              pause: 'Pausar',
-              resume: 'Retomar',
-              pauseSuccess: 'Participação pausada com sucesso.',
-              resumeSuccess: 'Participação retomada com sucesso.',
-              add: 'Adicionar área',
-              addTitle: 'Adicionar Área Participante',
-              requestCommentInput: 'Comentário de solicitação',
-              confirmAdd: 'Confirmar inclusão',
-              addSuccess: 'Área participante adicionada com sucesso.',
-              unexpectedError: 'Erro inesperado',
-              addStep2Title: 'Comentários por Área',
-              addAvailable: 'Disponíveis',
-              addSelected: 'Selecionadas',
-              next: 'Próximo',
-              back: 'Voltar',
-              refresh: 'Atualizar',
-              completedOn: 'Concluída em'
-          };
+    labels = {
+        title: titleLabel,
+        internalArea: internalAreaLabel,
+        operationalSummary: operationalSummaryLabel,
+        openGroup: openGroupLabel,
+        doneGroup: doneGroupLabel,
+        empty: emptyLabel,
+        openPlural: openPluralLabel,
+        overduePlural: overduePluralLabel,
+        violated: violatedLabel,
+        overdue: overdueLabel,
+        paused: pausedLabel,
+        completedViolated: completedViolatedLabel,
+        completedInTime: completedInTimeLabel,
+        cancelled: cancelledLabel,
+        cancelledViolated: cancelledViolatedLabel,
+        inTime: inTimeLabel,
+        slaStatus: slaStatusLabel,
+        slaTime: slaTimeLabel,
+        consumedTime: consumedTimeLabel,
+        remainingTime: remainingTimeLabel,
+        pausedTime: pausedTimeLabel,
+        sequence: sequenceLabel,
+        elapsed: elapsedLabel,
+        start: startLabel,
+        deadline: deadlineLabel,
+        request: requestLabel,
+        nextDeadline: nextDeadlineLabel,
+        close: closeLabel,
+        details: detailsLabel,
+        closeTitle: closeTitleLabel,
+        area: areaLabel,
+        currentStatus: currentStatusLabel,
+        requestComment: requestCommentLabel,
+        returnComment: returnCommentLabel,
+        solution: solutionLabel,
+        cancel: cancelLabel,
+        confirmClose: confirmCloseLabel,
+        detailTitle: detailTitleLabel,
+        back: backLabel,
+        status: statusLabel,
+        closeModal: closeModalLabel,
+        error: errorLabel,
+        success: successLabel,
+        closeSuccess: closeSuccessLabel,
+        pause: pauseLabel,
+        resume: resumeLabel,
+        pauseSuccess: pauseSuccessLabel,
+        resumeSuccess: resumeSuccessLabel,
+        add: addLabel,
+        addTitle: addTitleLabel,
+        requestCommentInput: requestCommentInputLabel,
+        confirmAdd: confirmAddLabel,
+        unexpectedError: unexpectedErrorLabel,
+        addStep2Title: addStep2TitleLabel,
+        addAvailable: addAvailableLabel,
+        addSelected: addSelectedLabel,
+        next: nextLabel,
+        refresh: refreshLabel,
+        completedOn: completedOnLabel
+    };
 
     connectedCallback() {
         this.loadData();
@@ -202,7 +201,7 @@ export default class CaseAreasParticipantesPanel extends LightningElement {
             const pct = Math.max(0, Math.min(100, value));
             return {
                 ...item,
-                areaTypePillLabel: item.isStandard ? 'Atendimento' : this.labels.internalArea,
+                areaTypePillLabel: item.isStandard ? atendimentoLabel : this.labels.internalArea,
                 areaDisplayLabel: item.isStandard ? (item.nomeMarco || '-') : item.areaLabel,
                 cardClass: `slds-box slds-m-bottom_xx-small area-item-compact ${tone}`,
                 progressBarClass: `progress-bar ${tone === 'cancelled' ? 'done' : tone}`,
@@ -403,20 +402,20 @@ export default class CaseAreasParticipantesPanel extends LightningElement {
     buildStatusLine(item, tone, deadlineText) {
         if (tone === 'done') {
             const endText = this.formatDateTime(item?.dataHoraFim);
-            return (this.isEnglish ? 'Completed: ' : 'Concluída: ') + endText;
+            return statusLineCompletedLabel.replace('{0}', endText);
         }
-        if (tone === 'cancelled') return this.isEnglish ? 'Cancelled' : 'Cancelada';
-        if (tone === 'paused') return this.isEnglish ? 'Paused' : 'Pausada';
+        if (tone === 'cancelled') return statusLineCancelledLabel;
+        if (tone === 'paused') return statusLinePausedLabel;
         if (tone === 'overdue') {
             const deadlineMs = item?.dataHoraPrazo ? new Date(item.dataHoraPrazo).getTime() : null;
             if (deadlineMs) {
                 const overdueMs = Math.max(0, Date.now() - deadlineMs);
-                return (this.isEnglish ? 'Overdue by ' : 'Vencida há ') + this.msToPretty(overdueMs);
+                return statusLineOverdueByLabel.replace('{0}', this.msToPretty(overdueMs));
             }
-            return this.isEnglish ? 'Overdue' : 'Vencida';
+            return statusLineOverdueLabel;
         }
         if (deadlineText && deadlineText !== '-') {
-            return (this.isEnglish ? 'Deadline: ' : 'Prazo: ') + deadlineText;
+            return statusLineDeadlineLabel.replace('{0}', deadlineText);
         }
         return '';
     }
@@ -509,7 +508,7 @@ export default class CaseAreasParticipantesPanel extends LightningElement {
                 const deadlineText = this.formatDateTime(raw.dataHoraPrazo);
                 this.selectedItem = {
                     ...raw,
-                    areaTypePillLabel: raw.isStandard ? 'Atendimento' : this.labels.internalArea,
+                    areaTypePillLabel: raw.isStandard ? atendimentoLabel : this.labels.internalArea,
                     areaDisplayLabel: raw.isStandard ? (raw.nomeMarco || '-') : raw.areaLabel,
                     startText: this.formatDateTime(raw.dataHoraInicio),
                     deadlineText,
@@ -638,9 +637,7 @@ export default class CaseAreasParticipantesPanel extends LightningElement {
                     items: this.addItems.map((i) => ({ area: i.area, comentarioSolicitacao: i.comentario }))
                 }
             });
-            const successMsg = this.isEnglish
-                ? `${count} participant area(s) added successfully.`
-                : `${count} área(s) participante(s) adicionada(s) com sucesso.`;
+            const successMsg = addSuccessCountLabel.replace('{0}', count);
             this.showToast(this.labels.success, successMsg, 'success');
             this.closeModal();
             await this.loadData();

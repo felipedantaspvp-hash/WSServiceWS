@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <help><!-- Valor preenchido automaticamente com a etapa anterior do atendimento. --></help>
-    <label><!-- Etapa Anterior --></label>
+    <help>Value automatically filled in with the previous service stage.</help>
+    <label>Previous Stage</label>
     <name>EtapaAnterior__c</name>
 </CustomFieldTranslation>

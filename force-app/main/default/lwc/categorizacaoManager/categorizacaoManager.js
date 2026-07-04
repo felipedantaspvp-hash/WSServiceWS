@@ -3,60 +3,120 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { CurrentPageReference } from 'lightning/navigation';
 import { wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
-import LANG from '@salesforce/i18n/lang';
 import getInitialState from '@salesforce/apex/CategorizacaoController.getInitialState';
 import getQueues from '@salesforce/apex/CategorizacaoController.getQueues';
 import save from '@salesforce/apex/CategorizacaoController.save';
 import getActiveAtendimentoConfigs from '@salesforce/apex/AtendimentoConfigService.getActiveAtendimentoConfigs';
+
+import cardTitleLabel from '@salesforce/label/c.CategorizacaoManager_CardTitle';
+import sectionGeneralLabel from '@salesforce/label/c.CategorizacaoManager_SectionGeneral';
+import sectionDistributionLabel from '@salesforce/label/c.CategorizacaoManager_SectionDistribution';
+import sectionSlaLabel from '@salesforce/label/c.CategorizacaoManager_SectionSla';
+import n3StrategyLabel from '@salesforce/label/c.CategorizacaoManager_N3Strategy';
+import n3UniqueLabel from '@salesforce/label/c.CategorizacaoManager_N3Unique';
+import n3ByAreaLabel from '@salesforce/label/c.CategorizacaoManager_N3ByArea';
+import n3AppliedAllLabel from '@salesforce/label/c.CategorizacaoManager_N3AppliedAll';
+import noMilestonesLabel from '@salesforce/label/c.CategorizacaoManager_NoMilestones';
+import areaLabel from '@salesforce/label/c.CategorizacaoManager_Area';
+import unidadeNegocioLabel from '@salesforce/label/c.CategorizacaoManager_UnidadeNegocio';
+import tipoCasoLabel from '@salesforce/label/c.CategorizacaoManager_TipoCaso';
+import categoriaLabel from '@salesforce/label/c.CategorizacaoManager_Categoria';
+import assuntoLabel from '@salesforce/label/c.CategorizacaoManager_Assunto';
+import subassuntoLabel from '@salesforce/label/c.CategorizacaoManager_Subassunto';
+import ativoLabel from '@salesforce/label/c.CategorizacaoManager_Ativo';
+import descricaoLabel from '@salesforce/label/c.CategorizacaoManager_Descricao';
+import motivoInativacaoLabel from '@salesforce/label/c.CategorizacaoManager_MotivoInativacao';
+import distribuirFilaLabel from '@salesforce/label/c.CategorizacaoManager_DistribuirFila';
+import porCategorizacaoLabel from '@salesforce/label/c.CategorizacaoManager_PorCategorizacao';
+import filaCaseLabel from '@salesforce/label/c.CategorizacaoManager_FilaCase';
+import qualCampoLabel from '@salesforce/label/c.CategorizacaoManager_QualCampo';
+import valorLabel from '@salesforce/label/c.CategorizacaoManager_Valor';
+import highLabel from '@salesforce/label/c.CategorizacaoManager_High';
+import normalLabel from '@salesforce/label/c.CategorizacaoManager_Normal';
+import lowLabel from '@salesforce/label/c.CategorizacaoManager_Low';
+import minutesLabel from '@salesforce/label/c.CategorizacaoManager_Minutes';
+import timeMinutesLabel from '@salesforce/label/c.CategorizacaoManager_TimeMinutes';
+import configuredAreasLabel from '@salesforce/label/c.CategorizacaoManager_ConfiguredAreas';
+import cancelLabel from '@salesforce/label/c.CategorizacaoManager_Cancel';
+import saveLabelLbl from '@salesforce/label/c.CategorizacaoManager_Save';
+import loadingLbl from '@salesforce/label/c.CategorizacaoManager_Loading';
+import errorLabel from '@salesforce/label/c.CategorizacaoManager_Error';
+import requiredCategoryLabel from '@salesforce/label/c.CategorizacaoManager_RequiredCategory';
+import requiredInactiveReasonLabel from '@salesforce/label/c.CategorizacaoManager_RequiredInactiveReason';
+import successLabel from '@salesforce/label/c.CategorizacaoManager_Success';
+import savedLabel from '@salesforce/label/c.CategorizacaoManager_Saved';
+import saveFailedLabel from '@salesforce/label/c.CategorizacaoManager_SaveFailed';
+import unexpectedErrorLabel from '@salesforce/label/c.CategorizacaoManager_UnexpectedError';
+import prioridadeLabelLbl from '@salesforce/label/c.CategorizacaoManager_PrioridadeLabel';
+
+import marcoDescTriagemLabel from '@salesforce/label/c.CategorizacaoManager_MarcoDescTriagem';
+import marcoDescRespostaChatLabel from '@salesforce/label/c.CategorizacaoManager_MarcoDescRespostaChat';
+import marcoDescPrimeiraRespostaLabel from '@salesforce/label/c.CategorizacaoManager_MarcoDescPrimeiraResposta';
+import marcoDescAtendimentoLabel from '@salesforce/label/c.CategorizacaoManager_MarcoDescAtendimento';
+import marcoDescAtendimentoN3Label from '@salesforce/label/c.CategorizacaoManager_MarcoDescAtendimentoN3';
+import marcoDescRetornoN3Label from '@salesforce/label/c.CategorizacaoManager_MarcoDescRetornoN3';
+import marcoDescSlaTotalLabel from '@salesforce/label/c.CategorizacaoManager_MarcoDescSlaTotal';
+
+import marcoLabelTriagemLabel from '@salesforce/label/c.CategorizacaoManager_MarcoLabelTriagem';
+import marcoLabelRespostaChatLabel from '@salesforce/label/c.CategorizacaoManager_MarcoLabelRespostaChat';
+import marcoLabelPrimeiraRespostaLabel from '@salesforce/label/c.CategorizacaoManager_MarcoLabelPrimeiraResposta';
+import marcoLabelAtendimentoLabel from '@salesforce/label/c.CategorizacaoManager_MarcoLabelAtendimento';
+import marcoLabelAtendimentoN3Label from '@salesforce/label/c.CategorizacaoManager_MarcoLabelAtendimentoN3';
+import marcoLabelRetornoN3Label from '@salesforce/label/c.CategorizacaoManager_MarcoLabelRetornoN3';
+import marcoLabelSlaTotalLabel from '@salesforce/label/c.CategorizacaoManager_MarcoLabelSlaTotal';
+
+import areaLabelOperacoesLabel from '@salesforce/label/c.CategorizacaoManager_AreaLabelOperacoes';
+import areaLabelArmazenagemLabel from '@salesforce/label/c.CategorizacaoManager_AreaLabelArmazenagem';
+import areaLabelApoioAduaneiroLabel from '@salesforce/label/c.CategorizacaoManager_AreaLabelApoioAduaneiro';
+import areaLabelLiberacaoLabel from '@salesforce/label/c.CategorizacaoManager_AreaLabelLiberacao';
+import areaLabelFaturamentoLabel from '@salesforce/label/c.CategorizacaoManager_AreaLabelFaturamento';
+import areaLabelComercialLabel from '@salesforce/label/c.CategorizacaoManager_AreaLabelComercial';
+import areaLabelFinanceiroLabel from '@salesforce/label/c.CategorizacaoManager_AreaLabelFinanceiro';
+import areaLabelFiscalLabel from '@salesforce/label/c.CategorizacaoManager_AreaLabelFiscal';
+import areaLabelQualidadeLabel from '@salesforce/label/c.CategorizacaoManager_AreaLabelQualidade';
+import areaLabelJuridicoLabel from '@salesforce/label/c.CategorizacaoManager_AreaLabelJuridico';
+import areaLabelTiLabel from '@salesforce/label/c.CategorizacaoManager_AreaLabelTi';
+
 const MARCO_ATENDIMENTO_N3 = 'Atendimento N3';
 const MARCO_ORDER = ['Triagem', 'Resposta Chat', 'Primeira Resposta', 'Atendimento', 'Retorno N3', 'SLA Total'];
 const MULTI_PRIORITY_MARCOS = new Set(['Primeira Resposta', 'Atendimento', 'Retorno N3', 'SLA Total']);
 const BLOCKED_MARCOS = new Set(['Acompanhamento', MARCO_ATENDIMENTO_N3]);
 const TIPO_AREA_INTERNA = 'Área Interna';
-const MARCO_DESCRIPTION_PT = {
-    Triagem: 'Tempo em que um caso novo é criado e ainda não foi categorizado.',
-    'Resposta Chat': 'Tempo em que o chat foi transbordado e ainda não foi atendido pelo Analista de Atendimento.',
-    'Primeira Resposta': 'Tempo de fila, onde um caso foi categorizado e distribuído para uma fila, mas que ainda não foi atendido.',
-    Atendimento: 'Quando um case é removido da fila e está em atendimento pelo N2.',
-    'Atendimento N3': 'Quando está em uma área interna, mas que não é de atendimento.',
-    'Retorno N3': 'É o tempo que o analista de atendimento tem para retornar ao cliente com a resposta do N3.',
-    'SLA Total': 'É o tempo que todo o case deve ser concluído, ou seja, expectativa da resolução desde o momento que o case foi aberto.'
+const MARCO_DESCRIPTION = {
+    Triagem: marcoDescTriagemLabel,
+    'Resposta Chat': marcoDescRespostaChatLabel,
+    'Primeira Resposta': marcoDescPrimeiraRespostaLabel,
+    Atendimento: marcoDescAtendimentoLabel,
+    'Atendimento N3': marcoDescAtendimentoN3Label,
+    'Retorno N3': marcoDescRetornoN3Label,
+    'SLA Total': marcoDescSlaTotalLabel
 };
-const MARCO_DESCRIPTION_EN = {
-    Triagem: 'Time between case creation and categorization.',
-    'Resposta Chat': 'Time after chat overflow until an Attendance Analyst starts handling it.',
-    'Primeira Resposta': 'Queue time after categorization and distribution, before first handling.',
-    Atendimento: 'When a case leaves the queue and is being handled by N2.',
-    'Atendimento N3': 'When the case is with an internal area that is not the attendance team.',
-    'Retorno N3': 'Time the attendance analyst has to return to the customer with the N3 answer.',
-    'SLA Total': 'Total time expected to conclude the case from the moment it was opened.'
+const MARCO_LABEL = {
+    Triagem: marcoLabelTriagemLabel,
+    'Resposta Chat': marcoLabelRespostaChatLabel,
+    'Primeira Resposta': marcoLabelPrimeiraRespostaLabel,
+    Atendimento: marcoLabelAtendimentoLabel,
+    'Atendimento N3': marcoLabelAtendimentoN3Label,
+    'Retorno N3': marcoLabelRetornoN3Label,
+    'SLA Total': marcoLabelSlaTotalLabel
 };
-const MARCO_LABEL_EN = {
-    Triagem: 'Triage',
-    'Resposta Chat': 'Chat Response',
-    'Primeira Resposta': 'First Response',
-    Atendimento: 'Handling',
-    'Atendimento N3': 'N3 Handling',
-    'Retorno N3': 'N3 Return',
-    'SLA Total': 'Total SLA'
-};
-const AREA_LABEL_EN = {
-    'Operações': 'Operations',
-    Armazenagem: 'Storage',
-    'Apoio Aduaneiro': 'Customs Support',
-    Liberação: 'Release',
-    Faturamento: 'Billing',
-    Comercial: 'Sales',
-    Financeiro: 'Finance',
-    Fiscal: 'Tax',
-    Qualidade: 'Quality',
-    Jurídico: 'Legal',
-    TI: 'IT'
+const AREA_LABEL = {
+    'Operações': areaLabelOperacoesLabel,
+    Armazenagem: areaLabelArmazenagemLabel,
+    'Apoio Aduaneiro': areaLabelApoioAduaneiroLabel,
+    Liberação: areaLabelLiberacaoLabel,
+    Faturamento: areaLabelFaturamentoLabel,
+    Comercial: areaLabelComercialLabel,
+    Financeiro: areaLabelFinanceiroLabel,
+    Fiscal: areaLabelFiscalLabel,
+    Qualidade: areaLabelQualidadeLabel,
+    Jurídico: areaLabelJuridicoLabel,
+    TI: areaLabelTiLabel
 };
 const PRIORITY_COLUMNS = [
-    { label: 'Alta', value: 'High' },
-    { label: 'Normal', value: 'Medium' },
-    { label: 'Baixa', value: 'Low' }
+    { value: 'High' },
+    { value: 'Medium' },
+    { value: 'Low' }
 ];
 const SINGLE_PRIORITY_MARCOS = new Set(['Triagem', 'Resposta Chat']);
 const PRIORITY_NORMALIZATION = {
@@ -69,83 +129,46 @@ const PRIORITY_NORMALIZATION = {
     baixa: 'Low',
     low: 'Low'
 };
-const I18N = {
-    pt: {
-        cardTitle: 'Gestor de Categorização',
-        sectionGeneral: 'Informações Gerais',
-        sectionDistribution: 'Distribuição',
-        sectionSla: 'Regras SLA da Categorização',
-        n3Strategy: 'Estratégia da Área Interna',
-        n3Unique: 'Tempo único para qualquer área',
-        n3ByArea: 'Tempo por área específica',
-        n3AppliedAll: 'Aplicado para todas as áreas internas.',
-        noMilestones: 'Nenhum marco gerenciável disponível.',
-        area: 'Área',
-        unidadeNegocio: 'Unidade de Negócio',
-        tipoCaso: 'Tipo de Caso',
-        categoria: 'Categoria',
-        assunto: 'Assunto',
-        subassunto: 'Subassunto',
-        ativo: 'Ativo',
-        descricao: 'Descrição',
-        motivoInativacao: 'Motivo de Inativação',
-        distribuirFila: 'Distribuir para fila?',
-        porCategorizacao: 'Por categorização?',
-        filaCase: 'Fila de Case',
-        qualCampo: 'Qual campo?',
-        valor: 'Valor',
-        high: 'Alta',
-        normal: 'Normal',
-        low: 'Baixa',
-        minutes: 'minutos',
-        timeMinutes: 'Tempo (minutos)',
-        configuredAreas: '{0} áreas configuradas.',
-        cancel: 'Cancelar',
-        save: 'Salvar',
-        error: 'Erro',
-        requiredCategory: 'Categoria é obrigatória.',
-        requiredInactiveReason: 'Preencha o Motivo de Inativação quando Ativo estiver desmarcado.',
-        success: 'Sucesso',
-        saved: 'Salvo com sucesso.'
-    },
-    en: {
-        cardTitle: 'Categorization Manager',
-        sectionGeneral: 'General Information',
-        sectionDistribution: 'Distribution',
-        sectionSla: 'Categorization SLA Rules',
-        n3Strategy: 'Internal Area Strategy',
-        n3Unique: 'Single time for any area',
-        n3ByArea: 'Time by specific area',
-        n3AppliedAll: 'Applied to all internal areas.',
-        noMilestones: 'No manageable milestones available.',
-        area: 'Area',
-        unidadeNegocio: 'Business Unit',
-        tipoCaso: 'Case Type',
-        categoria: 'Category',
-        assunto: 'Subject',
-        subassunto: 'Subsubject',
-        ativo: 'Active',
-        descricao: 'Description',
-        motivoInativacao: 'Inactivation Reason',
-        distribuirFila: 'Distribute to queue?',
-        porCategorizacao: 'By categorization?',
-        filaCase: 'Case Queue',
-        qualCampo: 'Which field?',
-        valor: 'Value',
-        high: 'High',
-        normal: 'Normal',
-        low: 'Low',
-        minutes: 'minutes',
-        timeMinutes: 'Time (minutes)',
-        configuredAreas: '{0} configured areas.',
-        cancel: 'Cancel',
-        save: 'Save',
-        error: 'Error',
-        requiredCategory: 'Category is required.',
-        requiredInactiveReason: 'Fill in Inactivation Reason when Active is unchecked.',
-        success: 'Success',
-        saved: 'Saved successfully.'
-    }
+const LABELS = {
+    cardTitle: cardTitleLabel,
+    sectionGeneral: sectionGeneralLabel,
+    sectionDistribution: sectionDistributionLabel,
+    sectionSla: sectionSlaLabel,
+    n3Strategy: n3StrategyLabel,
+    n3Unique: n3UniqueLabel,
+    n3ByArea: n3ByAreaLabel,
+    n3AppliedAll: n3AppliedAllLabel,
+    noMilestones: noMilestonesLabel,
+    area: areaLabel,
+    unidadeNegocio: unidadeNegocioLabel,
+    tipoCaso: tipoCasoLabel,
+    categoria: categoriaLabel,
+    assunto: assuntoLabel,
+    subassunto: subassuntoLabel,
+    ativo: ativoLabel,
+    descricao: descricaoLabel,
+    motivoInativacao: motivoInativacaoLabel,
+    distribuirFila: distribuirFilaLabel,
+    porCategorizacao: porCategorizacaoLabel,
+    filaCase: filaCaseLabel,
+    qualCampo: qualCampoLabel,
+    valor: valorLabel,
+    high: highLabel,
+    normal: normalLabel,
+    low: lowLabel,
+    minutes: minutesLabel,
+    timeMinutes: timeMinutesLabel,
+    configuredAreas: configuredAreasLabel,
+    cancel: cancelLabel,
+    save: saveLabelLbl,
+    loading: loadingLbl,
+    error: errorLabel,
+    requiredCategory: requiredCategoryLabel,
+    requiredInactiveReason: requiredInactiveReasonLabel,
+    success: successLabel,
+    saved: savedLabel,
+    saveFailed: saveFailedLabel,
+    unexpectedError: unexpectedErrorLabel
 };
 
 export default class CategorizacaoManagerV2 extends NavigationMixin(LightningElement) {
@@ -159,7 +182,6 @@ export default class CategorizacaoManagerV2 extends NavigationMixin(LightningEle
     @track n3AreaRows = [];
     loading = false;
     initialRecordTypeId;
-    language = (LANG || '').toLowerCase();
 
     @wire(CurrentPageReference)
     parsePageRef(pageRef) {
@@ -203,16 +225,16 @@ export default class CategorizacaoManagerV2 extends NavigationMixin(LightningEle
                 this.queueOptionsData = await getQueues({ unidadeNegocio: this.model.unidadeNegocio });
             }
         } catch (e) {
-            this.toast('Erro', this.reduceError(e), 'error');
+            this.toast(this.t('error'), this.reduceError(e), 'error');
         } finally {
             this.loading = false;
         }
     }
 
     get isEditMode() { return !!this.recordId; }
-    get localeKey() { return this.language.startsWith('en') ? 'en' : 'pt'; }
-    t(key) { return I18N[this.localeKey][key] || key; }
+    t(key) { return LABELS[key] || key; }
     format(key, value) { return this.t(key).replace('{0}', value); }
+    get loadingLabel() { return this.t('loading'); }
     get cardTitle() { return this.t('cardTitle'); }
     get sectionGeneral() { return this.t('sectionGeneral'); }
     get sectionDistribution() { return this.t('sectionDistribution'); }
@@ -268,7 +290,7 @@ export default class CategorizacaoManagerV2 extends NavigationMixin(LightningEle
     get regraAreaAtendimentoOptions() { return (this.state.regraAreaAtendimentoOptions || []).map((o) => ({ label: o.label, value: o.value })); }
     get regraOrigemOptions() { return (this.state.regraOrigemOptions || []).map((o) => ({ label: o.label, value: o.value })); }
     get prioridadeLabel() {
-        return this.language.startsWith('en') ? 'Suggested Prioritization' : 'Priorização Sugerida';
+        return prioridadeLabelLbl;
     }
     get queueOptions() { return (this.queueOptionsData || []).map((q) => ({ label: `${q.name} (${q.developerName})`, value: q.developerName })); }
     get casePicklistFieldOptions() { return (this.state.casePicklistFields || []).map((f) => ({ label: f.label, value: f.apiName })); }
@@ -298,7 +320,7 @@ export default class CategorizacaoManagerV2 extends NavigationMixin(LightningEle
                     key: `m-${marco}`,
                     marco,
                     marcoLabel: this.getMarcoLabel(marco),
-                    description: (this.localeKey === 'en' ? MARCO_DESCRIPTION_EN : MARCO_DESCRIPTION_PT)[marco] || null,
+                    description: MARCO_DESCRIPTION[marco] || null,
                     isMulti: false,
                     singleTempo: regra?.tempoMinutos ?? null
                 };
@@ -307,7 +329,7 @@ export default class CategorizacaoManagerV2 extends NavigationMixin(LightningEle
                 key: `m-${marco}`,
                 marco,
                 marcoLabel: this.getMarcoLabel(marco),
-                description: (this.localeKey === 'en' ? MARCO_DESCRIPTION_EN : MARCO_DESCRIPTION_PT)[marco] || null,
+                description: MARCO_DESCRIPTION[marco] || null,
                 isMulti: true,
                 cells: PRIORITY_COLUMNS.map((col) => {
                     const regra = this.findRegra(marco, col.value);
@@ -332,7 +354,7 @@ export default class CategorizacaoManagerV2 extends NavigationMixin(LightningEle
     }
 
     get atendimentoN3Description() {
-        return (this.localeKey === 'en' ? MARCO_DESCRIPTION_EN : MARCO_DESCRIPTION_PT)[MARCO_ATENDIMENTO_N3];
+        return MARCO_DESCRIPTION[MARCO_ATENDIMENTO_N3];
     }
     get atendimentoN3Label() {
         return this.getMarcoLabel(MARCO_ATENDIMENTO_N3);
@@ -560,13 +582,11 @@ export default class CategorizacaoManagerV2 extends NavigationMixin(LightningEle
     }
 
     getMarcoLabel(marco) {
-        if (this.localeKey === 'en') return MARCO_LABEL_EN[marco] || marco;
-        return marco;
+        return MARCO_LABEL[marco] || marco;
     }
 
     getAreaLabel(label) {
-        if (this.localeKey !== 'en') return label;
-        return AREA_LABEL_EN[label] || label;
+        return AREA_LABEL[label] || label;
     }
 
     normalizeMarco(value) {
@@ -637,7 +657,7 @@ export default class CategorizacaoManagerV2 extends NavigationMixin(LightningEle
                     });
                 }
             } else {
-                this.toast(this.t('error'), res?.error?.message || res?.message || 'Falha ao salvar.', 'error');
+                this.toast(this.t('error'), res?.error?.message || res?.message || this.t('saveFailed'), 'error');
             }
         } catch (e) {
             this.toast(this.t('error'), this.reduceError(e), 'error');
@@ -673,6 +693,6 @@ export default class CategorizacaoManagerV2 extends NavigationMixin(LightningEle
 
     reduceError(error) {
         if (Array.isArray(error?.body)) return error.body.map((e) => e.message).join(', ');
-        return error?.body?.message || error?.message || 'Erro inesperado';
+        return error?.body?.message || error?.message || this.t('unexpectedError');
     }
 }

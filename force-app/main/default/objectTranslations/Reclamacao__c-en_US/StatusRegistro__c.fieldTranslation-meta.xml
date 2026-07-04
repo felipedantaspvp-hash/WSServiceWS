@@ -4,18 +4,18 @@
     <name>StatusRegistro__c</name>
     <picklistValues>
         <masterLabel>Aberta</masterLabel>
-        <translation><!-- Aberta --></translation>
+        <translation>Open</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Cancelada</masterLabel>
-        <translation><!-- Cancelada --></translation>
+        <translation>Cancelled</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Concluída</masterLabel>
-        <translation><!-- Concluída --></translation>
+        <translation>Completed</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Em Análise</masterLabel>
-        <translation><!-- Em Análise --></translation>
+        <translation>Under Analysis</translation>
     </picklistValues>
 </CustomFieldTranslation>

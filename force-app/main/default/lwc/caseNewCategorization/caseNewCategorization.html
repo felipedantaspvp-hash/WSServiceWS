@@ -11,7 +11,7 @@
     <lightning-card title={labels.cardTitle} icon-name="standard:case">
         <div class="form-shell slds-p-around_medium">
             <template if:true={loading}>
-                <lightning-spinner alternative-text="Carregando"></lightning-spinner>
+                <lightning-spinner alternative-text={labels.loading}></lightning-spinner>
             </template>
 
             <template if:true={showRecordTypeGate}>
@@ -44,7 +44,7 @@
 
             <template if:false={showRecordTypeGate}>
             <template if:true={loading}>
-                <lightning-spinner alternative-text="Carregando"></lightning-spinner>
+                <lightning-spinner alternative-text={labels.loading}></lightning-spinner>
             </template>
 
             <template if:false={loading}>
@@ -78,7 +78,7 @@
 
                 <template if:true={hasRecordType}>
                     <template if:true={creating}>
-                        <lightning-spinner alternative-text="Salvando"></lightning-spinner>
+                        <lightning-spinner alternative-text={labels.saving}></lightning-spinner>
                     </template>
 
                     <template if:true={hasCuratedSections}>

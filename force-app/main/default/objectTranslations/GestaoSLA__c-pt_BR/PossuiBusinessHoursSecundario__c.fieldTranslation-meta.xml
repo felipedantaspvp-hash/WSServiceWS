@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Marque se esta Gestão de SLA precisa de um segundo Business Hours para uma região de atendimento diferente.</help>
+    <label>Duplo Business Hours?</label>
+    <name>PossuiBusinessHoursSecundario__c</name>
+</CustomFieldTranslation>

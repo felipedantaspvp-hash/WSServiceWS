@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Procedência --></label>
+    <label>Merit</label>
     <name>Procedencia__c</name>
     <picklistValues>
         <masterLabel>Cliente</masterLabel>
-        <translation><!-- Cliente --></translation>
+        <translation>Customer</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Interna</masterLabel>
-        <translation><!-- Interna --></translation>
+        <translation>Internal</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Outro</masterLabel>
-        <translation><!-- Outro --></translation>
+        <translation>Other</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Órgão Regulador</masterLabel>
-        <translation><!-- Órgão Regulador --></translation>
+        <translation>Regulatory Body</translation>
     </picklistValues>
 </CustomFieldTranslation>

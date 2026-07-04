@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Data/Hora Início Pausa --></label>
+    <label>Pause Start Date/Time</label>
     <name>DataHoraInicioPausa__c</name>
 </CustomFieldTranslation>

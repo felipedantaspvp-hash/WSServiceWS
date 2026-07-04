@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Origem da Área Participante</label>
+    <name>OrigemAtuacao__c</name>
+    <picklistValues>
+        <masterLabel>Automática</masterLabel>
+        <translation>Automática</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Manual</masterLabel>
+        <translation>Manual</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Reabertura</masterLabel>
+        <translation>Reabertura</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Reclassificação</masterLabel>
+        <translation>Reclassificação</translation>
+    </picklistValues>
+</CustomFieldTranslation>

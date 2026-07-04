@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Functional Area</label>
+    <name>Area_Funcional__c</name>
+    <picklistValues>
+        <masterLabel>Administrativo / Financeiro</masterLabel>
+        <translation>Administrative / Finance</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Comercial / Vendas</masterLabel>
+        <translation>Commercial / Sales</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Comércio Exterior</masterLabel>
+        <translation>Foreign Trade</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Compras / Suprimentos</masterLabel>
+        <translation>Purchasing / Supply</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Engenharia</masterLabel>
+        <translation>Engineering</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fiscalização / Auditoria</masterLabel>
+        <translation>Compliance / Audit</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Jurídico</masterLabel>
+        <translation>Legal</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Logística</masterLabel>
+        <translation>Logistics</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Manutenção</masterLabel>
+        <translation>Maintenance</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Marketing</masterLabel>
+        <translation>Marketing</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Novos Negócios</masterLabel>
+        <translation>New Business</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Operações</masterLabel>
+        <translation>Operations</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Planejamento / Estratégico</masterLabel>
+        <translation>Planning / Strategic</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Projetos</masterLabel>
+        <translation>Projects</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Recursos Humanos</masterLabel>
+        <translation>Human Resources</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Relacionamento Cliente / Pós-Venda</masterLabel>
+        <translation>Customer Relations / After-Sales</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SMS</masterLabel>
+        <translation>SMS</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tecnologia da Informação</masterLabel>
+        <translation>Information Technology</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Outro</masterLabel>
+        <translation>Other</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>TI</masterLabel>
+        <translation>IT</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Operacional</masterLabel>
+        <translation>Operational</translation>
+    </picklistValues>
+</CustomFieldTranslation>

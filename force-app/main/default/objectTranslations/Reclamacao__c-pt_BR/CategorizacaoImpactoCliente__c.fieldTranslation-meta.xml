@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Impacto Cliente</label>
+    <name>CategorizacaoImpactoCliente__c</name>
+    <picklistValues>
+        <masterLabel>Sem Impacto</masterLabel>
+        <translation>Sem Impacto</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Baixo Impacto</masterLabel>
+        <translation>Baixo Impacto</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Médio Impacto</masterLabel>
+        <translation>Médio Impacto</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Alto Impacto</masterLabel>
+        <translation>Alto Impacto</translation>
+    </picklistValues>
+</CustomFieldTranslation>

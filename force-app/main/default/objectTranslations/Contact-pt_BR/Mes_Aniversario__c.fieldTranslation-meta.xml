@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Mês de Aniversário --></label>
+    <label>Mês de Aniversário</label>
     <name>Mes_Aniversario__c</name>
     <picklistValues>
         <masterLabel>Abril</masterLabel>
-        <translation><!-- Abril --></translation>
+        <translation>Abril</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Agosto</masterLabel>
-        <translation><!-- Agosto --></translation>
+        <translation>Agosto</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Dezembro</masterLabel>
-        <translation><!-- Dezembro --></translation>
+        <translation>Dezembro</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Fevereiro</masterLabel>
-        <translation><!-- Fevereiro --></translation>
+        <translation>Fevereiro</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Janeiro</masterLabel>
-        <translation><!-- Janeiro --></translation>
+        <translation>Janeiro</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Julho</masterLabel>
-        <translation><!-- Julho --></translation>
+        <translation>Julho</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Junho</masterLabel>
-        <translation><!-- Junho --></translation>
+        <translation>Junho</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Maio</masterLabel>
-        <translation><!-- Maio --></translation>
+        <translation>Maio</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Março</masterLabel>
-        <translation><!-- Março --></translation>
+        <translation>Março</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Novembro</masterLabel>
-        <translation><!-- Novembro --></translation>
+        <translation>Novembro</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Outubro</masterLabel>
-        <translation><!-- Outubro --></translation>
+        <translation>Outubro</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Setembro</masterLabel>
-        <translation><!-- Setembro --></translation>
+        <translation>Setembro</translation>
     </picklistValues>
 </CustomFieldTranslation>

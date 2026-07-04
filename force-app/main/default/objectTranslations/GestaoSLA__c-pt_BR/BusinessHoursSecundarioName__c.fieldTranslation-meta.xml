@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Nome exato do registro de Business Hours cadastrado no Setup para a região secundária.</help>
+    <label>Nome do Business Hours Secundário</label>
+    <name>BusinessHoursSecundarioName__c</name>
+</CustomFieldTranslation>

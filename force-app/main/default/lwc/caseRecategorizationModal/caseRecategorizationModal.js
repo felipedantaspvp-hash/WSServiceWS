@@ -4,13 +4,47 @@ import { NavigationMixin } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import CASE_OBJECT from '@salesforce/schema/Case';
-import LANG from '@salesforce/i18n/lang';
 
 import getContext from '@salesforce/apex/CaseRecategorizationController.getContext';
 import getTreeOptions from '@salesforce/apex/CaseRecategorizationController.getTreeOptions';
 import recategorize from '@salesforce/apex/CaseRecategorizationController.recategorize';
 import resolveCategorizationSelection from '@salesforce/apex/CaseCreationController.resolveCategorizationSelection';
 import getAvailableQueues from '@salesforce/apex/CaseCreationController.getAvailableQueues';
+
+import titleLabel from '@salesforce/label/c.CaseRecategorization_Title';
+import caseInfoLabel from '@salesforce/label/c.CaseRecategorization_CaseInfo';
+import currentCatLabel from '@salesforce/label/c.CaseRecategorization_CurrentCat';
+import newCatLabel from '@salesforce/label/c.CaseRecategorization_NewCat';
+import summaryLabel from '@salesforce/label/c.CaseRecategorization_Summary';
+import destinationTitleLabel from '@salesforce/label/c.CaseRecategorization_DestinationTitle';
+import destinationLabel from '@salesforce/label/c.CaseRecategorization_Destination';
+import assumeLabel from '@salesforce/label/c.CaseRecategorization_Assume';
+import distributeLabel from '@salesforce/label/c.CaseRecategorization_Distribute';
+import closeLabel from '@salesforce/label/c.CaseRecategorization_Close';
+import queueResolvedLabel from '@salesforce/label/c.CaseRecategorization_QueueResolved';
+import manualQueueLabel from '@salesforce/label/c.CaseRecategorization_ManualQueue';
+import caseNumberLabel from '@salesforce/label/c.CaseRecategorization_CaseNumber';
+import statusLabel from '@salesforce/label/c.CaseRecategorization_Status';
+import unidadeLabel from '@salesforce/label/c.CaseRecategorization_Unidade';
+import recordTypeLabel from '@salesforce/label/c.CaseRecategorization_RecordType';
+import currentTipoLabel from '@salesforce/label/c.CaseRecategorization_CurrentTipo';
+import currentCategoriaLabel from '@salesforce/label/c.CaseRecategorization_CurrentCategoria';
+import currentAssuntoLabel from '@salesforce/label/c.CaseRecategorization_CurrentAssunto';
+import currentSubassuntoLabel from '@salesforce/label/c.CaseRecategorization_CurrentSubassunto';
+import newTipoLabel from '@salesforce/label/c.CaseRecategorization_NewTipo';
+import newCategoriaLabel from '@salesforce/label/c.CaseRecategorization_NewCategoria';
+import newAssuntoLabel from '@salesforce/label/c.CaseRecategorization_NewAssunto';
+import newSubassuntoLabel from '@salesforce/label/c.CaseRecategorization_NewSubassunto';
+import fromLabel from '@salesforce/label/c.CaseRecategorization_From';
+import toLabel from '@salesforce/label/c.CaseRecategorization_To';
+import warningLabel from '@salesforce/label/c.CaseRecategorization_Warning';
+import cancelLabel from '@salesforce/label/c.CaseRecategorization_Cancel';
+import loadingLabel from '@salesforce/label/c.CaseRecategorization_Loading';
+import saveLabel from '@salesforce/label/c.CaseRecategorization_Save';
+import successTitleLabel from '@salesforce/label/c.CaseRecategorization_SuccessTitle';
+import successMsgLabel from '@salesforce/label/c.CaseRecategorization_SuccessMsg';
+import errorTitleLabel from '@salesforce/label/c.CaseRecategorization_ErrorTitle';
+import noValuesLabel from '@salesforce/label/c.CaseRecategorization_NoValues';
 
 export default class CaseRecategorizationModal extends NavigationMixin(LightningModal) {
     @api recordId;
@@ -34,80 +68,43 @@ export default class CaseRecategorizationModal extends NavigationMixin(Lightning
     @track selectedQueueDeveloperName;
 
     objectInfo;
-    language = (LANG || '').toLowerCase();
-    isEnglish = ((LANG || '').toLowerCase().replace('_', '-')).startsWith('en');
 
-    labels = this.isEnglish
-        ? {
-              title: 'Recategorize Case',
-              caseInfo: 'Current Case',
-              currentCat: 'Current Categorization',
-              newCat: 'New Categorization',
-              summary: 'Change Summary',
-              destinationTitle: 'Case Destination',
-              destination: 'Destination',
-              assume: 'Assume case',
-              distribute: 'Distribute to queue',
-              close: 'Close on creation',
-              queueResolved: 'Queue defined by categorization',
-              manualQueue: 'Manual queue',
-              caseNumber: 'Case Number',
-              status: 'Status',
-              unidade: 'Business Unit',
-              recordType: 'Record Type',
-              currentTipo: 'Current Case Type',
-              currentCategoria: 'Current Category',
-              currentAssunto: 'Current Subject',
-              currentSubassunto: 'Current Subsubject',
-              newTipo: 'Case Type',
-              newCategoria: 'Category',
-              newAssunto: 'Subject',
-              newSubassunto: 'Subsubject',
-              from: 'From',
-              to: 'To',
-              warning: 'After confirming recategorization, the standard Case edit screen will open so you can complete required fields.',
-              cancel: 'Cancel',
-              save: 'Recategorize',
-              successTitle: 'Success',
-              successMsg: 'Case recategorized successfully.',
-              errorTitle: 'Error',
-              noValues: 'No options available'
-          }
-        : {
-              title: 'Recategorizar Caso',
-              caseInfo: 'Caso Atual',
-              currentCat: 'Categorização Atual',
-              newCat: 'Nova Categorização',
-              summary: 'Resumo da Alteração',
-              destinationTitle: 'Destino do Caso',
-              destination: 'Destino',
-              assume: 'Assumir o caso',
-              distribute: 'Distribuir para fila',
-              close: 'Encerrar na criação',
-              queueResolved: 'Fila definida pela categorização',
-              manualQueue: 'Fila manual',
-              caseNumber: 'Número do Caso',
-              status: 'Status',
-              unidade: 'Unidade de Negócio',
-              recordType: 'Record Type',
-              currentTipo: 'Tipo de Caso atual',
-              currentCategoria: 'Categoria atual',
-              currentAssunto: 'Assunto atual',
-              currentSubassunto: 'Subassunto atual',
-              newTipo: 'Tipo de Caso',
-              newCategoria: 'Categoria',
-              newAssunto: 'Assunto',
-              newSubassunto: 'Subassunto',
-              from: 'De',
-              to: 'Para',
-              warning: 'Após confirmar a recategorização, a tela padrão de edição do Caso será aberta para preenchimento dos campos exigidos pela nova categorização.',
-              cancel: 'Cancelar',
-              save: 'Recategorizar',
-              successTitle: 'Sucesso',
-              successMsg: 'Caso recategorizado com sucesso.',
-              errorTitle: 'Erro',
-              noValues: 'Sem opções disponíveis'
-          };
+    labels = {
+        title: titleLabel,
+        caseInfo: caseInfoLabel,
+        currentCat: currentCatLabel,
+        newCat: newCatLabel,
+        summary: summaryLabel,
+        destinationTitle: destinationTitleLabel,
+        destination: destinationLabel,
+        assume: assumeLabel,
+        distribute: distributeLabel,
+        close: closeLabel,
+        queueResolved: queueResolvedLabel,
+        manualQueue: manualQueueLabel,
+        caseNumber: caseNumberLabel,
+        status: statusLabel,
+        unidade: unidadeLabel,
+        recordType: recordTypeLabel,
+        currentTipo: currentTipoLabel,
+        currentCategoria: currentCategoriaLabel,
+        currentAssunto: currentAssuntoLabel,
+        currentSubassunto: currentSubassuntoLabel,
+        newTipo: newTipoLabel,
+        newCategoria: newCategoriaLabel,
+        newAssunto: newAssuntoLabel,
+        newSubassunto: newSubassuntoLabel,
+        from: fromLabel,
+        to: toLabel,
+        warning: warningLabel,
+        cancel: cancelLabel,
+        loading: loadingLabel,
+        save: saveLabel,
+        successTitle: successTitleLabel,
+        successMsg: successMsgLabel,
+        errorTitle: errorTitleLabel,
+        noValues: noValuesLabel
+    };
 
     @wire(getObjectInfo, { objectApiName: CASE_OBJECT })
     wiredObjectInfo({ data }) {

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Agency Specific Segmentation</label>
+    <name>Segmentacao_Especifica_Agencia__c</name>
+    <picklistValues>
+        <masterLabel>Aço</masterLabel>
+        <translation>Steel</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Açúcar</masterLabel>
+        <translation>Sugar</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Afretador</masterLabel>
+        <translation>Charterer</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Armador</masterLabel>
+        <translation>Shipowner</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Alumínio</masterLabel>
+        <translation>Aluminum</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carga de Projeto</masterLabel>
+        <translation>Project Cargo</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Broker</masterLabel>
+        <translation>Broker</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carga Geral</masterLabel>
+        <translation>General Cargo</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carga Viva</masterLabel>
+        <translation>Live Cargo</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carvão</masterLabel>
+        <translation>Coal</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Coque</masterLabel>
+        <translation>Coke</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Celulose</masterLabel>
+        <translation>Pulp</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cimento</masterLabel>
+        <translation>Cement</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fertilizante</masterLabel>
+        <translation>Fertilizer</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Grãos</masterLabel>
+        <translation>Grain</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Líquido</masterLabel>
+        <translation>Liquid</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Madeira</masterLabel>
+        <translation>Wood</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Minério</masterLabel>
+        <translation>Ore</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Óleo &amp; Gás</masterLabel>
+        <translation>Oil &amp; Gas</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Químicos</masterLabel>
+        <translation>Chemicals</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ro-Ro</masterLabel>
+        <translation>Ro-Ro</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sal</masterLabel>
+        <translation>Salt</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Outros</masterLabel>
+        <translation>Other</translation>
+    </picklistValues>
+</CustomFieldTranslation>

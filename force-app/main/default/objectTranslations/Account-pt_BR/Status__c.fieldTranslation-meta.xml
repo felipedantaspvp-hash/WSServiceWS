@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Status</label>
+    <name>Status__c</name>
+    <picklistValues>
+        <masterLabel>Ativa</masterLabel>
+        <translation>Ativa</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Duplicada</masterLabel>
+        <translation>Duplicada</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Inativa</masterLabel>
+        <translation>Inativa</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Nova</masterLabel>
+        <translation>Nova</translation>
+    </picklistValues>
+</CustomFieldTranslation>

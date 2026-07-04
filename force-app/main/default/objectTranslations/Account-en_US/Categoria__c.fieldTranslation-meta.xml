@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Categoria --></label>
+    <label>Category</label>
     <name>Categoria__c</name>
     <picklistValues>
         <masterLabel>Clientes - Customers</masterLabel>
-        <translation><!-- Clientes - Customers --></translation>
+        <translation>Customers - Customers</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Clientes - Prospects</masterLabel>
-        <translation><!-- Clientes - Prospects --></translation>
+        <translation>Customers - Prospects</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Clientes - Targets</masterLabel>
-        <translation><!-- Clientes - Targets --></translation>
+        <translation>Customers - Targets</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Não Cliente - Agência</masterLabel>
-        <translation><!-- Não Cliente - Agência --></translation>
+        <translation>Non-Customer - Agency</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Não Cliente - Broker</masterLabel>
-        <translation><!-- Não Cliente - Broker --></translation>
+        <translation>Non-Customer - Broker</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Não Cliente - Freight Forwarder</masterLabel>
-        <translation><!-- Não Cliente - Freight Forwarder --></translation>
+        <translation>Non-Customer - Freight Forwarder</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Não Cliente - Outros</masterLabel>
-        <translation><!-- Não Cliente - Outros --></translation>
+        <translation>Non-Customer - Other</translation>
     </picklistValues>
 </CustomFieldTranslation>

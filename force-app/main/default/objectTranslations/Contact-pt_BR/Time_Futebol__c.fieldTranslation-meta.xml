@@ -1,197 +1,197 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Time de Futebol --></label>
+    <label>Time de Futebol</label>
     <name>Time_Futebol__c</name>
     <picklistValues>
         <masterLabel>ABC</masterLabel>
-        <translation><!-- ABC --></translation>
+        <translation>ABC</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>América-MG</masterLabel>
-        <translation><!-- América-MG --></translation>
+        <translation>América-MG</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>América-RN</masterLabel>
-        <translation><!-- América-RN --></translation>
+        <translation>América-RN</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Atlético-GO</masterLabel>
-        <translation><!-- Atlético-GO --></translation>
+        <translation>Atlético-GO</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Atlético-MG</masterLabel>
-        <translation><!-- Atlético-MG --></translation>
+        <translation>Atlético-MG</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Atlético-PR</masterLabel>
-        <translation><!-- Atlético-PR --></translation>
+        <translation>Atlético-PR</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Avaí</masterLabel>
-        <translation><!-- Avaí --></translation>
+        <translation>Avaí</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Bahia</masterLabel>
-        <translation><!-- Bahia --></translation>
+        <translation>Bahia</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Boa Esporte</masterLabel>
-        <translation><!-- Boa Esporte --></translation>
+        <translation>Boa Esporte</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Botafogo</masterLabel>
-        <translation><!-- Botafogo --></translation>
+        <translation>Botafogo</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Bragantino</masterLabel>
-        <translation><!-- Bragantino --></translation>
+        <translation>Bragantino</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>CRB</masterLabel>
-        <translation><!-- CRB --></translation>
+        <translation>CRB</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Ceará</masterLabel>
-        <translation><!-- Ceará --></translation>
+        <translation>Ceará</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Chapecoense</masterLabel>
-        <translation><!-- Chapecoense --></translation>
+        <translation>Chapecoense</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Corinthians</masterLabel>
-        <translation><!-- Corinthians --></translation>
+        <translation>Corinthians</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Coritiba</masterLabel>
-        <translation><!-- Coritiba --></translation>
+        <translation>Coritiba</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Criciúma</masterLabel>
-        <translation><!-- Criciúma --></translation>
+        <translation>Criciúma</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Cruzeiro</masterLabel>
-        <translation><!-- Cruzeiro --></translation>
+        <translation>Cruzeiro</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Figueirense</masterLabel>
-        <translation><!-- Figueirense --></translation>
+        <translation>Figueirense</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Flamengo</masterLabel>
-        <translation><!-- Flamengo --></translation>
+        <translation>Flamengo</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Fluminense</masterLabel>
-        <translation><!-- Fluminense --></translation>
+        <translation>Fluminense</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Fortaleza</masterLabel>
-        <translation><!-- Fortaleza --></translation>
+        <translation>Fortaleza</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>GRÊMIO</masterLabel>
-        <translation><!-- GRÊMIO --></translation>
+        <translation>GRÊMIO</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Goiás</masterLabel>
-        <translation><!-- Goiás --></translation>
+        <translation>Goiás</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Icasa</masterLabel>
-        <translation><!-- Icasa --></translation>
+        <translation>Icasa</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Internacional</masterLabel>
-        <translation><!-- Internacional --></translation>
+        <translation>Internacional</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Joinville</masterLabel>
-        <translation><!-- Joinville --></translation>
+        <translation>Joinville</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Luverdense</masterLabel>
-        <translation><!-- Luverdense --></translation>
+        <translation>Luverdense</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Macaé</masterLabel>
-        <translation><!-- Macaé --></translation>
+        <translation>Macaé</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Madureira</masterLabel>
-        <translation><!-- Madureira --></translation>
+        <translation>Madureira</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Mogi Mirim</masterLabel>
-        <translation><!-- Mogi Mirim --></translation>
+        <translation>Mogi Mirim</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Náutico</masterLabel>
-        <translation><!-- Náutico --></translation>
+        <translation>Náutico</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Oeste</masterLabel>
-        <translation><!-- Oeste --></translation>
+        <translation>Oeste</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Palmeiras</masterLabel>
-        <translation><!-- Palmeiras --></translation>
+        <translation>Palmeiras</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Paraná</masterLabel>
-        <translation><!-- Paraná --></translation>
+        <translation>Paraná</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Paysandu</masterLabel>
-        <translation><!-- Paysandu --></translation>
+        <translation>Paysandu</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Ponte Preta</masterLabel>
-        <translation><!-- Ponte Preta --></translation>
+        <translation>Ponte Preta</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Portuguesa</masterLabel>
-        <translation><!-- Portuguesa --></translation>
+        <translation>Portuguesa</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Salgueiro</masterLabel>
-        <translation><!-- Salgueiro --></translation>
+        <translation>Salgueiro</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Sampaio Corrêa</masterLabel>
-        <translation><!-- Sampaio Corrêa --></translation>
+        <translation>Sampaio Corrêa</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Santa Cruz</masterLabel>
-        <translation><!-- Santa Cruz --></translation>
+        <translation>Santa Cruz</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Santos</masterLabel>
-        <translation><!-- Santos --></translation>
+        <translation>Santos</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Sport</masterLabel>
-        <translation><!-- Sport --></translation>
+        <translation>Sport</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>São Paulo</masterLabel>
-        <translation><!-- São Paulo --></translation>
+        <translation>São Paulo</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Tupi-MG</masterLabel>
-        <translation><!-- Tupi-MG --></translation>
+        <translation>Tupi-MG</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Vasco</masterLabel>
-        <translation><!-- Vasco --></translation>
+        <translation>Vasco</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Vila Nova</masterLabel>
-        <translation><!-- Vila Nova --></translation>
+        <translation>Vila Nova</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Vitória</masterLabel>
-        <translation><!-- Vitória --></translation>
+        <translation>Vitória</translation>
     </picklistValues>
 </CustomFieldTranslation>

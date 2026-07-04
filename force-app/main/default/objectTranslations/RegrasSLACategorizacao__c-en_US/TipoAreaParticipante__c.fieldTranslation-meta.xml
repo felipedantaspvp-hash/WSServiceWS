@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Participating Area Type</label>
+    <name>TipoAreaParticipante__c</name>
+    <picklistValues>
+        <masterLabel>Categorização Inicial</masterLabel>
+        <translation>Initial Categorization</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tratamento Primário</masterLabel>
+        <translation>Primary Handling</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Área Interna</masterLabel>
+        <translation>Internal Area</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Retorno ao Cliente</masterLabel>
+        <translation>Customer Follow-up</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SLA Total</masterLabel>
+        <translation>Total SLA</translation>
+    </picklistValues>
+</CustomFieldTranslation>

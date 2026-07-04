@@ -1,7 +1,7 @@
 <template>
     <lightning-card title={cardTitle} icon-name="custom:custom63">
         <template if:true={loading}>
-            <lightning-spinner alternative-text="Carregando"></lightning-spinner>
+            <lightning-spinner alternative-text={loadingLabel}></lightning-spinner>
         </template>
 
         <div class="slds-p-around_medium">

@@ -483,8 +483,10 @@ private class CaseCreationServiceTest {
     @IsTest
     static void testApplyCategorizacaoDistributionUsaFilaFallbackQuandoValorNaoBate() {
         Group fallbackQueue = new Group(Name = 'TSV Queue Fallback Test', DeveloperName = 'TSV_Q_TEST_FALLBACK', Type = 'Queue');
-        insert fallbackQueue;
-        insert new QueueSobject(QueueId = fallbackQueue.Id, SobjectType = 'Case');
+        System.runAs(new User(Id = UserInfo.getUserId())) {
+            insert fallbackQueue;
+            insert new QueueSobject(QueueId = fallbackQueue.Id, SobjectType = 'Case');
+        }
 
         Categorizacao__c cat = CategorizacaoTestDataFactory.base(true, false);
         cat.RecordTypeId = salvadorCategorizacaoRt().Id;

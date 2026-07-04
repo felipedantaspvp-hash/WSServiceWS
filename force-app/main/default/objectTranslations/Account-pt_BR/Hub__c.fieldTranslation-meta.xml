@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Hubs</label>
+    <name>Hub__c</name>
+    <picklistValues>
+        <masterLabel>Cubo Itau</masterLabel>
+        <translation>Cubo Itau</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Startup Wharf</masterLabel>
+        <translation>Startup Wharf</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fábrica de Startups</masterLabel>
+        <translation>Fábrica de Startups</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>theDOCK</masterLabel>
+        <translation>theDOCK</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Píer71</masterLabel>
+        <translation>Píer71</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>100Open Startup</masterLabel>
+        <translation>100Open Startup</translation>
+    </picklistValues>
+</CustomFieldTranslation>

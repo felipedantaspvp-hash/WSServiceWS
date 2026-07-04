@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Segmentação Específica Tecon Salvador --></label>
+    <label>Tecon Salvador Specific Segmentation</label>
     <name>Segmentacao_Especifica_Tecon_Salvador__c</name>
     <picklistValues>
         <masterLabel>Agente de Carga</masterLabel>
-        <translation><!-- Agente de Carga --></translation>
+        <translation>Cargo Agent</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Armador</masterLabel>
-        <translation><!-- Armador --></translation>
+        <translation>Shipowner</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Armador Break Bulk</masterLabel>
-        <translation><!-- Armador Break Bulk --></translation>
+        <translation>Break Bulk Shipowner</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Cabotagem</masterLabel>
-        <translation><!-- Cabotagem --></translation>
+        <translation>Coastal Shipping</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Comissaria de Despacho</masterLabel>
-        <translation><!-- Comissaria de Despacho --></translation>
+        <translation>Customs Clearance Broker</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Exportador</masterLabel>
-        <translation><!-- Exportador --></translation>
+        <translation>Exporter</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Importador</masterLabel>
-        <translation><!-- Importador --></translation>
+        <translation>Importer</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Outros</masterLabel>
-        <translation><!-- Outros --></translation>
+        <translation>Other</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Transportadora</masterLabel>
-        <translation><!-- Transportadora --></translation>
+        <translation>Carrier</translation>
     </picklistValues>
 </CustomFieldTranslation>

@@ -46,7 +46,9 @@ private class ContactWhatsappMessageControllerTest {
             MessagingPlatformKey = '5511999999999',
             MessagingConsentStatus = 'ImplicitlyOptedIn'
         );
-        insert endUser;
+        System.runAs(new User(Id = UserInfo.getUserId())) {
+            insert endUser;
+        }
 
         Test.startTest();
         ContactWhatsappMessageDTO result = ContactWhatsappMessageController.getContext(contactRecord.Id);
@@ -70,10 +72,12 @@ private class ContactWhatsappMessageControllerTest {
         Contact contactRecord = [SELECT Id FROM Contact LIMIT 1];
         MessagingChannel allowedChannel = createChannel('ContactWhatsAppActionAllowed', 'WhatsApp Allowed');
         MessagingChannel blockedChannel = createChannel('ContactWhatsAppActionBlocked', 'WhatsApp Blocked');
-        insert new List<MessagingEndUser>{
-            buildEndUser(contactRecord.Id, allowedChannel.Id, '5511999991111'),
-            buildEndUser(contactRecord.Id, blockedChannel.Id, '5511999992222')
-        };
+        System.runAs(new User(Id = UserInfo.getUserId())) {
+            insert new List<MessagingEndUser>{
+                buildEndUser(contactRecord.Id, allowedChannel.Id, '5511999991111'),
+                buildEndUser(contactRecord.Id, blockedChannel.Id, '5511999992222')
+            };
+        }
 
         Test.startTest();
         ContactWhatsappMessageDTO result = ContactWhatsappMessageController.getContext(contactRecord.Id);

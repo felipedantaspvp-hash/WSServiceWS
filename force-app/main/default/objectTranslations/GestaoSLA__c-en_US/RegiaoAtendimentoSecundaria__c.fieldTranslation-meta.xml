@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Service region that uses the secondary Business Hours (e.g., China).</help>
+    <label>Secondary Service Region</label>
+    <name>RegiaoAtendimentoSecundaria__c</name>
+</CustomFieldTranslation>

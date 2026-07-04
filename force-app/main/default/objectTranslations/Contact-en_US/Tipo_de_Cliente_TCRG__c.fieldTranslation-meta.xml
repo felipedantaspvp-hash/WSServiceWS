@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Customer Type</label>
+    <name>Tipo_de_Cliente_TCRG__c</name>
+    <picklistValues>
+        <masterLabel>Armador</masterLabel>
+        <translation>Shipowner</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cabotagem</masterLabel>
+        <translation>Coastal Shipping</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Exportador</masterLabel>
+        <translation>Exporter</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Importador</masterLabel>
+        <translation>Importer</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Parceiro Estratégico</masterLabel>
+        <translation>Strategic Partner</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Transportadora</masterLabel>
+        <translation>Carrier</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Despachante</masterLabel>
+        <translation>Customs Broker</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cliente Reefer</masterLabel>
+        <translation>Reefer Customer</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cliente Armexp</masterLabel>
+        <translation>Armexp Customer</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cliente Armimp</masterLabel>
+        <translation>Armimp Customer</translation>
+    </picklistValues>
+</CustomFieldTranslation>

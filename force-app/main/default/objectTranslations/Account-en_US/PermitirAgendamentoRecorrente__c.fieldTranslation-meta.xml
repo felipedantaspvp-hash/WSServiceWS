@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Permitir Agendamento Recorrente --></label>
+    <label>Allow Recurring Scheduling</label>
     <name>PermitirAgendamentoRecorrente__c</name>
 </CustomFieldTranslation>

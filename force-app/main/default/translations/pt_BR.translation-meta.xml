@@ -969,7 +969,7 @@
         <name>GestaoSLA_AccessDeniedTitle</name>
     </customLabels>
     <customLabels>
-        <label><!-- Activate SLA rule menu item --></label>
+        <label>Ativar</label>
         <name>GestaoSLA_ActivateRule</name>
     </customLabels>
     <customLabels>
@@ -1003,6 +1003,14 @@
     <customLabels>
         <label>Business Hours</label>
         <name>GestaoSLA_BusinessHours</name>
+    </customLabels>
+    <customLabels>
+        <label>Static Resource</label>
+        <name>GestaoSLA_StaticResource</name>
+    </customLabels>
+    <customLabels>
+        <label>Use uma imagem na proporção 8:3 (ex: 1920x720px ou 1600x600px). A imagem é exibida sem cortes; proporções diferentes geram barras vazias nas laterais.</label>
+        <name>GestaoSLA_StaticResourceHelp</name>
     </customLabels>
     <customLabels>
         <label>Ações</label>
@@ -1057,7 +1065,7 @@
         <name>GestaoSLA_CategoryDeactivate</name>
     </customLabels>
     <customLabels>
-        <label><!-- Category delete action --></label>
+        <label>Excluir</label>
         <name>GestaoSLA_CategoryDelete</name>
     </customLabels>
     <customLabels>
@@ -1117,7 +1125,7 @@
         <name>GestaoSLA_CategoryFilterStatusAll</name>
     </customLabels>
     <customLabels>
-        <label><!-- Category all subject option --></label>
+        <label>Assunto: Todos</label>
         <name>GestaoSLA_CategoryFilterSubjectAll</name>
     </customLabels>
     <customLabels>
@@ -1317,11 +1325,11 @@
         <name>GestaoSLA_ConfirmDeactivateRule</name>
     </customLabels>
     <customLabels>
-        <label><!-- Confirm delete categorization dialog message --></label>
+        <label>Isso excluirá permanentemente esta categorização e suas regras de SLA. Esta ação não pode ser desfeita. Continuar?</label>
         <name>GestaoSLA_ConfirmDeleteCategory</name>
     </customLabels>
     <customLabels>
-        <label><!-- Confirm delete Gestão de SLA dialog message --></label>
+        <label>Isso excluirá permanentemente este registro de Gestão de SLA. Esta ação não pode ser desfeita. Continuar?</label>
         <name>GestaoSLA_ConfirmDeleteGestao</name>
     </customLabels>
     <customLabels>
@@ -1329,11 +1337,11 @@
         <name>GestaoSLA_ConfirmDeleteMilestone</name>
     </customLabels>
     <customLabels>
-        <label><!-- Confirm delete SLA rule dialog message --></label>
+        <label>Isso excluirá permanentemente esta regra de SLA. Esta ação não pode ser desfeita. Continuar?</label>
         <name>GestaoSLA_ConfirmDeleteRule</name>
     </customLabels>
     <customLabels>
-        <label><!-- Button label to delete the selected SLA Management record. --></label>
+        <label>Excluir Gestão de SLA</label>
         <name>GestaoSLA_DeleteButton</name>
     </customLabels>
     <customLabels>
@@ -1369,11 +1377,11 @@
         <name>GestaoSLA_ErrorDeactivateRule</name>
     </customLabels>
     <customLabels>
-        <label><!-- Category delete error message --></label>
+        <label>Erro ao excluir categorização.</label>
         <name>GestaoSLA_ErrorDeleteCategory</name>
     </customLabels>
     <customLabels>
-        <label><!-- Error deleting Gestão de SLA message --></label>
+        <label>Erro ao excluir registro de Gestão de SLA.</label>
         <name>GestaoSLA_ErrorDeleteGestao</name>
     </customLabels>
     <customLabels>
@@ -1381,7 +1389,7 @@
         <name>GestaoSLA_ErrorDeleteMilestone</name>
     </customLabels>
     <customLabels>
-        <label><!-- Error deleting SLA rule message --></label>
+        <label>Erro ao excluir regra de SLA.</label>
         <name>GestaoSLA_ErrorDeleteRule</name>
     </customLabels>
     <customLabels>
@@ -1665,7 +1673,7 @@
         <name>GestaoSLA_RuleColValidity</name>
     </customLabels>
     <customLabels>
-        <label><!-- Delete SLA rule menu item --></label>
+        <label>Excluir</label>
         <name>GestaoSLA_RuleDelete</name>
     </customLabels>
     <customLabels>
@@ -1793,7 +1801,7 @@
         <name>GestaoSLA_ToastCategoryDeactivated</name>
     </customLabels>
     <customLabels>
-        <label><!-- Category deleted success toast --></label>
+        <label>Categorização excluída com sucesso.</label>
         <name>GestaoSLA_ToastCategoryDeleted</name>
     </customLabels>
     <customLabels>
@@ -1805,7 +1813,7 @@
         <name>GestaoSLA_ToastCategoryUpdated</name>
     </customLabels>
     <customLabels>
-        <label><!-- Gestão de SLA deleted success toast --></label>
+        <label>Registro de Gestão de SLA excluído com sucesso.</label>
         <name>GestaoSLA_ToastGestaoDeleted</name>
     </customLabels>
     <customLabels>
@@ -1841,11 +1849,11 @@
         <name>GestaoSLA_ToastMilestoneUpdated</name>
     </customLabels>
     <customLabels>
-        <label><!-- SLA rule activated success toast --></label>
+        <label>Regra de SLA ativada com sucesso.</label>
         <name>GestaoSLA_ToastRuleActivated</name>
     </customLabels>
     <customLabels>
-        <label><!-- Internal area SLA rules bulk saved success toast --></label>
+        <label>Regras de SLA salvas com sucesso.</label>
         <name>GestaoSLA_ToastRuleBulkSaved</name>
     </customLabels>
     <customLabels>
@@ -1857,7 +1865,7 @@
         <name>GestaoSLA_ToastRuleDeactivated</name>
     </customLabels>
     <customLabels>
-        <label><!-- SLA rule deleted success toast --></label>
+        <label>Regra de SLA excluída com sucesso.</label>
         <name>GestaoSLA_ToastRuleDeleted</name>
     </customLabels>
     <customLabels>
@@ -23584,6 +23592,690 @@
         <label><!-- Pardot Production Api Base Url --></label>
         <name>pi__Pardot_Production_Base_Url</name>
     </customLabels>
+    <customLabels>
+        <label>Recategorizar Caso</label>
+        <name>CaseRecategorization_Title</name>
+    </customLabels>
+    <customLabels>
+        <label>Caso Atual</label>
+        <name>CaseRecategorization_CaseInfo</name>
+    </customLabels>
+    <customLabels>
+        <label>Categorização Atual</label>
+        <name>CaseRecategorization_CurrentCat</name>
+    </customLabels>
+    <customLabels>
+        <label>Nova Categorização</label>
+        <name>CaseRecategorization_NewCat</name>
+    </customLabels>
+    <customLabels>
+        <label>Resumo da Alteração</label>
+        <name>CaseRecategorization_Summary</name>
+    </customLabels>
+    <customLabels>
+        <label>Destino do Caso</label>
+        <name>CaseRecategorization_DestinationTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Destino</label>
+        <name>CaseRecategorization_Destination</name>
+    </customLabels>
+    <customLabels>
+        <label>Assumir o caso</label>
+        <name>CaseRecategorization_Assume</name>
+    </customLabels>
+    <customLabels>
+        <label>Distribuir para fila</label>
+        <name>CaseRecategorization_Distribute</name>
+    </customLabels>
+    <customLabels>
+        <label>Encerrar na criação</label>
+        <name>CaseRecategorization_Close</name>
+    </customLabels>
+    <customLabels>
+        <label>Fila definida pela categorização</label>
+        <name>CaseRecategorization_QueueResolved</name>
+    </customLabels>
+    <customLabels>
+        <label>Fila manual</label>
+        <name>CaseRecategorization_ManualQueue</name>
+    </customLabels>
+    <customLabels>
+        <label>Número do Caso</label>
+        <name>CaseRecategorization_CaseNumber</name>
+    </customLabels>
+    <customLabels>
+        <label>Status</label>
+        <name>CaseRecategorization_Status</name>
+    </customLabels>
+    <customLabels>
+        <label>Unidade de Negócio</label>
+        <name>CaseRecategorization_Unidade</name>
+    </customLabels>
+    <customLabels>
+        <label>Record Type</label>
+        <name>CaseRecategorization_RecordType</name>
+    </customLabels>
+    <customLabels>
+        <label>Tipo de Caso atual</label>
+        <name>CaseRecategorization_CurrentTipo</name>
+    </customLabels>
+    <customLabels>
+        <label>Categoria atual</label>
+        <name>CaseRecategorization_CurrentCategoria</name>
+    </customLabels>
+    <customLabels>
+        <label>Assunto atual</label>
+        <name>CaseRecategorization_CurrentAssunto</name>
+    </customLabels>
+    <customLabels>
+        <label>Subassunto atual</label>
+        <name>CaseRecategorization_CurrentSubassunto</name>
+    </customLabels>
+    <customLabels>
+        <label>Tipo de Caso</label>
+        <name>CaseRecategorization_NewTipo</name>
+    </customLabels>
+    <customLabels>
+        <label>Categoria</label>
+        <name>CaseRecategorization_NewCategoria</name>
+    </customLabels>
+    <customLabels>
+        <label>Assunto</label>
+        <name>CaseRecategorization_NewAssunto</name>
+    </customLabels>
+    <customLabels>
+        <label>Subassunto</label>
+        <name>CaseRecategorization_NewSubassunto</name>
+    </customLabels>
+    <customLabels>
+        <label>De</label>
+        <name>CaseRecategorization_From</name>
+    </customLabels>
+    <customLabels>
+        <label>Para</label>
+        <name>CaseRecategorization_To</name>
+    </customLabels>
+    <customLabels>
+        <label>Após confirmar a recategorização, a tela padrão de edição do Caso será aberta para preenchimento dos campos exigidos pela nova categorização.</label>
+        <name>CaseRecategorization_Warning</name>
+    </customLabels>
+    <customLabels>
+        <label>Cancelar</label>
+        <name>CaseRecategorization_Cancel</name>
+    </customLabels>
+    <customLabels>
+        <label>Carregando</label>
+        <name>CaseRecategorization_Loading</name>
+    </customLabels>
+    <customLabels>
+        <label>Recategorizar</label>
+        <name>CaseRecategorization_Save</name>
+    </customLabels>
+    <customLabels>
+        <label>Sucesso</label>
+        <name>CaseRecategorization_SuccessTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Caso recategorizado com sucesso.</label>
+        <name>CaseRecategorization_SuccessMsg</name>
+    </customLabels>
+    <customLabels>
+        <label>Erro</label>
+        <name>CaseRecategorization_ErrorTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Sem opções disponíveis</label>
+        <name>CaseRecategorization_NoValues</name>
+    </customLabels>
+    <customLabels>
+        <label>Gestor de Categorização</label>
+        <name>CategorizacaoManager_CardTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Informações Gerais</label>
+        <name>CategorizacaoManager_SectionGeneral</name>
+    </customLabels>
+    <customLabels>
+        <label>Distribuição</label>
+        <name>CategorizacaoManager_SectionDistribution</name>
+    </customLabels>
+    <customLabels>
+        <label>Regras SLA da Categorização</label>
+        <name>CategorizacaoManager_SectionSla</name>
+    </customLabels>
+    <customLabels>
+        <label>Estratégia da Área Interna</label>
+        <name>CategorizacaoManager_N3Strategy</name>
+    </customLabels>
+    <customLabels>
+        <label>Tempo único para qualquer área</label>
+        <name>CategorizacaoManager_N3Unique</name>
+    </customLabels>
+    <customLabels>
+        <label>Tempo por área específica</label>
+        <name>CategorizacaoManager_N3ByArea</name>
+    </customLabels>
+    <customLabels>
+        <label>Aplicado para todas as áreas internas.</label>
+        <name>CategorizacaoManager_N3AppliedAll</name>
+    </customLabels>
+    <customLabels>
+        <label>Nenhum marco gerenciável disponível.</label>
+        <name>CategorizacaoManager_NoMilestones</name>
+    </customLabels>
+    <customLabels>
+        <label>Área</label>
+        <name>CategorizacaoManager_Area</name>
+    </customLabels>
+    <customLabels>
+        <label>Unidade de Negócio</label>
+        <name>CategorizacaoManager_UnidadeNegocio</name>
+    </customLabels>
+    <customLabels>
+        <label>Tipo de Caso</label>
+        <name>CategorizacaoManager_TipoCaso</name>
+    </customLabels>
+    <customLabels>
+        <label>Categoria</label>
+        <name>CategorizacaoManager_Categoria</name>
+    </customLabels>
+    <customLabels>
+        <label>Assunto</label>
+        <name>CategorizacaoManager_Assunto</name>
+    </customLabels>
+    <customLabels>
+        <label>Subassunto</label>
+        <name>CategorizacaoManager_Subassunto</name>
+    </customLabels>
+    <customLabels>
+        <label>Ativo</label>
+        <name>CategorizacaoManager_Ativo</name>
+    </customLabels>
+    <customLabels>
+        <label>Descrição</label>
+        <name>CategorizacaoManager_Descricao</name>
+    </customLabels>
+    <customLabels>
+        <label>Motivo de Inativação</label>
+        <name>CategorizacaoManager_MotivoInativacao</name>
+    </customLabels>
+    <customLabels>
+        <label>Distribuir para fila?</label>
+        <name>CategorizacaoManager_DistribuirFila</name>
+    </customLabels>
+    <customLabels>
+        <label>Por categorização?</label>
+        <name>CategorizacaoManager_PorCategorizacao</name>
+    </customLabels>
+    <customLabels>
+        <label>Fila de Case</label>
+        <name>CategorizacaoManager_FilaCase</name>
+    </customLabels>
+    <customLabels>
+        <label>Qual campo?</label>
+        <name>CategorizacaoManager_QualCampo</name>
+    </customLabels>
+    <customLabels>
+        <label>Valor</label>
+        <name>CategorizacaoManager_Valor</name>
+    </customLabels>
+    <customLabels>
+        <label>Alta</label>
+        <name>CategorizacaoManager_High</name>
+    </customLabels>
+    <customLabels>
+        <label>Normal</label>
+        <name>CategorizacaoManager_Normal</name>
+    </customLabels>
+    <customLabels>
+        <label>Baixa</label>
+        <name>CategorizacaoManager_Low</name>
+    </customLabels>
+    <customLabels>
+        <label>minutos</label>
+        <name>CategorizacaoManager_Minutes</name>
+    </customLabels>
+    <customLabels>
+        <label>Tempo (minutos)</label>
+        <name>CategorizacaoManager_TimeMinutes</name>
+    </customLabels>
+    <customLabels>
+        <label>{0} áreas configuradas.</label>
+        <name>CategorizacaoManager_ConfiguredAreas</name>
+    </customLabels>
+    <customLabels>
+        <label>Cancelar</label>
+        <name>CategorizacaoManager_Cancel</name>
+    </customLabels>
+    <customLabels>
+        <label>Salvar</label>
+        <name>CategorizacaoManager_Save</name>
+    </customLabels>
+    <customLabels>
+        <label>Carregando</label>
+        <name>CategorizacaoManager_Loading</name>
+    </customLabels>
+    <customLabels>
+        <label>Erro</label>
+        <name>CategorizacaoManager_Error</name>
+    </customLabels>
+    <customLabels>
+        <label>Categoria é obrigatória.</label>
+        <name>CategorizacaoManager_RequiredCategory</name>
+    </customLabels>
+    <customLabels>
+        <label>Preencha o Motivo de Inativação quando Ativo estiver desmarcado.</label>
+        <name>CategorizacaoManager_RequiredInactiveReason</name>
+    </customLabels>
+    <customLabels>
+        <label>Sucesso</label>
+        <name>CategorizacaoManager_Success</name>
+    </customLabels>
+    <customLabels>
+        <label>Salvo com sucesso.</label>
+        <name>CategorizacaoManager_Saved</name>
+    </customLabels>
+    <customLabels>
+        <label>Falha ao salvar.</label>
+        <name>CategorizacaoManager_SaveFailed</name>
+    </customLabels>
+    <customLabels>
+        <label>Erro inesperado</label>
+        <name>CategorizacaoManager_UnexpectedError</name>
+    </customLabels>
+    <customLabels>
+        <label>Priorização Sugerida</label>
+        <name>CategorizacaoManager_PrioridadeLabel</name>
+    </customLabels>
+    <customLabels>
+        <label>Novo Caso</label>
+        <name>CaseNewCategorization_CardTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Selecione a categorização inicial para carregar o formulário padrão do Case.</label>
+        <name>CaseNewCategorization_Subtitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Unidade / Record Type</label>
+        <name>CaseNewCategorization_UnidadeRecordType</name>
+    </customLabels>
+    <customLabels>
+        <label>Unidade de Negócio</label>
+        <name>CaseNewCategorization_UnidadeNegocio</name>
+    </customLabels>
+    <customLabels>
+        <label>Tipo de Caso</label>
+        <name>CaseNewCategorization_TipoCaso</name>
+    </customLabels>
+    <customLabels>
+        <label>Categoria</label>
+        <name>CaseNewCategorization_Categoria</name>
+    </customLabels>
+    <customLabels>
+        <label>Assunto</label>
+        <name>CaseNewCategorization_Assunto</name>
+    </customLabels>
+    <customLabels>
+        <label>Subassunto</label>
+        <name>CaseNewCategorization_Subassunto</name>
+    </customLabels>
+    <customLabels>
+        <label>Destino</label>
+        <name>CaseNewCategorization_Destino</name>
+    </customLabels>
+    <customLabels>
+        <label>O usuário atual será proprietário.</label>
+        <name>CaseNewCategorization_DestinationHintAssume</name>
+    </customLabels>
+    <customLabels>
+        <label>Usa fila parametrizada ou seleção manual.</label>
+        <name>CaseNewCategorization_DestinationHintDistribute</name>
+    </customLabels>
+    <customLabels>
+        <label>Fecha o caso e mantém owner como usuário atual.</label>
+        <name>CaseNewCategorization_DestinationHintClose</name>
+    </customLabels>
+    <customLabels>
+        <label>Fila definida pela categorização</label>
+        <name>CaseNewCategorization_QueueResolved</name>
+    </customLabels>
+    <customLabels>
+        <label>Fila manual</label>
+        <name>CaseNewCategorization_ManualQueue</name>
+    </customLabels>
+    <customLabels>
+        <label>Cancelar</label>
+        <name>CaseNewCategorization_Cancel</name>
+    </customLabels>
+    <customLabels>
+        <label>Carregando</label>
+        <name>CaseNewCategorization_Loading</name>
+    </customLabels>
+    <customLabels>
+        <label>Salvando</label>
+        <name>CaseNewCategorization_Saving</name>
+    </customLabels>
+    <customLabels>
+        <label>Assumir o caso</label>
+        <name>CaseNewCategorization_Assume</name>
+    </customLabels>
+    <customLabels>
+        <label>Distribuir para fila</label>
+        <name>CaseNewCategorization_Distribute</name>
+    </customLabels>
+    <customLabels>
+        <label>Encerrar na criação</label>
+        <name>CaseNewCategorization_Close</name>
+    </customLabels>
+    <customLabels>
+        <label>Esta categorização exige distribuição para a fila configurada; não é permitido assumir o caso diretamente.</label>
+        <name>CaseNewCategorization_AssumirBloqueadoHint</name>
+    </customLabels>
+    <customLabels>
+        <label>Erro</label>
+        <name>CaseNewCategorization_ErrorTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Erro inesperado</label>
+        <name>CaseNewCategorization_Unexpected</name>
+    </customLabels>
+    <customLabels>
+        <label>Complete a categorização acima antes de salvar.</label>
+        <name>CaseNewCategorization_PrepareFailed</name>
+    </customLabels>
+    <customLabels>
+        <label>Falha ao resolver os valores padrão do Caso.</label>
+        <name>CaseNewCategorization_ResolveFailed</name>
+    </customLabels>
+    <customLabels>
+        <label>Salvar</label>
+        <name>CaseNewCategorization_Save</name>
+    </customLabels>
+    <customLabels>
+        <label>Avançar</label>
+        <name>CaseNewCategorization_ContinueButton</name>
+    </customLabels>
+    <customLabels>
+        <label>Sucesso</label>
+        <name>CaseNewCategorization_SuccessTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Caso criado com sucesso.</label>
+        <name>CaseNewCategorization_SuccessMsg</name>
+    </customLabels>
+    <customLabels>
+        <label>Falha ao criar o Caso.</label>
+        <name>CaseNewCategorization_CreateFailed</name>
+    </customLabels>
+    <customLabels>
+        <label>Áreas Participantes</label>
+        <name>CaseAreasParticipantesPanel_Title</name>
+    </customLabels>
+    <customLabels>
+        <label>Área Interna</label>
+        <name>CaseAreasParticipantesPanel_InternalArea</name>
+    </customLabels>
+    <customLabels>
+        <label>Atendimento</label>
+        <name>CaseAreasParticipantesPanel_Atendimento</name>
+    </customLabels>
+    <customLabels>
+        <label>Resumo operacional</label>
+        <name>CaseAreasParticipantesPanel_OperationalSummary</name>
+    </customLabels>
+    <customLabels>
+        <label>Em aberto</label>
+        <name>CaseAreasParticipantesPanel_OpenGroup</name>
+    </customLabels>
+    <customLabels>
+        <label>Concluídas</label>
+        <name>CaseAreasParticipantesPanel_DoneGroup</name>
+    </customLabels>
+    <customLabels>
+        <label>Nenhuma área participante ativa para este Caso.</label>
+        <name>CaseAreasParticipantesPanel_Empty</name>
+    </customLabels>
+    <customLabels>
+        <label>abertas</label>
+        <name>CaseAreasParticipantesPanel_OpenPlural</name>
+    </customLabels>
+    <customLabels>
+        <label>vencidas</label>
+        <name>CaseAreasParticipantesPanel_OverduePlural</name>
+    </customLabels>
+    <customLabels>
+        <label>Violada</label>
+        <name>CaseAreasParticipantesPanel_Violated</name>
+    </customLabels>
+    <customLabels>
+        <label>Vencida</label>
+        <name>CaseAreasParticipantesPanel_Overdue</name>
+    </customLabels>
+    <customLabels>
+        <label>Pausada</label>
+        <name>CaseAreasParticipantesPanel_Paused</name>
+    </customLabels>
+    <customLabels>
+        <label>Concluída com violação</label>
+        <name>CaseAreasParticipantesPanel_CompletedViolated</name>
+    </customLabels>
+    <customLabels>
+        <label>Concluída dentro do prazo</label>
+        <name>CaseAreasParticipantesPanel_CompletedInTime</name>
+    </customLabels>
+    <customLabels>
+        <label>Cancelada</label>
+        <name>CaseAreasParticipantesPanel_Cancelled</name>
+    </customLabels>
+    <customLabels>
+        <label>Cancelada com violação</label>
+        <name>CaseAreasParticipantesPanel_CancelledViolated</name>
+    </customLabels>
+    <customLabels>
+        <label>Dentro do Prazo</label>
+        <name>CaseAreasParticipantesPanel_InTime</name>
+    </customLabels>
+    <customLabels>
+        <label>Status SLA</label>
+        <name>CaseAreasParticipantesPanel_SlaStatus</name>
+    </customLabels>
+    <customLabels>
+        <label>Tempo SLA</label>
+        <name>CaseAreasParticipantesPanel_SlaTime</name>
+    </customLabels>
+    <customLabels>
+        <label>Consumido</label>
+        <name>CaseAreasParticipantesPanel_ConsumedTime</name>
+    </customLabels>
+    <customLabels>
+        <label>Restante</label>
+        <name>CaseAreasParticipantesPanel_RemainingTime</name>
+    </customLabels>
+    <customLabels>
+        <label>Tempo pausado</label>
+        <name>CaseAreasParticipantesPanel_PausedTime</name>
+    </customLabels>
+    <customLabels>
+        <label>Ciclo</label>
+        <name>CaseAreasParticipantesPanel_Sequence</name>
+    </customLabels>
+    <customLabels>
+        <label>Tempo decorrido</label>
+        <name>CaseAreasParticipantesPanel_Elapsed</name>
+    </customLabels>
+    <customLabels>
+        <label>Início</label>
+        <name>CaseAreasParticipantesPanel_Start</name>
+    </customLabels>
+    <customLabels>
+        <label>Prazo</label>
+        <name>CaseAreasParticipantesPanel_Deadline</name>
+    </customLabels>
+    <customLabels>
+        <label>Solicitação</label>
+        <name>CaseAreasParticipantesPanel_Request</name>
+    </customLabels>
+    <customLabels>
+        <label>Próximo prazo</label>
+        <name>CaseAreasParticipantesPanel_NextDeadline</name>
+    </customLabels>
+    <customLabels>
+        <label>Encerrar</label>
+        <name>CaseAreasParticipantesPanel_Close</name>
+    </customLabels>
+    <customLabels>
+        <label>Detalhes</label>
+        <name>CaseAreasParticipantesPanel_Details</name>
+    </customLabels>
+    <customLabels>
+        <label>Encerrar Participação</label>
+        <name>CaseAreasParticipantesPanel_CloseTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Área Participante</label>
+        <name>CaseAreasParticipantesPanel_Area</name>
+    </customLabels>
+    <customLabels>
+        <label>Status Atual</label>
+        <name>CaseAreasParticipantesPanel_CurrentStatus</name>
+    </customLabels>
+    <customLabels>
+        <label>Comentário de Solicitação</label>
+        <name>CaseAreasParticipantesPanel_RequestComment</name>
+    </customLabels>
+    <customLabels>
+        <label>Comentário de Retorno</label>
+        <name>CaseAreasParticipantesPanel_ReturnComment</name>
+    </customLabels>
+    <customLabels>
+        <label>Solução / Retorno da Área</label>
+        <name>CaseAreasParticipantesPanel_Solution</name>
+    </customLabels>
+    <customLabels>
+        <label>Cancelar</label>
+        <name>CaseAreasParticipantesPanel_Cancel</name>
+    </customLabels>
+    <customLabels>
+        <label>Confirmar Encerramento</label>
+        <name>CaseAreasParticipantesPanel_ConfirmClose</name>
+    </customLabels>
+    <customLabels>
+        <label>Detalhes da Participação</label>
+        <name>CaseAreasParticipantesPanel_DetailTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Voltar</label>
+        <name>CaseAreasParticipantesPanel_Back</name>
+    </customLabels>
+    <customLabels>
+        <label>Status</label>
+        <name>CaseAreasParticipantesPanel_Status</name>
+    </customLabels>
+    <customLabels>
+        <label>Fechar</label>
+        <name>CaseAreasParticipantesPanel_CloseModal</name>
+    </customLabels>
+    <customLabels>
+        <label>Erro</label>
+        <name>CaseAreasParticipantesPanel_Error</name>
+    </customLabels>
+    <customLabels>
+        <label>Sucesso</label>
+        <name>CaseAreasParticipantesPanel_Success</name>
+    </customLabels>
+    <customLabels>
+        <label>Participação encerrada com sucesso.</label>
+        <name>CaseAreasParticipantesPanel_CloseSuccess</name>
+    </customLabels>
+    <customLabels>
+        <label>Pausar</label>
+        <name>CaseAreasParticipantesPanel_Pause</name>
+    </customLabels>
+    <customLabels>
+        <label>Retomar</label>
+        <name>CaseAreasParticipantesPanel_Resume</name>
+    </customLabels>
+    <customLabels>
+        <label>Participação pausada com sucesso.</label>
+        <name>CaseAreasParticipantesPanel_PauseSuccess</name>
+    </customLabels>
+    <customLabels>
+        <label>Participação retomada com sucesso.</label>
+        <name>CaseAreasParticipantesPanel_ResumeSuccess</name>
+    </customLabels>
+    <customLabels>
+        <label>Adicionar área</label>
+        <name>CaseAreasParticipantesPanel_Add</name>
+    </customLabels>
+    <customLabels>
+        <label>Adicionar Área Participante</label>
+        <name>CaseAreasParticipantesPanel_AddTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Comentário de solicitação</label>
+        <name>CaseAreasParticipantesPanel_RequestCommentInput</name>
+    </customLabels>
+    <customLabels>
+        <label>Confirmar inclusão</label>
+        <name>CaseAreasParticipantesPanel_ConfirmAdd</name>
+    </customLabels>
+    <customLabels>
+        <label>{0} área(s) participante(s) adicionada(s) com sucesso.</label>
+        <name>CaseAreasParticipantesPanel_AddSuccessCount</name>
+    </customLabels>
+    <customLabels>
+        <label>Erro inesperado</label>
+        <name>CaseAreasParticipantesPanel_UnexpectedError</name>
+    </customLabels>
+    <customLabels>
+        <label>Comentários por Área</label>
+        <name>CaseAreasParticipantesPanel_AddStep2Title</name>
+    </customLabels>
+    <customLabels>
+        <label>Disponíveis</label>
+        <name>CaseAreasParticipantesPanel_AddAvailable</name>
+    </customLabels>
+    <customLabels>
+        <label>Selecionadas</label>
+        <name>CaseAreasParticipantesPanel_AddSelected</name>
+    </customLabels>
+    <customLabels>
+        <label>Próximo</label>
+        <name>CaseAreasParticipantesPanel_Next</name>
+    </customLabels>
+    <customLabels>
+        <label>Atualizar</label>
+        <name>CaseAreasParticipantesPanel_Refresh</name>
+    </customLabels>
+    <customLabels>
+        <label>Concluída em</label>
+        <name>CaseAreasParticipantesPanel_CompletedOn</name>
+    </customLabels>
+    <customLabels>
+        <label>Concluída: {0}</label>
+        <name>CaseAreasParticipantesPanel_StatusLineCompleted</name>
+    </customLabels>
+    <customLabels>
+        <label>Cancelada</label>
+        <name>CaseAreasParticipantesPanel_StatusLineCancelled</name>
+    </customLabels>
+    <customLabels>
+        <label>Pausada</label>
+        <name>CaseAreasParticipantesPanel_StatusLinePaused</name>
+    </customLabels>
+    <customLabels>
+        <label>Vencida há {0}</label>
+        <name>CaseAreasParticipantesPanel_StatusLineOverdueBy</name>
+    </customLabels>
+    <customLabels>
+        <label>Vencida</label>
+        <name>CaseAreasParticipantesPanel_StatusLineOverdue</name>
+    </customLabels>
+    <customLabels>
+        <label>Prazo: {0}</label>
+        <name>CaseAreasParticipantesPanel_StatusLineDeadline</name>
+    </customLabels>
     <customPageWebLinks>
         <label><!-- DocuSign Setup --></label>
         <name>dfsle__Setup</name>
@@ -25505,33 +26197,6 @@
     <flowDefinitions>
         <flows/>
         <fullName>PeriodoQLIAlcadaPeriodosTRG</fullName>
-    </flowDefinitions>
-    <flowDefinitions>
-        <flows>
-            <customErrorMessages>
-                <developerName>Custom_Error_Message_1</developerName>
-                <field>ValorMinimoPeriodo__c</field>
-            </customErrorMessages>
-            <customErrorMessages>
-                <developerName>Custom_Error_Message_4</developerName>
-                <field>PercentualDoPeriodo__c</field>
-            </customErrorMessages>
-            <customErrorMessages>
-                <developerName>Custom_Error_Message_2</developerName>
-                <field>ValorDeCNTRPeriodo__c</field>
-            </customErrorMessages>
-            <customErrorMessages>
-                <developerName>Custom_Error_Message_3</developerName>
-                <field>ValorMinimoDiarioPorProcessoPeriodo__c</field>
-            </customErrorMessages>
-            <textTemplates>
-                <name>TT_ListPrice_Consolidado</name>
-            </textTemplates>
-            <textTemplates>
-                <name>TT_SalesPrice_Consolidado</name>
-            </textTemplates>
-        </flows>
-        <fullName>Periodo_Before_Trigger</fullName>
     </flowDefinitions>
     <flowDefinitions>
         <flows>
@@ -31774,14 +32439,6 @@
             </textTemplates>
         </flows>
         <fullName>Update_Contract_Status_of_Opportunity</fullName>
-    </flowDefinitions>
-    <flowDefinitions>
-        <flows>
-            <customErrorMessages>
-                <developerName>Nao_autorizado</developerName>
-            </customErrorMessages>
-        </flows>
-        <fullName>Usuario_Verifica_permissao</fullName>
     </flowDefinitions>
     <flowDefinitions>
         <flows>

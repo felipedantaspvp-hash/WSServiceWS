@@ -4,14 +4,14 @@
     <name>AcaoPosCategorizacao__c</name>
     <picklistValues>
         <masterLabel>Assumir</masterLabel>
-        <translation><!-- Assumir --></translation>
+        <translation>Take Ownership</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Distribuir</masterLabel>
-        <translation><!-- Distribuir --></translation>
+        <translation>Distribute</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Encerrar</masterLabel>
-        <translation><!-- Encerrar --></translation>
+        <translation>Close</translation>
     </picklistValues>
 </CustomFieldTranslation>

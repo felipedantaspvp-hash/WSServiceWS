@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>SLA Management</label>
+    <name>GestaoSLA__c</name>
+    <relationshipLabel>SLA Milestones</relationshipLabel>
+</CustomFieldTranslation>

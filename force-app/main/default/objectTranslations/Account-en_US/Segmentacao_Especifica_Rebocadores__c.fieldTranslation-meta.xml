@@ -8,7 +8,7 @@
     </picklistValues>
     <picklistValues>
         <masterLabel>Broker</masterLabel>
-        <translation><!-- Broker --></translation>
+        <translation>Broker</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Interfaturamento</masterLabel>
@@ -16,7 +16,7 @@
     </picklistValues>
     <picklistValues>
         <masterLabel>Liner</masterLabel>
-        <translation><!-- Liner --></translation>
+        <translation>Liner</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Outros</masterLabel>

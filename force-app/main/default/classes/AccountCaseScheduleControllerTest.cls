@@ -6,12 +6,14 @@ private class AccountCaseScheduleControllerTest {
     static void setupData() {
         insert new Account(Name = 'Conta Controller Agendamento');
 
-        Group queue = new Group(Name = 'TSV Schedule Controller Test', DeveloperName = TEST_QUEUE, Type = 'Queue');
-        insert queue;
-        insert new List<QueueSobject>{
-            new QueueSobject(QueueId = queue.Id, SobjectType = 'Case'),
-            new QueueSobject(QueueId = queue.Id, SobjectType = 'Agendamento__c')
-        };
+        System.runAs(new User(Id = UserInfo.getUserId())) {
+            Group queue = new Group(Name = 'TSV Schedule Controller Test', DeveloperName = TEST_QUEUE, Type = 'Queue');
+            insert queue;
+            insert new List<QueueSobject>{
+                new QueueSobject(QueueId = queue.Id, SobjectType = 'Case'),
+                new QueueSobject(QueueId = queue.Id, SobjectType = 'Agendamento__c')
+            };
+        }
     }
 
     @IsTest

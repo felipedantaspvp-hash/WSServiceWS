@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label><!-- Modalidade --></label>
+    <label>Modalidade</label>
     <name>Modalidade__c</name>
     <picklistValues>
         <masterLabel>A definir</masterLabel>
-        <translation><!-- A definir --></translation>
+        <translation>A definir</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Cabotagem Descarga</masterLabel>
-        <translation><!-- Cabotagem Descarga --></translation>
+        <translation>Cabotagem Descarga</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Cabotagem Embarque</masterLabel>
-        <translation><!-- Cabotagem Embarque --></translation>
+        <translation>Cabotagem Embarque</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Carga de projeto</masterLabel>
-        <translation><!-- Carga de projeto --></translation>
+        <translation>Carga de projeto</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Exportação</masterLabel>
-        <translation><!-- Exportação --></translation>
+        <translation>Exportação</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Importação</masterLabel>
-        <translation><!-- Importação --></translation>
+        <translation>Importação</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Não se aplica</masterLabel>
-        <translation><!-- Não se aplica --></translation>
+        <translation>Não se aplica</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Operação de Navio</masterLabel>
-        <translation><!-- Operação de Navio --></translation>
+        <translation>Operação de Navio</translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Recinto DTA e DTC</masterLabel>
-        <translation><!-- Recinto DTA e DTC --></translation>
+        <translation>Recinto DTA e DTC</translation>
     </picklistValues>
 </CustomFieldTranslation>

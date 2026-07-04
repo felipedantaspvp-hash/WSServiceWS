@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Marcado automaticamente quando a ação representa controle de pausa de SLA.</help>
+    <label>SLA Pausado</label>
+    <name>SlaPausado__c</name>
+</CustomFieldTranslation>

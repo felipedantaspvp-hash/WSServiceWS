@@ -73,6 +73,22 @@
         <value>Business Hours</value>
     </labels>
     <labels>
+        <fullName>GestaoSLA_StaticResource</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Label for the Static Resource field in the SLA Management workspace.</shortDescription>
+        <value>Static Resource</value>
+    </labels>
+    <labels>
+        <fullName>GestaoSLA_StaticResourceHelp</fullName>
+        <categories>GestaoSLA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Help text for the Static Resource field in the SLA Management workspace.</shortDescription>
+        <value>Use an image with an 8:3 aspect ratio (e.g. 1920x720px or 1600x600px). The image is displayed without cropping; different ratios generate empty bars on the sides.</value>
+    </labels>
+    <labels>
         <fullName>GestaoSLA_MarcosUnicosSectionTitle</fullName>
         <categories>GestaoSLA</categories>
         <language>en_US</language>
@@ -4253,5 +4269,1573 @@
         <protected>false</protected>
         <shortDescription>Case on hold closure blocked error</shortDescription>
         <value>Cases on hold cannot be closed. Resume service before closing the case.</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_Title</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case recategorization panel title</shortDescription>
+        <value>Recategorize Case</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_CaseInfo</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Current Case section title</shortDescription>
+        <value>Current Case</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_CurrentCat</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Current Categorization section title</shortDescription>
+        <value>Current Categorization</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_NewCat</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New Categorization section title</shortDescription>
+        <value>New Categorization</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_Summary</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Change Summary section title</shortDescription>
+        <value>Change Summary</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_DestinationTitle</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case Destination section title</shortDescription>
+        <value>Case Destination</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_Destination</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Destination field label</shortDescription>
+        <value>Destination</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_Assume</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assume case destination option</shortDescription>
+        <value>Assume case</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_Distribute</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Distribute to queue destination option</shortDescription>
+        <value>Distribute to queue</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_Close</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Close on creation destination option</shortDescription>
+        <value>Close on creation</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_QueueResolved</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Queue defined by categorization message</shortDescription>
+        <value>Queue defined by categorization</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_ManualQueue</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manual queue field label</shortDescription>
+        <value>Manual queue</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_CaseNumber</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case Number field label</shortDescription>
+        <value>Case Number</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_Status</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Status field label</shortDescription>
+        <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_Unidade</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Business Unit field label fallback</shortDescription>
+        <value>Business Unit</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_RecordType</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type field label</shortDescription>
+        <value>Record Type</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_CurrentTipo</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Current Case Type field label</shortDescription>
+        <value>Current Case Type</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_CurrentCategoria</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Current Category field label</shortDescription>
+        <value>Current Category</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_CurrentAssunto</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Current Subject field label</shortDescription>
+        <value>Current Subject</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_CurrentSubassunto</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Current Subsubject field label</shortDescription>
+        <value>Current Subsubject</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_NewTipo</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case Type field label (new value)</shortDescription>
+        <value>Case Type</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_NewCategoria</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category field label (new value)</shortDescription>
+        <value>Category</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_NewAssunto</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Subject field label (new value)</shortDescription>
+        <value>Subject</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_NewSubassunto</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Subsubject field label (new value)</shortDescription>
+        <value>Subsubject</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_From</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>From column label in change summary</shortDescription>
+        <value>From</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_To</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>To column label in change summary</shortDescription>
+        <value>To</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_Warning</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recategorization confirmation warning message</shortDescription>
+        <value>After confirming recategorization, the standard Case edit screen will open so you can complete required fields.</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_Cancel</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel button label</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_Loading</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Loading spinner alternative text</shortDescription>
+        <value>Loading</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_Save</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recategorize (save) button label</shortDescription>
+        <value>Recategorize</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_SuccessTitle</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Success toast title</shortDescription>
+        <value>Success</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_SuccessMsg</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Success toast message</shortDescription>
+        <value>Case recategorized successfully.</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_ErrorTitle</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error toast title</shortDescription>
+        <value>Error</value>
+    </labels>
+    <labels>
+        <fullName>CaseRecategorization_NoValues</fullName>
+        <categories>CaseRecategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No options available combobox placeholder</shortDescription>
+        <value>No options available</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_CardTitle</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Categorization Manager card title</shortDescription>
+        <value>Categorization Manager</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_SectionGeneral</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>General Information section title</shortDescription>
+        <value>General Information</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_SectionDistribution</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Distribution section title</shortDescription>
+        <value>Distribution</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_SectionSla</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Categorization SLA Rules section title</shortDescription>
+        <value>Categorization SLA Rules</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_N3Strategy</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Internal Area Strategy field label</shortDescription>
+        <value>Internal Area Strategy</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_N3Unique</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Single time for any area option</shortDescription>
+        <value>Single time for any area</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_N3ByArea</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Time by specific area option</shortDescription>
+        <value>Time by specific area</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_N3AppliedAll</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Applied to all internal areas message</shortDescription>
+        <value>Applied to all internal areas.</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_NoMilestones</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No manageable milestones available message</shortDescription>
+        <value>No manageable milestones available.</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_Area</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Area column header</shortDescription>
+        <value>Area</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_UnidadeNegocio</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Business Unit field label</shortDescription>
+        <value>Business Unit</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_TipoCaso</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case Type field label</shortDescription>
+        <value>Case Type</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_Categoria</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category field label</shortDescription>
+        <value>Category</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_Assunto</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Subject field label</shortDescription>
+        <value>Subject</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_Subassunto</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Subsubject field label</shortDescription>
+        <value>Subsubject</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_Ativo</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Active field label</shortDescription>
+        <value>Active</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_Descricao</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description field label</shortDescription>
+        <value>Description</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_MotivoInativacao</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Inactivation Reason field label</shortDescription>
+        <value>Inactivation Reason</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_DistribuirFila</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Distribute to queue field label</shortDescription>
+        <value>Distribute to queue?</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_PorCategorizacao</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>By categorization field label</shortDescription>
+        <value>By categorization?</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_FilaCase</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case Queue field label</shortDescription>
+        <value>Case Queue</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_QualCampo</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Which field label</shortDescription>
+        <value>Which field?</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_Valor</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Value field label</shortDescription>
+        <value>Value</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_High</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>High priority label</shortDescription>
+        <value>High</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_Normal</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Normal priority label</shortDescription>
+        <value>Normal</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_Low</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Low priority label</shortDescription>
+        <value>Low</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_Minutes</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Minutes unit label</shortDescription>
+        <value>minutes</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_TimeMinutes</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Time (minutes) column header</shortDescription>
+        <value>Time (minutes)</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_ConfiguredAreas</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Configured areas count message, {0} = count</shortDescription>
+        <value>{0} configured areas.</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_Cancel</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel button label</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_Save</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save button label</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_Loading</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Loading spinner alternative text</shortDescription>
+        <value>Loading</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_Error</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error toast title</shortDescription>
+        <value>Error</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_RequiredCategory</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category required validation message</shortDescription>
+        <value>Category is required.</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_RequiredInactiveReason</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Inactivation reason required validation message</shortDescription>
+        <value>Fill in Inactivation Reason when Active is unchecked.</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_Success</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Success toast title</shortDescription>
+        <value>Success</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_Saved</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Saved successfully toast message</shortDescription>
+        <value>Saved successfully.</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_SaveFailed</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save failed toast message fallback</shortDescription>
+        <value>Failed to save.</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_UnexpectedError</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unexpected error message fallback</shortDescription>
+        <value>Unexpected error</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_PrioridadeLabel</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Suggested Prioritization field label</shortDescription>
+        <value>Suggested Prioritization</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_MarcoDescTriagem</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Descrição do marco Triagem</shortDescription>
+        <value>Tempo em que um caso novo é criado e ainda não foi categorizado.</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_MarcoDescRespostaChat</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Descrição do marco Resposta Chat</shortDescription>
+        <value>Tempo em que o chat foi transbordado e ainda não foi atendido pelo Analista de Atendimento.</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_MarcoDescPrimeiraResposta</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Descrição do marco Primeira Resposta</shortDescription>
+        <value>Tempo de fila, onde um caso foi categorizado e distribuído para uma fila, mas que ainda não foi atendido.</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_MarcoDescAtendimento</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Descrição do marco Atendimento</shortDescription>
+        <value>Quando um case é removido da fila e está em atendimento pelo N2.</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_MarcoDescAtendimentoN3</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Descrição do marco Atendimento N3</shortDescription>
+        <value>Quando está em uma área interna, mas que não é de atendimento.</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_MarcoDescRetornoN3</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Descrição do marco Retorno N3</shortDescription>
+        <value>É o tempo que o analista de atendimento tem para retornar ao cliente com a resposta do N3.</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_MarcoDescSlaTotal</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Descrição do marco SLA Total</shortDescription>
+        <value>É o tempo que todo o case deve ser concluído, ou seja, expectativa da resolução desde o momento que o case foi aberto.</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_MarcoLabelTriagem</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Nome de exibição do marco Triagem</shortDescription>
+        <value>Triagem</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_MarcoLabelRespostaChat</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Nome de exibição do marco Resposta Chat</shortDescription>
+        <value>Resposta Chat</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_MarcoLabelPrimeiraResposta</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Nome de exibição do marco Primeira Resposta</shortDescription>
+        <value>Primeira Resposta</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_MarcoLabelAtendimento</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Nome de exibição do marco Atendimento</shortDescription>
+        <value>Atendimento</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_MarcoLabelAtendimentoN3</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Nome de exibição do marco Atendimento N3</shortDescription>
+        <value>Atendimento N3</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_MarcoLabelRetornoN3</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Nome de exibição do marco Retorno N3</shortDescription>
+        <value>Retorno N3</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_MarcoLabelSlaTotal</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Nome de exibição do marco SLA Total</shortDescription>
+        <value>SLA Total</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_AreaLabelOperacoes</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Nome de exibição da área Operações</shortDescription>
+        <value>Operações</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_AreaLabelArmazenagem</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Nome de exibição da área Armazenagem</shortDescription>
+        <value>Armazenagem</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_AreaLabelApoioAduaneiro</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Nome de exibição da área Apoio Aduaneiro</shortDescription>
+        <value>Apoio Aduaneiro</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_AreaLabelLiberacao</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Nome de exibição da área Liberação</shortDescription>
+        <value>Liberação</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_AreaLabelFaturamento</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Nome de exibição da área Faturamento</shortDescription>
+        <value>Faturamento</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_AreaLabelComercial</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Nome de exibição da área Comercial</shortDescription>
+        <value>Comercial</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_AreaLabelFinanceiro</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Nome de exibição da área Financeiro</shortDescription>
+        <value>Financeiro</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_AreaLabelFiscal</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Nome de exibição da área Fiscal</shortDescription>
+        <value>Fiscal</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_AreaLabelQualidade</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Nome de exibição da área Qualidade</shortDescription>
+        <value>Qualidade</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_AreaLabelJuridico</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Nome de exibição da área Jurídico</shortDescription>
+        <value>Jurídico</value>
+    </labels>
+    <labels>
+        <fullName>CategorizacaoManager_AreaLabelTi</fullName>
+        <categories>CategorizacaoManager</categories>
+        <language>pt_BR</language>
+        <protected>false</protected>
+        <shortDescription>Nome de exibição da área TI</shortDescription>
+        <value>TI</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_CardTitle</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New Case wizard card title</shortDescription>
+        <value>New Case</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_Subtitle</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New Case wizard subtitle</shortDescription>
+        <value>Select the initial categorization to load the standard Case form.</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_UnidadeRecordType</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Business Unit / Record Type gate title</shortDescription>
+        <value>Business Unit / Record Type</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_UnidadeNegocio</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Business Unit field label</shortDescription>
+        <value>Business Unit</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_TipoCaso</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case Type field label</shortDescription>
+        <value>Case Type</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_Categoria</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Category field label</shortDescription>
+        <value>Category</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_Assunto</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Subject field label</shortDescription>
+        <value>Subject</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_Subassunto</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Subsubject field label</shortDescription>
+        <value>Subsubject</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_Destino</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Destination field label</shortDescription>
+        <value>Destination</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_DestinationHintAssume</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assume destination hint</shortDescription>
+        <value>The current user will be the owner.</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_DestinationHintDistribute</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Distribute destination hint</shortDescription>
+        <value>Uses configured queue or manual selection.</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_DestinationHintClose</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Close destination hint</shortDescription>
+        <value>Closes the case and keeps owner as current user.</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_QueueResolved</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Queue defined by categorization message</shortDescription>
+        <value>Queue defined by categorization</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_ManualQueue</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manual queue field label</shortDescription>
+        <value>Manual queue</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_Cancel</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel button label</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_Loading</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Loading spinner alternative text</shortDescription>
+        <value>Loading</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_Saving</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Saving spinner alternative text</shortDescription>
+        <value>Saving</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_Assume</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assume case destination option</shortDescription>
+        <value>Assume case</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_Distribute</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Distribute to queue destination option</shortDescription>
+        <value>Distribute to queue</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_Close</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Close on creation destination option</shortDescription>
+        <value>Close on creation</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_AssumirBloqueadoHint</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assume blocked by parametrized queue hint</shortDescription>
+        <value>This categorization requires distribution to the configured queue; assuming the case directly is not allowed.</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_ErrorTitle</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error toast title</shortDescription>
+        <value>Error</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_Unexpected</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unexpected error message fallback</shortDescription>
+        <value>Unexpected error</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_PrepareFailed</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Categorization incomplete before save message</shortDescription>
+        <value>Please complete the categorization above before saving.</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_ResolveFailed</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Failed to resolve Case defaults message</shortDescription>
+        <value>Failed to resolve Case defaults.</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_Save</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save button label</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_ContinueButton</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Next button label (record type gate)</shortDescription>
+        <value>Next</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_SuccessTitle</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Success toast title</shortDescription>
+        <value>Success</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_SuccessMsg</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case created successfully toast message</shortDescription>
+        <value>Case created successfully.</value>
+    </labels>
+    <labels>
+        <fullName>CaseNewCategorization_CreateFailed</fullName>
+        <categories>CaseNewCategorization</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Failed to create Case message fallback</shortDescription>
+        <value>Failed to create Case.</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Title</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Panel title</shortDescription>
+        <value>Participant Areas</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_InternalArea</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Internal Area pill label</shortDescription>
+        <value>Internal Area</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Atendimento</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Standard/attendance area pill label</shortDescription>
+        <value>Service</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_OperationalSummary</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Operational summary section title</shortDescription>
+        <value>Operational summary</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_OpenGroup</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Open group title</shortDescription>
+        <value>Open</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_DoneGroup</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Completed group title</shortDescription>
+        <value>Completed</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Empty</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No active participant area message</shortDescription>
+        <value>No active participant area for this Case.</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_OpenPlural</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Open plural word used in summary count</shortDescription>
+        <value>open</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_OverduePlural</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Overdue plural word used in summary count</shortDescription>
+        <value>overdue</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Violated</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Violated status pill label</shortDescription>
+        <value>Violated</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Overdue</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Overdue status pill label</shortDescription>
+        <value>Overdue</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Paused</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Paused status pill label</shortDescription>
+        <value>Paused</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_CompletedViolated</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Completed with violation status pill label</shortDescription>
+        <value>Completed with violation</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_CompletedInTime</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Completed within SLA status pill label</shortDescription>
+        <value>Completed within SLA</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Cancelled</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancelled status pill label</shortDescription>
+        <value>Cancelled</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_CancelledViolated</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancelled with violation status pill label</shortDescription>
+        <value>Cancelled with violation</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_InTime</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Within SLA status pill label</shortDescription>
+        <value>Within SLA</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_SlaStatus</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SLA Status field label</shortDescription>
+        <value>SLA Status</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_SlaTime</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SLA Time field label</shortDescription>
+        <value>SLA Time</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_ConsumedTime</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Consumed time field label</shortDescription>
+        <value>Consumed</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_RemainingTime</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Remaining time field label</shortDescription>
+        <value>Remaining</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_PausedTime</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Paused time field label</shortDescription>
+        <value>Paused Time</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Sequence</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cycle/sequence field label</shortDescription>
+        <value>Cycle</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Elapsed</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Elapsed time field label</shortDescription>
+        <value>Elapsed</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Start</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start field label</shortDescription>
+        <value>Start</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Deadline</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Deadline field label</shortDescription>
+        <value>Deadline</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Request</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Request field label</shortDescription>
+        <value>Request</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_NextDeadline</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Next deadline summary label</shortDescription>
+        <value>Next deadline</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Close</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Close action label</shortDescription>
+        <value>Close</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Details</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Details action label</shortDescription>
+        <value>Details</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_CloseTitle</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Close Participation modal title</shortDescription>
+        <value>Close Participation</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Area</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Participant Area field label</shortDescription>
+        <value>Participant Area</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_CurrentStatus</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Current Status field label</shortDescription>
+        <value>Current Status</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_RequestComment</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Request Comment field label</shortDescription>
+        <value>Request Comment</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_ReturnComment</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Return Comment field label</shortDescription>
+        <value>Return Comment</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Solution</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Area Solution / Return field label</shortDescription>
+        <value>Area Solution / Return</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Cancel</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel button label</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_ConfirmClose</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Confirm Closing button label</shortDescription>
+        <value>Confirm Closing</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_DetailTitle</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Participation Details modal title</shortDescription>
+        <value>Participation Details</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Back</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Back button label</shortDescription>
+        <value>Back</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Status</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Status field label</shortDescription>
+        <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_CloseModal</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Close (dismiss) modal button label</shortDescription>
+        <value>Close</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Error</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error toast title</shortDescription>
+        <value>Error</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Success</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Success toast title</shortDescription>
+        <value>Success</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_CloseSuccess</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Participation closed successfully toast message</shortDescription>
+        <value>Participation closed successfully.</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Pause</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Pause action label</shortDescription>
+        <value>Pause</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Resume</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Resume action label</shortDescription>
+        <value>Resume</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_PauseSuccess</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Participation paused successfully toast message</shortDescription>
+        <value>Participation paused successfully.</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_ResumeSuccess</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Participation resumed successfully toast message</shortDescription>
+        <value>Participation resumed successfully.</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Add</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Add area button label</shortDescription>
+        <value>Add area</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_AddTitle</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Add Participant Area modal title</shortDescription>
+        <value>Add Participant Area</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_RequestCommentInput</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Request comment input field label</shortDescription>
+        <value>Request comment</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_ConfirmAdd</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Confirm add button label</shortDescription>
+        <value>Confirm add</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_AddSuccessCount</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Participant area(s) added successfully toast message, {0} = count</shortDescription>
+        <value>{0} participant area(s) added successfully.</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_UnexpectedError</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unexpected error message fallback</shortDescription>
+        <value>Unexpected error</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_AddStep2Title</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Comments by Area step title</shortDescription>
+        <value>Comments by Area</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_AddAvailable</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Available column header</shortDescription>
+        <value>Available</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_AddSelected</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Selected column header</shortDescription>
+        <value>Selected</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Next</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Next button label</shortDescription>
+        <value>Next</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_Refresh</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Refresh button label</shortDescription>
+        <value>Refresh</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_CompletedOn</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Completed on field label</shortDescription>
+        <value>Completed on</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_StatusLineCompleted</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compact status line for completed items, {0} = completion date/time</shortDescription>
+        <value>Completed: {0}</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_StatusLineCancelled</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compact status line for cancelled items</shortDescription>
+        <value>Cancelled</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_StatusLinePaused</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compact status line for paused items</shortDescription>
+        <value>Paused</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_StatusLineOverdueBy</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compact status line for overdue-by-duration items, {0} = duration</shortDescription>
+        <value>Overdue by {0}</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_StatusLineOverdue</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compact status line for overdue items without a deadline</shortDescription>
+        <value>Overdue</value>
+    </labels>
+    <labels>
+        <fullName>CaseAreasParticipantesPanel_StatusLineDeadline</fullName>
+        <categories>CaseAreasParticipantesPanel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compact status line for the deadline, {0} = deadline date/time</shortDescription>
+        <value>Deadline: {0}</value>
     </labels>
 </CustomLabels>
