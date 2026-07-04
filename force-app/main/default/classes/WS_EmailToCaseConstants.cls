@@ -26,7 +26,7 @@ public inherited sharing class WS_EmailToCaseConstants {
 
     public static final String NO_ROUTE_KEY = '_NO_ROUTE';
     public static final String NO_SUBJECT_FALLBACK = 'Inbound Email - Sem Assunto';
-    public static final String NO_BODY_FALLBACK = 'E-mail recebido sem conteÃºdo no corpo.';
+    public static final String NO_BODY_FALLBACK = 'E-mail recebido sem conteúdo no corpo.';
 
     public static final Integer HASH_BODY_SLICE = 500;
     public static final String EMAIL_MESSAGE_STATUS_INBOUND = '3';

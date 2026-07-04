@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>ExperienceAuth_GenericError</fullName>
+        <categories>ExperienceAuth</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Generic public-facing error for Experience Cloud authentication flows.</shortDescription>
+        <value>We couldn&apos;t complete your request right now. Try again in a few minutes or contact support.</value>
+    </labels>
+    <labels>
         <fullName>GestaoSLA_AccessDeniedMessage</fullName>
         <categories>GestaoSLA</categories>
         <language>en_US</language>

@@ -52,7 +52,7 @@ private class GestaoSLARegraServiceTest {
     private static void createRegra(Id gestaoId, Id marcoId, Id categId, Boolean ativo) {
         RegrasSLACategorizacao__c r = new RegrasSLACategorizacao__c(
             Categorizacao__c = categId,
-            TipoAreaParticipante__c = AreaParticipanteSLAHelper.tipoAreaInternaApiValue(),
+            TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
             BusinessHoursName__c = 'Atendimento Salvador',
             Ativo__c = ativo,
             GestaoSLA__c = gestaoId,
@@ -75,7 +75,7 @@ private class GestaoSLARegraServiceTest {
     ) {
         RegrasSLACategorizacao__c r = new RegrasSLACategorizacao__c(
             Categorizacao__c = categId,
-            TipoAreaParticipante__c = AreaParticipanteSLAHelper.tipoAreaInternaApiValue(),
+            TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
             AreaAtendimento__c = area,
             BusinessHoursName__c = 'Atendimento Salvador',
             Ativo__c = ativo,
@@ -109,6 +109,11 @@ private class GestaoSLARegraServiceTest {
         req.tempoAlta = 30;
         req.ativo = true;
         return req;
+    }
+
+    private static User createAdminUser(String aliasSeed) {
+        Profile profile = [SELECT Id FROM Profile WHERE PermissionsModifyAllData = true LIMIT 1];
+        return TestDataFactory.createUser(aliasSeed, new Map<String, Object>{ 'ProfileId' => profile.Id });
     }
 
     @IsTest
@@ -203,6 +208,7 @@ private class GestaoSLARegraServiceTest {
         GestaoSLA__c g = createGestao('REGRA_CRUD', true);
         Categorizacao__c c = createCategoria(g.Id, 'REGRA_CRUD', true);
         MarcoSLA__c m = createMarco(g.Id, 'Atendimento N3 CRUD', 1, true);
+        User adminUser = createAdminUser('regrupd1');
         GestaoSLAHelper.clearPermissionOverrides();
         GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
@@ -214,24 +220,26 @@ private class GestaoSLARegraServiceTest {
             c.Id,
             RegrasSLACompatibilidadeService.ESCOPO_ATENDIMENTO
         );
-        GestaoSLADTO.RegraSLAResumo created = GestaoSLARegraService.createRegraSLA(req);
-        Assert.areEqual(g.Id, created.gestaoSLAId);
-        Assert.areEqual(c.Id, created.categorizacaoId);
-        Assert.areEqual(m.Id, created.marcoSLAId);
-        Assert.areEqual(10, created.tempoBaixa);
-        Assert.areEqual(true, created.ativo);
+        System.runAs(adminUser) {
+            GestaoSLADTO.RegraSLAResumo created = GestaoSLARegraService.createRegraSLA(req);
+            Assert.areEqual(g.Id, created.gestaoSLAId);
+            Assert.areEqual(c.Id, created.categorizacaoId);
+            Assert.areEqual(m.Id, created.marcoSLAId);
+            Assert.areEqual(10, created.tempoBaixa);
+            Assert.areEqual(true, created.ativo);
 
-        req.id = created.id;
-        req.tempoBaixa = 15;
-        req.tempoMedia = null;
-        req.ativo = false;
-        GestaoSLADTO.RegraSLAResumo updated = GestaoSLARegraService.updateRegraSLA(req);
-        Assert.areEqual(15, updated.tempoBaixa);
-        Assert.areEqual(null, updated.tempoMedia);
-        Assert.areEqual(true, updated.ativo);
+            req.id = created.id;
+            req.tempoBaixa = 15;
+            req.tempoMedia = null;
+            req.ativo = false;
+            GestaoSLADTO.RegraSLAResumo updated = GestaoSLARegraService.updateRegraSLA(req);
+            Assert.areEqual(15, updated.tempoBaixa);
+            Assert.areEqual(null, updated.tempoMedia);
+            Assert.areEqual(true, updated.ativo);
 
-        GestaoSLADTO.RegraSLAResumo inactive = GestaoSLARegraService.deactivateRegraSLA(created.id);
-        Assert.areEqual(false, inactive.ativo);
+            GestaoSLADTO.RegraSLAResumo inactive = GestaoSLARegraService.deactivateRegraSLA(created.id);
+            Assert.areEqual(false, inactive.ativo);
+        }
     }
 
     @IsTest
@@ -239,6 +247,7 @@ private class GestaoSLARegraServiceTest {
         GestaoSLA__c g = createGestao('REGRA_INATIVA_EDIT', true);
         Categorizacao__c c = createCategoria(g.Id, 'REGRA_INATIVA_EDIT', true);
         MarcoSLA__c m = createMarco(g.Id, 'Marco Inativa Edit', 1, true);
+        User adminUser = createAdminUser('regrupd2');
         GestaoSLAHelper.clearPermissionOverrides();
         GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
@@ -251,17 +260,19 @@ private class GestaoSLARegraServiceTest {
             RegrasSLACompatibilidadeService.ESCOPO_ATENDIMENTO
         );
         req.ativo = false;
-        GestaoSLADTO.RegraSLAResumo created = GestaoSLARegraService.createRegraSLA(req);
-        Assert.areEqual(true, created.ativo);
+        System.runAs(adminUser) {
+            GestaoSLADTO.RegraSLAResumo created = GestaoSLARegraService.createRegraSLA(req);
+            Assert.areEqual(true, created.ativo);
 
-        GestaoSLARegraService.deactivateRegraSLA(created.id);
-        req.id = created.id;
-        req.tempoAlta = 45;
-        req.ativo = true;
+            GestaoSLARegraService.deactivateRegraSLA(created.id);
+            req.id = created.id;
+            req.tempoAlta = 45;
+            req.ativo = true;
 
-        GestaoSLADTO.RegraSLAResumo updated = GestaoSLARegraService.updateRegraSLA(req);
-        Assert.areEqual(45, updated.tempoAlta);
-        Assert.areEqual(false, updated.ativo);
+            GestaoSLADTO.RegraSLAResumo updated = GestaoSLARegraService.updateRegraSLA(req);
+            Assert.areEqual(45, updated.tempoAlta);
+            Assert.areEqual(false, updated.ativo);
+        }
     }
 
     @IsTest

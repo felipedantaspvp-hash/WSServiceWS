@@ -77,13 +77,13 @@ public inherited sharing class WS_EmailToCaseUtils {
 
     public static void ensureCaseCreateAccess() {
         if (!Schema.sObjectType.Case.isCreateable()) {
-            throw new WS_EmailToCaseConfigException('Sem permissÃ£o para criar Case.');
+            throw new WS_EmailToCaseConfigException('Sem permissão para criar Case.');
         }
     }
 
     public static void ensureCaseUpdateAccess() {
         if (!Schema.sObjectType.Case.isUpdateable()) {
-            throw new WS_EmailToCaseConfigException('Sem permissÃ£o para atualizar Case.');
+            throw new WS_EmailToCaseConfigException('Sem permissão para atualizar Case.');
         }
     }
 

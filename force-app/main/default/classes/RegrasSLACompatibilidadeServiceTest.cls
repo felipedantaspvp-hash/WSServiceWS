@@ -29,7 +29,7 @@ private class RegrasSLACompatibilidadeServiceTest {
     ) {
         RegrasSLACategorizacao__c r = new RegrasSLACategorizacao__c(
             Categorizacao__c = categId,
-            TipoAreaParticipante__c = AreaParticipanteSLAHelper.tipoAreaInternaApiValue(),
+            TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
             AreaAtendimento__c = AreaParticipanteTestDataFactory.commonAreaValues()[0],
             BusinessHoursName__c = 'Atendimento Salvador',
             Ativo__c = true,
@@ -128,7 +128,7 @@ private class RegrasSLACompatibilidadeServiceTest {
             String area = areaValues[Math.mod(i, areaValues.size())];
             regras.add(new RegrasSLACategorizacao__c(
                 Categorizacao__c = categ.Id,
-                TipoAreaParticipante__c = AreaParticipanteSLAHelper.tipoAreaInternaApiValue(),
+                TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
                 AreaAtendimento__c = area,
                 BusinessHoursName__c = 'Atendimento Salvador',
                 Ativo__c = true,
@@ -176,7 +176,7 @@ private class RegrasSLACompatibilidadeServiceTest {
 
         List<RegrasSLACategorizacao__c> found = RegrasSLACategorizacaoSelector.findActiveRules(
             new Set<Id>{ categ.Id },
-            new Set<String>{ AreaParticipanteSLAHelper.tipoAreaInternaApiValue() },
+            new Set<String>{ AreaParticipanteSLAHelper.TIPO_AREA_INTERNA },
             new Set<String>{ area }
         );
         Assert.areEqual(true, found.size() > 0);

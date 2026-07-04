@@ -54,13 +54,13 @@ private class CaseRecategorizationControllerTest {
 
     @IsTest
     static void testRecategorizeUnexpectedError() {
-        CaseRecategorizationController.testException = new IllegalArgumentException('forced');
+        ApexTestSeam.set('CaseRecategorizationController.testException', new IllegalArgumentException('forced'));
         CaseRecategorizationDTO.RecategorizationRequestDTO req = new CaseRecategorizationDTO.RecategorizationRequestDTO();
         req.caseId = '500000000000001AAA';
         Test.startTest();
         CaseRecategorizationDTO.RecategorizationResponseDTO out = CaseRecategorizationController.recategorize(req);
         Test.stopTest();
-        CaseRecategorizationController.testException = null;
+        ApexTestSeam.clear('CaseRecategorizationController.testException');
         Assert.areEqual(false, out.success);
         Assert.areEqual('UNEXPECTED_ERROR', out.error.code);
     }

@@ -142,7 +142,7 @@ private class WSWillCaseCreationTest {
                 Language = 'en_US'
             )
         };
-        WSWillCaseCreationService.bypassConversationWriteBack = true;
+        ApexTestSeam.set('WSWillCaseCreationService.bypassConversationWriteBack', true);
 
         WSWillCaseCreationDTO.Request req = new WSWillCaseCreationDTO.Request();
         req.conversationId = SESSION_ID;
@@ -165,7 +165,7 @@ private class WSWillCaseCreationTest {
 
         WSWillCaseCreationService.testMessagingById = null;
         WSWillCaseCreationService.testEndUserById = null;
-        WSWillCaseCreationService.bypassConversationWriteBack = false;
+        ApexTestSeam.clear('WSWillCaseCreationService.bypassConversationWriteBack');
 
         Assert.areEqual(1, res.size());
         Assert.areEqual(true, res[0].success);
@@ -426,6 +426,74 @@ private class WSWillCaseCreationTest {
         Assert.areEqual(contactRow.Id, createdCase.ContactId);
         Assert.areEqual(representative.Id, createdCase.Representante__c);
         Assert.areEqual('Bot', createdCase.Origin);
+    }
+
+    @IsTest
+    static void shouldBulkifyCaseLookupAndMapResponsesCorrectlyForHeterogeneousBatch() {
+        Group queue = createCaseQueue('WSTEST_BULK_QUEUE');
+        WSWillCaseCreationService.testUnitConfigs = new List<AtendimentoConfigDTO>{
+            buildConfig('Atendimento Tecon Salvador', 'AtendimentoTeconSalvador', queue.DeveloperName)
+        };
+
+        WSWillCaseCreationDTO.Request soloReq = buildBatchRequest('Solo Bulk', 'solo.bulk@test.com', '71900000001', 'Solo');
+
+        Integer queriesBeforeSolo = Limits.getQueries();
+        Test.startTest();
+        List<WSWillCaseCreationDTO.Response> soloRes = WSWillCaseCreationInvocable.createCases(
+            new List<WSWillCaseCreationDTO.Request>{ soloReq }
+        );
+        Integer queriesAfterSolo = Limits.getQueries();
+
+        WSWillCaseCreationDTO.Request reqA = buildBatchRequest('Cliente Lote A', 'lote.a@test.com', '71900000002', 'Duvida');
+        WSWillCaseCreationDTO.Request reqB = buildBatchRequest('Cliente Lote B', 'lote.b@test.com', '71900000003', 'Reclamação');
+        WSWillCaseCreationDTO.Request reqC = buildBatchRequest('Cliente Lote C', 'lote.c@test.com', '71900000004', 'Elogio');
+
+        List<WSWillCaseCreationDTO.Response> batchRes = WSWillCaseCreationInvocable.createCases(
+            new List<WSWillCaseCreationDTO.Request>{ reqA, reqB, reqC }
+        );
+        Integer queriesAfterBatch = Limits.getQueries();
+        Test.stopTest();
+
+        WSWillCaseCreationService.testUnitConfigs = null;
+
+        Integer soloQueryCost = queriesAfterSolo - queriesBeforeSolo;
+        Integer batchQueryCost = queriesAfterBatch - queriesAfterSolo;
+        Assert.isTrue(
+            batchQueryCost < soloQueryCost * 3,
+            'Custo de queries do lote de 3 (' + batchQueryCost + ') não deveria escalar linearmente com o tamanho do lote (custo de 1 item: ' + soloQueryCost + ')'
+        );
+
+        Assert.areEqual(1, soloRes.size());
+        Assert.areEqual(true, soloRes[0].success, 'statusCode=' + soloRes[0].statusCode + ' msg=' + soloRes[0].message);
+
+        Assert.areEqual(3, batchRes.size());
+        for (WSWillCaseCreationDTO.Response r : batchRes) {
+            Assert.areEqual(true, r.success, 'statusCode=' + r.statusCode + ' msg=' + r.message);
+            Assert.areEqual(false, r.caseId == null);
+        }
+
+        Map<Id, Case> casesById = new Map<Id, Case>([
+            SELECT Id, SuppliedEmail
+            FROM Case
+            WHERE Id IN :new Set<Id>{ batchRes[0].caseId, batchRes[1].caseId, batchRes[2].caseId }
+        ]);
+        Assert.areEqual('lote.a@test.com', casesById.get(batchRes[0].caseId).SuppliedEmail, 'Resposta do índice 0 deve corresponder ao request A');
+        Assert.areEqual('lote.b@test.com', casesById.get(batchRes[1].caseId).SuppliedEmail, 'Resposta do índice 1 deve corresponder ao request B');
+        Assert.areEqual('lote.c@test.com', casesById.get(batchRes[2].caseId).SuppliedEmail, 'Resposta do índice 2 deve corresponder ao request C');
+    }
+
+    private static WSWillCaseCreationDTO.Request buildBatchRequest(String fullName, String email, String phone, String caseType) {
+        WSWillCaseCreationDTO.Request req = new WSWillCaseCreationDTO.Request();
+        req.businessUnitName = 'Tecon Salvador';
+        req.language = 'pt_BR';
+        req.channelName = 'Chat';
+        req.origin = 'Bot';
+        req.customerFullName = fullName;
+        req.customerEmail = email;
+        req.customerPhone = phone;
+        req.caseType = caseType;
+        req.description = 'Teste de lote CR-010';
+        return req;
     }
 
     private static Group createCaseQueue(String developerName) {

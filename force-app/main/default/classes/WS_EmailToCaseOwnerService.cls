@@ -11,7 +11,7 @@ public inherited sharing class WS_EmailToCaseOwnerService {
 
     public Id resolveOwnerId(WS_EmailToCaseRouteConfig route) {
         if (route == null) {
-            throw new WS_EmailToCaseConfigException('Rota nÃ£o informada para resoluÃ§Ã£o de proprietÃ¡rio.');
+            throw new WS_EmailToCaseConfigException('Rota não informada para resolução de proprietário.');
         }
         if (route.ownerType == WS_EmailToCaseConstants.OWNER_TYPE_QUEUE) {
             return resolveQueueOwner(route.ownerKey);
@@ -19,12 +19,12 @@ public inherited sharing class WS_EmailToCaseOwnerService {
         if (route.ownerType == WS_EmailToCaseConstants.OWNER_TYPE_USER) {
             return resolveUserOwner(route.ownerKey);
         }
-        throw new WS_EmailToCaseConfigException('Owner_Type__c invÃ¡lido na rota ' + route.routeKey + ': ' + route.ownerType);
+        throw new WS_EmailToCaseConfigException('Owner_Type__c inválido na rota ' + route.routeKey + ': ' + route.ownerType);
     }
 
     private Id resolveQueueOwner(String developerName) {
         if (String.isBlank(developerName)) {
-            throw new WS_EmailToCaseConfigException('Owner_Key__c obrigatÃ³rio para Owner_Type__c = QUEUE.');
+            throw new WS_EmailToCaseConfigException('Owner_Key__c obrigatório para Owner_Type__c = QUEUE.');
         }
         String key = developerName.trim();
         if (queueOwnerCache.containsKey(key)) {
@@ -38,7 +38,7 @@ public inherited sharing class WS_EmailToCaseOwnerService {
             LIMIT 1
         ];
         if (groups.isEmpty()) {
-            throw new WS_EmailToCaseConfigException('Fila nÃ£o encontrada para Owner_Key__c: ' + key);
+            throw new WS_EmailToCaseConfigException('Fila não encontrada para Owner_Key__c: ' + key);
         }
 
         List<QueueSobject> queueCaseAccess = [
@@ -49,7 +49,7 @@ public inherited sharing class WS_EmailToCaseOwnerService {
             LIMIT 1
         ];
         if (queueCaseAccess.isEmpty()) {
-            throw new WS_EmailToCaseConfigException('Fila ' + key + ' nÃ£o estÃ¡ habilitada para o objeto Case.');
+            throw new WS_EmailToCaseConfigException('Fila ' + key + ' não está habilitada para o objeto Case.');
         }
 
         queueOwnerCache.put(key, groups[0].Id);
@@ -58,7 +58,7 @@ public inherited sharing class WS_EmailToCaseOwnerService {
 
     private Id resolveUserOwner(String username) {
         if (String.isBlank(username)) {
-            throw new WS_EmailToCaseConfigException('Owner_Key__c obrigatÃ³rio para Owner_Type__c = USER.');
+            throw new WS_EmailToCaseConfigException('Owner_Key__c obrigatório para Owner_Type__c = USER.');
         }
         String key = username.trim().toLowerCase();
         if (userOwnerCache.containsKey(key)) {
@@ -72,7 +72,7 @@ public inherited sharing class WS_EmailToCaseOwnerService {
             LIMIT 1
         ];
         if (users.isEmpty()) {
-            throw new WS_EmailToCaseConfigException('UsuÃ¡rio nÃ£o encontrado para Owner_Key__c: ' + username);
+            throw new WS_EmailToCaseConfigException('Usuário não encontrado para Owner_Key__c: ' + username);
         }
 
         userOwnerCache.put(key, users[0].Id);

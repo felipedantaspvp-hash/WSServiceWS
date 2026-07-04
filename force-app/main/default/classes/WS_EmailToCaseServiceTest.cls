@@ -410,7 +410,7 @@ private class WS_EmailToCaseServiceTest {
         );
 
         System.assertEquals(WS_EmailToCaseConstants.ACTION_ERROR, result.action);
-        System.assert(result.message.contains('Fila nÃ£o encontrada'));
+        System.assert(result.message.contains('Fila não encontrada'));
         cleanupStatics();
     }
 
@@ -425,7 +425,7 @@ private class WS_EmailToCaseServiceTest {
         );
 
         System.assertEquals(WS_EmailToCaseConstants.ACTION_ERROR, result.action);
-        System.assert(result.message.contains('UsuÃ¡rio nÃ£o encontrado'));
+        System.assert(result.message.contains('Usuário não encontrado'));
         cleanupStatics();
     }
 
@@ -442,7 +442,7 @@ private class WS_EmailToCaseServiceTest {
         );
 
         System.assertEquals(WS_EmailToCaseConstants.ACTION_ERROR, result.action);
-        System.assert(result.message.contains('Record Type de Case nÃ£o encontrado'));
+        System.assert(result.message.contains('Record Type de Case não encontrado'));
         cleanupStatics();
     }
 
@@ -461,7 +461,7 @@ private class WS_EmailToCaseServiceTest {
         );
 
         System.assertEquals(WS_EmailToCaseConstants.ACTION_ERROR, result.action);
-        System.assert(result.message.contains('Reopen_Status__c invÃ¡lido'));
+        System.assert(result.message.contains('Reopen_Status__c inválido'));
         cleanupStatics();
     }
 

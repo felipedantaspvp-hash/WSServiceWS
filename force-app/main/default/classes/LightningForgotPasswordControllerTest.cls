@@ -12,8 +12,8 @@ public with sharing class LightningForgotPasswordControllerTest {
  /* Verifies that null checkEmailRef url throws proper exception. */
  @IsTest
  static void testLightningForgotPasswordControllerWithNullCheckEmailRef() {
-  Assert.areEqual('Argument 1 cannot be null', LightningForgotPasswordController.forgotPassword('a', null));
-  Assert.areEqual('Argument 1 cannot be null', LightningForgotPasswordController.forgotPassword('a@salesforce.com', null));
+  Assert.areEqual(Label.ExperienceAuth_GenericError, LightningForgotPasswordController.forgotPassword('a', null));
+  Assert.areEqual(Label.ExperienceAuth_GenericError, LightningForgotPasswordController.forgotPassword('a@salesforce.com', null));
  }
 
  /* Verifies that LightningForgotPasswordController object is instantiated correctly. */
@@ -31,7 +31,7 @@ public with sharing class LightningForgotPasswordControllerTest {
  @IsTest
  static void testSetExperienceIdWithValue() {
   String result = LightningForgotPasswordController.setExperienceId('exp-id-test');
-  Assert.areEqual(true, result == null || result.contains('community'));
+  Assert.areEqual(true, result == null || result == Label.ExperienceAuth_GenericError);
  }
 
  @IsTest

@@ -33,7 +33,6 @@ private class WSWillContextResolverTest {
             END_USER_ID => fakeEndUser(END_USER_ID, contactRow.Id)
         };
         WSWillContextResolverService.testLiveChatById = new Map<Id, SObject>();
-        WSWillContextResolverService.testRoutes = new List<TCO_ChannelRouting__mdt>();
         WSWillContextResolverService.testAtendimentoParams = new List<AtendimentoConfigDTO>{
             buildConfig('Tecon Salvador', null, null, 'WS_TSV_WebChat', 'WebChat')
         };
@@ -78,7 +77,6 @@ private class WSWillContextResolverTest {
             END_USER_ID => fakeEndUser(END_USER_ID, contactRow.Id)
         };
         WSWillContextResolverService.testLiveChatById = new Map<Id, SObject>();
-        WSWillContextResolverService.testRoutes = new List<TCO_ChannelRouting__mdt>();
         WSWillContextResolverService.testAtendimentoParams = new List<AtendimentoConfigDTO>();
 
         WSWillContextResolverDTO.Request req = new WSWillContextResolverDTO.Request();
@@ -111,7 +109,6 @@ private class WSWillContextResolverTest {
             END_USER_ID => fakeEndUser(END_USER_ID, null, '5521980792973')
         };
         WSWillContextResolverService.testLiveChatById = new Map<Id, SObject>();
-        WSWillContextResolverService.testRoutes = new List<TCO_ChannelRouting__mdt>();
         WSWillContextResolverService.testAtendimentoParams = new List<AtendimentoConfigDTO>{
             buildConfig('Centro Logístico', null, null, 'WS_CL_WebChat', 'WebChat', 'WhatsAppCentroLogistico'),
             buildConfig('Tecon Salvador', null, null, 'WS_TSV_WebChat', 'WebChat', 'WhatsAppTeconSalvador')
@@ -144,7 +141,6 @@ private class WSWillContextResolverTest {
             END_USER_ID => fakeEndUser(END_USER_ID, null, '5521980792973')
         };
         WSWillContextResolverService.testLiveChatById = new Map<Id, SObject>();
-        WSWillContextResolverService.testRoutes = new List<TCO_ChannelRouting__mdt>();
         WSWillContextResolverService.testAtendimentoParams = new List<AtendimentoConfigDTO>{
             buildConfig('Centro Logístico', null, null, 'WS_CL_WebChat', 'WebChat'),
             buildConfig('Tecon Salvador', null, null, 'WS_TSV_WebChat', 'WebChat')
@@ -171,7 +167,6 @@ private class WSWillContextResolverTest {
             END_USER_ID => fakeEndUser(END_USER_ID, contactId, null, 'pt_BR')
         };
         WSWillContextResolverService.testLiveChatById = new Map<Id, SObject>();
-        WSWillContextResolverService.testRoutes = new List<TCO_ChannelRouting__mdt>();
         WSWillContextResolverService.testAtendimentoParams = new List<AtendimentoConfigDTO>();
 
         WSWillContextResolverDTO.Request req = new WSWillContextResolverDTO.Request();
@@ -193,7 +188,6 @@ private class WSWillContextResolverTest {
         WSWillContextResolverService.testMessagingById = null;
         WSWillContextResolverService.testEndUserById = null;
         WSWillContextResolverService.testLiveChatById = null;
-        WSWillContextResolverService.testRoutes = null;
         WSWillContextResolverService.testAtendimentoParams = null;
 
         WSWillContextResolverDTO.Request req = new WSWillContextResolverDTO.Request();
@@ -229,32 +223,6 @@ private class WSWillContextResolverTest {
         Assert.areEqual('Conta Fetch', WSWillContextResolverService.getStringSafe(fetched.get(accountRow.Id), 'Name'));
         Assert.areEqual(null, WSWillContextResolverService.getStringSafe(fetched.get(accountRow.Id), 'CampoInexistente__c'));
         Assert.areEqual(null, WSWillContextResolverService.parseId('!!!!!!!!!!!!!!!'));
-
-        TCO_ChannelRouting__mdt exactRoute = new TCO_ChannelRouting__mdt(
-            TCF_ChannelType__c = 'Messaging',
-            TCF_ChannelIdentifier__c = 'canal-exato',
-            TCF_BusinessUnit__c = 'Unidade Exata',
-            TCF_IsActive__c = true
-        );
-        TCO_ChannelRouting__mdt conversationRoute = new TCO_ChannelRouting__mdt(
-            TCF_ChannelType__c = 'Messaging',
-            TCF_ChannelIdentifier__c = String.valueOf(SESSION_ID),
-            TCF_BusinessUnit__c = 'Unidade Conversa',
-            TCF_IsActive__c = true
-        );
-        TCO_ChannelRouting__mdt fallbackRoute = new TCO_ChannelRouting__mdt(
-            TCF_ChannelType__c = 'Messaging',
-            TCF_ChannelIdentifier__c = null,
-            TCF_BusinessUnit__c = 'Unidade Fallback',
-            TCF_IsActive__c = true
-        );
-
-        List<TCO_ChannelRouting__mdt> routes = new List<TCO_ChannelRouting__mdt>{ exactRoute, conversationRoute, fallbackRoute };
-        Assert.areEqual('Unidade Exata', WSWillContextResolverService.resolveBusinessUnit('Messaging', 'canal-exato', null, routes));
-        Assert.areEqual('Unidade Conversa', WSWillContextResolverService.resolveBusinessUnit('Messaging', null, SESSION_ID, routes));
-        Assert.areEqual('Unidade Fallback', WSWillContextResolverService.resolveBusinessUnit('Messaging', null, null, routes));
-        Assert.areEqual(null, WSWillContextResolverService.resolveBusinessUnit('Chat', null, null, routes));
-        Assert.areEqual(null, WSWillContextResolverService.resolveBusinessUnit('Messaging', null, null, null));
     }
 
     @IsTest
@@ -269,7 +237,6 @@ private class WSWillContextResolverTest {
         WSWillContextResolverService.testLiveChatById = new Map<Id, SObject>{
             LIVE_CHAT_ID => fakeLiveChat(LIVE_CHAT_ID, contactRow.Id)
         };
-        WSWillContextResolverService.testRoutes = new List<TCO_ChannelRouting__mdt>();
         WSWillContextResolverService.testAtendimentoParams = new List<AtendimentoConfigDTO>();
 
         WSWillContextResolverDTO.Request liveReq = new WSWillContextResolverDTO.Request();
@@ -329,7 +296,6 @@ private class WSWillContextResolverTest {
             END_USER_ID => fakeEndUser(END_USER_ID, contactRow.Id)
         };
         WSWillContextResolverService.testLiveChatById = new Map<Id, SObject>();
-        WSWillContextResolverService.testRoutes = new List<TCO_ChannelRouting__mdt>();
         WSWillContextResolverService.testAtendimentoParams = new List<AtendimentoConfigDTO>{
             buildConfig('Tecon Salvador', null, null, 'WS_TSA_WebChat', 'WebChat')
         };
@@ -349,7 +315,7 @@ private class WSWillContextResolverTest {
 
     @IsTest
     static void shouldReturnFallbackWhenServiceThrows() {
-        WSWillContextResolverService.throwExceptionForTest = true;
+        ApexTestSeam.set('WSWillContextResolverService.throwException', true);
 
         Test.startTest();
         List<WSWillContextResolverDTO.Response> res = WSWillContextResolverInvocable.resolve(
@@ -357,7 +323,7 @@ private class WSWillContextResolverTest {
         );
         Test.stopTest();
 
-        WSWillContextResolverService.throwExceptionForTest = false;
+        ApexTestSeam.clear('WSWillContextResolverService.throwException');
 
         Assert.areEqual(1, res.size());
         Assert.areEqual(false, res[0].success);

@@ -10,14 +10,8 @@ global inherited sharing class CaseMilestoneTriggerTimeCalculator implements Sup
         if (String.isBlank(caseId) || String.isBlank(milestoneTypeId)) {
             return DEFAULT_FALLBACK_MINUTES;
         }
-        List<Case> caseRows = [
-            SELECT Id, Origin, Priority, Categorizacao__c, UnidadeNegocio__c, EntitlementId, EtapaAtendimento__c,
-                   Categorizacao__r.GestaoSLA__c, Entitlement.SlaProcess.Name
-            FROM Case
-            WHERE Id = :caseId
-            LIMIT 1
-        ];
-        if (caseRows.isEmpty()) return DEFAULT_FALLBACK_MINUTES;
+        Case c = selectCaseById(caseId);
+        if (c == null) return DEFAULT_FALLBACK_MINUTES;
 
         List<MilestoneType> mtRows = [
             SELECT Id, Name
@@ -27,12 +21,18 @@ global inherited sharing class CaseMilestoneTriggerTimeCalculator implements Sup
         ];
         if (mtRows.isEmpty()) return DEFAULT_FALLBACK_MINUTES;
 
-        return calculateForCaseAndMilestone(caseRows[0], mtRows[0].Name, System.today());
+        return calculateForCaseAndMilestone(c, mtRows[0].Name, System.today());
     }
 
     @TestVisible
     private static Integer calculateForCaseAndMilestoneName(Id caseId, String milestoneTypeName, Date referenceDate) {
         if (caseId == null || String.isBlank(milestoneTypeName)) return DEFAULT_FALLBACK_MINUTES;
+        Case c = selectCaseById(caseId);
+        if (c == null) return DEFAULT_FALLBACK_MINUTES;
+        return calculateForCaseAndMilestone(c, milestoneTypeName, referenceDate);
+    }
+
+    private static Case selectCaseById(Id caseId) {
         List<Case> caseRows = [
             SELECT Id, Origin, Priority, Categorizacao__c, UnidadeNegocio__c, EntitlementId, EtapaAtendimento__c,
                    Categorizacao__r.GestaoSLA__c, Entitlement.SlaProcess.Name
@@ -40,8 +40,7 @@ global inherited sharing class CaseMilestoneTriggerTimeCalculator implements Sup
             WHERE Id = :caseId
             LIMIT 1
         ];
-        if (caseRows.isEmpty()) return DEFAULT_FALLBACK_MINUTES;
-        return calculateForCaseAndMilestone(caseRows[0], milestoneTypeName, referenceDate);
+        return caseRows.isEmpty() ? null : caseRows[0];
     }
 
     @TestVisible
@@ -169,13 +168,6 @@ global inherited sharing class CaseMilestoneTriggerTimeCalculator implements Sup
 
     private static String normalize(String input) {
         if (String.isBlank(input)) return '';
-        String s = input.trim().toLowerCase();
-        s = s.replace('á', 'a').replace('à', 'a').replace('â', 'a').replace('ã', 'a').replace('ä', 'a');
-        s = s.replace('é', 'e').replace('è', 'e').replace('ê', 'e').replace('ë', 'e');
-        s = s.replace('í', 'i').replace('ì', 'i').replace('î', 'i').replace('ï', 'i');
-        s = s.replace('ó', 'o').replace('ò', 'o').replace('ô', 'o').replace('õ', 'o').replace('ö', 'o');
-        s = s.replace('ú', 'u').replace('ù', 'u').replace('û', 'u').replace('ü', 'u');
-        s = s.replace('ç', 'c');
-        return s;
+        return TextNormalizationUtil.stripAccents(input.trim().toLowerCase());
     }
 }

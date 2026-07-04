@@ -30,6 +30,7 @@ public inherited sharing class GestaoSLAMarcoService {
      * @param request MarcoSLARequest com os dados do novo marco.
      * @return MarcoResumo com o registro criado.
      **/
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     public static GestaoSLADTO.MarcoResumo createMarcoSLA(GestaoSLADTO.MarcoSLARequest request) {
         GestaoSLADTO.PermissionInfo perms = GestaoSLAHelper.buildPermissionInfo();
         GestaoSLAHelper.ensureCanAccess(perms);
@@ -48,6 +49,10 @@ public inherited sharing class GestaoSLAMarcoService {
         );
         applyMarcoFields(row, request);
         try {
+            row = (MarcoSLA__c) GestaoSLAHelper.sanitizeForCreate(
+                row,
+                'Você não possui permissão (FLS/CRUD) para criar Marcos de SLA.'
+            );
             insert row;
         } catch (DmlException dmx) {
             throw new GestaoSLAService.FunctionalException(dmx.getDmlMessage(0));
@@ -61,6 +66,7 @@ public inherited sharing class GestaoSLAMarcoService {
      * @param request MarcoSLARequest com id e campos a atualizar.
      * @return MarcoResumo com o registro atualizado.
      **/
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     public static GestaoSLADTO.MarcoResumo updateMarcoSLA(GestaoSLADTO.MarcoSLARequest request) {
         GestaoSLADTO.PermissionInfo perms = GestaoSLAHelper.buildPermissionInfo();
         GestaoSLAHelper.ensureCanAccess(perms);
@@ -86,6 +92,10 @@ public inherited sharing class GestaoSLAMarcoService {
         existing.MilestoneTypeName__c = request.milestoneTypeName.trim();
         applyMarcoFields(existing, request);
         try {
+            existing = (MarcoSLA__c) GestaoSLAHelper.sanitizeForUpdate(
+                existing,
+                'Você não possui permissão (FLS/CRUD) para atualizar Marcos de SLA.'
+            );
             update existing;
         } catch (DmlException dmx) {
             throw new GestaoSLAService.FunctionalException(dmx.getDmlMessage(0));
@@ -99,6 +109,7 @@ public inherited sharing class GestaoSLAMarcoService {
      * @param marcoSLAId Id do MarcoSLA__c a desativar.
      * @return MarcoResumo com status atualizado para inativo.
      **/
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     public static GestaoSLADTO.MarcoResumo deactivateMarcoSLA(Id marcoSLAId) {
         GestaoSLADTO.PermissionInfo perms = GestaoSLAHelper.buildPermissionInfo();
         GestaoSLAHelper.ensureCanAccess(perms);
@@ -111,8 +122,12 @@ public inherited sharing class GestaoSLAMarcoService {
         GestaoSLAHelper.ensureUnidadeAllowed(gestao.UnidadeNegocio__c, GestaoSLAHelper.resolveAllowedUnidades(perms));
 
         row.Ativo__c = false;
+        row = (MarcoSLA__c) GestaoSLAHelper.sanitizeForUpdate(
+            row,
+            'Você não possui permissão (FLS/CRUD) para atualizar Marcos de SLA.'
+        );
         update row;
-        return toMarcoResumo(row, true);
+        return toMarcoResumo(queryMarcoById(row.Id), true);
     }
 
     /**
@@ -121,6 +136,7 @@ public inherited sharing class GestaoSLAMarcoService {
      * @param marcoSLAId Id do MarcoSLA__c a reativar.
      * @return MarcoResumo com status atualizado para ativo.
      **/
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     public static GestaoSLADTO.MarcoResumo reactivateMarcoSLA(Id marcoSLAId) {
         GestaoSLADTO.PermissionInfo perms = GestaoSLAHelper.buildPermissionInfo();
         GestaoSLAHelper.ensureCanAccess(perms);
@@ -137,8 +153,12 @@ public inherited sharing class GestaoSLAMarcoService {
         validateMarcoDuplicateMilestoneType(row.GestaoSLA__c, row.MilestoneTypeName__c, row.Id);
 
         row.Ativo__c = true;
+        row = (MarcoSLA__c) GestaoSLAHelper.sanitizeForUpdate(
+            row,
+            'Você não possui permissão (FLS/CRUD) para atualizar Marcos de SLA.'
+        );
         update row;
-        return toMarcoResumo(row, true);
+        return toMarcoResumo(queryMarcoById(row.Id), true);
     }
 
     /**
@@ -188,11 +208,12 @@ public inherited sharing class GestaoSLAMarcoService {
         syncMarcoUnico(gestaoId, 'Fila Email', usaFilaEmail, 3);
     }
 
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     public static void syncMarcoUnico(Id gestaoId, String milestoneTypeName, Boolean usar, Integer ordem) {
         List<MarcoSLA__c> existing = GestaoSLAMarcoSelector.selectMarcoByGestaoAndMilestoneTypeName(gestaoId, milestoneTypeName);
         if (usar == true) {
             if (existing.isEmpty()) {
-                insert new MarcoSLA__c(
+                MarcoSLA__c newMarco = new MarcoSLA__c(
                     Name = milestoneTypeName,
                     GestaoSLA__c = gestaoId,
                     NomeMarco__c = milestoneTypeName,
@@ -206,11 +227,24 @@ public inherited sharing class GestaoSLAMarcoService {
                     UsaOrigem__c = false,
                     Ativo__c = true
                 );
+                newMarco = (MarcoSLA__c) GestaoSLAHelper.sanitizeForCreate(
+                    newMarco,
+                    'Você não possui permissão (FLS/CRUD) para criar Marcos de SLA.'
+                );
+                insert newMarco;
             } else if (existing[0].Ativo__c != true) {
-                update new MarcoSLA__c(Id = existing[0].Id, Ativo__c = true);
+                MarcoSLA__c reactivation = (MarcoSLA__c) GestaoSLAHelper.sanitizeForUpdate(
+                    new MarcoSLA__c(Id = existing[0].Id, Ativo__c = true),
+                    'Você não possui permissão (FLS/CRUD) para atualizar Marcos de SLA.'
+                );
+                update reactivation;
             }
         } else if (!existing.isEmpty() && existing[0].Ativo__c == true) {
-            update new MarcoSLA__c(Id = existing[0].Id, Ativo__c = false);
+            MarcoSLA__c deactivation = (MarcoSLA__c) GestaoSLAHelper.sanitizeForUpdate(
+                new MarcoSLA__c(Id = existing[0].Id, Ativo__c = false),
+                'Você não possui permissão (FLS/CRUD) para atualizar Marcos de SLA.'
+            );
+            update deactivation;
         }
     }
 

@@ -126,7 +126,7 @@ private class CategorizacaoControllerTest {
     @IsTest
     static void testReadAccessDeniedThrowsFunctionalError() {
         configureUnitAndQueue();
-        CategorizacaoController.categorizacaoReadAccessOverride = false;
+        ApexTestSeam.set('CategorizacaoController.categorizacaoReadAccess', false);
         Boolean failed = false;
         try {
             CategorizacaoController.getInitialState(null);
@@ -134,7 +134,7 @@ private class CategorizacaoControllerTest {
             failed = true;
             Assert.areEqual(true, ex.getMessage().contains('Usuário sem permissão de leitura para Categorização.'));
         } finally {
-            CategorizacaoController.categorizacaoReadAccessOverride = null;
+            ApexTestSeam.clear('CategorizacaoController.categorizacaoReadAccess');
         }
         Assert.areEqual(true, failed);
     }
@@ -142,7 +142,7 @@ private class CategorizacaoControllerTest {
     @IsTest
     static void testSaveReturnsFriendlyErrorWhenRulesManageAccessDenied() {
         configureUnitAndQueue();
-        CategorizacaoController.regrasManageAccessOverride = false;
+        ApexTestSeam.set('CategorizacaoController.regrasManageAccess', false);
 
         CategorizacaoDTO.Request req = new CategorizacaoDTO.Request();
         req.id = UserInfo.getUserId();
@@ -152,7 +152,7 @@ private class CategorizacaoControllerTest {
         Assert.areEqual('CRUD_DENIED', response.error.code);
         Assert.areEqual(true, response.message.contains('Regras SLA'));
 
-        CategorizacaoController.regrasManageAccessOverride = null;
+        ApexTestSeam.clear('CategorizacaoController.regrasManageAccess');
     }
 
     @IsTest
@@ -184,10 +184,10 @@ private class CategorizacaoControllerTest {
     @IsTest
     static void testSaveCreateAccessDenied() {
         configureUnitAndQueue();
-        CategorizacaoController.categorizacaoCreateAccessOverride = false;
+        ApexTestSeam.set('CategorizacaoController.categorizacaoCreateAccess', false);
         CategorizacaoDTO.Request req = new CategorizacaoDTO.Request();
         CategorizacaoDTO.Response r = CategorizacaoController.save(req);
-        CategorizacaoController.categorizacaoCreateAccessOverride = null;
+        ApexTestSeam.clear('CategorizacaoController.categorizacaoCreateAccess');
         Assert.areEqual(false, r.success);
         Assert.areEqual('CRUD_DENIED', r.error.code);
     }
@@ -195,11 +195,11 @@ private class CategorizacaoControllerTest {
     @IsTest
     static void testSaveUpdateAccessDenied() {
         configureUnitAndQueue();
-        CategorizacaoController.categorizacaoUpdateAccessOverride = false;
+        ApexTestSeam.set('CategorizacaoController.categorizacaoUpdateAccess', false);
         CategorizacaoDTO.Request req = new CategorizacaoDTO.Request();
         req.id = UserInfo.getUserId();
         CategorizacaoDTO.Response r = CategorizacaoController.save(req);
-        CategorizacaoController.categorizacaoUpdateAccessOverride = null;
+        ApexTestSeam.clear('CategorizacaoController.categorizacaoUpdateAccess');
         Assert.areEqual(false, r.success);
         Assert.areEqual('CRUD_DENIED', r.error.code);
     }
@@ -207,10 +207,10 @@ private class CategorizacaoControllerTest {
     @IsTest
     static void testSaveRegrasReadAccessDenied() {
         configureUnitAndQueue();
-        CategorizacaoController.regrasReadAccessOverride = false;
+        ApexTestSeam.set('CategorizacaoController.regrasReadAccess', false);
         CategorizacaoDTO.Request req = new CategorizacaoDTO.Request();
         CategorizacaoDTO.Response r = CategorizacaoController.save(req);
-        CategorizacaoController.regrasReadAccessOverride = null;
+        ApexTestSeam.clear('CategorizacaoController.regrasReadAccess');
         Assert.areEqual(false, r.success);
         Assert.areEqual('CRUD_DENIED', r.error.code);
     }

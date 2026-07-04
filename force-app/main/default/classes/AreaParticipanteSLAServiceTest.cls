@@ -1,7 +1,7 @@
 @IsTest
 private class AreaParticipanteSLAServiceTest {
     private static void enableDeterministicBusinessHoursMath() {
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
         BusinessHoursResolverService.injectedByName.clear();
         BusinessHoursResolverService.injectedByName.put('BH_SLA_SERVICE_TEST', (Id) '01m000000000001AAA');
     }
@@ -79,7 +79,7 @@ private class AreaParticipanteSLAServiceTest {
     private static AreaParticipante__c createAreaParticipante(Id caseId, String area) {
         return new AreaParticipante__c(
             Caso__c = caseId,
-            TipoAreaParticipante__c = AreaParticipanteSLAHelper.tipoAreaInternaApiValue(),
+            TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
             AreaAtendimento__c = area,
             StatusAtuacao__c = AreaParticipanteSLAHelper.STATUS_ATUACAO_ABERTA,
             ComentarioSolicitacao__c = 'Teste SLA N3'
@@ -382,6 +382,42 @@ private class AreaParticipanteSLAServiceTest {
         insert a2;
         a2 = [SELECT SequenciaAcionamento__c FROM AreaParticipante__c WHERE Id = :a2.Id];
         Assert.areEqual(2, Integer.valueOf(String.valueOf(a2.SequenciaAcionamento__c)), 'Sequencia deve ser global por Case, nao reiniciar por area diferente');
+    }
+
+    @IsTest
+    static void testBulkAberturaNaoEscalaQueriesPorRegistro() {
+        enableDeterministicBusinessHoursMath();
+        List<String> areas = AreaParticipanteTestDataFactory.commonAreaValues();
+        if (areas.size() < 2) return;
+        String area1 = areas[0];
+        String area2 = areas[1];
+        GestaoSLA__c gestao = createGestao();
+        Categorizacao__c categ = createCategorizacao(gestao.Id);
+        createRegraNova(categ.Id, gestao.Id, area1, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
+        createRegraNova(categ.Id, gestao.Id, area2, RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA);
+
+        List<Case> cases = new List<Case>{
+            createCase(categ.Id, 'Low', 'Manual'),
+            createCase(categ.Id, 'Medium', 'Manual'),
+            createCase(categ.Id, 'High', 'Manual'),
+            createCase(categ.Id, 'High', 'Manual')
+        };
+        List<AreaParticipante__c> rows = new List<AreaParticipante__c>{
+            createAreaParticipante(cases[0].Id, area1),
+            createAreaParticipante(cases[1].Id, area2),
+            createAreaParticipante(cases[2].Id, area1),
+            createAreaParticipante(cases[3].Id, area2)
+        };
+
+        Test.startTest();
+        Integer queriesBefore = Limits.getQueries();
+        insert rows;
+        Integer queriesUsed = Limits.getQueries() - queriesBefore;
+        Test.stopTest();
+
+        System.debug('queriesUsed=' + queriesUsed);
+        Assert.isTrue(queriesUsed <= 10, 'findRule nao deve rodar 1 query de RegrasSLACategorizacao__c por registro do lote (usadas: ' + queriesUsed + ')');
+        Assert.areEqual(4, [SELECT COUNT() FROM AreaParticipante__c WHERE Caso__c IN :new Map<Id, Case>(cases).keySet()]);
     }
 
     @IsTest

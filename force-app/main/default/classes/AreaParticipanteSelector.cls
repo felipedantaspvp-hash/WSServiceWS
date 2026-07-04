@@ -8,6 +8,7 @@
 public inherited sharing class AreaParticipanteSelector {
     @TestVisible private static List<AreaParticipante__c> testAreas;
     @TestVisible private static Case testCase;
+    @TestVisible private static Map<Id, Integer> testBlockersByCase;
     private static final String AREA_FIELD = 'AreaAtendimento__c';
 
     public static Case getCaseById(Id caseId) {
@@ -108,5 +109,32 @@ public inherited sharing class AreaParticipanteSelector {
             return false;
         }
         return getEligibleAreaValuesForCase(caseRow).contains(areaValue);
+    }
+
+    /**
+     * @description Conta, por Case, quantas AreaParticipante__c internas abertas e com
+     * BloqueiaFechamentoCaso__c=true ainda existem — usado para bloquear o fechamento/cancelamento
+     * do Case enquanto houver área interna pendente.
+     * @param caseIds Ids dos Cases a verificar.
+     * @return Map de Id do Case para quantidade de áreas bloqueadoras abertas.
+     **/
+    public static Map<Id, Integer> countOpenBlockingInternalAreasByCase(Set<Id> caseIds) {
+        if (testBlockersByCase != null) {
+            return testBlockersByCase;
+        }
+        Map<Id, Integer> blockers = new Map<Id, Integer>();
+        for (AggregateResult ar : [
+            SELECT Caso__c c, COUNT(Id) cnt
+            FROM AreaParticipante__c
+            WHERE Caso__c IN :caseIds
+              AND TipoAreaParticipante__c = :AreaParticipanteSLAHelper.TIPO_AREA_INTERNA
+              AND OrigemSLA__c = :AreaParticipanteSLAHelper.ORIGEM_SLA_CUSTOM
+              AND BloqueiaFechamentoCaso__c = true
+              AND DataHoraFim__c = null
+            GROUP BY Caso__c
+        ]) {
+            blockers.put((Id) ar.get('c'), (Integer) ar.get('cnt'));
+        }
+        return blockers;
     }
 }

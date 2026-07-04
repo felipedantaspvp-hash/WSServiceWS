@@ -51,18 +51,17 @@ private class AtendimentoContextResolverTest {
 
     private static void resetResolverTestState() {
         AtendimentoContextResolverService.gateway = new EmptyGatewayMock();
-        AtendimentoContextResolverService.activeChannelRoutesOverride = null;
+        AtendimentoContextResolverService.activeAtendimentoParamsOverride = null;
         AtendimentoContextResolverHelper.globalDescribeCache = null;
         AtendimentoContextResolverHelper.fieldMapCacheByObject.clear();
     }
 
-    private static TCO_ChannelRouting__mdt buildRoute(String type, String identifier, String businessUnit) {
-        TCO_ChannelRouting__mdt row = new TCO_ChannelRouting__mdt();
-        row.TCF_ChannelType__c = type;
-        row.TCF_ChannelIdentifier__c = identifier;
-        row.TCF_BusinessUnit__c = businessUnit;
-        row.TCF_IsActive__c = true;
-        return row;
+    private static AtendimentoConfigDTO buildAtendimentoParam(String messagingChannelType, String businessUnit) {
+        AtendimentoConfigDTO dto = new AtendimentoConfigDTO();
+        dto.messagingChannelType = messagingChannelType;
+        dto.businessUnit = businessUnit;
+        dto.isActive = true;
+        return dto;
     }
 
     @IsTest
@@ -205,11 +204,12 @@ private class AtendimentoContextResolverTest {
         Account acc = createAccount('WS Success');
         Contact con = createContact('Gabi', 'Sucesso', acc.Id);
 
-        AtendimentoContextResolverService.activeChannelRoutesOverride = new List<TCO_ChannelRouting__mdt>{
-            buildRoute('WHATSAPP', null, 'Atendimento Salvador')
+        AtendimentoContextResolverService.activeAtendimentoParamsOverride = new List<AtendimentoConfigDTO>{
+            buildAtendimentoParam('CHAT', 'Atendimento Salvador')
         };
 
         AtendimentoContextResolverDTO.Request req = baseRequest();
+        req.channelType = 'CHAT';
         req.contactId = con.Id;
 
         Test.startTest();
@@ -293,8 +293,8 @@ private class AtendimentoContextResolverTest {
         }
 
         AtendimentoContextResolverService.gateway = mock;
-        AtendimentoContextResolverService.activeChannelRoutesOverride = new List<TCO_ChannelRouting__mdt>{
-            buildRoute('CHAT', String.valueOf(chatId), 'Atendimento Salvador')
+        AtendimentoContextResolverService.activeAtendimentoParamsOverride = new List<AtendimentoConfigDTO>{
+            buildAtendimentoParam('CHAT', 'Atendimento Salvador')
         };
 
         AtendimentoContextResolverDTO.Request req = baseRequest();
@@ -389,8 +389,8 @@ private class AtendimentoContextResolverTest {
         Account acc = createAccount('No Match Route');
         Contact con = createContact('NR', 'Test', acc.Id);
 
-        AtendimentoContextResolverService.activeChannelRoutesOverride = new List<TCO_ChannelRouting__mdt>{
-            buildRoute('CHAT', null, 'Atendimento Salvador')
+        AtendimentoContextResolverService.activeAtendimentoParamsOverride = new List<AtendimentoConfigDTO>{
+            buildAtendimentoParam('CHAT', 'Atendimento Salvador')
         };
 
         AtendimentoContextResolverDTO.Request req = baseRequest();

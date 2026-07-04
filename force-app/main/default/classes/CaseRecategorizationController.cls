@@ -1,5 +1,4 @@
 public inherited sharing class CaseRecategorizationController {
-    @TestVisible static Exception testException;
 
     @AuraEnabled(cacheable=true)
     public static CaseRecategorizationDTO.CaseRecategorizationContextDTO getContext(Id caseId) {
@@ -14,7 +13,7 @@ public inherited sharing class CaseRecategorizationController {
     @AuraEnabled
     public static CaseRecategorizationDTO.RecategorizationResponseDTO recategorize(CaseRecategorizationDTO.RecategorizationRequestDTO request) {
         try {
-            if (Test.isRunningTest() && testException != null) throw testException;
+            Exception forcedException = ApexTestSeam.getException('CaseRecategorizationController.testException'); if (forcedException != null) throw forcedException;
             return CaseRecategorizationService.recategorize(request);
         } catch (CaseRecategorizationService.FunctionalException ex) {
             CaseRecategorizationDTO.RecategorizationResponseDTO out = new CaseRecategorizationDTO.RecategorizationResponseDTO();
@@ -27,6 +26,7 @@ public inherited sharing class CaseRecategorizationController {
             out.error.message = ex.getMessage();
             return out;
         } catch (Exception ex) {
+            CaseControllerLogHelper.logUnexpectedError('CaseRecategorizationController.recategorize', 'Case', request != null ? request.caseId : null, ex);
             CaseRecategorizationDTO.RecategorizationResponseDTO out = new CaseRecategorizationDTO.RecategorizationResponseDTO();
             out.success = false;
             out.caseId = request != null ? request.caseId : null;

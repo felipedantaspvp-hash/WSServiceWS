@@ -6,7 +6,6 @@
  * @last modified by  : Marllon Nascimento
  **/
 public inherited sharing class CaseSurveyDispatchServiceAgent {
-    @TestVisible static Boolean skipDmlAndEmailForTest = false;
     @TestVisible static Id testInvitationId;
     @TestVisible static Map<Integer, String> testEmailErrorsByIndex;
     @TestVisible static List<SurveyInvitation> preparedInvitationsForTest;
@@ -37,11 +36,12 @@ public inherited sharing class CaseSurveyDispatchServiceAgent {
      * @param envelopes Dados necessários para envio.
      * @return Resultados por Case.
      */
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     public static List<DispatchResult> send(List<DispatchEnvelope> envelopes) {
         List<DispatchResult> results = new List<DispatchResult>();
         if (envelopes == null || envelopes.isEmpty()) return results;
 
-        Boolean skipExternalEffects = Test.isRunningTest() && skipDmlAndEmailForTest;
+        Boolean skipExternalEffects = ApexTestSeam.getBoolean('CaseSurveyDispatchServiceAgent.skipDmlAndEmail');
 
         List<SurveyInvitation> invitations = new List<SurveyInvitation>();
         for (DispatchEnvelope envelope : envelopes) {
@@ -87,7 +87,7 @@ public inherited sharing class CaseSurveyDispatchServiceAgent {
         List<SurveySubject> subjects = new List<SurveySubject>();
         List<Integer> successfulIndexes = new List<Integer>();
         for (Integer index = 0; index < envelopes.size(); index++) {
-            if (!isEmailSuccess(index, emailResults)) {
+            if (!EmailDispatchHelper.isEmailSuccess(index, emailResults, skipExternalEffects, testEmailErrorsByIndex)) {
                 continue;
             }
 
@@ -113,13 +113,13 @@ public inherited sharing class CaseSurveyDispatchServiceAgent {
             results.add(result);
         }
         for (Integer index = 0; index < envelopes.size(); index++) {
-            if (isEmailSuccess(index, emailResults)) {
+            if (EmailDispatchHelper.isEmailSuccess(index, emailResults, skipExternalEffects, testEmailErrorsByIndex)) {
                 continue;
             }
             DispatchResult result = new DispatchResult();
             result.caseId = envelopes[index].caseRecord.Id;
             result.success = false;
-            result.message = buildEmailErrorMessage(index, emailResults);
+            result.message = EmailDispatchHelper.buildEmailErrorMessage(index, emailResults, testEmailErrorsByIndex);
             results.add(result);
         }
         return results;
@@ -134,7 +134,7 @@ public inherited sharing class CaseSurveyDispatchServiceAgent {
         List<DispatchResult> results = new List<DispatchResult>();
         if (envelopes == null || envelopes.isEmpty()) return results;
 
-        Boolean skipExternalEffects = Test.isRunningTest() && skipDmlAndEmailForTest;
+        Boolean skipExternalEffects = ApexTestSeam.getBoolean('CaseSurveyDispatchServiceAgent.skipDmlAndEmail');
         List<Messaging.SingleEmailMessage> messages = new List<Messaging.SingleEmailMessage>();
         for (CaseClosureEnvelope envelope : envelopes) {
             Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
@@ -157,34 +157,12 @@ public inherited sharing class CaseSurveyDispatchServiceAgent {
         for (Integer index = 0; index < envelopes.size(); index++) {
             DispatchResult result = new DispatchResult();
             result.caseId = envelopes[index].caseRecord.Id;
-            result.success = isEmailSuccess(index, emailResults);
+            result.success = EmailDispatchHelper.isEmailSuccess(index, emailResults, skipExternalEffects, testEmailErrorsByIndex);
             result.message = result.success
                 ? CaseSurveyDispatchHelper.STATUS_CASE_CLOSURE_SENT
-                : buildEmailErrorMessage(index, emailResults);
+                : EmailDispatchHelper.buildEmailErrorMessage(index, emailResults, testEmailErrorsByIndex);
             results.add(result);
         }
         return results;
     }
-
-    private static Boolean isEmailSuccess(Integer index, Messaging.SendEmailResult[] emailResults) {
-        if (Test.isRunningTest() && testEmailErrorsByIndex != null) {
-            return !testEmailErrorsByIndex.containsKey(index);
-        }
-        if (Test.isRunningTest() && skipDmlAndEmailForTest) {
-            return true;
-        }
-        return emailResults[index].isSuccess();
-    }
-
-    private static String buildEmailErrorMessage(Integer index, Messaging.SendEmailResult[] emailResults) {
-        if (Test.isRunningTest() && testEmailErrorsByIndex != null && testEmailErrorsByIndex.containsKey(index)) {
-            return 'Erro ao enviar e-mail: ' + testEmailErrorsByIndex.get(index);
-        }
-        List<String> messages = new List<String>();
-        for (Messaging.SendEmailError error : emailResults[index].getErrors()) {
-            messages.add(String.valueOf(error.getStatusCode()) + ': ' + error.getMessage());
-        }
-        return 'Erro ao enviar e-mail: ' + String.join(messages, ' | ');
-    }
-
 }

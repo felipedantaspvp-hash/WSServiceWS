@@ -1,4 +1,5 @@
 global class LightningLoginFormController {
+    private static final String GENERIC_PUBLIC_ERROR = Label.ExperienceAuth_GenericError;
 
     public LightningLoginFormController() {
         
@@ -12,7 +13,7 @@ global class LightningLoginFormController {
             return null;
         }
         catch (Exception ex) {
-            return ex.getMessage();            
+            return logAndReturnFriendlyError('LightningLoginFormController.login', ex);
         }
     }
     
@@ -59,7 +60,12 @@ global class LightningLoginFormController {
             }
             return null; 
         } catch (Exception ex) {
-            return ex.getMessage();            
+            return logAndReturnFriendlyError('LightningLoginFormController.setExperienceId', ex);
         }
-    }   
+    }
+
+    private static String logAndReturnFriendlyError(String context, Exception ex) {
+        System.debug(LoggingLevel.ERROR, context + ': ' + ex.getTypeName() + ' - ' + ex.getMessage() + '\n' + ex.getStackTraceString());
+        return GENERIC_PUBLIC_ERROR;
+    }
 }

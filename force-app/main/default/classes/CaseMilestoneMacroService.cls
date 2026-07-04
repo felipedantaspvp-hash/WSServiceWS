@@ -12,7 +12,7 @@ public inherited sharing class CaseMilestoneMacroService {
 
     @TestVisible private static Set<Id> lastCatchAllCaseIds = new Set<Id>();
     @TestVisible private static Set<Id> lastSLATotalCaseIds = new Set<Id>();
-    @TestVisible private static Boolean bypassCaseMilestoneDmlInTests = false;
+    private static final String MILESTONE_DML_BYPASS_KEY = 'CaseMilestoneMacroService.bypassCaseMilestoneDml';
 
     public static void completeByStageTransition(Map<Id, Case> newMap, Map<Id, Case> oldMap) {
         if (newMap == null || newMap.isEmpty() || oldMap == null) return;
@@ -38,7 +38,7 @@ public inherited sharing class CaseMilestoneMacroService {
         lastSLATotalCaseIds = new Set<Id>(slaTotalCaseIds);
 
         if (catchAllCaseIds.isEmpty() && slaTotalCaseIds.isEmpty()) return;
-        if (Test.isRunningTest() && bypassCaseMilestoneDmlInTests) return;
+        if (ApexTestSeam.getBoolean(MILESTONE_DML_BYPASS_KEY)) return;
 
         Set<Id> allCaseIds = new Set<Id>();
         allCaseIds.addAll(catchAllCaseIds);

@@ -3,7 +3,6 @@ public inherited sharing class WSWillCaseCreationService {
     @TestVisible static Map<Id, MessagingEndUser> testEndUserById;
     @TestVisible static List<AtendimentoConfigDTO> testChannelConfigs;
     @TestVisible static List<AtendimentoConfigDTO> testUnitConfigs;
-    @TestVisible static Boolean bypassConversationWriteBack = false;
 
     private class WorkItem {
         public Integer index;
@@ -56,11 +55,11 @@ public inherited sharing class WSWillCaseCreationService {
             new List<String>{ 'ContaRepresentadaAtual__c' }
         );
 
-        Map<Id, Contact> contactById = queryContactsByIds(contactIds, representedAccountField);
+        Map<Id, Contact> contactById = WSWillCaseCreationSelector.selectContactsByIds(contactIds, representedAccountField);
 
         Map<String, Contact> contactByEmail = new Map<String, Contact>();
         if (!emails.isEmpty()) {
-            for (Contact c : queryContactsByEmails(emails, representedAccountField)) {
+            for (Contact c : WSWillCaseCreationSelector.selectContactsByEmails(emails, representedAccountField)) {
                 if (!String.isBlank(c.Email)) {
                     contactByEmail.put(c.Email.trim().toLowerCase(), c);
                 }
@@ -112,7 +111,7 @@ public inherited sharing class WSWillCaseCreationService {
             }
         }
         if (!additionalContactIds.isEmpty()) {
-            for (Contact c : queryContactsByIds(additionalContactIds, representedAccountField).values()) {
+            for (Contact c : WSWillCaseCreationSelector.selectContactsByIds(additionalContactIds, representedAccountField).values()) {
                 contactById.put(c.Id, c);
                 if (!String.isBlank(c.Email)) {
                     contactByEmail.put(c.Email.trim().toLowerCase(), c);
@@ -204,7 +203,7 @@ public inherited sharing class WSWillCaseCreationService {
                     Phone = req.customerPhone,
                     Idioma__c = WSWillContextResolverHelper.normalizePreferredLanguage(req.language)
                 );
-                putIfCreateable(newContact, Contact.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap(), 'BypassValidationsFromBot__c', true);
+                putIfFieldExists(newContact, Contact.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap(), 'BypassValidationsFromBot__c', true);
                 if (fallbackAccountId != null) {
                     newContact.AccountId = fallbackAccountId;
                     item.resolvedAccountId = fallbackAccountId;
@@ -268,7 +267,7 @@ public inherited sharing class WSWillCaseCreationService {
             }
         }
 
-        if (!conversationContactUpdates.isEmpty() && !bypassConversationWriteBack) {
+        if (!conversationContactUpdates.isEmpty() && !ApexTestSeam.getBoolean('WSWillCaseCreationService.bypassConversationWriteBack')) {
             Database.update(conversationContactUpdates, false);
         }
 
@@ -298,7 +297,7 @@ public inherited sharing class WSWillCaseCreationService {
             }
         }
 
-        if (!endUsersToUpdate.isEmpty() && !bypassConversationWriteBack) {
+        if (!endUsersToUpdate.isEmpty() && !ApexTestSeam.getBoolean('WSWillCaseCreationService.bypassConversationWriteBack')) {
             Database.update(endUsersToUpdate, false);
         }
 
@@ -321,27 +320,27 @@ public inherited sharing class WSWillCaseCreationService {
 
             Case c = new Case();
             Map<String, Schema.SObjectField> caseFields = Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
-            putIfCreateable(c, caseFields, 'RecordTypeId', item.targetRecordTypeId);
-            putIfCreateable(c, caseFields, 'AccountId', item.resolvedAccountId);
-            putIfCreateable(c, caseFields, 'ContactId', item.resolvedContactId);
-            putIfCreateable(c, caseFields, 'Representante__c', item.representativeAccountId);
-            putIfCreateable(c, caseFields, 'Origin', item.normalizedOrigin);
+            putIfFieldExists(c, caseFields, 'RecordTypeId', item.targetRecordTypeId);
+            putIfFieldExists(c, caseFields, 'AccountId', item.resolvedAccountId);
+            putIfFieldExists(c, caseFields, 'ContactId', item.resolvedContactId);
+            putIfFieldExists(c, caseFields, 'Representante__c', item.representativeAccountId);
+            putIfFieldExists(c, caseFields, 'Origin', item.normalizedOrigin);
             putIfValidPicklist(c, caseFields, 'OrigemDistribuicao__c', WSWillCaseCreationHelper.normalizeDistributionOrigin());
-            putIfCreateable(c, caseFields, 'Subject', String.isBlank(req.caseType) ? 'Atendimento via Will' : req.caseType);
-            putIfCreateable(c, caseFields, 'Description', req.description);
+            putIfFieldExists(c, caseFields, 'Subject', String.isBlank(req.caseType) ? 'Atendimento via Will' : req.caseType);
+            putIfFieldExists(c, caseFields, 'Description', req.description);
             putIfValidPicklist(c, caseFields, 'UnidadeNegocio__c', item.resolvedBusinessUnitName);
-            putIfCreateable(c, caseFields, 'IdiomaAtendimento__c', WSWillCaseCreationHelper.normalizeLanguageForCase(req.language));
+            putIfFieldExists(c, caseFields, 'IdiomaAtendimento__c', WSWillCaseCreationHelper.normalizeLanguageForCase(req.language));
             putIfValidPicklist(c, caseFields, 'TipoCaso__c', req.caseType);
-            putIfCreateable(c, caseFields, 'SuppliedName', req.customerFullName);
-            putIfCreateable(c, caseFields, 'SuppliedEmail', req.customerEmail);
-            putIfCreateable(c, caseFields, 'SuppliedPhone', req.customerPhone);
-            putIfCreateable(c, caseFields, 'Status', 'Aberto');
-            putIfCreateable(c, caseFields, 'OwnerId', item.targetOwnerId);
+            putIfFieldExists(c, caseFields, 'SuppliedName', req.customerFullName);
+            putIfFieldExists(c, caseFields, 'SuppliedEmail', req.customerEmail);
+            putIfFieldExists(c, caseFields, 'SuppliedPhone', req.customerPhone);
+            putIfFieldExists(c, caseFields, 'Status', 'Aberto');
+            putIfFieldExists(c, caseFields, 'OwnerId', item.targetOwnerId);
             if (!String.isBlank(item.targetQueueDeveloperName)) {
-                putIfCreateable(c, caseFields, 'FilaDestinoDeveloperName__c', item.targetQueueDeveloperName);
+                putIfFieldExists(c, caseFields, 'FilaDestinoDeveloperName__c', item.targetQueueDeveloperName);
             }
             if (item.targetQueueId != null) {
-                putIfCreateable(c, caseFields, 'FilaDestinoId__c', String.valueOf(item.targetQueueId));
+                putIfFieldExists(c, caseFields, 'FilaDestinoId__c', String.valueOf(item.targetQueueId));
             }
 
             item.pendingCase = c;
@@ -351,12 +350,20 @@ public inherited sharing class WSWillCaseCreationService {
 
         if (!casesToInsert.isEmpty()) {
             Database.SaveResult[] caseResults = Database.insert(casesToInsert, false);
+            Set<Id> successfulCaseIds = new Set<Id>();
+            for (Database.SaveResult sr : caseResults) {
+                if (sr.isSuccess()) successfulCaseIds.add(sr.getId());
+            }
+            Map<Id, Case> createdCasesById = successfulCaseIds.isEmpty()
+                ? new Map<Id, Case>()
+                : WSWillCaseCreationSelector.selectCasesById(successfulCaseIds);
+
             for (Integer i = 0; i < caseItems.size(); i++) {
                 WorkItem item = caseItems[i];
                 Database.SaveResult sr = caseResults[i];
                 if (sr.isSuccess()) {
                     item.pendingCase.Id = sr.getId();
-                    Case createdCase = WSWillCaseCreationSelector.selectCasesById(new Set<Id>{ sr.getId() }).get(sr.getId());
+                    Case createdCase = createdCasesById.get(sr.getId());
                     item.res.success = true;
                     item.res.caseId = createdCase.Id;
                     item.res.caseNumber = createdCase.CaseNumber;
@@ -390,7 +397,7 @@ public inherited sharing class WSWillCaseCreationService {
                 caseLinkUpdates.add(new LiveChatTranscript(Id = item.liveChatTranscriptId, CaseId = item.res.caseId));
             }
         }
-        if (!caseLinkUpdates.isEmpty() && !bypassConversationWriteBack) {
+        if (!caseLinkUpdates.isEmpty() && !ApexTestSeam.getBoolean('WSWillCaseCreationService.bypassConversationWriteBack')) {
             update caseLinkUpdates;
         }
 
@@ -611,87 +618,17 @@ public inherited sharing class WSWillCaseCreationService {
         }
     }
 
-    private static Map<Id, Contact> queryContactsByIds(Set<Id> contactIds, String representedAccountField) {
-        Map<Id, Contact> out = new Map<Id, Contact>();
-        if (contactIds == null || contactIds.isEmpty()) return out;
-
-        List<String> selectFields = new List<String>{ 'Id', 'AccountId', 'Name', 'Email', 'Phone', 'Idioma__c' };
-        if (!String.isBlank(representedAccountField) &&
-            Schema.SObjectType.Contact.fields.getMap().containsKey(representedAccountField.toLowerCase())) {
-            selectFields.add(representedAccountField);
-        }
-
-        String soql = 'SELECT ' + String.join(selectFields, ',') + ' FROM Contact WHERE Id IN :contactIds';
-        List<Contact> rows;
-        try {
-            rows = (List<Contact>) Database.query(soql);
-        } catch (QueryException ex) {
-            if (!ex.getMessage().contains('ContaRepresentadaAtual__c')) {
-                throw ex;
-            }
-            List<String> fallbackFields = new List<String>();
-            for (String fieldName : selectFields) {
-                if (fieldName != 'ContaRepresentadaAtual__c') {
-                    fallbackFields.add(fieldName);
-                }
-            }
-            rows = (List<Contact>) Database.query(
-                'SELECT ' + String.join(fallbackFields, ',') + ' FROM Contact WHERE Id IN :contactIds'
-            );
-        }
-
-        for (Contact row : rows) {
-            out.put(row.Id, row);
-        }
-        return out;
-    }
-
-    private static List<Contact> queryContactsByEmails(Set<String> emails, String representedAccountField) {
-        List<Contact> out = new List<Contact>();
-        if (emails == null || emails.isEmpty()) return out;
-
-        List<String> selectFields = new List<String>{ 'Id', 'AccountId', 'Name', 'Email', 'Phone', 'Idioma__c' };
-        if (!String.isBlank(representedAccountField) &&
-            Schema.SObjectType.Contact.fields.getMap().containsKey(representedAccountField.toLowerCase())) {
-            selectFields.add(representedAccountField);
-        }
-
-        String soql = 'SELECT ' + String.join(selectFields, ',') + ' FROM Contact WHERE Email IN :emails';
-        List<Contact> rows;
-        try {
-            rows = (List<Contact>) Database.query(soql);
-        } catch (QueryException ex) {
-            if (!ex.getMessage().contains('ContaRepresentadaAtual__c')) {
-                throw ex;
-            }
-            List<String> fallbackFields = new List<String>();
-            for (String fieldName : selectFields) {
-                if (fieldName != 'ContaRepresentadaAtual__c') {
-                    fallbackFields.add(fieldName);
-                }
-            }
-            rows = (List<Contact>) Database.query(
-                'SELECT ' + String.join(fallbackFields, ',') + ' FROM Contact WHERE Email IN :emails'
-            );
-        }
-
-        for (Contact row : rows) {
-            out.add(row);
-        }
-        return out;
-    }
-
-    private static void putIfCreateable(SObject row, Map<String, Schema.SObjectField> fieldMap, String fieldApiName, Object value) {
+    // The Will bot writes these records in elevated context by design; this helper only keeps the
+    // payload compatible with orgs where some optional fields may not exist.
+    private static void putIfFieldExists(SObject row, Map<String, Schema.SObjectField> fieldMap, String fieldApiName, Object value) {
         if (value == null || String.isBlank(fieldApiName) || fieldMap == null || !fieldMap.containsKey(fieldApiName)) return;
-        if (fieldMap.get(fieldApiName).getDescribe().isCreateable()) {
-            row.put(fieldApiName, value);
-        }
+        row.put(fieldApiName, value);
     }
 
     private static void putIfValidPicklist(SObject row, Map<String, Schema.SObjectField> fieldMap, String fieldApiName, String value) {
         if (String.isBlank(value) || String.isBlank(fieldApiName) || fieldMap == null || !fieldMap.containsKey(fieldApiName)) return;
         Schema.DescribeFieldResult d = fieldMap.get(fieldApiName).getDescribe();
-        if (!d.isCreateable() || d.getType() != Schema.DisplayType.Picklist) return;
+        if (d.getType() != Schema.DisplayType.Picklist) return;
 
         for (Schema.PicklistEntry entry : d.getPicklistValues()) {
             if (CaseCreationHelper.sameNormalizedValue(entry.getValue(), value) || CaseCreationHelper.sameNormalizedValue(entry.getLabel(), value)) {

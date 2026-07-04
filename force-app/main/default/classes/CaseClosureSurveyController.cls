@@ -6,7 +6,6 @@
  * @last modified by  : Jean Duarte
  **/
 public inherited sharing class CaseClosureSurveyController {
-    @TestVisible private static Boolean forceUnexpectedErrorForTest = false;
 
     /**
      * @description Carrega contexto de encerramento para o Case.
@@ -26,7 +25,7 @@ public inherited sharing class CaseClosureSurveyController {
     @AuraEnabled
     public static CaseClosureSurveyDTO closeCase(CaseClosureSurveyDTO request) {
         try {
-            if (Test.isRunningTest() && forceUnexpectedErrorForTest == true) {
+            if (ApexTestSeam.getBoolean('CaseClosureSurveyController.forceUnexpectedError')) {
                 throw new UnexpectedControllerException('Erro forçado para cobertura do catch genérico.');
             }
             return CaseClosureSurveyService.closeCase(request);
@@ -36,6 +35,7 @@ public inherited sharing class CaseClosureSurveyController {
             out.errorMessage = ex.getMessage();
             return out;
         } catch (Exception ex) {
+            CaseControllerLogHelper.logUnexpectedError('CaseClosureSurveyController.closeCase', 'Case', request != null ? request.caseId : null, ex);
             CaseClosureSurveyDTO out = new CaseClosureSurveyDTO();
             out.caseId = request != null ? request.caseId : null;
             out.errorMessage = Label.CaseClosureSurvey_UnexpectedControllerError;

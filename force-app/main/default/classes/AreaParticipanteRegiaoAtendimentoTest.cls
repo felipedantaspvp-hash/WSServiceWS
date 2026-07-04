@@ -7,6 +7,8 @@
  **/
 @IsTest
 private class AreaParticipanteRegiaoAtendimentoTest {
+    private static final String AREA_CHINA = 'Atendimento China';
+
     private static User createTestUser(String aliasSeed, String regiao) {
         Profile profile = [SELECT Id FROM Profile WHERE UserType = 'Standard' LIMIT 1];
         String uniq = String.valueOf(DateTime.now().getTime()) + String.valueOf(Math.mod(Crypto.getRandomInteger(), 100000));
@@ -88,15 +90,74 @@ private class AreaParticipanteRegiaoAtendimentoTest {
         return c;
     }
 
-    @IsTest
-    static void testOwnerComRegiaoAbreAreaEOwnerSemRegiaoEncerra() {
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+    private static List<Case> buildRebocadoresCases(Integer total, Boolean duploBusinessHours) {
+        RecordType rt = [
+            SELECT Id FROM RecordType
+            WHERE SObjectType = 'Case' AND DeveloperName = 'AtendimentoRebocadores'
+            LIMIT 1
+        ];
+        Categorizacao__c categorizacao = CategorizacaoTestDataFactory.base(false, false);
+        insert categorizacao;
+
+        GestaoSLA__c gestao = new GestaoSLA__c(
+            Name = 'Gestao SLA Test Rebocadores Bulk ' + String.valueOf(Math.mod(Crypto.getRandomInteger(), 100000)),
+            UnidadeNegocio__c = 'Rebocadores',
+            EntitlementProcessName__c = 'Atendimento Rebocadores',
+            BusinessHoursName__c = 'Atendimento Rebocadores',
+            PossuiBusinessHoursSecundario__c = duploBusinessHours,
+            RegiaoAtendimentoSecundaria__c = duploBusinessHours ? 'China' : null,
+            BusinessHoursSecundarioName__c = duploBusinessHours ? 'Rebocadores China' : null,
+            Ativo__c = true
+        );
+        insert gestao;
+
+        categorizacao.GestaoSLA__c = gestao.Id;
+        update categorizacao;
+
+        insert new RegrasSLACategorizacao__c(
+            Categorizacao__c = categorizacao.Id,
+            AreaAtendimento__c = AREA_CHINA,
+            UsaBusinessHoursSecundario__c = duploBusinessHours,
+            Ativo__c = true,
+            GestaoSLA__c = gestao.Id,
+            EscopoRegra__c = RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA,
+            TempoBaixa__c = 60,
+            TempoMedia__c = 60,
+            TempoAlta__c = 60
+        );
+
+        List<Case> casesToInsert = new List<Case>();
+        for (Integer i = 0; i < total; i++) {
+            casesToInsert.add(new Case(
+                Subject = 'Case Regiao Atendimento Bulk ' + i,
+                RecordTypeId = rt.Id,
+                Status = AreaParticipanteTestDataFactory.pickValue('Case', 'Status', 0),
+                Origin = AreaParticipanteTestDataFactory.pickValue('Case', 'Origin', 0),
+                Priority = AreaParticipanteTestDataFactory.pickValue('Case', 'Priority', 0),
+                AreasParticipantesSLA__c = AREA_CHINA,
+                EtapaAtendimento__c = 'Aguardando Área Interna',
+                NavioNome__c = 'Navio Teste ' + i,
+                PortoNome__c = 'Porto Teste ' + i,
+                Categorizacao__c = categorizacao.Id
+            ));
+        }
+        insert casesToInsert;
+        return casesToInsert;
+    }
+
+    private static void setupBusinessHoursMocks() {
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
         BusinessHoursResolverService.injectedByName.clear();
         List<BusinessHours> bhs = [SELECT Id FROM BusinessHours WHERE IsActive = true LIMIT 1];
         if (!bhs.isEmpty()) {
             BusinessHoursResolverService.injectedByName.put('Atendimento Rebocadores', bhs[0].Id);
             BusinessHoursResolverService.injectedByName.put('Rebocadores China', bhs[0].Id);
         }
+    }
+
+    @IsTest
+    static void testOwnerComRegiaoAbreAreaEOwnerSemRegiaoEncerra() {
+        setupBusinessHoursMocks();
 
         Case c = buildRebocadoresCase(true);
 
@@ -125,13 +186,7 @@ private class AreaParticipanteRegiaoAtendimentoTest {
 
     @IsTest
     static void testOwnerSemRegiaoNuncaAbreArea() {
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
-        BusinessHoursResolverService.injectedByName.clear();
-        List<BusinessHours> bhs = [SELECT Id FROM BusinessHours WHERE IsActive = true LIMIT 1];
-        if (!bhs.isEmpty()) {
-            BusinessHoursResolverService.injectedByName.put('Atendimento Rebocadores', bhs[0].Id);
-            BusinessHoursResolverService.injectedByName.put('Rebocadores China', bhs[0].Id);
-        }
+        setupBusinessHoursMocks();
 
         Case c = buildRebocadoresCase(true);
 
@@ -152,7 +207,7 @@ private class AreaParticipanteRegiaoAtendimentoTest {
 
     @IsTest
     static void testGestaoSemDuploBusinessHoursIgnoraAutomacao() {
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
         Case c = buildRebocadoresCase(false);
 
         User chinaUser = createTestUser('chinau2', 'China');
@@ -168,5 +223,56 @@ private class AreaParticipanteRegiaoAtendimentoTest {
             WHERE Caso__c = :c.Id AND AreaAtendimento__c = 'Atendimento China'
         ];
         Assert.areEqual(0, total);
+    }
+
+    @IsTest
+    static void testBulkOwnerChangeOpensAndClosesRegionAreas() {
+        setupBusinessHoursMocks();
+        Integer totalCases = 80;
+        List<Case> casesToUpdate = buildRebocadoresCases(totalCases, true);
+        Set<Id> caseIds = new Map<Id, Case>(casesToUpdate).keySet();
+        User chinaUser = createTestUser('chinbulk', 'China');
+        User brUser = createTestUser('brbulk', null);
+
+        for (Case caseRow : casesToUpdate) {
+            caseRow.OwnerId = chinaUser.Id;
+        }
+
+        Test.startTest();
+        update casesToUpdate;
+        Test.stopTest();
+
+        Integer openedCount = [
+            SELECT COUNT()
+            FROM AreaParticipante__c
+            WHERE Caso__c IN :caseIds
+              AND AreaAtendimento__c = :AREA_CHINA
+              AND DataHoraFim__c = null
+        ];
+        Assert.areEqual(totalCases, openedCount, 'Cada Case do lote deve abrir exatamente uma area secundaria.');
+
+        for (Case caseRow : casesToUpdate) {
+            caseRow.OwnerId = brUser.Id;
+        }
+
+        update casesToUpdate;
+
+        Integer remainingOpenCount = [
+            SELECT COUNT()
+            FROM AreaParticipante__c
+            WHERE Caso__c IN :caseIds
+              AND AreaAtendimento__c = :AREA_CHINA
+              AND DataHoraFim__c = null
+        ];
+        Integer closedCount = [
+            SELECT COUNT()
+            FROM AreaParticipante__c
+            WHERE Caso__c IN :caseIds
+              AND AreaAtendimento__c = :AREA_CHINA
+              AND StatusAtuacao__c = :AreaParticipanteHelper.resolveConcluidaStatusValue()
+        ];
+
+        Assert.areEqual(0, remainingOpenCount, 'Nenhuma area secundaria deve permanecer aberta apos a troca em massa.');
+        Assert.areEqual(totalCases, closedCount, 'Todas as areas secundarias abertas pelo lote devem ser encerradas.');
     }
 }

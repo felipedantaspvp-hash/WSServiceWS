@@ -42,6 +42,6 @@ public with sharing class LightningLoginFormControllerTest {
  @IsTest
  static void testLoginHandlesInvalidCredentials() {
   String result = LightningLoginFormController.login(null, null, null);
-  Assert.areEqual(true, result == null || result.length() >= 0);
+  Assert.areEqual(true, result == null || result == Label.ExperienceAuth_GenericError);
  }
 }

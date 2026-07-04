@@ -521,8 +521,8 @@ public inherited sharing class AreaParticipanteService {
 
         Boolean caseIsStopped = false;
         if (row.Caso__c != null) {
-            List<Case> caseRows = [SELECT IsStopped FROM Case WHERE Id = :row.Caso__c LIMIT 1];
-            caseIsStopped = !caseRows.isEmpty() && caseRows[0].IsStopped == true;
+            Case caseRow = AreaParticipanteSelector.getCaseById(row.Caso__c);
+            caseIsStopped = caseRow != null && caseRow.IsStopped == true;
         }
 
         AreaParticipanteDTO.DetailDTO out = new AreaParticipanteDTO.DetailDTO();
@@ -606,7 +606,7 @@ public inherited sharing class AreaParticipanteService {
     }
 
     private static Boolean useBypassBusinessHoursInTests() {
-        return Test.isRunningTest() && AreaParticipanteSLAService.bypassBusinessHoursMathForTests == true;
+        return ApexTestSeam.getBoolean('AreaParticipanteSLAService.bypassBusinessHoursMath');
     }
 
     private static Map<String, String> getCaseAreaLabelByValue() {

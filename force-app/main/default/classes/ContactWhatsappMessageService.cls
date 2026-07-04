@@ -84,7 +84,7 @@ public with sharing class ContactWhatsappMessageService {
     }
 
     private static Set<String> getAllowedWhatsAppChannelDeveloperNames() {
-        Set<String> allowedBusinessUnits = GestaoSLAHelper.getAllowedUnidadesNegocio();
+        Set<String> allowedBusinessUnits = AtendimentoConfigService.getAllowedUnidadesNegocio();
         Set<String> channelDeveloperNames = new Set<String>();
         for (AtendimentoConfigDTO config : AtendimentoConfigService.getActiveConfigs()) {
             if (config == null || String.isBlank(config.whatsAppChannelDeveloperName)) {

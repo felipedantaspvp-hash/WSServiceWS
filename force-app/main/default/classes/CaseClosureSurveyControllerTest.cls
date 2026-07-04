@@ -119,9 +119,9 @@ private class CaseClosureSurveyControllerTest {
         request.closureReason = 'Resolvido';
         request.closureSolution = 'Forçar erro de DML.';
 
-        CaseClosureSurveyController.forceUnexpectedErrorForTest = true;
+        ApexTestSeam.set('CaseClosureSurveyController.forceUnexpectedError', true);
         CaseClosureSurveyDTO response = CaseClosureSurveyController.closeCase(request);
-        CaseClosureSurveyController.forceUnexpectedErrorForTest = false;
+        ApexTestSeam.clear('CaseClosureSurveyController.forceUnexpectedError');
 
         Assert.areEqual(Label.CaseClosureSurvey_UnexpectedControllerError, response.errorMessage);
     }

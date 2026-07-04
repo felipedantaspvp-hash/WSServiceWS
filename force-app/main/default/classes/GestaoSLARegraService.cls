@@ -37,6 +37,7 @@ public inherited sharing class GestaoSLARegraService {
         return response;
     }
 
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     public static GestaoSLADTO.RegraSLAResumo createRegraSLA(GestaoSLADTO.RegraSLARequest request) {
         GestaoSLADTO.PermissionInfo perms = GestaoSLAHelper.buildPermissionInfo();
         GestaoSLAHelper.ensureCanAccess(perms);
@@ -58,10 +59,19 @@ public inherited sharing class GestaoSLARegraService {
             TempoAlta__c = request.tempoAlta,
             Ativo__c = true
         );
-        insert row;
+        try {
+            row = (RegrasSLACategorizacao__c) GestaoSLAHelper.sanitizeForCreate(
+                row,
+                'Você não possui permissão (FLS/CRUD) para criar Regras de SLA.'
+            );
+            insert row;
+        } catch (DmlException dmx) {
+            throw new GestaoSLAService.FunctionalException(dmx.getDmlMessage(0));
+        }
         return loadRegraResumoById(row.Id);
     }
 
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     public static GestaoSLADTO.RegraSLAResumo updateRegraSLA(GestaoSLADTO.RegraSLARequest request) {
         GestaoSLADTO.PermissionInfo perms = GestaoSLAHelper.buildPermissionInfo();
         GestaoSLAHelper.ensureCanAccess(perms);
@@ -94,10 +104,19 @@ public inherited sharing class GestaoSLARegraService {
             TempoAlta__c = request.tempoAlta,
             Ativo__c = rows[0].Ativo__c
         );
-        update row;
+        try {
+            row = (RegrasSLACategorizacao__c) GestaoSLAHelper.sanitizeForUpdate(
+                row,
+                'Você não possui permissão (FLS/CRUD) para atualizar Regras de SLA.'
+            );
+            update row;
+        } catch (DmlException dmx) {
+            throw new GestaoSLAService.FunctionalException(dmx.getDmlMessage(0));
+        }
         return loadRegraResumoById(row.Id);
     }
 
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     public static GestaoSLADTO.RegraSLAResumo deactivateRegraSLA(Id regraSLAId) {
         GestaoSLADTO.PermissionInfo perms = GestaoSLAHelper.buildPermissionInfo();
         GestaoSLAHelper.ensureCanAccess(perms);
@@ -113,10 +132,19 @@ public inherited sharing class GestaoSLARegraService {
 
         RegrasSLACategorizacao__c row = rows[0];
         row.Ativo__c = false;
-        update row;
+        try {
+            row = (RegrasSLACategorizacao__c) GestaoSLAHelper.sanitizeForUpdate(
+                row,
+                'Você não possui permissão (FLS/CRUD) para atualizar Regras de SLA.'
+            );
+            update row;
+        } catch (DmlException dmx) {
+            throw new GestaoSLAService.FunctionalException(dmx.getDmlMessage(0));
+        }
         return loadRegraResumoById(row.Id);
     }
 
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     public static GestaoSLADTO.RegraSLAResumo activateRegraSLA(Id regraSLAId) {
         GestaoSLADTO.PermissionInfo perms = GestaoSLAHelper.buildPermissionInfo();
         GestaoSLAHelper.ensureCanAccess(perms);
@@ -132,7 +160,15 @@ public inherited sharing class GestaoSLARegraService {
 
         RegrasSLACategorizacao__c row = rows[0];
         row.Ativo__c = true;
-        update row;
+        try {
+            row = (RegrasSLACategorizacao__c) GestaoSLAHelper.sanitizeForUpdate(
+                row,
+                'Você não possui permissão (FLS/CRUD) para atualizar Regras de SLA.'
+            );
+            update row;
+        } catch (DmlException dmx) {
+            throw new GestaoSLAService.FunctionalException(dmx.getDmlMessage(0));
+        }
         return loadRegraResumoById(row.Id);
     }
 
@@ -142,6 +178,7 @@ public inherited sharing class GestaoSLARegraService {
         return GestaoSLAHelper.getActivePicklistValues(RegrasSLACategorizacao__c.AreaAtendimento__c);
     }
 
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     public static List<GestaoSLADTO.RegraSLAResumo> createRegrasSLABulk(List<GestaoSLADTO.RegraSLARequest> requests) {
         if (requests == null || requests.isEmpty()) return new List<GestaoSLADTO.RegraSLAResumo>();
 
@@ -203,8 +240,40 @@ public inherited sharing class GestaoSLARegraService {
             }
         }
 
-        if (!toInsert.isEmpty()) insert toInsert;
-        if (!toUpdate.isEmpty()) update toUpdate;
+        try {
+            if (!toInsert.isEmpty()) {
+                List<SObject> insertRecords = new List<SObject>();
+                for (RegrasSLACategorizacao__c rowToInsert : toInsert) {
+                    insertRecords.add(rowToInsert);
+                }
+                List<SObject> sanitizedInsert = GestaoSLAHelper.sanitizeForCreate(
+                    insertRecords,
+                    'Você não possui permissão (FLS/CRUD) para criar Regras de SLA.'
+                );
+                toInsert = new List<RegrasSLACategorizacao__c>();
+                for (SObject rowToInsert : sanitizedInsert) {
+                    toInsert.add((RegrasSLACategorizacao__c) rowToInsert);
+                }
+            }
+            if (!toUpdate.isEmpty()) {
+                List<SObject> updateRecords = new List<SObject>();
+                for (RegrasSLACategorizacao__c rowToUpdate : toUpdate) {
+                    updateRecords.add(rowToUpdate);
+                }
+                List<SObject> sanitizedUpdate = GestaoSLAHelper.sanitizeForUpdate(
+                    updateRecords,
+                    'Você não possui permissão (FLS/CRUD) para atualizar Regras de SLA.'
+                );
+                toUpdate = new List<RegrasSLACategorizacao__c>();
+                for (SObject rowToUpdate : sanitizedUpdate) {
+                    toUpdate.add((RegrasSLACategorizacao__c) rowToUpdate);
+                }
+            }
+            if (!toInsert.isEmpty()) insert toInsert;
+            if (!toUpdate.isEmpty()) update toUpdate;
+        } catch (DmlException dmx) {
+            throw new GestaoSLAService.FunctionalException(dmx.getDmlMessage(0));
+        }
 
         Set<Id> affectedIds = new Set<Id>();
         for (RegrasSLACategorizacao__c r : toInsert) affectedIds.add(r.Id);
@@ -372,7 +441,7 @@ public inherited sharing class GestaoSLARegraService {
         dto.id = row.Id;
         dto.gestaoSLAId = row.GestaoSLA__c;
         dto.categorizacaoId = row.Categorizacao__c;
-        dto.categorizacaoNome = GestaoSLACategoriaService.buildCategorizacaoLabel(row.Categorizacao__r);
+        dto.categorizacaoNome = GestaoSLAHelper.buildCategorizacaoLabel(row.Categorizacao__r);
         dto.marcoSLAId = row.MarcoSLA__c;
         dto.marcoNome = row.MarcoSLA__r == null
             ? null

@@ -174,7 +174,7 @@ private class AreaParticipanteMilestoneSyncServiceTest {
     static void syncByCaseIds_insereNovoRegistro() {
         Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(null, null);
         String cmId = fakeCmId(20);
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
 
         AreaParticipanteMilestoneSyncService.mockMilestonesForSync = new List<CaseMilestone>{
             makeMock(cmId, c.Id, 'Triagem',
@@ -202,7 +202,7 @@ private class AreaParticipanteMilestoneSyncServiceTest {
     static void syncByCaseIds_idempotencia_naoduplicaSegundaChamada() {
         Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(null, null);
         String cmId = fakeCmId(21);
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
 
         List<CaseMilestone> mocks = new List<CaseMilestone>{
             makeMock(cmId, c.Id, 'Atendimento',
@@ -225,7 +225,7 @@ private class AreaParticipanteMilestoneSyncServiceTest {
     static void syncByCaseIds_preservaRegistroCustom() {
         Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(null, null);
         String cmId = fakeCmId(22);
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
 
         AreaParticipante__c custom = new AreaParticipante__c(
             Caso__c                 = c.Id,
@@ -267,7 +267,7 @@ private class AreaParticipanteMilestoneSyncServiceTest {
         // Área Interna — NUNCA gera Área Participante automaticamente. Decisão de negócio
         // definitiva (21/06): Área Interna é sempre assistida (ação manual do atendente).
         Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(null, null);
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
 
         AreaParticipanteMilestoneSyncService.mockMilestonesForSync = new List<CaseMilestone>{
             makeMock(fakeCmId(23), c.Id, 'Atendimento N3',
@@ -286,7 +286,7 @@ private class AreaParticipanteMilestoneSyncServiceTest {
     static void syncByCaseMilestoneIds_inserePorMilestoneId() {
         Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(null, null);
         String cmId = fakeCmId(30);
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
 
         AreaParticipanteMilestoneSyncService.mockMilestonesForSync = new List<CaseMilestone>{
             makeMock(cmId, c.Id, 'SLA Total',
@@ -322,7 +322,7 @@ private class AreaParticipanteMilestoneSyncServiceTest {
     static void syncByCaseIds_milestoneConcluidoComViolacao_statusVencido() {
         Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(null, null);
         String cmId = fakeCmId(40);
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
 
         AreaParticipanteMilestoneSyncService.mockMilestonesForSync = new List<CaseMilestone>{
             makeMock(cmId, c.Id, 'Atendimento',
@@ -344,7 +344,7 @@ private class AreaParticipanteMilestoneSyncServiceTest {
     static void syncByCaseIds_atualizaRegistroExistente() {
         Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(null, null);
         String cmId = fakeCmId(50);
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
 
         AreaParticipanteMilestoneSyncService.mockMilestonesForSync = new List<CaseMilestone>{
             makeMock(cmId, c.Id, 'Triagem',

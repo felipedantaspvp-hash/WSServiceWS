@@ -44,7 +44,7 @@ private class RegrasSLACategorizacaoSelectorTest {
 
         RegrasSLACategorizacao__c activeRule = new RegrasSLACategorizacao__c(
             Categorizacao__c = categ.Id,
-            TipoAreaParticipante__c = AreaParticipanteSLAHelper.tipoAreaInternaApiValue(),
+            TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
             AreaAtendimento__c = area,
             BusinessHoursName__c = 'Atendimento Salvador',
             Ativo__c = true,
@@ -88,7 +88,7 @@ private class RegrasSLACategorizacaoSelectorTest {
         for (Integer i = 0; i < 2; i++) {
             inserts.add(new RegrasSLACategorizacao__c(
                 Categorizacao__c = categ.Id,
-                TipoAreaParticipante__c = AreaParticipanteSLAHelper.tipoAreaInternaApiValue(),
+                TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
                 AreaAtendimento__c = areas[Math.mod(i, areas.size())],
                 BusinessHoursName__c = 'Atendimento Salvador',
                 Ativo__c = true,
@@ -101,7 +101,7 @@ private class RegrasSLACategorizacaoSelectorTest {
         }
         insert inserts;
 
-        Set<String> tipos = new Set<String>{ AreaParticipanteSLAHelper.tipoAreaInternaApiValue() };
+        Set<String> tipos = new Set<String>{ AreaParticipanteSLAHelper.TIPO_AREA_INTERNA };
         Set<String> areasSet = new Set<String>{ inserts[0].AreaAtendimento__c, inserts[1].AreaAtendimento__c };
 
         List<RegrasSLACategorizacao__c> found = RegrasSLACategorizacaoSelector.findActiveRules(
@@ -134,7 +134,7 @@ private class RegrasSLACategorizacaoSelectorTest {
 
         RegrasSLACategorizacao__c rule = new RegrasSLACategorizacao__c(
             Categorizacao__c = categ.Id,
-            TipoAreaParticipante__c = AreaParticipanteSLAHelper.tipoAreaInternaApiValue(),
+            TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
             AreaAtendimento__c = area,
             BusinessHoursName__c = 'Atendimento Salvador',
             Ativo__c = true,

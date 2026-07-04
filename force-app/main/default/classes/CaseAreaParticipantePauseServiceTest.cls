@@ -40,13 +40,13 @@ private class CaseAreaParticipantePauseServiceTest {
                 return entry.getValue();
             }
         }
-        return AreaParticipanteSLAHelper.tipoAreaInternaApiValue();
+        return AreaParticipanteSLAHelper.TIPO_AREA_INTERNA;
     }
 
     private static AreaParticipante__c createOpenArea(Case c, String area) {
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
         return TestDataFactory.createAreaParticipante(c.Id, new Map<String, Object>{
-            'TipoAreaParticipante__c' => AreaParticipanteSLAHelper.tipoAreaInternaApiValue(),
+            'TipoAreaParticipante__c' => AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
             'AreaAtendimento__c' => area,
             'StatusAtuacao__c' => AreaParticipanteSLAHelper.STATUS_ATUACAO_ABERTA,
             'ComentarioSolicitacao__c' => 'pause test'
@@ -55,7 +55,7 @@ private class CaseAreaParticipantePauseServiceTest {
 
     @IsTest
     static void testPauseOnEnteringAguardandoCliente() {
-        CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('CaseAreaParticipantePauseService.bypassBusinessHoursMath', true);
         String area = TestDataFactory.commonAreaValues()[0];
         Categorizacao__c categ = createCategorizacao();
         Case c = createCaseWithoutSla(area, null);
@@ -69,7 +69,7 @@ private class CaseAreaParticipantePauseServiceTest {
         Case oldCase = (Case) c.clone(true, true, true, true);
         oldCase.EtapaAtendimento__c = 'Em Atendimento';
         Case newCase = (Case) c.clone(true, true, true, true);
-        newCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.etapaAguardandoCliente();
+        newCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.ETAPA_AGUARDANDO_CLIENTE;
 
         Test.startTest();
         CaseAreaParticipantePauseService.handleEtapaChanges(
@@ -93,8 +93,8 @@ private class CaseAreaParticipantePauseServiceTest {
 
     @IsTest
     static void testResumeRestoresStatusAndDeadlineAndSlaStatus() {
-        CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('CaseAreaParticipantePauseService.bypassBusinessHoursMath', true);
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
         String area = TestDataFactory.commonAreaValues()[0];
         Categorizacao__c categ = createCategorizacao();
         Case c = createCaseWithoutSla(area, null);
@@ -115,7 +115,7 @@ private class CaseAreaParticipantePauseServiceTest {
         update ap;
 
         Case oldCase = (Case) c.clone(true, true, true, true);
-        oldCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.etapaAguardandoCliente();
+        oldCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.ETAPA_AGUARDANDO_CLIENTE;
         Case newCase = (Case) c.clone(true, true, true, true);
         newCase.EtapaAtendimento__c = 'Em Atendimento';
 
@@ -144,8 +144,8 @@ private class CaseAreaParticipantePauseServiceTest {
 
     @IsTest
     static void testResumeKeepsVencidoWhenStillOverdue() {
-        CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('CaseAreaParticipantePauseService.bypassBusinessHoursMath', true);
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
         String area = TestDataFactory.commonAreaValues()[0];
         Categorizacao__c categ = createCategorizacao();
         Case c = createCaseWithoutSla(area, null);
@@ -165,7 +165,7 @@ private class CaseAreaParticipantePauseServiceTest {
         update ap;
 
         Case oldCase = (Case) c.clone(true, true, true, true);
-        oldCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.etapaAguardandoCliente();
+        oldCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.ETAPA_AGUARDANDO_CLIENTE;
         Case newCase = (Case) c.clone(true, true, true, true);
         newCase.EtapaAtendimento__c = 'Em Atendimento';
 
@@ -187,8 +187,8 @@ private class CaseAreaParticipantePauseServiceTest {
 
     @IsTest
     static void testPauseSkipsNonInternalAndAlreadyPausedRows() {
-        CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('CaseAreaParticipantePauseService.bypassBusinessHoursMath', true);
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
         String area = TestDataFactory.commonAreaValues()[0];
         Categorizacao__c categ = createCategorizacao();
         Case c = createCaseWithoutSla(area, null);
@@ -205,7 +205,7 @@ private class CaseAreaParticipantePauseServiceTest {
             'ComentarioSolicitacao__c' => 'skip non internal'
         });
         AreaParticipante__c alreadyPaused = TestDataFactory.buildAreaParticipante(c.Id, new Map<String, Object>{
-            'TipoAreaParticipante__c' => AreaParticipanteSLAHelper.tipoAreaInternaApiValue(),
+            'TipoAreaParticipante__c' => AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
             'AreaAtendimento__c' => area,
             'StatusAtuacao__c' => AreaParticipanteSLAHelper.STATUS_ATUACAO_PAUSADA,
             'StatusSLA__c' => AreaParticipanteSLAHelper.STATUS_SLA_PAUSADO,
@@ -216,7 +216,7 @@ private class CaseAreaParticipantePauseServiceTest {
         Case oldCase = (Case) c.clone(true, true, true, true);
         oldCase.EtapaAtendimento__c = 'Em Atendimento';
         Case newCase = (Case) c.clone(true, true, true, true);
-        newCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.etapaAguardandoCliente();
+        newCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.ETAPA_AGUARDANDO_CLIENTE;
 
         Test.startTest();
         CaseAreaParticipantePauseService.handleEtapaChanges(
@@ -237,8 +237,8 @@ private class CaseAreaParticipantePauseServiceTest {
 
     @IsTest
     static void testResumeUsesAndamentoWhenPreviousStatusIsBlank() {
-        CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('CaseAreaParticipantePauseService.bypassBusinessHoursMath', true);
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
         String area = TestDataFactory.commonAreaValues()[0];
         Categorizacao__c categ = createCategorizacao();
         Case c = createCaseWithoutSla(area, null);
@@ -258,7 +258,7 @@ private class CaseAreaParticipantePauseServiceTest {
         update ap;
 
         Case oldCase = (Case) c.clone(true, true, true, true);
-        oldCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.etapaAguardandoCliente();
+        oldCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.ETAPA_AGUARDANDO_CLIENTE;
         Case newCase = (Case) c.clone(true, true, true, true);
         newCase.EtapaAtendimento__c = 'Em Atendimento';
 
@@ -283,8 +283,8 @@ private class CaseAreaParticipantePauseServiceTest {
 
     @IsTest
     static void testPauseEnterSetsMilestonePauseField() {
-        CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
-        CaseAreaParticipantePauseService.bypassCaseMilestoneDmlInTests = false;
+        ApexTestSeam.set('CaseAreaParticipantePauseService.bypassBusinessHoursMath', true);
+        ApexTestSeam.clear('CaseAreaParticipantePauseService.bypassCaseMilestoneDml');
         Case c = createCaseWithoutSla(
             TestDataFactory.commonAreaValues()[0], null
         );
@@ -292,7 +292,7 @@ private class CaseAreaParticipantePauseServiceTest {
         Case oldCase = (Case) c.clone(true, true, true, true);
         oldCase.EtapaAtendimento__c = 'Em Atendimento';
         Case newCase = (Case) c.clone(true, true, true, true);
-        newCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.etapaAguardandoCliente();
+        newCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.ETAPA_AGUARDANDO_CLIENTE;
 
         Test.startTest();
         CaseAreaParticipantePauseService.handleEtapaChanges(
@@ -307,8 +307,8 @@ private class CaseAreaParticipantePauseServiceTest {
 
     @IsTest
     static void testResumeExitClearsMilestonePauseField() {
-        CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
-        CaseAreaParticipantePauseService.bypassCaseMilestoneDmlInTests = false;
+        ApexTestSeam.set('CaseAreaParticipantePauseService.bypassBusinessHoursMath', true);
+        ApexTestSeam.clear('CaseAreaParticipantePauseService.bypassCaseMilestoneDml');
         Case c = createCaseWithoutSla(
             TestDataFactory.commonAreaValues()[0], null
         );
@@ -317,7 +317,7 @@ private class CaseAreaParticipantePauseServiceTest {
         update c;
 
         Case oldCase = (Case) c.clone(true, true, true, true);
-        oldCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.etapaAguardandoCliente();
+        oldCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.ETAPA_AGUARDANDO_CLIENTE;
         Case newCase = (Case) c.clone(true, true, true, true);
         newCase.EtapaAtendimento__c = 'Em Atendimento';
 
@@ -334,8 +334,8 @@ private class CaseAreaParticipantePauseServiceTest {
 
     @IsTest
     static void testBypassSkipsCaseMilestoneDml() {
-        CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
-        CaseAreaParticipantePauseService.bypassCaseMilestoneDmlInTests = true;
+        ApexTestSeam.set('CaseAreaParticipantePauseService.bypassBusinessHoursMath', true);
+        ApexTestSeam.set('CaseAreaParticipantePauseService.bypassCaseMilestoneDml', true);
         Case c = createCaseWithoutSla(
             TestDataFactory.commonAreaValues()[0], null
         );
@@ -343,7 +343,7 @@ private class CaseAreaParticipantePauseServiceTest {
         Case oldCase = (Case) c.clone(true, true, true, true);
         oldCase.EtapaAtendimento__c = 'Em Atendimento';
         Case newCase = (Case) c.clone(true, true, true, true);
-        newCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.etapaAguardandoCliente();
+        newCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.ETAPA_AGUARDANDO_CLIENTE;
 
         Test.startTest();
         CaseAreaParticipantePauseService.handleEtapaChanges(
@@ -358,7 +358,7 @@ private class CaseAreaParticipantePauseServiceTest {
 
     @IsTest
     static void testNoOpWhenRecursionGuardIsAlreadyEntered() {
-        CaseAreaParticipantePauseService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('CaseAreaParticipantePauseService.bypassBusinessHoursMath', true);
         String area = TestDataFactory.commonAreaValues()[0];
         Categorizacao__c categ = createCategorizacao();
         Case c = createCaseWithoutSla(area, null);
@@ -372,7 +372,7 @@ private class CaseAreaParticipantePauseServiceTest {
         Case oldCase = (Case) c.clone(true, true, true, true);
         oldCase.EtapaAtendimento__c = 'Em Atendimento';
         Case newCase = (Case) c.clone(true, true, true, true);
-        newCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.etapaAguardandoCliente();
+        newCase.EtapaAtendimento__c = AreaParticipanteSLAHelper.ETAPA_AGUARDANDO_CLIENTE;
 
         AreaParticipanteSLARecursionGuard.enter('CASE_PAUSE_RESUME');
         try {

@@ -8,7 +8,6 @@
  * @last modified by  : Jean Duarte
  **/
 public inherited sharing class AreaParticipanteController {
-    @TestVisible static Exception testException;
 
     private static Boolean isEnglish() {
         String lang = UserInfo.getLanguage();
@@ -22,7 +21,7 @@ public inherited sharing class AreaParticipanteController {
     @AuraEnabled
     public static AreaParticipanteDTO.PanelDTO getPanelData(Id caseId) {
         try {
-            if (Test.isRunningTest() && testException != null) throw testException;
+            Exception forcedException = ApexTestSeam.getException('AreaParticipanteController.testException'); if (forcedException != null) throw forcedException;
             return AreaParticipanteService.getPanelData(caseId);
         } catch (AreaParticipanteService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
@@ -39,7 +38,7 @@ public inherited sharing class AreaParticipanteController {
     @AuraEnabled
     public static AreaParticipanteDTO.CloseResponseDTO closeParticipation(AreaParticipanteDTO.CloseRequestDTO request) {
         try {
-            if (Test.isRunningTest() && testException != null) throw testException;
+            Exception forcedException = ApexTestSeam.getException('AreaParticipanteController.testException'); if (forcedException != null) throw forcedException;
             return AreaParticipanteService.closeParticipation(request);
         } catch (AreaParticipanteService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
@@ -51,7 +50,7 @@ public inherited sharing class AreaParticipanteController {
     @AuraEnabled
     public static AreaParticipanteDTO.PauseResumeResponseDTO pauseParticipation(AreaParticipanteDTO.PauseResumeRequestDTO request) {
         try {
-            if (Test.isRunningTest() && testException != null) throw testException;
+            Exception forcedException = ApexTestSeam.getException('AreaParticipanteController.testException'); if (forcedException != null) throw forcedException;
             return AreaParticipanteService.pauseParticipation(request);
         } catch (AreaParticipanteService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
@@ -63,7 +62,7 @@ public inherited sharing class AreaParticipanteController {
     @AuraEnabled
     public static AreaParticipanteDTO.PauseResumeResponseDTO resumeParticipation(AreaParticipanteDTO.PauseResumeRequestDTO request) {
         try {
-            if (Test.isRunningTest() && testException != null) throw testException;
+            Exception forcedException = ApexTestSeam.getException('AreaParticipanteController.testException'); if (forcedException != null) throw forcedException;
             return AreaParticipanteService.resumeParticipation(request);
         } catch (AreaParticipanteService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
@@ -75,7 +74,7 @@ public inherited sharing class AreaParticipanteController {
     @AuraEnabled(cacheable=true)
     public static AreaParticipanteDTO.DetailDTO getParticipationDetails(Id areaParticipanteId) {
         try {
-            if (Test.isRunningTest() && testException != null) throw testException;
+            Exception forcedException = ApexTestSeam.getException('AreaParticipanteController.testException'); if (forcedException != null) throw forcedException;
             return AreaParticipanteService.getParticipationDetails(areaParticipanteId);
         } catch (AreaParticipanteService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
@@ -87,7 +86,7 @@ public inherited sharing class AreaParticipanteController {
     @AuraEnabled
     public static AreaParticipanteDTO.AddResponseDTO addParticipation(AreaParticipanteDTO.AddRequestDTO request) {
         try {
-            if (Test.isRunningTest() && testException != null) throw testException;
+            Exception forcedException = ApexTestSeam.getException('AreaParticipanteController.testException'); if (forcedException != null) throw forcedException;
             return AreaParticipanteService.addParticipation(request);
         } catch (AreaParticipanteService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
@@ -105,7 +104,7 @@ public inherited sharing class AreaParticipanteController {
     @AuraEnabled
     public static AreaParticipanteDTO.AddBulkResponseDTO addParticipationBulk(AreaParticipanteDTO.AddBulkRequestDTO request) {
         try {
-            if (Test.isRunningTest() && testException != null) throw testException;
+            Exception forcedException = ApexTestSeam.getException('AreaParticipanteController.testException'); if (forcedException != null) throw forcedException;
             return AreaParticipanteService.addParticipationBulk(request);
         } catch (AreaParticipanteService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());

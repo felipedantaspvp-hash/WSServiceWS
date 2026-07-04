@@ -45,7 +45,7 @@ private class CaseMilestoneSyncQueueableTest {
     @IsTest
     static void testAfterInsertCriaMilestoneSync() {
         Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(null, null);
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
         CaseMilestoneSyncQueueable.bypassEnqueueForTests = true;
 
         String cmId = fakeCmId(1);
@@ -77,7 +77,7 @@ private class CaseMilestoneSyncQueueableTest {
     @IsTest
     static void testAfterInsertIdempotente() {
         Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(null, null);
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
         CaseMilestoneSyncQueueable.bypassEnqueueForTests = true;
 
         String cmId = fakeCmId(2);
@@ -110,7 +110,7 @@ private class CaseMilestoneSyncQueueableTest {
     @IsTest
     static void testQueueableExecuteSyncByCaseIds() {
         Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(null, null);
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
 
         String cmId = fakeCmId(3);
         CaseMilestone mockCm = makeMock(cmId, c.Id, 'SLA Total',
@@ -154,7 +154,7 @@ private class CaseMilestoneSyncQueueableTest {
         Case c1 = AreaParticipanteTestDataFactory.createCaseWithoutSla(null, null);
         Case c2 = AreaParticipanteTestDataFactory.createCaseWithoutSla(null, null);
         Case c3 = AreaParticipanteTestDataFactory.createCaseWithoutSla(null, null);
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
         CaseMilestoneSyncQueueable.bypassEnqueueForTests = true;
 
         String cmId1 = fakeCmId(51);
@@ -188,7 +188,7 @@ private class CaseMilestoneSyncQueueableTest {
     @IsTest
     static void testCustomManualNaoAfetado() {
         Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(null, null);
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
         CaseMilestoneSyncQueueable.bypassEnqueueForTests = true;
 
         String cmId = fakeCmId(61);

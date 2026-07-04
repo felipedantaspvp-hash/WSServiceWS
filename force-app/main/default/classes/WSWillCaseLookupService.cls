@@ -8,20 +8,7 @@ public inherited sharing class WSWillCaseLookupService {
             String normalized = WSWillCaseLookupHelper.normalizeCaseNumber(req == null ? null : req.caseNumber);
             if (!String.isBlank(normalized)) caseNumberSet.add(normalized);
         }
-        List<String> caseNumbers = new List<String>(caseNumberSet);
-
-        Map<String, Case> caseByNumber = new Map<String, Case>();
-        if (!caseNumbers.isEmpty()) {
-            for (Case c : [
-                SELECT Id, CaseNumber, Status, TipoCaso__c, Categoria__c, Assunto__c,
-                       EtapaAtendimento__c, ContactId, AccountId
-                FROM Case
-                WHERE CaseNumber IN :caseNumbers
-                WITH USER_MODE
-            ]) {
-                caseByNumber.put(c.CaseNumber, c);
-            }
-        }
+        Map<String, Case> caseByNumber = WSWillCaseLookupSelector.selectCasesByCaseNumbers(caseNumberSet);
 
         for (WSWillCaseLookupDTO.Request req : requests) {
             WSWillCaseLookupDTO.Response res = new WSWillCaseLookupDTO.Response();
@@ -38,7 +25,7 @@ public inherited sharing class WSWillCaseLookupService {
             }
 
             Case found = caseByNumber.get(requestedNumber);
-            if (found == null) {
+            if (found == null || !ownsCase(found, req)) {
                 res.statusCode = 'CASE_NOT_FOUND';
                 res.message = 'Caso não encontrado.';
                 out.add(res);
@@ -63,6 +50,12 @@ public inherited sharing class WSWillCaseLookupService {
         }
 
         return out;
+    }
+
+    private static Boolean ownsCase(Case found, WSWillCaseLookupDTO.Request req) {
+        Boolean contactMatches = req.contactId != null && req.contactId == found.ContactId;
+        Boolean accountMatches = req.accountId != null && req.accountId == found.AccountId;
+        return contactMatches || accountMatches;
     }
 
     @TestVisible

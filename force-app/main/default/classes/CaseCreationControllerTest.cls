@@ -67,12 +67,12 @@ private class CaseCreationControllerTest {
 
     @IsTest
     static void testBuildDefaultValuesGenericException() {
-        CaseCreationController.testException = new IllegalArgumentException('forced');
+        ApexTestSeam.set('CaseCreationController.testException', new IllegalArgumentException('forced'));
         CaseCreationDTO.BuildDefaultValuesRequestDTO req = new CaseCreationDTO.BuildDefaultValuesRequestDTO();
         Test.startTest();
         CaseCreationDTO.BuildDefaultValuesResponseDTO out = CaseCreationController.buildDefaultValues(req);
         Test.stopTest();
-        CaseCreationController.testException = null;
+        ApexTestSeam.clear('CaseCreationController.testException');
         Assert.areEqual(false, out.success);
         Assert.areEqual('UNEXPECTED_ERROR', out.error.code);
     }

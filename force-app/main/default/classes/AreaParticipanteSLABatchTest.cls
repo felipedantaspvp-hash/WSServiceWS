@@ -7,7 +7,7 @@ private class AreaParticipanteSLABatchTest {
     }
 
     private static void enableDeterministicBusinessHoursMath() {
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
         BusinessHoursResolverService.injectedByName.clear();
     }
 

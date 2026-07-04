@@ -6,8 +6,8 @@
  * @last modified by  : Jean Duarte
  **/
 public inherited sharing class CaseAreaParticipantePauseService {
-    @TestVisible public static Boolean bypassBusinessHoursMathForTests = false;
-    @TestVisible public static Boolean bypassCaseMilestoneDmlInTests = false;
+    private static final String BUSINESS_HOURS_BYPASS_KEY = 'CaseAreaParticipantePauseService.bypassBusinessHoursMath';
+    private static final String MILESTONE_DML_BYPASS_KEY = 'CaseAreaParticipantePauseService.bypassCaseMilestoneDml';
 
     public static void handleEtapaChanges(Map<Id, Case> newMap, Map<Id, Case> oldMap){
         if (!AreaParticipanteSLARecursionGuard.enter('CASE_PAUSE_RESUME')) return;
@@ -44,7 +44,7 @@ public inherited sharing class CaseAreaParticipantePauseService {
                 }
 
                 // Pausa os Milestones nativos do Entitlement Process (stop the clock) e registra o marcador de rastreamento
-                if (!(Test.isRunningTest() && bypassCaseMilestoneDmlInTests)) {
+                if (!ApexTestSeam.getBoolean(MILESTONE_DML_BYPASS_KEY)) {
                     Datetime pauseStart = System.now();
                     for (Id caseId : entered) {
                         caseUpdates.add(new Case(Id = caseId, IsStopped = true, DataHoraPausaMilestone__c = pauseStart));
@@ -96,7 +96,7 @@ public inherited sharing class CaseAreaParticipantePauseService {
                 }
 
                 // Retoma os Milestones nativos do Entitlement Process e limpa o marcador de pausa
-                if (!(Test.isRunningTest() && bypassCaseMilestoneDmlInTests)) {
+                if (!ApexTestSeam.getBoolean(MILESTONE_DML_BYPASS_KEY)) {
                     for (Id caseId : exited) {
                         caseUpdates.add(new Case(Id = caseId, IsStopped = false, DataHoraPausaMilestone__c = null));
                     }
@@ -115,6 +115,6 @@ public inherited sharing class CaseAreaParticipantePauseService {
     }
 
     private static Boolean useBypassBusinessHoursInTests() {
-        return Test.isRunningTest() && bypassBusinessHoursMathForTests == true;
+        return ApexTestSeam.getBoolean(BUSINESS_HOURS_BYPASS_KEY);
     }
 }

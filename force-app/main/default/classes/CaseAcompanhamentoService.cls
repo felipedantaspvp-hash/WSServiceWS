@@ -15,8 +15,6 @@ public inherited sharing class CaseAcompanhamentoService {
     @TestVisible private static final String ETAPA_CONCLUIDO = 'Concluído';
     @TestVisible private static final String ETAPA_AGUARDANDO_CLIENTE = 'Aguardando Cliente';
     @TestVisible private static final String MOTIVO_AGUARDANDO_CLIENTE = 'Aguardando cliente';
-    @TestVisible private static Boolean bypassAccessChecksForTests = false;
-    @TestVisible private static Boolean forceAccessDeniedForTests = false;
 
     private static final Map<String, String> REASON_LABELS_BY_VALUE = new Map<String, String>{
         'Operação externa' => Label.Acao_Acompanhamento_MotivoOperacaoExterna,
@@ -348,10 +346,10 @@ public inherited sharing class CaseAcompanhamentoService {
     }
 
     private static void validateAccess() {
-        if (Test.isRunningTest() && bypassAccessChecksForTests == true) {
+        if (ApexTestSeam.getBoolean('CaseAcompanhamentoService.bypassAccessChecks')) {
             return;
         }
-        if (Test.isRunningTest() && forceAccessDeniedForTests == true) {
+        if (ApexTestSeam.getBoolean('CaseAcompanhamentoService.forceAccessDenied')) {
             throwFunctional('FORCED_ACCESS_DENIED', Label.Acao_Acompanhamento_ErroPermissao);
         }
         if (!Schema.sObjectType.Case.isAccessible() || !Schema.sObjectType.Case.isUpdateable()) {
@@ -364,10 +362,10 @@ public inherited sharing class CaseAcompanhamentoService {
     }
 
     private static void validateReadAccess() {
-        if (Test.isRunningTest() && bypassAccessChecksForTests == true) {
+        if (ApexTestSeam.getBoolean('CaseAcompanhamentoService.bypassAccessChecks')) {
             return;
         }
-        if (Test.isRunningTest() && forceAccessDeniedForTests == true) {
+        if (ApexTestSeam.getBoolean('CaseAcompanhamentoService.forceAccessDenied')) {
             throwFunctional('FORCED_ACCESS_DENIED', Label.Acao_Acompanhamento_ErroPermissao);
         }
         if (!Schema.sObjectType.Case.isAccessible() || !Schema.sObjectType.Acao__c.isAccessible()) {
@@ -397,7 +395,7 @@ public inherited sharing class CaseAcompanhamentoService {
 
     private static void validateResumeAccess() {
         validateReadAccess();
-        if (Test.isRunningTest() && bypassAccessChecksForTests == true) {
+        if (ApexTestSeam.getBoolean('CaseAcompanhamentoService.bypassAccessChecks')) {
             return;
         }
         if (!Schema.sObjectType.Case.isUpdateable() || !Schema.sObjectType.Acao__c.isUpdateable()) {

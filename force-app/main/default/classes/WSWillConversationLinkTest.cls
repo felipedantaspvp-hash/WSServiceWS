@@ -124,7 +124,7 @@ private class WSWillConversationLinkTest {
         WSWillConversationLinkService.testCaseById = new Map<Id, Case>{ cs.Id => cs };
         WSWillConversationLinkService.testMessagingById = new Map<Id, MessagingSession>{ FAKE_MESSAGING_ID => ms };
         WSWillConversationLinkService.testLiveChatById = new Map<Id, LiveChatTranscript>();
-        WSWillConversationLinkService.bypassDmlInTests = true;
+        ApexTestSeam.set('WSWillConversationLinkService.bypassDml', true);
 
         WSWillConversationLinkDTO.Request req = new WSWillConversationLinkDTO.Request();
         req.caseId = cs.Id;
@@ -139,7 +139,7 @@ private class WSWillConversationLinkTest {
         WSWillConversationLinkService.testCaseById = null;
         WSWillConversationLinkService.testMessagingById = null;
         WSWillConversationLinkService.testLiveChatById = null;
-        WSWillConversationLinkService.bypassDmlInTests = false;
+        ApexTestSeam.clear('WSWillConversationLinkService.bypassDml');
 
         Assert.areEqual(1, res.size());
         Assert.areEqual(true, res[0].success);
@@ -148,7 +148,7 @@ private class WSWillConversationLinkTest {
 
     @IsTest
     static void shouldReturnUnexpectedErrorWhenServiceThrows() {
-        WSWillConversationLinkService.throwExceptionForTest = true;
+        ApexTestSeam.set('WSWillConversationLinkService.throwException', true);
 
         Test.startTest();
         List<WSWillConversationLinkDTO.Response> res = WSWillConversationLinkInvocable.link(
@@ -156,7 +156,7 @@ private class WSWillConversationLinkTest {
         );
         Test.stopTest();
 
-        WSWillConversationLinkService.throwExceptionForTest = false;
+        ApexTestSeam.clear('WSWillConversationLinkService.throwException');
 
         Assert.areEqual(1, res.size());
         Assert.areEqual(false, res[0].success);
@@ -174,7 +174,7 @@ private class WSWillConversationLinkTest {
         WSWillConversationLinkService.testCaseById = new Map<Id, Case>{ cs.Id => cs };
         WSWillConversationLinkService.testMessagingById = new Map<Id, MessagingSession>();
         WSWillConversationLinkService.testLiveChatById = new Map<Id, LiveChatTranscript>{ FAKE_LIVE_CHAT_ID => lct };
-        WSWillConversationLinkService.bypassDmlInTests = true;
+        ApexTestSeam.set('WSWillConversationLinkService.bypassDml', true);
 
         WSWillConversationLinkDTO.Request req = new WSWillConversationLinkDTO.Request();
         req.caseId = cs.Id;
@@ -189,7 +189,7 @@ private class WSWillConversationLinkTest {
         WSWillConversationLinkService.testCaseById = null;
         WSWillConversationLinkService.testMessagingById = null;
         WSWillConversationLinkService.testLiveChatById = null;
-        WSWillConversationLinkService.bypassDmlInTests = false;
+        ApexTestSeam.clear('WSWillConversationLinkService.bypassDml');
 
         Assert.areEqual(1, res.size());
         Assert.areEqual(true, res[0].success);

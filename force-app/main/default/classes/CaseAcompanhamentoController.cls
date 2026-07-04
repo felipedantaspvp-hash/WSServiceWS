@@ -6,7 +6,6 @@
  * @last modified by Marllon Nascimento
  */
 public inherited sharing class CaseAcompanhamentoController {
-    @TestVisible private static Boolean forceUnexpectedErrorForTest = false;
 
     /**
      * Busca os dados de acompanhamento do Case para exibição em banner.
@@ -17,13 +16,14 @@ public inherited sharing class CaseAcompanhamentoController {
     @AuraEnabled(cacheable=true)
     public static CaseAcompanhamentoDTO getAcompanhamentoData(Id caseId) {
         try {
-            if (Test.isRunningTest() && forceUnexpectedErrorForTest == true) {
+            if (ApexTestSeam.getBoolean('CaseAcompanhamentoController.forceUnexpectedError')) {
                 throw new UnexpectedControllerException('Erro forçado para cobertura do catch genérico.');
             }
             return CaseAcompanhamentoService.getAcompanhamentoData(caseId);
         } catch (CaseAcompanhamentoService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         } catch (Exception ex) {
+            CaseControllerLogHelper.logUnexpectedError('CaseAcompanhamentoController.getAcompanhamentoData', 'Case', caseId, ex);
             throw new AuraHandledException(Label.Acao_Acompanhamento_ErroInesperado);
         }
     }
@@ -39,13 +39,14 @@ public inherited sharing class CaseAcompanhamentoController {
     @AuraEnabled
     public static CaseAcompanhamentoDTO entrarEmAcompanhamento(Id caseId, String motivo, String comentarioEntrada) {
         try {
-            if (Test.isRunningTest() && forceUnexpectedErrorForTest == true) {
+            if (ApexTestSeam.getBoolean('CaseAcompanhamentoController.forceUnexpectedError')) {
                 throw new UnexpectedControllerException('Erro forçado para cobertura do catch genérico.');
             }
             return CaseAcompanhamentoService.entrarEmAcompanhamento(caseId, motivo, comentarioEntrada);
         } catch (CaseAcompanhamentoService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         } catch (Exception ex) {
+            CaseControllerLogHelper.logUnexpectedError('CaseAcompanhamentoController.entrarEmAcompanhamento', 'Case', caseId, ex);
             throw new AuraHandledException(Label.Acao_Acompanhamento_ErroInesperado);
         }
     }
@@ -60,13 +61,14 @@ public inherited sharing class CaseAcompanhamentoController {
     @AuraEnabled
     public static CaseAcompanhamentoDTO retomarAtendimento(Id caseId, String comentarioSaida) {
         try {
-            if (Test.isRunningTest() && forceUnexpectedErrorForTest == true) {
+            if (ApexTestSeam.getBoolean('CaseAcompanhamentoController.forceUnexpectedError')) {
                 throw new UnexpectedControllerException('Erro forçado para cobertura do catch genérico.');
             }
             return CaseAcompanhamentoService.retomarAtendimento(caseId, comentarioSaida);
         } catch (CaseAcompanhamentoService.FunctionalException ex) {
             throw new AuraHandledException(ex.getMessage());
         } catch (Exception ex) {
+            CaseControllerLogHelper.logUnexpectedError('CaseAcompanhamentoController.retomarAtendimento', 'Case', caseId, ex);
             throw new AuraHandledException(Label.Acao_Acompanhamento_ErroInesperado);
         }
     }

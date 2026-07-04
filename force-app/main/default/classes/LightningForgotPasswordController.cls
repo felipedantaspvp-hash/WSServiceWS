@@ -1,4 +1,5 @@
 global class LightningForgotPasswordController {
+    private static final String GENERIC_PUBLIC_ERROR = Label.ExperienceAuth_GenericError;
 
     public LightningForgotPasswordController() {
 
@@ -16,7 +17,7 @@ global class LightningForgotPasswordController {
             return null;
         }
         catch (Exception ex) {
-            return ex.getMessage();
+            return logAndReturnFriendlyError('LightningForgotPasswordController.forgotPassword', ex);
         }
     }
 
@@ -29,7 +30,12 @@ global class LightningForgotPasswordController {
             }
             return null; 
         } catch (Exception ex) {
-            return ex.getMessage();            
+            return logAndReturnFriendlyError('LightningForgotPasswordController.setExperienceId', ex);
         }        
-    } 
+    }
+
+    private static String logAndReturnFriendlyError(String context, Exception ex) {
+        System.debug(LoggingLevel.ERROR, context + ': ' + ex.getTypeName() + ' - ' + ex.getMessage() + '\n' + ex.getStackTraceString());
+        return GENERIC_PUBLIC_ERROR;
+    }
 }

@@ -133,10 +133,10 @@ public inherited sharing class WS_EmailToCaseCustomerResolutionService {
         Map<String, Schema.SObjectField> fieldMap = Contact.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
 
         Contact contactRow = new Contact();
-        putIfCreateable(contactRow, fieldMap, 'FirstName', nameParts[0]);
-        putIfCreateable(contactRow, fieldMap, 'LastName', nameParts[1]);
-        putIfCreateable(contactRow, fieldMap, 'Email', fromAddress);
-        putIfCreateable(contactRow, fieldMap, 'AccountId', accountId);
+        putIfFieldExists(contactRow, fieldMap, 'FirstName', nameParts[0]);
+        putIfFieldExists(contactRow, fieldMap, 'LastName', nameParts[1]);
+        putIfFieldExists(contactRow, fieldMap, 'Email', fromAddress);
+        putIfFieldExists(contactRow, fieldMap, 'AccountId', accountId);
         if (fieldMap.containsKey('BypassValidationsFromBot__c')) {
             contactRow.put('BypassValidationsFromBot__c', true);
         }
@@ -150,12 +150,12 @@ public inherited sharing class WS_EmailToCaseCustomerResolutionService {
         return contactRow;
     }
 
-    private static void putIfCreateable(SObject row, Map<String, Schema.SObjectField> fieldMap, String fieldApiName, Object value) {
+    // Contact creation here happens inside the inbound integration flow; this helper only tolerates
+    // org-shape differences and does not represent per-user field-level security.
+    private static void putIfFieldExists(SObject row, Map<String, Schema.SObjectField> fieldMap, String fieldApiName, Object value) {
         if (row == null || fieldMap == null || String.isBlank(fieldApiName) || value == null || !fieldMap.containsKey(fieldApiName)) {
             return;
         }
-        if (fieldMap.get(fieldApiName).getDescribe().isCreateable()) {
-            row.put(fieldApiName, value);
-        }
+        row.put(fieldApiName, value);
     }
 }

@@ -11,7 +11,7 @@ public inherited sharing class WS_EmailToCaseEmailMessageService {
             return null;
         }
         if (!Schema.sObjectType.EmailMessage.isCreateable()) {
-            throw new WS_EmailToCaseConfigException('Sem permissÃ£o para criar EmailMessage.');
+            throw new WS_EmailToCaseConfigException('Sem permissão para criar EmailMessage.');
         }
 
         EmailMessage em = new EmailMessage();

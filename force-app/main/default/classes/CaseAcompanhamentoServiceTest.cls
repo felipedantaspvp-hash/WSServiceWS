@@ -9,7 +9,7 @@ private class CaseAcompanhamentoServiceTest {
     @IsTest
     static void shouldEnterFollowUpAndCreatePauseActionWhenRequestIsValid() {
         Case c = createCase('Em Atendimento');
-        CaseAcompanhamentoService.bypassAccessChecksForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.bypassAccessChecks', true);
 
         Test.startTest();
         CaseAcompanhamentoDTO result = CaseAcompanhamentoService.entrarEmAcompanhamento(c.Id, MOTIVO, COMENTARIO);
@@ -65,7 +65,7 @@ private class CaseAcompanhamentoServiceTest {
     @IsTest
     static void shouldMoveCaseToWaitingCustomerWhenReasonIsWaitingCustomer() {
         Case c = createCase('Em Atendimento');
-        CaseAcompanhamentoService.bypassAccessChecksForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.bypassAccessChecks', true);
 
         Test.startTest();
         CaseAcompanhamentoDTO result = CaseAcompanhamentoService.entrarEmAcompanhamento(
@@ -105,7 +105,7 @@ private class CaseAcompanhamentoServiceTest {
     @IsTest
     static void shouldThrowWhenCaseAlreadyInFollowUp() {
         Case c = createCase('Em Acompanhamento');
-        CaseAcompanhamentoService.bypassAccessChecksForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.bypassAccessChecks', true);
 
         Test.startTest();
         try {
@@ -134,7 +134,7 @@ private class CaseAcompanhamentoServiceTest {
         Case deletedCase = createCase('Em Atendimento');
         Id missingCaseId = deletedCase.Id;
         delete deletedCase;
-        CaseAcompanhamentoService.bypassAccessChecksForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.bypassAccessChecks', true);
 
         Test.startTest();
         try {
@@ -177,7 +177,7 @@ private class CaseAcompanhamentoServiceTest {
     @IsTest
     static void shouldThrowWhenUserDoesNotHaveRequiredAccess() {
         Case c = createCase('Em Atendimento');
-        CaseAcompanhamentoService.forceAccessDeniedForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.forceAccessDenied', true);
 
         Test.startTest();
         try {
@@ -192,7 +192,7 @@ private class CaseAcompanhamentoServiceTest {
     @IsTest
     static void shouldThrowWhenGetDataUserDoesNotHaveRequiredAccess() {
         Case c = createCase('Em Atendimento');
-        CaseAcompanhamentoService.forceAccessDeniedForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.forceAccessDenied', true);
 
         Test.startTest();
         try {
@@ -234,7 +234,7 @@ private class CaseAcompanhamentoServiceTest {
     @IsTest
     static void shouldEnterFollowUpThroughControllerWhenRequestIsValid() {
         Case c = createCase('Em Atendimento');
-        CaseAcompanhamentoService.bypassAccessChecksForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.bypassAccessChecks', true);
 
         Test.startTest();
         CaseAcompanhamentoDTO result = CaseAcompanhamentoController.entrarEmAcompanhamento(c.Id, MOTIVO, COMENTARIO);
@@ -249,7 +249,7 @@ private class CaseAcompanhamentoServiceTest {
     @IsTest
     static void shouldGetFollowUpDataWhenCaseIsInFollowUp() {
         Case c = createCase('Em Atendimento');
-        CaseAcompanhamentoService.bypassAccessChecksForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.bypassAccessChecks', true);
         CaseAcompanhamentoService.entrarEmAcompanhamento(c.Id, MOTIVO, COMENTARIO);
 
         Test.startTest();
@@ -268,7 +268,7 @@ private class CaseAcompanhamentoServiceTest {
     @IsTest
     static void shouldTranslateExternalOperationReasonWithoutChangingStoredValue() {
         Case c = createCase('Novo');
-        CaseAcompanhamentoService.bypassAccessChecksForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.bypassAccessChecks', true);
         CaseAcompanhamentoService.entrarEmAcompanhamento(c.Id, MOTIVO_OPERACAO_EXTERNA, COMENTARIO);
 
         Test.startTest();
@@ -306,7 +306,7 @@ private class CaseAcompanhamentoServiceTest {
             UsuarioInicioAcompanhamento__c = UserInfo.getUserId(),
             UltimoComentarioAcompanhamento__c = COMENTARIO
         );
-        CaseAcompanhamentoService.bypassAccessChecksForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.bypassAccessChecks', true);
 
         Test.startTest();
         CaseAcompanhamentoDTO result = CaseAcompanhamentoService.getAcompanhamentoData(c.Id);
@@ -330,7 +330,7 @@ private class CaseAcompanhamentoServiceTest {
             UsuarioInicioAcompanhamento__c = UserInfo.getUserId(),
             UltimoComentarioAcompanhamento__c = COMENTARIO
         );
-        CaseAcompanhamentoService.bypassAccessChecksForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.bypassAccessChecks', true);
 
         Test.startTest();
         CaseAcompanhamentoDTO result = CaseAcompanhamentoService.getAcompanhamentoData(c.Id);
@@ -353,7 +353,7 @@ private class CaseAcompanhamentoServiceTest {
             UsuarioInicioAcompanhamento__c = UserInfo.getUserId(),
             UltimoComentarioAcompanhamento__c = COMENTARIO
         );
-        CaseAcompanhamentoService.bypassAccessChecksForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.bypassAccessChecks', true);
 
         Test.startTest();
         CaseAcompanhamentoDTO result = CaseAcompanhamentoService.getAcompanhamentoData(c.Id);
@@ -367,7 +367,7 @@ private class CaseAcompanhamentoServiceTest {
     @IsTest
     static void shouldResumeFollowUpAndCloseActiveActionWhenRequestIsValid() {
         Case c = createCase('Em Atendimento');
-        CaseAcompanhamentoService.bypassAccessChecksForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.bypassAccessChecks', true);
         CaseAcompanhamentoDTO startResult = CaseAcompanhamentoService.entrarEmAcompanhamento(c.Id, MOTIVO, COMENTARIO);
 
         Test.startTest();
@@ -402,7 +402,7 @@ private class CaseAcompanhamentoServiceTest {
     @IsTest
     static void shouldResumeFollowUpThroughControllerWhenRequestIsValid() {
         Case c = createCase('Em Atendimento');
-        CaseAcompanhamentoService.bypassAccessChecksForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.bypassAccessChecks', true);
         CaseAcompanhamentoController.entrarEmAcompanhamento(c.Id, MOTIVO, COMENTARIO);
 
         Test.startTest();
@@ -417,7 +417,7 @@ private class CaseAcompanhamentoServiceTest {
     @IsTest
     static void shouldGetFollowUpDataThroughControllerWhenRequestIsValid() {
         Case c = createCase('Em Atendimento');
-        CaseAcompanhamentoService.bypassAccessChecksForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.bypassAccessChecks', true);
         CaseAcompanhamentoController.entrarEmAcompanhamento(c.Id, MOTIVO, COMENTARIO);
 
         Test.startTest();
@@ -456,7 +456,7 @@ private class CaseAcompanhamentoServiceTest {
     @IsTest
     static void shouldThrowWhenResumeCaseIsNotInFollowUp() {
         Case c = createCase('Em Atendimento');
-        CaseAcompanhamentoService.bypassAccessChecksForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.bypassAccessChecks', true);
 
         Test.startTest();
         try {
@@ -473,7 +473,7 @@ private class CaseAcompanhamentoServiceTest {
         Case c = createCase('Em Acompanhamento');
         Acao__c action = createActiveAction(c.Id, 'Em Atendimento');
         update new Case(Id = c.Id, IsStopped = true, AcaoPausaAtiva__c = action.Id);
-        CaseAcompanhamentoService.bypassAccessChecksForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.bypassAccessChecks', true);
 
         Test.startTest();
         try {
@@ -516,7 +516,7 @@ private class CaseAcompanhamentoServiceTest {
         Case deletedCase = createCase('Em Atendimento');
         Id missingCaseId = deletedCase.Id;
         delete deletedCase;
-        CaseAcompanhamentoService.bypassAccessChecksForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.bypassAccessChecks', true);
 
         Test.startTest();
         try {
@@ -532,7 +532,7 @@ private class CaseAcompanhamentoServiceTest {
     static void shouldThrowWhenStartingFollowUpAndSlaIsAlreadyStopped() {
         Case c = createCase('Em Atendimento');
         update new Case(Id = c.Id, IsStopped = true);
-        CaseAcompanhamentoService.bypassAccessChecksForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.bypassAccessChecks', true);
 
         Test.startTest();
         try {
@@ -547,7 +547,7 @@ private class CaseAcompanhamentoServiceTest {
     @IsTest
     static void shouldThrowWhenStartingFollowUpAndCaseIsTerminal() {
         Case c = createCase(CaseAcompanhamentoService.ETAPA_CONCLUIDO);
-        CaseAcompanhamentoService.bypassAccessChecksForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.bypassAccessChecks', true);
 
         Test.startTest();
         try {
@@ -567,7 +567,7 @@ private class CaseAcompanhamentoServiceTest {
             IsStopped = true,
             EtapaAnteriorAcompanhamento__c = 'Em Atendimento'
         );
-        CaseAcompanhamentoService.bypassAccessChecksForTests = true;
+        ApexTestSeam.set('CaseAcompanhamentoService.bypassAccessChecks', true);
 
         Test.startTest();
         try {
@@ -581,7 +581,7 @@ private class CaseAcompanhamentoServiceTest {
 
     @IsTest
     static void shouldReturnFriendlyMessageWhenControllerReceivesUnexpectedError() {
-        CaseAcompanhamentoController.forceUnexpectedErrorForTest = true;
+        ApexTestSeam.set('CaseAcompanhamentoController.forceUnexpectedError', true);
 
         Test.startTest();
         try {
@@ -591,6 +591,37 @@ private class CaseAcompanhamentoServiceTest {
             Assert.areNotEqual(null, ex.getMessage(), 'Controller deve encapsular erro inesperado.');
         }
         Test.stopTest();
+        ApexTestSeam.clear('CaseAcompanhamentoController.forceUnexpectedError');
+    }
+
+    @IsTest
+    static void shouldLogUnexpectedErrorFromGetAcompanhamentoData() {
+        ApexTestSeam.set('CaseAcompanhamentoController.forceUnexpectedError', true);
+
+        Test.startTest();
+        try {
+            CaseAcompanhamentoController.getAcompanhamentoData(null);
+            Assert.fail('Controller deveria tratar erro inesperado.');
+        } catch (AuraHandledException ex) {
+            Assert.areNotEqual(null, ex.getMessage(), 'Controller deve encapsular erro inesperado.');
+        }
+        Test.stopTest();
+        ApexTestSeam.clear('CaseAcompanhamentoController.forceUnexpectedError');
+    }
+
+    @IsTest
+    static void shouldLogUnexpectedErrorFromRetomarAtendimento() {
+        ApexTestSeam.set('CaseAcompanhamentoController.forceUnexpectedError', true);
+
+        Test.startTest();
+        try {
+            CaseAcompanhamentoController.retomarAtendimento(null, COMENTARIO);
+            Assert.fail('Controller deveria tratar erro inesperado.');
+        } catch (AuraHandledException ex) {
+            Assert.areNotEqual(null, ex.getMessage(), 'Controller deve encapsular erro inesperado.');
+        }
+        Test.stopTest();
+        ApexTestSeam.clear('CaseAcompanhamentoController.forceUnexpectedError');
     }
 
     private static Case createCase(String etapa) {

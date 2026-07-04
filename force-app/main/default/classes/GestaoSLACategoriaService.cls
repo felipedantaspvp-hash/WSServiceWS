@@ -58,6 +58,7 @@ public inherited sharing class GestaoSLACategoriaService {
         return response;
     }
 
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     public static GestaoSLADTO.CategoriaResumo createCategoria(GestaoSLADTO.CategoriaRequest request) {
         GestaoSLADTO.PermissionInfo perms = GestaoSLAHelper.buildPermissionInfo();
         GestaoSLAHelper.ensureCanAccess(perms);
@@ -91,6 +92,10 @@ public inherited sharing class GestaoSLACategoriaService {
         );
         applyDistribuicaoRequest(row, request);
         try {
+            row = (Categorizacao__c) GestaoSLAHelper.sanitizeForCreate(
+                row,
+                'Você não possui permissão (FLS/CRUD) para criar Categorizações.'
+            );
             insert row;
         } catch (DmlException dmx) {
             throw new GestaoSLAService.FunctionalException(dmx.getDmlMessage(0));
@@ -98,6 +103,7 @@ public inherited sharing class GestaoSLACategoriaService {
         return toCategoriaResumo(queryCategoriaById(row.Id), 0);
     }
 
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     public static GestaoSLADTO.CategoriaResumo updateCategoria(GestaoSLADTO.CategoriaRequest request) {
         GestaoSLADTO.PermissionInfo perms = GestaoSLAHelper.buildPermissionInfo();
         GestaoSLAHelper.ensureCanAccess(perms);
@@ -142,6 +148,10 @@ public inherited sharing class GestaoSLACategoriaService {
         existing.Ativo__c = request.ativo == null ? existing.Ativo__c : request.ativo;
         applyDistribuicaoRequest(existing, request);
         try {
+            existing = (Categorizacao__c) GestaoSLAHelper.sanitizeForUpdate(
+                existing,
+                'Você não possui permissão (FLS/CRUD) para atualizar Categorizações.'
+            );
             update existing;
         } catch (DmlException dmx) {
             throw new GestaoSLAService.FunctionalException(dmx.getDmlMessage(0));
@@ -190,6 +200,7 @@ public inherited sharing class GestaoSLACategoriaService {
         return rows.isEmpty() ? null : rows[0];
     }
 
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     public static GestaoSLADTO.CategoriaResumo deactivateCategoria(Id categoriaId) {
         GestaoSLADTO.PermissionInfo perms = GestaoSLAHelper.buildPermissionInfo();
         GestaoSLAHelper.ensureCanAccess(perms);
@@ -208,8 +219,12 @@ public inherited sharing class GestaoSLACategoriaService {
         GestaoSLAHelper.ensureUnidadeAllowed(gestaoCtxDeactivate.UnidadeNegocio__c, GestaoSLAHelper.resolveAllowedUnidades(perms));
         row.Ativo__c = false;
         row.MotivoInativacao__c = 'Inativação via Gestão de SLA';
+        row = (Categorizacao__c) GestaoSLAHelper.sanitizeForUpdate(
+            row,
+            'Você não possui permissão (FLS/CRUD) para atualizar Categorizações.'
+        );
         update row;
-        return toCategoriaResumo(row, 0);
+        return toCategoriaResumo(queryCategoriaById(row.Id), 0);
     }
 
     public static GestaoSLADTO.InactiveCategoriasResponse getInactiveCategorias(Id gestaoSLAId) {
@@ -233,6 +248,7 @@ public inherited sharing class GestaoSLACategoriaService {
         return response;
     }
 
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     public static GestaoSLADTO.CategoriaResumo reactivateCategoria(Id categoriaId) {
         GestaoSLADTO.PermissionInfo perms = GestaoSLAHelper.buildPermissionInfo();
         GestaoSLAHelper.ensureCanAccess(perms);
@@ -262,8 +278,12 @@ public inherited sharing class GestaoSLACategoriaService {
         );
         row.Ativo__c = true;
         row.MotivoInativacao__c = null;
+        row = (Categorizacao__c) GestaoSLAHelper.sanitizeForUpdate(
+            row,
+            'Você não possui permissão (FLS/CRUD) para atualizar Categorizações.'
+        );
         update row;
-        return toCategoriaResumo(row, 0);
+        return toCategoriaResumo(queryCategoriaById(row.Id), 0);
     }
 
     /**
@@ -368,21 +388,4 @@ public inherited sharing class GestaoSLACategoriaService {
         return dto;
     }
 
-    /**
-     * @description Monta o label de exibição de uma Categorização (Categoria / Assunto / Subassunto),
-     * usado também pelo mapeamento de DTO de Regras de SLA (GestaoSLARegraService.toRegraSLAResumo),
-     * já que uma Regra sempre referencia uma Categorização.
-     * @param row Categorizacao__c (ou o relacionamento Categorizacao__r de uma RegrasSLACategorizacao__c).
-     * @return Label combinado, ou o Name do registro se nenhuma parte estiver preenchida.
-     */
-    public static String buildCategorizacaoLabel(Categorizacao__c row) {
-        if (row == null) {
-            return null;
-        }
-        List<String> parts = new List<String>();
-        if (!String.isBlank(row.Categoria__c)) parts.add(row.Categoria__c);
-        if (!String.isBlank(row.Assunto__c)) parts.add(row.Assunto__c);
-        if (!String.isBlank(row.Subassunto__c)) parts.add(row.Subassunto__c);
-        return parts.isEmpty() ? row.Name : String.join(parts, ' / ');
-    }
 }

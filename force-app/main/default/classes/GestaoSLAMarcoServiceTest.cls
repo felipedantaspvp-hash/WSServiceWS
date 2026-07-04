@@ -52,7 +52,7 @@ private class GestaoSLAMarcoServiceTest {
     private static void createRegra(Id gestaoId, Id marcoId, Id categId, Boolean ativo) {
         RegrasSLACategorizacao__c r = new RegrasSLACategorizacao__c(
             Categorizacao__c = categId,
-            TipoAreaParticipante__c = AreaParticipanteSLAHelper.tipoAreaInternaApiValue(),
+            TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
             BusinessHoursName__c = 'Atendimento Salvador',
             Ativo__c = ativo,
             GestaoSLA__c = gestaoId,
@@ -74,6 +74,11 @@ private class GestaoSLAMarcoServiceTest {
         req.recorrente = false;
         req.ativo = true;
         return req;
+    }
+
+    private static User createAdminUser(String aliasSeed) {
+        Profile profile = [SELECT Id FROM Profile WHERE PermissionsModifyAllData = true LIMIT 1];
+        return TestDataFactory.createUser(aliasSeed, new Map<String, Object>{ 'ProfileId' => profile.Id });
     }
 
     @IsTest
@@ -202,21 +207,30 @@ private class GestaoSLAMarcoServiceTest {
         GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ADMIN_CONFIG_TECNICA, true);
+        User adminUser = createAdminUser('marcoupd');
 
-        GestaoSLADTO.MarcoResumo created = GestaoSLAMarcoService.createMarcoSLA(buildMarcoRequestService(g.Id));
-        GestaoSLAMarcoService.deactivateMarcoSLA(created.id);
+        GestaoSLADTO.MarcoResumo created;
+        System.runAs(adminUser) {
+            created = GestaoSLAMarcoService.createMarcoSLA(buildMarcoRequestService(g.Id));
+            GestaoSLAMarcoService.deactivateMarcoSLA(created.id);
+        }
 
         GestaoSLADTO.MarcoSLARequest second = buildMarcoRequestService(g.Id);
 
         Boolean blocked = false;
         try {
-            GestaoSLAMarcoService.createMarcoSLA(second);
+            System.runAs(adminUser) {
+                GestaoSLAMarcoService.createMarcoSLA(second);
+            }
         } catch (GestaoSLAService.FunctionalException ex) {
             blocked = true;
         }
         Assert.areEqual(true, blocked);
 
-        GestaoSLADTO.MarcoResumo reactivated = GestaoSLAMarcoService.reactivateMarcoSLA(created.id);
+        GestaoSLADTO.MarcoResumo reactivated;
+        System.runAs(adminUser) {
+            reactivated = GestaoSLAMarcoService.reactivateMarcoSLA(created.id);
+        }
         Assert.areEqual(true, reactivated.ativo);
     }
 }

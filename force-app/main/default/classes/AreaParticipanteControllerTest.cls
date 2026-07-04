@@ -9,7 +9,7 @@
 @IsTest
 private class AreaParticipanteControllerTest {
     private static void enableBhBypass() {
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
         BusinessHoursResolverService.injectedByName.clear();
         List<BusinessHours> bhs = [SELECT Id FROM BusinessHours WHERE IsActive = true LIMIT 1];
         if (!bhs.isEmpty()) { BusinessHoursResolverService.injectedByName.put('Tecon Salvador', bhs[0].Id); }
@@ -181,7 +181,7 @@ private class AreaParticipanteControllerTest {
 
     @IsTest
     static void testPauseResumeUnexpectedExceptions() {
-        AreaParticipanteController.testException = new IllegalArgumentException('forced');
+        ApexTestSeam.set('AreaParticipanteController.testException', new IllegalArgumentException('forced'));
         Boolean pauseThrew = false;
         Test.startTest();
         try {
@@ -197,7 +197,7 @@ private class AreaParticipanteControllerTest {
             resumeThrew = true;
         }
         Test.stopTest();
-        AreaParticipanteController.testException = null;
+        ApexTestSeam.clear('AreaParticipanteController.testException');
 
         Assert.isTrue(pauseThrew);
         Assert.isTrue(resumeThrew);
@@ -205,53 +205,53 @@ private class AreaParticipanteControllerTest {
 
     @IsTest
     static void testGetPanelDataUnexpectedException() {
-        AreaParticipanteController.testException = new IllegalArgumentException('forced');
+        ApexTestSeam.set('AreaParticipanteController.testException', new IllegalArgumentException('forced'));
         Boolean threw = false;
         try {
             Test.startTest();
             AreaParticipanteController.getPanelData(UserInfo.getUserId());
             Test.stopTest();
         } catch (AuraHandledException ex) { threw = true; }
-        AreaParticipanteController.testException = null;
+        ApexTestSeam.clear('AreaParticipanteController.testException');
         Assert.isTrue(threw);
     }
 
     @IsTest
     static void testCloseParticipationUnexpectedException() {
-        AreaParticipanteController.testException = new IllegalArgumentException('forced');
+        ApexTestSeam.set('AreaParticipanteController.testException', new IllegalArgumentException('forced'));
         Boolean threw = false;
         try {
             Test.startTest();
             AreaParticipanteController.closeParticipation(new AreaParticipanteDTO.CloseRequestDTO());
             Test.stopTest();
         } catch (AuraHandledException ex) { threw = true; }
-        AreaParticipanteController.testException = null;
+        ApexTestSeam.clear('AreaParticipanteController.testException');
         Assert.isTrue(threw);
     }
 
     @IsTest
     static void testGetParticipationDetailsUnexpectedException() {
-        AreaParticipanteController.testException = new IllegalArgumentException('forced');
+        ApexTestSeam.set('AreaParticipanteController.testException', new IllegalArgumentException('forced'));
         Boolean threw = false;
         try {
             Test.startTest();
             AreaParticipanteController.getParticipationDetails(UserInfo.getUserId());
             Test.stopTest();
         } catch (AuraHandledException ex) { threw = true; }
-        AreaParticipanteController.testException = null;
+        ApexTestSeam.clear('AreaParticipanteController.testException');
         Assert.isTrue(threw);
     }
 
     @IsTest
     static void testAddParticipationUnexpectedException() {
-        AreaParticipanteController.testException = new IllegalArgumentException('forced');
+        ApexTestSeam.set('AreaParticipanteController.testException', new IllegalArgumentException('forced'));
         Boolean threw = false;
         try {
             Test.startTest();
             AreaParticipanteController.addParticipation(new AreaParticipanteDTO.AddRequestDTO());
             Test.stopTest();
         } catch (AuraHandledException ex) { threw = true; }
-        AreaParticipanteController.testException = null;
+        ApexTestSeam.clear('AreaParticipanteController.testException');
         Assert.isTrue(threw);
     }
 
@@ -374,7 +374,7 @@ private class AreaParticipanteControllerTest {
 
     @IsTest
     static void testAddParticipationBulkUnexpectedException() {
-        AreaParticipanteController.testException = new IllegalArgumentException('forced');
+        ApexTestSeam.set('AreaParticipanteController.testException', new IllegalArgumentException('forced'));
         Boolean threw = false;
         try {
             Test.startTest();
@@ -383,7 +383,7 @@ private class AreaParticipanteControllerTest {
         } catch (AuraHandledException ex) {
             threw = true;
         }
-        AreaParticipanteController.testException = null;
+        ApexTestSeam.clear('AreaParticipanteController.testException');
         Assert.isTrue(threw);
     }
 }

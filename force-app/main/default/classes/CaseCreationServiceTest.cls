@@ -276,6 +276,48 @@ private class CaseCreationServiceTest {
     }
 
     @IsTest
+    static void testGetTreeOptionsThrowsWhenReadAccessIsDenied() {
+        RecordType rt = CaseCreationTestDataFactory.anyCaseRt();
+        CaseCreationDTO.CategorizationRequestDTO req = CaseCreationTestDataFactory.baseCategorization();
+        req.recordTypeId = rt.Id;
+        req.recordTypeDeveloperName = rt.DeveloperName;
+
+        ApexTestSeam.set('CaseCreationService.caseReadAccess', false);
+        try {
+            CaseCreationService.getTreeOptions(req);
+            Assert.fail('Era esperado bloquear a leitura da árvore quando o acesso ao objeto Case é negado.');
+        } catch (CaseCreationService.FunctionalException ex) {
+            Assert.areEqual('CRUD_DENIED', ex.code);
+        } finally {
+            ApexTestSeam.clear('CaseCreationService.caseReadAccess');
+            ApexTestSeam.clear('CaseCreationService.categorizacaoReadAccess');
+        }
+    }
+
+    @IsTest
+    static void testResolveCategorizationSelectionThrowsWhenReadAccessIsDenied() {
+        RecordType rt = CaseCreationTestDataFactory.anyCaseRt();
+        Categorizacao__c cat = CaseCreationTestDataFactory.catRow(true, true, 'TSV_Q_TEST', rt.Id);
+        CaseCreationSelector.testCategorizacoes = new List<Categorizacao__c>{ cat };
+
+        CaseCreationDTO.CategorizationRequestDTO req = CaseCreationTestDataFactory.baseCategorization();
+        req.recordTypeId = rt.Id;
+        req.recordTypeDeveloperName = rt.DeveloperName;
+
+        ApexTestSeam.set('CaseCreationService.categorizacaoReadAccess', false);
+        try {
+            CaseCreationService.resolveCategorizationSelection(req);
+            Assert.fail('Era esperado bloquear a leitura da categorização quando o acesso é negado.');
+        } catch (CaseCreationService.FunctionalException ex) {
+            Assert.areEqual('CRUD_DENIED', ex.code);
+        } finally {
+            ApexTestSeam.clear('CaseCreationService.caseReadAccess');
+            ApexTestSeam.clear('CaseCreationService.categorizacaoReadAccess');
+            CaseCreationSelector.testCategorizacoes = null;
+        }
+    }
+
+    @IsTest
     static void testBuildDefaultsEncerrarNormalizesUnit() {
         RecordType rt = CaseCreationTestDataFactory.anyCaseRt();
         CaseCreationSelector.testCategorizacoes = new List<Categorizacao__c>{

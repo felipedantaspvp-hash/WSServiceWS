@@ -36,9 +36,9 @@ public inherited sharing class WS_EmailToCaseCaseService {
         if (originalCaseId != null && route.relateNewCaseToOriginal == true) {
             c.WS_Original_Case__c = originalCaseId;
         }
-        putIfCreateable(c, 'AccountId', customerResolution.accountId);
-        putIfCreateable(c, 'ContactId', customerResolution.contactId);
-        putIfCreateable(c, 'Representante__c', customerResolution.representativeAccountId);
+        putIfFieldExists(c, 'AccountId', customerResolution.accountId);
+        putIfFieldExists(c, 'ContactId', customerResolution.contactId);
+        putIfFieldExists(c, 'Representante__c', customerResolution.representativeAccountId);
 
         insert c;
         return c;
@@ -46,17 +46,17 @@ public inherited sharing class WS_EmailToCaseCaseService {
 
     public Case appendToOpenCase(Case existingCase) {
         if (existingCase == null) {
-            throw new WS_EmailToCaseConfigException('Case aberto nÃ£o encontrado para append.');
+            throw new WS_EmailToCaseConfigException('Case aberto não encontrado para append.');
         }
         return existingCase;
     }
 
     public Case reopenCase(Case closedCase, WS_EmailToCaseRouteConfig route) {
         if (closedCase == null) {
-            throw new WS_EmailToCaseConfigException('Case fechado nÃ£o encontrado para reabertura.');
+            throw new WS_EmailToCaseConfigException('Case fechado não encontrado para reabertura.');
         }
         if (String.isBlank(route.reopenStatus)) {
-            throw new WS_EmailToCaseConfigException('Reopen_Status__c obrigatÃ³rio quando Closed_Case_Behavior__c = REOPEN.');
+            throw new WS_EmailToCaseConfigException('Reopen_Status__c obrigatório quando Closed_Case_Behavior__c = REOPEN.');
         }
         validateReopenStatus(route.reopenStatus);
         WS_EmailToCaseUtils.ensureCaseUpdateAccess();
@@ -68,7 +68,7 @@ public inherited sharing class WS_EmailToCaseCaseService {
 
     public Id resolveCaseRecordTypeId(String developerName) {
         if (String.isBlank(developerName)) {
-            throw new WS_EmailToCaseConfigException('Case_RecordType_DeveloperName__c Ã© obrigatÃ³rio.');
+            throw new WS_EmailToCaseConfigException('Case_RecordType_DeveloperName__c é obrigatório.');
         }
         if (recordTypeByDevName == null) {
             recordTypeByDevName = new Map<String, Id>();
@@ -77,7 +77,7 @@ public inherited sharing class WS_EmailToCaseCaseService {
             }
         }
         if (!recordTypeByDevName.containsKey(developerName)) {
-            throw new WS_EmailToCaseConfigException('Record Type de Case nÃ£o encontrado para DeveloperName: ' + developerName);
+            throw new WS_EmailToCaseConfigException('Record Type de Case não encontrado para DeveloperName: ' + developerName);
         }
         return recordTypeByDevName.get(developerName);
     }
@@ -124,7 +124,7 @@ public inherited sharing class WS_EmailToCaseCaseService {
             }
         }
         if (!exists) {
-            throw new WS_EmailToCaseConfigException('Reopen_Status__c invÃ¡lido para Case: ' + statusValue);
+            throw new WS_EmailToCaseConfigException('Reopen_Status__c inválido para Case: ' + statusValue);
         }
 
         List<CaseStatus> openStatuses = [
@@ -141,7 +141,9 @@ public inherited sharing class WS_EmailToCaseCaseService {
         }
     }
 
-    private static void putIfCreateable(Case row, String fieldApiName, Object value) {
+    // Email-to-Case runs as an inbound integration flow; this helper preserves schema compatibility
+    // for optional fields but is not intended to simulate per-user FLS enforcement.
+    private static void putIfFieldExists(Case row, String fieldApiName, Object value) {
         if (row == null || value == null || String.isBlank(fieldApiName)) {
             return;
         }
@@ -149,8 +151,6 @@ public inherited sharing class WS_EmailToCaseCaseService {
         if (!fieldMap.containsKey(fieldApiName)) {
             return;
         }
-        if (fieldMap.get(fieldApiName).getDescribe().isCreateable()) {
-            row.put(fieldApiName, value);
-        }
+        row.put(fieldApiName, value);
     }
 }

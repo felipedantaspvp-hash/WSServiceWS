@@ -78,6 +78,7 @@ public inherited sharing class GestaoSLAService {
         return response;
     }
 
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     public static GestaoSLADTO.GestaoDetailResponse reactivateGestaoSLA(Id gestaoSLAId) {
         GestaoSLADTO.PermissionInfo perms = GestaoSLAHelper.buildPermissionInfo();
         GestaoSLAHelper.ensureCanAccess(perms);
@@ -108,10 +109,15 @@ public inherited sharing class GestaoSLAService {
             throw new FunctionalException('Já existe uma Gestão de SLA ativa para este Entitlement Process.');
         }
 
-        update new GestaoSLA__c(Id = target.Id, Ativo__c = true);
+        GestaoSLA__c reactivation = (GestaoSLA__c) GestaoSLAHelper.sanitizeForUpdate(
+            new GestaoSLA__c(Id = target.Id, Ativo__c = true),
+            'Você não possui permissão (FLS/CRUD) para atualizar Gestões de SLA.'
+        );
+        update reactivation;
         return getGestaoDetail(target.Id);
     }
 
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     public static GestaoSLADTO.GestaoDetailResponse createGestaoSLA(GestaoSLADTO.CreateGestaoRequest request) {
         GestaoSLADTO.PermissionInfo perms = GestaoSLAHelper.buildPermissionInfo();
         GestaoSLAHelper.ensureCanAccess(perms);
@@ -169,11 +175,16 @@ public inherited sharing class GestaoSLAService {
             StaticResourceName__c = String.isBlank(request.staticResourceName) ? null : request.staticResourceName.trim(),
             Ativo__c = request.ativo == null ? true : request.ativo
         );
+        novaGestao = (GestaoSLA__c) GestaoSLAHelper.sanitizeForCreate(
+            novaGestao,
+            'Você não possui permissão (FLS/CRUD) para criar Gestões de SLA.'
+        );
         insert novaGestao;
         GestaoSLAMarcoService.syncMarcosUnicos(novaGestao.Id, usaTriagem, usaRespostaChat, usaFilaEmail);
         return getGestaoDetail(novaGestao.Id);
     }
 
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     public static GestaoSLADTO.GestaoDetailResponse updateGestaoSLA(GestaoSLADTO.UpdateGestaoRequest request) {
         GestaoSLADTO.PermissionInfo perms = GestaoSLAHelper.buildPermissionInfo();
         GestaoSLAHelper.ensureCanAccess(perms);
@@ -262,6 +273,10 @@ public inherited sharing class GestaoSLAService {
             Descricao__c = String.isBlank(request.descricao) ? null : request.descricao.trim(),
             StaticResourceName__c = String.isBlank(request.staticResourceName) ? null : request.staticResourceName.trim(),
             Ativo__c = ativoFinal
+        );
+        toUpdate = (GestaoSLA__c) GestaoSLAHelper.sanitizeForUpdate(
+            toUpdate,
+            'Você não possui permissão (FLS/CRUD) para atualizar Gestões de SLA.'
         );
         update toUpdate;
         GestaoSLAMarcoService.syncMarcosUnicos(request.id, usaTriagem, usaRespostaChat, usaFilaEmail);

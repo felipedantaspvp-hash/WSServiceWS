@@ -11,7 +11,7 @@ public inherited sharing class WS_EmailToCaseAttachmentService {
             return 0;
         }
         if (!Schema.sObjectType.ContentVersion.isCreateable()) {
-            throw new WS_EmailToCaseConfigException('Sem permissÃ£o para criar ContentVersion.');
+            throw new WS_EmailToCaseConfigException('Sem permissão para criar ContentVersion.');
         }
 
         List<ContentVersion> versions = new List<ContentVersion>();

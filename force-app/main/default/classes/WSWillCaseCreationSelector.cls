@@ -58,4 +58,81 @@ public inherited sharing class WSWillCaseCreationSelector {
             ORDER BY Queue.DeveloperName
         ];
     }
+
+    /**
+     * @description Retorna Contacts pelos Ids informados, com fallback defensivo caso o campo dinâmico
+     * de conta representada (ex.: `ContaRepresentadaAtual__c`) não exista na org.
+     * @param contactIds Conjunto de Ids a consultar.
+     * @param representedAccountField API name do campo dinâmico de conta representada, ou null/blank.
+     * @return Mapa de Id → Contact.
+     **/
+    public static Map<Id, Contact> selectContactsByIds(Set<Id> contactIds, String representedAccountField) {
+        Map<Id, Contact> out = new Map<Id, Contact>();
+        if (contactIds == null || contactIds.isEmpty()) return out;
+        for (Contact row : queryContactsWithFallback(
+            'WHERE Id IN :contactIds',
+            new Map<String, Object>{ 'contactIds' => contactIds },
+            representedAccountField
+        )) {
+            out.put(row.Id, row);
+        }
+        return out;
+    }
+
+    /**
+     * @description Retorna Contacts pelos e-mails informados, com o mesmo fallback defensivo de
+     * `selectContactsByIds` para o campo dinâmico de conta representada.
+     * @param emails Conjunto de e-mails a consultar.
+     * @param representedAccountField API name do campo dinâmico de conta representada, ou null/blank.
+     * @return Lista de Contact.
+     **/
+    public static List<Contact> selectContactsByEmails(Set<String> emails, String representedAccountField) {
+        List<Contact> out = new List<Contact>();
+        if (emails == null || emails.isEmpty()) return out;
+        out.addAll(queryContactsWithFallback(
+            'WHERE Email IN :emails',
+            new Map<String, Object>{ 'emails' => emails },
+            representedAccountField
+        ));
+        return out;
+    }
+
+    /**
+     * @description Monta e executa a query de Contact com o campo dinâmico de conta representada quando
+     * existente, aplicando o fallback defensivo (removendo o campo do SELECT) se a org não o tiver.
+     * @param whereClause Cláusula WHERE completa (ex.: "WHERE Id IN :contactIds").
+     * @param binds Bind variables referenciadas na cláusula WHERE.
+     * @param representedAccountField API name do campo dinâmico de conta representada, ou null/blank.
+     * @return Lista de Contact.
+     **/
+    private static List<Contact> queryContactsWithFallback(String whereClause, Map<String, Object> binds, String representedAccountField) {
+        List<String> selectFields = new List<String>{ 'Id', 'AccountId', 'Name', 'Email', 'Phone', 'Idioma__c' };
+        if (!String.isBlank(representedAccountField) &&
+            Schema.SObjectType.Contact.fields.getMap().containsKey(representedAccountField.toLowerCase())) {
+            selectFields.add(representedAccountField);
+        }
+
+        try {
+            return (List<Contact>) Database.queryWithBinds(
+                'SELECT ' + String.join(selectFields, ',') + ' FROM Contact ' + whereClause,
+                binds,
+                AccessLevel.SYSTEM_MODE
+            );
+        } catch (QueryException ex) {
+            if (!ex.getMessage().contains('ContaRepresentadaAtual__c')) {
+                throw ex;
+            }
+            List<String> fallbackFields = new List<String>();
+            for (String fieldName : selectFields) {
+                if (fieldName != 'ContaRepresentadaAtual__c') {
+                    fallbackFields.add(fieldName);
+                }
+            }
+            return (List<Contact>) Database.queryWithBinds(
+                'SELECT ' + String.join(fallbackFields, ',') + ' FROM Contact ' + whereClause,
+                binds,
+                AccessLevel.SYSTEM_MODE
+            );
+        }
+    }
 }

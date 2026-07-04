@@ -52,7 +52,7 @@ private class GestaoSLACategoriaServiceTest {
     private static void createRegra(Id gestaoId, Id marcoId, Id categId, Boolean ativo) {
         RegrasSLACategorizacao__c r = new RegrasSLACategorizacao__c(
             Categorizacao__c = categId,
-            TipoAreaParticipante__c = AreaParticipanteSLAHelper.tipoAreaInternaApiValue(),
+            TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
             BusinessHoursName__c = 'Atendimento Salvador',
             Ativo__c = ativo,
             GestaoSLA__c = gestaoId,
@@ -63,6 +63,11 @@ private class GestaoSLACategoriaServiceTest {
             TempoAlta__c = 30
         );
         insert r;
+    }
+
+    private static User createAdminUser(String aliasSeed) {
+        Profile profile = [SELECT Id FROM Profile WHERE PermissionsModifyAllData = true LIMIT 1];
+        return TestDataFactory.createUser(aliasSeed, new Map<String, Object>{ 'ProfileId' => profile.Id });
     }
 
     @IsTest
@@ -217,6 +222,7 @@ private class GestaoSLACategoriaServiceTest {
     static void testUpdateCategoriaPersisteCamposDeDistribuicaoQuandoValidos() {
         GestaoSLA__c g = createGestao('CAT_UPDATE_DIST', true);
         Categorizacao__c c = createCategoria(g.Id, 'UpdateDist', true);
+        User adminUser = createAdminUser('catupd1');
 
         GestaoSLAHelper.clearPermissionOverrides();
         GestaoSLAHelper.setAllowedUnidadesOverride(null);
@@ -232,9 +238,11 @@ private class GestaoSLACategoriaServiceTest {
         req.ativo = true;
         req.distribuirParaFila = false;
 
-        GestaoSLADTO.CategoriaResumo response = GestaoSLACategoriaService.updateCategoria(req);
-        Assert.areEqual(false, response.distribuirParaFila);
-        Assert.areEqual(null, response.filaDeveloperName);
+        System.runAs(adminUser) {
+            GestaoSLADTO.CategoriaResumo response = GestaoSLACategoriaService.updateCategoria(req);
+            Assert.areEqual(false, response.distribuirParaFila);
+            Assert.areEqual(null, response.filaDeveloperName);
+        }
     }
 
     @IsTest
@@ -363,6 +371,7 @@ private class GestaoSLACategoriaServiceTest {
     static void testUpdateEDeactivateCategoria() {
         GestaoSLA__c g = createGestao('CAT_UPD', true);
         Categorizacao__c c = createCategoria(g.Id, 'CAT_UPD', true);
+        User adminUser = createAdminUser('catupd2');
 
         GestaoSLAHelper.clearPermissionOverrides();
         GestaoSLAHelper.setAllowedUnidadesOverride(null);
@@ -379,13 +388,15 @@ private class GestaoSLACategoriaServiceTest {
         req.prioridadeSugerida = null;
         req.ativo = true;
 
-        GestaoSLADTO.CategoriaResumo updated = GestaoSLACategoriaService.updateCategoria(req);
-        Assert.areEqual(c.Assunto__c, updated.assunto);
-        Assert.areEqual(null, updated.subassunto);
-        Assert.areEqual(null, updated.prioridadeSugerida);
+        System.runAs(adminUser) {
+            GestaoSLADTO.CategoriaResumo updated = GestaoSLACategoriaService.updateCategoria(req);
+            Assert.areEqual(c.Assunto__c, updated.assunto);
+            Assert.areEqual(null, updated.subassunto);
+            Assert.areEqual(null, updated.prioridadeSugerida);
 
-        GestaoSLADTO.CategoriaResumo deactivated = GestaoSLACategoriaService.deactivateCategoria(c.Id);
-        Assert.areEqual(false, deactivated.ativo);
+            GestaoSLADTO.CategoriaResumo deactivated = GestaoSLACategoriaService.deactivateCategoria(c.Id);
+            Assert.areEqual(false, deactivated.ativo);
+        }
     }
 
     @IsTest
@@ -431,9 +442,12 @@ private class GestaoSLACategoriaServiceTest {
         GestaoSLAHelper.setAllowedUnidadesOverride(null);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_ACESSAR_GESTAO_SLA, true);
         GestaoSLAHelper.setPermissionOverride(GestaoSLAHelper.CP_GERENCIAR_CATEGORIAS, true);
+        User adminUser = createAdminUser('catupd3');
 
-        GestaoSLADTO.CategoriaResumo deactivated = GestaoSLACategoriaService.deactivateCategoria(original.Id);
-        Assert.areEqual(false, deactivated.ativo);
+        System.runAs(adminUser) {
+            GestaoSLADTO.CategoriaResumo deactivated = GestaoSLACategoriaService.deactivateCategoria(original.Id);
+            Assert.areEqual(false, deactivated.ativo);
+        }
 
         GestaoSLADTO.CategoriaRequest createReq = new GestaoSLADTO.CategoriaRequest();
         createReq.gestaoSLAId = g.Id;
@@ -442,12 +456,17 @@ private class GestaoSLACategoriaServiceTest {
         createReq.assunto = original.Assunto__c;
         createReq.subassunto = original.Subassunto__c;
         createReq.ativo = true;
-        GestaoSLADTO.CategoriaResumo novaAtiva = GestaoSLACategoriaService.createCategoria(createReq);
+        GestaoSLADTO.CategoriaResumo novaAtiva;
+        System.runAs(adminUser) {
+            novaAtiva = GestaoSLACategoriaService.createCategoria(createReq);
+        }
         Assert.areEqual(true, novaAtiva.ativo);
 
         Boolean failed = false;
         try {
-            GestaoSLACategoriaService.reactivateCategoria(original.Id);
+            System.runAs(adminUser) {
+                GestaoSLACategoriaService.reactivateCategoria(original.Id);
+            }
         } catch (Exception ex) {
             failed = true;
             Assert.areEqual(true, ex.getMessage().contains('Já existe uma categorização ativa'));

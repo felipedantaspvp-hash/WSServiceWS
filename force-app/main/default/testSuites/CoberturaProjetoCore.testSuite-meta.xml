@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApexTestSuite xmlns="http://soap.sforce.com/2006/04/metadata">
+    <testClassName>AccountCaseScheduleControllerTest</testClassName>
+    <testClassName>AccountCaseScheduleServiceTest</testClassName>
     <testClassName>AreaParticipanteControllerTest</testClassName>
+    <testClassName>AreaParticipanteMilestoneSyncBatchTest</testClassName>
+    <testClassName>AreaParticipanteMilestoneSyncServiceTest</testClassName>
+    <testClassName>AreaParticipanteRegiaoAtendimentoTest</testClassName>
     <testClassName>AreaParticipanteServiceTest</testClassName>
     <testClassName>AreaParticipanteSLABatchTest</testClassName>
     <testClassName>AreaParticipanteSLAHelperTest</testClassName>
@@ -9,6 +14,7 @@
     <testClassName>AtendimentoConfigServiceTest</testClassName>
     <testClassName>AtendimentoContextResolverTest</testClassName>
     <testClassName>BusinessHoursResolverServiceTest</testClassName>
+    <testClassName>CaseAcompanhamentoServiceTest</testClassName>
     <testClassName>CaseAreaParticipantePauseServiceTest</testClassName>
     <testClassName>CaseClosureSurveyControllerTest</testClassName>
     <testClassName>CaseClosureSurveyServiceTest</testClassName>
@@ -16,29 +22,42 @@
     <testClassName>CaseCreationSelectorTest</testClassName>
     <testClassName>CaseCreationServiceTest</testClassName>
     <testClassName>CaseMilestoneMacroServiceTest</testClassName>
+    <testClassName>CaseMilestoneSyncQueueableTest</testClassName>
     <testClassName>CaseMilestoneTriggerTimeCalculatorTest</testClassName>
+    <testClassName>CaseOpeningNotificationServiceTest</testClassName>
     <testClassName>CaseRecategorizationControllerTest</testClassName>
     <testClassName>CaseRecategorizationServiceTest</testClassName>
+    <testClassName>CaseScheduleBatchTest</testClassName>
+    <testClassName>CaseScheduleSchedulerTest</testClassName>
+    <testClassName>CaseScheduleServiceTest</testClassName>
     <testClassName>CaseSurveyDispatchServiceTest</testClassName>
     <testClassName>CaseTriggerHandlerTest</testClassName>
     <testClassName>CategorizacaoControllerTest</testClassName>
     <testClassName>CategorizacaoServiceTest</testClassName>
     <testClassName>CategorizacaoTriggerTest</testClassName>
+    <testClassName>ContactWhatsappMessageControllerTest</testClassName>
     <testClassName>DTOCoverageTest</testClassName>
+    <testClassName>GestaoSLACategoriaServiceTest</testClassName>
     <testClassName>GestaoSLAControllerTest</testClassName>
     <testClassName>GestaoSLAHelperTest</testClassName>
+    <testClassName>GestaoSLAMarcoServiceTest</testClassName>
+    <testClassName>GestaoSLARegraServiceTest</testClassName>
     <testClassName>GestaoSLAServiceTest</testClassName>
     <testClassName>LightningForgotPasswordControllerTest</testClassName>
     <testClassName>LightningLoginFormControllerTest</testClassName>
     <testClassName>LightningSelfRegisterControllerTest</testClassName>
     <testClassName>MessagingContextServiceTest</testClassName>
+    <testClassName>ReclamacaoServiceTest</testClassName>
     <testClassName>RegrasSLACategorizacaoHelperTest</testClassName>
     <testClassName>RegrasSLACategorizacaoSelectorTest</testClassName>
     <testClassName>RegrasSLACategorizacaoServiceTest</testClassName>
     <testClassName>RegrasSLACompatibilidadeServiceTest</testClassName>
     <testClassName>SLACoverageCoreTest</testClassName>
     <testClassName>WS_EmailToCaseConfigServiceTest</testClassName>
+    <testClassName>WS_EmailToCaseRouteServiceTest</testClassName>
     <testClassName>WS_EmailToCaseServiceTest</testClassName>
+    <testClassName>WS_EmailToCaseSupportServiceTest</testClassName>
+    <testClassName>WSWillCaseCreationSelectorTest</testClassName>
     <testClassName>WSWillCaseCreationTest</testClassName>
     <testClassName>WSWillCaseLookupTest</testClassName>
     <testClassName>WSWillContactLanguageInvocableTest</testClassName>

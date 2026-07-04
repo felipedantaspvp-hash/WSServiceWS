@@ -17,13 +17,7 @@ public inherited sharing class AtendimentoConfigHelper {
      */
     public static String normalizeBusinessUnitKey(String value) {
         if (String.isBlank(value)) return '';
-        String out = value.trim().toLowerCase();
-        out = out.replace('á', 'a').replace('à', 'a').replace('ã', 'a').replace('â', 'a');
-        out = out.replace('é', 'e').replace('ê', 'e');
-        out = out.replace('í', 'i');
-        out = out.replace('ó', 'o').replace('ô', 'o').replace('õ', 'o');
-        out = out.replace('ú', 'u');
-        out = out.replace('ç', 'c');
+        String out = TextNormalizationUtil.stripAccents(value.trim().toLowerCase());
         out = out.replaceAll('[^a-z0-9]+', '');
         if (out.startsWith('atendimento') && out.length() > 'atendimento'.length()) {
             out = out.substring('atendimento'.length());
@@ -42,5 +36,41 @@ public inherited sharing class AtendimentoConfigHelper {
             return normalized;
         }
         return SURVEY_MODE_NEVER;
+    }
+
+    /**
+     * @description Entrada de fallback hardcoded de Unidade de Negócio por Record Type, usada quando
+     * `AtendimentoConfigService.getActiveConfigs()` vem vazio (ex.: Custom Metadata não carregado/vazio).
+     * Fonte única compartilhada por `CaseCreationSelector`/`CategorizacaoSelector` (ver CR-017 do CodeReview.md).
+     */
+    public class UnidadeFallbackEntry {
+        public String recordTypeDeveloperName;
+        public String unidadeNegocio;
+        public String queuePrefix;
+    }
+
+    /**
+     * @description Retorna o fallback hardcoded de Unidades de Negócio conhecidas, usado quando não há
+     * nenhuma configuração ativa de `AtendimentoConfigService`. Mantém as duas telas (Novo Caso e
+     * Categorização) protegidas do mesmo jeito nesse cenário de falha de configuração.
+     * @return Lista de fallback (Salvador/Rio Grande/Centro Logístico/Rebocadores).
+     */
+    public static List<UnidadeFallbackEntry> getHardcodedUnidadeFallback() {
+        List<UnidadeFallbackEntry> out = new List<UnidadeFallbackEntry>();
+        out.add(fallbackEntry('Salvador', 'Atendimento Salvador', 'TSV'));
+        out.add(fallbackEntry('TeconSalvador', 'Atendimento Salvador', 'TSV'));
+        out.add(fallbackEntry('RioGrande', 'Atendimento Rio Grande', 'TRG'));
+        out.add(fallbackEntry('TeconRioGrande', 'Atendimento Rio Grande', 'TRG'));
+        out.add(fallbackEntry('CentroLogistico', 'Centro Logístico', 'CL'));
+        out.add(fallbackEntry('Rebocadores', 'Rebocadores', 'REB'));
+        return out;
+    }
+
+    private static UnidadeFallbackEntry fallbackEntry(String recordTypeDeveloperName, String unidadeNegocio, String queuePrefix) {
+        UnidadeFallbackEntry entry = new UnidadeFallbackEntry();
+        entry.recordTypeDeveloperName = recordTypeDeveloperName;
+        entry.unidadeNegocio = unidadeNegocio;
+        entry.queuePrefix = queuePrefix;
+        return entry;
     }
 }

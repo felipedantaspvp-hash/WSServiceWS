@@ -1,4 +1,5 @@
 global class LightningSelfRegisterController {
+    private static final String GENERIC_PUBLIC_ERROR = Label.ExperienceAuth_GenericError;
 
     public LightningSelfRegisterController() {
 
@@ -99,7 +100,7 @@ global class LightningSelfRegisterController {
         }
         catch (Exception ex) {
             Database.rollback(sp);
-            return ex.getMessage();            
+            return logAndReturnFriendlyError('LightningSelfRegisterController.selfRegister', ex);
         }
     }
     
@@ -131,7 +132,12 @@ global class LightningSelfRegisterController {
             }
             return null; 
         } catch (Exception ex) {
-            return ex.getMessage();            
+            return logAndReturnFriendlyError('LightningSelfRegisterController.setExperienceId', ex);
         }        
-    }  
+    }
+
+    private static String logAndReturnFriendlyError(String context, Exception ex) {
+        System.debug(LoggingLevel.ERROR, context + ': ' + ex.getTypeName() + ' - ' + ex.getMessage() + '\n' + ex.getStackTraceString());
+        return GENERIC_PUBLIC_ERROR;
+    }
 }

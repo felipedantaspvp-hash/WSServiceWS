@@ -6,14 +6,12 @@
  * @last modified by  : Jean Duarte
  **/
 public inherited sharing class CaseTriggerHandler {
-    @TestVisible private static Map<Id, Integer> injectedBlockersByCase = new Map<Id, Integer>();
-
     private static final String ETAPA_CANCELADO = 'Cancelado';
     private static final String MSG_AREA_INTERNA_ABERTA =
         'Existem áreas internas abertas. Conclua ou cancele as áreas participantes antes de fechar ou cancelar o caso.';
 
     public static void beforeInsert(List<Case> newRows) {
-        CaseCreationService.applyCategorizacaoDistribution(newRows);
+        CaseCategorizacaoDistributionService.applyDistribution(newRows);
     }
 
     public static void beforeUpdate(Map<Id, Case> newMap, Map<Id, Case> oldMap){
@@ -28,21 +26,7 @@ public inherited sharing class CaseTriggerHandler {
         }
         if (closing.isEmpty()) return;
 
-        Map<Id, Integer> blockers = new Map<Id, Integer>();
-        if (Test.isRunningTest() && !injectedBlockersByCase.isEmpty()) {
-            blockers.putAll(injectedBlockersByCase);
-        } else {
-            for (AggregateResult ar : [
-                SELECT Caso__c c, COUNT(Id) cnt
-                FROM AreaParticipante__c
-                WHERE Caso__c IN :closing
-                  AND TipoAreaParticipante__c = :AreaParticipanteSLAHelper.TIPO_AREA_INTERNA
-                  AND OrigemSLA__c = :AreaParticipanteSLAHelper.ORIGEM_SLA_CUSTOM
-                  AND BloqueiaFechamentoCaso__c = true
-                  AND DataHoraFim__c = null
-                GROUP BY Caso__c
-            ]) blockers.put((Id) ar.get('c'), (Integer) ar.get('cnt'));
-        }
+        Map<Id, Integer> blockers = AreaParticipanteSelector.countOpenBlockingInternalAreasByCase(closing);
 
         for (Id idCase : closing) {
             if (blockers.containsKey(idCase) && blockers.get(idCase) > 0) {

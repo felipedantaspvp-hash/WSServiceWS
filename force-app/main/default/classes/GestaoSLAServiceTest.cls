@@ -55,7 +55,7 @@ private class GestaoSLAServiceTest {
     private static void createRegra(Id gestaoId, Id marcoId, Id categId, Boolean ativo) {
         RegrasSLACategorizacao__c r = new RegrasSLACategorizacao__c(
             Categorizacao__c = categId,
-            TipoAreaParticipante__c = AreaParticipanteSLAHelper.tipoAreaInternaApiValue(),
+            TipoAreaParticipante__c = AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
             BusinessHoursName__c = 'Atendimento Salvador',
             Ativo__c = ativo,
             GestaoSLA__c = gestaoId,

@@ -2,9 +2,6 @@
  * Aura-enabled controller for the Account Case Schedule manager LWC.
  */
 public with sharing class AccountCaseScheduleController {
-    @TestVisible
-    private static Exception testException;
-
     /**
      * @param accountId Current Account Id.
      * @return Initial component state.
@@ -131,8 +128,9 @@ public with sharing class AccountCaseScheduleController {
     }
 
     private static void throwTestException() {
-        if (Test.isRunningTest() && testException != null) {
-            throw testException;
+        Exception forcedException = ApexTestSeam.getException('AccountCaseScheduleController.testException');
+        if (forcedException != null) {
+            throw forcedException;
         }
     }
 }

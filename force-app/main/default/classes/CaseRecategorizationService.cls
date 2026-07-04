@@ -118,6 +118,7 @@ public inherited sharing class CaseRecategorizationService {
         }
 
         if (uncategorizedBefore) {
+            validateDestinationFieldsAccess();
             applyDestination(c, request, matchedCategorization);
         }
 
@@ -149,6 +150,19 @@ public inherited sharing class CaseRecategorizationService {
             || !Case.Categoria__c.getDescribe().isUpdateable()
             || !Case.Assunto__c.getDescribe().isUpdateable()
             || !Case.Subassunto__c.getDescribe().isUpdateable()) {
+            throwFunctional('FLS_DENIED', 'Você não possui permissão para recategorizar este Caso.');
+        }
+    }
+
+    private static void validateDestinationFieldsAccess() {
+        if (!Case.OwnerId.getDescribe().isUpdateable()
+            || !Case.Status.getDescribe().isUpdateable()
+            || !Case.EtapaAtendimento__c.getDescribe().isUpdateable()
+            || !Case.AcaoPosCategorizacao__c.getDescribe().isUpdateable()
+            || !Case.DistribuicaoSolicitada__c.getDescribe().isUpdateable()
+            || !Case.OrigemDistribuicao__c.getDescribe().isUpdateable()
+            || !Case.FilaDestinoDeveloperName__c.getDescribe().isUpdateable()
+            || !Case.FilaDestinoId__c.getDescribe().isUpdateable()) {
             throwFunctional('FLS_DENIED', 'Você não possui permissão para recategorizar este Caso.');
         }
     }

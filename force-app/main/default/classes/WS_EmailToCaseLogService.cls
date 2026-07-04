@@ -39,8 +39,8 @@ public inherited sharing class WS_EmailToCaseLogService {
         Messaging.InboundEnvelope envelope = ctx == null ? null : ctx.envelope;
 
         List<String> lines = new List<String>{
-            'Erro: ' + (String.isBlank(errorMessage) ? 'NÃ£o informado' : errorMessage),
-            'AÃ§Ã£o: ' + (ctx == null ? null : String.valueOf(ctx.actionTaken)),
+            'Erro: ' + (String.isBlank(errorMessage) ? 'Não informado' : errorMessage),
+            'Ação: ' + (ctx == null ? null : String.valueOf(ctx.actionTaken)),
             'Route Key: ' + (ctx == null || ctx.route == null ? WS_EmailToCaseConstants.NO_ROUTE_KEY : String.valueOf(ctx.route.routeKey)),
             'Processing Key: ' + (ctx == null ? null : String.valueOf(ctx.processingKey)),
             'Message Identifier: ' + (ctx == null ? null : String.valueOf(ctx.messageIdentifier)),

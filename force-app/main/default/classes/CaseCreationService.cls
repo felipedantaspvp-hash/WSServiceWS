@@ -47,6 +47,7 @@ public inherited sharing class CaseCreationService {
     }
 
     public static CaseCreationDTO.TreeOptionsDTO getTreeOptions(CaseCreationDTO.CategorizationRequestDTO request) {
+        validateReadAccess();
         validateCategorizationBase(request);
         List<Categorizacao__c> rows = CaseCreationSelector.getActiveCategorizacoes(request.recordTypeDeveloperName, request.unidadeNegocio);
 
@@ -85,6 +86,7 @@ public inherited sharing class CaseCreationService {
     }
 
     public static CaseCreationDTO.ResolveSelectionResponseDTO resolveCategorizationSelection(CaseCreationDTO.CategorizationRequestDTO request) {
+        validateReadAccess();
         validateCategorizationBase(request);
         validateCategorizationPath(request);
 
@@ -264,77 +266,10 @@ public inherited sharing class CaseCreationService {
         return out;
     }
 
-    /**
-     * @description Aplica/reforça a distribuição para fila parametrizada na Categorização no momento
-     * real da criação do Case — não só no wizard (que não tem acesso ao valor final dos campos do Case
-     * nem é o único caminho de criação: cargas em massa e integrações também populam Categorizacao__c
-     * sem passar por nenhuma tela). Roda independente da Ação de Destino escolhida no wizard, com 2
-     * únicas saídas reconhecidas como bypass explícito: AcaoPosCategorizacao__c = 'Encerrar' (Case já
-     * nasce fechado, não há por que enfilerar) e 'Assumir' quando a própria Categorização permite isso
-     * (PermiteAssumirComFilaParametrizada__c = 'Sim'). Em qualquer outro caso — incluindo cargas/API que
-     * nunca preenchem AcaoPosCategorizacao__c — a fila parametrizada (fixa, por campo customizado
-     * batendo o critério, ou fallback quando não bate) é sempre aplicada, fechando a "fuga" de deixar
-     * o Owner como veio da carga.
-     * @param newRows Cases sendo inseridos (contexto before insert — bulk safe, sem DML extra).
-     */
-    public static void applyCategorizacaoDistribution(List<Case> newRows) {
-        Set<Id> categorizacaoIds = new Set<Id>();
-        for (Case c : newRows) {
-            if (c.Categorizacao__c != null) categorizacaoIds.add(c.Categorizacao__c);
-        }
-        if (categorizacaoIds.isEmpty()) return;
-
-        Map<Id, Categorizacao__c> categorizacoesById = new Map<Id, Categorizacao__c>([
-            SELECT Id, DistribuirParaFila__c, PorCampoCustomizado__c, CampoDistribuicao__c, ValorDistribuicao__c,
-                   FilaDeveloperName__c, FilaId__c, FilaDeveloperNameFallback__c, FilaIdFallback__c,
-                   PermiteAssumirComFilaParametrizada__c, EtapaAtendimentoDistribuicao__c
-            FROM Categorizacao__c
-            WHERE Id IN :categorizacaoIds
-        ]);
-        if (categorizacoesById.isEmpty()) return;
-
-        Map<String, Schema.SObjectField> caseFields = Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
-
-        for (Case c : newRows) {
-            if (c.Categorizacao__c == null) continue;
-            Categorizacao__c cat = categorizacoesById.get(c.Categorizacao__c);
-            if (cat == null) continue;
-            if (!CategorizacaoHelper.isTrueFlag(cat.DistribuirParaFila__c)) continue;
-            if (c.AcaoPosCategorizacao__c == 'Encerrar') continue;
-
-            String targetFilaId = cat.FilaId__c;
-            String targetFilaDevName = cat.FilaDeveloperName__c;
-
-            if (CategorizacaoHelper.isTrueFlag(cat.PorCampoCustomizado__c)
-                && !String.isBlank(cat.CampoDistribuicao__c) && !String.isBlank(cat.ValorDistribuicao__c)
-                && caseFields.containsKey(cat.CampoDistribuicao__c)) {
-                Object liveValue = c.get(cat.CampoDistribuicao__c);
-                String liveValueStr = liveValue == null ? null : String.valueOf(liveValue);
-                if (CaseCreationHelper.sameNormalizedValue(liveValueStr, cat.ValorDistribuicao__c)) {
-                    targetFilaId = cat.FilaId__c;
-                    targetFilaDevName = cat.FilaDeveloperName__c;
-                } else if (!String.isBlank(cat.FilaIdFallback__c)) {
-                    targetFilaId = cat.FilaIdFallback__c;
-                    targetFilaDevName = cat.FilaDeveloperNameFallback__c;
-                } else {
-                    continue;
-                }
-            }
-
-            if (String.isBlank(targetFilaId)) continue;
-
-            Boolean permiteAssumir = String.isBlank(cat.PermiteAssumirComFilaParametrizada__c)
-                || CategorizacaoHelper.isTrueFlag(cat.PermiteAssumirComFilaParametrizada__c);
-            if (c.AcaoPosCategorizacao__c == 'Assumir' && permiteAssumir) continue;
-
-            c.OwnerId = targetFilaId;
-            c.DistribuicaoSolicitada__c = true;
-            c.OrigemDistribuicao__c = 'Categorização';
-            c.FilaDestinoDeveloperName__c = targetFilaDevName;
-            c.FilaDestinoId__c = targetFilaId;
-            if (!String.isBlank(cat.EtapaAtendimentoDistribuicao__c)) {
-                c.EtapaAtendimento__c = cat.EtapaAtendimentoDistribuicao__c;
-            }
+    private static void validateReadAccess() {
+        if (!resolveReadAccess('CaseCreationService.caseReadAccess', Schema.sObjectType.Case.isAccessible())
+            || !resolveReadAccess('CaseCreationService.categorizacaoReadAccess', Schema.sObjectType.Categorizacao__c.isAccessible())) {
+            throwFunctional('CRUD_DENIED', 'Usuário sem permissão para consultar a categorização do Case.');
         }
     }
 
@@ -383,5 +318,10 @@ public inherited sharing class CaseCreationService {
         Map<String, Object> populated = row.getPopulatedFieldsAsMap();
         if (populated.containsKey(labelAlias) && populated.get(labelAlias) != null) return (String) populated.get(labelAlias);
         return (String) row.get(fieldApiName);
+    }
+
+    private static Boolean resolveReadAccess(String overrideKey, Boolean actualValue) {
+        Boolean overrideValue = ApexTestSeam.getNullableBoolean(overrideKey);
+        return overrideValue == null ? actualValue : overrideValue;
     }
 }

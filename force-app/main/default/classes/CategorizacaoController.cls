@@ -1,9 +1,4 @@
 public inherited sharing class CategorizacaoController {
-    @TestVisible private static Boolean categorizacaoReadAccessOverride;
-    @TestVisible private static Boolean categorizacaoCreateAccessOverride;
-    @TestVisible private static Boolean categorizacaoUpdateAccessOverride;
-    @TestVisible private static Boolean regrasReadAccessOverride;
-    @TestVisible private static Boolean regrasManageAccessOverride;
     /**
      * @description Retorna estado inicial para criacao/edicao.
      * @param recordId Id opcional da categorizacao.
@@ -71,6 +66,7 @@ public inherited sharing class CategorizacaoController {
             r.message = r.error.message;
             return r;
         } catch (Exception ex) {
+            CaseControllerLogHelper.logUnexpectedError('CategorizacaoController.save', 'Categorizacao__c', request != null ? request.id : null, ex);
             CategorizacaoDTO.Response r = new CategorizacaoDTO.Response();
             r.success = false;
             r.error = new CategorizacaoDTO.ErrorInfo();
@@ -82,23 +78,23 @@ public inherited sharing class CategorizacaoController {
     }
 
     private static void enforceRead() {
-        if (!resolveAccess(categorizacaoReadAccessOverride, Schema.sObjectType.Categorizacao__c.isAccessible())) {
+        if (!resolveAccess('CategorizacaoController.categorizacaoReadAccess', Schema.sObjectType.Categorizacao__c.isAccessible())) {
             CategorizacaoService.throwFunctional('CRUD_DENIED', 'Usuário sem permissão de leitura para Categorização.');
         }
     }
 
     private static void enforceWrite(Boolean isInsert) {
-        if (isInsert && !resolveAccess(categorizacaoCreateAccessOverride, Schema.sObjectType.Categorizacao__c.isCreateable())) {
+        if (isInsert && !resolveAccess('CategorizacaoController.categorizacaoCreateAccess', Schema.sObjectType.Categorizacao__c.isCreateable())) {
             CategorizacaoService.throwFunctional('CRUD_DENIED', 'Usuário sem permissão para criar Categorização.');
         }
-        if (!isInsert && !resolveAccess(categorizacaoUpdateAccessOverride, Schema.sObjectType.Categorizacao__c.isUpdateable())) {
+        if (!isInsert && !resolveAccess('CategorizacaoController.categorizacaoUpdateAccess', Schema.sObjectType.Categorizacao__c.isUpdateable())) {
             CategorizacaoService.throwFunctional('CRUD_DENIED', 'Usuário sem permissão para editar Categorização.');
         }
-        if (!resolveAccess(regrasReadAccessOverride, Schema.sObjectType.RegrasSLACategorizacao__c.isAccessible())) {
+        if (!resolveAccess('CategorizacaoController.regrasReadAccess', Schema.sObjectType.RegrasSLACategorizacao__c.isAccessible())) {
             CategorizacaoService.throwFunctional('CRUD_DENIED', 'Usuario sem permissao de leitura para Regras SLA.');
         }
         if (!resolveAccess(
-            regrasManageAccessOverride,
+            'CategorizacaoController.regrasManageAccess',
             Schema.sObjectType.RegrasSLACategorizacao__c.isCreateable()
                 && Schema.sObjectType.RegrasSLACategorizacao__c.isUpdateable()
                 && Schema.sObjectType.RegrasSLACategorizacao__c.isDeletable()
@@ -107,8 +103,9 @@ public inherited sharing class CategorizacaoController {
         }
     }
 
-    private static Boolean resolveAccess(Boolean overrideValue, Boolean actualValue) {
-        if (Test.isRunningTest() && overrideValue != null) return overrideValue;
+    private static Boolean resolveAccess(String overrideKey, Boolean actualValue) {
+        Boolean overrideValue = ApexTestSeam.getNullableBoolean(overrideKey);
+        if (overrideValue != null) return overrideValue;
         return actualValue;
     }
 }

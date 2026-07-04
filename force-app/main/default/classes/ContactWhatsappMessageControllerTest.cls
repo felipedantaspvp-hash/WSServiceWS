@@ -100,7 +100,7 @@ private class ContactWhatsappMessageControllerTest {
     static void shouldReturnUnexpectedErrorWhenUnexpectedExceptionOccurs() {
         setAllowedWhatsAppConfigs(new Map<String, String>(), new Set<String>());
         Contact contactRecord = [SELECT Id FROM Contact LIMIT 1];
-        ContactWhatsappMessageController.forceUnexpectedErrorForTest = true;
+        ApexTestSeam.set('ContactWhatsappMessageController.forceUnexpectedError', true);
 
         Test.startTest();
         ContactWhatsappMessageDTO result = ContactWhatsappMessageController.getContext(contactRecord.Id);

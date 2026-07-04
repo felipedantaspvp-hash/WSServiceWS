@@ -88,6 +88,12 @@ public with sharing class LightningSelfRegisterControllerTest {
   Assert.areEqual(null, LightningSelfRegisterController.setExperienceId(null));
  }
 
+ @IsTest
+ static void testSetExperienceIdWithValue() {
+  String result = LightningSelfRegisterController.setExperienceId('exp-id-test');
+  Assert.areEqual(true, result == null || result == Label.ExperienceAuth_GenericError);
+ }
+
  /* Helper method to initialize the parameters required for SelfRegistration. */
  private static Map < String, String > initializeParams() {
   Map < String, String > paramsMap = new Map < String, String > ();

@@ -80,5 +80,6 @@ Skills da biblioteca oficial estão em `.agents/skills/`. Use via `/skill [nome]
 | Quality gates (11 handlers) | `AI_HANDLERS.md` |
 | Mapa do projeto | `docs/PROJECT_INDEX.md` |
 | Coordenação paralela | `AI_WORKQUEUE.md` |
+| Revisão de código (achados priorizados + correção) | `CodeReview.md` |
 | Contexto SLA | `docs/GESTAO_SLA_PROJECT_CONTEXT.md` |
 | Guias detalhados | `docs/agent-reference/SALESFORCE_[TEMA]_GUIDE.md` |

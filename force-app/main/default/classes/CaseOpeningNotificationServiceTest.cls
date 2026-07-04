@@ -6,7 +6,7 @@ private class CaseOpeningNotificationServiceTest {
         setupConfig(true);
         CaseOpeningNotificationService.testTemplateIdsByDeveloperName = new Map<String, Id>{ 'Atend_Open_Test_PT' => '00X000000000101AAA' };
         CaseOpeningNotificationService.testOrgWideEmailIdsByAddress = new Map<String, Id>{ 'eu@marl2on.com' => '0D2000000000001AAA' };
-        CaseOpeningNotificationServiceAgent.skipEmailForTest = true;
+        ApexTestSeam.set('CaseOpeningNotificationServiceAgent.skipEmail', true);
 
         Test.startTest();
         CaseOpeningNotificationService.notifyOpenedCases(new Set<Id>{ c.Id });
@@ -22,7 +22,7 @@ private class CaseOpeningNotificationServiceTest {
         Case c = createOpenCase('Centro Logístico', 'cliente.disabled@example.com', 'pt_BR');
         setupConfig(false);
         CaseOpeningNotificationService.testTemplateIdsByDeveloperName = new Map<String, Id>{ 'Atend_Open_Test_PT' => '00X000000000101AAA' };
-        CaseOpeningNotificationServiceAgent.skipEmailForTest = true;
+        ApexTestSeam.set('CaseOpeningNotificationServiceAgent.skipEmail', true);
 
         Test.startTest();
         CaseOpeningNotificationService.notifyOpenedCases(new Set<Id>{ c.Id });
@@ -37,7 +37,7 @@ private class CaseOpeningNotificationServiceTest {
         Case c = createOpenCase('Rebocadores', 'cliente.open.en@example.com', 'en_US');
         setupConfig(true);
         CaseOpeningNotificationService.testTemplateIdsByDeveloperName = new Map<String, Id>{ 'Atend_Open_Test_EN' => '00X000000000102AAA' };
-        CaseOpeningNotificationServiceAgent.skipEmailForTest = true;
+        ApexTestSeam.set('CaseOpeningNotificationServiceAgent.skipEmail', true);
 
         Test.startTest();
         CaseOpeningNotificationService.notifyOpenedCases(new Set<Id>{ c.Id });
@@ -53,7 +53,7 @@ private class CaseOpeningNotificationServiceTest {
         insert c;
         setupConfig(true);
         CaseOpeningNotificationService.testTemplateIdsByDeveloperName = new Map<String, Id>{ 'Atend_Open_Test_PT' => '00X000000000101AAA' };
-        CaseOpeningNotificationServiceAgent.skipEmailForTest = true;
+        ApexTestSeam.set('CaseOpeningNotificationServiceAgent.skipEmail', true);
 
         Test.startTest();
         CaseOpeningNotificationService.notifyOpenedCases(new Set<Id>{ c.Id });
@@ -68,7 +68,7 @@ private class CaseOpeningNotificationServiceTest {
         Case c = createOpenCase('Centro Logístico', 'cliente.template@example.com', 'pt_BR');
         setupConfig(true);
         CaseOpeningNotificationService.testTemplateIdsByDeveloperName = new Map<String, Id>();
-        CaseOpeningNotificationServiceAgent.skipEmailForTest = true;
+        ApexTestSeam.set('CaseOpeningNotificationServiceAgent.skipEmail', true);
 
         Test.startTest();
         CaseOpeningNotificationService.notifyOpenedCases(new Set<Id>{ c.Id });
@@ -85,7 +85,7 @@ private class CaseOpeningNotificationServiceTest {
             new CaseOpeningNotificationServiceAgent.CaseOpeningEnvelope();
         envelope.caseRecord = c;
         envelope.emailTemplateId = '00X000000000101AAA';
-        CaseOpeningNotificationServiceAgent.skipEmailForTest = true;
+        ApexTestSeam.set('CaseOpeningNotificationServiceAgent.skipEmail', true);
         CaseOpeningNotificationServiceAgent.testEmailErrorsByIndex =
             new Map<Integer, String>{ 0 => 'INVALID_ID_FIELD: Template inválido.' };
 
@@ -143,7 +143,7 @@ private class CaseOpeningNotificationServiceTest {
         AtendimentoConfigService.clearTestSurveyConfigs();
         CaseOpeningNotificationService.testTemplateIdsByDeveloperName = null;
         CaseOpeningNotificationService.testOrgWideEmailIdsByAddress = null;
-        CaseOpeningNotificationServiceAgent.skipEmailForTest = false;
+        ApexTestSeam.clear('CaseOpeningNotificationServiceAgent.skipEmail');
         CaseOpeningNotificationServiceAgent.testEmailErrorsByIndex = null;
         CaseOpeningNotificationServiceAgent.preparedEnvelopesForTest = null;
     }

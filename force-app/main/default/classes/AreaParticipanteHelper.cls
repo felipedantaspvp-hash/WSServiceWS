@@ -6,13 +6,7 @@ public inherited sharing class AreaParticipanteHelper {
 
     public static String normalizeText(String value) {
         if (String.isBlank(value)) return '';
-        String out = value.trim().toLowerCase();
-        out = out.replace('á', 'a').replace('à', 'a').replace('â', 'a').replace('ã', 'a').replace('ä', 'a');
-        out = out.replace('é', 'e').replace('è', 'e').replace('ê', 'e').replace('ë', 'e');
-        out = out.replace('í', 'i').replace('ì', 'i').replace('î', 'i').replace('ï', 'i');
-        out = out.replace('ó', 'o').replace('ò', 'o').replace('ô', 'o').replace('õ', 'o').replace('ö', 'o');
-        out = out.replace('ú', 'u').replace('ù', 'u').replace('û', 'u').replace('ü', 'u');
-        out = out.replace('ç', 'c');
+        String out = TextNormalizationUtil.stripAccents(value.trim().toLowerCase());
         out = out.replaceAll('[^a-z0-9 ]', ' ');
         out = out.replaceAll('\\s+', ' ').trim();
         return out;
@@ -132,7 +126,4 @@ public inherited sharing class AreaParticipanteHelper {
         return (isEnglish() ? 'Overdue: ' : 'Atraso: ') + pretty;
     }
 
-    public static String toDisplayOrDash(String value) {
-        return String.isBlank(value) ? '-' : value;
-    }
 }

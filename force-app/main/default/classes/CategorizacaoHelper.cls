@@ -11,17 +11,7 @@ public inherited sharing class CategorizacaoHelper {
 
     public static String removeAccents(String value) {
         if (String.isBlank(value)) return '';
-        String out = value;
-        Map<String, String> accents = new Map<String, String>{
-            'Á'=>'A','À'=>'A','Â'=>'A','Ã'=>'A','Ä'=>'A','á'=>'a','à'=>'a','â'=>'a','ã'=>'a','ä'=>'a',
-            'É'=>'E','È'=>'E','Ê'=>'E','Ë'=>'E','é'=>'e','è'=>'e','ê'=>'e','ë'=>'e',
-            'Í'=>'I','Ì'=>'I','Î'=>'I','Ï'=>'I','í'=>'i','ì'=>'i','î'=>'i','ï'=>'i',
-            'Ó'=>'O','Ò'=>'O','Ô'=>'O','Õ'=>'O','Ö'=>'O','ó'=>'o','ò'=>'o','ô'=>'o','õ'=>'o','ö'=>'o',
-            'Ú'=>'U','Ù'=>'U','Û'=>'U','Ü'=>'U','ú'=>'u','ù'=>'u','û'=>'u','ü'=>'u',
-            'Ç'=>'C','ç'=>'c','Ñ'=>'N','ñ'=>'n'
-        };
-        for (String k : accents.keySet()) out = out.replace(k, accents.get(k));
-        return out;
+        return TextNormalizationUtil.stripAccents(value);
     }
 
     public static Boolean isTrueFlag(String value) {

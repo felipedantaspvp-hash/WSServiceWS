@@ -9,7 +9,7 @@ private class CaseSurveyDispatchServiceTest {
         CaseSurveyDispatchService.testOrgWideEmailIdsByAddress = new Map<String, Id>{ 'eu@marl2on.com' => '0D2000000000001AAA' };
         CaseSurveyDispatchService.testNetworkIdsByUrlPathPrefix = new Map<String, Id>{ 'pesquisaws' => '0DB000000000001AAA' };
         CaseSurveyDispatchService.testCasesWithSurveySubject = new Set<Id>();
-        CaseSurveyDispatchServiceAgent.skipDmlAndEmailForTest = true;
+        ApexTestSeam.set('CaseSurveyDispatchServiceAgent.skipDmlAndEmail', true);
         CaseSurveyDispatchServiceAgent.testInvitationId = '0Ki000000000001AAA';
 
         Test.startTest();
@@ -32,7 +32,7 @@ private class CaseSurveyDispatchServiceTest {
         CaseSurveyDispatchService.testTemplateIdsByDeveloperName = new Map<String, Id>{ 'Atend_Close_Test_PT' => '00X000000000002AAA' };
         CaseSurveyDispatchService.testOrgWideEmailIdsByAddress = new Map<String, Id>{ 'eu@marl2on.com' => '0D2000000000001AAA' };
         CaseSurveyDispatchService.testCasesWithSurveySubject = new Set<Id>();
-        CaseSurveyDispatchServiceAgent.skipDmlAndEmailForTest = true;
+        ApexTestSeam.set('CaseSurveyDispatchServiceAgent.skipDmlAndEmail', true);
         update new Case(Id = c.Id, EnviarPesquisaSatisfacao__c = false);
 
         Test.startTest();
@@ -88,7 +88,7 @@ private class CaseSurveyDispatchServiceTest {
         CaseSurveyDispatchService.testOrgWideEmailIdsByAddress = new Map<String, Id>{ 'eu@marl2on.com' => '0D2000000000001AAA' };
         CaseSurveyDispatchService.testNetworkIdsByUrlPathPrefix = new Map<String, Id>{ 'pesquisaws' => '0DB000000000001AAA' };
         CaseSurveyDispatchService.testCasesWithSurveySubject = new Set<Id>();
-        CaseSurveyDispatchServiceAgent.skipDmlAndEmailForTest = true;
+        ApexTestSeam.set('CaseSurveyDispatchServiceAgent.skipDmlAndEmail', true);
         CaseSurveyDispatchServiceAgent.testInvitationId = '0Ki000000000001AAA';
         CaseSurveyDispatchServiceAgent.testEmailErrorsByIndex = new Map<Integer, String>{ 0 => 'INVALID_ID_FIELD: SaveAsActivity is not allowed.' };
 
@@ -114,7 +114,7 @@ private class CaseSurveyDispatchServiceTest {
         CaseSurveyDispatchService.testOrgWideEmailIdsByAddress = new Map<String, Id>{ 'eu@marl2on.com' => '0D2000000000001AAA' };
         CaseSurveyDispatchService.testNetworkIdsByUrlPathPrefix = new Map<String, Id>{ 'pesquisaws' => '0DB000000000001AAA' };
         CaseSurveyDispatchService.testCasesWithSurveySubject = new Set<Id>();
-        CaseSurveyDispatchServiceAgent.skipDmlAndEmailForTest = true;
+        ApexTestSeam.set('CaseSurveyDispatchServiceAgent.skipDmlAndEmail', true);
         CaseSurveyDispatchServiceAgent.testInvitationId = '0Ki000000000001AAA';
 
         Test.startTest();
@@ -137,7 +137,7 @@ private class CaseSurveyDispatchServiceTest {
         CaseSurveyDispatchService.testOrgWideEmailIdsByAddress = new Map<String, Id>{ 'eu@marl2on.com' => '0D2000000000001AAA' };
         CaseSurveyDispatchService.testNetworkIdsByUrlPathPrefix = new Map<String, Id>{ 'pesquisaws' => '0DB000000000001AAA' };
         CaseSurveyDispatchService.testCasesWithSurveySubject = new Set<Id>();
-        CaseSurveyDispatchServiceAgent.skipDmlAndEmailForTest = true;
+        ApexTestSeam.set('CaseSurveyDispatchServiceAgent.skipDmlAndEmail', true);
         CaseSurveyDispatchServiceAgent.testInvitationId = '0Ki000000000001AAA';
 
         Test.startTest();
@@ -157,7 +157,7 @@ private class CaseSurveyDispatchServiceTest {
         CaseSurveyDispatchService.testTemplateIdsByDeveloperName = new Map<String, Id>{ 'Atend_Close_Test_EN' => '00X000000000005AAA' };
         CaseSurveyDispatchService.testOrgWideEmailIdsByAddress = new Map<String, Id>{ 'eu@marl2on.com' => '0D2000000000001AAA' };
         CaseSurveyDispatchService.testCasesWithSurveySubject = new Set<Id>();
-        CaseSurveyDispatchServiceAgent.skipDmlAndEmailForTest = true;
+        ApexTestSeam.set('CaseSurveyDispatchServiceAgent.skipDmlAndEmail', true);
         update new Case(Id = c.Id, EnviarPesquisaSatisfacao__c = false);
 
         Test.startTest();
@@ -236,7 +236,7 @@ private class CaseSurveyDispatchServiceTest {
         CaseSurveyDispatchService.testOrgWideEmailIdsByAddress = null;
         CaseSurveyDispatchService.testNetworkIdsByUrlPathPrefix = null;
         CaseSurveyDispatchService.testCasesWithSurveySubject = null;
-        CaseSurveyDispatchServiceAgent.skipDmlAndEmailForTest = false;
+        ApexTestSeam.clear('CaseSurveyDispatchServiceAgent.skipDmlAndEmail');
         CaseSurveyDispatchServiceAgent.testInvitationId = null;
         CaseSurveyDispatchServiceAgent.testEmailErrorsByIndex = null;
         CaseSurveyDispatchServiceAgent.preparedInvitationsForTest = null;

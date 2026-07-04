@@ -24,7 +24,7 @@ public inherited sharing class AtendimentoContextResolverService {
     }
 
     @TestVisible private static ConversationGateway gateway = new DefaultConversationGateway();
-    @TestVisible private static List<TCO_ChannelRouting__mdt> activeChannelRoutesOverride;
+    @TestVisible private static List<AtendimentoConfigDTO> activeAtendimentoParamsOverride;
 
     @TestVisible
     private static void restoreDefaultGateway() {
@@ -89,11 +89,11 @@ public inherited sharing class AtendimentoContextResolverService {
         }
         contactById.putAll(fetchContactsById(allContactIds));
         Map<Id, Account> accountById = fetchAccountsFromContacts(contactById.values());
-        List<TCO_ChannelRouting__mdt> activeChannelRoutes = fetchActiveChannelRoutes();
+        List<AtendimentoConfigDTO> activeAtendimentoParams = fetchActiveAtendimentoParams();
 
         for (WorkingResult wr : works) {
             try {
-                resolveOne(wr, contactById, accountById, messagingById, liveChatById, endUserMappedContacts, activeChannelRoutes);
+                resolveOne(wr, contactById, accountById, messagingById, liveChatById, endUserMappedContacts, activeAtendimentoParams);
             } catch (Exception ex) {
                 applyUnexpectedError(wr.response);
             }
@@ -135,7 +135,7 @@ public inherited sharing class AtendimentoContextResolverService {
         Map<Id, SObject> messagingById,
         Map<Id, SObject> liveChatById,
         Map<Id, Contact> endUserMappedContacts,
-        List<TCO_ChannelRouting__mdt> activeChannelRoutes
+        List<AtendimentoConfigDTO> activeAtendimentoParams
     ) {
         Id resolvedContactId;
         Id resolvedConversationContactId;
@@ -201,11 +201,10 @@ public inherited sharing class AtendimentoContextResolverService {
             wr.response.missingInformation = 'Contact';
             wr.response.conversationContactId = resolvedConversationContactId;
             wr.response.channelName = AtendimentoContextResolverHelper.channelDisplayName(wr.normalizedChannelType);
-            wr.response.businessUnitName = resolveBusinessUnit(
+            wr.response.businessUnitName = AtendimentoContextResolverHelper.resolveBusinessUnitFromConfigs(
                 wr.normalizedChannelType,
                 wr.channelIdentifier,
-                wr.response.conversationId,
-                activeChannelRoutes
+                activeAtendimentoParams
             );
             return;
         }
@@ -228,11 +227,10 @@ public inherited sharing class AtendimentoContextResolverService {
             }
         }
 
-        wr.response.businessUnitName = resolveBusinessUnit(
+        wr.response.businessUnitName = AtendimentoContextResolverHelper.resolveBusinessUnitFromConfigs(
             wr.normalizedChannelType,
             wr.channelIdentifier,
-            wr.response.conversationId,
-            activeChannelRoutes
+            activeAtendimentoParams
         );
 
         if (wr.normalizedChannelType == AtendimentoContextResolverHelper.CHANNEL_UNKNOWN && wr.hasAnyInput) {
@@ -339,7 +337,7 @@ public inherited sharing class AtendimentoContextResolverService {
         String soql = 'SELECT Id, ContactId FROM ' + endUserObject + ' WHERE Id IN :endUserIds';
         Set<Id> contactIds = new Set<Id>();
         Map<Id, Id> endUserToContact = new Map<Id, Id>();
-        for (SObject row : Database.query(soql)) {
+        for (SObject row : Database.queryWithBinds(soql, new Map<String, Object>{ 'endUserIds' => endUserIds }, AccessLevel.USER_MODE)) {
             Id contactId = (Id) row.get('ContactId');
             if (contactId == null) continue;
             endUserToContact.put((Id) row.get('Id'), contactId);
@@ -354,35 +352,11 @@ public inherited sharing class AtendimentoContextResolverService {
         return out;
     }
 
-    private static String resolveBusinessUnit(String normalizedChannelType, String channelIdentifier, Id conversationId, List<TCO_ChannelRouting__mdt> rows) {
-        if (rows == null || rows.isEmpty()) return null;
-        String normalizedType = AtendimentoContextResolverHelper.normalizeKey(normalizedChannelType);
-        String normalizedIdentifier = AtendimentoContextResolverHelper.normalizeKey(channelIdentifier);
-        String normalizedConversation = AtendimentoContextResolverHelper.normalizeKey(String.valueOf(conversationId));
-
-        for (TCO_ChannelRouting__mdt row : rows) {
-            String rowType = AtendimentoContextResolverHelper.normalizeKey(row.TCF_ChannelType__c);
-            String rowIdentifier = AtendimentoContextResolverHelper.normalizeKey(row.TCF_ChannelIdentifier__c);
-
-            if (rowType != normalizedType) continue;
-            if (!String.isBlank(normalizedIdentifier) && rowIdentifier == normalizedIdentifier) return row.TCF_BusinessUnit__c;
-            if (!String.isBlank(normalizedConversation) && rowIdentifier == normalizedConversation) return row.TCF_BusinessUnit__c;
+    private static List<AtendimentoConfigDTO> fetchActiveAtendimentoParams() {
+        if (Test.isRunningTest() && activeAtendimentoParamsOverride != null) {
+            return activeAtendimentoParamsOverride;
         }
-
-        for (TCO_ChannelRouting__mdt row : rows) {
-            String rowType = AtendimentoContextResolverHelper.normalizeKey(row.TCF_ChannelType__c);
-            String rowIdentifier = AtendimentoContextResolverHelper.normalizeKey(row.TCF_ChannelIdentifier__c);
-            if (rowType == normalizedType && String.isBlank(rowIdentifier)) return row.TCF_BusinessUnit__c;
-        }
-        return null;
-    }
-
-    private static List<TCO_ChannelRouting__mdt> fetchActiveChannelRoutes() {
-        if (Test.isRunningTest() && activeChannelRoutesOverride != null) {
-            return activeChannelRoutesOverride;
-        }
-        if (!AtendimentoContextResolverHelper.canQueryObject('TCO_ChannelRouting__mdt')) return new List<TCO_ChannelRouting__mdt>();
-        return AtendimentoContextResolverSelector.selectActiveChannelRoutes();
+        return AtendimentoConfigService.getActiveConfigs();
     }
 
     private static void applyUnexpectedError(AtendimentoContextResolverDTO.Response response) {

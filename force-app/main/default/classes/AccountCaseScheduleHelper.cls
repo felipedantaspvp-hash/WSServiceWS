@@ -70,6 +70,35 @@ public with sharing class AccountCaseScheduleHelper {
     }
 
     /**
+     * @param scheduleId Schedule Id.
+     * @return Schedule record with all fields required by the LWC DTO mapping.
+     */
+    public static Agendamento__c getScheduleFullById(Id scheduleId) {
+        if (scheduleId == null) return null;
+        List<Agendamento__c> rows = [
+            SELECT Id, Name, Ativo__c, Conta__c, UnidadeNegocio__c, RecordTypeId,
+                RecordType.DeveloperName, TipoCaso__c, Categoria__c, Assunto__c,
+                Subassunto__c, Frequencia__c, DiasDaSemana__c, HorarioExecucao__c, DataInicio__c,
+                PularFimDeSemana__c, DescricaoAtividade__c, OwnerType__c,
+                OwnerUser__c, OwnerUser__r.Name, OwnerQueueDeveloperName__c,
+                OwnerId, Owner.Name, UltimoErroExecucao__c,
+                UltimaExecucao__c, ProximaExecucao__c,
+                toLabel(UnidadeNegocio__c) UnidadeNegocioLabel,
+                toLabel(TipoCaso__c) TipoCasoLabel,
+                toLabel(Categoria__c) CategoriaLabel,
+                toLabel(Assunto__c) AssuntoLabel,
+                toLabel(Subassunto__c) SubassuntoLabel,
+                toLabel(Frequencia__c) FrequenciaLabel,
+                toLabel(OwnerType__c) OwnerTypeLabel
+            FROM Agendamento__c
+            WHERE Id = :scheduleId
+            WITH USER_MODE
+            LIMIT 1
+        ];
+        return rows.isEmpty() ? null : rows[0];
+    }
+
+    /**
      * @param developerName Record Type DeveloperName.
      * @return Matching Agendamento record type Id.
      */

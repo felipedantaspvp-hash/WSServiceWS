@@ -6,7 +6,6 @@
  * @last modified by Marllon Nascimento
  */
 public with sharing class ContactWhatsappMessageController {
-    @TestVisible private static Boolean forceUnexpectedErrorForTest = false;
 
     /**
      * @description Loads the Contact WhatsApp action context.
@@ -16,7 +15,7 @@ public with sharing class ContactWhatsappMessageController {
     @AuraEnabled(cacheable=true)
     public static ContactWhatsappMessageDTO getContext(Id contactId) {
         try {
-            if (Test.isRunningTest() && forceUnexpectedErrorForTest == true) {
+            if (ApexTestSeam.getBoolean('ContactWhatsappMessageController.forceUnexpectedError')) {
                 throw new UnexpectedControllerException('Forced test exception.');
             }
             return ContactWhatsappMessageService.getContext(contactId);

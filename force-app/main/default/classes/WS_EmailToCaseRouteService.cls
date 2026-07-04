@@ -34,7 +34,7 @@ public inherited sharing class WS_EmailToCaseRouteService {
             return matches[0];
         }
         if (matches.size() > 1) {
-            throw new WS_EmailToCaseConfigException('ConfiguraÃ§Ã£o ambÃ­gua: mÃºltiplas rotas ativas correspondem ao mesmo e-mail.');
+            throw new WS_EmailToCaseConfigException('Configuração ambígua: múltiplas rotas ativas correspondem ao mesmo e-mail.');
         }
 
         List<WS_EmailToCaseRouteConfig> defaults = new List<WS_EmailToCaseRouteConfig>();
@@ -45,7 +45,7 @@ public inherited sharing class WS_EmailToCaseRouteService {
         }
 
         if (defaults.size() > 1) {
-            throw new WS_EmailToCaseConfigException('ConfiguraÃ§Ã£o invÃ¡lida: existe mais de uma rota padrÃ£o ativa.');
+            throw new WS_EmailToCaseConfigException('Configuração inválida: existe mais de uma rota padrão ativa.');
         }
         return defaults.isEmpty() ? null : defaults[0];
     }

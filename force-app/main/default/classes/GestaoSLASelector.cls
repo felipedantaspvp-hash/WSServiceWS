@@ -124,6 +124,20 @@ public inherited sharing class GestaoSLASelector {
     }
 
     /**
+     * @description Retorna os campos de Business Hours (primário e secundário) para um conjunto de Gestões de SLA.
+     * @param gestaoIds Ids das Gestões de SLA.
+     * @return Lista de GestaoSLA__c com Id, BusinessHoursName__c e BusinessHoursSecundarioName__c.
+     **/
+    public static List<GestaoSLA__c> selectBusinessHoursFieldsByIds(Set<Id> gestaoIds) {
+        if (gestaoIds == null || gestaoIds.isEmpty()) return new List<GestaoSLA__c>();
+        return [
+            SELECT Id, BusinessHoursName__c, BusinessHoursSecundarioName__c
+            FROM GestaoSLA__c
+            WHERE Id IN :gestaoIds
+        ];
+    }
+
+    /**
      * @description Conta Gestões de SLA ativas com a mesma Unidade de Negócio.
      * @param unidade Valor de UnidadeNegocio__c a verificar.
      * @return Número de gestões ativas com a mesma unidade de negócio.

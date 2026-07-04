@@ -25,6 +25,7 @@ private class WSWillCaseLookupTest {
         WSWillCaseLookupDTO.Request req = new WSWillCaseLookupDTO.Request();
         req.caseNumber = String.valueOf(Integer.valueOf(cs.CaseNumber));
         req.language = 'en_US';
+        req.contactId = c.Id;
 
         Test.startTest();
         List<WSWillCaseLookupDTO.Response> res = WSWillCaseLookupInvocable.lookup(new List<WSWillCaseLookupDTO.Request>{ req });
@@ -76,12 +77,60 @@ private class WSWillCaseLookupTest {
         WSWillCaseLookupDTO.Request req = new WSWillCaseLookupDTO.Request();
         req.caseNumber = String.valueOf(Integer.valueOf(cs.CaseNumber));
         req.language = 'pt_BR';
+        req.accountId = a.Id;
 
         List<WSWillCaseLookupDTO.Response> res = WSWillCaseLookupService.lookup(new List<WSWillCaseLookupDTO.Request>{ req });
 
         Assert.areEqual(1, res.size());
         Assert.areEqual('Informação | Informativo', res[0].message);
         Assert.areEqual('Novo', res[0].caseStage);
+    }
+
+    @IsTest
+    static void shouldNotReturnCaseDataWhenRequesterDoesNotOwnCase() {
+        Account owner = TestDataFactory.createAccount(new Map<String, Object>{ 'Name' => 'Conta Dona do Caso' });
+        Contact ownerContact = TestDataFactory.createContact(owner.Id, new Map<String, Object>{
+            'LastName' => 'Contato Dono',
+            'Phone' => '11999990005'
+        });
+
+        Case cs = TestDataFactory.createCase(new Map<String, Object>{
+            'RecordTypeId' => null,
+            'Subject' => 'Teste posse',
+            'Status' => 'Aberto',
+            'AccountId' => owner.Id,
+            'ContactId' => ownerContact.Id,
+            'TipoCaso__c' => 'Solicitação',
+            'Assunto__c' => 'Informativo',
+            'EtapaAtendimento__c' => 'Novo'
+        });
+        cs = [SELECT Id, CaseNumber FROM Case WHERE Id = :cs.Id];
+
+        Account stranger = TestDataFactory.createAccount(new Map<String, Object>{ 'Name' => 'Conta Estranha' });
+        Contact strangerContact = TestDataFactory.createContact(stranger.Id, new Map<String, Object>{
+            'LastName' => 'Contato Estranho',
+            'Phone' => '11999990006'
+        });
+
+        WSWillCaseLookupDTO.Request req = new WSWillCaseLookupDTO.Request();
+        req.caseNumber = String.valueOf(Integer.valueOf(cs.CaseNumber));
+        req.language = 'pt_BR';
+        req.contactId = strangerContact.Id;
+        req.accountId = stranger.Id;
+
+        List<WSWillCaseLookupDTO.Response> res = WSWillCaseLookupService.lookup(new List<WSWillCaseLookupDTO.Request>{ req });
+
+        Assert.areEqual(1, res.size());
+        Assert.areEqual(false, res[0].success);
+        Assert.areEqual(false, res[0].caseFound);
+        Assert.areEqual('CASE_NOT_FOUND', res[0].statusCode);
+
+        WSWillCaseLookupDTO.Request noOwnerReq = new WSWillCaseLookupDTO.Request();
+        noOwnerReq.caseNumber = String.valueOf(Integer.valueOf(cs.CaseNumber));
+        noOwnerReq.language = 'pt_BR';
+
+        List<WSWillCaseLookupDTO.Response> resWithoutOwner = WSWillCaseLookupService.lookup(new List<WSWillCaseLookupDTO.Request>{ noOwnerReq });
+        Assert.areEqual('CASE_NOT_FOUND', resWithoutOwner[0].statusCode);
     }
 
     @IsTest

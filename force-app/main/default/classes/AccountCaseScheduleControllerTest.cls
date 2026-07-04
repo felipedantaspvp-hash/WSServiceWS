@@ -97,7 +97,7 @@ private class AccountCaseScheduleControllerTest {
 
     @IsTest
     static void shouldWrapUnexpectedControllerErrors() {
-        AccountCaseScheduleController.testException = new ListException('Erro forçado');
+        ApexTestSeam.set('AccountCaseScheduleController.testException', new ListException('Erro forçado'));
 
         Test.startTest();
         assertHandledException(new ControllerCall('initialState'));
@@ -110,12 +110,12 @@ private class AccountCaseScheduleControllerTest {
         assertHandledException(new ControllerCall('active'));
         Test.stopTest();
 
-        AccountCaseScheduleController.testException = null;
+        ApexTestSeam.clear('AccountCaseScheduleController.testException');
     }
 
     @IsTest
     static void shouldWrapFunctionalControllerErrors() {
-        AccountCaseScheduleController.testException = new AccountCaseScheduleService.FunctionalException('Erro funcional');
+        ApexTestSeam.set('AccountCaseScheduleController.testException', new AccountCaseScheduleService.FunctionalException('Erro funcional'));
 
         Test.startTest();
         assertHandledException(new ControllerCall('initialState'));
@@ -125,7 +125,7 @@ private class AccountCaseScheduleControllerTest {
         assertHandledException(new ControllerCall('active'));
         Test.stopTest();
 
-        AccountCaseScheduleController.testException = null;
+        ApexTestSeam.clear('AccountCaseScheduleController.testException');
     }
 
     private static Account getAccount() {

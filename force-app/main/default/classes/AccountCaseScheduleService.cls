@@ -155,26 +155,9 @@ public with sharing class AccountCaseScheduleService {
             throw new FunctionalException(cleanDmlMessage(ex));
         }
 
-        List<Agendamento__c> savedRows = [
-            SELECT Id, Name, Ativo__c, Conta__c, UnidadeNegocio__c, RecordTypeId,
-                RecordType.DeveloperName, TipoCaso__c, Categoria__c, Assunto__c,
-                Subassunto__c, Frequencia__c, DiasDaSemana__c, HorarioExecucao__c, DataInicio__c,
-                PularFimDeSemana__c, DescricaoAtividade__c, OwnerType__c,
-                OwnerUser__c, OwnerUser__r.Name, OwnerQueueDeveloperName__c,
-                OwnerId, Owner.Name, UltimoErroExecucao__c,
-                UltimaExecucao__c, ProximaExecucao__c,
-                toLabel(UnidadeNegocio__c) UnidadeNegocioLabel,
-                toLabel(TipoCaso__c) TipoCasoLabel,
-                toLabel(Categoria__c) CategoriaLabel,
-                toLabel(Assunto__c) AssuntoLabel,
-                toLabel(Subassunto__c) SubassuntoLabel,
-                toLabel(Frequencia__c) FrequenciaLabel,
-                toLabel(OwnerType__c) OwnerTypeLabel
-            FROM Agendamento__c
-            WHERE Id = :row.Id
-            LIMIT 1
-        ];
-        return AccountCaseScheduleHelper.toScheduleDTO(savedRows[0]);
+        Agendamento__c savedRow = AccountCaseScheduleHelper.getScheduleFullById(row.Id);
+        if (savedRow == null) throw new FunctionalException(Label.AccountCaseSchedule_ScheduleNotFoundNoAccess);
+        return AccountCaseScheduleHelper.toScheduleDTO(savedRow);
     }
 
     /**

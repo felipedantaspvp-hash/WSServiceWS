@@ -25,7 +25,7 @@ public inherited sharing class AtendimentoContextResolverHelper {
 
     public static String normalizeKey(String value) {
         if (String.isBlank(value)) return '';
-        return value.trim().toLowerCase().replaceAll('[^a-z0-9]', '');
+        return TextNormalizationUtil.stripAccents(value.trim().toLowerCase()).replaceAll('[^a-z0-9]', '');
     }
 
     public static String inferSObjectApiName(Id recordId) {
@@ -88,5 +88,67 @@ public inherited sharing class AtendimentoContextResolverHelper {
             fieldMapCacheByObject.put(objectApiName, globalDescribe.get(objectApiName).getDescribe().fields.getMap());
         }
         return fieldMapCacheByObject.get(objectApiName);
+    }
+
+    /**
+     * @description Resolve a Unidade de Negócio a partir das configurações ativas de `AtendimentoConfigService`,
+     * casando pelo canal/identificador informado. Fonte única usada por `WSWillContextResolverService` e
+     * `AtendimentoContextResolverService` (ver CR-023 do CodeReview.md — antes cada classe tinha sua própria
+     * cópia, e `AtendimentoContextResolverService` dependia só de `TCO_ChannelRouting__mdt`, que nunca teve
+     * registros cadastrados, então sempre retornava null).
+     * @param normalizedChannelType Tipo de canal já normalizado (ex.: CHANNEL_WHATSAPP).
+     * @param channelIdentifier Identificador do canal (ex.: nome do canal de Messaging).
+     * @param rows Configurações ativas de Atendimento.
+     * @return Unidade de Negócio resolvida, ou null se nenhuma config casar.
+     */
+    public static String resolveBusinessUnitFromConfigs(String normalizedChannelType, String channelIdentifier, List<AtendimentoConfigDTO> rows) {
+        if (rows == null || rows.isEmpty()) return null;
+        String normalizedType = normalizeKey(normalizedChannelType);
+        String normalizedIdentifier = normalizeKey(channelIdentifier);
+
+        AtendimentoConfigDTO fallbackConfig;
+        for (AtendimentoConfigDTO row : rows) {
+            if (row == null || row.isActive != true || String.isBlank(row.businessUnit)) continue;
+            if (fallbackConfig == null) fallbackConfig = row;
+
+            String rowDeveloperName = normalizeKey(primaryChannelDeveloperName(normalizedType, row));
+            String rowConfigName = normalizeKey(row.developerName);
+            String rowBusinessUnit = normalizeKey(row.businessUnit);
+            String rowMasterLabel = normalizeKey(row.masterLabel);
+
+            if (matchesChannelIdentifier(normalizedIdentifier, rowDeveloperName)
+                || matchesChannelIdentifier(normalizedIdentifier, rowConfigName)
+                || matchesChannelIdentifier(normalizedIdentifier, rowBusinessUnit)
+                || matchesChannelIdentifier(normalizedIdentifier, rowMasterLabel)) {
+                return row.businessUnit;
+            }
+        }
+
+        for (AtendimentoConfigDTO row : rows) {
+            if (row == null || row.isActive != true || String.isBlank(row.businessUnit)) continue;
+
+            String rowType = normalizeKey(row.messagingChannelType);
+            if (!String.isBlank(normalizedType) && !String.isBlank(rowType) && (rowType == normalizedType || rowType.contains(normalizedType) || normalizedType.contains(rowType))) {
+                return row.businessUnit;
+            }
+        }
+
+        if (normalizedType == normalizeKey(CHANNEL_WHATSAPP)) {
+            return null;
+        }
+        return fallbackConfig == null ? null : fallbackConfig.businessUnit;
+    }
+
+    private static String primaryChannelDeveloperName(String normalizedType, AtendimentoConfigDTO row) {
+        if (row == null) return null;
+        String normalizedWhatsAppType = normalizeKey(CHANNEL_WHATSAPP);
+        return normalizedType == normalizedWhatsAppType ? row.whatsAppChannelDeveloperName : row.messagingChannelDeveloperName;
+    }
+
+    private static Boolean matchesChannelIdentifier(String normalizedIdentifier, String normalizedCandidate) {
+        if (String.isBlank(normalizedIdentifier) || String.isBlank(normalizedCandidate)) return false;
+        return normalizedIdentifier == normalizedCandidate
+            || normalizedIdentifier.contains(normalizedCandidate)
+            || normalizedCandidate.contains(normalizedIdentifier);
     }
 }

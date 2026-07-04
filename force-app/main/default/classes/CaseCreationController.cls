@@ -1,5 +1,4 @@
 public inherited sharing class CaseCreationController {
-    @TestVisible static Exception testException;
 
     @AuraEnabled(cacheable=true)
     public static CaseCreationDTO.InitialContextDTO getInitialContext() {
@@ -24,7 +23,7 @@ public inherited sharing class CaseCreationController {
     @AuraEnabled
     public static CaseCreationDTO.BuildDefaultValuesResponseDTO buildDefaultValues(CaseCreationDTO.BuildDefaultValuesRequestDTO request) {
         try {
-            if (Test.isRunningTest() && testException != null) throw testException;
+            Exception forcedException = ApexTestSeam.getException('CaseCreationController.testException'); if (forcedException != null) throw forcedException;
             return CaseCreationService.buildDefaultValues(request);
         } catch (CaseCreationService.FunctionalException ex) {
             CaseCreationDTO.BuildDefaultValuesResponseDTO out = new CaseCreationDTO.BuildDefaultValuesResponseDTO();
@@ -37,6 +36,7 @@ public inherited sharing class CaseCreationController {
             out.error.message = ex.getMessage();
             return out;
         } catch (Exception ex) {
+            CaseControllerLogHelper.logUnexpectedError('CaseCreationController.buildDefaultValues', null, null, ex);
             CaseCreationDTO.BuildDefaultValuesResponseDTO out = new CaseCreationDTO.BuildDefaultValuesResponseDTO();
             out.success = false;
             out.defaultValues = new Map<String, String>();

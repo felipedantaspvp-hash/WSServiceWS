@@ -32,7 +32,7 @@ public inherited sharing class CaseClosureSurveyService {
      * @return DTO com resultado de sucesso.
      */
     public static CaseClosureSurveyDTO closeCase(CaseClosureSurveyDTO request) {
-        validateUpdateAccess();
+        validateCloseRequestFieldAccess();
         if (request == null || request.caseId == null) throwFunctional('REQUIRED_CASE_ID', Label.CaseClosureSurvey_CaseRequired);
 
         Case c = getCaseById(request.caseId);
@@ -61,6 +61,8 @@ public inherited sharing class CaseClosureSurveyService {
             // Registra que a decisão (gerar ou não) já foi capturada nesta tela, para que o
             // motor automático (ReclamacaoService, disparado pelo trigger de Case) não decida de
             // novo nesta mesma transação - inclusive quando o usuário escolhe não gerar.
+            // Esses campos são controles internos do fluxo e precisam seguir no mesmo update
+            // que fecha o Case para manter a coordenação correta com o trigger de Reclamação.
             updateCase.ReclamacaoDecisaoManual__c = true;
             if (gerarReclamacao) {
                 updateCase.ReclamacaoGerada__c = true;
@@ -149,8 +151,9 @@ public inherited sharing class CaseClosureSurveyService {
 
     private static Case getCaseById(Id caseId) {
         List<Case> rows = [
-            SELECT Id, CaseNumber, RecordTypeId, Status, IsClosed, IsStopped, UnidadeNegocio__c, Origin, ContactId, Contact.Email,
-                   ContactEmail, SuppliedEmail, MotivoEncerramento__c, ComentarioEncerramento__c,
+            SELECT Id, CaseNumber, RecordTypeId, Status, IsClosed, IsStopped, UnidadeNegocio__c, Origin,
+                   AccountId, ContactId, Contact.Name, Contact.Email, ContactEmail, SuppliedEmail, SuppliedName,
+                   CreatedDate, Modalidade__c, MotivoEncerramento__c, ComentarioEncerramento__c,
                    SolucaoCaso__c, EnviarPesquisaSatisfacao__c, PesquisaEnviada__c, DataHoraEnvioPesquisa__c,
                    Categorizacao__c, TipoCaso__c, Categoria__c, Assunto__c, Subassunto__c, ReclamacaoGerada__c
             FROM Case
@@ -166,17 +169,22 @@ public inherited sharing class CaseClosureSurveyService {
         }
     }
 
-    private static void validateUpdateAccess() {
+    private static void validateCloseRequestFieldAccess() {
         validateReadAccess();
         if (!Schema.sObjectType.Case.isUpdateable()) {
             throwFunctional('CRUD_DENIED', Label.CaseClosureSurvey_PermissionCloseDenied);
         }
-        if (!Case.Status.getDescribe().isUpdateable()
-            || !Case.MotivoEncerramento__c.getDescribe().isUpdateable()
-            || !Case.ComentarioEncerramento__c.getDescribe().isUpdateable()
-            || !Case.SolucaoCaso__c.getDescribe().isUpdateable()
-            || !Case.EnviarPesquisaSatisfacao__c.getDescribe().isUpdateable()) {
-            throwFunctional('FLS_DENIED', Label.CaseClosureSurvey_PermissionFieldsDenied);
+        List<Schema.SObjectField> requestFields = new List<Schema.SObjectField>{
+            Case.Status,
+            Case.MotivoEncerramento__c,
+            Case.ComentarioEncerramento__c,
+            Case.SolucaoCaso__c,
+            Case.EnviarPesquisaSatisfacao__c
+        };
+        for (Schema.SObjectField fieldToken : requestFields) {
+            if (!fieldToken.getDescribe().isUpdateable()) {
+                throwFunctional('FLS_DENIED', Label.CaseClosureSurvey_PermissionFieldsDenied);
+            }
         }
     }
 

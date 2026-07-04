@@ -2,11 +2,9 @@ public inherited sharing class WSWillConversationLinkService {
     @TestVisible static Map<Id, Case> testCaseById;
     @TestVisible static Map<Id, MessagingSession> testMessagingById;
     @TestVisible static Map<Id, LiveChatTranscript> testLiveChatById;
-    @TestVisible static Boolean bypassDmlInTests = false;
-    @TestVisible static Boolean throwExceptionForTest = false;
 
     public static List<WSWillConversationLinkDTO.Response> link(List<WSWillConversationLinkDTO.Request> requests) {
-        if (Test.isRunningTest() && throwExceptionForTest) {
+        if (ApexTestSeam.getBoolean('WSWillConversationLinkService.throwException')) {
             throw new IllegalArgumentException('Simulated exception for coverage');
         }
         List<WSWillConversationLinkDTO.Response> out = new List<WSWillConversationLinkDTO.Response>();
@@ -96,7 +94,7 @@ public inherited sharing class WSWillConversationLinkService {
             out.add(res);
         }
 
-        if (!updates.isEmpty() && !(Test.isRunningTest() && bypassDmlInTests)) {
+        if (!updates.isEmpty() && !ApexTestSeam.getBoolean('WSWillConversationLinkService.bypassDml')) {
             update updates;
         }
 

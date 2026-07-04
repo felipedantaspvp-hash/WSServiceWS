@@ -204,6 +204,11 @@ private class CaseClosureSurveyServiceTest {
     static void showsGerarReclamacaoQuestionAndCreatesRecordWhenSelected() {
         Id rtId = [SELECT Id FROM RecordType WHERE SObjectType = 'Reclamacao__c' AND IsActive = true LIMIT 1].Id;
         Case c = createReclamacaoCase('Centro Logístico', 'cliente.reclamacao.sim@example.com');
+        Account account = new Account(Name = 'Cliente Reclamação');
+        insert account;
+        c.AccountId = account.Id;
+        c.Modalidade__c = 'Cabotagem Descarga';
+        update c;
         setupConfigWithReclamacao('Centro Logístico', 'NEVER', true, 'CentroLogistico', 'Centro Logístico');
         ReclamacaoService.testRecordTypeIdByDeveloperName = new Map<String, Id>{ 'CentroLogistico' => rtId };
 
@@ -216,10 +221,19 @@ private class CaseClosureSurveyServiceTest {
 
         Assert.areEqual(true, result.selectedGerarReclamacao);
         Case updated = [SELECT ReclamacaoGerada__c, ReclamacaoDecisaoManual__c, DtGeracaoReclamacao__c FROM Case WHERE Id = :c.Id];
+        Reclamacao__c reclamacao = [
+            SELECT Caso__c, Cliente__c, Modalidade__c, QuemReclamou__c
+            FROM Reclamacao__c
+            WHERE Caso__c = :c.Id
+            LIMIT 1
+        ];
         Assert.areEqual(true, updated.ReclamacaoGerada__c);
         Assert.areEqual(true, updated.ReclamacaoDecisaoManual__c);
         Assert.isNotNull(updated.DtGeracaoReclamacao__c);
-        Assert.areEqual(1, [SELECT COUNT() FROM Reclamacao__c WHERE Caso__c = :c.Id]);
+        Assert.areEqual(c.Id, reclamacao.Caso__c);
+        Assert.areEqual(account.Id, reclamacao.Cliente__c);
+        Assert.areEqual('Cabotagem', reclamacao.Modalidade__c);
+        Assert.areEqual('Cliente Pesquisa', reclamacao.QuemReclamou__c);
 
         ReclamacaoService.testRecordTypeIdByDeveloperName = null;
         AtendimentoConfigService.clearTestSurveyConfigs();

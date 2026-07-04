@@ -8,8 +8,6 @@ public inherited sharing class GestaoSLAHelper {
     public static final String TIPO_REGRA_AREA_INTERNA = 'Area Interna';
 
     @TestVisible private static Map<String, Boolean> permissionOverrideByName = new Map<String, Boolean>();
-    @TestVisible private static Set<String> allowedUnidadesOverride;
-    @TestVisible private static Boolean allowedUnidadesOverrideSet = false;
 
     public static Boolean canAccessGestaoSLA() {
         return hasPermission(CP_ACESSAR_GESTAO_SLA);
@@ -54,33 +52,13 @@ public inherited sharing class GestaoSLAHelper {
     }
 
     /**
-     * @description Unidades de Negócio que o usuário corrente pode ver/gerenciar na Gestão de SLA,
-     * derivadas dos Record Types de Case disponíveis para o usuário (Schema.RecordTypeInfo.isAvailable())
-     * mapeados via ParametrosAtendimento__mdt.CaseRecordTypeDeveloperName__c -> UnidadeNegocio__c.
-     * Um Set vazio significa "nenhuma unidade disponível" (usuário sem Record Type de Case atribuído).
+     * @description Unidades de Negócio que o usuário corrente pode ver/gerenciar na Gestão de SLA.
+     * Delega para `AtendimentoConfigService`, que centraliza essa resolução para todo o domínio de
+     * Atendimento (ex.: também consumida por `ContactWhatsappMessageService`).
      * @return Conjunto de valores de Unidade de Negócio permitidos para o usuário corrente.
      */
     public static Set<String> getAllowedUnidadesNegocio() {
-        if (allowedUnidadesOverrideSet) {
-            return allowedUnidadesOverride;
-        }
-
-        Map<String, String> unidadeByRtDevName = new Map<String, String>();
-        for (AtendimentoConfigDTO cfg : AtendimentoConfigService.getActiveConfigs()) {
-            if (!String.isBlank(cfg.caseRecordTypeDeveloperName) && !String.isBlank(cfg.businessUnit)) {
-                unidadeByRtDevName.put(cfg.caseRecordTypeDeveloperName, cfg.businessUnit);
-            }
-        }
-
-        Set<String> out = new Set<String>();
-        Map<String, Schema.RecordTypeInfo> rtInfos = Case.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getRecordTypeInfosByDeveloperName();
-        for (String devName : unidadeByRtDevName.keySet()) {
-            Schema.RecordTypeInfo info = rtInfos.get(devName);
-            if (info != null && info.isAvailable()) {
-                out.add(unidadeByRtDevName.get(devName));
-            }
-        }
-        return out;
+        return AtendimentoConfigService.getAllowedUnidadesNegocio();
     }
 
     /**
@@ -90,14 +68,12 @@ public inherited sharing class GestaoSLAHelper {
      */
     @TestVisible
     public static void setAllowedUnidadesOverride(Set<String> unidades) {
-        allowedUnidadesOverride = unidades;
-        allowedUnidadesOverrideSet = true;
+        AtendimentoConfigService.setAllowedUnidadesOverride(unidades);
     }
 
     @TestVisible
     public static void clearAllowedUnidadesOverride() {
-        allowedUnidadesOverride = null;
-        allowedUnidadesOverrideSet = false;
+        AtendimentoConfigService.clearAllowedUnidadesOverride();
     }
 
     // ------------------------------------------------------------------
@@ -238,5 +214,52 @@ public inherited sharing class GestaoSLAHelper {
 
     public static Integer toInteger(Decimal value) {
         return value == null ? null : value.intValue();
+    }
+
+    /**
+     * @description Monta o label de exibição de uma Categorização (Categoria / Assunto / Subassunto),
+     * reutilizável entre os serviços de Categoria e Regra de SLA sem acoplamento cross-service.
+     * @param row Categorizacao__c (ou relacionamento Categorizacao__r de uma regra).
+     * @return Label combinado, ou o Name do registro se nenhuma parte estiver preenchida.
+     */
+    public static String buildCategorizacaoLabel(Categorizacao__c row) {
+        if (row == null) {
+            return null;
+        }
+        List<String> parts = new List<String>();
+        if (!String.isBlank(row.Categoria__c)) parts.add(row.Categoria__c);
+        if (!String.isBlank(row.Assunto__c)) parts.add(row.Assunto__c);
+        if (!String.isBlank(row.Subassunto__c)) parts.add(row.Subassunto__c);
+        return parts.isEmpty() ? row.Name : String.join(parts, ' / ');
+    }
+
+    public static SObject sanitizeForCreate(SObject record, String errorMessage) {
+        List<SObject> sanitized = sanitizeForAccess(System.AccessType.CREATABLE, new List<SObject>{ record }, errorMessage);
+        return sanitized.isEmpty() ? null : sanitized[0];
+    }
+
+    public static SObject sanitizeForUpdate(SObject record, String errorMessage) {
+        List<SObject> sanitized = sanitizeForAccess(System.AccessType.UPDATABLE, new List<SObject>{ record }, errorMessage);
+        return sanitized.isEmpty() ? null : sanitized[0];
+    }
+
+    public static List<SObject> sanitizeForCreate(List<SObject> records, String errorMessage) {
+        return sanitizeForAccess(System.AccessType.CREATABLE, records, errorMessage);
+    }
+
+    public static List<SObject> sanitizeForUpdate(List<SObject> records, String errorMessage) {
+        return sanitizeForAccess(System.AccessType.UPDATABLE, records, errorMessage);
+    }
+
+    private static List<SObject> sanitizeForAccess(System.AccessType accessType, List<SObject> records, String errorMessage) {
+        if (records == null || records.isEmpty()) {
+            return new List<SObject>();
+        }
+        try {
+            SObjectAccessDecision decision = Security.stripInaccessible(accessType, records);
+            return decision.getRecords();
+        } catch (Exception ex) {
+            throw new GestaoSLAService.FunctionalException(errorMessage);
+        }
     }
 }

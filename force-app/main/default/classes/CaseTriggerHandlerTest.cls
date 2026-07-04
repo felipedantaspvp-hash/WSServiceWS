@@ -26,8 +26,7 @@ private class CaseTriggerHandlerTest {
         Case oldCase = fakeCase(1, false, null);
         Case newCase = fakeCase(1, true, null);
 
-        CaseTriggerHandler.injectedBlockersByCase.clear();
-        CaseTriggerHandler.injectedBlockersByCase.put(caseId, 1);
+        AreaParticipanteSelector.testBlockersByCase = new Map<Id, Integer>{ caseId => 1 };
         CaseTriggerHandler.beforeUpdate(
             new Map<Id, Case>{ caseId => newCase },
             new Map<Id, Case>{ caseId => oldCase }
@@ -45,8 +44,7 @@ private class CaseTriggerHandlerTest {
         Case oldCase = fakeCase(2, false, null);
         Case newCase = fakeCase(2, true, null);
 
-        CaseTriggerHandler.injectedBlockersByCase.clear();
-        // SOQL roda contra ID fictício → 0 registros → sem bloqueio
+        AreaParticipanteSelector.testBlockersByCase = new Map<Id, Integer>();
         CaseTriggerHandler.beforeUpdate(
             new Map<Id, Case>{ caseId => newCase },
             new Map<Id, Case>{ caseId => oldCase }
@@ -63,8 +61,7 @@ private class CaseTriggerHandlerTest {
         Case oldCase = fakeCase(3, false, 'Em Atendimento');
         Case newCase = fakeCase(3, false, 'Cancelado');
 
-        CaseTriggerHandler.injectedBlockersByCase.clear();
-        CaseTriggerHandler.injectedBlockersByCase.put(caseId, 1);
+        AreaParticipanteSelector.testBlockersByCase = new Map<Id, Integer>{ caseId => 1 };
         CaseTriggerHandler.beforeUpdate(
             new Map<Id, Case>{ caseId => newCase },
             new Map<Id, Case>{ caseId => oldCase }
@@ -81,7 +78,7 @@ private class CaseTriggerHandlerTest {
         Case oldCase = fakeCase(4, false, 'Em Atendimento');
         Case newCase = fakeCase(4, false, 'Cancelado');
 
-        CaseTriggerHandler.injectedBlockersByCase.clear();
+        AreaParticipanteSelector.testBlockersByCase = new Map<Id, Integer>();
         CaseTriggerHandler.beforeUpdate(
             new Map<Id, Case>{ caseId => newCase },
             new Map<Id, Case>{ caseId => oldCase }
@@ -99,8 +96,7 @@ private class CaseTriggerHandlerTest {
         Case newCase = fakeCase(5, false, 'Em Acompanhamento');
 
         // Mesmo com bloqueador injetado, update sem transição não deve acionar a verificação
-        CaseTriggerHandler.injectedBlockersByCase.clear();
-        CaseTriggerHandler.injectedBlockersByCase.put(caseId, 99);
+        AreaParticipanteSelector.testBlockersByCase = new Map<Id, Integer>{ caseId => 99 };
         CaseTriggerHandler.beforeUpdate(
             new Map<Id, Case>{ caseId => newCase },
             new Map<Id, Case>{ caseId => oldCase }
@@ -123,8 +119,7 @@ private class CaseTriggerHandlerTest {
         Case oldCase2 = fakeCase(7, false, 'Em Atendimento');
         Case newCase2 = fakeCase(7, false, 'Em Acompanhamento'); // sem transição de fechamento
 
-        CaseTriggerHandler.injectedBlockersByCase.clear();
-        CaseTriggerHandler.injectedBlockersByCase.put(caseId1, 2);
+        AreaParticipanteSelector.testBlockersByCase = new Map<Id, Integer>{ caseId1 => 2 };
 
         CaseTriggerHandler.beforeUpdate(
             new Map<Id, Case>{ caseId1 => newCase1, caseId2 => newCase2 },
@@ -154,7 +149,7 @@ private class CaseTriggerHandlerTest {
         Case oldCase = (Case) JSON.deserialize('{"Id":"' + c.Id + '","IsClosed":false}', Case.class);
         Case newCase = (Case) JSON.deserialize('{"Id":"' + c.Id + '","IsClosed":true}', Case.class);
 
-        CaseTriggerHandler.injectedBlockersByCase.clear(); // SOQL roda com registro real
+        // AreaParticipanteSelector.testBlockersByCase não é setado — SOQL roda com registro real
         CaseTriggerHandler.beforeUpdate(
             new Map<Id, Case>{ c.Id => newCase },
             new Map<Id, Case>{ c.Id => oldCase }
@@ -172,8 +167,7 @@ private class CaseTriggerHandlerTest {
         Case oldCase = fakeCase(8, false, null);
         Case newCase = fakeCase(8, true, null);
 
-        CaseTriggerHandler.injectedBlockersByCase.clear();
-        CaseTriggerHandler.injectedBlockersByCase.put(caseId, 3);
+        AreaParticipanteSelector.testBlockersByCase = new Map<Id, Integer>{ caseId => 3 };
         CaseTriggerHandler.beforeUpdate(
             new Map<Id, Case>{ caseId => newCase },
             new Map<Id, Case>{ caseId => oldCase }

@@ -1,7 +1,7 @@
 @IsTest
 private class AreaParticipanteServiceTest {
     private static void enableBhBypass() {
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
         BusinessHoursResolverService.injectedByName.clear();
         List<BusinessHours> bhs = [SELECT Id FROM BusinessHours WHERE IsActive = true LIMIT 1];
         if (!bhs.isEmpty()) { BusinessHoursResolverService.injectedByName.put('Tecon Salvador', bhs[0].Id); }
@@ -140,7 +140,7 @@ private class AreaParticipanteServiceTest {
 
     @IsTest
     static void testAddParticipationCriaCamposCorretos() {
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
         BusinessHoursResolverService.injectedByName.clear();
         List<BusinessHours> bhs141 = [SELECT Id FROM BusinessHours WHERE IsActive = true LIMIT 1];
         if (!bhs141.isEmpty()) { BusinessHoursResolverService.injectedByName.put('Tecon Salvador', bhs141[0].Id); }
@@ -221,12 +221,18 @@ private class AreaParticipanteServiceTest {
         req.area = area1;
         req.comentarioSolicitacao = 'Teste terminal add';
 
+        Boolean blocked = false;
         Test.startTest();
-        AreaParticipanteDTO.AddResponseDTO res = AreaParticipanteService.addParticipation(req);
+        try {
+            AreaParticipanteService.addParticipation(req);
+        } catch (AreaParticipanteService.FunctionalException ex) {
+            blocked = true;
+            Assert.areEqual('CASE_CLOSED_FOR_PARTICIPATION', ex.code);
+        }
         Test.stopTest();
 
+        Assert.areEqual(true, blocked, 'Adicionar área participante em Case cancelado deve ser bloqueado.');
         Case updatedCase = [SELECT EtapaAtendimento__c FROM Case WHERE Id = :c.Id];
-        Assert.areEqual(true, res.success);
         Assert.areEqual('Cancelado', updatedCase.EtapaAtendimento__c);
     }
 
@@ -405,11 +411,19 @@ private class AreaParticipanteServiceTest {
         List<String> areas = AreaParticipanteTestDataFactory.commonAreaValues();
         String area1 = areas[0];
         Case c = AreaParticipanteTestDataFactory.createCase(area1, null);
-        update new Case(Id = c.Id, EtapaAtendimento__c = 'Cancelado');
 
         AreaParticipanteDTO.AddRequestDTO addReq = new AreaParticipanteDTO.AddRequestDTO();
         addReq.caseId = c.Id; addReq.area = area1; addReq.comentarioSolicitacao = 'Terminal close test';
         AreaParticipanteDTO.AddResponseDTO addRes = AreaParticipanteService.addParticipation(addReq);
+
+        // Caso é cancelado depois que a área participante já estava aberta (ex: cancelamento
+        // externo) — validateCaseAllowsAddingParticipation só bloqueia a ABERTURA de novas áreas,
+        // não o fechamento de uma já existente. O guard de CaseTriggerHandler.beforeUpdate (área
+        // interna aberta bloqueia fechamento/cancelamento do Case) não se aplica a este cenário de
+        // teste, então é contornado via seam para simular o cancelamento externo.
+        AreaParticipanteSelector.testBlockersByCase = new Map<Id, Integer>();
+        update new Case(Id = c.Id, EtapaAtendimento__c = 'Cancelado');
+        AreaParticipanteSelector.testBlockersByCase = null;
 
         AreaParticipanteDTO.CloseRequestDTO closeReq = new AreaParticipanteDTO.CloseRequestDTO();
         closeReq.areaParticipanteId = addRes.areaParticipanteId;

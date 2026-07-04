@@ -96,7 +96,7 @@ private class CaseMilestoneTriggerTimeCalculatorTest {
     ) {
         RegrasSLACategorizacao__c r = new RegrasSLACategorizacao__c(
             Categorizacao__c = categId,
-            TipoAreaParticipante__c = areaAtendimento == null ? tipoAreaNaoInterna() : AreaParticipanteSLAHelper.tipoAreaInternaApiValue(),
+            TipoAreaParticipante__c = areaAtendimento == null ? tipoAreaNaoInterna() : AreaParticipanteSLAHelper.TIPO_AREA_INTERNA,
             AreaAtendimento__c = areaAtendimento,
             BusinessHoursName__c = 'Atendimento Salvador',
             Ativo__c = ativa,

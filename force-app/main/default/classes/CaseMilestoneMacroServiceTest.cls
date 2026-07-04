@@ -14,7 +14,7 @@ private class CaseMilestoneMacroServiceTest {
     }
 
     private static void setup() {
-        CaseMilestoneMacroService.bypassCaseMilestoneDmlInTests = true;
+        ApexTestSeam.set('CaseMilestoneMacroService.bypassCaseMilestoneDml', true);
         CaseMilestoneMacroService.lastCatchAllCaseIds.clear();
         CaseMilestoneMacroService.lastSLATotalCaseIds.clear();
     }
@@ -105,7 +105,7 @@ private class CaseMilestoneMacroServiceTest {
 
     @IsTest
     static void testNullOrEmptyInputsReturnEarly() {
-        CaseMilestoneMacroService.bypassCaseMilestoneDmlInTests = true;
+        ApexTestSeam.set('CaseMilestoneMacroService.bypassCaseMilestoneDml', true);
         CaseMilestoneMacroService.completeByStageTransition(null, null);
         CaseMilestoneMacroService.completeByStageTransition(new Map<Id, Case>(), new Map<Id, Case>());
         Assert.isTrue(true);
@@ -114,7 +114,7 @@ private class CaseMilestoneMacroServiceTest {
     @IsTest
     static void testQueryPathExecutesWhenNoCaseMilestonesExist() {
         // Não usa bypass — cobre o bloco SOQL/DML com IDs que não têm CaseMilestones
-        CaseMilestoneMacroService.bypassCaseMilestoneDmlInTests = false;
+        ApexTestSeam.clear('CaseMilestoneMacroService.bypassCaseMilestoneDml');
         CaseMilestoneMacroService.lastCatchAllCaseIds.clear();
         CaseMilestoneMacroService.lastSLATotalCaseIds.clear();
 

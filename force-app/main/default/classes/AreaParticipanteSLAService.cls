@@ -7,7 +7,7 @@
  **/
 public inherited sharing class AreaParticipanteSLAService {
     public class FunctionalException extends Exception {}
-    @TestVisible public static Boolean bypassBusinessHoursMathForTests = false;
+    private static final String BYPASS_KEY = 'AreaParticipanteSLAService.bypassBusinessHoursMath';
 
     public static void beforeSave(List<AreaParticipante__c> newList, Map<Id, AreaParticipante__c> oldMap){
         Set<Id> caseIds = new Set<Id>();
@@ -20,6 +20,8 @@ public inherited sharing class AreaParticipanteSLAService {
             if (mVal != null) maxSeqByCaseId.put((Id) ar.get('c'), mVal.intValue());
         }
 
+        Map<String, RegrasSLACategorizacao__c> ruleByKey = preloadRules(newList, oldMap, caseById);
+
         for (AreaParticipante__c a : newList){
             if (!AreaParticipanteSLAHelper.isTipoInterna(a.TipoAreaParticipante__c)) continue;
             if (AreaParticipanteSLAHelper.ORIGEM_SLA_STANDARD.equals(a.OrigemSLA__c)) continue;
@@ -29,7 +31,7 @@ public inherited sharing class AreaParticipanteSLAService {
 
             Boolean changedToOpen = oldMap == null || oldMap.get(a.Id) == null || !AreaParticipanteSLAHelper.isOpenStatus(oldMap.get(a.Id).StatusAtuacao__c);
             if (changedToOpen) {
-                RegrasSLACategorizacao__c rule = findRule(c, a);
+                RegrasSLACategorizacao__c rule = ruleByKey.get(ruleKey(c, a));
                 if (rule == null) { a.addError('Não existe regra de SLA ativa para a categorização, área participante e prioridade informadas.'); continue; }
                 Integer resolvedMinutes;
                 try {
@@ -98,21 +100,53 @@ public inherited sharing class AreaParticipanteSLAService {
         }
     }
 
-    private static RegrasSLACategorizacao__c findRule(Case c, AreaParticipante__c a){
-        SObject categRel = c.getSObject('Categorizacao__r');
-        Id gestaoId = categRel != null ? (Id) categRel.get('GestaoSLA__c') : null;
-        if (gestaoId == null) return null;
-        List<RegrasSLACategorizacao__c> rows = [
-            SELECT Id,BusinessHoursName__c,TempoBaixa__c,TempoMedia__c,TempoAlta__c
+    private static Map<String, RegrasSLACategorizacao__c> preloadRules(List<AreaParticipante__c> newList, Map<Id, AreaParticipante__c> oldMap, Map<Id, Case> caseById){
+        Set<Id> categorizacaoIds = new Set<Id>();
+        Set<Id> gestaoIds = new Set<Id>();
+        Set<String> areas = new Set<String>();
+
+        for (AreaParticipante__c a : newList){
+            if (!AreaParticipanteSLAHelper.isTipoInterna(a.TipoAreaParticipante__c)) continue;
+            if (AreaParticipanteSLAHelper.ORIGEM_SLA_STANDARD.equals(a.OrigemSLA__c)) continue;
+            if (a.Caso__c == null || String.isBlank(a.AreaAtendimento__c)) continue;
+            Case c = caseById.get(a.Caso__c);
+            if (c == null || c.Categorizacao__c == null) continue;
+            Boolean changedToOpen = oldMap == null || oldMap.get(a.Id) == null || !AreaParticipanteSLAHelper.isOpenStatus(oldMap.get(a.Id).StatusAtuacao__c);
+            if (!changedToOpen) continue;
+
+            Id gestaoId = gestaoIdOf(c);
+            if (gestaoId == null) continue;
+            categorizacaoIds.add(c.Categorizacao__c);
+            gestaoIds.add(gestaoId);
+            areas.add(a.AreaAtendimento__c);
+        }
+
+        Map<String, RegrasSLACategorizacao__c> ruleByKey = new Map<String, RegrasSLACategorizacao__c>();
+        if (categorizacaoIds.isEmpty()) return ruleByKey;
+
+        for (RegrasSLACategorizacao__c rule : [
+            SELECT Id,BusinessHoursName__c,TempoBaixa__c,TempoMedia__c,TempoAlta__c,Categorizacao__c,GestaoSLA__c,AreaAtendimento__c
             FROM RegrasSLACategorizacao__c
             WHERE Ativo__c = true
-                AND Categorizacao__c = :c.Categorizacao__c
-                AND GestaoSLA__c = :gestaoId
+                AND Categorizacao__c IN :categorizacaoIds
+                AND GestaoSLA__c IN :gestaoIds
                 AND EscopoRegra__c = :RegrasSLACompatibilidadeService.ESCOPO_AREA_INTERNA
-                AND AreaAtendimento__c = :a.AreaAtendimento__c
-            LIMIT 1
-        ];
-        return rows.isEmpty() ? null : rows[0];
+                AND AreaAtendimento__c IN :areas
+        ]) {
+            String key = rule.Categorizacao__c + '|' + rule.GestaoSLA__c + '|' + rule.AreaAtendimento__c;
+            if (!ruleByKey.containsKey(key)) ruleByKey.put(key, rule);
+        }
+        return ruleByKey;
+    }
+
+    private static String ruleKey(Case c, AreaParticipante__c a){
+        Id gestaoId = gestaoIdOf(c);
+        return c.Categorizacao__c + '|' + gestaoId + '|' + a.AreaAtendimento__c;
+    }
+
+    private static Id gestaoIdOf(Case c){
+        SObject categRel = c.getSObject('Categorizacao__r');
+        return categRel != null ? (Id) categRel.get('GestaoSLA__c') : null;
     }
 
     public static void calculateCache(AreaParticipante__c a){
@@ -194,6 +228,6 @@ public inherited sharing class AreaParticipanteSLAService {
     }
 
     private static Boolean useBypassBusinessHoursInTests() {
-        return Test.isRunningTest() && bypassBusinessHoursMathForTests == true;
+        return ApexTestSeam.getBoolean(BYPASS_KEY);
     }
 }

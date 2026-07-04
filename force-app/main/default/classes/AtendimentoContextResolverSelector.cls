@@ -32,16 +32,4 @@ public inherited sharing class AtendimentoContextResolverSelector {
             WHERE Id IN :accountIds
         ];
     }
-
-    /**
-     * @description Retorna todos os registros ativos de TCO_ChannelRouting__mdt para roteamento de canal.
-     * @return Lista de TCO_ChannelRouting__mdt.
-     **/
-    public static List<TCO_ChannelRouting__mdt> selectActiveChannelRoutes() {
-        return [
-            SELECT TCF_ChannelType__c, TCF_ChannelIdentifier__c, TCF_BusinessUnit__c, TCF_IsActive__c
-            FROM TCO_ChannelRouting__mdt
-            WHERE TCF_IsActive__c = true
-        ];
-    }
 }

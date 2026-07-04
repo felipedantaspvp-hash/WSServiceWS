@@ -31,6 +31,17 @@ public inherited sharing class CaseCreationSelector {
                 out.put(c.recordTypeDeveloperName, c);
             }
         }
+
+        if (out.isEmpty()) {
+            for (AtendimentoConfigHelper.UnidadeFallbackEntry fb : AtendimentoConfigHelper.getHardcodedUnidadeFallback()) {
+                UnidadeConfig c = new UnidadeConfig();
+                c.recordTypeDeveloperName = fb.recordTypeDeveloperName;
+                c.unidadeNegocio = fb.unidadeNegocio;
+                c.queueToken = fb.queuePrefix;
+                c.ativo = true;
+                out.put(fb.recordTypeDeveloperName, c);
+            }
+        }
         return out;
     }
 

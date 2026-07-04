@@ -26,7 +26,7 @@ private class AreaParticipanteMilestoneSyncBatchTest {
     @IsTest
     static void batch_comCaseIds_sincronizaMilestones() {
         Case c = AreaParticipanteTestDataFactory.createCaseWithoutSla(null, null);
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
         AreaParticipanteMilestoneSyncService.mockMilestonesForSync = new List<CaseMilestone>{
             makeMock(fakeCmId(1), c.Id, 'Triagem')
         };
@@ -41,7 +41,7 @@ private class AreaParticipanteMilestoneSyncBatchTest {
 
     @IsTest
     static void batch_semCaseIds_executaSemErro() {
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
         AreaParticipanteMilestoneSyncService.mockMilestonesForSync = new List<CaseMilestone>();
 
         Test.startTest();
@@ -53,7 +53,7 @@ private class AreaParticipanteMilestoneSyncBatchTest {
 
     @IsTest
     static void scheduler_executaSemErro() {
-        AreaParticipanteSLAService.bypassBusinessHoursMathForTests = true;
+        ApexTestSeam.set('AreaParticipanteSLAService.bypassBusinessHoursMath', true);
         AreaParticipanteMilestoneSyncService.mockMilestonesForSync = new List<CaseMilestone>();
 
         Test.startTest();

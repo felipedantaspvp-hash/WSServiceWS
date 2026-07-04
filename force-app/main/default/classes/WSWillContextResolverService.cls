@@ -12,12 +12,10 @@ public inherited sharing class WSWillContextResolverService {
     @TestVisible private static Map<Id, SObject> testEndUserById;
     @TestVisible private static Map<Id, SObject> testLiveChatById;
     @TestVisible private static Map<Id, SObject> testMessagingChannelById;
-    @TestVisible private static List<TCO_ChannelRouting__mdt> testRoutes;
     @TestVisible private static List<AtendimentoConfigDTO> testAtendimentoParams;
-    @TestVisible static Boolean throwExceptionForTest = false;
 
     public static List<WSWillContextResolverDTO.Response> resolve(List<WSWillContextResolverDTO.Request> requests) {
-        if (Test.isRunningTest() && throwExceptionForTest) {
+        if (ApexTestSeam.getBoolean('WSWillContextResolverService.throwException')) {
             throw new IllegalArgumentException('Simulated exception for coverage');
         }
         List<WSWillContextResolverDTO.Response> out = new List<WSWillContextResolverDTO.Response>();
@@ -89,7 +87,6 @@ public inherited sharing class WSWillContextResolverService {
 
         Map<Id, Contact> contactById = fetchContacts(allContactIds);
         Map<Id, Account> accountById = fetchAccounts(contactById.values());
-        List<TCO_ChannelRouting__mdt> routes = Test.isRunningTest() && testRoutes != null ? testRoutes : fetchActiveChannelRoutes();
         List<AtendimentoConfigDTO> atendimentoParams = Test.isRunningTest() && testAtendimentoParams != null
             ? testAtendimentoParams
             : fetchActiveAtendimentoParams();
@@ -164,7 +161,7 @@ public inherited sharing class WSWillContextResolverService {
                 channelIdentifier = String.valueOf(liveChat.get('LiveChatDeploymentId'));
             }
 
-            BusinessUnitResolution businessUnitResolution = resolveBusinessUnit(normalizedChannelType, channelIdentifier, res.conversationId, routes, atendimentoParams);
+            BusinessUnitResolution businessUnitResolution = resolveBusinessUnit(normalizedChannelType, channelIdentifier, atendimentoParams);
             res.businessUnitName = businessUnitResolution.businessUnitName;
             res.businessUnitSource = WSWillContextResolverHelper.inferBusinessUnitSource(
                 !String.isBlank(res.businessUnitName),
@@ -295,119 +292,23 @@ public inherited sharing class WSWillContextResolverService {
         }
     }
 
-    private static List<TCO_ChannelRouting__mdt> fetchActiveChannelRoutes() {
-        if (!AtendimentoContextResolverHelper.canQueryObject('TCO_ChannelRouting__mdt')) return new List<TCO_ChannelRouting__mdt>();
-        return [
-            SELECT TCF_ChannelType__c, TCF_ChannelIdentifier__c, TCF_BusinessUnit__c, TCF_IsActive__c
-            FROM TCO_ChannelRouting__mdt
-            WHERE TCF_IsActive__c = true
-        ];
-    }
-
     private class BusinessUnitResolution {
         public String businessUnitName;
         public String source;
     }
 
-    @TestVisible
-    private static String resolveBusinessUnit(String normalizedChannelType, String channelIdentifier, Id conversationId, List<TCO_ChannelRouting__mdt> rows) {
-        return resolveBusinessUnit(normalizedChannelType, channelIdentifier, conversationId, rows, null).businessUnitName;
-    }
-
     private static BusinessUnitResolution resolveBusinessUnit(
         String normalizedChannelType,
         String channelIdentifier,
-        Id conversationId,
-        List<TCO_ChannelRouting__mdt> rows,
         List<AtendimentoConfigDTO> atendimentoParams
     ) {
         BusinessUnitResolution out = new BusinessUnitResolution();
-        String resolved = resolveFromChannelRouting(normalizedChannelType, channelIdentifier, conversationId, rows);
-        if (!String.isBlank(resolved)) {
-            out.businessUnitName = resolved;
-            out.source = 'CHANNEL_ROUTING_METADATA';
-            return out;
-        }
-
-        resolved = resolveFromAtendimentoParams(normalizedChannelType, channelIdentifier, atendimentoParams);
+        String resolved = AtendimentoContextResolverHelper.resolveBusinessUnitFromConfigs(normalizedChannelType, channelIdentifier, atendimentoParams);
         if (!String.isBlank(resolved)) {
             out.businessUnitName = resolved;
             out.source = 'PARAMETROS_ATENDIMENTO';
         }
         return out;
-    }
-
-    private static String resolveFromChannelRouting(String normalizedChannelType, String channelIdentifier, Id conversationId, List<TCO_ChannelRouting__mdt> rows) {
-        if (rows == null || rows.isEmpty()) return null;
-        String normalizedType = AtendimentoContextResolverHelper.normalizeKey(normalizedChannelType);
-        String normalizedIdentifier = AtendimentoContextResolverHelper.normalizeKey(channelIdentifier);
-        String normalizedConversation = AtendimentoContextResolverHelper.normalizeKey(String.valueOf(conversationId));
-
-        for (TCO_ChannelRouting__mdt row : rows) {
-            String rowType = AtendimentoContextResolverHelper.normalizeKey(row.TCF_ChannelType__c);
-            String rowIdentifier = AtendimentoContextResolverHelper.normalizeKey(row.TCF_ChannelIdentifier__c);
-            if (rowType != normalizedType) continue;
-            if (!String.isBlank(normalizedIdentifier) && rowIdentifier == normalizedIdentifier) return row.TCF_BusinessUnit__c;
-            if (!String.isBlank(normalizedConversation) && rowIdentifier == normalizedConversation) return row.TCF_BusinessUnit__c;
-        }
-
-        for (TCO_ChannelRouting__mdt row : rows) {
-            String rowType = AtendimentoContextResolverHelper.normalizeKey(row.TCF_ChannelType__c);
-            String rowIdentifier = AtendimentoContextResolverHelper.normalizeKey(row.TCF_ChannelIdentifier__c);
-            if (rowType == normalizedType && String.isBlank(rowIdentifier)) return row.TCF_BusinessUnit__c;
-        }
-        return null;
-    }
-
-    private static String resolveFromAtendimentoParams(String normalizedChannelType, String channelIdentifier, List<AtendimentoConfigDTO> rows) {
-        if (rows == null || rows.isEmpty()) return null;
-        String normalizedType = AtendimentoContextResolverHelper.normalizeKey(normalizedChannelType);
-        String normalizedIdentifier = AtendimentoContextResolverHelper.normalizeKey(channelIdentifier);
-
-        AtendimentoConfigDTO fallbackConfig;
-        for (AtendimentoConfigDTO row : rows) {
-            if (row == null || row.isActive != true || String.isBlank(row.businessUnit)) continue;
-            if (fallbackConfig == null) fallbackConfig = row;
-
-            String rowDeveloperName = AtendimentoContextResolverHelper.normalizeKey(primaryChannelDeveloperName(normalizedType, row));
-            String rowConfigName = AtendimentoContextResolverHelper.normalizeKey(row.developerName);
-            String rowBusinessUnit = AtendimentoContextResolverHelper.normalizeKey(row.businessUnit);
-            String rowMasterLabel = AtendimentoContextResolverHelper.normalizeKey(row.masterLabel);
-
-            if (matchesChannelIdentifier(normalizedIdentifier, rowDeveloperName)
-                || matchesChannelIdentifier(normalizedIdentifier, rowConfigName)
-                || matchesChannelIdentifier(normalizedIdentifier, rowBusinessUnit)
-                || matchesChannelIdentifier(normalizedIdentifier, rowMasterLabel)) {
-                return row.businessUnit;
-            }
-        }
-
-        for (AtendimentoConfigDTO row : rows) {
-            if (row == null || row.isActive != true || String.isBlank(row.businessUnit)) continue;
-
-            String rowType = AtendimentoContextResolverHelper.normalizeKey(row.messagingChannelType);
-            if (!String.isBlank(normalizedType) && !String.isBlank(rowType) && (rowType == normalizedType || rowType.contains(normalizedType) || normalizedType.contains(rowType))) {
-                return row.businessUnit;
-            }
-        }
-
-        if (normalizedType == AtendimentoContextResolverHelper.normalizeKey(AtendimentoContextResolverHelper.CHANNEL_WHATSAPP)) {
-            return null;
-        }
-        return fallbackConfig == null ? null : fallbackConfig.businessUnit;
-    }
-
-    private static String primaryChannelDeveloperName(String normalizedType, AtendimentoConfigDTO row) {
-        if (row == null) return null;
-        String normalizedWhatsAppType = AtendimentoContextResolverHelper.normalizeKey(AtendimentoContextResolverHelper.CHANNEL_WHATSAPP);
-        return normalizedType == normalizedWhatsAppType ? row.whatsAppChannelDeveloperName : row.messagingChannelDeveloperName;
-    }
-
-    private static Boolean matchesChannelIdentifier(String normalizedIdentifier, String normalizedCandidate) {
-        if (String.isBlank(normalizedIdentifier) || String.isBlank(normalizedCandidate)) return false;
-        return normalizedIdentifier == normalizedCandidate
-            || normalizedIdentifier.contains(normalizedCandidate)
-            || normalizedCandidate.contains(normalizedIdentifier);
     }
 
     private static List<AtendimentoConfigDTO> fetchActiveAtendimentoParams() {

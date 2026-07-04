@@ -21,7 +21,7 @@ public inherited sharing class CategorizacaoSelector {
                 Subassunto__c, Prioridade__c, Ativo__c, Descricao__c, MotivoInativacao__c, DistribuirParaFila__c, PorCampoCustomizado__c,
                 NomeFilaDistribuicao__c, FilaDeveloperName__c, FilaId__c, CampoDistribuicao__c, LabelCampoDistribuicao__c,
                 ValorDistribuicao__c, LabelValorDistribuicao__c, ChaveNatural__c, ChaveNaturalHash__c
-            FROM Categorizacao__c WHERE Id = :id LIMIT 1
+            FROM Categorizacao__c WHERE Id = :id WITH USER_MODE LIMIT 1
         ];
         return rows.isEmpty() ? null : rows[0];
     }
@@ -29,14 +29,14 @@ public inherited sharing class CategorizacaoSelector {
     public static Map<Id, RecordType> getRecordTypesById(Set<Id> recordTypeIds) {
         Map<Id, RecordType> out = new Map<Id, RecordType>();
         if (recordTypeIds.isEmpty()) return out;
-        for (RecordType rt : [SELECT Id, DeveloperName, Name FROM RecordType WHERE SObjectType = 'Categorizacao__c' AND Id IN :recordTypeIds]) {
+        for (RecordType rt : [SELECT Id, DeveloperName, Name FROM RecordType WHERE SObjectType = 'Categorizacao__c' AND Id IN :recordTypeIds WITH USER_MODE]) {
             out.put(rt.Id, rt);
         }
         return out;
     }
 
     public static List<RecordType> getAvailableRecordTypesForObject() {
-        return [SELECT Id, DeveloperName, Name FROM RecordType WHERE SObjectType = 'Categorizacao__c' AND IsActive = true ORDER BY Name];
+        return [SELECT Id, DeveloperName, Name FROM RecordType WHERE SObjectType = 'Categorizacao__c' AND IsActive = true WITH USER_MODE ORDER BY Name];
     }
 
     public static Map<String, UnidadeConfig> getUnidadeConfigsByRecordTypeDeveloperName() {
@@ -50,16 +50,15 @@ public inherited sharing class CategorizacaoSelector {
             uc.queuePrefix = m.queueDeveloperNamePrefix;
             uc.ativo = m.isActive;
             if (String.isBlank(uc.recordTypeDeveloperName)) continue;
-            out.put(uc.recordTypeDeveloperName, uc);
+            if (!out.containsKey(uc.recordTypeDeveloperName) || (out.get(uc.recordTypeDeveloperName).ativo != true && uc.ativo == true)) {
+                out.put(uc.recordTypeDeveloperName, uc);
+            }
         }
 
         if (out.isEmpty()) {
-            out.put('Salvador', cfg('Salvador', 'Atendimento Salvador', 'TSV'));
-            out.put('TeconSalvador', cfg('TeconSalvador', 'Atendimento Salvador', 'TSV'));
-            out.put('RioGrande', cfg('RioGrande', 'Atendimento Rio Grande', 'TRG'));
-            out.put('TeconRioGrande', cfg('TeconRioGrande', 'Atendimento Rio Grande', 'TRG'));
-            out.put('CentroLogistico', cfg('CentroLogistico', 'Centro Logístico', 'CL'));
-            out.put('Rebocadores', cfg('Rebocadores', 'Rebocadores', 'REB'));
+            for (AtendimentoConfigHelper.UnidadeFallbackEntry fb : AtendimentoConfigHelper.getHardcodedUnidadeFallback()) {
+                out.put(fb.recordTypeDeveloperName, cfg(fb.recordTypeDeveloperName, fb.unidadeNegocio, fb.queuePrefix));
+            }
         }
         return out;
     }
@@ -76,7 +75,7 @@ public inherited sharing class CategorizacaoSelector {
         if (developerNames.isEmpty()) return out;
 
         Set<Id> queueIds = new Set<Id>();
-        for (Group g : [SELECT Id, Name, DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName IN :developerNames]) {
+        for (Group g : [SELECT Id, Name, DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName IN :developerNames WITH USER_MODE]) {
             queueIds.add(g.Id);
             QueueData d = new QueueData();
             d.id = g.Id; d.name = g.Name; d.developerName = g.DeveloperName;
@@ -85,7 +84,7 @@ public inherited sharing class CategorizacaoSelector {
 
         if (!queueIds.isEmpty()) {
             Set<Id> enabledQueueIds = new Set<Id>();
-            for (QueueSobject qs : [SELECT QueueId FROM QueueSobject WHERE QueueId IN :queueIds AND SobjectType = 'Case']) enabledQueueIds.add(qs.QueueId);
+            for (QueueSobject qs : [SELECT QueueId FROM QueueSobject WHERE QueueId IN :queueIds AND SobjectType = 'Case' WITH USER_MODE]) enabledQueueIds.add(qs.QueueId);
             for (String key : new List<String>(out.keySet())) if (!enabledQueueIds.contains(out.get(key).id)) out.remove(key);
         }
         return out;
@@ -98,7 +97,7 @@ public inherited sharing class CategorizacaoSelector {
 
         Set<Id> queueIds = new Set<Id>();
         String pattern = '%' + prefix + '%';
-        for (Group g : [SELECT Id, Name, DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName LIKE :pattern ORDER BY Name]) {
+        for (Group g : [SELECT Id, Name, DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName LIKE :pattern WITH USER_MODE ORDER BY Name]) {
             QueueData d = new QueueData();
             d.id = g.Id; d.name = g.Name; d.developerName = g.DeveloperName;
             out.add(d); queueIds.add(g.Id);
@@ -107,7 +106,7 @@ public inherited sharing class CategorizacaoSelector {
         if (queueIds.isEmpty()) return new List<QueueData>();
 
         Set<Id> enabled = new Set<Id>();
-        for (QueueSobject qs : [SELECT QueueId FROM QueueSobject WHERE QueueId IN :queueIds AND SobjectType = 'Case']) enabled.add(qs.QueueId);
+        for (QueueSobject qs : [SELECT QueueId FROM QueueSobject WHERE QueueId IN :queueIds AND SobjectType = 'Case' WITH USER_MODE]) enabled.add(qs.QueueId);
 
         List<QueueData> filtered = new List<QueueData>();
         for (QueueData q : out) if (enabled.contains(q.id)) filtered.add(q);
@@ -120,7 +119,7 @@ public inherited sharing class CategorizacaoSelector {
         // Somente registros Ativos colidem: uma Categorizacao inativa pode legitimamente
         // compartilhar a mesma chave natural de uma ativa (ex.: duplicidade resolvida via
         // inativacao em vez de exclusao) sem bloquear novas gravacoes/edicoes da ativa.
-        for (Categorizacao__c row : [SELECT Id, ChaveNaturalHash__c FROM Categorizacao__c WHERE ChaveNaturalHash__c IN :hashes AND Ativo__c = true]) {
+        for (Categorizacao__c row : [SELECT Id, ChaveNaturalHash__c FROM Categorizacao__c WHERE ChaveNaturalHash__c IN :hashes AND Ativo__c = true WITH USER_MODE]) {
             if (ignoreIds.contains(row.Id)) continue;
             out.put(row.ChaveNaturalHash__c, row);
         }
@@ -135,6 +134,7 @@ public inherited sharing class CategorizacaoSelector {
                 GestaoSLA__c, MarcoSLA__c, EscopoRegra__c, TempoBaixa__c, TempoMedia__c, TempoAlta__c
             FROM RegrasSLACategorizacao__c
             WHERE Categorizacao__c = :categorizacaoId
+            WITH USER_MODE
             ORDER BY TipoAreaParticipante__c, AreaAtendimento__c
         ];
     }
