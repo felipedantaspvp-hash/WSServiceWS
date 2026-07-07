@@ -34403,33 +34403,6 @@ Before we begin, please choose your service language.</message>
         </sections>
     </reportTypes>
     <reportTypes>
-        <description><!-- Métricas diárias do bot da Spring &apos;24 --></description>
-        <label><!-- Métricas diárias do bot da Spring &apos;24 --></label>
-        <name>Bot_Metrics_Daily_v6</name>
-        <sections>
-            <label><!-- Métricas diárias de diálogo de definição de conversa --></label>
-            <name>Métricas diárias de diálogo de definição de conversa</name>
-        </sections>
-    </reportTypes>
-    <reportTypes>
-        <description><!-- Métricas do bot por hora da Spring &apos;24 --></description>
-        <label><!-- Métricas do bot por hora da Spring &apos;24 --></label>
-        <name>Bot_Metrics_Hourly_v6</name>
-        <sections>
-            <label><!-- Métricas horárias de diálogo de definição de conversa --></label>
-            <name>Métricas horárias de diálogo de definição de conversa</name>
-        </sections>
-    </reportTypes>
-    <reportTypes>
-        <description><!-- Métricas da sessão da Spring &apos;24 --></description>
-        <label><!-- Métricas da sessão da Spring &apos;24 --></label>
-        <name>Bot_Sessions_v6</name>
-        <sections>
-            <label><!-- Métricas da sessão de definição da conversa --></label>
-            <name>Métricas da sessão de definição da conversa</name>
-        </sections>
-    </reportTypes>
-    <reportTypes>
         <description><!-- Campanhas WS --></description>
         <label><!-- Campanhas WS --></label>
         <name>Campanhas_WS</name>
@@ -35631,37 +35604,6 @@ Before we begin, please choose your service language.</message>
         <sections>
             <label><!-- Analytic Notifications --></label>
             <name>Analytic Notifications</name>
-        </sections>
-    </reportTypes>
-    <reportTypes>
-        <description><!-- Rep Work --></description>
-        <label><!-- Rep Work --></label>
-        <name>SfdcRepWorkReportType</name>
-        <sections>
-            <label><!-- Rep Work --></label>
-            <name>Rep Work</name>
-        </sections>
-    </reportTypes>
-    <reportTypes>
-        <description><!-- Rep Work with Cases --></description>
-        <label><!-- Rep Work with Cases --></label>
-        <name>SfdcRepWorkWithCasesReportType</name>
-        <sections>
-            <label><!-- Cases --></label>
-            <name>Cases</name>
-        </sections>
-        <sections>
-            <label><!-- Rep Work --></label>
-            <name>Rep Work</name>
-        </sections>
-    </reportTypes>
-    <reportTypes>
-        <description><!-- Rep Presence --></description>
-        <label><!-- Rep Presence --></label>
-        <name>SfdcUserPresenceReportType</name>
-        <sections>
-            <label><!-- User Presence --></label>
-            <name>User Presence</name>
         </sections>
     </reportTypes>
     <reportTypes>

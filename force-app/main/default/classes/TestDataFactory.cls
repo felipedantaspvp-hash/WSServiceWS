@@ -125,17 +125,25 @@ public inherited sharing class TestDataFactory {
         String uniq = String.valueOf(DateTime.now().getTime());
         User u = new User(
             Alias = aliasSeed.left(8),
-            Email = aliasSeed + uniq + '@example.com',
+            Email = aliasSeed + uniq + '@wilsonsons.com.br',
             EmailEncodingKey = 'UTF-8',
             LastName = 'WS',
             LanguageLocaleKey = 'en_US',
             LocaleSidKey = 'en_US',
             ProfileId = profile.Id,
             TimeZoneSidKey = 'America/Sao_Paulo',
-            Username = aliasSeed + uniq + '@example.com'
+            Username = aliasSeed + uniq + '@wilsonsons.com.br'
         );
         applyOverrides(u, overrides);
-        insert u;
+        List<User> wsAdmins = [
+            SELECT Id FROM User
+            WHERE IsActive = true AND Email LIKE '%wilsonsons.com.br%' AND Profile.PermissionsManageUsers = true
+            LIMIT 1
+        ];
+        User runAsUser = wsAdmins.isEmpty() ? new User(Id = UserInfo.getUserId()) : wsAdmins[0];
+        System.runAs(runAsUser) {
+            insert u;
+        }
         return u;
     }
 

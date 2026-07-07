@@ -893,10 +893,6 @@
         <translation>Quotation and Invoices</translation>
     </valueTranslation>
     <valueTranslation>
-        <masterLabel>Ouro</masterLabel>
-        <translation>Gold</translation>
-    </valueTranslation>
-    <valueTranslation>
         <masterLabel>Outros</masterLabel>
         <translation>Others</translation>
     </valueTranslation>
@@ -1107,10 +1103,6 @@
     <valueTranslation>
         <masterLabel>Relatório personalizado</masterLabel>
         <translation>Custom Report</translation>
-    </valueTranslation>
-    <valueTranslation>
-        <masterLabel>Relatórios diversos</masterLabel>
-        <translation>Miscellaneous Reports</translation>
     </valueTranslation>
     <valueTranslation>
         <masterLabel>Renovação</masterLabel>

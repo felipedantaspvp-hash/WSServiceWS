@@ -14,17 +14,25 @@ private class AreaParticipanteRegiaoAtendimentoTest {
         String uniq = String.valueOf(DateTime.now().getTime()) + String.valueOf(Math.mod(Crypto.getRandomInteger(), 100000));
         User u = new User(
             Alias = aliasSeed.left(8),
-            Email = aliasSeed + uniq + '@example.com',
+            Email = aliasSeed + uniq + '@wilsonsons.com.br',
             EmailEncodingKey = 'UTF-8',
             LastName = 'WS ' + aliasSeed,
             LanguageLocaleKey = 'en_US',
             LocaleSidKey = 'en_US',
             ProfileId = profile.Id,
             TimeZoneSidKey = 'America/Sao_Paulo',
-            Username = aliasSeed + uniq + '@example.com',
+            Username = aliasSeed + uniq + '@wilsonsons.com.br',
             RegiaoAtendimentoSecundaria__c = regiao
         );
-        insert u;
+        List<User> wsAdmins = [
+            SELECT Id FROM User
+            WHERE IsActive = true AND Email LIKE '%wilsonsons.com.br%' AND Profile.PermissionsManageUsers = true
+            LIMIT 1
+        ];
+        User runAsUser = wsAdmins.isEmpty() ? new User(Id = UserInfo.getUserId()) : wsAdmins[0];
+        System.runAs(runAsUser) {
+            insert u;
+        }
         return u;
     }
 

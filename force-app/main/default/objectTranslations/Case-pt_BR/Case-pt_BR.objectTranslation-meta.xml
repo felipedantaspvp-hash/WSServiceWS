@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <layouts>
-        <layout>Layout Solicitação Interna</layout>
-        <sections>
-            <label><!-- Admin --></label>
-            <section>Admin</section>
-        </sections>
-    </layouts>
     <quickActions>
         <label><!-- CloseCaseLightning --></label>
         <name>CloseCaseLightning</name>
@@ -19,10 +12,6 @@
         <aspect>Master</aspect>
         <label>Encerrar Caso</label>
         <name>Encerrar_Caso_Com_Pesquisa</name>
-    </quickActions>
-    <quickActions>
-        <label><!-- NewChildCase --></label>
-        <name>NewChildCase</name>
     </quickActions>
     <quickActions>
         <label><!-- Recategorizar Caso --></label>

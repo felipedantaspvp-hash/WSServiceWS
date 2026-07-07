@@ -323,7 +323,6 @@
     <tabs>Contatos_Site__c</tabs>
     <tabs>Embarcacao__c</tabs>
     <tabs>GestaoSLA</tabs>
-    <tabs>Knowledge__kav</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>LightningService_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -335,9 +334,6 @@
         </mappings>
         <mappings>
             <tab>GestaoSLA</tab>
-        </mappings>
-        <mappings>
-            <tab>Knowledge__kav</tab>
         </mappings>
         <mappings>
             <tab>standard-Account</tab>

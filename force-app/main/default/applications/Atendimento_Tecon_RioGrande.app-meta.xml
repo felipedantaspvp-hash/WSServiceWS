@@ -86,15 +86,11 @@
     <tabs>standard-report</tabs>
     <tabs>standard-Dashboard</tabs>
     <tabs>standard-OmniSupervisorLightning</tabs>
-    <tabs>Knowledge__kav</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Atendimento_Tecon_Salvador_clone_UtilityBar</utilityBar>
     <workspaceConfig>
         <mappings>
             <tab>GestaoSLA</tab>
-        </mappings>
-        <mappings>
-            <tab>Knowledge__kav</tab>
         </mappings>
         <mappings>
             <tab>standard-Account</tab>

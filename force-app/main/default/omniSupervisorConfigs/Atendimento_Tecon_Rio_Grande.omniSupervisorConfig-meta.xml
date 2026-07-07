@@ -2,9 +2,6 @@
 <OmniSupervisorConfig xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <isTimelineHidden>false</isTimelineHidden>
     <masterLabel>Atendimento Tecon Rio Grande</masterLabel>
-    <omniSpvsrConfigAIAgent>
-        <botDefinition xsi:nil="true"/>
-    </omniSpvsrConfigAIAgent>
     <omniSupervisorConfigGroup>
         <group>GP_AtendimentoRioGrande</group>
     </omniSupervisorConfigGroup>

@@ -560,17 +560,23 @@ private class CaseScheduleServiceTest {
         String uniqueValue = String.valueOf(DateTime.now().getTime());
         User userRow = new User(
             Alias = 'iusr',
-            Email = 'inactive.schedule' + uniqueValue + '@example.com',
+            Email = 'inactive.schedule' + uniqueValue + '@wilsonsons.com.br',
             EmailEncodingKey = 'UTF-8',
             LastName = 'Inactive',
             LanguageLocaleKey = 'pt_BR',
             LocaleSidKey = 'pt_BR',
             ProfileId = profile.Id,
             TimeZoneSidKey = 'America/Sao_Paulo',
-            UserName = 'inactive.schedule' + uniqueValue + '@example.com',
+            UserName = 'inactive.schedule' + uniqueValue + '@wilsonsons.com.br',
             IsActive = false
         );
-        System.runAs(new User(Id = UserInfo.getUserId())) {
+        List<User> wsAdmins = [
+            SELECT Id FROM User
+            WHERE IsActive = true AND Email LIKE '%wilsonsons.com.br%' AND Profile.PermissionsManageUsers = true
+            LIMIT 1
+        ];
+        User runAsUser = wsAdmins.isEmpty() ? new User(Id = UserInfo.getUserId()) : wsAdmins[0];
+        System.runAs(runAsUser) {
             insert userRow;
         }
         return userRow;

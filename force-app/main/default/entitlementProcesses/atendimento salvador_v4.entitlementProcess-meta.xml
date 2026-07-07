@@ -8,7 +8,7 @@
     <exitCriteriaFilterItems>
         <field>Case.IsClosed</field>
         <operation>equals</operation>
-        <value>true</value>
+        <value>True</value>
     </exitCriteriaFilterItems>
     <isVersionDefault>false</isVersionDefault>
     <milestones>
@@ -116,7 +116,7 @@
         <milestoneCriteriaFilterItems>
             <field>Case.IsClosed</field>
             <operation>equals</operation>
-            <value>false</value>
+            <value>False</value>
         </milestoneCriteriaFilterItems>
         <milestoneName>SLA Total</milestoneName>
         <minutesCustomClass>CaseMilestoneTriggerTimeCalculator</minutesCustomClass>

@@ -8,13 +8,6 @@
         <plural>true</plural>
         <value>Cases</value>
     </caseValues>
-    <layouts>
-        <layout>Layout Solicitação Interna</layout>
-        <sections>
-            <label><!-- Admin --></label>
-            <section>Admin</section>
-        </sections>
-    </layouts>
     <quickActions>
         <label><!-- CloseCaseLightning --></label>
         <name>CloseCaseLightning</name>
@@ -28,10 +21,6 @@
         <aspect>Master</aspect>
         <label>Close Case</label>
         <name>Encerrar_Caso_Com_Pesquisa</name>
-    </quickActions>
-    <quickActions>
-        <label><!-- NewChildCase --></label>
-        <name>NewChildCase</name>
     </quickActions>
     <quickActions>
         <aspect>Master</aspect>
