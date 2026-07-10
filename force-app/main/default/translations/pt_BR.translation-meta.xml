@@ -112,6 +112,10 @@
         <label><!-- Salesforce Engage --></label>
         <name>pi__Sales_Reach</name>
     </customApplications>
+    <customApplications>
+        <label><!-- Org WS --></label>
+        <name>Org_WS</name>
+    </customApplications>
     <customLabels>
         <label><!-- Aba Quote Histórico Cliente --></label>
         <name>Aba_Historico_Cliente</name>
@@ -709,7 +713,7 @@
         <name>AccountCaseSchedule_Weekdays</name>
     </customLabels>
     <customLabels>
-        <label>Selecione ao menos um dia da semana para a frequência &quot;Dias específicos da semana&quot;.</label>
+        <label>Selecione ao menos um dia da semana para a frequência "Dias específicos da semana".</label>
         <name>AccountCaseSchedule_WeekdaysRequired</name>
     </customLabels>
     <customLabels>
@@ -981,7 +985,7 @@
         <name>GestaoSLA_ApplicationWhatsappChatNew</name>
     </customLabels>
     <customLabels>
-        <label>Duplo clique no nome de uma área para copiar o valor de &quot;Priority High&quot; para &quot;Priority Medium&quot; e &quot;Priority Low&quot; daquela mesma linha.</label>
+        <label>Duplo clique no nome de uma área para copiar o valor de "Priority High" para "Priority Medium" e "Priority Low" daquela mesma linha.</label>
         <name>GestaoSLA_AreaInternaHelpCopyRowPriority</name>
     </customLabels>
     <customLabels>
@@ -989,7 +993,7 @@
         <name>GestaoSLA_AreaInternaHelpReplicateColumn</name>
     </customLabels>
     <customLabels>
-        <label>Duplo clique no cabeçalho &quot;Internal Area&quot; para copiar toda a primeira linha para todas as áreas.</label>
+        <label>Duplo clique no cabeçalho "Internal Area" para copiar toda a primeira linha para todas as áreas.</label>
         <name>GestaoSLA_AreaInternaHelpReplicateRow</name>
     </customLabels>
     <customLabels>
@@ -1029,7 +1033,7 @@
         <name>GestaoSLA_CategoryAllowAssumeOffHint</name>
     </customLabels>
     <customLabels>
-        <label>O atendente ainda verá &quot;Assumir o caso&quot; como opção ao criar um Case dessa categorização, mesmo com fila configurada.</label>
+        <label>O atendente ainda verá "Assumir o caso" como opção ao criar um Case dessa categorização, mesmo com fila configurada.</label>
         <name>GestaoSLA_CategoryAllowAssumeOnHint</name>
     </customLabels>
     <customLabels>
@@ -24273,6 +24277,110 @@
         <name>CaseAreasParticipantesPanel_StatusLineOverdue</name>
     </customLabels>
     <customLabels>
+        <label><!-- Nome de exibição da área Apoio Aduaneiro --></label>
+        <name>CategorizacaoManager_AreaLabelApoioAduaneiro</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Nome de exibição da área Armazenagem --></label>
+        <name>CategorizacaoManager_AreaLabelArmazenagem</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Nome de exibição da área Comercial --></label>
+        <name>CategorizacaoManager_AreaLabelComercial</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Nome de exibição da área Faturamento --></label>
+        <name>CategorizacaoManager_AreaLabelFaturamento</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Nome de exibição da área Financeiro --></label>
+        <name>CategorizacaoManager_AreaLabelFinanceiro</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Nome de exibição da área Fiscal --></label>
+        <name>CategorizacaoManager_AreaLabelFiscal</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Nome de exibição da área Jurídico --></label>
+        <name>CategorizacaoManager_AreaLabelJuridico</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Nome de exibição da área Liberação --></label>
+        <name>CategorizacaoManager_AreaLabelLiberacao</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Nome de exibição da área Operações --></label>
+        <name>CategorizacaoManager_AreaLabelOperacoes</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Nome de exibição da área Qualidade --></label>
+        <name>CategorizacaoManager_AreaLabelQualidade</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Nome de exibição da área TI --></label>
+        <name>CategorizacaoManager_AreaLabelTi</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Descrição do marco Atendimento --></label>
+        <name>CategorizacaoManager_MarcoDescAtendimento</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Descrição do marco Atendimento N3 --></label>
+        <name>CategorizacaoManager_MarcoDescAtendimentoN3</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Descrição do marco Primeira Resposta --></label>
+        <name>CategorizacaoManager_MarcoDescPrimeiraResposta</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Descrição do marco Resposta Chat --></label>
+        <name>CategorizacaoManager_MarcoDescRespostaChat</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Descrição do marco Retorno N3 --></label>
+        <name>CategorizacaoManager_MarcoDescRetornoN3</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Descrição do marco SLA Total --></label>
+        <name>CategorizacaoManager_MarcoDescSlaTotal</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Descrição do marco Triagem --></label>
+        <name>CategorizacaoManager_MarcoDescTriagem</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Nome de exibição do marco Atendimento --></label>
+        <name>CategorizacaoManager_MarcoLabelAtendimento</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Nome de exibição do marco Atendimento N3 --></label>
+        <name>CategorizacaoManager_MarcoLabelAtendimentoN3</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Nome de exibição do marco Primeira Resposta --></label>
+        <name>CategorizacaoManager_MarcoLabelPrimeiraResposta</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Nome de exibição do marco Resposta Chat --></label>
+        <name>CategorizacaoManager_MarcoLabelRespostaChat</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Nome de exibição do marco Retorno N3 --></label>
+        <name>CategorizacaoManager_MarcoLabelRetornoN3</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Nome de exibição do marco SLA Total --></label>
+        <name>CategorizacaoManager_MarcoLabelSlaTotal</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Nome de exibição do marco Triagem --></label>
+        <name>CategorizacaoManager_MarcoLabelTriagem</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Generic public-facing error for Experience Cloud authentication flows. --></label>
+        <name>ExperienceAuth_GenericError</name>
+    </customLabels>
+    <customLabels>
         <label>Prazo: {0}</label>
         <name>CaseAreasParticipantesPanel_StatusLineDeadline</name>
     </customLabels>
@@ -24331,6 +24439,10 @@
     <customTabs>
         <label><!-- Post Install Wizard --></label>
         <name>LID__Post_Install_Wizard</name>
+    </customTabs>
+    <customTabs>
+        <label><!-- Utilitários Key-Users --></label>
+        <name>Utilit_rios_Key_Users</name>
     </customTabs>
     <customTabs>
         <label><!-- Sales Navigator Installation Wizard --></label>
@@ -24839,7 +24951,7 @@
             </textTemplates>
             <textTemplates>
                 <name>welcome_question_lref_tt</name>
-                <text>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 48px;&quot;&gt;Pesquisa de Satisfação | Centro Logístico&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;Queremos saber como foi sua experiência com o atendimento do Centro Logístico Wilson Sons. Sua opinião é importante para aprimorarmos nossos processos e serviços.&lt;/p&gt;</text>
+                <text>&lt;p style="text-align: center;"&gt;&lt;strong style="font-size: 48px;"&gt;Pesquisa de Satisfação | Centro Logístico&lt;/strong&gt;&lt;/p&gt;&lt;p style="text-align: center;"&gt;Queremos saber como foi sua experiência com o atendimento do Centro Logístico Wilson Sons. Sua opinião é importante para aprimorarmos nossos processos e serviços.&lt;/p&gt;</text>
             </textTemplates>
         </flows>
         <fullName>Atendimento_Survey_CentroLogistico</fullName>
@@ -24856,11 +24968,11 @@
             </choices>
             <screens>
                 <fields>
-                    <fieldText>&lt;p&gt;&lt;span class=&quot;ql-cursor&quot;&gt;&lt;/span&gt;Como você avalia o atendimento recebido?&lt;/p&gt;</fieldText>
+                    <fieldText>&lt;p&gt;&lt;span class="ql-cursor"&gt;&lt;/span&gt;Como você avalia o atendimento recebido?&lt;/p&gt;</fieldText>
                     <name>q_8dcc0a03_a376_4802_801e_e049d48d354b</name>
                 </fields>
                 <fields>
-                    <fieldText>&lt;p&gt;&lt;strong&gt;&lt;span class=&quot;ql-cursor&quot;&gt;&lt;/span&gt;Deseja deixar algum comentário sobre o atendimento?&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;&lt;span class="ql-cursor"&gt;&lt;/span&gt;Deseja deixar algum comentário sobre o atendimento?&lt;/strong&gt;&lt;/p&gt;</fieldText>
                     <name>q_db867e83_6fc2_463e_a270_a35afb5bba96</name>
                 </fields>
                 <name>p_20b75919_5c91_4e73_823a_8a0926e463a5</name>
@@ -24884,7 +24996,7 @@
             </textTemplates>
             <textTemplates>
                 <name>welcome_question_lref_tt</name>
-                <text>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 48px;&quot;&gt;Pesquisa de Satisfação | Rebocadores&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;Queremos saber como foi sua experiência com o atendimento de Rebocadores da Wilson Sons. Sua opinião é importante para aprimorarmos continuamente nossos serviços.&lt;/p&gt;</text>
+                <text>&lt;p style="text-align: center;"&gt;&lt;strong style="font-size: 48px;"&gt;Pesquisa de Satisfação | Rebocadores&lt;/strong&gt;&lt;/p&gt;&lt;p style="text-align: center;"&gt;Queremos saber como foi sua experiência com o atendimento de Rebocadores da Wilson Sons. Sua opinião é importante para aprimorarmos continuamente nossos serviços.&lt;/p&gt;</text>
             </textTemplates>
         </flows>
         <fullName>Atendimento_Survey_Rebocadores</fullName>
@@ -25010,11 +25122,11 @@
             </choices>
             <screens>
                 <fields>
-                    <fieldText>&lt;p&gt;&lt;span class=&quot;ql-cursor&quot;&gt;&lt;/span&gt;O seu problema foi resolvido?&lt;/p&gt;</fieldText>
+                    <fieldText>&lt;p&gt;&lt;span class="ql-cursor"&gt;&lt;/span&gt;O seu problema foi resolvido?&lt;/p&gt;</fieldText>
                     <name>q_295a6ce5_4407_4ddd_ac4a_260c65c346b7</name>
                 </fields>
                 <fields>
-                    <fieldText>&lt;p&gt;&lt;span class=&quot;ql-cursor&quot;&gt;&lt;/span&gt;Como você avalia o tempo de resposta?&lt;/p&gt;</fieldText>
+                    <fieldText>&lt;p&gt;&lt;span class="ql-cursor"&gt;&lt;/span&gt;Como você avalia o tempo de resposta?&lt;/p&gt;</fieldText>
                     <name>q_aa92a1bc_1508_4009_8383_3d6578a58c10</name>
                 </fields>
                 <fields>
@@ -25046,7 +25158,7 @@
             </textTemplates>
             <textTemplates>
                 <name>welcome_question_lref_tt</name>
-                <text>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 48px;&quot;&gt;Pesquisa de Satisfação | Tecon Rio Grande&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;Seu atendimento no Tecon Rio Grande foi encerrado. Queremos garantir que tudo foi resolvido conforme o esperado. Sua opinião é fundamental para melhorarmos continuamente nossos serviços.&lt;/p&gt;</text>
+                <text>&lt;p style="text-align: center;"&gt;&lt;strong style="font-size: 48px;"&gt;Pesquisa de Satisfação | Tecon Rio Grande&lt;/strong&gt;&lt;/p&gt;&lt;p style="text-align: center;"&gt;Seu atendimento no Tecon Rio Grande foi encerrado. Queremos garantir que tudo foi resolvido conforme o esperado. Sua opinião é fundamental para melhorarmos continuamente nossos serviços.&lt;/p&gt;</text>
             </textTemplates>
         </flows>
         <fullName>Atendimento_Survey_TeconRioGrande</fullName>
@@ -25133,7 +25245,7 @@
             </textTemplates>
             <textTemplates>
                 <name>welcome_question_lref_tt</name>
-                <text>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 48px;&quot;&gt;Pesquisa de Satisfação | Tecon Salvador&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;Olá.&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;Queremos saber como foi sua experiência com o atendimento do Tecon Salvador.&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;Sua opinião é muito importante para melhorarmos continuamente nossos serviços.&lt;/p&gt;</text>
+                <text>&lt;p style="text-align: center;"&gt;&lt;strong style="font-size: 48px;"&gt;Pesquisa de Satisfação | Tecon Salvador&lt;/strong&gt;&lt;/p&gt;&lt;p style="text-align: center;"&gt;Olá.&lt;/p&gt;&lt;p style="text-align: center;"&gt;Queremos saber como foi sua experiência com o atendimento do Tecon Salvador.&lt;/p&gt;&lt;p style="text-align: center;"&gt;Sua opinião é muito importante para melhorarmos continuamente nossos serviços.&lt;/p&gt;</text>
             </textTemplates>
         </flows>
         <fullName>Atendimento_Survey_TeconSalvador</fullName>
@@ -32403,6 +32515,553 @@
     </flowDefinitions>
     <flowDefinitions>
         <flows>
+            <screens>
+                <fields>
+                    <name>txtConfirmacaoIntro</name>
+                </fields>
+                <fields>
+                    <name>txtConfirmacaoSalvador</name>
+                </fields>
+                <fields>
+                    <name>txtConfirmacaoTRGTSC</name>
+                </fields>
+                <name>Tela_Confirmacao</name>
+            </screens>
+            <screens>
+                <fields>
+                    <inputParameters>
+                        <name>horizontalAlignment</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>imageName</name>
+                        <value/>
+                    </inputParameters>
+                    <name>LogoWS_TelaResultado</name>
+                </fields>
+                <fields>
+                    <name>txtErrNoPbe</name>
+                </fields>
+                <fields>
+                    <name>txtErrNoProductDefault</name>
+                </fields>
+                <fields>
+                    <name>txtErrPeriodCountMismatch</name>
+                </fields>
+                <fields>
+                    <name>txtErrPeriodNoMatch</name>
+                </fields>
+                <fields>
+                    <name>txtErrPeriodUpdate</name>
+                </fields>
+                <fields>
+                    <name>txtErrQliUpdate</name>
+                </fields>
+                <fields>
+                    <name>txtErrUnsupportedRecordType</name>
+                </fields>
+                <fields>
+                    <name>txtResumoGeral</name>
+                </fields>
+                <fields>
+                    <name>txtSemInconsistencias</name>
+                </fields>
+                <fields>
+                    <name>txtTituloInconsistencias</name>
+                </fields>
+                <name>Tela_Resultado</name>
+            </screens>
+            <screens>
+                <fields>
+                    <inputParameters>
+                        <name>columns</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>isShowSearchBar</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>minRowSelection</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>selectionMode</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>shouldDisplayLabel</name>
+                        <value/>
+                    </inputParameters>
+                    <name>tblItens</name>
+                </fields>
+                <name>Tela_Selecionar_Itens</name>
+            </screens>
+            <screens>
+                <fields>
+                    <inputParameters>
+                        <name>horizontalAlignment</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>imageName</name>
+                        <value/>
+                    </inputParameters>
+                    <name>LogoWS_NenhumItemSelecionado</name>
+                </fields>
+                <fields>
+                    <name>txtSemSelecao</name>
+                </fields>
+                <name>Tela_Sem_Selecao</name>
+            </screens>
+        </flows>
+        <fullName>CotacaoResetItensFlow</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <name>Cotacao_link</name>
+                </fields>
+                <fields>
+                    <name>Desconto_Edicao</name>
+                </fields>
+                <fields>
+                    <name>Preco_de_Lista</name>
+                </fields>
+                <fields>
+                    <name>Preco_de_Venda_Edicao</name>
+                </fields>
+                <fields>
+                    <name>Tela_Servico_nao_categorizado_Section1</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Tela_Servico_nao_categorizado_Section1_Column1</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Tela_Servico_nao_categorizado_Section1_Column2</name>
+                </fields>
+                <fields>
+                    <name>mensagemTelaServicoNaoCategorizado</name>
+                </fields>
+                <name>Tela_Servico_nao_categorizado</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>Ad_Valorem</name>
+                </fields>
+                <fields>
+                    <name>CIOT</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>messageToggleActive</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>messageToggleInactive</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>value</name>
+                        <value/>
+                    </inputParameters>
+                    <name>CalculoAutomatico</name>
+                </fields>
+                <fields>
+                    <name>Cidade</name>
+                </fields>
+                <fields>
+                    <name>Como_exibir_Ad_Valoren</name>
+                </fields>
+                <fields>
+                    <name>Cotacao_view</name>
+                </fields>
+                <fields>
+                    <name>Detalhes_do_Servico_TSC_transporte_edit</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Detalhes_do_Servico_TSC_transporte_edit_Column1</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Detalhes_do_Servico_TSC_transporte_edit_Column2</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Detalhes_do_Servico_TSC_transporte_edit_Column3</name>
+                </fields>
+                <fields>
+                    <name>Eixo</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>fieldApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>objectApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>recordId</name>
+                        <value/>
+                    </inputParameters>
+                    <name>EstabelecimentoDoServico</name>
+                </fields>
+                <fields>
+                    <name>Frete_ANTT_Rodo_Sales_Price</name>
+                </fields>
+                <fields>
+                    <name>Frete_Hidro</name>
+                </fields>
+                <fields>
+                    <name>Imposto_Formula</name>
+                </fields>
+                <fields>
+                    <name>Km</name>
+                </fields>
+                <fields>
+                    <name>Margem</name>
+                </fields>
+                <fields>
+                    <name>Metrica_de_faturamento</name>
+                </fields>
+                <fields>
+                    <name>Pedagio</name>
+                </fields>
+                <fields>
+                    <name>Piso_Minimo</name>
+                </fields>
+                <fields>
+                    <name>Precificacao</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Precificacao_Column1</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Precificacao_Column2</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Precificacao_Column3</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Precificacao_Column4</name>
+                </fields>
+                <fields>
+                    <name>Preco_de_Venda</name>
+                </fields>
+                <fields>
+                    <name>Servico_Extra</name>
+                </fields>
+                <fields>
+                    <name>Taxa_imposto</name>
+                </fields>
+                <fields>
+                    <name>Tela_Transporte_Tecon_Santa_Clara_Section1</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Tela_Transporte_Tecon_Santa_Clara_Section1_Column1</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Tela_Transporte_Tecon_Santa_Clara_Section1_Column2</name>
+                </fields>
+                <fields>
+                    <name>Tela_Transporte_Tecon_Santa_Clara_Section4</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Tela_Transporte_Tecon_Santa_Clara_Section4_Column1</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Tela_Transporte_Tecon_Santa_Clara_Section4_Column2</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Tela_Transporte_Tecon_Santa_Clara_Section4_Column3</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Tela_Transporte_Tecon_Santa_Clara_Section4_Column4</name>
+                </fields>
+                <fields>
+                    <name>Tipo_de_CNTR_view</name>
+                </fields>
+                <fields>
+                    <name>Transporte_view</name>
+                </fields>
+                <fields>
+                    <name>el_0</name>
+                </fields>
+                <fields>
+                    <name>el_1</name>
+                </fields>
+                <fields>
+                    <name>el_2</name>
+                </fields>
+                <fields>
+                    <name>el_3</name>
+                </fields>
+                <fields>
+                    <name>linkEstabelecimento</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>recordId</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>textBefore</name>
+                        <value/>
+                    </inputParameters>
+                    <name>linkProduct2</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>recordId</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>textBefore</name>
+                        <value/>
+                    </inputParameters>
+                    <name>linkQuote</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>messageToggleActive</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>messageToggleInactive</name>
+                        <value/>
+                    </inputParameters>
+                    <name>modo</name>
+                </fields>
+                <name>Tela_Transporte_Tecon_Santa_Clara</name>
+            </screens>
+        </flows>
+        <fullName>QuoteLineItem_Action_Edicao</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>TCO_Quote_StatusTempo_Subflow</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <customErrorMessages>
+                <developerName>Nao_autorizado</developerName>
+            </customErrorMessages>
+        </flows>
+        <fullName>Usuario_Verifica_permissao</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <inputParameters>
+                        <name>fieldApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>objectApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>recordId</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>required</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Cliente</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>fieldApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>objectApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <name>ContatoDoCliente</name>
+                </fields>
+                <fields>
+                    <name>Data_Limite</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>fieldApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>objectApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>recordId</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>required</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Responsavel</name>
+                </fields>
+                <name>Extracao_de_tarefas_arquivadas</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>exibeBotaoDownload</name>
+                </fields>
+                <fields>
+                    <name>mensagem_download</name>
+                </fields>
+                <name>Tela_Download</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>mensagem_NO_RECORDS</name>
+                </fields>
+                <name>Tela_NO_RECORDS</name>
+            </screens>
+            <textTemplates>
+                <name>ttBotaoDownload</name>
+            </textTemplates>
+        </flows>
+        <fullName>WS_Tela_Extrair_Tarefas_Arquivadas_para_CSV</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <choices>
+                <name>c_c3eb1d70_124f_4075_858a_73690d6f2995</name>
+            </choices>
+            <choices>
+                <name>c_da299429_2417_4714_8b26_b6a421dab526</name>
+            </choices>
+            <screens>
+                <fields>
+                    <name>q_2968a97a_de3f_43ca_8e22_85db37a272fb</name>
+                </fields>
+                <name>p_f2934fcb_c739_41cf_8471_bc75316a4ab8</name>
+            </screens>
+            <screens>
+                <fields>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <name>welcome_question</name>
+                </fields>
+                <name>welcome_page</name>
+            </screens>
+            <textTemplates>
+                <name>thankYouDescriptionTextTemplate</name>
+            </textTemplates>
+            <textTemplates>
+                <name>thankYouLabelTextTemplate</name>
+            </textTemplates>
+            <textTemplates>
+                <name>welcome_question_lref_tt</name>
+            </textTemplates>
+        </flows>
+        <fullName>teste</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
             <textTemplates>
                 <name>CorpoEmail</name>
             </textTemplates>
@@ -34460,6 +35119,46 @@
         <sections>
             <label><!-- Quotes --></label>
             <name>Quotes</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Métricas diárias do bot da Spring &apos;24 --></description>
+        <label><!-- Métricas diárias do bot da Spring &apos;24 --></label>
+        <name>Bot_Metrics_Daily_v6</name>
+        <sections>
+            <label><!-- Métricas diárias de diálogo de definição de conversa --></label>
+            <name>Métricas diárias de diálogo de definição de conversa</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Métricas do bot por hora da Spring &apos;24 --></description>
+        <label><!-- Métricas do bot por hora da Spring &apos;24 --></label>
+        <name>Bot_Metrics_Hourly_v6</name>
+        <sections>
+            <label><!-- Métricas horárias de diálogo de definição de conversa --></label>
+            <name>Métricas horárias de diálogo de definição de conversa</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Métricas da sessão da Spring &apos;24 --></description>
+        <label><!-- Métricas da sessão da Spring &apos;24 --></label>
+        <name>Bot_Sessions_v6</name>
+        <sections>
+            <label><!-- Métricas da sessão de definição da conversa --></label>
+            <name>Métricas da sessão de definição da conversa</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Cotacoes com Tempo por Status --></description>
+        <label><!-- Cotacoes com Tempo por Status --></label>
+        <name>TCO_Cotacoes_com_Tempo_por_Status</name>
+        <sections>
+            <label><!-- Ciclos de Status --></label>
+            <name>Ciclos de Status</name>
+        </sections>
+        <sections>
+            <label><!-- Cotacoes --></label>
+            <name>Cotacoes</name>
         </sections>
     </reportTypes>
     <reportTypes>

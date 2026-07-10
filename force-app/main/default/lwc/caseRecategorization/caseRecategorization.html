@@ -1,14 +1,14 @@
 <template>
     <lightning-quick-action-panel header={labels.title}>
-        <div class="slds-p-around_medium shell">
+        <div class="slds-p-around_small shell">
             <template if:true={loading}>
                 <lightning-spinner alternative-text={labels.loading}></lightning-spinner>
             </template>
 
             <template if:false={loading}>
                 <template if:true={hasContext}>
-                <h3 class="slds-text-title_bold slds-m-bottom_small">{labels.caseInfo}</h3>
-                <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                <h3 class="slds-text-title_bold slds-m-bottom_x-small">{labels.caseInfo}</h3>
+                <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_small">
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
                         <lightning-input label={labels.caseNumber} value={context.caseNumber} disabled></lightning-input>
                     </div>
@@ -23,8 +23,8 @@
                     </div>
                 </div>
 
-                <h3 class="slds-text-title_bold slds-m-bottom_small">{labels.currentCat}</h3>
-                <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                <h3 class="slds-text-title_bold slds-m-bottom_x-small">{labels.currentCat}</h3>
+                <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_small">
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
                         <lightning-input label={labels.currentTipo} value={currentTipoCasoDisplay} disabled></lightning-input>
                     </div>
@@ -39,8 +39,8 @@
                     </div>
                 </div>
 
-                <h3 class="slds-text-title_bold slds-m-bottom_small">{labels.newCat}</h3>
-                <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                <h3 class="slds-text-title_bold slds-m-bottom_x-small">{labels.newCat}</h3>
+                <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_small">
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
                         <lightning-combobox name="tipoCaso" label={fieldLabels.tipo} value={model.tipoCaso} options={tipoOptions} onchange={handleFieldChange} disabled={disableTipo} required></lightning-combobox>
                     </div>
@@ -56,8 +56,8 @@
                 </div>
 
                 <template if:true={showDestinationSection}>
-                    <h3 class="slds-text-title_bold slds-m-bottom_small">{labels.destinationTitle}</h3>
-                    <div class="slds-m-bottom_medium">
+                    <h3 class="slds-text-title_bold slds-m-bottom_x-small">{labels.destinationTitle}</h3>
+                    <div class="slds-m-bottom_small">
                         <div class="destination-grid">
                             <template for:each={destinationCards} for:item="card">
                                 <template if:true={card.checked}>
@@ -99,8 +99,8 @@
                     </template>
                 </template>
 
-                <h3 class="slds-text-title_bold slds-m-bottom_small">{labels.summary}</h3>
-                <div class="slds-box slds-theme_default slds-m-bottom_medium">
+                <h3 class="slds-text-title_bold slds-m-bottom_x-small">{labels.summary}</h3>
+                <div class="slds-box slds-theme_default slds-m-bottom_small summary-box">
                     <p><strong>{labels.from}:</strong> {currentTipoCasoDisplay} | {currentCategoriaDisplay} | {currentAssuntoDisplay} | {readOnlySubassuntoAtual}</p>
                     <p><strong>{labels.to}:</strong> {newTipoCasoDisplay} | {newCategoriaDisplay} | {newAssuntoDisplay} | {readOnlySubassuntoNovo}</p>
                     <p class="slds-text-color_weak slds-m-top_x-small">{labels.warning}</p>

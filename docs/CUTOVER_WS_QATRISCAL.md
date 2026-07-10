@@ -46,6 +46,8 @@ Como só existe script de carga pronto para **Rio Grande** (`scripts/apex/carga_
 ### 1.4 Itens com trava de plataforma conhecidos (não vão via deploy padrão)
 Baseado no que encontramos na WS_PKG5 — confirmar se aplicam também à WS_QATRISCAL antes do deploy:
 - [ ] **Ativar a licença/feature de Einstein Bots na WS_QATRISCAL antes do deploy.** Confirmado no deploy `0Af8800000PAHdt` (05/07/2026): Bot `Will_Smoke` falhou com "Not available for deploy for this organization", mesma trava vista na WS_PKG5. Sem isso habilitado previamente, o Bot (e os Flows `Route_to_Will_Smoke`/`Route_to_Will_Rebind` que dependem dele) não entram no deploy.
+- [ ] **Criar o usuário do bot (Bot User) na org de destino.** O Bot `Will_Smoke` precisa de um usuário dedicado (License "Chatbots"/Einstein Bot User) associado a ele antes do deploy/ativação — sem esse usuário, o bot não consegue ser ativado nem rotear conversas.
+- [ ] **Ativar e criar o bot na org de destino antes de deployar a tradução `en_US`.** Confirmado em 06/07/2026 (WS_QATRISCAL): o deploy de `translations/en_US.translation-meta.xml` falha com `no BotVersion named Will_Smoke.<vN> found` se o Bot/BotVersion referenciado na tradução ainda não existir na org — criar o Bot manualmente (Setup → Einstein Bots) não resolve sozinho se a versão específica (`fullName`) referenciada na tradução não existir; conferir se as `botVersions` da tradução (por `fullName`) batem com as versões de fato existentes em `force-app/main/default/bots/<Bot>/` antes do deploy, e remover blocos órfãos se alguma versão antiga foi descontinuada.
 - [ ] **Ativar Email Deliverability (Setup → Email → Deliverability → "All Email").** Confirmado no deploy `0Af8800000PAHdt`: `QuickAction Case.WS_Email` falhou com "Send Email is disabled or activities are not allowed", quebrando em cascata os Layouts `Case-Case Layout Logística`/`Rebocadores`. Sandboxes costumam vir com Deliverability em "No Access"/"System Email Only" por padrão — precisa estar em "All Email" antes do deploy para a QuickAction de envio de e-mail ser aceita.
 - [ ] **Habilitar FLS (readable/editable) do campo standard `IsStopped` de `Case` para o profile Admin.** Achado durante a análise de testes falhos (deploy `0Af8800000PAjbmCAD`, WS_QATRISCAL): `System.QueryException: No such column 'IsStopped' on entity 'Case'` — o campo standard existe no objeto, mas não está acessível para o profile Admin, o que faz o SOQL falhar como se a coluna não existisse. Verificar/ativar antes do deploy via Setup → Profiles → Admin → Field-Level Security → Case → `IsStopped` (Read + Edit).
 - [ ] `PresenceUserConfig` (`default_presence_config`) — geralmente read-only, criado automaticamente pela plataforma.
@@ -73,6 +75,7 @@ A WS_QATRISCAL foi refreshada da produção real, então o objeto Case veio com 
 - [ ] Repetir esse levantamento/limpeza para os demais objetos padrão relevantes (Contact, Account) se aplicável — não fizemos essa varredura ainda para eles.
 - [ ] `MessagingChannel` (WhatsApp/WebChat) — não é rastreado via metadata; se a QATRISCAL precisar de canais de mensageria funcionais para teste, configurar manualmente.
 - [ ] Verificar se `Contact.Idioma__c` já existe como Picklist ou como Text na WS_QATRISCAL (mesmo problema de conversão de tipo que tivemos na PKG5) — se for Text, planejar rename para `Idioma_Old__c` antes do deploy, como fizemos na PKG5.
+- [ ] **Executar o deploy do pacote `destructiveChanges` consolidando todas as exclusões pendentes acima** (Lightning Pages, Layout Page, Case Close Layouts, Buttons/Links/Actions, SharingRules, Workflow Rules, RecordTypes e campos remanescentes), seguindo o mesmo padrão do deploy `0Af8800000PALPmCAP` (153 campos, 0 erros) já concluído para os campos legados. Registrar aqui o ID do deploy resultante.
 
 ---
 
@@ -96,7 +99,13 @@ A WS_QATRISCAL foi refreshada da produção real, então o objeto Case veio com 
 
 ## 4. Atividades PÓS-deploy — dados
 
-### 4.0 Ajustes manuais de metadado
+### 4.0 Deploys complementares (itens com trava de plataforma resolvida no pré-deploy)
+Estes componentes ficam de fora do deploy principal da branch B-5077 até as travas da seção 1.4 serem resolvidas na org destino — deployar nesta ordem após o deploy principal:
+- [ ] Deploy do Bot `Will_Smoke` e suas dependências (BotVersions `v3`/`v5`/`v6`, Flows `Route_to_Will_Smoke`/`Route_to_Will_Rebind` que dependem dele) — requer usuário do bot criado e feature Einstein Bots já ativada na org (ver seção 1.4).
+- [ ] Deploy do `translations/en_US.translation-meta.xml` — só após o Bot acima estar deployado, senão falha com `no BotVersion named Will_Smoke.<vN> found` (ver achado de 06/07/2026 na seção 1.4).
+- [x] Deploy do `EmailServicesFunction` `WS_EmailToCase_Inbound` — deploy `0Af8800000PB5yrCAD` Succeeded (06/07/2026). **Achado importante**: o metadado tinha as 7 `emailServicesAddresses` com `runAsUser=suportewilsonsons@triscal.com.br.service` (username da WILSON_SERVICE), que falhou com "no User named ... found" na WS_QATRISCAL — usernames de sandbox não são portáveis entre orgs. Corrigido no `force-app` (arquivo versionado) trocando para `suportewilsonsons@triscal.com.br.prd.qatriscal`. **Atenção para o cutover real/outras orgs (WS_PKG5, produção)**: esse valor agora commitado é específico da QATRISCAL — antes de deployar este componente em qualquer outra org, conferir/ajustar o `runAsUser` para o username correto de destino, senão o deploy falha da mesma forma.
+
+### 4.0.1 Ajustes manuais de metadado
 - [ ] Excluir o Record Type `Default` de `Case` após o deploy, via Setup, para manter apenas os Record Types do novo modelo de Atendimento na WS_QATRISCAL.
 
 ### 4.1 Carga de Categorização (todas as 4 unidades)

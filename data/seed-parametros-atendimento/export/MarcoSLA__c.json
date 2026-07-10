@@ -1,0 +1,547 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef1"
+            },
+            "Name": "Triagem",
+            "IdExterno__c": "a3Obe000000KtpxEAC",
+            "NomeMarco__c": "Triagem",
+            "Ordem__c": 2,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "FonteTempo__c": "GestaoSLA",
+            "MilestoneTypeName__c": "Triagem",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": false,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef1"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef2"
+            },
+            "Name": "Resposta Chat",
+            "IdExterno__c": "a3Obe000000KtpyEAC",
+            "NomeMarco__c": "Resposta Chat",
+            "Ordem__c": 3,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "FonteTempo__c": "GestaoSLA",
+            "MilestoneTypeName__c": "Resposta Chat",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": false,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef1"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef3"
+            },
+            "Name": "Primeira Resposta (Fila N2)",
+            "IdExterno__c": "a3Obe000000KtpzEAC",
+            "NomeMarco__c": "Primeira Resposta (Fila N2)",
+            "Ordem__c": 4,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "Primeira Resposta (Fila N2)",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef1"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef4"
+            },
+            "Name": "Atendimento",
+            "IdExterno__c": "a3Obe000000Ktq0EAC",
+            "NomeMarco__c": "Atendimento",
+            "Ordem__c": 5,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "Atendimento",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef1"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef5"
+            },
+            "Name": "Atendimento N3",
+            "IdExterno__c": "a3Obe000000Ktq1EAC",
+            "NomeMarco__c": "Atendimento N3",
+            "Ordem__c": 6,
+            "Ativo__c": true,
+            "Recorrente__c": true,
+            "TipoRecorrencia__c": "Independente",
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "Atendimento N3",
+            "UsaAreaInterna__c": true,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef1"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef6"
+            },
+            "Name": "Retorno N3",
+            "IdExterno__c": "a3Obe000000Ktq2EAC",
+            "NomeMarco__c": "Retorno N3",
+            "Ordem__c": 7,
+            "Ativo__c": true,
+            "Recorrente__c": true,
+            "TipoRecorrencia__c": "Independente",
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "Retorno N3",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef1"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef7"
+            },
+            "Name": "SLA Total",
+            "IdExterno__c": "a3Obe000000Ktq4EAC",
+            "NomeMarco__c": "SLA Total",
+            "Ordem__c": 8,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "TipoRecorrencia__c": "NaoRecorrente",
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "SLA Total",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef1"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef8"
+            },
+            "Name": "Fila Email",
+            "IdExterno__c": "a3Obe000000LdHhEAK",
+            "NomeMarco__c": "Fila Email",
+            "Ordem__c": 1,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "FonteTempo__c": "GestaoSLA",
+            "MilestoneTypeName__c": "Fila Email",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": false,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef1"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef9"
+            },
+            "Name": "a3Obe000000LHQv",
+            "IdExterno__c": "a3Obe000000LHQvEAO",
+            "NomeMarco__c": "Primeira Resposta (Fila N2)",
+            "Ordem__c": 3,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "TipoRecorrencia__c": "NaoRecorrente",
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "Primeira Resposta (Fila N2)",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef2"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef10"
+            },
+            "Name": "Fila Email",
+            "IdExterno__c": "a3Obe000000LHsREAW",
+            "NomeMarco__c": "Fila Email",
+            "Ordem__c": 1,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "TipoRecorrencia__c": "NaoRecorrente",
+            "FonteTempo__c": "GestaoSLA",
+            "MilestoneTypeName__c": "Fila Email",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": false,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef2"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef11"
+            },
+            "Name": "a3Obe000000LHx7",
+            "IdExterno__c": "a3Obe000000LHx7EAG",
+            "NomeMarco__c": "Resposta Chat",
+            "Ordem__c": 2,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "TipoRecorrencia__c": "NaoRecorrente",
+            "FonteTempo__c": "GestaoSLA",
+            "MilestoneTypeName__c": "Resposta Chat",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": false,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef2"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef12"
+            },
+            "Name": "a3Obe000000LHyj",
+            "IdExterno__c": "a3Obe000000LHyjEAG",
+            "NomeMarco__c": "Atendimento",
+            "Ordem__c": 4,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "TipoRecorrencia__c": "NaoRecorrente",
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "Atendimento",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef2"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef13"
+            },
+            "Name": "a3Obe000000LI0L",
+            "IdExterno__c": "a3Obe000000LI0LEAW",
+            "NomeMarco__c": "Atendimento N3",
+            "Ordem__c": 5,
+            "Ativo__c": true,
+            "Recorrente__c": true,
+            "TipoRecorrencia__c": "NaoRecorrente",
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "Atendimento N3",
+            "UsaAreaInterna__c": true,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef2"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef14"
+            },
+            "Name": "a3Obe000000LI1x",
+            "IdExterno__c": "a3Obe000000LI1xEAG",
+            "NomeMarco__c": "Retorno N3",
+            "Ordem__c": 6,
+            "Ativo__c": true,
+            "Recorrente__c": true,
+            "TipoRecorrencia__c": "NaoRecorrente",
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "Retorno N3",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef2"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef15"
+            },
+            "Name": "SLA Total",
+            "IdExterno__c": "a3Obe000000LI5BEAW",
+            "NomeMarco__c": "SLA Total",
+            "Ordem__c": 7,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "SLA Total",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef2"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef16"
+            },
+            "Name": "SLA Total",
+            "IdExterno__c": "a3Obe000000LIZpEAO",
+            "NomeMarco__c": "SLA Total",
+            "Ordem__c": 7,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "SLA Total",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef3"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef17"
+            },
+            "Name": "a3Obe000000LIYD",
+            "IdExterno__c": "a3Obe000000LIYDEA4",
+            "NomeMarco__c": "Retorno N3",
+            "Ordem__c": 6,
+            "Ativo__c": true,
+            "Recorrente__c": true,
+            "TipoRecorrencia__c": "NaoRecorrente",
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "Retorno N3",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef3"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef18"
+            },
+            "Name": "a3Obe000000LIWb",
+            "IdExterno__c": "a3Obe000000LIWbEAO",
+            "NomeMarco__c": "Atendimento N3",
+            "Ordem__c": 5,
+            "Ativo__c": true,
+            "Recorrente__c": true,
+            "TipoRecorrencia__c": "NaoRecorrente",
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "Atendimento N3",
+            "UsaAreaInterna__c": true,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef3"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef19"
+            },
+            "Name": "a3Obe000000LIUz",
+            "IdExterno__c": "a3Obe000000LIUzEAO",
+            "NomeMarco__c": "Primeira Resposta (Fila N2)",
+            "Ordem__c": 3,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "TipoRecorrencia__c": "NaoRecorrente",
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "Primeira Resposta (Fila N2)",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef3"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef20"
+            },
+            "Name": "a3Obe000000LITO",
+            "IdExterno__c": "a3Obe000000LITOEA4",
+            "NomeMarco__c": "Atendimento",
+            "Ordem__c": 4,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "TipoRecorrencia__c": "NaoRecorrente",
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "Atendimento",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef3"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef21"
+            },
+            "Name": "a3Obe000000LITN",
+            "IdExterno__c": "a3Obe000000LITNEA4",
+            "NomeMarco__c": "Resposta Chat",
+            "Ordem__c": 2,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "TipoRecorrencia__c": "NaoRecorrente",
+            "FonteTempo__c": "GestaoSLA",
+            "MilestoneTypeName__c": "Resposta Chat",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": false,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef3"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef22"
+            },
+            "Name": "Fila Email",
+            "IdExterno__c": "a3Obe000000LIRlEAO",
+            "NomeMarco__c": "Fila Email",
+            "Ordem__c": 1,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "TipoRecorrencia__c": "NaoRecorrente",
+            "FonteTempo__c": "GestaoSLA",
+            "MilestoneTypeName__c": "Fila Email",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": false,
+            "UsaOrigem__c": true,
+            "GestaoSLA__c": "@GestaoSLA__cRef3"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef23"
+            },
+            "Name": "a3Obe000000LIWc",
+            "IdExterno__c": "a3Obe000000LIWcEAO",
+            "NomeMarco__c": "Resposta Chat",
+            "Ordem__c": 2,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "TipoRecorrencia__c": "NaoRecorrente",
+            "FonteTempo__c": "GestaoSLA",
+            "MilestoneTypeName__c": "Resposta Chat",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": false,
+            "UsaOrigem__c": false,
+            "GestaoSLA__c": "@GestaoSLA__cRef4"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef24"
+            },
+            "Name": "Fila Email",
+            "IdExterno__c": "a3Obe000000LIefEAG",
+            "NomeMarco__c": "Fila Email",
+            "Ordem__c": 1,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "TipoRecorrencia__c": "NaoRecorrente",
+            "FonteTempo__c": "GestaoSLA",
+            "MilestoneTypeName__c": "Fila Email",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": false,
+            "UsaOrigem__c": false,
+            "GestaoSLA__c": "@GestaoSLA__cRef4"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef25"
+            },
+            "Name": "a3Obe000000LIeg",
+            "IdExterno__c": "a3Obe000000LIegEAG",
+            "NomeMarco__c": "Retorno N3",
+            "Ordem__c": 6,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "TipoRecorrencia__c": "NaoRecorrente",
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "Retorno N3",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": false,
+            "GestaoSLA__c": "@GestaoSLA__cRef4"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef26"
+            },
+            "Name": "a3Obe000000LIgH",
+            "IdExterno__c": "a3Obe000000LIgHEAW",
+            "NomeMarco__c": "Primeira Resposta (Fila N2)",
+            "Ordem__c": 3,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "TipoRecorrencia__c": "NaoRecorrente",
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "Primeira Resposta (Fila N2)",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": false,
+            "GestaoSLA__c": "@GestaoSLA__cRef4"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef27"
+            },
+            "Name": "a3Obe000000LIht",
+            "IdExterno__c": "a3Obe000000LIhtEAG",
+            "NomeMarco__c": "Atendimento",
+            "Ordem__c": 4,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "TipoRecorrencia__c": "NaoRecorrente",
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "Atendimento",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": false,
+            "GestaoSLA__c": "@GestaoSLA__cRef4"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef28"
+            },
+            "Name": "a3Obe000000LIjV",
+            "IdExterno__c": "a3Obe000000LIjVEAW",
+            "NomeMarco__c": "Atendimento N3",
+            "Ordem__c": 5,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "TipoRecorrencia__c": "NaoRecorrente",
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "Atendimento N3",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": false,
+            "GestaoSLA__c": "@GestaoSLA__cRef4"
+        },
+        {
+            "attributes": {
+                "type": "MarcoSLA__c",
+                "referenceId": "MarcoSLA__cRef29"
+            },
+            "Name": "SLA Total",
+            "IdExterno__c": "a3Obe000000LImjEAG",
+            "NomeMarco__c": "SLA Total",
+            "Ordem__c": 7,
+            "Ativo__c": true,
+            "Recorrente__c": false,
+            "FonteTempo__c": "RegraSLA",
+            "MilestoneTypeName__c": "SLA Total",
+            "UsaAreaInterna__c": false,
+            "UsaCategorizacao__c": true,
+            "UsaOrigem__c": false,
+            "GestaoSLA__c": "@GestaoSLA__cRef4"
+        }
+    ]
+}

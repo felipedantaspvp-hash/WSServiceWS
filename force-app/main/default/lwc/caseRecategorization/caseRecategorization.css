@@ -2,6 +2,18 @@
     min-height: 320px;
 }
 
+.shell h3 {
+    margin-top: 0;
+}
+
+.summary-box {
+    padding: 0.5rem 0.75rem;
+}
+
+.summary-box p {
+    margin: 0.25rem 0;
+}
+
 .destination-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Will_Smoke</members>
+        <name>Bot</name>
+    </types>
+    <types>
+        <members>Will_Smoke.v3</members>
+        <members>Will_Smoke.v5</members>
+        <members>Will_Smoke.v6</members>
+        <name>BotVersion</name>
+    </types>
+    <types>
+        <members>Route_to_Will_Smoke</members>
+        <members>Route_from_Will</members>
+        <members>WS_Will_Resolver_Contexto_Inicial</members>
+        <members>WS_Will_Criar_Caso</members>
+        <members>WS_Will_Consultar_Caso</members>
+        <members>WS_Will_Atualizar_Idioma_Contato</members>
+        <members>WS_Will_Falar_Com_Especialista</members>
+        <name>Flow</name>
+    </types>
+    <version>66.0</version>
+</Package>

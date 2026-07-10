@@ -1,0 +1,26 @@
+[
+    {
+        "sobject": "GestaoSLA__c",
+        "files": [
+            "GestaoSLA__c.json"
+        ]
+    },
+    {
+        "sobject": "MarcoSLA__c",
+        "files": [
+            "MarcoSLA__c.json"
+        ]
+    },
+    {
+        "sobject": "Categorizacao__c",
+        "files": [
+            "Categorizacao__c.json"
+        ]
+    },
+    {
+        "sobject": "RegrasSLACategorizacao__c",
+        "files": [
+            "RegrasSLACategorizacao__c.json"
+        ]
+    }
+]

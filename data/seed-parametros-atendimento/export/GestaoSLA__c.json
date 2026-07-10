@@ -1,0 +1,82 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "GestaoSLA__c",
+                "referenceId": "GestaoSLA__cRef1"
+            },
+            "Name": "Atendimento Salvador",
+            "IdExterno__c": "a3Nbe000000Q1A9EAK",
+            "UnidadeNegocio__c": "Atendimento Tecon Salvador",
+            "Ativo__c": true,
+            "BusinessHoursName__c": "Atendimento Salvador",
+            "PossuiBusinessHoursSecundario__c": false,
+            "StaticResourceName__c": "img_atendimento_salvador",
+            "EntitlementProcessName__c": "Atendimento Salvador",
+            "TempoTriagemMinutos__c": 60,
+            "TempoRespostaChatMinutos__c": 15,
+            "TempoFilaEmailMinutos__c": 120,
+            "UsaTempoTriagem__c": true,
+            "UsaTempoRespostaChat__c": true,
+            "UsaTempoFilaEmail__c": true
+        },
+        {
+            "attributes": {
+                "type": "GestaoSLA__c",
+                "referenceId": "GestaoSLA__cRef2"
+            },
+            "Name": "Atendimento Rio Grande",
+            "IdExterno__c": "a3Nbe000000Q1BlEAK",
+            "UnidadeNegocio__c": "Atendimento Tecon Rio Grande",
+            "Ativo__c": true,
+            "BusinessHoursName__c": "Atendimento Rio Grande",
+            "PossuiBusinessHoursSecundario__c": false,
+            "StaticResourceName__c": "img_atendimento_riogrande",
+            "EntitlementProcessName__c": "Atendimento Rio Grande",
+            "TempoTriagemMinutos__c": 60,
+            "TempoRespostaChatMinutos__c": 5,
+            "TempoFilaEmailMinutos__c": 60,
+            "UsaTempoTriagem__c": true,
+            "UsaTempoRespostaChat__c": true,
+            "UsaTempoFilaEmail__c": true
+        },
+        {
+            "attributes": {
+                "type": "GestaoSLA__c",
+                "referenceId": "GestaoSLA__cRef3"
+            },
+            "Name": "Atendimento Centro Logístico",
+            "IdExterno__c": "a3Nbe000000QwOXEA0",
+            "UnidadeNegocio__c": "Centro Logístico",
+            "Ativo__c": true,
+            "BusinessHoursName__c": "Atendimento Centro Logístico",
+            "PossuiBusinessHoursSecundario__c": false,
+            "StaticResourceName__c": "img_atendimento_centrologistico",
+            "EntitlementProcessName__c": "Atendimento Centro Logístico",
+            "TempoRespostaChatMinutos__c": 15,
+            "TempoFilaEmailMinutos__c": 120,
+            "UsaTempoTriagem__c": false,
+            "UsaTempoRespostaChat__c": true,
+            "UsaTempoFilaEmail__c": true
+        },
+        {
+            "attributes": {
+                "type": "GestaoSLA__c",
+                "referenceId": "GestaoSLA__cRef4"
+            },
+            "Name": "Atendimento Rebocadores",
+            "IdExterno__c": "a3Nbe000000QwQ9EAK",
+            "UnidadeNegocio__c": "Rebocadores",
+            "Ativo__c": true,
+            "BusinessHoursName__c": "Atendimento Rebocadores",
+            "PossuiBusinessHoursSecundario__c": false,
+            "StaticResourceName__c": "img_atendimento_rebocadores",
+            "EntitlementProcessName__c": "Atendimento Rebocadores",
+            "TempoRespostaChatMinutos__c": 60,
+            "TempoFilaEmailMinutos__c": 15,
+            "UsaTempoTriagem__c": false,
+            "UsaTempoRespostaChat__c": true,
+            "UsaTempoFilaEmail__c": true
+        }
+    ]
+}

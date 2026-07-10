@@ -3,266 +3,6 @@
     <bots>
         <botVersions>
             <botDialogs>
-                <botSteps>
-                    <botMessages>
-                        <message>How can I help you today?</message>
-                        <messageIdentifier>9e76fa63-1bcf-4f4f-84f0-61a780b0f8e2</messageIdentifier>
-                    </botMessages>
-                    <stepIdentifier>61ef2217-fce2-42ce-b4f7-51f080be0bb0</stepIdentifier>
-                    <type>Message</type>
-                </botSteps>
-                <developerName>Main_Menu</developerName>
-                <label>Main Menu</label>
-            </botDialogs>
-            <botDialogs>
-                <botSteps>
-                    <botMessages>
-                        <message>Great. I&apos;ll start the case creation journey based on your business unit and applicable categorization.</message>
-                        <messageIdentifier>f1549cd8-ab5d-4d16-a4f7-79da4f6df8e1</messageIdentifier>
-                    </botMessages>
-                    <stepIdentifier>293f862c-1aaf-4257-b84f-031ac2f1aa81</stepIdentifier>
-                    <type>Message</type>
-                </botSteps>
-                <botSteps>
-                    <botVariableOperation>
-                        <botMessages>
-                            <message>What would you like to talk about? Click on the desired option.</message>
-                            <messageIdentifier>430f9602-a7a9-fb74-e2cc-f44f1e7742bb</messageIdentifier>
-                        </botMessages>
-                        <botQuickReplyOptions>
-                            <literalValue>Compliment</literalValue>
-                            <quickReplyOptionIdentifier>51011fc1-ef66-58ca-95d3-36acb00fb95d</quickReplyOptionIdentifier>
-                        </botQuickReplyOptions>
-                        <botQuickReplyOptions>
-                            <literalValue>Information</literalValue>
-                            <quickReplyOptionIdentifier>d2570f20-9996-f118-f72b-201bb47e1630</quickReplyOptionIdentifier>
-                        </botQuickReplyOptions>
-                        <botQuickReplyOptions>
-                            <literalValue>Complaint</literalValue>
-                            <quickReplyOptionIdentifier>289bfb64-811b-db70-b172-b44ff539dfc7</quickReplyOptionIdentifier>
-                        </botQuickReplyOptions>
-                        <botQuickReplyOptions>
-                            <literalValue>Request</literalValue>
-                            <quickReplyOptionIdentifier>79a7aa23-c71f-f3d4-5c63-4e78df029ae8</quickReplyOptionIdentifier>
-                        </botQuickReplyOptions>
-                        <type>Collect</type>
-                        <variableOperationIdentifier>f9c0e13e-aca3-104b-6559-5ec81590afa8</variableOperationIdentifier>
-                    </botVariableOperation>
-                    <stepIdentifier>3485da2a-e694-4fbc-9d76-d9a3daf019ed</stepIdentifier>
-                    <type>VariableOperation</type>
-                </botSteps>
-                <botSteps>
-                    <botVariableOperation>
-                        <botMessages>
-                            <message>Please describe it in as much detail as possible so that our experts can help.</message>
-                            <messageIdentifier>30e14ba7-c533-dc3b-ee6c-9c7f8ee3ab4a</messageIdentifier>
-                        </botMessages>
-                        <type>Collect</type>
-                        <variableOperationIdentifier>16d45688-dee2-7be7-9895-2d41719bb396</variableOperationIdentifier>
-                    </botVariableOperation>
-                    <stepIdentifier>ea0218f8-9059-486c-ad41-1c3cd8b3c07e</stepIdentifier>
-                    <type>VariableOperation</type>
-                </botSteps>
-                <botSteps>
-                    <botMessages>
-                        <message>Great! Your case has been successfully created. Please note the number for future reference: {!NumeroCasoCriado}.</message>
-                        <messageIdentifier>eb1796b3-9e3e-5fb3-977a-ec66de48b3d3</messageIdentifier>
-                    </botMessages>
-                    <stepIdentifier>ab3a528d-2b12-992b-0297-4600fd45278a</stepIdentifier>
-                    <type>Message</type>
-                </botSteps>
-                <botSteps>
-                    <botVariableOperation>
-                        <botMessages>
-                            <message>Can I help you with anything else?</message>
-                            <messageIdentifier>d4e2d450-e9e1-6f7c-8ff8-2f1bd1eb5917</messageIdentifier>
-                        </botMessages>
-                        <botQuickReplyOptions>
-                            <literalValue>Yes</literalValue>
-                            <quickReplyOptionIdentifier>1fd7268c-02a6-f239-68a0-9123050b0e3a</quickReplyOptionIdentifier>
-                        </botQuickReplyOptions>
-                        <botQuickReplyOptions>
-                            <literalValue>No</literalValue>
-                            <quickReplyOptionIdentifier>278b860f-5388-4453-2b6f-582755cbb3b8</quickReplyOptionIdentifier>
-                        </botQuickReplyOptions>
-                        <type>Collect</type>
-                        <variableOperationIdentifier>70f93d3e-fde4-f75c-79af-073d169c4bc6</variableOperationIdentifier>
-                    </botVariableOperation>
-                    <stepIdentifier>f4efb024-27a6-4311-8bf9-8024d48cbe09</stepIdentifier>
-                    <type>VariableOperation</type>
-                </botSteps>
-                <developerName>Create_a_Case</developerName>
-                <label>Create a Case</label>
-            </botDialogs>
-            <botDialogs>
-                <botSteps>
-                    <botMessages>
-                        <message>Sure. Please share the case number so I can check status and stage.</message>
-                        <messageIdentifier>2a0e4e19-7f09-4c9e-b1d8-7ee9c58fd315</messageIdentifier>
-                    </botMessages>
-                    <stepIdentifier>7af9f5b6-a7c3-4383-a0d8-ec2ba57f8ad1</stepIdentifier>
-                    <type>Message</type>
-                </botSteps>
-                <botSteps>
-                    <botVariableOperation>
-                        <type>Collect</type>
-                        <variableOperationIdentifier>829a77ad-2e62-e12d-4f2e-e0fc2544f941</variableOperationIdentifier>
-                    </botVariableOperation>
-                    <stepIdentifier>d8aae117-0d4b-4f96-8ef8-02172d36de0f</stepIdentifier>
-                    <type>VariableOperation</type>
-                </botSteps>
-                <botSteps>
-                    <botVariableOperation>
-                        <type>Collect</type>
-                        <variableOperationIdentifier>660fd74d-f053-eaab-b23d-dfc785d4329c</variableOperationIdentifier>
-                    </botVariableOperation>
-                    <stepIdentifier>9692c227-cbcf-4d85-8366-0fb351d47f0d</stepIdentifier>
-                    <type>VariableOperation</type>
-                </botSteps>
-                <developerName>View_Case_status</developerName>
-                <label>Consult a Case</label>
-            </botDialogs>
-            <botDialogs>
-                <botSteps>
-                    <botMessages>
-                        <message>I&apos;ll transfer you to a specialist and include your context to speed things up.</message>
-                        <messageIdentifier>9fe70440-74f4-4f58-b028-f6fbf9d39bdb</messageIdentifier>
-                    </botMessages>
-                    <stepIdentifier>80d211fd-ec87-4ae2-a24d-a0a8eb090ce9</stepIdentifier>
-                    <type>Message</type>
-                </botSteps>
-                <developerName>Transfer_To_Agent</developerName>
-                <label>Speak to a Specialist</label>
-            </botDialogs>
-            <botDialogs>
-                <botSteps>
-                    <botMessages>
-                        <message>Thanks for taking the time to chat. I’ve ended the conversation. To start a new conversation, enter some text.</message>
-                        <messageIdentifier>e1656e40-24ae-41ac-99d5-4daba88540b8</messageIdentifier>
-                    </botMessages>
-                    <stepIdentifier>899879f1-7344-4af0-9807-7a650a7edb3d</stepIdentifier>
-                    <type>Message</type>
-                </botSteps>
-                <developerName>Rich_Content_End_Chat</developerName>
-                <label>End Chat</label>
-            </botDialogs>
-            <botDialogs>
-                <botSteps>
-                    <botVariableOperation>
-                        <botMessages>
-                            <message>Olá! Hello! 👋
-
-Antes de começarmos, escolha o idioma do atendimento.
-
-Before we begin, please choose your service language.</message>
-                            <messageIdentifier>6fc112ff-9b85-0744-f328-666e1032d3fa</messageIdentifier>
-                        </botMessages>
-                        <botQuickReplyOptions>
-                            <literalValue>Português</literalValue>
-                            <quickReplyOptionIdentifier>c5d7c1ab-c098-00d0-9ea7-35537a0504fc</quickReplyOptionIdentifier>
-                        </botQuickReplyOptions>
-                        <botQuickReplyOptions>
-                            <literalValue>English</literalValue>
-                            <quickReplyOptionIdentifier>9f3564bf-39b9-b6c5-f26c-6a4a79def6ea</quickReplyOptionIdentifier>
-                        </botQuickReplyOptions>
-                        <type>Collect</type>
-                        <variableOperationIdentifier>a2cb090a-0953-1e86-48e1-6b9bb2e7605d</variableOperationIdentifier>
-                    </botVariableOperation>
-                    <stepIdentifier>385da612-2dbc-46ff-983b-12a7fb041121</stepIdentifier>
-                    <type>VariableOperation</type>
-                </botSteps>
-                <developerName>Perguntar_Idioma_ao_Cliente</developerName>
-                <label>Perguntar Idioma ao Cliente</label>
-            </botDialogs>
-            <botDialogs>
-                <botSteps>
-                    <botMessages>
-                        <message>Hello! I&apos;m Will, the virtual assistant at Wilson Sons.
-Before we begin, I&apos;ll quickly validate the context of your service request.</message>
-                        <messageIdentifier>67b98cee-9f1e-e7dc-3384-f5c89a3cc7b6</messageIdentifier>
-                    </botMessages>
-                    <stepIdentifier>c7ffa545-9a9a-4693-8f34-05d61f15a220</stepIdentifier>
-                    <type>Message</type>
-                </botSteps>
-                <developerName>Saudacao</developerName>
-                <label>Greeting</label>
-            </botDialogs>
-            <botDialogs>
-                <botSteps>
-                    <botMessages>
-                        <message>Great. I&apos;ll start the case creation journey based on your business unit and applicable categorization.</message>
-                        <messageIdentifier>f1549cd8-ab5d-4d16-a4f7-79da4f6df8e1</messageIdentifier>
-                    </botMessages>
-                    <stepIdentifier>293f862c-1aaf-4257-b84f-031ac2f1aa81</stepIdentifier>
-                    <type>Message</type>
-                </botSteps>
-                <botSteps>
-                    <botVariableOperation>
-                        <botMessages>
-                            <message>What would you like to talk about? Click on the desired option.</message>
-                            <messageIdentifier>430f9602-a7a9-fb74-e2cc-f44f1e7742bb</messageIdentifier>
-                        </botMessages>
-                        <botQuickReplyOptions>
-                            <literalValue>Compliment</literalValue>
-                            <quickReplyOptionIdentifier>51011fc1-ef66-58ca-95d3-36acb00fb95d</quickReplyOptionIdentifier>
-                        </botQuickReplyOptions>
-                        <botQuickReplyOptions>
-                            <literalValue>Information</literalValue>
-                            <quickReplyOptionIdentifier>d2570f20-9996-f118-f72b-201bb47e1630</quickReplyOptionIdentifier>
-                        </botQuickReplyOptions>
-                        <botQuickReplyOptions>
-                            <literalValue>Complaint</literalValue>
-                            <quickReplyOptionIdentifier>289bfb64-811b-db70-b172-b44ff539dfc7</quickReplyOptionIdentifier>
-                        </botQuickReplyOptions>
-                        <botQuickReplyOptions>
-                            <literalValue>Request</literalValue>
-                            <quickReplyOptionIdentifier>79a7aa23-c71f-f3d4-5c63-4e78df029ae8</quickReplyOptionIdentifier>
-                        </botQuickReplyOptions>
-                        <type>Collect</type>
-                        <variableOperationIdentifier>f9c0e13e-aca3-104b-6559-5ec81590afa8</variableOperationIdentifier>
-                    </botVariableOperation>
-                    <stepIdentifier>3485da2a-e694-4fbc-9d76-d9a3daf019ed</stepIdentifier>
-                    <type>VariableOperation</type>
-                </botSteps>
-                <botSteps>
-                    <botVariableOperation>
-                        <botMessages>
-                            <message>Please describe it in as much detail as possible so that our experts can help.</message>
-                            <messageIdentifier>30e14ba7-c533-dc3b-ee6c-9c7f8ee3ab4a</messageIdentifier>
-                        </botMessages>
-                        <type>Collect</type>
-                        <variableOperationIdentifier>16d45688-dee2-7be7-9895-2d41719bb396</variableOperationIdentifier>
-                    </botVariableOperation>
-                    <stepIdentifier>ea0218f8-9059-486c-ad41-1c3cd8b3c07e</stepIdentifier>
-                    <type>VariableOperation</type>
-                </botSteps>
-                <botSteps>
-                    <botMessages>
-                        <message>Great! Your case has been successfully created. Please note the number for future reference: {!NumeroCasoCriado}.</message>
-                        <messageIdentifier>eb1796b3-9e3e-5fb3-977a-ec66de48b3d3</messageIdentifier>
-                    </botMessages>
-                    <stepIdentifier>ab3a528d-2b12-992b-0297-4600fd45278a</stepIdentifier>
-                    <type>Message</type>
-                </botSteps>
-                <developerName>Criar_um_Caso_Pre_Transbordo</developerName>
-                <label>Create a Case</label>
-            </botDialogs>
-            <botDialogs>
-                <botSteps>
-                    <botMessages>
-                        <message>How can I help you today?</message>
-                        <messageIdentifier>9e76fa63-1bcf-4f4f-84f0-61a780b0f8e2</messageIdentifier>
-                    </botMessages>
-                    <stepIdentifier>61ef2217-fce2-42ce-b4f7-51f080be0bb0</stepIdentifier>
-                    <type>Message</type>
-                </botSteps>
-                <developerName>Menu_Inicial_Algo_Mais</developerName>
-                <label>Main Menu</label>
-            </botDialogs>
-            <fullName>v2</fullName>
-        </botVersions>
-        <botVersions>
-            <botDialogs>
                 <developerName>Welcome</developerName>
                 <label>Welcome</label>
             </botDialogs>
@@ -281,7 +21,7 @@ Before we begin, I&apos;ll quickly validate the context of your service request.
             <botDialogs>
                 <botSteps>
                     <botMessages>
-                        <message>Great. I&apos;ll start the case creation journey based on your business unit and applicable categorization.</message>
+                        <message>Great. I'll start the case creation journey based on your business unit and applicable categorization.</message>
                         <messageIdentifier>9bc18d8b-8609-4fee-b07d-aa875d7f7eb6</messageIdentifier>
                     </botMessages>
                     <stepIdentifier>f9df23da-3919-47c8-8c4d-9d7985eab162</stepIdentifier>
@@ -406,7 +146,7 @@ Stage:  {!EtapaAtendimento}</message>
                 </botSteps>
                 <botSteps>
                     <botMessages>
-                        <message>And that&apos;s all!</message>
+                        <message>And that's all!</message>
                         <messageIdentifier>2f9546f9-7ff8-489e-82f9-e0dd6fd54fb1</messageIdentifier>
                     </botMessages>
                     <stepIdentifier>7fed37d1-4da0-4939-9e8c-5cdd8f09da66</stepIdentifier>
@@ -438,7 +178,7 @@ Stage:  {!EtapaAtendimento}</message>
             <botDialogs>
                 <botSteps>
                     <botMessages>
-                        <message>I&apos;ll transfer you to a specialist and include your context to speed things up.</message>
+                        <message>I'll transfer you to a specialist and include your context to speed things up.</message>
                         <messageIdentifier>3a570aba-75ca-44e1-a7da-275377706c37</messageIdentifier>
                     </botMessages>
                     <stepIdentifier>d0264093-19b1-4c3e-b788-c486c70f5647</stepIdentifier>
@@ -462,7 +202,7 @@ Stage:  {!EtapaAtendimento}</message>
             <botDialogs>
                 <botSteps>
                     <botMessages>
-                        <message>Um, I couldn&apos;t understand.</message>
+                        <message>Um, I couldn't understand.</message>
                         <messageIdentifier>524c178c-2418-4406-a25c-bdd701753ce8</messageIdentifier>
                     </botMessages>
                     <stepIdentifier>0f8a37b1-8741-4b62-8dcd-7591b4d63f89</stepIdentifier>
@@ -494,7 +234,7 @@ Stage:  {!EtapaAtendimento}</message>
             <botDialogs>
                 <botSteps>
                     <botMessages>
-                        <message>Unfortunately we don&apos;t have any specialists available at the moment.</message>
+                        <message>Unfortunately we don't have any specialists available at the moment.</message>
                         <messageIdentifier>439d5b35-c3f7-448e-aa87-f727d96fef64</messageIdentifier>
                     </botMessages>
                     <stepIdentifier>afb44d2f-5459-432e-a155-2d454cca07e4</stepIdentifier>
@@ -526,7 +266,7 @@ Stage:  {!EtapaAtendimento}</message>
             <botDialogs>
                 <botSteps>
                     <botMessages>
-                        <message>Sorry, something went out of my control. Let&apos;s start over.</message>
+                        <message>Sorry, something went out of my control. Let's start over.</message>
                         <messageIdentifier>32e1d82c-4555-499e-8008-c18da1f17733</messageIdentifier>
                     </botMessages>
                     <stepIdentifier>f21df5c8-b352-4fa9-8dec-8ac2bbbdb964</stepIdentifier>
@@ -566,7 +306,7 @@ Before we begin, please choose your service language.</message>
             <botDialogs>
                 <botSteps>
                     <botMessages>
-                        <message>Hello! I&apos;m Will, the virtual assistant at Wilson Sons.</message>
+                        <message>Hello! I'm Will, the virtual assistant at Wilson Sons.</message>
                         <messageIdentifier>6160d02b-afa7-4215-83ac-c1f9b43aff4b</messageIdentifier>
                     </botMessages>
                     <stepIdentifier>17da308b-180a-4d78-aab3-4df3d63d6dec</stepIdentifier>
@@ -574,7 +314,7 @@ Before we begin, please choose your service language.</message>
                 </botSteps>
                 <botSteps>
                     <botMessages>
-                        <message>Before we begin, I&apos;ll quickly validate the context of your service request.</message>
+                        <message>Before we begin, I'll quickly validate the context of your service request.</message>
                         <messageIdentifier>6391bb21-8499-4fb7-98af-56b76e26837e</messageIdentifier>
                     </botMessages>
                     <stepIdentifier>ba1a2f21-5913-4947-856f-ea2003386a9c</stepIdentifier>
@@ -586,7 +326,7 @@ Before we begin, please choose your service language.</message>
             <botDialogs>
                 <botSteps>
                     <botMessages>
-                        <message>Unfortunately I didn&apos;t find your case.</message>
+                        <message>Unfortunately I didn't find your case.</message>
                         <messageIdentifier>282b4929-24ad-49da-a2e9-af084ee33eed</messageIdentifier>
                     </botMessages>
                     <stepIdentifier>cb826733-6e95-4a2a-8deb-563e285dc717</stepIdentifier>
@@ -705,7 +445,7 @@ Before we begin, please choose your service language.</message>
             <botDialogs>
                 <botSteps>
                     <botMessages>
-                        <message>Perfect. I&apos;m going to start the case-making journey.</message>
+                        <message>Perfect. I'm going to start the case-making journey.</message>
                         <messageIdentifier>9bc18d8b-8609-4fee-b07d-aa875d7f7eb6</messageIdentifier>
                     </botMessages>
                     <stepIdentifier>f9df23da-3919-47c8-8c4d-9d7985eab162</stepIdentifier>
@@ -838,7 +578,7 @@ Stage:  {!EtapaAtendimento}</message>
                 </botSteps>
                 <botSteps>
                     <botMessages>
-                        <message>And that&apos;s all!</message>
+                        <message>And that's all!</message>
                         <messageIdentifier>2f9546f9-7ff8-489e-82f9-e0dd6fd54fb1</messageIdentifier>
                     </botMessages>
                     <stepIdentifier>7fed37d1-4da0-4939-9e8c-5cdd8f09da66</stepIdentifier>
@@ -902,7 +642,7 @@ Stage:  {!EtapaAtendimento}</message>
             <botDialogs>
                 <botSteps>
                     <botMessages>
-                        <message>Um, I couldn&apos;t understand.</message>
+                        <message>Um, I couldn't understand.</message>
                         <messageIdentifier>524c178c-2418-4406-a25c-bdd701753ce8</messageIdentifier>
                     </botMessages>
                     <stepIdentifier>0f8a37b1-8741-4b62-8dcd-7591b4d63f89</stepIdentifier>
@@ -934,7 +674,7 @@ Stage:  {!EtapaAtendimento}</message>
             <botDialogs>
                 <botSteps>
                     <botMessages>
-                        <message>Unfortunately we don&apos;t have any specialists available at the moment.</message>
+                        <message>Unfortunately we don't have any specialists available at the moment.</message>
                         <messageIdentifier>439d5b35-c3f7-448e-aa87-f727d96fef64</messageIdentifier>
                     </botMessages>
                     <stepIdentifier>afb44d2f-5459-432e-a155-2d454cca07e4</stepIdentifier>
@@ -966,7 +706,7 @@ Stage:  {!EtapaAtendimento}</message>
             <botDialogs>
                 <botSteps>
                     <botMessages>
-                        <message>Sorry, something went out of my control. Let&apos;s start over.</message>
+                        <message>Sorry, something went out of my control. Let's start over.</message>
                         <messageIdentifier>32e1d82c-4555-499e-8008-c18da1f17733</messageIdentifier>
                     </botMessages>
                     <stepIdentifier>f21df5c8-b352-4fa9-8dec-8ac2bbbdb964</stepIdentifier>
@@ -1006,7 +746,7 @@ Before we begin, please choose your service language.</message>
             <botDialogs>
                 <botSteps>
                     <botMessages>
-                        <message>Hello! I am Will, Wilson Sons&apos; virtual assistant.</message>
+                        <message>Hello! I am Will, Wilson Sons' virtual assistant.</message>
                         <messageIdentifier>4fd2d4cc-c6e4-43c3-99f5-a5d94700d293</messageIdentifier>
                     </botMessages>
                     <stepIdentifier>8483fb7c-87b0-442d-9d2b-6aa6b701a77e</stepIdentifier>
@@ -1026,7 +766,7 @@ Before we begin, please choose your service language.</message>
             <botDialogs>
                 <botSteps>
                     <botMessages>
-                        <message>Hello! I&apos;m Will, Wilson Sons virtual assistant.</message>
+                        <message>Hello! I'm Will, Wilson Sons virtual assistant.</message>
                         <messageIdentifier>6160d02b-afa7-4215-83ac-c1f9b43aff4b</messageIdentifier>
                     </botMessages>
                     <stepIdentifier>17da308b-180a-4d78-aab3-4df3d63d6dec</stepIdentifier>
@@ -1046,7 +786,7 @@ Before we begin, please choose your service language.</message>
             <botDialogs>
                 <botSteps>
                     <botMessages>
-                        <message>Unfortunately I didn&apos;t find your case.</message>
+                        <message>Unfortunately I didn't find your case.</message>
                         <messageIdentifier>282b4929-24ad-49da-a2e9-af084ee33eed</messageIdentifier>
                     </botMessages>
                     <stepIdentifier>cb826733-6e95-4a2a-8deb-563e285dc717</stepIdentifier>
@@ -1138,7 +878,7 @@ Before we begin, please choose your service language.</message>
             <botDialogs>
                 <botSteps>
                     <botMessages>
-                        <message>Perfect, let&apos;s go!</message>
+                        <message>Perfect, let's go!</message>
                         <messageIdentifier>73ff6e32-d20d-4f0b-aab6-a82e76291c82</messageIdentifier>
                     </botMessages>
                     <stepIdentifier>2fc3032a-5812-47f5-a561-eb6eca9e0b32</stepIdentifier>
@@ -1302,6 +1042,10 @@ Before we begin, please choose your service language.</message>
     <customApplications>
         <label><!-- Salesforce Engage --></label>
         <name>pi__Sales_Reach</name>
+    </customApplications>
+    <customApplications>
+        <label><!-- Org WS --></label>
+        <name>Org_WS</name>
     </customApplications>
     <customLabels>
         <label><!-- Aba Quote Histórico Cliente --></label>
@@ -24875,6 +24619,702 @@ Before we begin, please choose your service language.</message>
         <label>IT</label>
         <name>CategorizacaoManager_AreaLabelTi</name>
     </customLabels>
+    <customLabels>
+        <label><!-- Add area button label --></label>
+        <name>CaseAreasParticipantesPanel_Add</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Available column header --></label>
+        <name>CaseAreasParticipantesPanel_AddAvailable</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Selected column header --></label>
+        <name>CaseAreasParticipantesPanel_AddSelected</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Comments by Area step title --></label>
+        <name>CaseAreasParticipantesPanel_AddStep2Title</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Participant area(s) added successfully toast message, {0} = count --></label>
+        <name>CaseAreasParticipantesPanel_AddSuccessCount</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Add Participant Area modal title --></label>
+        <name>CaseAreasParticipantesPanel_AddTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Participant Area field label --></label>
+        <name>CaseAreasParticipantesPanel_Area</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Standard/attendance area pill label --></label>
+        <name>CaseAreasParticipantesPanel_Atendimento</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Back button label --></label>
+        <name>CaseAreasParticipantesPanel_Back</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cancel button label --></label>
+        <name>CaseAreasParticipantesPanel_Cancel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cancelled status pill label --></label>
+        <name>CaseAreasParticipantesPanel_Cancelled</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cancelled with violation status pill label --></label>
+        <name>CaseAreasParticipantesPanel_CancelledViolated</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Close action label --></label>
+        <name>CaseAreasParticipantesPanel_Close</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Close (dismiss) modal button label --></label>
+        <name>CaseAreasParticipantesPanel_CloseModal</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Participation closed successfully toast message --></label>
+        <name>CaseAreasParticipantesPanel_CloseSuccess</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Close Participation modal title --></label>
+        <name>CaseAreasParticipantesPanel_CloseTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Completed within SLA status pill label --></label>
+        <name>CaseAreasParticipantesPanel_CompletedInTime</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Completed on field label --></label>
+        <name>CaseAreasParticipantesPanel_CompletedOn</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Completed with violation status pill label --></label>
+        <name>CaseAreasParticipantesPanel_CompletedViolated</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Confirm add button label --></label>
+        <name>CaseAreasParticipantesPanel_ConfirmAdd</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Confirm Closing button label --></label>
+        <name>CaseAreasParticipantesPanel_ConfirmClose</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Consumed time field label --></label>
+        <name>CaseAreasParticipantesPanel_ConsumedTime</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Current Status field label --></label>
+        <name>CaseAreasParticipantesPanel_CurrentStatus</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Deadline field label --></label>
+        <name>CaseAreasParticipantesPanel_Deadline</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Participation Details modal title --></label>
+        <name>CaseAreasParticipantesPanel_DetailTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Details action label --></label>
+        <name>CaseAreasParticipantesPanel_Details</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Completed group title --></label>
+        <name>CaseAreasParticipantesPanel_DoneGroup</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Elapsed time field label --></label>
+        <name>CaseAreasParticipantesPanel_Elapsed</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- No active participant area message --></label>
+        <name>CaseAreasParticipantesPanel_Empty</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error toast title --></label>
+        <name>CaseAreasParticipantesPanel_Error</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Within SLA status pill label --></label>
+        <name>CaseAreasParticipantesPanel_InTime</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Internal Area pill label --></label>
+        <name>CaseAreasParticipantesPanel_InternalArea</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Next button label --></label>
+        <name>CaseAreasParticipantesPanel_Next</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Next deadline summary label --></label>
+        <name>CaseAreasParticipantesPanel_NextDeadline</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Open group title --></label>
+        <name>CaseAreasParticipantesPanel_OpenGroup</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Open plural word used in summary count --></label>
+        <name>CaseAreasParticipantesPanel_OpenPlural</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Operational summary section title --></label>
+        <name>CaseAreasParticipantesPanel_OperationalSummary</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Overdue status pill label --></label>
+        <name>CaseAreasParticipantesPanel_Overdue</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Overdue plural word used in summary count --></label>
+        <name>CaseAreasParticipantesPanel_OverduePlural</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Pause action label --></label>
+        <name>CaseAreasParticipantesPanel_Pause</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Participation paused successfully toast message --></label>
+        <name>CaseAreasParticipantesPanel_PauseSuccess</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Paused status pill label --></label>
+        <name>CaseAreasParticipantesPanel_Paused</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Paused time field label --></label>
+        <name>CaseAreasParticipantesPanel_PausedTime</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Refresh button label --></label>
+        <name>CaseAreasParticipantesPanel_Refresh</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Remaining time field label --></label>
+        <name>CaseAreasParticipantesPanel_RemainingTime</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Request field label --></label>
+        <name>CaseAreasParticipantesPanel_Request</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Request Comment field label --></label>
+        <name>CaseAreasParticipantesPanel_RequestComment</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Request comment input field label --></label>
+        <name>CaseAreasParticipantesPanel_RequestCommentInput</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Resume action label --></label>
+        <name>CaseAreasParticipantesPanel_Resume</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Participation resumed successfully toast message --></label>
+        <name>CaseAreasParticipantesPanel_ResumeSuccess</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Return Comment field label --></label>
+        <name>CaseAreasParticipantesPanel_ReturnComment</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cycle/sequence field label --></label>
+        <name>CaseAreasParticipantesPanel_Sequence</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SLA Status field label --></label>
+        <name>CaseAreasParticipantesPanel_SlaStatus</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SLA Time field label --></label>
+        <name>CaseAreasParticipantesPanel_SlaTime</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Area Solution / Return field label --></label>
+        <name>CaseAreasParticipantesPanel_Solution</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Start field label --></label>
+        <name>CaseAreasParticipantesPanel_Start</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Status field label --></label>
+        <name>CaseAreasParticipantesPanel_Status</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Compact status line for cancelled items --></label>
+        <name>CaseAreasParticipantesPanel_StatusLineCancelled</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Compact status line for completed items, {0} = completion date/time --></label>
+        <name>CaseAreasParticipantesPanel_StatusLineCompleted</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Compact status line for the deadline, {0} = deadline date/time --></label>
+        <name>CaseAreasParticipantesPanel_StatusLineDeadline</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Compact status line for overdue items without a deadline --></label>
+        <name>CaseAreasParticipantesPanel_StatusLineOverdue</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Compact status line for overdue-by-duration items, {0} = duration --></label>
+        <name>CaseAreasParticipantesPanel_StatusLineOverdueBy</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Compact status line for paused items --></label>
+        <name>CaseAreasParticipantesPanel_StatusLinePaused</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Success toast title --></label>
+        <name>CaseAreasParticipantesPanel_Success</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Panel title --></label>
+        <name>CaseAreasParticipantesPanel_Title</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Unexpected error message fallback --></label>
+        <name>CaseAreasParticipantesPanel_UnexpectedError</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Violated status pill label --></label>
+        <name>CaseAreasParticipantesPanel_Violated</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Assume case destination option --></label>
+        <name>CaseNewCategorization_Assume</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Assume blocked by parametrized queue hint --></label>
+        <name>CaseNewCategorization_AssumirBloqueadoHint</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Subject field label --></label>
+        <name>CaseNewCategorization_Assunto</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cancel button label --></label>
+        <name>CaseNewCategorization_Cancel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- New Case wizard card title --></label>
+        <name>CaseNewCategorization_CardTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Category field label --></label>
+        <name>CaseNewCategorization_Categoria</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Close on creation destination option --></label>
+        <name>CaseNewCategorization_Close</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Next button label (record type gate) --></label>
+        <name>CaseNewCategorization_ContinueButton</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Failed to create Case message fallback --></label>
+        <name>CaseNewCategorization_CreateFailed</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Assume destination hint --></label>
+        <name>CaseNewCategorization_DestinationHintAssume</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Close destination hint --></label>
+        <name>CaseNewCategorization_DestinationHintClose</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Distribute destination hint --></label>
+        <name>CaseNewCategorization_DestinationHintDistribute</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Destination field label --></label>
+        <name>CaseNewCategorization_Destino</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Distribute to queue destination option --></label>
+        <name>CaseNewCategorization_Distribute</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error toast title --></label>
+        <name>CaseNewCategorization_ErrorTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Loading spinner alternative text --></label>
+        <name>CaseNewCategorization_Loading</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Manual queue field label --></label>
+        <name>CaseNewCategorization_ManualQueue</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Categorization incomplete before save message --></label>
+        <name>CaseNewCategorization_PrepareFailed</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Queue defined by categorization message --></label>
+        <name>CaseNewCategorization_QueueResolved</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Failed to resolve Case defaults message --></label>
+        <name>CaseNewCategorization_ResolveFailed</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Save button label --></label>
+        <name>CaseNewCategorization_Save</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Saving spinner alternative text --></label>
+        <name>CaseNewCategorization_Saving</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Subsubject field label --></label>
+        <name>CaseNewCategorization_Subassunto</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- New Case wizard subtitle --></label>
+        <name>CaseNewCategorization_Subtitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Case created successfully toast message --></label>
+        <name>CaseNewCategorization_SuccessMsg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Success toast title --></label>
+        <name>CaseNewCategorization_SuccessTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Case Type field label --></label>
+        <name>CaseNewCategorization_TipoCaso</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Unexpected error message fallback --></label>
+        <name>CaseNewCategorization_Unexpected</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Business Unit field label --></label>
+        <name>CaseNewCategorization_UnidadeNegocio</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Business Unit / Record Type gate title --></label>
+        <name>CaseNewCategorization_UnidadeRecordType</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Assume case destination option --></label>
+        <name>CaseRecategorization_Assume</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cancel button label --></label>
+        <name>CaseRecategorization_Cancel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Current Case section title --></label>
+        <name>CaseRecategorization_CaseInfo</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Case Number field label --></label>
+        <name>CaseRecategorization_CaseNumber</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Close on creation destination option --></label>
+        <name>CaseRecategorization_Close</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Current Subject field label --></label>
+        <name>CaseRecategorization_CurrentAssunto</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Current Categorization section title --></label>
+        <name>CaseRecategorization_CurrentCat</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Current Category field label --></label>
+        <name>CaseRecategorization_CurrentCategoria</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Current Subsubject field label --></label>
+        <name>CaseRecategorization_CurrentSubassunto</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Current Case Type field label --></label>
+        <name>CaseRecategorization_CurrentTipo</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Destination field label --></label>
+        <name>CaseRecategorization_Destination</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Case Destination section title --></label>
+        <name>CaseRecategorization_DestinationTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Distribute to queue destination option --></label>
+        <name>CaseRecategorization_Distribute</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error toast title --></label>
+        <name>CaseRecategorization_ErrorTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- From column label in change summary --></label>
+        <name>CaseRecategorization_From</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Loading spinner alternative text --></label>
+        <name>CaseRecategorization_Loading</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Manual queue field label --></label>
+        <name>CaseRecategorization_ManualQueue</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Subject field label (new value) --></label>
+        <name>CaseRecategorization_NewAssunto</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- New Categorization section title --></label>
+        <name>CaseRecategorization_NewCat</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Category field label (new value) --></label>
+        <name>CaseRecategorization_NewCategoria</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Subsubject field label (new value) --></label>
+        <name>CaseRecategorization_NewSubassunto</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Case Type field label (new value) --></label>
+        <name>CaseRecategorization_NewTipo</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- No options available combobox placeholder --></label>
+        <name>CaseRecategorization_NoValues</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Queue defined by categorization message --></label>
+        <name>CaseRecategorization_QueueResolved</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Record Type field label --></label>
+        <name>CaseRecategorization_RecordType</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Recategorize (save) button label --></label>
+        <name>CaseRecategorization_Save</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Status field label --></label>
+        <name>CaseRecategorization_Status</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Success toast message --></label>
+        <name>CaseRecategorization_SuccessMsg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Success toast title --></label>
+        <name>CaseRecategorization_SuccessTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Change Summary section title --></label>
+        <name>CaseRecategorization_Summary</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Case recategorization panel title --></label>
+        <name>CaseRecategorization_Title</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- To column label in change summary --></label>
+        <name>CaseRecategorization_To</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Business Unit field label fallback --></label>
+        <name>CaseRecategorization_Unidade</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Recategorization confirmation warning message --></label>
+        <name>CaseRecategorization_Warning</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Area column header --></label>
+        <name>CategorizacaoManager_Area</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Subject field label --></label>
+        <name>CategorizacaoManager_Assunto</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Active field label --></label>
+        <name>CategorizacaoManager_Ativo</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cancel button label --></label>
+        <name>CategorizacaoManager_Cancel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Categorization Manager card title --></label>
+        <name>CategorizacaoManager_CardTitle</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Category field label --></label>
+        <name>CategorizacaoManager_Categoria</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Configured areas count message, {0} = count --></label>
+        <name>CategorizacaoManager_ConfiguredAreas</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Description field label --></label>
+        <name>CategorizacaoManager_Descricao</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Distribute to queue field label --></label>
+        <name>CategorizacaoManager_DistribuirFila</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error toast title --></label>
+        <name>CategorizacaoManager_Error</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Case Queue field label --></label>
+        <name>CategorizacaoManager_FilaCase</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- High priority label --></label>
+        <name>CategorizacaoManager_High</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Loading spinner alternative text --></label>
+        <name>CategorizacaoManager_Loading</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Low priority label --></label>
+        <name>CategorizacaoManager_Low</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Minutes unit label --></label>
+        <name>CategorizacaoManager_Minutes</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Inactivation Reason field label --></label>
+        <name>CategorizacaoManager_MotivoInativacao</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Applied to all internal areas message --></label>
+        <name>CategorizacaoManager_N3AppliedAll</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Time by specific area option --></label>
+        <name>CategorizacaoManager_N3ByArea</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Internal Area Strategy field label --></label>
+        <name>CategorizacaoManager_N3Strategy</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Single time for any area option --></label>
+        <name>CategorizacaoManager_N3Unique</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- No manageable milestones available message --></label>
+        <name>CategorizacaoManager_NoMilestones</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Normal priority label --></label>
+        <name>CategorizacaoManager_Normal</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- By categorization field label --></label>
+        <name>CategorizacaoManager_PorCategorizacao</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Suggested Prioritization field label --></label>
+        <name>CategorizacaoManager_PrioridadeLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Which field label --></label>
+        <name>CategorizacaoManager_QualCampo</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Category required validation message --></label>
+        <name>CategorizacaoManager_RequiredCategory</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Inactivation reason required validation message --></label>
+        <name>CategorizacaoManager_RequiredInactiveReason</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Save button label --></label>
+        <name>CategorizacaoManager_Save</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Save failed toast message fallback --></label>
+        <name>CategorizacaoManager_SaveFailed</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Saved successfully toast message --></label>
+        <name>CategorizacaoManager_Saved</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Distribution section title --></label>
+        <name>CategorizacaoManager_SectionDistribution</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- General Information section title --></label>
+        <name>CategorizacaoManager_SectionGeneral</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Categorization SLA Rules section title --></label>
+        <name>CategorizacaoManager_SectionSla</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Subsubject field label --></label>
+        <name>CategorizacaoManager_Subassunto</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Success toast title --></label>
+        <name>CategorizacaoManager_Success</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Time (minutes) column header --></label>
+        <name>CategorizacaoManager_TimeMinutes</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Case Type field label --></label>
+        <name>CategorizacaoManager_TipoCaso</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Unexpected error message fallback --></label>
+        <name>CategorizacaoManager_UnexpectedError</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Business Unit field label --></label>
+        <name>CategorizacaoManager_UnidadeNegocio</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Value field label --></label>
+        <name>CategorizacaoManager_Valor</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Generic public-facing error for Experience Cloud authentication flows. --></label>
+        <name>ExperienceAuth_GenericError</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Label for the Static Resource field in the SLA Management workspace. --></label>
+        <name>GestaoSLA_StaticResource</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Help text for the Static Resource field in the SLA Management workspace. --></label>
+        <name>GestaoSLA_StaticResourceHelp</name>
+    </customLabels>
     <customPageWebLinks>
         <label><!-- DocuSign Setup --></label>
         <name>dfsle__Setup</name>
@@ -25038,6 +25478,10 @@ Before we begin, please choose your service language.</message>
     <customTabs>
         <label><!-- Engage Reports --></label>
         <name>pi__Sales_Edge_Reports</name>
+    </customTabs>
+    <customTabs>
+        <label><!-- Utilitários Key-Users --></label>
+        <name>Utilit_rios_Key_Users</name>
     </customTabs>
     <flowDefinitions>
         <flows/>
@@ -25448,7 +25892,7 @@ Before we begin, please choose your service language.</message>
             </textTemplates>
             <textTemplates>
                 <name>welcome_question_lref_tt</name>
-                <text>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 48px;&quot;&gt;Customer Satisfaction Survey | Logistics Center&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;We want to know about your experience with Wilson Sons Logistics Center support. Your feedback is important to help us improve our processes and services.&lt;/p&gt;</text>
+                <text>&lt;p style="text-align: center;"&gt;&lt;strong style="font-size: 48px;"&gt;Customer Satisfaction Survey | Logistics Center&lt;/strong&gt;&lt;/p&gt;&lt;p style="text-align: center;"&gt;We want to know about your experience with Wilson Sons Logistics Center support. Your feedback is important to help us improve our processes and services.&lt;/p&gt;</text>
             </textTemplates>
         </flows>
         <fullName>Atendimento_Survey_CentroLogistico</fullName>
@@ -25465,11 +25909,11 @@ Before we begin, please choose your service language.</message>
             </choices>
             <screens>
                 <fields>
-                    <fieldText>&lt;p&gt;&lt;span class=&quot;ql-cursor&quot;&gt;&lt;/span&gt;How would you rate the service received?&lt;/p&gt;</fieldText>
+                    <fieldText>&lt;p&gt;&lt;span class="ql-cursor"&gt;&lt;/span&gt;How would you rate the service received?&lt;/p&gt;</fieldText>
                     <name>q_8dcc0a03_a376_4802_801e_e049d48d354b</name>
                 </fields>
                 <fields>
-                    <fieldText>&lt;p&gt;&lt;strong&gt;&lt;span class=&quot;ql-cursor&quot;&gt;&lt;/span&gt;Would you like to leave a comment about the service?&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;&lt;span class="ql-cursor"&gt;&lt;/span&gt;Would you like to leave a comment about the service?&lt;/strong&gt;&lt;/p&gt;</fieldText>
                     <name>q_db867e83_6fc2_463e_a270_a35afb5bba96</name>
                 </fields>
                 <name>p_20b75919_5c91_4e73_823a_8a0926e463a5</name>
@@ -25493,7 +25937,7 @@ Before we begin, please choose your service language.</message>
             </textTemplates>
             <textTemplates>
                 <name>welcome_question_lref_tt</name>
-                <text>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 48px;&quot;&gt;Customer Satisfaction Survey | Towage&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;We want to know about your experience with Wilson Sons Towage support. Your feedback is important to help us continuously improve our services.&lt;/p&gt;</text>
+                <text>&lt;p style="text-align: center;"&gt;&lt;strong style="font-size: 48px;"&gt;Customer Satisfaction Survey | Towage&lt;/strong&gt;&lt;/p&gt;&lt;p style="text-align: center;"&gt;We want to know about your experience with Wilson Sons Towage support. Your feedback is important to help us continuously improve our services.&lt;/p&gt;</text>
             </textTemplates>
         </flows>
         <fullName>Atendimento_Survey_Rebocadores</fullName>
@@ -25629,11 +26073,11 @@ Before we begin, please choose your service language.</message>
             </choices>
             <screens>
                 <fields>
-                    <fieldText>&lt;p&gt;&lt;span class=&quot;ql-cursor&quot;&gt;&lt;/span&gt;Was your issue resolved?&lt;/p&gt;</fieldText>
+                    <fieldText>&lt;p&gt;&lt;span class="ql-cursor"&gt;&lt;/span&gt;Was your issue resolved?&lt;/p&gt;</fieldText>
                     <name>q_295a6ce5_4407_4ddd_ac4a_260c65c346b7</name>
                 </fields>
                 <fields>
-                    <fieldText>&lt;p&gt;&lt;span class=&quot;ql-cursor&quot;&gt;&lt;/span&gt;How would you rate the response time?&lt;/p&gt;</fieldText>
+                    <fieldText>&lt;p&gt;&lt;span class="ql-cursor"&gt;&lt;/span&gt;How would you rate the response time?&lt;/p&gt;</fieldText>
                     <name>q_aa92a1bc_1508_4009_8383_3d6578a58c10</name>
                 </fields>
                 <fields>
@@ -25665,7 +26109,7 @@ Before we begin, please choose your service language.</message>
             </textTemplates>
             <textTemplates>
                 <name>welcome_question_lref_tt</name>
-                <text>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 48px;&quot;&gt;Customer Satisfaction Survey | Tecon Rio Grande&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;Your service at Tecon Rio Grande has been closed. We want to make sure everything was resolved as expected. Your feedback is essential to help us continuously improve our services.&lt;/p&gt;</text>
+                <text>&lt;p style="text-align: center;"&gt;&lt;strong style="font-size: 48px;"&gt;Customer Satisfaction Survey | Tecon Rio Grande&lt;/strong&gt;&lt;/p&gt;&lt;p style="text-align: center;"&gt;Your service at Tecon Rio Grande has been closed. We want to make sure everything was resolved as expected. Your feedback is essential to help us continuously improve our services.&lt;/p&gt;</text>
             </textTemplates>
         </flows>
         <fullName>Atendimento_Survey_TeconRioGrande</fullName>
@@ -25762,7 +26206,7 @@ Before we begin, please choose your service language.</message>
             </textTemplates>
             <textTemplates>
                 <name>welcome_question_lref_tt</name>
-                <text>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 48px;&quot;&gt;Customer Satisfaction Survey | Tecon Salvador&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;Hello.&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;We want to know about your experience with Tecon Salvador support.&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;Your feedback is very important to help us continuously improve our services.&lt;/p&gt;</text>
+                <text>&lt;p style="text-align: center;"&gt;&lt;strong style="font-size: 48px;"&gt;Customer Satisfaction Survey | Tecon Salvador&lt;/strong&gt;&lt;/p&gt;&lt;p style="text-align: center;"&gt;Hello.&lt;/p&gt;&lt;p style="text-align: center;"&gt;We want to know about your experience with Tecon Salvador support.&lt;/p&gt;&lt;p style="text-align: center;"&gt;Your feedback is very important to help us continuously improve our services.&lt;/p&gt;</text>
             </textTemplates>
         </flows>
         <fullName>Atendimento_Survey_TeconSalvador</fullName>
@@ -25929,7 +26373,7 @@ Before we begin, please choose your service language.</message>
             </screens>
             <screens>
                 <fields>
-                    <fieldText>&lt;p&gt;&lt;strong&gt;Adjustment request&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Adjustment request&lt;span class="ql-cursor"&gt;﻿&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;</fieldText>
                     <name>display_solicitacao</name>
                 </fields>
                 <fields>
@@ -33257,7 +33701,7 @@ Before we begin, please choose your service language.</message>
         <flows>
             <screens>
                 <fields>
-                    <fieldText>&lt;p&gt;&lt;strong&gt;Adjustment request&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Adjustment request&lt;span class="ql-cursor"&gt;﻿&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;</fieldText>
                     <name>display_solicitacao</name>
                 </fields>
                 <fields>
@@ -34135,6 +34579,553 @@ Before we begin, please choose your service language.</message>
             </screens>
         </flows>
         <fullName>usabilidade_e_melhorias</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <name>txtConfirmacaoIntro</name>
+                </fields>
+                <fields>
+                    <name>txtConfirmacaoSalvador</name>
+                </fields>
+                <fields>
+                    <name>txtConfirmacaoTRGTSC</name>
+                </fields>
+                <name>Tela_Confirmacao</name>
+            </screens>
+            <screens>
+                <fields>
+                    <inputParameters>
+                        <name>horizontalAlignment</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>imageName</name>
+                        <value/>
+                    </inputParameters>
+                    <name>LogoWS_TelaResultado</name>
+                </fields>
+                <fields>
+                    <name>txtErrNoPbe</name>
+                </fields>
+                <fields>
+                    <name>txtErrNoProductDefault</name>
+                </fields>
+                <fields>
+                    <name>txtErrPeriodCountMismatch</name>
+                </fields>
+                <fields>
+                    <name>txtErrPeriodNoMatch</name>
+                </fields>
+                <fields>
+                    <name>txtErrPeriodUpdate</name>
+                </fields>
+                <fields>
+                    <name>txtErrQliUpdate</name>
+                </fields>
+                <fields>
+                    <name>txtErrUnsupportedRecordType</name>
+                </fields>
+                <fields>
+                    <name>txtResumoGeral</name>
+                </fields>
+                <fields>
+                    <name>txtSemInconsistencias</name>
+                </fields>
+                <fields>
+                    <name>txtTituloInconsistencias</name>
+                </fields>
+                <name>Tela_Resultado</name>
+            </screens>
+            <screens>
+                <fields>
+                    <inputParameters>
+                        <name>columns</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>isShowSearchBar</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>minRowSelection</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>selectionMode</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>shouldDisplayLabel</name>
+                        <value/>
+                    </inputParameters>
+                    <name>tblItens</name>
+                </fields>
+                <name>Tela_Selecionar_Itens</name>
+            </screens>
+            <screens>
+                <fields>
+                    <inputParameters>
+                        <name>horizontalAlignment</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>imageName</name>
+                        <value/>
+                    </inputParameters>
+                    <name>LogoWS_NenhumItemSelecionado</name>
+                </fields>
+                <fields>
+                    <name>txtSemSelecao</name>
+                </fields>
+                <name>Tela_Sem_Selecao</name>
+            </screens>
+        </flows>
+        <fullName>CotacaoResetItensFlow</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <name>Cotacao_link</name>
+                </fields>
+                <fields>
+                    <name>Desconto_Edicao</name>
+                </fields>
+                <fields>
+                    <name>Preco_de_Lista</name>
+                </fields>
+                <fields>
+                    <name>Preco_de_Venda_Edicao</name>
+                </fields>
+                <fields>
+                    <name>Tela_Servico_nao_categorizado_Section1</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Tela_Servico_nao_categorizado_Section1_Column1</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Tela_Servico_nao_categorizado_Section1_Column2</name>
+                </fields>
+                <fields>
+                    <name>mensagemTelaServicoNaoCategorizado</name>
+                </fields>
+                <name>Tela_Servico_nao_categorizado</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>Ad_Valorem</name>
+                </fields>
+                <fields>
+                    <name>CIOT</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>messageToggleActive</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>messageToggleInactive</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>value</name>
+                        <value/>
+                    </inputParameters>
+                    <name>CalculoAutomatico</name>
+                </fields>
+                <fields>
+                    <name>Cidade</name>
+                </fields>
+                <fields>
+                    <name>Como_exibir_Ad_Valoren</name>
+                </fields>
+                <fields>
+                    <name>Cotacao_view</name>
+                </fields>
+                <fields>
+                    <name>Detalhes_do_Servico_TSC_transporte_edit</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Detalhes_do_Servico_TSC_transporte_edit_Column1</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Detalhes_do_Servico_TSC_transporte_edit_Column2</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Detalhes_do_Servico_TSC_transporte_edit_Column3</name>
+                </fields>
+                <fields>
+                    <name>Eixo</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>fieldApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>objectApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>recordId</name>
+                        <value/>
+                    </inputParameters>
+                    <name>EstabelecimentoDoServico</name>
+                </fields>
+                <fields>
+                    <name>Frete_ANTT_Rodo_Sales_Price</name>
+                </fields>
+                <fields>
+                    <name>Frete_Hidro</name>
+                </fields>
+                <fields>
+                    <name>Imposto_Formula</name>
+                </fields>
+                <fields>
+                    <name>Km</name>
+                </fields>
+                <fields>
+                    <name>Margem</name>
+                </fields>
+                <fields>
+                    <name>Metrica_de_faturamento</name>
+                </fields>
+                <fields>
+                    <name>Pedagio</name>
+                </fields>
+                <fields>
+                    <name>Piso_Minimo</name>
+                </fields>
+                <fields>
+                    <name>Precificacao</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Precificacao_Column1</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Precificacao_Column2</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Precificacao_Column3</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Precificacao_Column4</name>
+                </fields>
+                <fields>
+                    <name>Preco_de_Venda</name>
+                </fields>
+                <fields>
+                    <name>Servico_Extra</name>
+                </fields>
+                <fields>
+                    <name>Taxa_imposto</name>
+                </fields>
+                <fields>
+                    <name>Tela_Transporte_Tecon_Santa_Clara_Section1</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Tela_Transporte_Tecon_Santa_Clara_Section1_Column1</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Tela_Transporte_Tecon_Santa_Clara_Section1_Column2</name>
+                </fields>
+                <fields>
+                    <name>Tela_Transporte_Tecon_Santa_Clara_Section4</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Tela_Transporte_Tecon_Santa_Clara_Section4_Column1</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Tela_Transporte_Tecon_Santa_Clara_Section4_Column2</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Tela_Transporte_Tecon_Santa_Clara_Section4_Column3</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>width</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Tela_Transporte_Tecon_Santa_Clara_Section4_Column4</name>
+                </fields>
+                <fields>
+                    <name>Tipo_de_CNTR_view</name>
+                </fields>
+                <fields>
+                    <name>Transporte_view</name>
+                </fields>
+                <fields>
+                    <name>el_0</name>
+                </fields>
+                <fields>
+                    <name>el_1</name>
+                </fields>
+                <fields>
+                    <name>el_2</name>
+                </fields>
+                <fields>
+                    <name>el_3</name>
+                </fields>
+                <fields>
+                    <name>linkEstabelecimento</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>recordId</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>textBefore</name>
+                        <value/>
+                    </inputParameters>
+                    <name>linkProduct2</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>recordId</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>textBefore</name>
+                        <value/>
+                    </inputParameters>
+                    <name>linkQuote</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>messageToggleActive</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>messageToggleInactive</name>
+                        <value/>
+                    </inputParameters>
+                    <name>modo</name>
+                </fields>
+                <name>Tela_Transporte_Tecon_Santa_Clara</name>
+            </screens>
+        </flows>
+        <fullName>QuoteLineItem_Action_Edicao</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>TCO_Quote_StatusTempo_Subflow</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <customErrorMessages>
+                <developerName>Nao_autorizado</developerName>
+            </customErrorMessages>
+        </flows>
+        <fullName>Usuario_Verifica_permissao</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <inputParameters>
+                        <name>fieldApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>objectApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>recordId</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>required</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Cliente</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>fieldApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>objectApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <name>ContatoDoCliente</name>
+                </fields>
+                <fields>
+                    <name>Data_Limite</name>
+                </fields>
+                <fields>
+                    <inputParameters>
+                        <name>fieldApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>objectApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>recordId</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>required</name>
+                        <value/>
+                    </inputParameters>
+                    <name>Responsavel</name>
+                </fields>
+                <name>Extracao_de_tarefas_arquivadas</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>exibeBotaoDownload</name>
+                </fields>
+                <fields>
+                    <name>mensagem_download</name>
+                </fields>
+                <name>Tela_Download</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>mensagem_NO_RECORDS</name>
+                </fields>
+                <name>Tela_NO_RECORDS</name>
+            </screens>
+            <textTemplates>
+                <name>ttBotaoDownload</name>
+            </textTemplates>
+        </flows>
+        <fullName>WS_Tela_Extrair_Tarefas_Arquivadas_para_CSV</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <choices>
+                <name>c_c3eb1d70_124f_4075_858a_73690d6f2995</name>
+            </choices>
+            <choices>
+                <name>c_da299429_2417_4714_8b26_b6a421dab526</name>
+            </choices>
+            <screens>
+                <fields>
+                    <name>q_2968a97a_de3f_43ca_8e22_85db37a272fb</name>
+                </fields>
+                <name>p_f2934fcb_c739_41cf_8471_bc75316a4ab8</name>
+            </screens>
+            <screens>
+                <fields>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <name>welcome_question</name>
+                </fields>
+                <name>welcome_page</name>
+            </screens>
+            <textTemplates>
+                <name>thankYouDescriptionTextTemplate</name>
+            </textTemplates>
+            <textTemplates>
+                <name>thankYouLabelTextTemplate</name>
+            </textTemplates>
+            <textTemplates>
+                <name>welcome_question_lref_tt</name>
+            </textTemplates>
+        </flows>
+        <fullName>teste</fullName>
     </flowDefinitions>
     <identityVerificationCustomFieldLabels>
         <name>SampleAccountName</name>
@@ -35738,6 +36729,46 @@ Before we begin, please choose your service language.</message>
         <sections>
             <label><!-- Registros de entrevista de fluxo --></label>
             <name>Registros de entrevista de fluxo</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Métricas diárias do bot da Spring &apos;24 --></description>
+        <label><!-- Métricas diárias do bot da Spring &apos;24 --></label>
+        <name>Bot_Metrics_Daily_v6</name>
+        <sections>
+            <label><!-- Métricas diárias de diálogo de definição de conversa --></label>
+            <name>Métricas diárias de diálogo de definição de conversa</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Métricas do bot por hora da Spring &apos;24 --></description>
+        <label><!-- Métricas do bot por hora da Spring &apos;24 --></label>
+        <name>Bot_Metrics_Hourly_v6</name>
+        <sections>
+            <label><!-- Métricas horárias de diálogo de definição de conversa --></label>
+            <name>Métricas horárias de diálogo de definição de conversa</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Métricas da sessão da Spring &apos;24 --></description>
+        <label><!-- Métricas da sessão da Spring &apos;24 --></label>
+        <name>Bot_Sessions_v6</name>
+        <sections>
+            <label><!-- Métricas da sessão de definição da conversa --></label>
+            <name>Métricas da sessão de definição da conversa</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Cotacoes com Tempo por Status --></description>
+        <label><!-- Cotacoes com Tempo por Status --></label>
+        <name>TCO_Cotacoes_com_Tempo_por_Status</name>
+        <sections>
+            <label><!-- Ciclos de Status --></label>
+            <name>Ciclos de Status</name>
+        </sections>
+        <sections>
+            <label><!-- Cotacoes --></label>
+            <name>Cotacoes</name>
         </sections>
     </reportTypes>
     <scontrols>
