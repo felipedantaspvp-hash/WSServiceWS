@@ -3,7 +3,7 @@
     <fullName>Horario_da_Entrega__c</fullName>
     <description>Horário pretendido/realizado da entrega, em formato texto (HH:MM), sem uso do campo Time padrão.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Informe no formato HH:MM (ex: 14:30).</inlineHelpText>
+    <inlineHelpText>Enter in HH:MM format (e.g., 14:30).</inlineHelpText>
     <label>Horário da Entrega</label>
     <length>20</length>
     <required>false</required>

@@ -5,11 +5,11 @@
     <deploymentFeature>EmbeddedMessaging</deploymentFeature>
     <deploymentType>Web</deploymentType>
     <embeddedServiceForms>
-        <displayContext>Conversation</displayContext>
+        <displayContext>Session</displayContext>
         <embeddedServiceFormFields>
-            <displayOrder>0</displayOrder>
-            <formField>Nome</formField>
-            <formFieldType>Text</formFieldType>
+            <displayOrder>3</displayOrder>
+            <formField>Telefone</formField>
+            <formFieldType>Phone</formFieldType>
             <isHidden>false</isHidden>
             <isRequired>true</isRequired>
             <messagingChannelParameterType>Custom</messagingChannelParameterType>
@@ -23,27 +23,27 @@
             <messagingChannelParameterType>Custom</messagingChannelParameterType>
         </embeddedServiceFormFields>
         <embeddedServiceFormFields>
-            <displayOrder>2</displayOrder>
-            <formField>Email</formField>
-            <formFieldType>Email</formFieldType>
-            <isHidden>false</isHidden>
-            <isRequired>true</isRequired>
-            <messagingChannelParameterType>Custom</messagingChannelParameterType>
-        </embeddedServiceFormFields>
-        <embeddedServiceFormFields>
-            <displayOrder>3</displayOrder>
-            <formField>Telefone</formField>
-            <formFieldType>Text</formFieldType>
-            <isHidden>false</isHidden>
-            <isRequired>true</isRequired>
-            <messagingChannelParameterType>Custom</messagingChannelParameterType>
-        </embeddedServiceFormFields>
-        <embeddedServiceFormFields>
             <displayOrder>-1</displayOrder>
             <formField>UnidadeNegocio</formField>
             <formFieldType>Text</formFieldType>
             <isHidden>true</isHidden>
             <isRequired>false</isRequired>
+            <messagingChannelParameterType>Custom</messagingChannelParameterType>
+        </embeddedServiceFormFields>
+        <embeddedServiceFormFields>
+            <displayOrder>0</displayOrder>
+            <formField>Nome</formField>
+            <formFieldType>Text</formFieldType>
+            <isHidden>false</isHidden>
+            <isRequired>true</isRequired>
+            <messagingChannelParameterType>Custom</messagingChannelParameterType>
+        </embeddedServiceFormFields>
+        <embeddedServiceFormFields>
+            <displayOrder>2</displayOrder>
+            <formField>Email</formField>
+            <formFieldType>Email</formFieldType>
+            <isHidden>false</isHidden>
+            <isRequired>true</isRequired>
             <messagingChannelParameterType>Custom</messagingChannelParameterType>
         </embeddedServiceFormFields>
         <isActive>true</isActive>

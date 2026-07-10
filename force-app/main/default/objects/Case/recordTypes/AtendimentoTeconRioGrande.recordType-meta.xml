@@ -2990,6 +2990,25 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Dúvida</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Elogio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reclamação</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>UnidadeNegocio__c</picklist>
         <values>
             <fullName>Atendimento Tecon Rio Grande</fullName>

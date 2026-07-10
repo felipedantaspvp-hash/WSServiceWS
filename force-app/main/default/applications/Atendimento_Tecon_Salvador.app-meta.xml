@@ -55,6 +55,24 @@
         <pageOrSobjectType>MessagingEndUser</pageOrSobjectType>
     </actionOverrides>
     <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Messaging_Session_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>MessagingSession</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Messaging_Session_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>MessagingSession</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
         <actionName>Tab</actionName>
         <content>Home_AtendimentoSalvador</content>
         <formFactor>Large</formFactor>
@@ -81,6 +99,7 @@
     <tabs>standard-Contact</tabs>
     <tabs>standard-Case</tabs>
     <tabs>standard-MessagingSession</tabs>
+    <tabs>standard-OmniSupervisorLightning</tabs>
     <tabs>GestaoSLA</tabs>
     <tabs>Categorizacao__c</tabs>
     <tabs>standard-report</tabs>
@@ -109,6 +128,9 @@
         </mappings>
         <mappings>
             <tab>standard-MessagingSession</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-OmniSupervisorLightning</tab>
         </mappings>
         <mappings>
             <tab>standard-home</tab>

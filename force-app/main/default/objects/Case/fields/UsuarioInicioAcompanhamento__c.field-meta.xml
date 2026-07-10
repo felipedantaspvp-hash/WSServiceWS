@@ -3,7 +3,7 @@
     <fullName>UsuarioInicioAcompanhamento__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Usuário que colocou o Case em acompanhamento.</description>
-    <inlineHelpText>Usuário preenchido automaticamente ao iniciar acompanhamento.</inlineHelpText>
+    <inlineHelpText>User automatically filled in when follow-up starts.</inlineHelpText>
     <label>Usuário de Início do Acompanhamento</label>
     <referenceTo>User</referenceTo>
     <relationshipLabel>Cases em Acompanhamento Iniciados</relationshipLabel>

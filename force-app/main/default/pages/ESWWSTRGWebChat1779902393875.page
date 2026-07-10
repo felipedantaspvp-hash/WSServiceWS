@@ -1,0 +1,79 @@
+<apex:page showHeader="false" sidebar="false" docType="html-5.0" cache="false">
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WS TRG Embedded Messaging Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 24px; }
+        .note { background: #f4f6f9; border: 1px solid #d8dde6; padding: 12px; border-radius: 6px; }
+    </style>
+</head>
+<body>
+    <h1>Wilson Sons - Embedded Messaging Test</h1>
+    <div class="note">
+        <p>Canal: <strong>WS_TRG_WebChat</strong></p>
+        <p>Deployment: <strong>WS_TRG_WebChat</strong></p>
+        <p>Unidade: <strong>Tecon Rio Grande</strong></p>
+        <p>Hidden fields: <code>UnidadeNegocio</code>, <code>ChannelDeveloperName</code>, <code>OrigemCanal</code>, <code>CustomerName</code>, <code>CustomerEmail</code>, <code>CustomerPhone</code></p>
+        <p id="em-status">Status: inicializando...</p>
+    </div>
+
+    <script type='text/javascript'>
+        function queryParam(name) {
+            var params = new URLSearchParams(window.location.search);
+            return params.get(name) || '';
+        }
+
+        function setStatus(message) {
+            var el = document.getElementById('em-status');
+            if (el) {
+                el.textContent = 'Status: ' + message;
+            }
+        }
+
+        function initEmbeddedMessaging() {
+            try {
+                setStatus('bootstrap carregado, iniciando...');
+                embeddedservice_bootstrap.settings.language = 'pt_BR';
+
+                window.addEventListener('onEmbeddedMessagingReady', function () {
+                    setStatus('ready: aplicando hidden fields...');
+                    var customerName = queryParam('name');
+                    var customerEmail = queryParam('email');
+                    var customerPhone = queryParam('phone');
+
+                    var hiddenFields = {
+                        UnidadeNegocio: 'Tecon Rio Grande',
+                        ChannelDeveloperName: 'WS_TRG_WebChat',
+                        OrigemCanal: 'EmbeddedMessaging'
+                    };
+
+                    // So envia override se vier valor de URL, para nao zerar
+                    // campos que o cliente preenche no pre-chat visivel.
+                    if (customerName) hiddenFields.CustomerName = customerName;
+                    if (customerEmail) hiddenFields.CustomerEmail = customerEmail;
+                    if (customerPhone) hiddenFields.CustomerPhone = customerPhone;
+
+                    embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields(hiddenFields);
+                    setStatus('chat pronto');
+                });
+
+                embeddedservice_bootstrap.init(
+                    '00D88000007zBSL',
+                    'WS_TRG_WebChat',
+                    'https://wilsonsons--qatriscal.sandbox.my.site.com/ESWWSTRGWebChat1779902393875',
+                    {
+                        scrt2URL: 'https://wilsonsons--qatriscal.sandbox.my.salesforce-scrt.com'
+                    }
+                );
+            } catch (err) {
+                setStatus('erro ao inicializar (veja console)');
+                console.error('Error loading Embedded Messaging: ', err);
+            }
+        }
+    </script>
+    <script type='text/javascript' src='https://wilsonsons--qatriscal.sandbox.my.site.com/ESWWSTRGWebChat1779902393875/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+</body>
+</html>
+</apex:page>

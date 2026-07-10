@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<OmniSupervisorConfig xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<OmniSupervisorConfig xmlns="http://soap.sforce.com/2006/04/metadata">
     <isTimelineHidden>false</isTimelineHidden>
     <masterLabel>Atendimento Tecon Salvador</masterLabel>
     <omniSupervisorConfigGroup>
@@ -31,8 +31,5 @@
         <displayOrder>4</displayOrder>
         <tabType>Alerts</tabType>
     </omniSupervisorConfigTab>
-    <omniSupervisorConfigUser>
-        <user>suportewilsonsons@triscal.com.br.service</user>
-    </omniSupervisorConfigUser>
     <skillVisibility>AllSkills</skillVisibility>
 </OmniSupervisorConfig>

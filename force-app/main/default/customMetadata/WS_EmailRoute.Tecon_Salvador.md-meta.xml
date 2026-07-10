@@ -24,7 +24,7 @@
     </values>
     <values>
         <field>ClosedCaseBehavior__c</field>
-        <value xsi:nil="true"/>
+        <value xsi:type="xsd:string">RELATE</value>
     </values>
     <values>
         <field>CreateContentFiles__c</field>
@@ -84,7 +84,7 @@
     </values>
     <values>
         <field>SalesforceServiceAddress__c</field>
-        <value xsi:type="xsd:string">ws_emailtocase_inbound@e-16wdj1uu9ldlte0xz6exbfvr7cabfwy0ug9jvr6chacho503t4.be-3pxjjea0.bra54s.apex.sandbox.salesforce.com</value>
+        <value xsi:type="xsd:string">ws_emailtocase_inbound@7-2zwdiww21gtwii3qjxktyy9ir5iq4r3rllddiuv7l3wftb4fpv.88-7zbslea2.bra2s.apex.sandbox.salesforce.com</value>
     </values>
     <values>
         <field>UnidadeNegocio__c</field>

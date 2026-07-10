@@ -59,11 +59,11 @@
                 });
 
                 embeddedservice_bootstrap.init(
-                    '00Dbe000003PxJJ',
+                    '00D88000007zBSL',
                     'WS_TSA_WebChat',
-                    'https://wilsonsons--service.sandbox.my.site.com/ESWWSTSAWebChat1779902014047',
+                    'https://wilsonsons--qatriscal.sandbox.my.site.com/ESWWSTSAWebChat1779902014047',
                     {
-                        scrt2URL: 'https://wilsonsons--service.sandbox.my.salesforce-scrt.com'
+                        scrt2URL: 'https://wilsonsons--qatriscal.sandbox.my.salesforce-scrt.com'
                     }
                 );
             } catch (err) {
@@ -72,7 +72,7 @@
             }
         }
     </script>
-    <script type='text/javascript' src='https://wilsonsons--service.sandbox.my.site.com/ESWWSTSAWebChat1779902014047/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+    <script type='text/javascript' src='https://wilsonsons--qatriscal.sandbox.my.site.com/ESWWSTSAWebChat1779902014047/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 </body>
 </html>
 </apex:page>

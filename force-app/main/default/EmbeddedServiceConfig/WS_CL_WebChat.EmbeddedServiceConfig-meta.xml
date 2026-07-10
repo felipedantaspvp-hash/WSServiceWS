@@ -5,7 +5,7 @@
     <deploymentFeature>EmbeddedMessaging</deploymentFeature>
     <deploymentType>Web</deploymentType>
     <embeddedServiceForms>
-        <displayContext>Conversation</displayContext>
+        <displayContext>Session</displayContext>
         <embeddedServiceFormFields>
             <displayOrder>0</displayOrder>
             <formField>Nome</formField>
@@ -33,7 +33,7 @@
         <embeddedServiceFormFields>
             <displayOrder>3</displayOrder>
             <formField>Telefone</formField>
-            <formFieldType>Text</formFieldType>
+            <formFieldType>Phone</formFieldType>
             <isHidden>false</isHidden>
             <isRequired>true</isRequired>
             <messagingChannelParameterType>Custom</messagingChannelParameterType>

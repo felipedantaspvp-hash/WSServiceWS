@@ -15,6 +15,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Acesso Codeba</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Acesso ao terminal</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Acompanhamento de DAT</fullName>
             <default>false</default>
         </values>
@@ -28,6 +36,10 @@
         </values>
         <values>
             <fullName>Agendamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agendamento de container</fullName>
             <default>false</default>
         </values>
         <values>
@@ -47,6 +59,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Análise Crítica</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Aprovar cadastro</fullName>
             <default>false</default>
         </values>
@@ -59,6 +75,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Atraso na Entrega Carga Siscomex</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Atraso na negociação comercial</fullName>
             <default>false</default>
         </values>
@@ -67,7 +87,27 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Atraso ou Erro no Serviço</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atraso ou erro na liberação documental</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atraso ou erro na presença de carga</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atraso ou erro na realização do serviço</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Atualizar JDA com agendamentos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atualização Cadastral</fullName>
             <default>false</default>
         </values>
         <values>
@@ -80,6 +120,10 @@
         </values>
         <values>
             <fullName>Boleto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Booking</fullName>
             <default>false</default>
         </values>
         <values>
@@ -111,7 +155,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Carregamento %2F Levante</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Carta Protesto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Carta de Indisponibilidade</fullName>
             <default>false</default>
         </values>
         <values>
@@ -143,11 +195,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Contestação de Demonstrativos ou Fatura</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Conversa externa</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Currículo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DTA%2FDTC</fullName>
             <default>false</default>
         </values>
         <values>
@@ -171,7 +231,43 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Demurrage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Descarga Sem Cadastro</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Desembaraço</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desistência de embarque</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desova Consolidada</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desova Cross Docking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desova Free Time</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Devolução</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direcionamento de Recintos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direcionamento de Tecon</fullName>
             <default>false</default>
         </values>
         <values>
@@ -180,6 +276,10 @@
         </values>
         <values>
             <fullName>Doubts on the amount of employed tugboats</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dúvidas DUIMP</fullName>
             <default>false</default>
         </values>
         <values>
@@ -247,6 +347,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Elaborar romaneio e packing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Embarque indevido</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Encaminhamento</fullName>
             <default>false</default>
         </values>
@@ -275,6 +383,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Entrada Antecipada</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Enviar comprovante de entrega</fullName>
             <default>false</default>
         </values>
@@ -284,6 +396,14 @@
         </values>
         <values>
             <fullName>Enviar relatório de paletização</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enviar ticket de pesagem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Envio de DRAFT</fullName>
             <default>false</default>
         </values>
         <values>
@@ -299,6 +419,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Erro %2F Indisponibilidade</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Erro ao faturar responsável incorreto</fullName>
             <default>false</default>
         </values>
@@ -308,6 +432,10 @@
         </values>
         <values>
             <fullName>Erro ao nomear a embarcação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro na Concessão de Desconto</fullName>
             <default>false</default>
         </values>
         <values>
@@ -335,7 +463,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Erro ou Atraso na Atualização</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro ou Atraso no Cadastro</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Esclarecimento sobre manobras</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Excesso de Peso</fullName>
             <default>false</default>
         </values>
         <values>
@@ -348,6 +488,10 @@
         </values>
         <values>
             <fullName>Falha na gestão de vigência</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Falha na recepção de carga no CCT</fullName>
             <default>false</default>
         </values>
         <values>
@@ -367,7 +511,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Fluxo de devolução de baú interno</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Fora do horário de atendimento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fotografia</fullName>
             <default>false</default>
         </values>
         <values>
@@ -399,7 +551,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Instruções sobre os Processos</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Instruções sobre os processos do Terminal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lacre</fullName>
             <default>false</default>
         </values>
         <values>
@@ -407,7 +567,23 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Levante %2F Abertura OS Manual</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Liberar janela extra</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Liberação de Booking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Liberação de Booking %2F carga solta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Liberação de comprovante de pagamento</fullName>
             <default>false</default>
         </values>
         <values>
@@ -423,7 +599,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Morosidade nos Serviços</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Morosidade nos serviços de vazios</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Morosidade nos serviços do Depot</fullName>
             <default>false</default>
         </values>
         <values>
@@ -435,11 +619,27 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Notificação Carga em Abandono</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Notificação automática</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Novo Cadastro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Novo acesso e alterações</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PO %2F Draft</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Particularidade Não Acatada</fullName>
             <default>false</default>
         </values>
         <values>
@@ -455,7 +655,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Pendências na Liberação Doc%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Perda de embarque</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Pesagem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pesagem e VGM</fullName>
             <default>false</default>
         </values>
         <values>
@@ -484,6 +696,10 @@
         </values>
         <values>
             <fullName>Prioridade</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prioridade no Faturamento</fullName>
             <default>false</default>
         </values>
         <values>
@@ -595,6 +811,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Solicitar packing list para despachante</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Solicitar repesagem de carga</fullName>
             <default>false</default>
         </values>
@@ -627,6 +847,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Spam</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Teconline</fullName>
             <default>false</default>
         </values>
@@ -635,7 +859,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Usabilidade</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Valores%2FServiços</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vistoria</fullName>
             <default>false</default>
         </values>
         <values>
@@ -646,6 +878,10 @@
     <picklistValues>
         <picklist>Categoria__c</picklist>
         <values>
+            <fullName>Acesso ao Porto</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Acompanhamento de Serviço - AG%2FREDEX</fullName>
             <default>false</default>
         </values>
@@ -655,6 +891,10 @@
         </values>
         <values>
             <fullName>Apoio Aduaneiro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>App Meu Tecon</fullName>
             <default>false</default>
         </values>
         <values>
@@ -670,7 +910,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Clearance %2F Embarque</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Comercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Depot %2F Vazios</fullName>
             <default>false</default>
         </values>
         <values>
@@ -679,6 +927,10 @@
         </values>
         <values>
             <fullName>Desembaraço %2F Embarque</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direcionamento de Carga</fullName>
             <default>false</default>
         </values>
         <values>
@@ -718,6 +970,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Onboarding</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operacional %E2%80%93 Pátio</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Operação</fullName>
             <default>false</default>
         </values>
@@ -731,6 +991,10 @@
         </values>
         <values>
             <fullName>Portal do Cliente</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Processos Aduaneiros</fullName>
             <default>false</default>
         </values>
         <values>
@@ -759,6 +1023,10 @@
         </values>
         <values>
             <fullName>Santa Clara</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Serviços de Armazém</fullName>
             <default>false</default>
         </values>
         <values>
@@ -887,11 +1155,31 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Acompanhamento de processo IMP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agendamento Manual %2F OS %2F Levante</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agendamento de Serviços e AC</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Agendamento de contêiner</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Agência informou moeda incorreta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ajuste Manual</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ajuste de Dados Incorretos</fullName>
             <default>false</default>
         </values>
         <values>
@@ -903,7 +1191,23 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Alteração de %27Cobrar de%27</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Alteração de Free Time</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Alteração de free time ou outros</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Alterações</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Alterações de agendamento</fullName>
             <default>false</default>
         </values>
         <values>
@@ -915,7 +1219,23 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Análise de demurrage</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Aprovação de Agendamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Armazenagem de Cabotagem %E2%80%93 Free Time</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Armazenagem de importação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Armazenagem e transferência de lote</fullName>
             <default>false</default>
         </values>
         <values>
@@ -931,6 +1251,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Atraso na aprovação da NCM</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Atraso na atualização da solicitação do cliente</fullName>
             <default>false</default>
         </values>
@@ -940,6 +1264,10 @@
         </values>
         <values>
             <fullName>Atualização</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atualização de Deadline</fullName>
             <default>false</default>
         </values>
         <values>
@@ -955,11 +1283,31 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Aumento de janelas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ausência de CTDA %2F Erro na Liberação DTC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Avaria %2F falta %2F troca de volumes</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Avaria Interna %28Pátio%29</fullName>
             <default>false</default>
         </values>
         <values>
+            <fullName>Avaria de Origem %28Damage%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Barcaça rígida</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bloqueio Aduaneiro</fullName>
             <default>false</default>
         </values>
         <values>
@@ -971,11 +1319,31 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Cadastro %2F Acesso</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadastro CPF e dados</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Cadastro Fornecedor</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Cadastro Prévio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadastro booking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadastro de NCM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cadastro e Informações</fullName>
             <default>false</default>
         </values>
         <values>
@@ -991,6 +1359,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Cancelamento de Placa %2F Agendamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Cancelamento de agendamento</fullName>
             <default>false</default>
         </values>
@@ -999,11 +1371,23 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Carregamento incorreto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Carta Protesto</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Cliente x Cliente</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Cliente x Departamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Colocação %2F Remoção Label</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1016,6 +1400,18 @@
         </values>
         <values>
             <fullName>Comprovante de pesagem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Condições e Termos %E2%80%93 Proposta Clientes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Condições e Termos %E2%80%93 Tabela Pública</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Conferência de Lacre</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1039,6 +1435,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Consulta Booking</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Consulta Contêiner</fullName>
             <default>false</default>
         </values>
@@ -1047,7 +1447,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Consulta de Disponibilidade de Janelas</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Consultas EXPO e CAB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Container Sem Lacre</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1071,11 +1479,43 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Custo IMO e FLAT RACK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Custo operações de navios</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Customer delaying request</fullName>
             <default>false</default>
         </values>
         <values>
+            <fullName>Custos de carga FCL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Custos de reefer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DUIMP Antecipada %2F DSA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DUIMP Normal</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>DWT atual</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dados SAS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dados Sefaz</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1084,6 +1524,10 @@
         </values>
         <values>
             <fullName>Data de pagamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Descarga Sem Cadastro</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1099,6 +1543,18 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Devolução de Vazios</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dia de porta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direcionamentos</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Dispensa - Condições climáticas</fullName>
             <default>false</default>
         </values>
@@ -1107,11 +1563,31 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Divergência de Volume %2F Lacre</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Divergência de dados</fullName>
             <default>false</default>
         </values>
         <values>
+            <fullName>Divergência de lacre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Divergência de volume %2F lacre %2F Entrega</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Documentação</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Duplo Direcionamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dúvidas Gerais</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1124,6 +1600,10 @@
         </values>
         <values>
             <fullName>Dúvidas usabilidade</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>E-mail recebimento de faturas</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1147,11 +1627,31 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Entreposto</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Enviar foto</fullName>
             <default>false</default>
         </values>
         <values>
+            <fullName>Envio de Booking List</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Envio de Formas e Documentos de Vistoria</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Envio de Ticket de Pesagem</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Envio de extrato de DUE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Envio de termos e documentos de vistoria</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1160,6 +1660,10 @@
         </values>
         <values>
             <fullName>Envio para e-mail incorreto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Erro de sistema</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1223,6 +1727,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Extensão de Prazo Cancelada Indevidamente</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Extensão de prazo não formalizada %E2%80%94 cancelada indevidamente</fullName>
             <default>false</default>
         </values>
@@ -1247,7 +1755,39 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Fluxo DTA Marítimo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fluxo DTA Rodoviária</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fluxo chegada%2Fliberação - DTA Marítimo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fluxo chegada%2Fliberação - DTA Rodoviária</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fluxo de Devolução de Baú Interno</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fluxo de Devolução de Vazio Externo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fluxo de Recebimento de Lacre</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Fluxo de cancelamento de NF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Follow UP - clientes</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1283,6 +1823,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Inativação de Direcionamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inclusão de Navio %28Portal%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Inclusão de data de pagamento incorreta</fullName>
             <default>false</default>
         </values>
@@ -1299,6 +1847,18 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Indisponibilidade de gate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Indisponibilidade de janela</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Indisponibilidade do Gate</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Indisponibilidade ou quebra de equipamento</fullName>
             <default>false</default>
         </values>
@@ -1311,7 +1871,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Informações Gerais</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Instabilidade %2F Lentidão</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Instruções e Acompanhamento do Serviço</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1335,11 +1903,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Janela de retirada DTC</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>LAR</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Lacres</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Layout inválido</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1355,7 +1931,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Liberação Manual %2F Gaps Portal</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Lista de navio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MAPA %2F PCCE</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1363,7 +1947,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Minuta de Devolução</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Mobilização%2FDesmobilização</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Monitoramento de Temperatura</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1379,7 +1971,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Motorista Bloqueado</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Mudança de posição</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Módulo de Cargas de Projeto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NF %2F SEFAZ</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1387,7 +1991,35 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Normas e Processos</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Nota de crédito</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Notificação de Avaria Interna %28Armazém%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Notificação de Avaria de Origem %28Armazém%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Notificação de Impactos %28Carro Inadequado%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Notificação de Vistoria MAPA %2F RFB %2F Outros</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Notificação de impactos %28carro inadequado %2F cubagem%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nova proposta - Lead</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1407,11 +2039,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>PO %2F Draft</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Parcelamento CAR</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Pedido de Compra %28PO%29 %2F Minuta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pedido de Prioridade</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1427,6 +2067,18 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Pendência Financeira</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pendências no Direcionamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pesagem%2C Desova%2C VGM e Outros</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Portal do cliente</fullName>
             <default>false</default>
         </values>
@@ -1439,7 +2091,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Prioridade na Presença de Carga</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Prioridade no envio das faturas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prioridade para Posicionamento</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prioridade presença de carga</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1455,7 +2119,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Procedimentos e custos</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Procedimentos operacionais</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Processo não contemplado no Portal</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1464,6 +2136,10 @@
         </values>
         <values>
             <fullName>Programação de Navios</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proposta Vencida sem Renovação</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1483,7 +2159,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Prorrogação %2F Alteração de Vencimento</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Prorrogação de Proposta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quebra de Lote</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1495,7 +2179,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Recepção %2F Entrega Manual %28Gap ou Erro%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Recepção de DAT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Redefinição de Senha %2F login</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1527,6 +2219,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Relatório de Carga Pátio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Relatório de Divergência de Lacre e Avarias</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Relatório de Movimentações</fullName>
             <default>false</default>
         </values>
@@ -1536,6 +2236,10 @@
         </values>
         <values>
             <fullName>Relatório de estoque</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Relatório diversos</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1567,6 +2271,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Serviço Novo Não Incluído na Proposta</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Serviço novo não incluído na proposta %28Facilidades Administrativas %2F outros %29</fullName>
             <default>false</default>
         </values>
@@ -1587,7 +2295,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Solicitação Manual %28Portal Fechado%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Solicitação de CTE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação de LAR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação de Prioridade</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1596,6 +2316,14 @@
         </values>
         <values>
             <fullName>Solicitação de débitos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação de monitoramento de temperatura</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solicitação de prioridade na liberação</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1635,6 +2363,18 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Status e Acompanhamento da Entrega</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Status e acompanhamento da entrega ou coleta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stiff Barcaça</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Tarifa acordada</fullName>
             <default>false</default>
         </values>
@@ -1651,7 +2391,23 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Termo de Cobrança</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ticket</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ticket de Pesagem</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Todos os fluxos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transferência %2F Atualização de Navio</fullName>
             <default>false</default>
         </values>
         <values>

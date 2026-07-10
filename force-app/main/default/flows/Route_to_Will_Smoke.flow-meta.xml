@@ -54,7 +54,7 @@
         <inputParameters>
             <name>botLabel</name>
             <value>
-                <stringValue>Will Smoke</stringValue>
+                <stringValue>Will</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
@@ -68,9 +68,6 @@
         </inputParameters>
         <inputParameters>
             <name>digitalWorkerLabel</name>
-        </inputParameters>
-        <inputParameters>
-            <name>routingStartOption</name>
         </inputParameters>
         <inputParameters>
             <name>serviceChannelId</name>
@@ -104,11 +101,14 @@
         <inputParameters>
             <name>queueId</name>
             <value>
-                <stringValue>00Gbe000005tmQyEAI</stringValue>
+                <stringValue>00G88000009SUZ6EAO</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
             <name>agentId</name>
+        </inputParameters>
+        <inputParameters>
+            <name>routingStartOption</name>
         </inputParameters>
         <nameSegment>routeWork</nameSegment>
         <offset>0</offset>
@@ -249,6 +249,7 @@
             <targetReference>RoutingAction</targetReference>
         </connector>
         <faultConnector>
+            <isGoTo>true</isGoTo>
             <targetReference>Atualiza_Erro</targetReference>
         </faultConnector>
         <inputAssignments>

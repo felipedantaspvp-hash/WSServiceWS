@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DataInicioAcompanhamento__c</fullName>
     <description>Registra a data e hora em que o Case entrou em acompanhamento.</description>
-    <inlineHelpText>Data e hora preenchidas automaticamente no início do acompanhamento.</inlineHelpText>
+    <inlineHelpText>Date and time automatically filled in when follow-up starts.</inlineHelpText>
     <label>Data/Hora de Início do Acompanhamento</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

@@ -23,14 +23,6 @@
             <messagingChannelParameterType>Custom</messagingChannelParameterType>
         </embeddedServiceFormFields>
         <embeddedServiceFormFields>
-            <displayOrder>1</displayOrder>
-            <formField>Sobrenome</formField>
-            <formFieldType>Text</formFieldType>
-            <isHidden>false</isHidden>
-            <isRequired>true</isRequired>
-            <messagingChannelParameterType>Custom</messagingChannelParameterType>
-        </embeddedServiceFormFields>
-        <embeddedServiceFormFields>
             <displayOrder>2</displayOrder>
             <formField>Email</formField>
             <formFieldType>Email</formFieldType>
@@ -42,6 +34,14 @@
             <displayOrder>3</displayOrder>
             <formField>Telefone</formField>
             <formFieldType>Phone</formFieldType>
+            <isHidden>false</isHidden>
+            <isRequired>true</isRequired>
+            <messagingChannelParameterType>Custom</messagingChannelParameterType>
+        </embeddedServiceFormFields>
+        <embeddedServiceFormFields>
+            <displayOrder>1</displayOrder>
+            <formField>Sobrenome</formField>
+            <formFieldType>Text</formFieldType>
             <isHidden>false</isHidden>
             <isRequired>true</isRequired>
             <messagingChannelParameterType>Custom</messagingChannelParameterType>

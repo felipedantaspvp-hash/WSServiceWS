@@ -8,43 +8,43 @@
         <developerName>CentroLogistico</developerName>
         <isActive>true</isActive>
         <localPart>ws_emailtocase_inbound</localPart>
-        <runAsUser>suportewilsonsons@triscal.com.br.service</runAsUser>
+        <runAsUser>suportewilsonsons@triscal.com.br.prd.qatriscal</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>Marl2on</developerName>
         <isActive>true</isActive>
         <localPart>marl2on</localPart>
-        <runAsUser>suportewilsonsons@triscal.com.br.service</runAsUser>
+        <runAsUser>suportewilsonsons@triscal.com.br.prd.qatriscal</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>Rebocadores</developerName>
         <isActive>true</isActive>
         <localPart>ws_emailtocase_inbound</localPart>
-        <runAsUser>suportewilsonsons@triscal.com.br.service</runAsUser>
+        <runAsUser>suportewilsonsons@triscal.com.br.prd.qatriscal</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>TeconRioGrande</developerName>
         <isActive>true</isActive>
         <localPart>ws_emailtocase_inbound</localPart>
-        <runAsUser>suportewilsonsons@triscal.com.br.service</runAsUser>
+        <runAsUser>suportewilsonsons@triscal.com.br.prd.qatriscal</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>TeconSalvador</developerName>
         <isActive>true</isActive>
         <localPart>ws_emailtocase_inbound</localPart>
-        <runAsUser>suportewilsonsons@triscal.com.br.service</runAsUser>
+        <runAsUser>suportewilsonsons@triscal.com.br.prd.qatriscal</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>WS_Main</developerName>
         <isActive>true</isActive>
         <localPart>ws.emailtocase</localPart>
-        <runAsUser>suportewilsonsons@triscal.com.br.service</runAsUser>
+        <runAsUser>suportewilsonsons@triscal.com.br.prd.qatriscal</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>marllongmail</developerName>
         <isActive>true</isActive>
         <localPart>marllon</localPart>
-        <runAsUser>suportewilsonsons@triscal.com.br.service</runAsUser>
+        <runAsUser>suportewilsonsons@triscal.com.br.prd.qatriscal</runAsUser>
     </emailServicesAddresses>
     <functionInactiveAction>Discard</functionInactiveAction>
     <functionName>WS_EmailToCase_Inbound</functionName>

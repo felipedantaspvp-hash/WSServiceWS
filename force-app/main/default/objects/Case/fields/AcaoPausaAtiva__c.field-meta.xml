@@ -3,7 +3,7 @@
     <fullName>AcaoPausaAtiva__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Referência para a ação ativa de controle de pausa associada ao acompanhamento do Case.</description>
-    <inlineHelpText>Ação de pausa ativa preenchida automaticamente ao iniciar acompanhamento.</inlineHelpText>
+    <inlineHelpText>Active pause action automatically filled in when follow-up starts.</inlineHelpText>
     <label>Ação de Pausa Ativa</label>
     <referenceTo>Acao__c</referenceTo>
     <relationshipLabel>Cases com Pausa Ativa</relationshipLabel>

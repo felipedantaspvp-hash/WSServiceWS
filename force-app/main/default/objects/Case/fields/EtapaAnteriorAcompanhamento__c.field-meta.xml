@@ -3,7 +3,7 @@
     <fullName>EtapaAnteriorAcompanhamento__c</fullName>
     <description>Preserva a etapa anterior do Case antes da entrada em acompanhamento.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Campo preenchido automaticamente com a etapa anterior ao acompanhamento.</inlineHelpText>
+    <inlineHelpText>Field automatically filled in with the stage prior to follow-up.</inlineHelpText>
     <label>Etapa Anterior do Acompanhamento</label>
     <length>255</length>
     <required>false</required>

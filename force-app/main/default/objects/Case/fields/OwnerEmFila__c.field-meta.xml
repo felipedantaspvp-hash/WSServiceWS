@@ -3,7 +3,7 @@
     <fullName>OwnerEmFila__c</fullName>
     <description>Indica automaticamente se o proprietário atual do Case é uma fila, identificada pelo prefixo de Id de Group.</description>
     <formula>BEGINS(CASESAFEID(OwnerId), &quot;00G&quot;)</formula>
-    <inlineHelpText>Marcado automaticamente quando o proprietário do Case for uma fila.</inlineHelpText>
+    <inlineHelpText>Automatically checked when the Case owner is a queue.</inlineHelpText>
     <label>Proprietário em Fila</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

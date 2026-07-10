@@ -1379,7 +1379,7 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
             // como base; qualquer valor que o agente realmente preencheu/alterou no formulário (Conta,
             // Contato, Descrição, e quaisquer campos ainda presentes no Page Layout) prevalece por cima,
             // preservando a mesma semântica de "valor padrão, mas editável" que defaultFieldValues tinha.
-            const fields = { ...(res.defaultValues || {}), ...event.detail.fields };
+            const fields = this.coerceSubmitFields({ ...(res.defaultValues || {}), ...event.detail.fields });
             // Subject (padrão, max 255) não é exibido nessa tela — listas/relatórios legados ainda
             // dependem dele, então espelhamos a Descrição truncada para mantê-lo preenchido.
             if (fields.Description) {
@@ -1409,6 +1409,19 @@ export default class CaseNewCategorization extends NavigationMixin(LightningElem
     handleRecordFormError(event) {
         this.creating = false;
         this.toast(this.labels.errorTitle, this.reduceError(event.detail) || this.labels.createFailed, 'error');
+    }
+
+    coerceSubmitFields(fields) {
+        const caseFields = this.objectInfo?.fields || {};
+        return Object.keys(fields || {}).reduce((out, fieldName) => {
+            const value = fields[fieldName];
+            if (caseFields[fieldName]?.dataType === 'Boolean' && typeof value === 'string') {
+                out[fieldName] = value.toLowerCase() === 'true';
+            } else {
+                out[fieldName] = value;
+            }
+            return out;
+        }, {});
     }
 
     toast(title, message, variant) {
